@@ -1,0 +1,443 @@
+@media only screen and (max-width: 1399.98px) {
+    .home1-advnc-search ul li .search_option_button button {
+        width: 150px;
+    }
+}
+
+
+/* (min-width:992px) (max-width: 1199.98px) // Large devices (desktops, less than 1200px) */
+
+@media only screen and (max-width: 1199.98px) {
+    .footer_qlink_widget {
+        padding-left: 50px;
+    }
+    .footer_social_widget li {
+        padding-left: 10px;
+        padding-right: 0;
+    }
+    .footer_mailchimp_form .col-auto input.form-control {
+        width: 150px !important;
+    }
+    .home1_adsrchfrm {
+        padding: 30px 20px;
+    }
+    .home1-advnc-search ul li:first-child .form-control,
+    .home1-advnc-search .search_option_two .dropdown.bootstrap-select>.dropdown-toggle,
+    .home1-advnc-search ul li:nth-child(3) .form-group .form-control {
+        width: 140px;
+    }
+    .home1-advnc-search ul li .search_option_button button {
+        width: 120px;
+    }
+    .small_dropdown2 .dd_btn {
+        width: 100px;
+    }
+    .form-select {
+        width: 140px !important;
+    }
+    .feature_property_slider.owl-carousel.owl-theme.owl-loaded .owl-stage-outer {
+        padding: 0;
+    }
+    .feat_property .details .fp_footer .fp_pdate {
+        float: left !important;
+        margin-left: 55px;
+        margin-top: -15px;
+    }
+    .feat_property.list .details .fp_footer .fp_pdate {
+        float: right !important;
+        margin-top: 10px;
+    }
+    .feat_property .details .fp_footer .fp_meta li {
+        vertical-align: text-top
+    }
+}
+
+@media only screen and (max-width:1024px) {
+    .footer_social_widget li {
+        margin-right: 0 !important;
+    }
+    .feat_property.list.favorite_page.style2 .thumb {
+        width: 200px;
+    }
+    .feat_property.list.favorite_page.style2 .details .tc_content {
+        padding-top: 0;
+    }
+}
+
+
+/* Medium devices (min-width:768px) (max-width: 991.98px) // (tablets, less than 992px) */
+
+@media only screen and (max-width:991px) {
+    .footer_about_widget {
+        padding-left: 15px;
+        padding-right: 15px;
+        margin-bottom: 30px;
+    }
+    .footer_qlink_widget {
+        padding-left: 0px;
+    }
+    .footer_about_widget,
+    .footer_qlink_widget,
+    .footer_contact_widget {
+        margin-bottom: 30px;
+    }
+    .footer_mailchimp_form .col-auto input.form-control {
+        width: auto;
+    }
+    .copyright-widget {
+        text-align: center !important;
+    }
+    .home_content {
+        padding: 300px 0 400px !important;
+    }
+    .home_content.listing {
+        padding: 40px 0 !important;
+    }
+    .home_content.listing.slider_style {
+        padding: 480px 0 0 !important;
+    }
+    .home1-advnc-search ul li:first-child .form-control,
+    .home1-advnc-search .search_option_two .dropdown.bootstrap-select>.dropdown-toggle,
+    .home1-advnc-search ul li:nth-child(3) .form-group .form-control {
+        margin-bottom: 15px;
+        width: 190px;
+    }
+    .home1-advnc-search .search_option_two .dropdown.bootstrap-select>.dropdown-toggle {
+        margin-bottom: 0 !important;
+    }
+    .home1-advnc-search .search_option_two .dropdown-menu {
+        top: 15px !important;
+    }
+    .home1-advnc-search ul.apeartment_area_list li {
+        margin-right: 10px !important;
+    }
+    .home1-advnc-search ul.apeartment_area_list li .dropdown.bootstrap-select>.dropdown-toggle {
+        width: 150px;
+    }
+    .home1-advnc-search ul li .search_option_button button {
+        width: 170px;
+    }
+    .small_dropdown2 .dd_btn {
+        width: 150px;
+    }
+    .dd_content2 {
+        right: 60% !important;
+        top: 176px !important;
+    }
+    .dd_content2:before {
+        left: 50px;
+        right: auto;
+    }
+    .start_partner {
+        margin-bottom: 30px;
+    }
+    .tac-smd {
+        text-align: center !important;
+    }
+}
+
+
+/* Small devices (min-width: 576px) (max-width: 767.98px) // (landscape phones, less than 768px) */
+
+@media only screen and (max-width: 767.98px) {
+    .footer_mailchimp_form .col-auto input.form-control {
+        width: 170px;
+    }
+    .home_content {
+        padding: 150px 0 400px !important;
+    }
+    .home_content.listing {
+        padding: 0 !important;
+    }
+    .home_content.listing.slider_style {
+        padding: 380px 0 0 !important;
+    }
+    .home-one .home-text h2 {
+        font-size: 29px;
+    }
+    .home_adv_srch_opt {
+        margin-top: 100px;
+    }
+    .home1-advnc-search ul li:first-child .form-control,
+    .home1-advnc-search .search_option_two .dropdown.bootstrap-select>.dropdown-toggle,
+    .home1-advnc-search ul li:nth-child(3) .form-group .form-control {
+        width: 135px;
+    }
+    .home1-advnc-search .dropdown.bootstrap-select>.dropdown-toggle {
+        margin-bottom: 10px;
+    }
+    .home1-advnc-search ul.apeartment_area_list li {
+        margin-right: 15px;
+    }
+    .home1-advnc-search ul.apeartment_area_list li .dropdown.bootstrap-select>.dropdown-toggle {
+        width: 220px;
+    }
+    .small_dropdown2 .dd_btn {
+        width: 140px;
+    }
+    .collapse .candidate_revew_select .form-select {
+        margin-bottom: 20px;
+        width: 100% !important;
+    }
+    .feature_property_slider.owl-carousel.owl-theme .owl-item {
+        max-width: 100%;
+    }
+    .feat_property .details .fp_footer .fp_meta li {
+        vertical-align: middle;
+    }
+    .feat_property .details .fp_footer .fp_pdate {
+        float: right !important;
+        margin-top: 12px;
+    }
+    .feat_property.list {
+        display: grid;
+    }
+    .feat_property.list .thumb {
+        height: auto;
+        width: auto;
+    }
+    .feat_property.list .details {
+        width: auto;
+    }
+    .feat_property.list .details .fp_footer {
+        padding: 0 20px 20px;
+    }
+    .feat_property.list .details .fp_footer .fp_pdate {
+        margin-top: 8px;
+    }
+    .feat_property.list.agency .thumb {
+        height: auto;
+        width: auto;
+    }
+    .feat_property.list.agency .details {
+        border-left: none;
+        padding-left: inherit;
+    }
+    .feat_property.list.favorite_page {
+        display: -webkit-flex;
+        display: -moz-flex;
+        display: -ms-flex;
+        display: -o-flex;
+        display: flex;
+    }
+    .properti_city .overlay {
+        height: 100%;
+    }
+    .dd_content2 {
+        right: 10% !important;
+        top: 158px !important;
+    }
+}
+
+
+/* Extra small devices (min-width:361px) (max-width: 575.98px) // (portrait phones, less than 576px) */
+
+@media only screen and (max-width: 575.98px) {
+    .footer_qlink_widget,
+    .footer_contact_widget,
+    .footer_social_widget {
+        padding-left: 15px !important;
+    }
+    .home1-advnc-search ul li:first-child .form-control,
+    .home1-advnc-search .search_option_two .dropdown.bootstrap-select>.dropdown-toggle,
+    .home1-advnc-search ul li:nth-child(3) .form-group .form-control {
+        width: 135px;
+    }
+    .home1-advnc-search .dropdown.bootstrap-select>.dropdown-toggle {
+        margin-bottom: 10px;
+    }
+    .small_dropdown2 .dd_btn {
+        width: 140px;
+    }
+}
+
+
+/* (min-width:361px) (max-width:520px) */
+
+@media only screen and (max-width:520px) {
+    .footer_social_widget li {
+        margin-right: 10px !important;
+    }
+    .home_content {
+        padding: 60px 0 400px !important;
+    }
+    .home-one .home-text {
+        padding: 0 15px;
+    }
+    .home_adv_srch_opt {
+        margin-top: 150px;
+    }
+    .home_adv_srch_opt.listing {
+        margin-top: 0;
+    }
+    .home1_adsrchfrm {
+        padding: 30px 15px;
+    }
+    .home1-advnc-search .search_option_two {
+        margin-bottom: 10px;
+    }
+    .home1-advnc-search .search_option_two,
+    .home1-advnc-search ul li {
+        margin-right: 0;
+        width: 100%;
+    }
+    .home1-advnc-search ul li:first-child .form-control,
+    .home1-advnc-search ul li:nth-child(3) .form-group .form-control,
+    .home1-advnc-search .search_option_two .dropdown.bootstrap-select>.dropdown-toggle,
+    .home1-advnc-search ul li .form-control,
+    .home1-advnc-search ul.apeartment_area_list li .dropdown.bootstrap-select>.dropdown-toggle,
+    .home1-advnc-search ul li .search_option_button button {
+        width: 100% !important;
+    }
+    .home1-advnc-search ul.h1ads_1st_list li.custome_fields_520 {
+        border: 1px solid #ebebeb;
+        border-radius: 8px;
+        cursor: pointer;
+        height: 50px;
+        line-height: 50px;
+        margin: 10px 0;
+        padding: 0 15px;
+    }
+    .home1-advnc-search ul.apeartment_area_list li {
+        margin-right: 20px;
+    }
+    .home1-advnc-search .search_option_two .dropdown.bootstrap-select .dropdown-menu.show,
+    .home1-advnc-search .dropdown.bootstrap-select .dropdown-menu.show {
+        min-width: auto !important;
+        width: 100% !important;
+    }
+    .home1-advnc-search .bootstrap-select .dropdown-menu li a {
+        width: 100%;
+    }
+    .small_dropdown2 .dd_btn {
+        width: 100% !important;
+    }
+    .dd_content2 {
+        top: auto;
+        z-index: 9;
+    }
+    .form-check {
+        margin-bottom: 20px;
+    }
+    .form-select {
+        width: 100% !important;
+    }
+    .feat_property.list .details .tc_content {
+        padding: 20px;
+    }
+    .feat_property.list .details .fp_footer {
+        padding: 0 20px 20px;
+    }
+    .feat_property.list.favorite_page {
+        display: block;
+    }
+    .feat_property.list.favorite_page .thumb {
+        height: auto;
+        max-width: 100%;
+    }
+    .feat_property.list.favorite_page .view_edit_delete_list {
+        position: relative;
+        text-align: center;
+    }
+    .feat_property.list.favorite_page .details .tc_content {
+        padding: 20px 0;
+    }
+    .feat_property.list.favorite_page.style2 .details .tc_content {
+        padding: 15px 0 0;
+    }
+    .dd_content2 {
+        right: 0 !important;
+        top: 286px !important;
+    }
+}
+
+@media only screen and (max-width:414px) {
+    .home1-advnc-search ul.apeartment_area_list li {
+        margin-right: 0;
+    }
+    .home1-advnc-search ul.apeartment_area_list li .dropdown.bootstrap-select>.dropdown-toggle {
+        width: 385px;
+    }
+    .home1-advnc-search ul li:nth-child(2),
+    .home1-advnc-search ul li:nth-child(4) {
+        margin-right: 0;
+    }
+    .dd_content2 {
+        right: 0;
+    }
+    .dd_content2:before {
+        left: auto;
+        right: 20px;
+    }
+    .main-title a {
+        display: inline-block;
+        float: none !important;
+    }
+}
+
+@media only screen and (max-width:400px) {
+    .home_adv_srch_opt .nav-pills {
+        margin: 0;
+    }
+    .home_adv_srch_opt .nav-pills {
+        margin: 0 auto;
+    }
+    .home1-advnc-search ul.apeartment_area_list li .dropdown.bootstrap-select>.dropdown-toggle {
+        width: 340px;
+    }
+    .feat_property .details .fp_footer .fp_pdate {
+        margin-left: 0;
+    }
+}
+
+
+/* (min-width:321px) (max-width:360px) */
+
+@media only screen and (max-width:360px) {
+    .home_content {
+        padding: 25px 0 400px !important;
+    }
+    .home_adv_srch_opt {
+        margin-top: 160px;
+    }
+    .home1_adsrchfrm {
+        padding: 30px 10px;
+    }
+    .home1-advnc-search ul.apeartment_area_list li .dropdown.bootstrap-select>.dropdown-toggle {
+        width: 320px;
+    }
+}
+
+@media only screen and (max-width:340px) {
+    .feat_property .details .fp_footer .fp_pdate {
+        float: left !important;
+        margin-left: 55px;
+    }
+    .feat_property.list .dtls_headr {
+        display: block;
+    }
+    .feat_property.list .details .fp_footer .fp_pdate {
+        float: none !important;
+        margin-top: -10px;
+    }
+    .feat_property.list .details .fp_footer .fp_meta {
+        float: none !important;
+    }
+    .feat_property.list .details .fp_footer .fp_meta li a {
+        vertical-align: super;
+    }
+    .feat_property.list.agent .details .fp_footer .fp_pdate,
+    .feat_property.list.agency .details .fp_footer .fp_pdate {
+        margin-left: 0;
+        margin-top: 0;
+    }
+}
+
+@media only screen and (max-width:320px) {
+    .home1-advnc-search ul.apeartment_area_list li .dropdown.bootstrap-select>.dropdown-toggle {
+        width: 290px;
+    }
+    .feat_property .details .tc_content .prop_details li {
+        margin-right: 20px;
+    }
+}
