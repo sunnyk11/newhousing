@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { IndexPageService } from '../../services/index-page.service';
 
 @Component({
   selector: 'app-index',
@@ -7,9 +8,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class IndexComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private indexPageService: IndexPageService
+  ) { }
 
   ngOnInit(): void {
+    this.getAmenities()
+  }
+
+
+
+  getAmenities(){
+    this.indexPageService.getAmenities({ param: null }).subscribe(
+      response => {
+        console.log(response);
+      }
+    );
   }
 
 }

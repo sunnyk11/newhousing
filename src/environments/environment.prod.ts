@@ -1,3 +1,5 @@
 export const environment = {
-  production: true
+  production: true,
+  host:'https://admin.housingstreet.com',
+  apiUrl: 'https://admin.housingstreet.com'
 };
