@@ -1,0 +1,13 @@
+.artical .thumb img{
+    height: 250px!important;
+  }
+  .artical .feat_property .details .tc_content{
+    height: 130px!important;
+  }
+  .artical .for_blog{
+    width: 360px!important;
+  }
+  .list-inline-item .flaticon-user{
+    color: #ff5a5f;
+    font-size: 30px;
+  } 

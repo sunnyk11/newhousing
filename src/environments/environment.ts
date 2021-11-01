@@ -4,8 +4,12 @@
 
 export const environment = {
   production: false,
-  host:'https://admin.housingstreet.com',
-  apiUrl: 'https://admin.housingstreet.com'
+  // host:'https://admin.housingstreet.com',
+  // apiUrl: 'https://admin.housingstreet.com'
+  
+  apiUrl:  'http://127.0.0.1:8000',
+  ftpURL:  'http://127.0.0.1:8000/storage/',
+  siteURL: 'http://localhost:4200/',
 
 };
 

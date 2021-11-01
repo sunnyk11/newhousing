@@ -24,8 +24,20 @@
     $(".amount").change(function() {
         $(".slider-range").slider('values', 0, $(this).val());
     });
-    $(".amount2").change(function() {
-        $(".slider-range").slider('values', 1, $(this).val());
+
+    $(".slider-range1").slider({
+        range: true,
+        min: 5000,
+        max: 100000,
+        values: [10000, 50000],
+        slide: function(event, ui) {
+            $(".amount1").val("₹ " + ui.values[0] + " - ₹ " + ui.values[1]);
+            //$(".amount2").val(ui.values[1]);
+        }
+    });
+
+    $(".amount1").change(function() {
+        $(".slider-range1").slider('values', 1, $(this).val());
     });
 
 
@@ -82,6 +94,23 @@
     mobileNavToggle();
     scrollToTop();
 
+    if ($('.showBtns').length) {
+        $('.showBtns').on('click', function() {
+            $(this).toggleText2('Show Filter', 'Hide Filter');
+            $(this).toggleClass('flaticon-close flaticon-filter-results-button sidebarOpended2 sidebarClosed2');
+            $('.sidebar_content_details').toggleClass('is-full-width');
+        });
+    }
+
+    if ($('.showFilter').length) {
+        $('.showFilter').on('click', function() {
+            $(this).toggleText('Show Filter', 'Hide Filter');
+            $(this).toggleClass('flaticon-close flaticon-filter-results-button sidebarOpended sidebarClosed');
+            $('.listing_toogle_sidebar.sidenav').toggleClass('opened');
+            $('.body_content').toggleClass('translated');
+        });
+    }
+
     $("#prncgs").on('click', function() {
         console.log("Hello");
         $(".dd_content2").toggle();
@@ -89,6 +118,26 @@
 
     $("#prncgs2").on('click', function() {
         $(".dd_content2").toggle();
+    });
+
+    $(".filter_open_btn").on('click', function() {
+        $(".sidebar_content_details.style3").addClass("sidebar_ml0");
+    });
+
+    $(".filter_open_btn").on('click', function() {
+        $("body").addClass("body_overlay");
+    });
+
+    $(".filter_closed_btn").on('click', function() {
+        $(".sidebar_content_details.style3").removeClass("sidebar_ml0");
+    });
+
+    $(".filter_closed_btn").on('click', function() {
+        $("body").removeClass("body_overlay");
+    });
+
+    $(".overlay_close").on('click', function() {
+        $(".white_goverlay").toggle(500);
     });
 
     if ($('.feature_property_slider').length) {
@@ -174,6 +223,112 @@
         })
     }
 
+    if ($('.sidebar_feature_property_slider').length) {
+        $('.sidebar_feature_property_slider').owlCarousel({
+            animateIn: 'fadeIn',
+            loop: true,
+            margin: 15,
+            dots: true,
+            nav: true,
+            rtl: false,
+            autoplayHoverPause: false,
+            autoplay: false,
+            smartSpeed: 2000,
+            singleItem: true,
+            navText: [
+                '<i class="flaticon-left-arrow-1"></i>',
+                '<i class="flaticon-right-arrow"></i>'
+            ],
+            responsive: {
+                320: {
+                    items: 1,
+                    center: false
+                },
+                480: {
+                    items: 1,
+                    center: false
+                },
+                600: {
+                    items: 1,
+                    center: false
+                },
+                768: {
+                    items: 1
+                },
+                992: {
+                    items: 1
+                },
+                1200: {
+                    items: 1
+                }
+            }
+        })
+    }
+
+    if ($('.fp_single_item_slider').length) {
+        $('.fp_single_item_slider').owlCarousel({
+            loop: true,
+            margin: 15,
+            dots: false,
+            nav: true,
+            rtl: false,
+            autoplayHoverPause: false,
+            autoplay: false,
+            smartSpeed: 2000,
+            singleItem: true,
+            navText: [
+                '<i class="flaticon-left-arrow-1"></i>',
+                '<i class="flaticon-right-arrow"></i>'
+            ],
+            responsive: {
+                320: {
+                    items: 1,
+                    center: false
+                },
+                480: {
+                    items: 1,
+                    center: false
+                },
+                600: {
+                    items: 1,
+                    center: false
+                },
+                768: {
+                    items: 1
+                },
+                992: {
+                    items: 1
+                },
+                1200: {
+                    items: 1
+                }
+            }
+        })
+    }
+
+    if ($(".banner-style-one").length) {
+        $(".banner-style-one").owlCarousel({
+            loop: true,
+            items: 1,
+            margin: 0,
+            dots: true,
+            nav: true,
+            animateOut: "slideOutDown",
+            animateIn: "fadeIn",
+            active: true,
+            smartSpeed: 1000,
+            autoplay: false
+        });
+        $(".banner-carousel-btn .left-btn").on("click", function() {
+            $(".banner-style-one").trigger("next.owl.carousel");
+            return false;
+        });
+        $(".banner-carousel-btn .right-btn").on("click", function() {
+            $(".banner-style-one").trigger("prev.owl.carousel");
+            return false;
+        });
+    }
+
     function scrollToTop() {
         console.log("Scroll to Top called");
         $(window).scroll(function() {
@@ -190,5 +345,36 @@
             return false;
         });
     }
+
+    /*const ctx = $('#myChart');
+    const myChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: ['Principal Amount', 'Interest Amount'],
+            datasets: [{
+                label: 'EMI Calculator',
+                data: [40, 60],
+                backgroundColor: [
+                    'rgba(251, 136, 85, 1)',
+                    'rgba(146, 208, 96, 1)'
+                ],
+                borderColor: [
+                    '#eee'
+                ],
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                datalabels: {
+                    anchor: 'end',
+                    display: true,
+                    backgroundColor: '#ccc',
+                    color: 'blue'
+                }
+            }
+        }
+    });*/
 
 })(window.jQuery);

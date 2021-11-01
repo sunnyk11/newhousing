@@ -1,0 +1,11 @@
+.search_option_button{
+    align-items: center!important;
+    justify-content: space-around!important;
+    display: flex!important;
+}
+.ui_kit_checkbox{
+    width: 100%!important;
+}
+.form-check{
+    margin-bottom: 0px!important;
+}

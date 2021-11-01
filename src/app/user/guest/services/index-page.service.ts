@@ -11,9 +11,16 @@ export class IndexPageService {
   constructor(
     private apiService: ApiService
   ) { }
-
-  getAmenities(reqModel:any): Observable<ResultModel> {
-    const route = "/api/amenities";
+  getFeature_Property(reqModel:any): Observable<ResultModel> {
+    const route = "/api/product/get_product_featured";
+    return this.apiService.get<ResultModel>(route, reqModel);
+  }
+  gettestimonial(reqModel:any): Observable<ResultModel> {
+    const route = "/api/product/testimonial";
+    return this.apiService.get<ResultModel>(route, reqModel);
+  }
+  getArtical(reqModel:any): Observable<ResultModel> {
+    const route = "/api/posts_latest";
     return this.apiService.get<ResultModel>(route, reqModel);
   }
 }
