@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IndexPageService } from '../../services/index-page.service';
+import { CommonService } from '../../services/common.service';
 
 @Component({
   selector: 'app-index',
@@ -8,22 +8,22 @@ import { IndexPageService } from '../../services/index-page.service';
 })
 export class IndexComponent implements OnInit {
 
+  public amenties:any={};
+
   constructor(
-    private indexPageService: IndexPageService
+    private CommonService:CommonService
   ) { }
 
   ngOnInit(): void {
-    this.getAmenities()
+    this.getAmenities();
   }
-
-
-
+  // fetch amenties advance tab
   getAmenities(){
-    this.indexPageService.getAmenities({ param: null }).subscribe(
+    this.CommonService.getAmenities({ param: null }).subscribe(
       response => {
         console.log(response);
+        this.amenties=response;
       }
     );
   }
-
 }

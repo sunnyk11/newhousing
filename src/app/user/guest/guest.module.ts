@@ -7,7 +7,19 @@ import { IndexComponent } from './components/index/index.component';
 import { UserSharedModule } from '../user-shared/user-shared.module';
 import { ContactComponent } from './components/contact/contact.component';
 import { AboutComponent } from './components/about/about.component';
-
+import { CarouselModule } from 'ngx-owl-carousel-o';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { ArticalsComponent } from './components/articals/articals.component';
+import { TestimonialComponent } from './components/testimonial/testimonial.component';
+import { HomepagefeatureComponent } from './components/homepagefeature/homepagefeature.component';
+import { ProductListingComponent } from './components/product-listing/product-listing.component';
+import { ProductCategoryComponent } from './components/product-category/product-category.component';
+import { FeaturedPropertyComponent } from './components/featured-property/featured-property.component';
+import { ProductListingDetailsComponent } from './components/product-listing-details/product-listing-details.component';
+import { ProductPageComponent } from './components/product-page/product-page.component';
+import { RecentlyViewedProductComponent } from './components/recently-viewed-product/recently-viewed-product.component';
+import { AgmCoreModule } from '@agm/core';
+import { NgImageSliderModule } from 'ng-image-slider';
 
 @NgModule({
   declarations: [
@@ -15,11 +27,26 @@ import { AboutComponent } from './components/about/about.component';
     IndexComponent,
     ContactComponent,
     AboutComponent,
+    ArticalsComponent,
+    TestimonialComponent,
+    HomepagefeatureComponent,
+    ProductListingComponent,
+    ProductCategoryComponent,
+    FeaturedPropertyComponent,
+    ProductListingDetailsComponent,
+    ProductPageComponent,
+    RecentlyViewedProductComponent,
   ],
   imports: [
     CommonModule,
+    CarouselModule,
     GuestRoutingModule,
     UserSharedModule,
+    NgxPaginationModule,
+    AgmCoreModule.forRoot({  
+      apiKey: 'AIzaSyC2S5kHeGYkW9cL4d7_uxfauTBfQEtN4HA', libraries: ['places']
+    }),
+    NgImageSliderModule,
   ],
 })
 export class GuestModule { }

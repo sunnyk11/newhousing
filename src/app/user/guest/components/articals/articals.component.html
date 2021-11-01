@@ -1,0 +1,42 @@
+<section class="our-blog bgc-f7 pb30" *ngIf="artical_data?.length>0">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3">
+                <div class="main-title text-center">
+                    <h2>Articles & Tips</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+            </div>
+        </div>
+        <div class="row artical">
+            <owl-carousel-o [options]="articals">
+                <ng-container *ngFor="let artical of artical_data; let i = index ">
+                    <ng-template carouselSlide [id]="artical.id">
+                        <div class="for_blog feat_property">
+                            <div class="thumb">
+                                <img class="img-whp" data-src="{{ftpstring}}/images/{{artical.image_path}}" alt="bh3.jpg">
+                            </div>
+                            <div class="details">
+                                <div class="tc_content">
+                                    <p class="text-thm">{{artical.category}}</p>
+                                    <h4>{{ artical.title }}</h4>
+                                </div>
+                                <div class="fp_footer">
+                                    <ul class="fp_meta float-left mb0">
+                                        <li class="list-inline-item" *ngIf="artical.profile_pic !== null">
+                                            <img class="profile_image lazy"  data-src="{{ftpstring}}images/{{ artical.profile_pic }}"
+                                                alt="pposter1.png"></li>
+                                        <li class="list-inline-item" *ngIf="artical.profile_pic == null"><span
+                                                class="flaticon-user"></span></li>
+                                        <li class="list-inline-item">{{ artical.name }}</li>
+                                    </ul>
+                                    <a class="fp_pdate float-right">{{ artical.updated_at | date: 'dd MMMM yyyy' }}</a>
+                                </div>
+                            </div>
+                        </div>    
+                    </ng-template>
+                </ng-container>
+            </owl-carousel-o>
+        </div>
+    </div>
+</section>

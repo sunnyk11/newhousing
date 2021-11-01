@@ -1,0 +1,78 @@
+<section id="our-testimonials" class="our-testimonial" *ngIf="testimonial_data?.data?.length>0">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3">
+                <div class="main-title text-center">
+                    <h2 class="color-white">Testimonials</h2>
+                    <p class="color-white">Here could be a nice sub title</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3">
+                <div class="testimonial_grid_slider">
+                    <owl-carousel-o [options]="testimonial">
+                        <ng-container *ngFor="let testimonial of testimonial_data?.data; let i = index ">
+                            <ng-template carouselSlide [id]="testimonial.id">
+                                <div class="item">
+                                    <div class="testimonial_grid">
+                                        <div class="thumb">
+                                            <img src="assets/resources/images/testimonial/1.jpg" alt="1.jpg">
+                                        </div>
+                                        <div class="details">
+                                            <h4 class="mt15 mb15">{{testimonial?.user_name}}</h4>
+                                            <!-- <p>Sales Manager</p> -->
+                                            <p class="mt15 mb15" *ngIf="testimonial.stars == 0">
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                            </p>
+                                            <p class="mt15 mb15" *ngIf="testimonial.stars == 1">
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                            </p>
+                                            <p class="mt15 mb15" *ngIf="testimonial.stars == 2">
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                            </p>
+                                            <p class="mt15 mb15" *ngIf="testimonial.stars == 3">
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                            </p>
+                                            <p class="mt15 mb15" *ngIf="testimonial.stars == 4">
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                            </p>
+                                            <p class="mt15 mb15" *ngIf="testimonial.stars == 5">
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                            </p>
+                                            <p class="mt15 mb15">{{testimonial?.rev_content}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </ng-container>
+                    </owl-carousel-o>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

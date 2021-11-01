@@ -6,7 +6,8 @@ import { MasterComponent } from './components/master/master.component';
 import { IndexComponent } from './components/index/index.component';
 import { AboutComponent } from './components/about/about.component';
 import { ContactComponent } from './components/contact/contact.component';
-
+import{ ProductListingComponent} from './components/product-listing/product-listing.component';
+import { ProductPageComponent } from './components/product-page/product-page.component'
 //custom component imports
 
 const routes: Routes = [
@@ -16,7 +17,9 @@ const routes: Routes = [
       children: [
         { path: "", component:IndexComponent },
         { path: "about", component:AboutComponent },
-        { path: "contact", component:ContactComponent }
+        { path: "contact", component:ContactComponent },
+        { path: "product-listing", component:ProductListingComponent },
+        { path: "product-details", component:ProductPageComponent }
 
       ]
     }
