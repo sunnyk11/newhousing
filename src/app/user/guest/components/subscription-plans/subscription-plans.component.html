@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plans</title>
+</head>
+
+<body>
+    <div class="wrapper">
+        <!--Breadcrumb-->
+        <div class="p-5 mb-4 bg-secondary rounded-3">
+            <div class="container-fluid py-5">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Subscription Plans</li>
+                    </ol>
+                </nav>
+                <h2 class="col-custom">Subscription Plans</h2>
+            </div>
+        </div>
+        <div class="p-5 rounded shadow mb-5">
+            <nav>
+                <div class="nav nav-tabs nav-pills with-arrow flex-column flex-sm-row text-center" id="nav-tab" role="tablist">
+                    <button class="nav-link active" id="nav-rent-tab" data-bs-toggle="tab" data-bs-target="#nav-rent" type="button" role="tab" aria-controls="nav-rent" aria-selected="true">I want to rent
+                        property</button>
+                    <button class="nav-link" id="nav-let-out-tab" data-bs-toggle="tab" data-bs-target="#nav-let-out" type="button" role="tab" aria-controls="nav-let-out" aria-selected="false">I want to let out my
+                        property</button>
+                    <button class="nav-link" id="nav-sell-tab" data-bs-toggle="tab" data-bs-target="#nav-sell" type="button" role="tab" aria-controls="nav-sell" aria-selected="false">I want to sell
+                        property</button>
+                    <button class="nav-link" id="nav-buy-tab" data-bs-toggle="tab" data-bs-target="#nav-buy" type="button" role="tab" aria-controls="nav-buy" aria-selected="false">I want to buy
+                        property</button>
+                </div>
+            </nav>
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="nav-rent" role="tabpanel" aria-labelledby="nav-rent-tab">
+                    <div class="row mt-4 mb-4">
+                        <div class="col-lg-8">
+                            <label for="budget" class="form-label">Select Budget</label>
+                            <ngx-slider [(value)]="value" [options]="options"></ngx-slider>
+                        </div>
+                        <div class="col-lg-4 pt-4">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1">&#8377;</span>
+                                <input type="text" class="form-control" [(ngModel)]="value">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <table class="table table-hover table-bordered plans-rent">
+                            <thead>
+                                <tr>
+                                    <th scope="col">&nbsp;</th>
+                                    <th scope="col" *ngFor="let plan of rent_response?.data">{{ plan.plan_name }} <br>
+                                        <span>{{ plan.payment_type }} Payment</span>
+                                        <hr>
+                                        <span>{{ plan.plan_price }} Days Rent</span> <br>
+                                        <span>Rs. {{ value /
+                                            (30 / plan.plan_price)}}</span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody *ngFor="let rent_feature of rent_feat_res">
+                                <tr class="visible-xs" aria-hidden="true">
+                                    <td>&nbsp;</td>
+                                    <td colspan="3">{{rent_feature.feature_name}}</td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <span class="ptable-title">{{rent_feature.feature_name}}</span>
+                                    </th>
+                                    <td *ngIf="rent_feature.feature_details[0] === 'yes'"><span class="checkmark">&#10003;</span></td>
+                                    <td *ngIf="rent_feature.feature_details[0] === 'no'"><span class="wrong-sym">&#215;</span></td>
+                                    <td *ngIf="rent_feature.feature_details[0] != 'no' && rent_feature.feature_details[0] != 'yes'">
+                                        <span>{{rent_feature.feature_details[0]}}</span>
+                                    </td>
+
+                                    <td *ngIf="rent_feature.feature_details[1] === 'yes'"><span class="checkmark">&#10003;</span></td>
+                                    <td *ngIf="rent_feature.feature_details[1] === 'no'">
+                                        <span class="wrong-sym">&#215;</span>
+                                    </td>
+                                    <td *ngIf="rent_feature.feature_details[1] != 'no' && rent_feature.feature_details[1] != 'yes'">
+                                        <span>{{rent_feature.feature_details[1]}}</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tbody>
+                                <!-- Buttons -->
+                                <tr>
+                                    <td>&nbsp;</td>
+                                    <td *ngFor="let plan of rent_response?.data"><button class="btn btn-success">Fix
+                                            Appointment</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="nav-let-out" role="tabpanel" aria-labelledby="nav-let-out-tab">
+                    <div class="row mt-4 mb-4">
+                        <div class="col-lg-8">
+                            <label for="exp_rent" class="form-label">Select Expected Rent</label>
+                            <ngx-slider [(value)]="expected_rent_value" [options]="exp_rent_options"></ngx-slider>
+                        </div>
+                        <div class="col-lg-4 pt-4">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1">&#8377;</span>
+                                <input type="text" class="form-control" [(ngModel)]="expected_rent_value">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <table class="table table-hover table-bordered plans-let-out">
+                            <thead>
+                                <tr>
+                                    <th scope="col">&nbsp;</th>
+                                    <th scope="col" *ngFor="let letout_plan of letout_response">{{ letout_plan.plan_name }} <br>
+                                        <span>{{ letout_plan.payment_type }} Payment</span>
+                                        <hr>
+                                        <span>{{ letout_plan.plan_price }} Days Rent</span> <br>
+                                        <span>{{
+                                            expected_rent_value /
+                                            (30 / letout_plan.plan_price)}}</span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody *ngFor="let letout_feature of letout_feat_res">
+                                <tr class="visible-xs" aria-hidden="true">
+                                    <td>&nbsp;</td>
+                                    <td colspan="3">{{letout_feature.feature_name}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">{{letout_feature.feature_name}}</th>
+                                    <td *ngIf="letout_feature.feature_details[0] === 'yes'"><span class="checkmark">&#10003;</span></td>
+                                    <td *ngIf="letout_feature.feature_details[0] === 'no'"><span class="wrong-sym">&#215;</span></td>
+                                    <td *ngIf="letout_feature.feature_details[0] != 'no' && letout_feature.feature_details[0] != 'yes'">
+                                        <span>{{letout_feature.feature_details[0]}}</span>
+                                    </td>
+
+                                    <td *ngIf="letout_feature.feature_details[1] === 'yes'"><span class="checkmark">&#10003;</span></td>
+                                    <td *ngIf="letout_feature.feature_details[1] === 'no'">
+                                        <span class="wrong-sym">&#215;</span>
+                                    </td>
+                                    <td *ngIf="letout_feature.feature_details[1] != 'no' && letout_feature.feature_details[1] != 'yes'">
+                                        <span>{{letout_feature.feature_details[1]}}</span>
+                                    </td>
+
+                                    <td *ngIf="letout_feature.feature_details[2] === 'yes'"><span class="checkmark">&#10003;</span></td>
+                                    <td *ngIf="letout_feature.feature_details[2] === 'no'">
+                                        <span class="wrong-sym">&#215;</span>
+                                    </td>
+                                    <td *ngIf="letout_feature.feature_details[2] != 'no' && letout_feature.feature_details[2] != 'yes'">
+                                        <span>{{letout_feature.feature_details[2]}}</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tbody>
+                                <!-- Buttons -->
+                                <tr>
+                                    <td>&nbsp;</td>
+                                    <td *ngFor="let letout_plan of letout_response"><a class="btn btn-block btn-success">Select Plan</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="nav-sell" role="tabpanel" aria-labelledby="nav-sell-tab">
+                    <div class="container mt20 text-center">
+                        Coming Soon
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="nav-buy" role="tabpanel" aria-labelledby="nav-buy-tab">
+                    <div class="container mt20 text-center">
+                        Coming Soon
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Real Estate Agent -->
+        <section class="start-partners bgc-thm pt50 pb50">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="start_partner tac-smd">
+                            <h2>Become a Real Estate Agent</h2>
+                            <p>We only work with the best companies around the globe</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="parner_reg_btn tac-smd">
+                            <a class="btn btn-thm2" href="#">Register Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+
+</html>

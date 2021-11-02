@@ -20,6 +20,9 @@ import { ProductPageComponent } from './components/product-page/product-page.com
 import { RecentlyViewedProductComponent } from './components/recently-viewed-product/recently-viewed-product.component';
 import { AgmCoreModule } from '@agm/core';
 import { NgImageSliderModule } from 'ng-image-slider';
+import { SubscriptionPlansComponent } from './components/subscription-plans/subscription-plans.component';
+import { NgxSliderModule } from '@angular-slider/ngx-slider';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -36,6 +39,7 @@ import { NgImageSliderModule } from 'ng-image-slider';
     ProductListingDetailsComponent,
     ProductPageComponent,
     RecentlyViewedProductComponent,
+    SubscriptionPlansComponent,
   ],
   imports: [
     CommonModule,
@@ -47,6 +51,8 @@ import { NgImageSliderModule } from 'ng-image-slider';
       apiKey: 'AIzaSyC2S5kHeGYkW9cL4d7_uxfauTBfQEtN4HA', libraries: ['places']
     }),
     NgImageSliderModule,
+    NgxSliderModule,
+    FormsModule
   ],
 })
 export class GuestModule { }
