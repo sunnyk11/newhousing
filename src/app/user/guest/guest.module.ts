@@ -20,6 +20,9 @@ import { ProductPageComponent } from './components/product-page/product-page.com
 import { RecentlyViewedProductComponent } from './components/recently-viewed-product/recently-viewed-product.component';
 import { AgmCoreModule } from '@agm/core';
 import { NgImageSliderModule } from 'ng-image-slider';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgxSliderModule } from '@angular-slider/ngx-slider';
+import { AmenitiesactivePipe } from './pipes/amenitiesactive.pipe';
 
 @NgModule({
   declarations: [
@@ -36,6 +39,7 @@ import { NgImageSliderModule } from 'ng-image-slider';
     ProductListingDetailsComponent,
     ProductPageComponent,
     RecentlyViewedProductComponent,
+    AmenitiesactivePipe,
   ],
   imports: [
     CommonModule,
@@ -43,6 +47,9 @@ import { NgImageSliderModule } from 'ng-image-slider';
     GuestRoutingModule,
     UserSharedModule,
     NgxPaginationModule,
+    NgxSliderModule,
+    FormsModule,
+    ReactiveFormsModule,
     AgmCoreModule.forRoot({  
       apiKey: 'AIzaSyC2S5kHeGYkW9cL4d7_uxfauTBfQEtN4HA', libraries: ['places']
     }),
