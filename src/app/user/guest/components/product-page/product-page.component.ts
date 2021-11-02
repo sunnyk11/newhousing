@@ -11,9 +11,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class ProductPageComponent implements OnInit{
 
-  public product_id:number=0;
   public product_details:any;
-  public e:any;
   public youtube_url: any;
   public safeURL:any;
   public product_data:any;
@@ -29,6 +27,9 @@ export class ProductPageComponent implements OnInit{
   public imageObject: any=[];
   public showLoadingIndicator:boolean=false;
 
+  private e:any;
+  private product_id:number=0;
+
   constructor(
     private _sanitizer: DomSanitizer,
      private route:ActivatedRoute,
@@ -38,7 +39,6 @@ export class ProductPageComponent implements OnInit{
         this.product_id=params.id;
     });
     this.single_product_details(this.product_id);
-    console.log(this.ftpstring);
    }
 
   ngOnInit(): void {

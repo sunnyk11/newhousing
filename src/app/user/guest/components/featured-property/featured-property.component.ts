@@ -12,7 +12,7 @@ export class FeaturedPropertyComponent implements OnInit {
 
   public pro_featured:any={};
   public ftpstring=environment.ftpURL;
-  public e:any;
+  private e:any;
 
   constructor(
     private CommonService: CommonService

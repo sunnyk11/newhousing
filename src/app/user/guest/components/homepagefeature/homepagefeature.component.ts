@@ -10,7 +10,7 @@ import { IndexPageService } from '../../services/index-page.service';
 })
 export class HomepagefeatureComponent implements OnInit {
 
-  public  e: any;
+  private  e: any;
   public ftpstring=environment.ftpURL;
   public property:any={};
 

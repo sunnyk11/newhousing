@@ -14,10 +14,13 @@ import { Router } from '@angular/router';
 export class IndexComponent implements OnInit {
 
   public amenties:any={};
-  public selectedItems:any=[];
-  public amenityArray:any = [];
   public rent_range_slider:boolean= true;
   public buyyer_range_slider:boolean= false;
+
+  
+  private selectedItems:any=[];
+  private amenityArray:any = [];
+
   @ViewChild("search")
   searchElementRef!: ElementRef;
   @ViewChild(AgmMap, { static: true })
@@ -93,14 +96,11 @@ export class IndexComponent implements OnInit {
   getAmenities(){
     this.CommonService.getAmenities({ param: null }).subscribe(
       response => {
-        console.log(response);
         this.amenties=response;
       }
     );
   }
   search_rent(): void{
-    console.log(this.searchForm.value);
-    console.log(this.amenityArray);
     this.router.navigate(['/product-listing'],{queryParams:{'name':this.searchForm.value.build_name,'location': this.searchForm.value.location,'type':this.searchForm.value.type,'search':this.searchForm.value.search_type,'bedroom':this.searchForm.value.bedrooms,'bathroom':this.searchForm.value.bathrooms,'year':this.searchForm.value.years,'area':this.searchForm.value.area_unit,'minimum':this.searchForm.value.sliderControl['0'],'maximum':this.searchForm.value.sliderControl['1'],'amenties':this.amenityArray}})
   }  
   onchangeAmenties(e:any,id:string){
@@ -113,7 +113,6 @@ export class IndexComponent implements OnInit {
   }
   
   rent_price_fun(){
-    // console.log("home search  rent function");
     this.searchForm.value.sliderControl[0] = 5000;
     this.searchForm.value.sliderControl[1] = 500000;
     this.searchForm.controls['search_type'].setValue('rent');
