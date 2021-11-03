@@ -1,106 +1,90 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-</head>
-
-<body>
-    <div class="wrapper">
-        <!--Breadcrumb-->
-        <div class="bg-secondary">
-            <div class="container-fluid py-4">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Login</li>
-                    </ol>
-                </nav>
-                <h2 class="col-custom">Login</h2>
-            </div>
-        </div>
-        <div class="container py-5 h-100">
-            <div class="row d-flex justify-content-center align-items-center h-100">
-                <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-                    <div class="card shadow text-dark login-card">
-                        <div class="card-body p-5 text-center">
-
-                            <div class="mb-md-5 mt-md-4 pb-5">
-                                <form [formGroup]="loginForm" #ngForm="ngForm" (ngSubmit)="onSubmit()">
-                                    <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
-                                    <p class="text-secondary-50 mb-5">Please enter your email and password</p>
-
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-text" id="email_address">Email</span>
-                                        <input type="email" class="form-control" aria-label="Email Address" aria-describedby="email_address" formControlName="email_address">
-                                        <span class="text-danger w100" *ngIf="(LoginFormControl.email_address.touched || submitted) && LoginFormControl.email_address.errors?.required">
-                                            Email Address is required
-                                        </span>
-                                    </div>
-
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-text" id="password">Password</span>
-                                        <input type="password" class="form-control" aria-label="Password" aria-describedby="password" formControlName="password">
-                                        <span class="text-danger w100" *ngIf="(LoginFormControl.password.touched || submitted) && LoginFormControl.password.errors?.required">
-                                            Password is required
-                                        </span>
-                                    </div>
-
-                                    <p class="small mb-5 pb-lg-2"><a class="text-thm" href="#!">Forgot
-                                            password?</a>
-                                    </p>
-
-                                    <button class="btn btn-thm btn-block btn-lg px-5" type="submit">Login</button>
-                                </form>
-
-                                <div class="alert alert-danger mt20" role="alert" *ngIf="ngForm.submitted && LoginFailed">
-                                    Login failed: {{ errorMessage }}
-                                </div>
-                                <div class="alert alert-danger" role="alert" *ngIf="ngForm.submitted && LoginFailed">
-                                    Either you have Entered Wrong credentials or you have No Account on this site.
-                                </div>
-
-                                <div class="divider d-flex align-items-center my-4">
-                                    <p class="text-center mx-3 mb-0">Or</p>
-                                </div>
-                                <button class="btn btn-lg btn-block google-btn" type="submit"><i
-                                        class="fa fa-google me-2"></i> Sign in with Google</button>
-                                <button class="btn btn-lg btn-block my-2 facebook-btn" type="submit"><i
-                                        class="fa fa-facebook-f me-2"></i>Sign in with Facebook</button>
-                            </div>
-
-                            <div>
-                                <p class="mb-0">Don't have an account? <a href="#!" class="text-thm fw-bold">Sign
-                                        Up</a></p>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Real Estate Agent -->
-        <section class="start-partners bgc-thm pt50 pb50">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8">
-                        <div class="start_partner tac-smd">
-                            <h2>Become a Real Estate Agent</h2>
-                            <p>We only work with the best companies around the globe</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="parner_reg_btn tac-smd">
-                            <a class="btn btn-thm2" href="#">Register Now</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+<!--Breadcrumb-->
+<div class="bg-secondary">
+    <div class="container-fluid py-4">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Login</li>
+            </ol>
+        </nav>
+        <h2 class="col-custom">Login</h2>
     </div>
-</body>
+</div>
+<div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+            <div class="card shadow text-dark login-card">
+                <div class="card-body p-5 text-center">
 
-</html>
+                    <div class="mb-md-5 mt-md-4 pb-5">
+                        <form [formGroup]="loginForm" #ngForm="ngForm" (ngSubmit)="onSubmit()">
+                            <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
+                            <p class="text-secondary-50 mb-5">Please enter your email and password</p>
+
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="email_address">Email</span>
+                                <input type="email" class="form-control" aria-label="Email Address" aria-describedby="email_address" formControlName="email_address">
+                                <span class="text-danger w100" *ngIf="(LoginFormControl.email_address.touched || submitted) && LoginFormControl.email_address.errors?.required">
+                                    Email Address is required
+                                </span>
+                            </div>
+
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="password">Password</span>
+                                <input type="password" class="form-control" aria-label="Password" aria-describedby="password" formControlName="password">
+                                <span class="text-danger w100" *ngIf="(LoginFormControl.password.touched || submitted) && LoginFormControl.password.errors?.required">
+                                    Password is required
+                                </span>
+                            </div>
+
+                            <p class="small mb-5 pb-lg-2"><a class="text-thm" href="#!">Forgot
+                                    password?</a>
+                            </p>
+
+                            <button class="btn btn-thm btn-block btn-lg px-5" type="submit">Login</button>
+                        </form>
+
+                        <div class="alert alert-danger mt20" role="alert" *ngIf="ngForm.submitted && LoginFailed">
+                            Login failed: {{ errorMessage }}
+                        </div>
+                        <div class="alert alert-danger" role="alert" *ngIf="ngForm.submitted && LoginFailed">
+                            Either you have Entered Wrong credentials or you have No Account on this site.
+                        </div>
+
+                        <div class="divider d-flex align-items-center my-4">
+                            <p class="text-center mx-3 mb-0">Or</p>
+                        </div>
+                        <button class="btn btn-lg btn-block google-btn" type="submit"><i class="fa fa-google me-2"></i>
+                            Sign in with Google</button>
+                        <button class="btn btn-lg btn-block my-2 facebook-btn" type="submit"><i
+                                class="fa fa-facebook-f me-2"></i>Sign in with Facebook</button>
+                    </div>
+
+                    <div>
+                        <p class="mb-0">Don't have an account? <a href="#!" class="text-thm fw-bold">Sign
+                                Up</a></p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Real Estate Agent -->
+<section class="start-partners bgc-thm pt50 pb50">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="start_partner tac-smd">
+                    <h2>Become a Real Estate Agent</h2>
+                    <p>We only work with the best companies around the globe</p>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="parner_reg_btn tac-smd">
+                    <a class="btn btn-thm2" href="#">Register Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
