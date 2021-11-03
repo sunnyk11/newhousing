@@ -1,0 +1,17 @@
+.fa.fa-user {
+    font-size: 24px;
+}
+
+.profile_image {
+    width: 60px;
+    height: 60px;
+}
+
+.user-info li {
+    margin-right: 0;
+}
+
+.user-info {
+    border: 1px solid #888;
+    left: -50px;
+}

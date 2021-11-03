@@ -9,6 +9,8 @@ import { ContactComponent } from './components/contact/contact.component';
 import{ ProductListingComponent} from './components/product-listing/product-listing.component';
 import { ProductPageComponent } from './components/product-page/product-page.component';
 import { SubscriptionPlansComponent } from './components/subscription-plans/subscription-plans.component';
+import { LoginComponent } from './components/login/login.component';
+import { LogoutComponent } from './components/logout/logout.component';
 //custom component imports
 
 const routes: Routes = [
@@ -21,7 +23,9 @@ const routes: Routes = [
         { path: "contact", component:ContactComponent },
         { path: "product-listing", component:ProductListingComponent },
         { path: "product-details", component:ProductPageComponent },
-        { path: "plans", component:SubscriptionPlansComponent }
+        { path: "plans", component:SubscriptionPlansComponent },
+        { path: "login", component:LoginComponent},
+        { path: "logout", component:LogoutComponent}
 
       ]
     }

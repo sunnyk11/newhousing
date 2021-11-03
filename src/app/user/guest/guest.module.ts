@@ -23,6 +23,9 @@ import { NgImageSliderModule } from 'ng-image-slider';
 import { SubscriptionPlansComponent } from './components/subscription-plans/subscription-plans.component';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import { FormsModule } from '@angular/forms';
+import { LoginComponent } from './components/login/login.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { LogoutComponent } from './components/logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +43,8 @@ import { FormsModule } from '@angular/forms';
     ProductPageComponent,
     RecentlyViewedProductComponent,
     SubscriptionPlansComponent,
+    LoginComponent,
+    LogoutComponent,
   ],
   imports: [
     CommonModule,
@@ -52,7 +57,8 @@ import { FormsModule } from '@angular/forms';
     }),
     NgImageSliderModule,
     NgxSliderModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
 })
 export class GuestModule { }
