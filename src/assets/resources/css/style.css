@@ -512,7 +512,8 @@ h4 .h1,
     background-color: transparent;
 }
 
-.home1-advnc-search .slider-range.ui-slider.ui-corner-all.ui-slider-horizontal.ui-widget.ui-widget-content {
+.home1-advnc-search .slider-range.ui-slider.ui-corner-all.ui-slider-horizontal.ui-widget.ui-widget-content,
+.sasw_list .slider-range.ui-slider.ui-corner-all.ui-slider-horizontal.ui-widget.ui-widget-content {
     background-color: #ddd;
     border: none;
     border-radius: 3.5px;
@@ -521,11 +522,13 @@ h4 .h1,
     width: 240px;
 }
 
-.home1-advnc-search .ui-slider-range.ui-corner-all.ui-widget-header {
+.home1-advnc-search .ui-slider-range.ui-corner-all.ui-widget-header,
+.sasw_list .ui-slider-range.ui-corner-all.ui-widget-header {
     background-color: #ff5a5f;
 }
 
-.home1-advnc-search span.ui-slider-handle.ui-corner-all.ui-state-default {
+.home1-advnc-search span.ui-slider-handle.ui-corner-all.ui-state-default,
+.sasw_list span.ui-slider-handle.ui-corner-all.ui-state-default {
     background-color: #ffffff;
     border-radius: 50%;
     -webkit-box-shadow: 0px 0px 5px 0px rgba(19, 19, 28, 0.2);
@@ -537,7 +540,8 @@ h4 .h1,
     width: 25px;
 }
 
-.home1-advnc-search span.ui-slider-handle.ui-corner-all.ui-state-default:before {
+.home1-advnc-search span.ui-slider-handle.ui-corner-all.ui-state-default:before,
+.sasw_list span.ui-slider-handle.ui-corner-all.ui-state-default:before {
     background-color: #ff5a5f;
     border-radius: 10px;
     content: "";
@@ -550,13 +554,16 @@ h4 .h1,
     width: 11px;
 }
 
-.home1-advnc-search span.ui-slider-handle.ui-corner-all.ui-state-default:hover {
+.home1-advnc-search span.ui-slider-handle.ui-corner-all.ui-state-default:hover,
+.sasw_list span.ui-slider-handle.ui-corner-all.ui-state-default:hover {
     background-color: #ffffff;
     cursor: pointer;
 }
 
 .home1-advnc-search span.ui-slider-handle.ui-corner-all.ui-state-default:active,
-.home1-advnc-search span.ui-slider-handle.ui-corner-all.ui-state-default:focus {
+.home1-advnc-search span.ui-slider-handle.ui-corner-all.ui-state-default:focus,
+.sasw_list span.ui-slider-handle.ui-corner-all.ui-state-default:active,
+.sasw_list span.ui-slider-handle.ui-corner-all.ui-state-default:focus {
     background-color: #ffffff;
     border: none;
     outline: none;
@@ -651,7 +658,8 @@ h4 .h1,
     overflow: visible !important;
 }
 
-.candidate_revew_select .bootstrap-select>.dropdown-toggle {
+.candidate_revew_select .bootstrap-select>.dropdown-toggle,
+.grid_list_search_result .bootstrap-select>.dropdown-toggle {
     background-color: #ffffff;
     border: 1px solid #dddddd;
     border-radius: 4px;
@@ -662,7 +670,10 @@ h4 .h1,
 
 .candidate_revew_select .bootstrap-select>.dropdown-toggle:hover,
 .candidate_revew_select .bootstrap-select>.dropdown-toggle:focus,
-.candidate_revew_select .bootstrap-select>.dropdown-toggle:active {
+.candidate_revew_select .bootstrap-select>.dropdown-toggle:active,
+.grid_list_search_result .bootstrap-select>.dropdown-toggle:hover,
+.grid_list_search_result .bootstrap-select>.dropdown-toggle:focus,
+.grid_list_search_result .bootstrap-select>.dropdown-toggle:active {
     background-color: #ffffff;
     color: #7f7f7f;
     box-shadow: none;
@@ -670,7 +681,9 @@ h4 .h1,
 }
 
 .candidate_revew_select .dropdown-item.active,
-.candidate_revew_select .dropdown-item:active {
+.candidate_revew_select .dropdown-item:active,
+.grid_list_search_result .dropdown-item.active,
+.grid_list_search_result .dropdown-item:active {
     background-color: #f7f7f7;
     color: #484848;
 }
@@ -759,7 +772,7 @@ h4 .h1,
 }
 
 .form-check {
-    margin-bottom: 35px;
+    margin-bottom: 20px;
 }
 
 #amenities_collapse {
@@ -832,7 +845,7 @@ section {
     position: relative;
 }
 
-.feature_property_slider .owl-carousel.owl-theme .owl-nav {
+.feature_property_slider.owl-carousel.owl-theme .owl-nav {
     margin: 0;
 }
 
@@ -1398,7 +1411,7 @@ section {
     top: 0;
 }
 
-.testimonial_grid_slider .owl-carousel.owl-theme .owl-nav {
+.testimonial_grid_slider.owl-carousel.owl-theme .owl-nav {
     margin: 0;
     display: none!important;
 }
@@ -3273,8 +3286,9 @@ input[type="range"]::-ms-fill-upper {
 }
 
 .checkmark {
-  color: #00D100;
-  font-size: 18px;
+    color: #00D100;
+    font-size: 18px;
+    font-weight: bolder;
 }
 
 .plans-rent td,
@@ -3292,7 +3306,417 @@ input[type="range"]::-ms-fill-upper {
   display: none;
 }
 
+.row1 {
+    font-size: 12px
+}
 
+.row2 {
+    font-weight: 600
+}
+
+.card-header {
+    background-color: #cccccc;
+    padding: 15px;
+}
+/* Contact Us page start */
+
+.pb0 {
+    padding-bottom: 0px !important;
+}
+
+.form_grid {
+    background-color: #ffffff;
+    border-radius: 8px;
+    border: 1px solid #ebebeb;
+    padding: 30px;
+}
+
+.form_grid h4 {
+    font-weight: bold;
+    line-height: 1.2;
+    margin-bottom: 20px;
+}
+
+.form_grid p {
+    font-size: 14px;
+    line-height: 1.714;
+    margin-bottom: 30px;
+}
+
+.form_grid .contact_form input {
+    border: 1px solid #ebebeb;
+    border-radius: 8px;
+    background-color: #ffffff;
+    color: #484848;
+    font-size: 14px;
+    height: 50px;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    padding-left: 20px;
+}
+
+.form_grid .contact_form textarea.form-control {
+    background-color: #ffffff;
+    border: 1px solid #ebebeb;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: "Nunito";
+    color: #484848;
+    line-height: 1.2;
+    margin-bottom: 25px;
+    padding: 20px;
+}
+
+.form_grid .contact_form button {
+    border-radius: 8px;
+    background-color: #ff5a5f;
+    -webkit-box-shadow: 0px 1px 4px 0px rgba(255, 90, 95, 0.3);
+    -moz-box-shadow: 0px 1px 4px 0px rgba(255, 90, 95, 0.3);
+    -o-box-shadow: 0px 1px 4px 0px rgba(255, 90, 95, 0.3);
+    box-shadow: 0px 1px 4px 0px rgba(255, 90, 95, 0.3);
+    font-size: 16px;
+    font-family: "Nunito";
+    color: #ffffff;
+    font-weight: bold;
+    line-height: 1.2;
+    height: 50px;
+    width: 200px;
+}
+
+.mb5 {
+    margin-bottom: 5px;
+}
+
+.contact_form_social_area {
+    margin-bottom: 0;
+    position: relative;
+}
+
+.contact_form_social_area li {
+    background-color: #f7f7f7;
+    border-radius: 8px;
+    height: 45px;
+    line-height: 45px;
+    text-align: center;
+    width: 45px;
+}
+
+.contact_form_social_area li:hover {
+    cursor: pointer;
+}
+
+.contact_form_social_area li a {
+    font-size: 14px;
+    color: #484848;
+    line-height: 1.2;
+}
+
+.contact_localtion {
+    background-color: #ffffff;
+    border-radius: 8px;
+    border: 1px solid #ebebeb;
+    border-radius: 8px;
+    padding: 30px;
+    position: relative;
+}
+
+.contact_localtion h4 {
+    font-size: 18px;
+    font-family: "Nunito";
+    color: #484848;
+    font-weight: bold;
+    line-height: 1.2;
+    margin-bottom: 20px;
+}
+
+.contact_localtion p {
+    font-size: 14px;
+    font-family: "Nunito";
+    color: #484848;
+    line-height: 1.714;
+    margin-bottom: 20px;
+}
+
+.contact_localtion .content_list h5 {
+    font-size: 16px;
+    font-family: "Nunito";
+    color: #484848;
+    font-weight: bold;
+    line-height: 1.5;
+    margin-bottom: 0;
+}
+
+.contact_localtion .content_list p {
+    margin-bottom: 30px;
+}
+
+.pb20 {
+    padding-bottom: 20px;
+}
+
+
+/* About Us page Start */
+
+.mt0 {
+    margin-top: 0px !important;
+}
+
+.about_content p.large {
+    color: #484848;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1.5;
+    margin-bottom: 45px;
+}
+
+.about_content p {
+    font-size: 14px;
+    color: #484848;
+    line-height: 1.714;
+    margin-bottom: 40px;
+}
+
+.why_chose_us.style2 {
+    border: 1px solid #ebebeb;
+    overflow: hidden;
+}
+
+.why_chose_us.style2 .icon {
+    background-color: #f7f7f7;
+}
+
+.why_chose_us.style2:hover:before {
+    background-color: #ff5a5f;
+    bottom: 0;
+    content: "";
+    height: 5px;
+    left: 0;
+    position: absolute;
+    right: 0;
+    width: 100%;
+}
+
+.why_chose_us.style2:hover .icon {
+    background-image: -moz-linear-gradient( 0deg, rgb(250, 124, 65) 0%, rgb(255, 101, 101) 100%);
+    background-image: -webkit-linear-gradient( 0deg, rgb(250, 124, 65) 0%, rgb(255, 101, 101) 100%);
+    background-image: -ms-linear-gradient( 0deg, rgb(250, 124, 65) 0%, rgb(255, 101, 101) 100%);
+}
+
+
+/* Login page Start */
+
+.login-card {
+    border-radius: 1rem;
+    /* border: 2px solid #888; */
+}
+
+.google-btn {
+    background-color: #dd4b39;
+    border: 1px solid #dd4b39;
+}
+
+.facebook-btn {
+    background-color: #3b5998;
+    border: 1px solid #3b5998;
+}
+
+.google-btn,
+.facebook-btn {
+    color: #fff;
+}
+
+.google-btn:hover {
+    color: #dd4b39;
+    background-color: #fff;
+}
+
+.facebook-btn:hover {
+    color: #3b5998;
+    background-color: #fff;
+}
+
+.divider:after,
+.divider:before {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #eee;
+}
+
+
+/* Compare Property Page Start */
+
+.bgc-fa {
+    background-color: #fafafa !important;
+}
+
+.membership_container {
+    background-color: #ffffff;
+    padding: 30px 0 0;
+    position: relative;
+}
+
+.membership_header .thumb {
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+
+.membership_header .thumb:before {
+    background-color: rgba(0, 0, 0, .6);
+    bottom: 0;
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+}
+
+.membership_header .thumb a {
+    background-color: #ffffff;
+    border-radius: 8px;
+    height: 30px;
+    line-height: 25px;
+    position: absolute;
+    right: 10px;
+    text-align: center;
+    top: 10px;
+    width: 30px;
+}
+
+.membership_header .thumb a span {
+    font-size: 10px;
+}
+
+.membership_header .thumb .price {
+    bottom: 15px;
+    color: #ffffff;
+    font-family: "Nunito";
+    font-size: 22px;
+    font-weight: bold;
+    left: 0;
+    line-height: 1.2;
+    margin: 0 auto;
+    position: absolute;
+    right: 0;
+}
+
+.membership_header .details {
+    padding-top: 12px;
+    font-size: 14px;
+}
+
+.membership_header .details p {
+    font-size: 14px;
+    font-family: "Nunito";
+    color: #ff5a5f;
+    line-height: 1.2;
+}
+
+.membership_header h4 {
+    font-size: 18px;
+    font-family: "Nunito";
+    color: #484848;
+    line-height: 1.333;
+    margin: 0;
+}
+
+.compare_table th {
+    width: 25%;
+}
+
+.compare_table td {
+    line-height: 2.5;
+}
+
+.compare_table>:not(:first-child) {
+    border-top: 0;
+}
+
+.compare_table .details .price {
+    font-size: 14px;
+}
+
+.compare_table .details {
+    text-align: center;
+}
+
+.price-xs {
+    display: none;
+}
+
+.compare_table {
+    font-size: 15px;
+}
+
+.compare_div {
+    overflow: hidden;
+}
+
+
+/* Wishlist Page Start */
+
+.alert.alart_style_one {
+    background-color: #f7f7f7;
+    color: #000;
+}
+
+
+/* My Plans Page Start */
+
+.property_table .table {
+    border: 1px solid #ebebeb;
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+
+.property_table .table .thead-light th {
+    background-color: rgb(36, 50, 74);
+    border: none;
+    font-size: 16px;
+    font-family: "Nunito";
+    color: #ffffff;
+    font-weight: bold;
+    line-height: 20px;
+}
+
+.property_table .table td,
+.property_table .table th {
+    font-size: 16px;
+    font-family: "Nunito";
+    color: #484848;
+    font-weight: 600;
+    line-height: 3;
+    padding-left: 15px;
+}
+
+.property_table .table td,
+.property_table .table th {
+    vertical-align: middle;
+}
+
+
+/* Price Slider Related */
+
+.ngx-slider .ngx-slider-pointer {
+    background-color: #ff5a5f !important;
+}
+
+.ngx-slider .ngx-slider-selection {
+    background-color: #ff5a5f !important;
+}
+
+.ngx-slider .ngx-slider-pointer.ngx-slider-active:after {
+    background-color: saddlebrown !important;
+}
+
+
+/* Subscription Plans Table Related */
+
+.table>:not(:first-child) {
+    border-top: 0;
+}
 
 
 /* old propject css coppy paste */

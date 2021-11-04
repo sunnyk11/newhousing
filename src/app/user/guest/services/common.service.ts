@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { ResultModel } from '../../models/response/base.model';
 import { ApiService } from '../../services/api.service';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommonService {
+
+  private login_check = new Subject<any>();
 
   constructor(
     private apiService: ApiService
@@ -23,5 +25,15 @@ export class CommonService {
   getFeaturedproduct(reqModel:any): Observable<ResultModel> {
     const route = "/api/product/feature_property";
     return this.apiService.get<ResultModel>(route, reqModel);
+  }
+
+  sendUpdate(message: boolean) {
+    console.log("Send Update called");
+    this.login_check.next({ text:message });
+  }
+
+  getUpdate(): Observable<any> {
+    console.log("Get Update called");
+    return this.login_check.asObservable();
   }
 }
