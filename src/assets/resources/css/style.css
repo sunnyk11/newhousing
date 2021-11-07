@@ -714,6 +714,10 @@ h4 .h1,
     width: 160px;
 }
 
+.ngx-slider .ngx-slider-pointer{
+  background-color:#ff5a5f!important;
+}
+
 .small_dropdown2 .dd_btn label {
     float: right;
 }
