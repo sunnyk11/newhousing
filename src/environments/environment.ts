@@ -10,7 +10,7 @@ export const environment = {
   apiUrl:  'http://127.0.0.1:8000',
   ftpURL:  'http://127.0.0.1:8000/storage/',
   siteURL: 'http://localhost:4200/',
-
+  googleURL: 'http://localhost:8000/api/auth/redirect/'
 };
 
 /*
