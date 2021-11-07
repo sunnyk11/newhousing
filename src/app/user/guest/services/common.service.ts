@@ -27,9 +27,9 @@ export class CommonService {
     return this.apiService.get<ResultModel>(route, reqModel);
   }
 
-  sendUpdate(message: boolean) {
+  sendUpdate(message: boolean, username: string) {
     console.log("Send Update called");
-    this.login_check.next({ text:message });
+    this.login_check.next({ text:message, name:username });
   }
 
   getUpdate(): Observable<any> {

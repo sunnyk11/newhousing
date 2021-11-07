@@ -60,6 +60,20 @@ export class JwtService {
     this.router.navigate([""]);
   }
 
+  saveGoogleUser(token: any, data: any) {
+    window.localStorage.clear();
+    //console.log(JSON.parse(data));
+    //this.user_data = JSON.parse(data)
+    console.log(token);
+    window.localStorage["AUTH_TOKEN"] = JSON.stringify(token);
+    window.localStorage["USER_EMAIL"] = JSON.stringify(data.email);
+    window.localStorage["USER_ID"] = JSON.stringify(data.id);
+    window.localStorage["USER_NAME"] = JSON.stringify(data.name);
+    window.localStorage["USER_TYPE"] = JSON.stringify(data.usertype);
+    window.localStorage["USER_PROFILE_PIC"] = data.profile_pic;
+    this.router.navigate([""]);
+  }
+
   getUserEmail() {
     return window.localStorage["USER_EMAIL"];
   }

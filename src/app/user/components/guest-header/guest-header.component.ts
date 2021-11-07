@@ -26,8 +26,9 @@ export class GuestHeaderComponent implements OnInit {
   ) { 
     this.logged_in = this.commonService.getUpdate().subscribe(
       message => {
-        //console.log(message);
+        console.log(message);
         this.LoggedIn = message.text;
+        this.userName = message.name;
       });
   }
 

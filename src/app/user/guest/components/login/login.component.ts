@@ -4,6 +4,8 @@ import { Validators } from '@angular/forms';
 import { LoginPageService } from '../../services/login-page.service';
 import { JwtService } from 'src/app/user/services/jwt.service';
 import { CommonService } from '../../services/common.service';
+import { environment } from 'src/environments/environment';
+import { ActivatedRoute } from '@angular/router';
  
 @Component({
   selector: 'app-login',
@@ -23,15 +25,30 @@ export class LoginComponent implements OnInit {
   private access_token: any;
   public response_data: any;
   public LoggedIn: boolean = false;
+  private username: string ='';
 
   constructor(
     private fb: FormBuilder,
     private loginPageService: LoginPageService,
     private jwtService: JwtService,
-    private commonService: CommonService
+    private commonService: CommonService,
+    private route: ActivatedRoute
     ) { }
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe(
+      params => {
+        let token = params['token'];
+        let data = params['data'];
+        console.log(data);
+        if(token && data) {
+          this.LoggedIn = true;
+          this.username = JSON.parse(data).name;
+          this.commonService.sendUpdate(this.LoggedIn, this.username);
+          this.jwtService.saveGoogleUser(token, data);
+        }
+      }
+    );
   }
 
   get LoginFormControl() {
@@ -51,8 +68,9 @@ export class LoginComponent implements OnInit {
           //console.log(response);
           this.LoginFailed = false;
           this.LoggedIn = true;
-          this.commonService.sendUpdate(this.LoggedIn);
+          
           this.response_data = response;
+          this.commonService.sendUpdate(this.LoggedIn, this.response_data.data.username);
           //console.log(this.response_data.data.access_token);
           //this.jwtService.saveToken(this.response_data.data.access_token);
           this.jwtService.saveUser(this.response_data.data);
@@ -68,6 +86,10 @@ export class LoginComponent implements OnInit {
       //console.log("Invalid");
     }
 
+  }
+
+  redirect_login_google() {
+    window.location.href = environment.googleURL;
   }
 
 }
