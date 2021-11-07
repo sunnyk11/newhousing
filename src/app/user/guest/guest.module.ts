@@ -24,6 +24,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import { AmenitiesactivePipe } from './pipes/amenitiesactive.pipe';
 import { ClipboardModule } from 'ngx-clipboard';
+import { SubscriptionPlansComponent } from './components/subscription-plans/subscription-plans.component';
+import { LoginComponent } from './components/login/login.component';
+import { LogoutComponent } from './components/logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +44,9 @@ import { ClipboardModule } from 'ngx-clipboard';
     ProductPageComponent,
     RecentlyViewedProductComponent,
     AmenitiesactivePipe,
+    SubscriptionPlansComponent,
+    LoginComponent,
+    LogoutComponent,
   ],
   imports: [
     CommonModule,
@@ -56,6 +62,9 @@ import { ClipboardModule } from 'ngx-clipboard';
     }),
     NgImageSliderModule,
     ClipboardModule, 
+    NgxSliderModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
 })
 export class GuestModule { }

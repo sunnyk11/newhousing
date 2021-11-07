@@ -3,6 +3,11 @@
         width: 150px;
     }
 }
+@media only screen and (max-width:1366px) {
+    .sasw_list .max_area {
+        float: right;
+    }
+}
 
 @media(max-width: 768px) {
     #accordion .panel-heading,.panel-title{
@@ -431,6 +436,12 @@
     .application_statics {
         margin-bottom: 30px;
     }
+    ul.mc_parent_list ul.mc_child_list.one li {
+        padding: 10px 50px 10px 50px;
+    }
+    ul.mc_child_list {
+        margin-bottom: 30px;
+    }
 }
 
 @media only screen and (max-width:1024px) {
@@ -561,6 +572,9 @@
         height: auto;
     }
     .mbp_pagination ul.page_navigation {
+        margin-bottom: 30px;
+    }
+    .form_grid {
         margin-bottom: 30px;
     }
 }
@@ -713,6 +727,28 @@
     .nav-pills .nav-link {
         width: 100% !important;
     }
+    ul.mc_parent_list ul.mc_child_list.one li {
+        padding: 10px 50px 10px 30px;
+    }
+    ul.mc_parent_list ul.mc_child_list.two li,
+    ul.mc_parent_list ul.mc_child_list.three li,
+    ul.mc_parent_list ul.mc_child_list.four li {
+        padding: 10px;
+    }
+    .membership_header .thumb .price {
+        display: none;
+    }
+    .price-xs {
+        display: block !important;
+    }
+    .membership_header .thumb {
+        height: 70px;
+        margin: auto;
+    }
+    .property_table button {
+        margin-bottom: 10px;
+        margin-left: 0 !important;
+    }
 }
 
 @media only screen and (max-width:630px) {
@@ -751,7 +787,9 @@
     .plans-rent td:first-child,
     .plans-rent th:first-child,
     .plans-let-out td:first-child,
-    .plans-let-out th:first-child {
+    .plans-let-out th:first-child,
+    .compare_table td:first-child,
+    .compare_table th:first-child {
         display: none;
     }
 }
@@ -822,7 +860,7 @@
         z-index: 9;
     }
     .form-check {
-        margin-bottom: 20px;
+        margin-bottom: 8px !important;
     }
     .form-select {
         width: 100% !important;
@@ -877,6 +915,29 @@
     .banner-style-one .owl-dots .owl-dot span {
         margin: 0 4px;
     }
+    .contact_form_social_area li {
+        margin-bottom: 10px;
+    }
+    .membership_container {
+        padding: 30px 5px !important;
+    }
+    ul.mc_parent_list li {
+        text-align: center;
+        width: 100%;
+    }
+    ul.mc_parent_list .membership_header .details p {
+        margin-bottom: 0;
+    }
+    .membership_header .thumb a {
+        height: 24px !important;
+        line-height: 18px !important;
+        right: 5px !important;
+        top: 5px !important;
+        width: 24px !important;
+    }
+    .membership_header .thumb {
+        height: 70px;
+    }
 }
 
 @media only screen and (max-width:414px) {
@@ -926,6 +987,12 @@
     }
     .iba_container .icon_box_area {
         margin-bottom: 15px;
+    }
+    ul.mc_parent_list ul.mc_child_list.one li {
+        padding: 10px 10px;
+    }
+    .membership_header .thumb {
+        height: 60px;
     }
 }
 
