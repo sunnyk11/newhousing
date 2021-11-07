@@ -23,7 +23,6 @@ export class TestimonialComponent implements OnInit {
   gettestimonial(){
     this.indexPageService.gettestimonial({ param: null }).subscribe(
       response => {
-        console.log(response);
         this.testimonial_data=response;
       }
     );

@@ -20,11 +20,12 @@ import { ProductPageComponent } from './components/product-page/product-page.com
 import { RecentlyViewedProductComponent } from './components/recently-viewed-product/recently-viewed-product.component';
 import { AgmCoreModule } from '@agm/core';
 import { NgImageSliderModule } from 'ng-image-slider';
-import { SubscriptionPlansComponent } from './components/subscription-plans/subscription-plans.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
-import { FormsModule } from '@angular/forms';
+import { AmenitiesactivePipe } from './pipes/amenitiesactive.pipe';
+import { ClipboardModule } from 'ngx-clipboard';
+import { SubscriptionPlansComponent } from './components/subscription-plans/subscription-plans.component';
 import { LoginComponent } from './components/login/login.component';
-import { ReactiveFormsModule } from '@angular/forms';
 import { LogoutComponent } from './components/logout/logout.component';
 
 @NgModule({
@@ -42,6 +43,7 @@ import { LogoutComponent } from './components/logout/logout.component';
     ProductListingDetailsComponent,
     ProductPageComponent,
     RecentlyViewedProductComponent,
+    AmenitiesactivePipe,
     SubscriptionPlansComponent,
     LoginComponent,
     LogoutComponent,
@@ -52,10 +54,14 @@ import { LogoutComponent } from './components/logout/logout.component';
     GuestRoutingModule,
     UserSharedModule,
     NgxPaginationModule,
+    NgxSliderModule,
+    FormsModule,
+    ReactiveFormsModule,
     AgmCoreModule.forRoot({  
       apiKey: 'AIzaSyC2S5kHeGYkW9cL4d7_uxfauTBfQEtN4HA', libraries: ['places']
     }),
     NgImageSliderModule,
+    ClipboardModule, 
     NgxSliderModule,
     FormsModule,
     ReactiveFormsModule

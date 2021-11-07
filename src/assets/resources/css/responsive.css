@@ -10,9 +10,71 @@
 }
 
 @media(max-width: 768px) {
-    /* #search_form_popup{
-        display: block!important;
-    } */
+    #accordion .panel-heading,.panel-title{
+        width: 100%!important;
+        display: flex!important;
+        margin: 0px!important;
+    }
+    #accordion .panel-heading .panel-title .advanced{
+        width: 70%!important;
+    }
+    #accordion .panel-heading .panel-title .share{
+        width: 30%!important;
+        align-items: center;
+        justify-content: flex-end;
+        display: flex;
+        font-size: 36px;
+        margin-bottom: 10px;
+        cursor: pointer;
+    }
+    #accordion .panel-heading .panel-title .share i{
+        margin-top: -10px!important;
+        color:#ff5a5f!important;
+    }
+    .small_dropdown2 .dd_btn1 {
+        background-color: #ffffff;
+        border: 1px solid #fff;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 14px;
+        color: #484848;
+        height: 50px;
+        line-height: 2.5;
+        margin: 0;
+        outline: none;
+        text-align: left;
+        width: 100%!important;
+    }
+    .custome_fields_520 a{
+        width: 100%!important;
+        text-align: justify;
+    }
+    
+    .custome_fields_520 a i{
+        float:right!important;
+    }
+    #amenities_collapse ul li{
+        width: 50%!important;
+        margin:0px!important;
+    }
+    .form-check{
+        margin-bottom: 10px!important;
+    }
+    .home_adv_srch_opt .nav-pills {
+        width: 100%!important;
+    }
+    .home_adv_srch_opt .nav-item{   
+        width: 50%!important;
+        align-items: center;
+        justify-content: center;
+        display: flex;
+    }
+    .home_adv_srch_opt .nav-pills li.nav-item a.nav-link.active{
+        width:75%!important;
+    }
+    .home_adv_srch_opt .nav-pills li.nav-item a.nav-link{
+        width:75%!important;
+    }
     .feat_property .details .fp_footer .fp_pdate{
       margin-left: 0px!important;
       width: 50%!important;
@@ -193,9 +255,44 @@
   }
 }
 @media(min-width: 768px) {   
+    #accordion .panel-heading,.panel-title{
+        width: 100%!important;
+        display: flex!important;
+        margin: 0px!important;
+    }
+    #accordion .panel-heading .panel-title .advanced{
+        width: 70%!important;
+    }
+    #accordion .panel-heading .panel-title .share{
+        width: 30%!important;
+        align-items: center;
+        justify-content: flex-end;
+        display: flex;
+        font-size: 36px;
+        margin-bottom: 10px;
+        cursor: pointer;
+    }
+    #accordion .panel-heading .panel-title .share i{
+        margin-top: -10px!important;
+        color:#ff5a5f!important;
+    }
     .propertyListingPage .btn{
       padding: 7px 15px!important;
     } 
+    .small_dropdown2 .dd_btn1 {
+      background-color: #ffffff;
+      border: 1px solid #fff;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      color: #484848;
+      height: 50px;
+      line-height: 2.5;
+      margin: 0;
+      outline: none;
+      text-align: left;
+      width: 170px;
+    }
     #single_page_banner .noproduct{
         height: 300px!important;
     }
@@ -741,7 +838,7 @@
         cursor: pointer;
         height: 50px;
         line-height: 50px;
-        margin: 10px 0;
+        margin: 20px 0 10px 0px;
         padding: 0 15px;
     }
     .home1-advnc-search ul.apeartment_area_list li {
