@@ -198,8 +198,11 @@
                                                     <div class="panel">
                                                         <div class="panel-heading">
                                                             <h4 class="panel-title">
-                                                                <a href="#panelBodyRating" class="accordion-toggle link" data-bs-toggle="collapse" data-parent="#accordion"><i
+                                                                <a href="#panelBodyRating" class="accordion-toggle link advanced" data-bs-toggle="collapse" data-parent="#accordion"><i
                                                                         class="flaticon-more"></i> Advanced features</a>
+                                                                <a class="accordion-toggle link share" (click)="navigate()">
+                                                                    <i class="fa fa-share-alt-square" aria-hidden="true"></i> 
+                                                                </a>
                                                             </h4>
                                                         </div>
                                                         <div id="panelBodyRating" class="panel-collapse collapse">
@@ -299,7 +302,7 @@
                                     </li>
                                     <li class="search_area">
                                         <div class="form-group mb20">
-                                            <input #search autocorrect="off" autocapitalize="off" spellcheck="off"
+                                            <input #searching autocorrect="off" autocapitalize="off" spellcheck="off"
                                             formControlName="location" type="search" class="form-control input-text"
                                             placeholder="Enter Location..." />
                                             <label for="exampleInputEmail"><span
@@ -474,8 +477,11 @@
                                             <div class="panel">
                                                 <div class="panel-heading">
                                                     <h4 class="panel-title">
-                                                        <a href="#panelBodyRating" class="accordion-toggle link" data-bs-toggle="collapse" data-parent="#accordion"><i
+                                                        <a href="#panelBodyRating" class="accordion-toggle link advanced" data-bs-toggle="collapse" data-parent="#accordion"><i
                                                                 class="flaticon-more"></i> Advanced features</a>
+                                                        <a class="accordion-toggle link share" (click)="navigate()">
+                                                            <i class="fa fa-share-alt-square" aria-hidden="true"></i> 
+                                                        </a>
                                                     </h4>
                                                 </div>
                                                 <div id="panelBodyRating" class="panel-collapse collapse">

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { environment } from 'src/environments/environment';
 import { CommonService } from '../../services/common.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-featured-property',
@@ -15,7 +16,8 @@ export class FeaturedPropertyComponent implements OnInit {
   private e:any;
 
   constructor(
-    private CommonService: CommonService
+    private CommonService: CommonService,
+    private router:Router
     ) { }
 
   ngOnInit(): void {
@@ -50,6 +52,10 @@ export class FeaturedPropertyComponent implements OnInit {
       n.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + t
     }
     return num;
+  }
+  navigate(id:any){
+    const url:any = this.router.createUrlTree(['/product-details'],{queryParams:{'id': btoa(id)}})
+    window.open(url.toString(), '_blank')
   }
    // carosule image
    featured_property: OwlOptions = {

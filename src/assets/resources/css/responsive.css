@@ -5,6 +5,27 @@
 }
 
 @media(max-width: 768px) {
+    #accordion .panel-heading,.panel-title{
+        width: 100%!important;
+        display: flex!important;
+        margin: 0px!important;
+    }
+    #accordion .panel-heading .panel-title .advanced{
+        width: 70%!important;
+    }
+    #accordion .panel-heading .panel-title .share{
+        width: 30%!important;
+        align-items: center;
+        justify-content: flex-end;
+        display: flex;
+        font-size: 36px;
+        margin-bottom: 10px;
+        cursor: pointer;
+    }
+    #accordion .panel-heading .panel-title .share i{
+        margin-top: -10px!important;
+        color:#ff5a5f!important;
+    }
     .small_dropdown2 .dd_btn1 {
         background-color: #ffffff;
         border: 1px solid #fff;
@@ -229,6 +250,27 @@
   }
 }
 @media(min-width: 768px) {   
+    #accordion .panel-heading,.panel-title{
+        width: 100%!important;
+        display: flex!important;
+        margin: 0px!important;
+    }
+    #accordion .panel-heading .panel-title .advanced{
+        width: 70%!important;
+    }
+    #accordion .panel-heading .panel-title .share{
+        width: 30%!important;
+        align-items: center;
+        justify-content: flex-end;
+        display: flex;
+        font-size: 36px;
+        margin-bottom: 10px;
+        cursor: pointer;
+    }
+    #accordion .panel-heading .panel-title .share i{
+        margin-top: -10px!important;
+        color:#ff5a5f!important;
+    }
     .propertyListingPage .btn{
       padding: 7px 15px!important;
     } 

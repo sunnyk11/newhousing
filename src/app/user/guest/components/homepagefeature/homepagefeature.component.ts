@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { environment } from 'src/environments/environment';
 import { IndexPageService } from '../../services/index-page.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-homepagefeature',
@@ -15,7 +16,8 @@ export class HomepagefeatureComponent implements OnInit {
   public property:any={};
 
   constructor(
-    private indexPageService: IndexPageService
+    private indexPageService: IndexPageService,
+    private router:Router
     ) { }
 
   ngOnInit(): void {
@@ -36,7 +38,9 @@ export class HomepagefeatureComponent implements OnInit {
   wishlist_added(data: any){
     console.log(data);
   }
-
+  navigate(id:any){
+    const url:any = this.router.navigate(['/product-details'],{queryParams:{'id': btoa(id)}});
+  }
   // wishlist delete
   Wishlist_remove(data: any){}
 

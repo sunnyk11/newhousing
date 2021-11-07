@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { environment } from 'src/environments/environment';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-product-listing-details',
@@ -14,7 +16,9 @@ export class ProductListingDetailsComponent implements OnInit {
   public p:any;
   public ftpstring=environment.ftpURL;
 
-  constructor() { }
+  constructor(
+    private router:Router
+    ) { }
 
   ngOnInit(): void {
   }
@@ -50,7 +54,9 @@ export class ProductListingDetailsComponent implements OnInit {
     }
     return num;
   }
-
+  navigate(id:any){
+    const url:any = this.router.navigate(['/product-details'],{queryParams:{'id': btoa(id)}});
+  }
   // carosule image
   customOptions: OwlOptions = {
    loop: true,

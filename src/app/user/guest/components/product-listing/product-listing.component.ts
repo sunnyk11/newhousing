@@ -7,6 +7,8 @@ import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core'
 import { Options } from '@angular-slider/ngx-slider';
 import { LabelType } from '@angular-slider/ngx-slider';
 import { environment } from 'src/environments/environment';
+import { Router } from '@angular/router';
+import { ClipboardService } from 'ngx-clipboard'
 
 @Component({
   selector: 'app-product-listing',
@@ -28,20 +30,17 @@ export class ProductListingComponent implements OnInit {
   public unique_amentites:any;
   public  selectedItems:any=[];
   public siteURL=environment.siteURL;
-  
-  private build:string='';
-  private area_unit:string='';
-  private bedrooms:string='';
-  private bathrooms:string='';
-  private search:string='';
-  private type:string='';
-  private search_location:any;
-  private minimum:number=0;
-  private maximumm:number=0;
+  public data:any;
+  public amenties_convert:any;
+  public search_type:any;
+  public minimum:any;
+  public maximum:any;
+  shareableurl: any;
+
   private amenityArray:any = [];
   private search_amenties_convert: any=[];
 
-  @ViewChild("search")
+  @ViewChild("searching")
   searchElementRef!: ElementRef;
   @ViewChild(AgmMap, { static: true })
   public agmMap!: AgmMap;
@@ -97,19 +96,21 @@ export class ProductListingComponent implements OnInit {
     private formBuilder: FormBuilder,
     private mapsAPILoader: MapsAPILoader,
     private ngZone:NgZone,
+    private router:Router,
+    private _clipboardService: ClipboardService
     ) {
       this.route.queryParams.subscribe((params) => {
-          this.build=params.name;
-          this.bedrooms=params.bedroom;
-          this.bathrooms=params.bathroom;
-          this.search=params.search;
-          this.type=params.type;
-          this.year=params.year;
-          this.search_location=params.location;
-          this.area_unit=params.area;
-          this.minimum=params.minimum;
-          this.maximumm=params.maximum;
-          this.search_amenties=params.amenties;
+        if(params.data != null){
+          this.data=JSON.parse(atob(params.data));
+          this.search_type= this.data.search_type;
+          this.minimum=this.data.sliderControl[0];
+          this.maximum=this.data.sliderControl[1];
+            if(params.amenties.length>0){  
+              console.log(params.amenties);          
+            this.amenties_convert=atob(params.amenties);  
+            this.search_amenties=this.amenties_convert.split(',');
+            }
+         }
       });
      }
 
@@ -131,26 +132,27 @@ export class ProductListingComponent implements OnInit {
       });
     });
 
-    if(this.search != null){
+    if(this.search_type != null){
        this.property_type_check_url();
     }
-    if(this.search_amenties != null){
+    if(this.search_amenties.length>0){
       for (var i = 0; i < this.search_amenties.length; i++){
         this.search_amenties_convert.push(parseInt(this.search_amenties[i]));
       }
       this.amenityArray=this.search_amenties_convert;
     }
-    if(this.minimum != null && this.maximumm !=null){
-      this.searchForm.value.sliderControl['0']=Number(this.minimum);
-      this.searchForm.value.sliderControl['1']=Number(this.maximumm);
+    if(this.minimum != null && this.maximum){
+      this.searchForm.value.sliderControl['0']=Number(this.data.sliderControl[0]);
+      this.searchForm.value.sliderControl['1']=Number(this.data.sliderControl[1]);
       this.searchForm.patchValue({
-        build_name:this.build,
-        area_unit:this.area_unit,
-        bedrooms:this.bedrooms,
-        bathrooms:this.bathrooms,
-        search_type:this.search,
-        type:this.type,
-        location:this.search_location,
+        build_name:this.data.build_name,
+        area_unit:this.data.area_unit,
+        bedrooms:this.data.bedrooms,
+        bathrooms:this.data.bathrooms,
+        search_type:this.data.search_type,
+        type:this.data.type,
+        location:this.data.location,
+        years:this.data.years,
       });
       this.onsearch();
     }else{
@@ -185,6 +187,15 @@ export class ProductListingComponent implements OnInit {
       }
     );
     this.closePopup();
+  } 
+  
+  navigate(): void{
+    let data:any= this.searchForm.value;
+    let url='product-listing?data=';
+    this.shareableurl=environment.siteURL+url+btoa(JSON.stringify(data))+'&amenties='+btoa(this.amenityArray);
+    console.log(this.shareableurl);
+    this._clipboardService.copy(this.shareableurl);
+    // document.execCommand('copy');
   }   
   onchangeAmenties(e:any,id:any){
     if(e.target.checked){
@@ -230,12 +241,12 @@ export class ProductListingComponent implements OnInit {
     }   
   }  
   property_type_check_url():void{
-    if(this.search=='rent'){ 
+    if(this.data.search_type=='rent'){ 
       this.rent_range_slider=true;
       this.buyyer_range_slider=false;
       this.range_slider=false;
     }
-    if(this.search=='sales'){ 
+    if(this.data.search_type=='sales'){ 
       this.rent_range_slider=false;
       this.buyyer_range_slider=true;
       this.range_slider=false;

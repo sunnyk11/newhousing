@@ -23,6 +23,7 @@ import { NgImageSliderModule } from 'ng-image-slider';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import { AmenitiesactivePipe } from './pipes/amenitiesactive.pipe';
+import { ClipboardModule } from 'ngx-clipboard';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { AmenitiesactivePipe } from './pipes/amenitiesactive.pipe';
       apiKey: 'AIzaSyC2S5kHeGYkW9cL4d7_uxfauTBfQEtN4HA', libraries: ['places']
     }),
     NgImageSliderModule,
+    ClipboardModule, 
   ],
 })
 export class GuestModule { }

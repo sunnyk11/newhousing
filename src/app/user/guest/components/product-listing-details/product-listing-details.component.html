@@ -65,7 +65,7 @@
         </ng-template>
 
         <div class="details">
-            <a routerLink="/product-details"  [queryParams]="{id:number.id}">
+            <a (click)="navigate(number.id)">
             <div class="tc_content">
                 <p class="text-thm" *ngIf="number.property__type != null">{{ number.property__type.name |
                 titlecase }}</p>

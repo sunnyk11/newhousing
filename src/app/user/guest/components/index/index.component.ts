@@ -100,8 +100,10 @@ export class IndexComponent implements OnInit {
       }
     );
   }
-  search_rent(): void{
-    this.router.navigate(['/product-listing'],{queryParams:{'name':this.searchForm.value.build_name,'location': this.searchForm.value.location,'type':this.searchForm.value.type,'search':this.searchForm.value.search_type,'bedroom':this.searchForm.value.bedrooms,'bathroom':this.searchForm.value.bathrooms,'year':this.searchForm.value.years,'area':this.searchForm.value.area_unit,'minimum':this.searchForm.value.sliderControl['0'],'maximum':this.searchForm.value.sliderControl['1'],'amenties':this.amenityArray}})
+  navigate(): void{
+    let data:any= this.searchForm.value;
+    this.router.navigate(['/product-listing'],{
+      queryParams:{data:btoa(JSON.stringify(data)),amenties:btoa(this.amenityArray)}})
   }  
   onchangeAmenties(e:any,id:string){
     if(e.target.checked){

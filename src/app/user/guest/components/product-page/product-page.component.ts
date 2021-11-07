@@ -4,6 +4,7 @@ import { ProductPageService } from '../../services/product-page.service';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { environment } from 'src/environments/environment';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-product-page',
   templateUrl: './product-page.component.html',
@@ -28,17 +29,22 @@ export class ProductPageComponent implements OnInit{
   public showLoadingIndicator:boolean=false;
 
   private e:any;
-  private product_id:number=0;
+  private product_id:any;
 
   constructor(
     private _sanitizer: DomSanitizer,
      private route:ActivatedRoute,
      private ProductPageService: ProductPageService,
+     private router:Router
   ) {
     this.route.queryParams.subscribe((params) => {
-        this.product_id=params.id;
+      if(params.id.length>2){
+        this.product_id=atob(params.id);
+        this.single_product_details(this.product_id);
+      }else{
+        this.redirect_to_home_page();
+      }
     });
-    this.single_product_details(this.product_id);
    }
 
   ngOnInit(): void {
@@ -51,26 +57,30 @@ export class ProductPageComponent implements OnInit{
       response => {
         this.product_details=response;
         this.product_data=this.product_details.data;
-        this.youtube_url = "https://www.youtube-nocookie.com/embed/" + this.product_data.video_link+"?playlist="+this.product_data.video_link+"&loop=1&mute=1";          
-        this.safeURL = this._sanitizer.bypassSecurityTrustResourceUrl(this.youtube_url);
-        this.similarproperty(this.product_data.city);
-        this.address=this.product_data.address;
-        this.latCus=parseFloat(this.product_data.map_latitude);
-        this.longCus=parseFloat(this.product_data.map_longitude);
-        
-        // slider functionalty
-        this.product_images = this.product_data.product_img;
-        this.product_img_length = this.product_data.product_img.length;
-        if(this.product_img_length>0){
-          for(let i=0;i<this.product_img_length; i++){
-            this.imageObject.push({
-              image:this.ftpstring+this.product_images[i]["image"],
-              thumbImage:this.ftpstring+this.product_images[i]["image"],
-              title: this.product_data.build_name
-          });
-          }            
+        if(this.product_details.data != null){
+          this.youtube_url = "https://www.youtube-nocookie.com/embed/" + this.product_data.video_link+"?playlist="+this.product_data.video_link+"&loop=1&mute=1";          
+          this.safeURL = this._sanitizer.bypassSecurityTrustResourceUrl(this.youtube_url);
+          this.similarproperty(this.product_data.city);
+          this.address=this.product_data.address;
+          this.latCus=parseFloat(this.product_data.map_latitude);
+          this.longCus=parseFloat(this.product_data.map_longitude);
+          
+          // slider functionalty
+          this.product_images = this.product_data.product_img;
+          this.product_img_length = this.product_data.product_img.length;
+          if(this.product_img_length>0){
+            for(let i=0;i<this.product_img_length; i++){
+              this.imageObject.push({
+                image:this.ftpstring+this.product_images[i]["image"],
+                thumbImage:this.ftpstring+this.product_images[i]["image"],
+                title: this.product_data.build_name
+            });
+            }            
+          }
+         this.showLoadingIndicator = false;
+        }else{
+          this.redirect_to_home_page();
         }
-       this.showLoadingIndicator = false;
       }
     );
   }
@@ -117,6 +127,13 @@ export class ProductPageComponent implements OnInit{
     }
     return num;
   }
+  navigate(id:any){
+    const url:any = this.router.createUrlTree(['/product-details'],{queryParams:{'id': btoa(id)}})
+    window.open(url.toString(), '_blank')
+  }
+  redirect_to_home_page(): void {
+    this.router.navigate(['/'])
+  }
   // carosule image
   customOptions: OwlOptions = {
     loop: true,
@@ -145,6 +162,4 @@ export class ProductPageComponent implements OnInit{
     },
     nav: true
   }
- 
-
 }
