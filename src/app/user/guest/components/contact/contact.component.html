@@ -1,1 +1,106 @@
-<p>contact works!</p>
+<div class="wrapper">
+    <div class="p-5 bg-secondary rounded-3">
+        <div class="container-fluid py-5">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Contact Us</li>
+                </ol>
+            </nav>
+            <h2 class="col-custom">Contact Us</h2>
+        </div>
+    </div>
+
+    <section class="our-contact pb0 bgc-f7">
+        <div class="container">
+            <div class="row pb20">
+                <div class="col-lg-7 col-xl-8">
+                    <div class="form_grid">
+                        <h4 class="mb5">Send Us An Email</h4>
+                        <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="contact_form" id="contact_form" name="contact_form" action="#" method="post" novalidate>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input id="form_name" formControlName="name" name="form_name" class="form-control" required="required" type="text" placeholder="Name">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input id="form_email" formControlName="email" name="form_email" class="form-control required email" required="required" type="email" placeholder="Email">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input id="form_phone" formControlName="phone" name="form_phone" class="form-control required phone" required="required" type="phone" placeholder="Phone">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input id="form_subject" formControlName="subject" name="form_subject" class="form-control required" required="required" type="text" placeholder="Subject">
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <textarea id="form_message" formControlName="message" name="form_message" class="form-control required" rows="8" required="required" placeholder="Your Message"></textarea>
+                                    </div>
+                                    <div class="form-group mb0">
+                                        <button type="submit" [disabled]="!contactForm.valid" class="btn btn-lg btn-thm">Send Message</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-5 col-xl-4">
+                    <div class="contact_localtion">
+                        <h4>Contact Us</h4>
+                        <!--<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In gravida quis libero eleifend ornare. habitasse platea dictumst.</p>-->
+                        <div class="content_list">
+                            <h5>Address</h5>
+                            <p>H. No B-165, <br>Ambedkar Colony, <br>Gali No 1, <br>Chhatarpur, <br>New Delhi - 110074
+                            </p>
+                        </div>
+                        <div class="content_list">
+                            <h5>Phone</h5>
+                            <p>+91-9818954521</p>
+                        </div>
+                        <div class="content_list">
+                            <h5>Mail</h5>
+                            <p><a href="mailto:support@housingstreet.com">support@housingstreet.com</a></p>
+                        </div>
+                        <div class="content_list">
+                            <h5>Skype</h5>
+                            <p></p>
+                        </div>
+                        <h5>Follow Us</h5>
+                        <ul class="contact_form_social_area">
+                            <li class="list-inline-item"><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li class="list-inline-item"><a href="#"><i class="fa fa-instagram"></i></a></li>
+                            <li class="list-inline-item"><a href="#"><i class="fa fa-google"></i></a></li>
+                            <li class="list-inline-item"><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Real Estate Agent -->
+    <section class="start-partners bgc-thm pt50 pb50">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="start_partner tac-smd">
+                        <h2>Become a Real Estate Agent</h2>
+                        <p>We only work with the best companies around the globe</p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="parner_reg_btn tac-smd">
+                        <a class="btn btn-thm2" href="#">Register Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

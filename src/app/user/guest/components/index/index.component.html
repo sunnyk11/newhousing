@@ -268,50 +268,50 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-4 col-xl-4">
+            <div class="col-lg-4 col-xl-4" (click)="location_fetch()">
                 <div class="properti_city">
                     <div class="thumb"><img class="img-fluid w100" src="assets/resources/images/property/pc1.jpg" alt="pc1.jpg">
                     </div>
                     <div class="overlay">
                         <div class="details">
-                            <h4>Miami</h4>
-                            <p>24 Properties</p>
+                            <h4>Noida</h4>
+                            <p>No Properties</p>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-8 col-xl-8">
+            <div class="col-lg-8 col-xl-8" (click)="property_search(city_name)">
                 <div class="properti_city">
                     <div class="thumb"><img class="img-fluid w100" src="assets/resources/images/property/pc2.jpg" alt="pc2.jpg">
                     </div>
-                    <div class="overlay">
+                    <div class="overlay" *ngIf="product_length > 0">
                         <div class="details">
-                            <h4>Los Angeles</h4>
-                            <p>18 Properties</p>
+                            <h4>{{city_name}}</h4>
+                            <p>{{product_length}} Properties</p>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-8 col-xl-8">
+            <div class="col-lg-8 col-xl-8" (click)="location_fetch()">
                 <div class="properti_city">
                     <div class="thumb"><img class="img-fluid w100" src="assets/resources/images/property/pc3.jpg" alt="pc3.jpg">
                     </div>
                     <div class="overlay">
                         <div class="details">
-                            <h4>New York</h4>
-                            <p>89 Properties</p>
+                            <h4>Gurugram</h4>
+                            <p>No Properties</p>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-xl-4">
+            <div class="col-lg-4 col-xl-4" (click)="location_fetch()">
                 <div class="properti_city">
                     <div class="thumb"><img class="img-fluid w100" src="assets/resources/images/property/pc4.jpg" alt="pc4.jpg">
                     </div>
                     <div class="overlay">
                         <div class="details">
-                            <h4>Florida</h4>
-                            <p>47 Properties</p>
+                            <h4>Faridabad</h4>
+                            <p>No Properties</p>
                         </div>
                     </div>
                 </div>

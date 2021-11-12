@@ -23,6 +23,7 @@ export class LoginComponent implements OnInit {
   private access_token: any;
   public response_data: any;
   public LoggedIn: boolean = false;
+  public token: string=' ';
 
   constructor(
     private fb: FormBuilder,
@@ -51,11 +52,10 @@ export class LoginComponent implements OnInit {
           //console.log(response);
           this.LoginFailed = false;
           this.LoggedIn = true;
-          this.commonService.sendUpdate(this.LoggedIn);
           this.response_data = response;
-          //console.log(this.response_data.data.access_token);
-          //this.jwtService.saveToken(this.response_data.data.access_token);
           this.jwtService.saveUser(this.response_data.data);
+          this.token=this.jwtService.getToken();
+          this.commonService.sendUpdate(this.LoggedIn,this.token);
         },
         err => {
           this.errorMessage = err.error.message;

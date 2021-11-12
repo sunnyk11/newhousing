@@ -10,6 +10,7 @@ import { CommonService } from '../../services/common.service';
 export class LogoutComponent implements OnInit {
 
   public LoggedIn: boolean = false;
+  public token: string=' ';
 
   constructor(
     private jwtService: JwtService,
@@ -26,7 +27,8 @@ export class LogoutComponent implements OnInit {
     else {
       //console.log("Logout Page: Token Not Available");
     }
-    this.commonService.sendUpdate(this.LoggedIn);
+    this.token=this.jwtService.getToken();
+    this.commonService.sendUpdate(this.LoggedIn,this.token);
   }
 
 }

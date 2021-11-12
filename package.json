@@ -12,7 +12,7 @@
   "dependencies": {
     "@agm/core": "^3.0.0-beta.0",
     "@angular-slider/ngx-slider": "^2.0.3",
-    "@angular/animations": "~12.2.0",
+    "@angular/animations": "^12.2.13",
     "@angular/common": "~12.2.0",
     "@angular/compiler": "~12.2.0",
     "@angular/core": "~12.2.0",
@@ -23,9 +23,9 @@
     "angular-animations": "^0.11.0",
     "jwt-decode": "^3.1.2",
     "ng-image-slider": "^2.8.0",
-    "ngx-clipboard": "^14.0.1",
     "ngx-owl-carousel-o": "^6.0.0",
     "ngx-pagination": "^5.1.1",
+    "ngx-toastr": "^14.1.4",
     "rxjs": "~6.6.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

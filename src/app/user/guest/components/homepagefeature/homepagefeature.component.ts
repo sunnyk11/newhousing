@@ -3,6 +3,9 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
 import { environment } from 'src/environments/environment';
 import { IndexPageService } from '../../services/index-page.service';
 import { Router } from '@angular/router';
+import { JwtService } from 'src/app/user/services/jwt.service';
+import { CommonService } from '../../services/common.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-homepagefeature',
@@ -14,10 +17,16 @@ export class HomepagefeatureComponent implements OnInit {
   private  e: any;
   public ftpstring=environment.ftpURL;
   public property:any={};
+  public product_copm:any={};
+  public showLoadingIndicator:boolean= false;
+  public product_length:number=0;
 
   constructor(
     private indexPageService: IndexPageService,
-    private router:Router
+    private router:Router,
+    private jwtService: JwtService,
+    public CommonService:CommonService,
+    private toastr: ToastrService
     ) { }
 
   ngOnInit(): void {
@@ -25,24 +34,85 @@ export class HomepagefeatureComponent implements OnInit {
   }
   // fetch feature property 
   feature_property(){
+    this.showLoadingIndicator= true;
+    if(this.jwtService.getToken()){
+      this.indexPageService.login_Feature_Property({ param: null }).subscribe(
+      response => {
+        this.showLoadingIndicator= false;
+        this.property=response;
+        this.product_length=this.property.data.length;
+      }
+     );
+    }else{
     this.indexPageService.getFeature_Property({ param: null }).subscribe(
-    response => {
-      this.property=response;
+      response => {
+        this.showLoadingIndicator= false;
+        this.property=response;
+        this.product_length=this.property.data.length;
+      }
+     );
     }
-   );
+    this.wishlist_refresh();
+    this.pro_comp_refresh();
   }
   // property compare
-  product_comp(id:number){}
+  product_comp(id:number){
+    let param={id:id}
+    if(this.jwtService.getToken()){
+      this.CommonService.product_comp({param}).subscribe(
+      response => {
+        this.product_copm=response;
+        this.product_length=0;
+        this.feature_property();
+        if(this.product_copm.data.length>4){
+          this.toastr.info('Compare are the Full...!!!', 'Property', {
+            timeOut: 3000,
+          });
+        }else{
+          this.toastr.success('Added To compare Successfully', 'Property', {
+            timeOut: 3000,
+          });
+        }
+      }
+     );
+    }else{
+      this.redirect_to_login();
+    }
+  }
   
   // wishlist add 
-  wishlist_added(data: any){
-    console.log(data);
-  }
-  navigate(id:any){
-    const url:any = this.router.navigate(['/product-details'],{queryParams:{'id': btoa(id)}});
+  wishlist_added(id: number){
+    let param={id:id}
+    if(this.jwtService.getToken()){
+      this.CommonService.wishlist_addd({param}).subscribe(
+      response => {
+        this.product_length=0;
+        this.feature_property();
+      }
+     );
+    }
+    else{
+      this.redirect_to_login();
+    }
   }
   // wishlist delete
-  Wishlist_remove(data: any){}
+  wishlist_remove(id: number){
+    let param={id:id}
+    if(this.jwtService.getToken()){
+      this.CommonService.wishlist_remove({param}).subscribe(
+      response => {
+        this.product_length=0;
+        this.feature_property();
+      }
+     );
+    }else{
+      this.redirect_to_login();
+    }
+  }
+  
+  navigate(id:number,name:string,city:string){
+    this.router.navigate(['/product-details'],{queryParams:{'id':id,'name':name,'city':city}})
+  }
 
   // pricre convert functionalty
   Price_convert(num: number) {
@@ -64,6 +134,17 @@ export class HomepagefeatureComponent implements OnInit {
     }
     return num;
   }
+  redirect_to_login(): void {
+    this.router.navigate(['/login'])
+  } 
+  // wishlist refreh functionalty 
+  wishlist_refresh(){
+    this.CommonService.emit<string>('true');
+  } 
+  // product comapre refresh function 
+  pro_comp_refresh(){
+    this.CommonService.pro_comp_emit<string>('true');
+  } 
   
   // carosule image
   pro_feature: OwlOptions = {

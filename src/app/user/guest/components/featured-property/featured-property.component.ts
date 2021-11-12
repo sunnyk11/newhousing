@@ -53,8 +53,8 @@ export class FeaturedPropertyComponent implements OnInit {
     }
     return num;
   }
-  navigate(id:any){
-    const url:any = this.router.createUrlTree(['/product-details'],{queryParams:{'id': btoa(id)}})
+  navigate(id:number,name:string,city:string){
+    const url:any = this.router.createUrlTree(['/product-details'],{queryParams:{'id':id,'name':name,'city':city}})
     window.open(url.toString(), '_blank')
   }
    // carosule image

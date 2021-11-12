@@ -11,3 +11,8 @@
     color: #ff5a5f;
     font-size: 30px;
   } 
+  .preloader_row{
+      position: relative;
+      width: 100%!important;
+      height: 50vh!important;
+  }

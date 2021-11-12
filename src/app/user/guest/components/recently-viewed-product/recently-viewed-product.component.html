@@ -1,39 +1,29 @@
 
-        <div class="sidebar_feature_listing">
+        <div class="sidebar_feature_listing" *ngIf="LoggedIn==true && Recent_user_length>0">
             <h4 class="title">Recently Viewed</h4>
-            <div class="media">
-                <img class="align-self-start mr-3" src="assets/resources/images/blog/fls1.jpg" alt="fls1.jpg">
+            <div class="media"  *ngFor="let data of product?.data" (click)="navigate(data?.productdetails?.id,data?.productdetails?.build_name,data?.productdetails.city)"> 
+                <img class="align-self-start mr-3"
+                    *ngIf="data.product_img.length>0;else OtherImage"
+                    src="{{ftpstring}}{{data.product_img[0].image}}" alt="fls1.jpg">
+                <ng-template #OtherImage>
+                    <img style="width: 100px;" class="align-self-start mr-3"
+                        src="./../../assets/resources/images/no_image_available.jpg" alt="No Product Image">
+                </ng-template>
                 <div class="media-body">
-                    <h5 class="mt-0 post_title">Nice Room With View</h5>
-                    <a href="#">$13,000/<small>/mo</small></a>
+                    <h5 class="mt-0 post_title">{{data?.productdetails?.build_name | titlecase}}</h5>
+                    <a *ngIf="data.productdetails?.expected_pricing != null" >
+                        {{Price_convert(data?.productdetails?.expected_pricing)
+                        }}
+                    </a>
+                    <a *ngIf="data.productdetails?.expected_rent != null" >
+                        {{Price_convert(data?.productdetails.expected_rent)
+                        }}
+                    </a>
                     <ul class="mb0">
-                        <li class="list-inline-item">Beds: 4</li>
-                        <li class="list-inline-item">Baths: 2</li>
-                        <li class="list-inline-item">Sq Ft: 5280</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="media">
-                <img class="align-self-start mr-3" src="assets/resources/images/blog/fls2.jpg" alt="fls2.jpg">
-                <div class="media-body">
-                    <h5 class="mt-0 post_title">Villa called Archangel</h5>
-                    <a href="#">$13,000<small>/mo</small></a>
-                    <ul class="mb0">
-                        <li class="list-inline-item">Beds: 4</li>
-                        <li class="list-inline-item">Baths: 2</li>
-                        <li class="list-inline-item">Sq Ft: 5280</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="media">
-                <img class="align-self-start mr-3" src="assets/resources/images/blog/fls3.jpg" alt="fls3.jpg">
-                <div class="media-body">
-                    <h5 class="mt-0 post_title">Sunset Studio</h5>
-                    <a href="#">$13,000<small>/mo</small></a>
-                    <ul class="mb0">
-                        <li class="list-inline-item">Beds: 4</li>
-                        <li class="list-inline-item">Baths: 2</li>
-                        <li class="list-inline-item">Sq Ft: 5280</li>
+                        <li class="list-inline-item">Beds:  {{data?.productdetails.bedroom}}</li>
+                        <li class="list-inline-item">Baths:  {{data?.productdetails.bedroom}}</li>
+                        <li class="list-inline-item">Area: {{ data?.productdetails?.area_unit
+                        }}</li>
                     </ul>
                 </div>
             </div>

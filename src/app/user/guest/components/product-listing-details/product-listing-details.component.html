@@ -16,12 +16,14 @@
                 <ul class="icon mb0">
                     <li class="list-inline-item" *ngIf="number[0] != null;else wishlistcontent">
                     <a (click)="Wishlist_remove(number.id)">
-                        <span class="flaticon-fa-heart"></span>
+                        <i class="fa fa-heart" aria-hidden="true"></i>
                     </a>
                     </li>
                     <ng-template #wishlistcontent>
                     <li class="list-inline-item">
-                        <a (click)="wishlist_added(number.id)"><span class="flaticon-heart"></span></a>
+                        <a (click)="wishlist_added(number.id)">    
+                            <i class="fa fa-heart-o" aria-hidden="true"></i>  
+                        </a>
                     </li>
                     </ng-template>
                 </ul>
@@ -47,12 +49,14 @@
                 <ul class="icon mb0">
                 <li class="list-inline-item" *ngIf="number[0] != null;else wishlistcontent">
                     <a (click)="Wishlist_remove(number.id)">
-                    <span class="flaticon-fa-heart"></span>
+                        <i class="fa fa-heart" aria-hidden="true"></i>
                     </a>
                 </li>
                 <ng-template #wishlistcontent>
                     <li class="list-inline-item">
-                    <a (click)="wishlist_added(number.id)"><span class="flaticon-heart"></span></a>
+                    <a (click)="wishlist_added(number.id)">
+                        <i class="fa fa-heart-o" aria-hidden="true"></i> 
+                    </a>
                     </li>
                 </ng-template>
                 </ul>
@@ -65,7 +69,7 @@
         </ng-template>
 
         <div class="details">
-            <a (click)="navigate(number.id)">
+            <a  (click)="navigate(number.id,number.build_name,number.city)">
             <div class="tc_content">
                 <p class="text-thm" *ngIf="number.property__type != null">{{ number.property__type.name |
                 titlecase }}</p>
@@ -86,7 +90,7 @@
                 <li class="list-inline-item"><a href="#">{{number.user_detail.name | titlecase}}</a></li>
                 <div class="fp_pdate float-right" *ngIf="number.product_comparision==null">
                 <button type="button" (click)="product_comp(number.id)"
-                    class="btn btn-log btn-block btn-thm bg-white text-black-50">Add to compare</button>
+                    class="btn btn-log btn-block btn-thm bg-white text-black-50">{{number.product_comparision}}Add to compare</button>
                 </div>
                 <div class="fp_pdate float-right" *ngIf="number.product_comparision !=null">
                 <button type="button" class="btn  text-black-50 bucket-btn">Added To Compare</button>

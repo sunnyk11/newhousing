@@ -11,6 +11,8 @@ import { ProductPageComponent } from './components/product-page/product-page.com
 import { SubscriptionPlansComponent } from './components/subscription-plans/subscription-plans.component';
 import { LoginComponent } from './components/login/login.component';
 import { LogoutComponent } from './components/logout/logout.component';
+import { WishlistComponent } from './components/wishlist/wishlist.component';
+import { CompareComponent } from './components/compare/compare.component';
 //custom component imports
 
 const routes: Routes = [
@@ -25,6 +27,8 @@ const routes: Routes = [
         { path: "product-details", component:ProductPageComponent },
         { path: "plans", component:SubscriptionPlansComponent },
         { path: "login", component:LoginComponent},
+        { path: "wishlist", component:WishlistComponent},
+        { path: "product-compare", component:CompareComponent},
         { path: "logout", component:LogoutComponent}
 
       ]

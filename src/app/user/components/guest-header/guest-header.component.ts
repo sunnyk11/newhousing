@@ -3,6 +3,7 @@ import { JwtService } from '../../services/jwt.service';
 import { Subscription } from 'rxjs';
 import { CommonService } from '../../guest/services/common.service';
 import { environment } from 'src/environments/environment';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-guest-header',
@@ -18,34 +19,89 @@ export class GuestHeaderComponent implements OnInit {
   public userName: string = '';
   private logged_in: Subscription;
   public ftpstring = environment.ftpURL;
+  public property:any={};
+  public wishlist_length:number=0;
+  public property_comp:any={};
+  public property_comp_length:number=0;
+  public token: string='';
 
 
   constructor(
     private jwtService: JwtService,
-    private commonService: CommonService 
+    private commonService: CommonService,
+    private toastr: ToastrService
   ) { 
     this.logged_in = this.commonService.getUpdate().subscribe(
       message => {
-        //console.log(message);
         this.LoggedIn = message.text;
+        this.token = message.token;
+        if(this.token){
+          this.user_details();
+        }
       });
   }
 
   ngOnInit(): void {
-    //console.log(this.LoggedIn);
+    this.user_details();
+  }
+  user_details(){
     if(this.jwtService.isTokenAvailable()) {
-      //console.log("Token Available");
       this.LoggedIn = true;
       this.userEmail = this.jwtService.getUserEmail();
-      //console.log(this.userEmail);
       this.userId = this.jwtService.getUserId();
       this.profile_pic = JSON.parse(this.jwtService.getProfilePic());
       this.userName = JSON.parse(this.jwtService.getUserName());
-      //console.log(this.profile_pic);
+      this.product_wishlist();
+      this.product_comapre();
+      // wishlist refresh function 
+      this.wishlist_refresh();  
+      // product conpare function   
+      this.compare_refresh();  
     }
     else {
       this.LoggedIn = false;
     }
   }
-
+  // fetch wishlist property 
+  product_wishlist(){
+    this.commonService.getwishlit_property({ param: null }).subscribe(
+      response => {
+        this.property=response;
+        this.wishlist_length=this.property.data.length;
+      }
+    );
+  }  
+  // fetch product compare property 
+  product_comapre(){
+    this.commonService.getproduct_comp({ param: null }).subscribe(
+      response => {
+        this.property_comp=response;
+        this.property_comp_length=this.property_comp.data.length;
+      }
+    );
+  }
+  compare_notification():void{
+    this.toastr.info('Minimun Two Property required','Comparison', {
+      timeOut: 2000,
+      positionClass: 'toast-bottom-right',
+    });
+  }
+  wishlist_refresh(){
+    this.commonService.on<string>().subscribe(
+      (message: any) => {
+        if (message == 'true') {
+          this.product_wishlist();
+        }
+      }
+    );
+  }
+  compare_refresh(){
+    this.commonService.pro_comp_on<string>().subscribe(
+      (message: any) => {
+        if (message == 'true') {
+          this.product_comapre();
+        }
+      }
+    );    
+  }
 }

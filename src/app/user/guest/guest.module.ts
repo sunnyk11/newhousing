@@ -23,10 +23,11 @@ import { NgImageSliderModule } from 'ng-image-slider';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import { AmenitiesactivePipe } from './pipes/amenitiesactive.pipe';
-import { ClipboardModule } from 'ngx-clipboard';
 import { SubscriptionPlansComponent } from './components/subscription-plans/subscription-plans.component';
 import { LoginComponent } from './components/login/login.component';
 import { LogoutComponent } from './components/logout/logout.component';
+import { WishlistComponent } from './components/wishlist/wishlist.component';
+import { CompareComponent } from './components/compare/compare.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,8 @@ import { LogoutComponent } from './components/logout/logout.component';
     SubscriptionPlansComponent,
     LoginComponent,
     LogoutComponent,
+    WishlistComponent,
+    CompareComponent,
   ],
   imports: [
     CommonModule,
@@ -61,7 +64,6 @@ import { LogoutComponent } from './components/logout/logout.component';
       apiKey: 'AIzaSyC2S5kHeGYkW9cL4d7_uxfauTBfQEtN4HA', libraries: ['places']
     }),
     NgImageSliderModule,
-    ClipboardModule, 
     NgxSliderModule,
     FormsModule,
     ReactiveFormsModule

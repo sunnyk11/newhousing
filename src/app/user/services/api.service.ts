@@ -26,7 +26,7 @@ export class ApiService {
     };
     const authToken = this.jwtService.getToken();
     if(authToken.length > 0){
-      headersConfig['Authorization'] = authToken;
+      headersConfig['Authorization'] = 'Bearer '+authToken;
     }
     return new HttpHeaders(headersConfig);
   }
