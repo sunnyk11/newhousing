@@ -15,4 +15,9 @@ export class LoginPageService {
     const route = "/api/auth/login";
     return this.apiService.post<ResultModel>(route, reqModel);
   }
+
+  getUserPhoneDetails(reqModel: any): Observable<ResultModel> {
+    const route = "/api/auth/verify_user_mobile";
+    return this.apiService.get<ResultModel>(route, reqModel);
+  }
 }

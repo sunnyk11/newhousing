@@ -25,7 +25,7 @@ export class ArticalsComponent implements OnInit {
   getArtical(){
     this.indexPageService.getArtical({ param: null }).subscribe(
       response => {
-        console.log(response);
+        //console.log(response);
         this.artical_data=response;
       }
     );

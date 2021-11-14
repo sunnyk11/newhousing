@@ -26,7 +26,7 @@ export class LogoutComponent implements OnInit {
     else {
       //console.log("Logout Page: Token Not Available");
     }
-    this.commonService.sendUpdate(this.LoggedIn, "");
+    this.commonService.sendUpdate(this.LoggedIn, "", "");
   }
 
 }

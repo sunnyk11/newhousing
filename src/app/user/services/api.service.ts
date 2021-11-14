@@ -26,10 +26,23 @@ export class ApiService {
     };
     const authToken = this.jwtService.getToken();
     if(authToken.length > 0){
-      headersConfig['Authorization'] = authToken;
+      headersConfig['Authorization'] = 'Bearer ' + authToken;
     }
     return new HttpHeaders(headersConfig);
   }
+
+  private setHeaders1():HttpHeaders {
+    const headersConfig = {
+      Accept:"application/json",
+      "Authorization":"NA"
+    };
+    const authToken = this.jwtService.getToken();
+    if(authToken.length > 0){
+      headersConfig['Authorization'] = 'Bearer ' + authToken;
+    }
+    return new HttpHeaders(headersConfig);
+  }
+
   private formatErrors(error: any){
     return throwError(error);
   }
@@ -69,6 +82,16 @@ export class ApiService {
       })
       .pipe(catchError(this.formatErrors));
   }
+
+  post1<ResultModel>(path: string, body: any): Observable<ResultModel> {
+
+    return this.http
+      .post<ResultModel>(`${environment.apiUrl}${path}`, body, {
+        headers: this.setHeaders1()
+      })
+      .pipe(catchError(this.formatErrors));
+  }
+
 
   patch<ResultModel>(path: string, body: Object = {}): Observable<ResultModel> {
     return this.http

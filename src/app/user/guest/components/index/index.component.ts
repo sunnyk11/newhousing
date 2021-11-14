@@ -100,6 +100,7 @@ export class IndexComponent implements OnInit {
       }
     );
   }
+
   navigate(): void{
     let data:any= this.searchForm.value;
     this.router.navigate(['/product-listing'],{

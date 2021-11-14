@@ -36,7 +36,7 @@ export class HomepagefeatureComponent implements OnInit {
   
   // wishlist add 
   wishlist_added(data: any){
-    console.log(data);
+    //console.log(data);
   }
   navigate(id:any){
     const url:any = this.router.navigate(['/product-details'],{queryParams:{'id': btoa(id)}});

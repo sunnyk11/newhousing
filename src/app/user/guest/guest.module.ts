@@ -27,6 +27,13 @@ import { ClipboardModule } from 'ngx-clipboard';
 import { SubscriptionPlansComponent } from './components/subscription-plans/subscription-plans.component';
 import { LoginComponent } from './components/login/login.component';
 import { LogoutComponent } from './components/logout/logout.component';
+import { SafeUrlPipe } from './pipes/safe-url.pipe';
+import { ProPaymentSummaryComponent } from './components/pro-payment-summary/pro-payment-summary.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { LoginCheckComponent } from './modals/login-check/login-check.component';
+import { VerifyMobileComponent } from './components/verify-mobile/verify-mobile.component';
+import { InvoiceComponent } from './components/invoice/invoice.component';
+import { MobileCheckComponent } from './modals/mobile-check/mobile-check.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +54,12 @@ import { LogoutComponent } from './components/logout/logout.component';
     SubscriptionPlansComponent,
     LoginComponent,
     LogoutComponent,
+    SafeUrlPipe,
+    ProPaymentSummaryComponent,
+    LoginCheckComponent,
+    VerifyMobileComponent,
+    InvoiceComponent,
+    MobileCheckComponent,
   ],
   imports: [
     CommonModule,
@@ -61,10 +74,8 @@ import { LogoutComponent } from './components/logout/logout.component';
       apiKey: 'AIzaSyC2S5kHeGYkW9cL4d7_uxfauTBfQEtN4HA', libraries: ['places']
     }),
     NgImageSliderModule,
-    ClipboardModule, 
-    NgxSliderModule,
-    FormsModule,
-    ReactiveFormsModule
+    ClipboardModule,
+    NgbModule
   ],
 })
 export class GuestModule { }
