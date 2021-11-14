@@ -27,13 +27,13 @@ export class CommonService {
     return this.apiService.get<ResultModel>(route, reqModel);
   }
 
-  sendUpdate(message: boolean) {
-    console.log("Send Update called");
-    this.login_check.next({ text:message });
+  sendUpdate(message: boolean, username: string, profile_pic: string) {
+    //console.log("Send Update called");
+    this.login_check.next({ text:message, name:username, profile_pic: profile_pic });
   }
 
   getUpdate(): Observable<any> {
-    console.log("Get Update called");
+    //console.log("Get Update called");
     return this.login_check.asObservable();
   }
 }

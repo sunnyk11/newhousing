@@ -49,7 +49,7 @@ export class JwtService {
   }
 
   saveUser(data: any) {
-    window.localStorage.clear();
+    //window.localStorage.clear();
     //console.log(data);
     window.localStorage["AUTH_TOKEN"] = JSON.stringify(data.access_token);
     window.localStorage["USER_EMAIL"] = JSON.stringify(data.email);
@@ -57,7 +57,41 @@ export class JwtService {
     window.localStorage["USER_NAME"] = JSON.stringify(data.username);
     window.localStorage["USER_TYPE"] = JSON.stringify(data.usertype);
     window.localStorage["USER_PROFILE_PIC"] = JSON.stringify(data.misc.profile_pic);
-    this.router.navigate([""]);
+    //this.router.navigate([""]);
+  }
+
+  saveGoogleUser(token: any, data: any) {
+    //window.localStorage.clear();
+    //console.log(data);
+    this.user_data = JSON.parse(data);
+    //console.log(this.user_data);
+    //console.log(token);
+    window.localStorage["AUTH_TOKEN"] = JSON.stringify(token);
+    window.localStorage["USER_EMAIL"] = JSON.stringify(this.user_data.email);
+    window.localStorage["USER_ID"] = JSON.stringify(this.user_data.id);
+    window.localStorage["USER_NAME"] = JSON.stringify(this.user_data.name);
+    window.localStorage["USER_TYPE"] = JSON.stringify(this.user_data.usertype);
+    window.localStorage["USER_PROFILE_PIC"] = this.user_data.profile_pic;
+    //this.router.navigate([""]);
+  }
+
+  savePlansData(data: any) {
+    window.localStorage.removeItem("PLANS_DATA");
+    window.localStorage["PLANS_DATA"] = JSON.stringify(data);
+  }
+
+  saveReturnURL(url: any) {
+    //console.log(url);
+   // window.localStorage.removeItem("RETURN_URL");
+    window.localStorage["RETURN_URL"] = JSON.stringify(url);
+  }
+
+  getReturnURL() {
+    return window.localStorage["RETURN_URL"];
+  }
+
+  getPlansData() {
+    return window.localStorage["PLANS_DATA"];
   }
 
   getUserEmail() {

@@ -28,7 +28,7 @@ export class ProductListingDetailsComponent implements OnInit {
   
   // wishlist add 
   wishlist_added(data: any){
-    console.log(data);
+    //console.log(data);
   }
 
   // wishlist delete

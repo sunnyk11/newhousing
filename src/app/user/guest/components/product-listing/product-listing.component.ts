@@ -106,7 +106,7 @@ export class ProductListingComponent implements OnInit {
           this.minimum=this.data.sliderControl[0];
           this.maximum=this.data.sliderControl[1];
             if(params.amenties.length>0){  
-              console.log(params.amenties);          
+              //console.log(params.amenties);          
             this.amenties_convert=atob(params.amenties);  
             this.search_amenties=this.amenties_convert.split(',');
             }
@@ -193,7 +193,7 @@ export class ProductListingComponent implements OnInit {
     let data:any= this.searchForm.value;
     let url='product-listing?data=';
     this.shareableurl=environment.siteURL+url+btoa(JSON.stringify(data))+'&amenties='+btoa(this.amenityArray);
-    console.log(this.shareableurl);
+    //console.log(this.shareableurl);
     this._clipboardService.copy(this.shareableurl);
     // document.execCommand('copy');
   }   

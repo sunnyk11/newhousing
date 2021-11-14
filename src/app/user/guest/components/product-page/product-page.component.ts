@@ -10,100 +10,100 @@ import { Router } from '@angular/router';
   templateUrl: './product-page.component.html',
   styleUrls: ['./product-page.component.css']
 })
-export class ProductPageComponent implements OnInit{
+export class ProductPageComponent implements OnInit {
 
-  public product_details:any;
+  public product_details: any;
   public youtube_url: any;
-  public safeURL:any;
-  public product_data:any;
-  public isReadMore :boolean=true;
-  public ftpstring=environment.ftpURL;
-  public property:any;
-  public similar_property:any;
-  public latCus:any;
-  public longCus:any;
-  public address:string='';
+  public safeURL: any;
+  public product_data: any;
+  public isReadMore: boolean = true;
+  public ftpstring = environment.ftpURL;
+  public property: any;
+  public similar_property: any;
+  public latCus: any;
+  public longCus: any;
+  public address: string = '';
   public product_images: any;
   public product_img_length: any;
-  public imageObject: any=[];
-  public showLoadingIndicator:boolean=false;
+  public imageObject: any = [];
+  public showLoadingIndicator: boolean = false;
 
-  private e:any;
-  private product_id:any;
+  private e: any;
+  private product_id: any;
 
   constructor(
     private _sanitizer: DomSanitizer,
-     private route:ActivatedRoute,
-     private ProductPageService: ProductPageService,
-     private router:Router
+    private route: ActivatedRoute,
+    private ProductPageService: ProductPageService,
+    private router: Router
   ) {
     this.route.queryParams.subscribe((params) => {
-      if(params.id.length>2){
-        this.product_id=atob(params.id);
+      if (params.id.length > 2) {
+        this.product_id = atob(params.id);
         this.single_product_details(this.product_id);
-      }else{
+      } else {
         this.redirect_to_home_page();
       }
     });
-   }
+  }
 
   ngOnInit(): void {
   }
   // fetch amenties advance tab
-  single_product_details(id:number){
-    let param={id:id}
+  single_product_details(id: number) {
+    let param = { id: id }
     this.showLoadingIndicator = true;
     this.ProductPageService.single_product_details(param).subscribe(
       response => {
-        this.product_details=response;
-        this.product_data=this.product_details.data;
-        if(this.product_details.data != null){
-          this.youtube_url = "https://www.youtube-nocookie.com/embed/" + this.product_data.video_link+"?playlist="+this.product_data.video_link+"&loop=1&mute=1";          
+        this.product_details = response;
+        this.product_data = this.product_details.data;
+        if (this.product_details.data != null) {
+          this.youtube_url = "https://www.youtube-nocookie.com/embed/" + this.product_data.video_link + "?playlist=" + this.product_data.video_link + "&loop=1&mute=1";
           this.safeURL = this._sanitizer.bypassSecurityTrustResourceUrl(this.youtube_url);
           this.similarproperty(this.product_data.city);
-          this.address=this.product_data.address;
-          this.latCus=parseFloat(this.product_data.map_latitude);
-          this.longCus=parseFloat(this.product_data.map_longitude);
-          
+          this.address = this.product_data.address;
+          this.latCus = parseFloat(this.product_data.map_latitude);
+          this.longCus = parseFloat(this.product_data.map_longitude);
+
           // slider functionalty
           this.product_images = this.product_data.product_img;
           this.product_img_length = this.product_data.product_img.length;
-          if(this.product_img_length>0){
-            for(let i=0;i<this.product_img_length; i++){
+          if (this.product_img_length > 0) {
+            for (let i = 0; i < this.product_img_length; i++) {
               this.imageObject.push({
-                image:this.ftpstring+this.product_images[i]["image"],
-                thumbImage:this.ftpstring+this.product_images[i]["image"],
+                image: this.ftpstring + this.product_images[i]["image"],
+                thumbImage: this.ftpstring + this.product_images[i]["image"],
                 title: this.product_data.build_name
-            });
-            }            
+              });
+            }
           }
-         this.showLoadingIndicator = false;
-        }else{
+          this.showLoadingIndicator = false;
+        } else {
           this.redirect_to_home_page();
         }
       }
     );
   }
   // fetch similar property 
-  similarproperty(cityname: any){
-    let param={cityname:cityname}
+  similarproperty(cityname: any) {
+    let param = { cityname: cityname }
     this.ProductPageService.getsimilarproperty(param).subscribe(
       response => {
-        this.similar_property=response;
+        this.similar_property = response;
       }
     );
   }
   // property compare
-  product_comp(id:number){}
-  
+  product_comp(id: number) { }
+
   // wishlist add 
-  wishlist_added(data: any){
-    console.log(data);
+  wishlist_added(data: any) {
+    //console.log(data);
   }
 
   // wishlist delete
-  Wishlist_remove(data: any){}
-  
+  Wishlist_remove(data: any) { }
+
   showText() {
     this.isReadMore = !this.isReadMore
   }
@@ -119,20 +119,24 @@ export class ProductPageComponent implements OnInit{
       return (num / 100000).toFixed(2).replace(/\.0$/, '') + 'Lac';
     }
     if (num >= 1000) {
-      this.e=num;
+      this.e = num;
       var t = (this.e = this.e ? this.e.toString() : "").substring(this.e.length - 3)
-      , n = this.e.substring(0, this.e.length - 3);
+        , n = this.e.substring(0, this.e.length - 3);
       return "" !== n && (t = "," + t),
-      n.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + t
+        n.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + t
     }
     return num;
   }
-  navigate(id:any){
-    const url:any = this.router.createUrlTree(['/product-details'],{queryParams:{'id': btoa(id)}})
+  navigate(id: any) {
+    const url: any = this.router.createUrlTree(['/product-details'], { queryParams: { 'id': btoa(id) } })
     window.open(url.toString(), '_blank')
   }
   redirect_to_home_page(): void {
     this.router.navigate(['/'])
+  }
+
+  proceedToPayment(productId:any) {
+    this.router.navigate(['/product_payment_summary'], { queryParams: {'productID': productId } });
   }
   // carosule image
   customOptions: OwlOptions = {
