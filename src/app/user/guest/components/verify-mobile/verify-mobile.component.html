@@ -1,0 +1,69 @@
+<!--Breadcrumb-->
+<div class="bg-secondary">
+    <div class="container-fluid py-4">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Verify Mobile</li>
+            </ol>
+        </nav>
+        <h2 class="col-custom">Verify Mobile</h2>
+    </div>
+</div>
+
+<div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+            <div class="card shadow text-dark login-card">
+                <div class="card-body p-5 text-center">
+
+                    <div class="mb-md-5 mt-md-4 pb-5">
+                        <form [formGroup]="verifyForm" *ngIf="!verify" (ngSubmit)="onSubmit()" novalidate>
+                            <p class="text-secondary-50 mb-5">Please enter your mobile number</p>
+
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="mobile_number">Mobile</span>
+                                <input type="text" class="form-control" autocomplete="off" aria-label="Mobile Number" aria-describedby="mobile_number" formControlName="form_phone" minlength="10" maxlength="10" [ngClass]="{ 'is-invalid': submitted && f.form_phone.errors }" required>
+                            </div>
+                            <div class="alert alert-danger" role="alert" *ngIf="submitted && f.form_phone.invalid">
+                                <div *ngIf="f.form_phone.errors?.required">Mobile Number is required
+                                </div>
+                                <div *ngIf="f.form_phone.errors?.minlength">
+                                    Mobile Number must be 10 digits
+                                </div>
+                            </div>
+                            <button class="btn btn-thm btn-block btn-lg px-5" type="submit">Verify</button>
+                            <div class="alert alert-danger text-center mt-3" role="alert" *ngIf="submitted && isFailedVerify">
+                                <div *ngIf="errorMessage.errors && errorMessage.errors.other_mobile_number">
+                                    <p><strong>The Mobile Number is already registered.</strong></p>
+                                </div>
+                            </div>
+                        </form>
+
+                        <form [formGroup]="otpForm" *ngIf="verify" (ngSubmit)="onSubmitotp()" novalidate>
+                            <p class="text-secondary-50 mb-5">Enter OTP</p>
+
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="mobile_number">Mobile</span>
+                                <input type="text" class="form-control" autocomplete="off" formControlName="otp_password" minlength="6" [ngClass]="{ 'is-invalid': otp_submitted && g.otp_password.errors }" required>
+                            </div>
+                            <div class="alert alert-danger" role="alert" *ngIf="otp_submitted && g.otp_password.invalid">
+                                <div *ngIf="g.otp_password.errors?.required">OTP is required
+                                </div>
+                                <div *ngIf="g.otp_password.errors?.minlength">
+                                    OTP must be 6 digits
+                                </div>
+                            </div>
+                            <button class="btn btn-thm btn-block btn-lg px-5" type="submit">Verify</button>
+                            <div class="alert alert-danger text-center" role="alert" *ngIf="otp_submitted && isFailedVerify_otp">
+                                <div *ngIf="errorMessage">
+                                    <p><strong>Verification failed.</strong></p>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

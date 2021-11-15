@@ -28,6 +28,13 @@ import { LoginComponent } from './components/login/login.component';
 import { LogoutComponent } from './components/logout/logout.component';
 import { WishlistComponent } from './components/wishlist/wishlist.component';
 import { CompareComponent } from './components/compare/compare.component';
+import { SafeUrlPipe } from './pipes/safe-url.pipe';
+import { ProPaymentSummaryComponent } from './components/pro-payment-summary/pro-payment-summary.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { LoginCheckComponent } from './modals/login-check/login-check.component';
+import { VerifyMobileComponent } from './components/verify-mobile/verify-mobile.component';
+import { InvoiceComponent } from './components/invoice/invoice.component';
+import { MobileCheckComponent } from './modals/mobile-check/mobile-check.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +57,12 @@ import { CompareComponent } from './components/compare/compare.component';
     LogoutComponent,
     WishlistComponent,
     CompareComponent,
+    SafeUrlPipe,
+    ProPaymentSummaryComponent,
+    LoginCheckComponent,
+    VerifyMobileComponent,
+    InvoiceComponent,
+    MobileCheckComponent,
   ],
   imports: [
     CommonModule,
@@ -64,9 +77,7 @@ import { CompareComponent } from './components/compare/compare.component';
       apiKey: 'AIzaSyC2S5kHeGYkW9cL4d7_uxfauTBfQEtN4HA', libraries: ['places']
     }),
     NgImageSliderModule,
-    NgxSliderModule,
-    FormsModule,
-    ReactiveFormsModule
+    NgbModule
   ],
 })
 export class GuestModule { }

@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { CommonService } from '../../guest/services/common.service';
 import { environment } from 'src/environments/environment';
 import { ToastrService } from 'ngx-toastr';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-guest-header',
@@ -16,6 +17,7 @@ export class GuestHeaderComponent implements OnInit {
   public userEmail: string = '';
   public userId: string = '';
   public profile_pic: string = '';
+  public google_profile_pic: any;
   public userName: string = '';
   private logged_in: Subscription;
   public ftpstring = environment.ftpURL;
@@ -24,11 +26,13 @@ export class GuestHeaderComponent implements OnInit {
   public property_comp:any={};
   public property_comp_length:number=0;
   public token: string='';
+  private google_token: string=' ';
 
 
   constructor(
     private jwtService: JwtService,
     private commonService: CommonService,
+    private sanitizer:DomSanitizer,
     private toastr: ToastrService
   ) { 
     this.logged_in = this.commonService.getUpdate().subscribe(
@@ -49,8 +53,11 @@ export class GuestHeaderComponent implements OnInit {
       this.LoggedIn = true;
       this.userEmail = this.jwtService.getUserEmail();
       this.userId = this.jwtService.getUserId();
-      this.profile_pic = JSON.parse(this.jwtService.getProfilePic());
-      this.userName = JSON.parse(this.jwtService.getUserName());
+      this.profile_pic = this.jwtService.getProfilePic();
+        if(this.profile_pic?.indexOf('https') != -1) {
+          this.google_profile_pic = this.sanitize(this.profile_pic)
+        }
+      this.userName = this.jwtService.getUserName();
       this.product_wishlist();
       this.product_comapre();
       // wishlist refresh function 
@@ -104,4 +111,8 @@ export class GuestHeaderComponent implements OnInit {
       }
     );    
   }
+  
+  sanitize(url:string){
+    return this.sanitizer.bypassSecurityTrustUrl(url);
+}
 }

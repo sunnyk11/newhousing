@@ -14,19 +14,19 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './product-page.component.html',
   styleUrls: ['./product-page.component.css']
 })
-export class ProductPageComponent implements OnInit{
+export class ProductPageComponent implements OnInit {
 
-  public product_details:any;
+  public product_details: any;
   public youtube_url: any;
-  public safeURL:any;
-  public product_data:any;
-  public isReadMore :boolean=true;
-  public ftpstring=environment.ftpURL;
-  public property:any;
-  public similar_property:any;
-  public latCus:any;
-  public longCus:any;
-  public address:string='';
+  public safeURL: any;
+  public product_data: any;
+  public isReadMore: boolean = true;
+  public ftpstring = environment.ftpURL;
+  public property: any;
+  public similar_property: any;
+  public latCus: any;
+  public longCus: any;
+  public address: string = '';
   public product_images: any;
   public product_img_length: any;
   public imageObject: any=[];
@@ -37,8 +37,8 @@ export class ProductPageComponent implements OnInit{
   public login_userid:number= 0;
   public product_length:number=0;
 
-  private e:any;
-  private product_id:any;
+  private e: any;
+  private product_id: any;
 
   constructor(
     private _sanitizer: DomSanitizer,
@@ -53,17 +53,17 @@ export class ProductPageComponent implements OnInit{
       if(params.id != null){
         this.product_id=params.id;
         this.single_product_details(this.product_id);
-      }else{
+      } else {
         this.redirect_to_home_page();
       }
     });
-   }
+  }
 
   ngOnInit(): void {
   }
   // fetch amenties advance tab
-  single_product_details(id:number){
-    let param={id:id}
+  single_product_details(id: number) {
+    let param = { id: id }
     this.showLoadingIndicator = true;
     if(this.jwtService.getToken()){
       this.recently_product_count(this.product_id);
@@ -234,11 +234,11 @@ export class ProductPageComponent implements OnInit{
       return (num / 100000).toFixed(2).replace(/\.0$/, '') + 'Lac';
     }
     if (num >= 1000) {
-      this.e=num;
+      this.e = num;
       var t = (this.e = this.e ? this.e.toString() : "").substring(this.e.length - 3)
-      , n = this.e.substring(0, this.e.length - 3);
+        , n = this.e.substring(0, this.e.length - 3);
       return "" !== n && (t = "," + t),
-      n.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + t
+        n.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + t
     }
     return num;
   }
@@ -260,6 +260,10 @@ export class ProductPageComponent implements OnInit{
   pro_comp_refresh(){
     this.CommonService.pro_comp_emit<string>('true');
   } 
+
+  proceedToPayment(productId:any) {
+    this.router.navigate(['/product_payment_summary'], { queryParams: {'productID': productId } });
+  }
   // carosule image
   customOptions: OwlOptions = {
     loop: true,

@@ -1,0 +1,178 @@
+<div class="container mt20 mb20">
+    <div class="accordion" id="accordionExample">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    Choose a Plan
+                </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <div class="row">
+                        <table class="table table-hover table-bordered plans-rent">
+                            <thead>
+                                <tr>
+                                    <th scope="col">&nbsp;</th>
+                                    <th scope="col" *ngFor="let plan of rent_response?.data">{{ plan.plan_name }} <br>
+                                        <span>{{ plan.payment_type }} Payment</span>
+                                        <hr>
+                                        <span>{{ plan.plan_price }} Days Rent</span> <br>
+                                        <span>Rs. {{ expected_rent /
+                                            (30 / plan.plan_price)}}</span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody *ngFor="let rent_feature of rent_feat_res">
+                                <tr class="visible-xs" aria-hidden="true">
+                                    <td>&nbsp;</td>
+                                    <td colspan="3">{{rent_feature.feature_name}}</td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <span class="ptable-title">{{rent_feature.feature_name}}</span>
+                                    </th>
+                                    <td *ngIf="rent_feature.feature_details[0] === 'yes'"><span class="checkmark">&#10003;</span></td>
+                                    <td *ngIf="rent_feature.feature_details[0] === 'no'"><span class="wrong-sym">&#215;</span></td>
+                                    <td *ngIf="rent_feature.feature_details[0] != 'no' && rent_feature.feature_details[0] != 'yes'">
+                                        <span>{{rent_feature.feature_details[0]}}</span>
+                                    </td>
+
+                                    <td *ngIf="rent_feature.feature_details[1] === 'yes'"><span class="checkmark">&#10003;</span></td>
+                                    <td *ngIf="rent_feature.feature_details[1] === 'no'">
+                                        <span class="wrong-sym">&#215;</span>
+                                    </td>
+                                    <td *ngIf="rent_feature.feature_details[1] != 'no' && rent_feature.feature_details[1] != 'yes'">
+                                        <span>{{rent_feature.feature_details[1]}}</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tbody>
+                                <!-- Buttons -->
+                                <tr>
+                                    <td>&nbsp;</td>
+                                    <td *ngFor="let plan of rent_response?.data"><button class="btn btn-success" data-bs-toggle="collapse" data-bs-target="#collapseTwo" (click)="plan_payment(plan.plan_name, plan.plan_ID, plan.payment_type, 'rent', expected_rent, plan.plan_price)" id="select_plan">Select Plan</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    Payment Summary
+                </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <div class="container mt-4">
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <div class="row">
+                                    <div class="card text-center mb20">
+                                        <div class="card-header">
+                                            <h4>Property Details</h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row subRow">
+
+                                                <div class="col-lg-4 col-md-6">
+                                                    <p class="text-muted row1">Property Name</p>
+                                                    <p class="row2">{{ product_data['0']?.build_name }}</p>
+                                                </div>
+
+                                                <div class="col-lg-4 col-md-6">
+                                                    <p class="text-muted row1">Property Size</p>
+                                                    <p class="row2">{{ product_data[0]?.area }} {{ product_data[0]?.area_unit }}</p>
+                                                </div>
+
+                                                <div class="col-lg-4 col-md-6">
+                                                    <p class="text-muted row1">Rent</p>
+                                                    <p class="row2">{{ product_data[0]?.expected_rent }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="card text-center mb20">
+                                        <div class="card-header">
+                                            <h4>Plan Details</h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row subRow">
+                                                <div class="col-lg-6 col-md-6">
+                                                    <p class="text-muted row1">Plan Name</p>
+                                                    <p class="row2">{{ plan_name }}</p>
+                                                </div>
+
+                                                <div class="col-lg-6 col-md-6">
+                                                    <p class="text-muted row1">Plan Price</p>
+                                                    <p class="row2">{{ plan_price }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <div class="card text-center mb20">
+                                    <div class="card-header">
+                                        <h4>Payment Details</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <h6><strong>Payable to Owner</strong></h6>
+                                        <hr>
+                                        <h6>1 Month Rent: <strong>{{ expected_rent }}</strong></h6>
+                                        <h6>Security Deposit ({{security_deposit}} Months): <strong>{{
+                                                security_dep_amount }}</strong></h6>
+                                        <h6 *ngIf="product_data[0]?.maintenance_charge_status == '1'">Maintenance Charge({{ product_data[0]?.maintenance_charge_condition }}):
+                                            <strong>{{product_data[0].maintenance_charge}}</strong>
+                                        </h6>
+                                        <hr>
+                                        <h6><strong>Total Amount: <strong>{{ total_amount_owner }}</strong></strong>
+                                        </h6>
+                                        <hr>
+
+                                        <h6><strong>Payable to HousingStreet</strong></h6>
+                                        <hr>
+                                        <h6>Plan Price: <strong>{{ plan_price }}</strong></h6>
+                                        <h6>GST@18%: <strong>{{ gst_amount }}</strong></h6>
+                                        <hr>
+                                        <h6><strong>Total Amount: <strong>{{ total_amount_hs }}</strong></strong>
+                                        </h6>
+                                        <hr>
+                                        <h4><strong>Total Payable Amount: {{ total_amount_hs + total_amount_owner
+                                                }}</strong></h4>
+                                        <div class="d-grid gap-3">
+                                            <label>Mode of Payment</label>
+                                            <div class="p-2 bg-light border">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="payment" id="online_payment" value="Online" (change)="changePayment($event)" checked>
+                                                    <label class="form-check-label" for="online_payment">
+                                                        Online Payment
+                                                    </label>
+                                                </div>
+
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="payment" id="cash_payment" value="Cash" (change)="changePayment($event)">
+                                                    <label class="form-check-label" for="cash_payment">
+                                                        Payment By Cash
+                                                    </label>
+                                                </div>
+                                                <button class="btn btn-success" *ngIf="online_pay_btn" (click)="proceedToPayment()">Proceed to Payment</button>
+                                                <button class="btn btn-info" *ngIf="cash_pay_btn" (click)="generateInvoice()">Generate Invoice</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

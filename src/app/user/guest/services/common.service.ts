@@ -47,7 +47,7 @@ export class CommonService {
     const route = "/api/product/user_recently_pro";
     return this.apiService.get<ResultModel>(route, reqModel);
   }
-  sendUpdate(message: boolean,token:any) {
+  sendUpdate(message: boolean,token:any,) {
     this.login_check.next({ text:message,token:token });
   }
   getUpdate(): Observable<any> {

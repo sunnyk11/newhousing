@@ -32,4 +32,11 @@ export class ProductPageService {
     const route = "/api/product/recently_product_user"; 
     return this.apiService.post<ResultModel>(route, reqModel);
   }
+
+  get_product_details(reqModel:any): Observable<ResultModel> {
+    const route = "/api/get_product_details"
+    return this.apiService.post<ResultModel>(route, JSON.stringify({
+      id: reqModel
+    }));
+  } 
 }
