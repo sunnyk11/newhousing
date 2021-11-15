@@ -1,0 +1,112 @@
+<div class="wrapper">
+    <div class="p-5 bg-secondary rounded-3">
+        <div class="container-fluid py-5">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Wishlist</li>
+                </ol>
+            </nav>
+            <h2 class="col-custom">Wishlist</h2>
+        </div>
+    </div> 
+    <div class="alert alart_style_one mt20 mx-3" role="alert">
+       {{wishlist_length}}  Wishlist Results
+    </div>
+    <div class="container">   
+        <div class="row preloader_row"  *ngIf="showLoadingIndicator">
+            <div class="col-lg-12" >
+                <div class="preloader"></div>
+            </div>
+        </div>
+        <div class="row propertyListingPage"*ngIf="wishlist_length>0">
+            <div class="col-12 col-lg-4"
+                    *ngFor="let data of property?.data">
+                    <div class="feat_property home7 style4">
+                    <owl-carousel-o [options]="customOptions" *ngIf="data?.productdetails?.product_img.length>0;else OtherImage">
+                        <ng-template carouselSlide *ngFor="let img of data?.productdetails?.product_img">
+                        <img class="img-whp" src="{{ftpstring}}{{img?.image}}" alt="img1.jpg">
+                        <div class="thumb">
+                            <div class="thmb_cntnt style2">
+                            <ul class="tag mb0">
+                                <li class="list-inline-item" *ngIf="data?.productdetails?.rent_availability != null"><a>For Rent</a></li>
+                                <li class="list-inline-item" *ngIf="data?.productdetails?.sale_availability != null"><a>For Sale</a></li>
+                            </ul>
+                            </div>
+                            <div class="thmb_cntnt style3">
+                            <ul class="icon mb0">
+                                <li class="list-inline-item">
+                                    <a (click)="wishlist_remove(data.product_id)">
+                                        <i class="fa fa-heart" aria-hidden="true"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                            <a *ngIf="data?.productdetails?.expected_pricing != null" class="fp_price">₹
+                                {{Price_convert(data?.productdetails?.expected_pricing)}}<small></small></a>
+                            <a *ngIf="data?.productdetails?.expected_rent != null" class="fp_price">₹ {{
+                                Price_convert(data?.productdetails?.expected_rent)}}<small></small></a>
+                            </div>
+                        </div>
+                        </ng-template>
+                    </owl-carousel-o>
+                    <ng-template #OtherImage>
+                        <img class="img-whp lazy" alt="No Product Image" style="height: 250px;"
+                        src="./../../assets/resources/images/no_image_available.jpg">
+                        <div class="thumb">
+                        <div class="thmb_cntnt style2">
+                            <ul class="tag mb0">
+                            <li class="list-inline-item" *ngIf="data?.productdetails?.rent_availability != null"><a>For Rent</a></li>
+                            <li class="list-inline-item" *ngIf="data?.productdetails?.sale_availability != null"><a>For Sale</a></li>
+                            </ul>
+                        </div>
+                        <div class="thmb_cntnt style3">
+                            <ul class="icon mb0">
+                                <li class="list-inline-item">
+                                <a (click)="wishlist_remove(data.product_id)">
+                                    <i class="fa fa-heart" aria-hidden="true"></i>
+                                </a>
+                                </li>
+                            </ul>
+                            <a *ngIf="data?.productdetails?.expected_pricing != null" class="fp_price">₹
+                            {{Price_convert(data?.productdetails?.expected_pricing)}}<small></small></a>
+                            <a *ngIf="data?.productdetails?.expected_rent != null" class="fp_price">₹ {{
+                            Price_convert(data?.productdetails?.expected_rent)}}<small></small></a>
+                        </div>
+                        </div>
+                    </ng-template>
+
+                    <div class="details">
+                        <a (click)="navigate(data.id,data.build_name,data.city)">
+                        <div class="tc_content">
+                            <p class="text-thm" *ngIf="data.property__type != null">{{ data?.productdetails?.property__type.name |
+                            titlecase }}</p>
+                            <h4>{{data?.productdetails?.build_name | titlecase}}</h4>
+                            <p><span class="flaticon-placeholder"></span> {{ data?.productdetails?.address | titlecase }}</p>
+                            <ul class="prop_details mb0">
+                            <li class="list-inline-item"><a>Beds: {{ data?.productdetails?.bedroom }}</a></li>
+                            <li class="list-inline-item"><a>Baths: {{ data?.productdetails?.bathroom }}</a></li>
+                            <li class="list-inline-item"><a>Area unit: {{ data?.productdetails?.area_unit }}</a></li>
+                            </ul>
+                        </div>
+                        </a>
+                        <div class="fp_footer" id="user_details">
+                        <ul class="fp_meta float-left mb0">
+                            <li class="list-inline-item"><a href="#">
+                                <img src="./../../assets/resources/images/property/pposter1.png"
+                                alt="pposter1.png"></a></li>
+                            <li class="list-inline-item"><a href="#">{{data?.productdetails?.user_detail.name | titlecase}}</a></li>
+                            <div class="fp_pdate float-right" *ngIf="data?.productdetails?.product_comparision==null">
+                            <button type="button" (click)="product_comp(data.product_id)"
+                                class="btn btn-log btn-block btn-thm bg-white text-black-50">Add to compare</button>
+                            </div>
+                            <div class="fp_pdate float-right" *ngIf="data?.productdetails.product_comparision !=null">
+                            <button type="button" class="btn  text-black-50 bucket-btn">Added To Compare</button>
+                            </div>
+                        </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>   
+</div>

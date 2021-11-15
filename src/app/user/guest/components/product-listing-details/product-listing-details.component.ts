@@ -2,6 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
+import { JwtService } from 'src/app/user/services/jwt.service';
+import { CommonService } from '../../services/common.service';
 
 
 @Component({
@@ -17,14 +19,26 @@ export class ProductListingDetailsComponent implements OnInit {
   public ftpstring=environment.ftpURL;
 
   constructor(
-    private router:Router
+    private router:Router,
+    private jwtService: JwtService,
+    public CommonService:CommonService
     ) { }
 
   ngOnInit(): void {
   }
   
   // property compare
-  product_comp(id:number){}
+  product_comp(id:number){
+    let param={id:id}
+    if(this.jwtService.getToken()){
+      this.CommonService.product_comp({param}).subscribe(
+      response => {
+        this.property;
+      }
+     );
+    }
+  }
+  
   
   // wishlist add 
   wishlist_added(data: any){
@@ -54,8 +68,9 @@ export class ProductListingDetailsComponent implements OnInit {
     }
     return num;
   }
-  navigate(id:any){
-    const url:any = this.router.navigate(['/product-details'],{queryParams:{'id': btoa(id)}});
+  
+  navigate(id:number,name:string,city:string){
+    this.router.navigate(['/product-details'],{queryParams:{'id':id,'name':name,'city':city}})
   }
   // carosule image
   customOptions: OwlOptions = {

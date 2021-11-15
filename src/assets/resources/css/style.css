@@ -4575,8 +4575,8 @@ agm-map{
   background-repeat: no-repeat;
   height: 100%;
   left: 0px;
-  position: fixed;
+  position: absolute;
   top: 0px;
   width: 100%;
-  z-index: 99999;
+  z-index: 999;
  }

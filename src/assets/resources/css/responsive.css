@@ -216,7 +216,7 @@
       position: relative!important;
       height: 30px!important;
       z-index: 9999!important;
-      padding: 0px 45px!important;
+      padding: 0px 35px!important;
       display: flex!important;
       top: 0px!important;
       right: 0px!important;
@@ -248,7 +248,8 @@
   #user_details ul .bucket-btn, .bg-white{
     font-size: 11px!important;
     margin: 0px!important;
-    padding: 0px 15px!important;
+    padding: 10px 15px!important;
+    float: right!important;
   }
   #user_details .fp_meta{
     width: 100%;

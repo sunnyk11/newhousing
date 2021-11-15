@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonService } from '../../services/common.service';
+import { Router } from '@angular/router';
+import { FormBuilder} from '@angular/forms';
+
 @Component({
   selector: 'app-product-category',
   templateUrl: './product-category.component.html',
@@ -8,9 +11,25 @@ import { CommonService } from '../../services/common.service';
 export class ProductCategoryComponent implements OnInit {
   
   public category:any={};
+  private amenityArray:any = [];
+
+  searchForm = this.formBuilder.group({
+    bathrooms: [''],
+    bedrooms: [''],
+    years: [''],
+    area_unit: [''],
+    search_type: ['Select Availability'],
+    build_name: [''],
+    type: [''],
+    location: [''],
+    city:[''],
+    sliderControl: [[5000,50000000]]
+  });
 
   constructor(
-    private CommonService: CommonService
+    private CommonService: CommonService,
+    private formBuilder: FormBuilder,
+    private router:Router
     ) { }
 
   ngOnInit(): void {
@@ -24,6 +43,12 @@ export class ProductCategoryComponent implements OnInit {
       }
     );
   } 
-  
+  on_search(id:number){
+    this.searchForm.controls['type'].setValue(id);
+    let data:any=this.searchForm.value;
+    console.log(this.searchForm.value);
+    const url:any = this.router.createUrlTree(['/product-listing'],{queryParams:{data:JSON.stringify(data),amenties:this.amenityArray}})
+    window.open(url.toString(), '_blank')
+  }
 
 }

@@ -15,7 +15,7 @@
                 <a class="nav-link" routerLink="product-listing">Listing</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Contact</a>
+                <a class="nav-link" routerLink="contact">Contact</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" [routerLink]="['plans']">Plans</a>
@@ -23,6 +23,22 @@
             <li class="nav-item">
                 <a class="nav-link" href="#">Blog</a>
             </li>
+             <li class="nav-item"  *ngIf="LoggedIn">
+                <a class="nav-link"  routerLink="wishlist"><i class="fa fa-heart" aria-hidden="true"></i>
+                    <span class="wishlistValue">{{wishlist_length}}</span></a>
+            </li>
+            <li class="nav-item"  *ngIf="LoggedIn">
+               <a class="nav-link"  routerLink="product-compare" *ngIf="property_comp_length>1;else otherPro_menu">
+                   <i class="fa fa-exchange" aria-hidden="true"></i>
+                   <span class="wishlistValue">{{property_comp_length}}</span>
+                </a>
+                <ng-template #otherPro_menu>
+                    <a class="nav-link compare" (click)="compare_notification()">
+                        <i class="fa fa-exchange" aria-hidden="true"></i>
+                        <span class="wishlistValue">{{property_comp_length}}</span>
+                     </a>
+                </ng-template>
+           </li>
             <li class="nav-item" *ngIf="!LoggedIn">
                 <a class="nav-link" [routerLink]="['login']">Login/Register</a>
             </li>
@@ -33,7 +49,13 @@
                 </a>
                 <ul class="dropdown-menu text-center user-info" aria-labelledby="navbarDropdown">
                     <li *ngIf="profile_pic && profile_pic.indexOf('https') == -1">
-                        <a class="dropdown-item "><img class="profile_image " src="{{ftpstring}}images/{{profile_pic}} " alt="Profile Pic "></a>
+                        <a class="dropdown-item " *ngIf="profile_pic == null;else OtherImage">
+                            <img class="profile_image"   src="{{ftpstring}}images/{{profile_pic}} " alt="Profile Pic">
+                        </a>
+                        <ng-template #OtherImage>
+                            <img style="width:30%;" class="align-self-start mr-3"
+                                src="./../../assets/resources/images/property/pposter1.png" alt="No Product Image">
+                        </ng-template>
                     </li>
                     <li *ngIf="profile_pic && profile_pic.indexOf('https') != -1">
                         <a class="dropdown-item "><img class="profile_image " [src]="google_profile_pic" alt="Profile Pic "></a>

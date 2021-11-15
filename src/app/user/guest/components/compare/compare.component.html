@@ -1,0 +1,118 @@
+<div class="wrapper">
+    <div class="p-5 bg-secondary rounded-3">
+        <div class="container-fluid py-5">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Compare</li>
+                </ol>
+            </nav>
+            <h2 class="col-custom">Compare</h2>
+        </div>
+    </div>
+    <section class="our-pricing bgc-fa">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 offset-lg-3">
+                    <div class="main-title text-center">
+                        <h2>Compare Listings</h2>
+                        <p>We provide full service at every step</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row preloader_row" *ngIf="showLoadingIndicator">
+                <div class="col-lg-12" >
+                    <div class="preloader"></div>
+                </div>
+            </div>            
+            <div class="row"  *ngIf="property_comp_length>0">
+                <div class="col-lg-12">
+                    <div class="membership_container">
+                        <div class="row wrapper_compare_row">
+                            <div class="col-xl-2 col-3 inner_column">
+								<li class="list-inline-item">
+									<ul class="mc_child_list one">
+										<li class="compare_page"><div class="membership_header dn"></div></li>
+										<li class="list_heading">Type</li>
+										<li class="list_heading">City</li>
+										<li class="list_heading">Bedroom</li>
+										<li class="list_heading">Bathroom</li>
+										<li class="list_heading">Area</li>
+										<li class="list_heading">Year of build</li>
+										<li class="list_heading" *ngFor="let amenties of amenitiesresult">{{amenties.name}}</li>
+									</ul>
+								</li>
+							</div>
+							<div class="col-xl-10 col-9">
+								<div class="row">
+                                    <li class="col-xl-3 col-6 inner_column1" *ngFor="let data of property?.data; let i = index">
+                                        <div *ngIf="i+1<=devicetype">
+                                        <ul class="mc_child_list three text-center property_compare">
+											<div class="membership_header text-center">
+                                                <div class="thumb">
+                                                    <a (click)="delete_comp(data.id)"><span class="flaticon-close"></span></a>
+                                                    <img class="img-fluid w100" *ngIf="data?.productdetails?.product_img.length>0;else OtherImage" src="{{ftpstring}}{{data?.productdetails?.product_img['0'].image}}" alt="3.jpg">
+                                                    <ng-template #OtherImage>
+                                                        <img class="img-whp" src="./../../assets/resources/images/no_image_available.jpg" alt="No Product Image">
+                                                      </ng-template>
+                                                    <div class="price" *ngIf="data?.productdetails?.expected_pricing != null">                            
+                                                        ₹{{Price_convert(data?.productdetails?.expected_pricing)}}
+                                                   </div> 
+                                                   <div class="price" *ngIf="data?.productdetails?.expected_rent != null">                            
+                                                        ₹{{Price_convert(data?.productdetails?.expected_rent)}}
+                                                   </div>
+                                                </div>
+                                                <div class="details">
+                                                    <h6 class="bulid_name">{{data?.productdetails?.build_name | titlecase}}</h6>
+                                                    <p *ngIf="data?.productdetails?.rent_availability != null">(For Rent)</p>
+                                                    <p *ngIf="data?.productdetails?.sale_availability != null">(For Sale)</p>
+                                                    <div class="price-xs" *ngIf="data?.productdetails?.expected_rent != null">                            
+                                                        ₹{{Price_convert(data?.productdetails?.expected_rent)}}<span>/mo</span>
+                                                    </div>
+                                                    <div class="price-xs" *ngIf="data?.productdetails?.expected_pricing != null">                            
+                                                        ₹{{Price_convert(data?.productdetails?.expected_pricing)}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <li class="list_data">
+                                                <a><p>{{data?.productdetails?.property__type?.name | titlecase}}</p></a>
+                                            </li>
+                                            <li class="list_data">
+                                                <a ><p>{{data?.productdetails?.city | titlecase}}</p></a>
+                                            </li>
+                                            <li class="list_data">
+                                                <a ><p>{{data?.productdetails?.bedroom}}</p></a>
+                                            </li>
+                                            <li class="list_data">
+                                                <a><p>{{data?.productdetails?.bathroom}}</p></a>
+                                            </li>
+                                            <li class="list_data">
+                                                <a ><p>{{data?.productdetails?.area}}/{{data?.productdetails?.area_unit}}</p></a>
+                                            </li>
+                                            <li class="list_data">
+                                                <a><p>{{data?.productdetails?.buildyear}}</p></a>
+                                            </li>
+                                            <li class="list_data"  *ngFor="let amenties of amenitiesresult let i=index">
+                                                <div *ngIf="Amenties_funtion(amenties.id,data.product_id)==true,else OtherAmenties">
+                                                    <p class="checkmark"> &#10003;</p>											
+                                                </div>
+                                                <ng-template #OtherAmenties>
+                                                    <div>
+                                                        <p class="wrong-sym"> &#215;</p>
+                                                    </div>
+                                                </ng-template>
+                                            </li>
+                                        </ul>
+                                        </div>
+                                    </li>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+         </div>
+    </section>
+
+    
+</div>

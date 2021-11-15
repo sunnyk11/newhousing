@@ -23,11 +23,9 @@ export class LoginComponent implements OnInit {
   public submitted: boolean = false;
   public errorMessage: string = "";
   public LoginFailed: boolean = false;
-  private access_token: any;
   public response_data: any;
   public LoggedIn: boolean = false;
-  private username: string = '';
-  private profile_pic: any;
+  public token: string='';
   public plansData: any;
   public returnUrl: any;
   private mobile_ver_status: any;
@@ -53,15 +51,12 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.route.queryParams.subscribe(
       params => {
-        let token = params['token'];
+        let google_token= params['token'];
         let data = params['data'];
-        //console.log(data);
-        if (token && data) {
+        if (google_token && data) {
           this.LoggedIn = true;
-          this.username = JSON.parse(data).name;
-          this.profile_pic = JSON.parse(data).profile_pic;
-          this.commonService.sendUpdate(this.LoggedIn, this.username, this.profile_pic);
-          this.jwtService.saveGoogleUser(token, data);
+          this.jwtService.saveGoogleUser(google_token, data);
+          this.commonService.sendUpdate(this.LoggedIn,google_token);
         }
       }
     );
@@ -99,11 +94,9 @@ export class LoginComponent implements OnInit {
           this.LoginFailed = false;
           this.LoggedIn = true;
           this.response_data = response;
-          //console.log(this.response_data);
-          this.commonService.sendUpdate(this.LoggedIn, this.response_data.data.username, this.response_data.data.misc.profile_pic);
-          //console.log(this.response_data.data.access_token);
-          //this.jwtService.saveToken(this.response_data.data.access_token);
           this.jwtService.saveUser(this.response_data.data);
+          this.token=this.jwtService.getToken();
+          this.commonService.sendUpdate(this.LoggedIn,this.token);
           this.user_id = this.jwtService.getUserId();
           this.userEmail = this.jwtService.getUserEmail();
 
