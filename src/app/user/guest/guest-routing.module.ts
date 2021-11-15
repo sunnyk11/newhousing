@@ -17,6 +17,7 @@ import { ProPaymentSummaryComponent } from './components/pro-payment-summary/pro
 import { VerifyMobileComponent } from './components/verify-mobile/verify-mobile.component';
 import { InvoiceComponent } from './components/invoice/invoice.component';
 import { MyPropertiesComponent } from './components/my-properties/my-properties.component';
+import { AuthGuard } from './guards/auth.guard';
 //custom component imports
 
 const routes: Routes = [
@@ -35,9 +36,9 @@ const routes: Routes = [
         { path: "product-compare", component:CompareComponent},
         { path: "logout", component:LogoutComponent},
         {path: "product_payment_summary", component: ProPaymentSummaryComponent},
-        {path: "verify-mobile", component: VerifyMobileComponent},
-        {path: "invoice", component: InvoiceComponent},
-        {path: "my-properties", component: MyPropertiesComponent}
+        {path: "verify-mobile", component: VerifyMobileComponent, canActivate: [AuthGuard]},
+        {path: "invoice", component: InvoiceComponent, canActivate: [AuthGuard]},
+        {path: "my-properties", component: MyPropertiesComponent, canActivate: [AuthGuard]}
       ]
     }
 ];

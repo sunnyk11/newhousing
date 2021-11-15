@@ -21,6 +21,7 @@ export class ProPaymentSummaryComponent implements OnInit {
   public myArray: any = [];
   public product_id: any;
   public product_data: any;
+  public pro_data: any;
   public expected_rent: any;
   public gst_amount: any;
   public total_amount_hs: any;
@@ -71,6 +72,7 @@ export class ProPaymentSummaryComponent implements OnInit {
     this.productService.get_product_details(this.product_id).subscribe(
       prod_data => {
         this.product_data = prod_data;
+        this.pro_data = this.product_data[0];
         //console.log(this.product_data[0]);
         this.expected_rent = this.product_data[0].expected_rent;
         this.gst_amount = (18 * this.plan_price) / 100;

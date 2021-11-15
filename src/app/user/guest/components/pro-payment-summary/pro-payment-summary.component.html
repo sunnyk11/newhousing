@@ -79,17 +79,17 @@
 
                                                 <div class="col-lg-4 col-md-6">
                                                     <p class="text-muted row1">Property Name</p>
-                                                    <p class="row2">{{ product_data['0']?.build_name }}</p>
+                                                    <p class="row2">{{ pro_data?.build_name }}</p>
                                                 </div>
 
                                                 <div class="col-lg-4 col-md-6">
                                                     <p class="text-muted row1">Property Size</p>
-                                                    <p class="row2">{{ product_data[0]?.area }} {{ product_data[0]?.area_unit }}</p>
+                                                    <p class="row2">{{ pro_data?.area }} {{ pro_data?.area_unit }}</p>
                                                 </div>
 
                                                 <div class="col-lg-4 col-md-6">
                                                     <p class="text-muted row1">Rent</p>
-                                                    <p class="row2">{{ product_data[0]?.expected_rent }}</p>
+                                                    <p class="row2">{{ pro_data?.expected_rent }}</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -128,8 +128,8 @@
                                         <h6>1 Month Rent: <strong>{{ expected_rent }}</strong></h6>
                                         <h6>Security Deposit ({{security_deposit}} Months): <strong>{{
                                                 security_dep_amount }}</strong></h6>
-                                        <h6 *ngIf="product_data[0]?.maintenance_charge_status == '1'">Maintenance Charge({{ product_data[0]?.maintenance_charge_condition }}):
-                                            <strong>{{product_data[0].maintenance_charge}}</strong>
+                                        <h6 *ngIf="pro_data?.maintenance_charge_status == '1'">Maintenance Charge({{ pro_data?.maintenance_charge_condition }}):
+                                            <strong>{{pro_data.maintenance_charge}}</strong>
                                         </h6>
                                         <hr>
                                         <h6><strong>Total Amount: <strong>{{ total_amount_owner }}</strong></strong>
