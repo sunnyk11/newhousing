@@ -327,16 +327,18 @@ export class ProPaymentSummaryComponent implements OnInit {
     formData.append('plan_id', this.plan_id);
     formData.append('payment_type', this.payment_type);
     formData.append('expected_rent', this.expected_rent);
-    formData.append('property_name', this.product_data.build_name);
-    formData.append('property_id', this.product_data.id);
+    formData.append('property_name', this.product_data[0].build_name);
+    formData.append('property_id', this.product_data[0].id);
     formData.append('gst_amount', this.gst_amount);
     formData.append('maintenance_charge', this.maintenance_charge);
     formData.append('security_deposit', this.security_dep_amount);
     formData.append('total_amount', this.total_amount_hs + this.total_amount_owner);
-    formData.append('property_uid', this.product_data.product_uid);
+    formData.append('property_uid', this.product_data[0].product_uid);
     formData.append('payment_mode', this.mode_payment);
     let val = this.jwtService.getToken();
     if (val) {
+      this.user_id = this.jwtService.getUserId();
+      this.userEmail = this.jwtService.getUserEmail();
       this.loginPageService.getUserPhoneDetails({ param: null }).subscribe(
         data => {
           //console.log(data);

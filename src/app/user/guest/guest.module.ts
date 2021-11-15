@@ -34,6 +34,7 @@ import { LoginCheckComponent } from './modals/login-check/login-check.component'
 import { VerifyMobileComponent } from './components/verify-mobile/verify-mobile.component';
 import { InvoiceComponent } from './components/invoice/invoice.component';
 import { MobileCheckComponent } from './modals/mobile-check/mobile-check.component';
+import { MyPropertiesComponent } from './components/my-properties/my-properties.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { MobileCheckComponent } from './modals/mobile-check/mobile-check.compone
     VerifyMobileComponent,
     InvoiceComponent,
     MobileCheckComponent,
+    MyPropertiesComponent,
   ],
   imports: [
     CommonModule,

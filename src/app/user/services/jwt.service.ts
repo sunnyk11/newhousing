@@ -95,7 +95,7 @@ export class JwtService {
   }
 
   getUserEmail() {
-    return window.localStorage["USER_EMAIL"];
+    return JSON.parse(window.localStorage["USER_EMAIL"]);
   }
 
   getUserId() {

@@ -9,6 +9,8 @@ import { PlansPageService } from '../../services/plans-page.service';
 })
 export class SubscriptionPlansComponent implements OnInit {
 
+  public showLoadingIndicator: boolean = false;
+
   value: number = 10000;
   options: Options = {
     floor: 5000,
@@ -52,18 +54,22 @@ export class SubscriptionPlansComponent implements OnInit {
   }
 
   getRentPlans() {
+    this.showLoadingIndicator = true;
     this.plansPageService.getRentPlans({ param: null }).subscribe(
       response => {
         this.rent_response = response;
+        this.showLoadingIndicator = false;
         //console.log(response);
       }
     );
   }
 
   getRentFeatures() {
+    this.showLoadingIndicator = true;
     this.plansPageService.getRentFeatures({ param: null }).subscribe(
       response => {
         this.rent_feat_res = response;
+        this.showLoadingIndicator = false;
         //console.log(response);
         for (let feat_res in this.rent_feat_res) {
           //console.log(this.rent_feat_res[feat_res].feature_details);
@@ -77,8 +83,10 @@ export class SubscriptionPlansComponent implements OnInit {
   }
 
   getLetOutPlans() {
+    this.showLoadingIndicator = true;
     this.plansPageService.getLetOutPlans({ param: null }).subscribe(
       response => {
+        this.showLoadingIndicator = false;
         this.letout_response = response;
         //console.log(response);
       }
@@ -86,9 +94,11 @@ export class SubscriptionPlansComponent implements OnInit {
   }
 
   getLetOutFeatures() {
+    this.showLoadingIndicator = true;
     this.plansPageService.getLetOutFeatures({ param: null }).subscribe(
       res => {
         this.letout_feat_res = res;
+        this.showLoadingIndicator = false;
         for (let feat_res_lo in this.letout_feat_res) {
           //console.log(this.letout_feat_res[feat_res_lo].feature_details);
           this.myArray_lo = this.letout_feat_res[feat_res_lo].feature_details.split(',');
