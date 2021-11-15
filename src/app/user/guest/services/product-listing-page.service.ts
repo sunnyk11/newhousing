@@ -20,4 +20,8 @@ export class ProductListingPageService {
     const route = "/api/product/productsearching"; 
     return this.apiService.post<ResultModel>(route, reqModel);
   }
+  login_product_details(reqModel:any): Observable<ResultModel> {
+    const route = "/api/product/product_searching_login"; 
+    return this.apiService.post<ResultModel>(route, reqModel);
+  }
 }

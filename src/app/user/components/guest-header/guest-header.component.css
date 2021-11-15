@@ -15,3 +15,47 @@
     border: 1px solid #888;
     left: -50px;
 }
+.nav-item .fa-heart{
+    color: #ff5a5f !important;
+    font-size: 18px;
+    font-weight: 900;
+}
+.nav-item .fa-exchange{
+    color: #ff5a5f !important;
+    font-size: 18px;
+    font-weight: 500;
+}
+.compare{
+    cursor: pointer!important;
+}
+
+@media only screen and (min-width:768px)
+{
+    .wishlistValue{
+        background-color: #fff;
+        width: 24px;
+        height: 24px;
+        border-radius: 30px;
+        font-size: 14px;
+        box-shadow: 0 0 0 1px rgb(0 0 0 / 8%), 0 4px 12px 1px rgb(0 0 0 / 20%);
+        top: 15px!important;
+        position: absolute;
+        margin-left: 0px!important;
+        text-align: center;
+    }
+}
+@media only screen and (max-width:768px)
+{
+    .wishlistValue{
+        background-color: #fff;
+        width: 24px;
+        height: 24px;
+        border-radius: 30px;
+        font-size: 14px;
+        box-shadow: 0 0 0 1px rgb(0 0 0 / 8%), 0 4px 12px 1px rgb(0 0 0 / 20%);
+        top: none!important;
+        margin-left: 12px!important;
+        position: absolute;
+        text-align: center;
+    }
+}

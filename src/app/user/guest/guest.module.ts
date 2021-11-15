@@ -23,10 +23,11 @@ import { NgImageSliderModule } from 'ng-image-slider';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import { AmenitiesactivePipe } from './pipes/amenitiesactive.pipe';
-import { ClipboardModule } from 'ngx-clipboard';
 import { SubscriptionPlansComponent } from './components/subscription-plans/subscription-plans.component';
 import { LoginComponent } from './components/login/login.component';
 import { LogoutComponent } from './components/logout/logout.component';
+import { WishlistComponent } from './components/wishlist/wishlist.component';
+import { CompareComponent } from './components/compare/compare.component';
 import { SafeUrlPipe } from './pipes/safe-url.pipe';
 import { ProPaymentSummaryComponent } from './components/pro-payment-summary/pro-payment-summary.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -54,6 +55,8 @@ import { MobileCheckComponent } from './modals/mobile-check/mobile-check.compone
     SubscriptionPlansComponent,
     LoginComponent,
     LogoutComponent,
+    WishlistComponent,
+    CompareComponent,
     SafeUrlPipe,
     ProPaymentSummaryComponent,
     LoginCheckComponent,
@@ -74,7 +77,6 @@ import { MobileCheckComponent } from './modals/mobile-check/mobile-check.compone
       apiKey: 'AIzaSyC2S5kHeGYkW9cL4d7_uxfauTBfQEtN4HA', libraries: ['places']
     }),
     NgImageSliderModule,
-    ClipboardModule,
     NgbModule
   ],
 })

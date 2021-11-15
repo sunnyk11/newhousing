@@ -8,7 +8,9 @@ import { Options } from '@angular-slider/ngx-slider';
 import { LabelType } from '@angular-slider/ngx-slider';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
-import { ClipboardService } from 'ngx-clipboard'
+import { JwtService } from 'src/app/user/services/jwt.service';
+import { OwlOptions } from 'ngx-owl-carousel-o';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-product-listing',
@@ -20,7 +22,6 @@ export class ProductListingComponent implements OnInit {
   public displayStyle = "none";
   public amenties:any={};
   public property:any={};
-  public property_length:number=0;
   public showLoadingIndicator:boolean= false;
   public  year:any='';
   public search_amenties:any=[];
@@ -31,11 +32,15 @@ export class ProductListingComponent implements OnInit {
   public  selectedItems:any=[];
   public siteURL=environment.siteURL;
   public data:any;
-  public amenties_convert:any;
   public search_type:any;
   public minimum:any;
   public maximum:any;
-  shareableurl: any;
+  public e:any;
+  public p:any;
+  public ftpstring=environment.ftpURL;
+  public product_copm:any={};
+  public product_show:boolean=false;
+  public product_length:number=0;
 
   private amenityArray:any = [];
   private search_amenties_convert: any=[];
@@ -59,6 +64,7 @@ export class ProductListingComponent implements OnInit {
     build_name: [''],
     type: [''],
     location: [''],
+    city:[''],
     property_status:['all'],
     sliderControl: [[]]
   });
@@ -96,22 +102,11 @@ export class ProductListingComponent implements OnInit {
     private formBuilder: FormBuilder,
     private mapsAPILoader: MapsAPILoader,
     private ngZone:NgZone,
-    private router:Router,
-    private _clipboardService: ClipboardService
+    private jwtService: JwtService,
+    private toastr: ToastrService,
+    private router:Router
     ) {
-      this.route.queryParams.subscribe((params) => {
-        if(params.data != null){
-          this.data=JSON.parse(atob(params.data));
-          this.search_type= this.data.search_type;
-          this.minimum=this.data.sliderControl[0];
-          this.maximum=this.data.sliderControl[1];
-            if(params.amenties.length>0){  
-              //console.log(params.amenties);          
-            this.amenties_convert=atob(params.amenties);  
-            this.search_amenties=this.amenties_convert.split(',');
-            }
-         }
-      });
+      this.param_query_check();     
      }
 
   ngOnInit(): void {  
@@ -131,35 +126,6 @@ export class ProductListingComponent implements OnInit {
         });
       });
     });
-
-    if(this.search_type != null){
-       this.property_type_check_url();
-    }
-    if(this.search_amenties.length>0){
-      for (var i = 0; i < this.search_amenties.length; i++){
-        this.search_amenties_convert.push(parseInt(this.search_amenties[i]));
-      }
-      this.amenityArray=this.search_amenties_convert;
-    }
-    if(this.minimum != null && this.maximum){
-      this.searchForm.value.sliderControl['0']=Number(this.data.sliderControl[0]);
-      this.searchForm.value.sliderControl['1']=Number(this.data.sliderControl[1]);
-      this.searchForm.patchValue({
-        build_name:this.data.build_name,
-        area_unit:this.data.area_unit,
-        bedrooms:this.data.bedrooms,
-        bathrooms:this.data.bathrooms,
-        search_type:this.data.search_type,
-        type:this.data.type,
-        location:this.data.location,
-        years:this.data.years,
-      });
-      this.onsearch();
-    }else{
-      this.searchForm.value.sliderControl[0] = 5000;
-      this.searchForm.value.sliderControl[1] = 50000000;
-      this.onsearch();
-    }
     this.getAmenities();
     this.selectedItems = new Array<string>();
   }
@@ -177,25 +143,75 @@ export class ProductListingComponent implements OnInit {
   closePopup() {
     this.displayStyle = "none";
   }
+  param_query_check(){
+    this.route.queryParams.subscribe((params) => {
+      if(params.data != null){
+        this.data=JSON.parse(params.data);
+        this.search_type= this.data.search_type;
+        this.minimum=this.data.sliderControl[0];
+        this.maximum=this.data.sliderControl[1];
+        this.searchForm.value.sliderControl['0']=Number(this.data.sliderControl[0]);
+        this.searchForm.value.sliderControl['1']=Number(this.data.sliderControl[1]);
+        this.searchForm.patchValue({
+          build_name:this.data.build_name,
+          area_unit:this.data.area_unit,
+          bedrooms:this.data.bedrooms,
+          bathrooms:this.data.bathrooms,
+          search_type:this.data.search_type,
+          type:this.data.type,
+          location:this.data.location,
+          years:this.data.years,
+          city:this.data.city,
+        });
+          if(params.amenties != null){  
+          this.search_amenties=params.amenties;      
+              if(this.search_amenties.length>0){
+                for (var i = 0; i < this.search_amenties.length; i++){
+                  this.search_amenties_convert.push(parseInt(this.search_amenties[i]));
+                }
+                this.amenityArray=this.search_amenties_convert;
+              }
+          }
+        this.property_type_check_url();
+        this.onsearch();
+       }else{
+        this.searchForm.value.sliderControl[0] = 5000;
+        this.searchForm.value.sliderControl[1] = 50000000;
+        this.onsearch();
+       }
+    });
+  }
   onsearch(): void{  
+    this.showLoadingIndicator =true;
     let param={data:this.searchForm.value,amenities:this.amenityArray}
-    this.ProductListingPageService.product_details(param).subscribe(
-      response => {
-        this.property=response;
-        this.property_length=this.property.data.length;
-        this.showLoadingIndicator = false;
-      }
-    );
+    if(this.jwtService.getToken()){
+      this.ProductListingPageService.login_product_details(param).subscribe(
+        response => {
+          this.property=response;
+          this.showLoadingIndicator = false;
+          this.product_length=this.property.data.length;
+        }
+      );
+
+    }else{
+      this.ProductListingPageService.product_details(param).subscribe(
+        response => {
+          this.property=response;
+          this.showLoadingIndicator = false;
+          this.product_length=this.property.data.length;
+        }
+      );
+    }
+    this.wishlist_refresh();
+    this.pro_comp_refresh();
     this.closePopup();
   } 
   
   navigate(): void{
-    let data:any= this.searchForm.value;
-    let url='product-listing?data=';
-    this.shareableurl=environment.siteURL+url+btoa(JSON.stringify(data))+'&amenties='+btoa(this.amenityArray);
-    //console.log(this.shareableurl);
-    this._clipboardService.copy(this.shareableurl);
-    // document.execCommand('copy');
+    let data:any=this.searchForm.value;
+    this.router.navigate(['/product-listing'],{
+      queryParams:{data:JSON.stringify(data),amenties:this.amenityArray}});
+    this.param_query_check(); 
   }   
   onchangeAmenties(e:any,id:any){
     if(e.target.checked){
@@ -255,4 +271,126 @@ export class ProductListingComponent implements OnInit {
   reset_Search():void{
     window.location.href=this.siteURL+"product-listing"; 
   }
+  
+  
+  // property compare
+  product_comp(id:number){
+    let param={id:id}
+    if(this.jwtService.getToken()){
+      this.CommonService.product_comp({param}).subscribe(
+      response => {
+        this.product_copm=response;
+        this.product_length=0;
+        this.onsearch();
+        if(this.product_copm.data.length>4){
+          this.toastr.info('Compare are the Full...!!!', 'Property', {
+            timeOut: 3000,
+          });
+        }else{
+          this.toastr.success('Added To compare Successfully', 'Property', {
+            timeOut: 3000,
+          });
+        }
+      }
+     );
+    }else{
+      this.redirect_to_login();
+    }
+  }
+  // wishlist add 
+  wishlist_added(id: number){
+    let param={id:id}
+    if(this.jwtService.getToken()){
+      this.CommonService.wishlist_addd({param}).subscribe(
+      response => {
+        this.product_length=0;
+        this.onsearch();
+      }
+     );
+    }
+    else{
+      this.redirect_to_login();
+    }
+  }
+  // wishlist delete
+  wishlist_remove(id: number){
+    let param={id:id}
+    if(this.jwtService.getToken()){
+      this.CommonService.wishlist_remove({param}).subscribe(
+      response => {
+        this.product_length=0;
+        this.product_length=0;
+        this.onsearch();
+      }
+     );
+    }else{
+      this.redirect_to_login();
+    }
+  }
+  
+   // pricre convert functionalty
+   Price_convert(num: number) {
+    if (num >= 1000000000) {
+       return (num / 1000000000).toFixed(2).replace(/\.0$/, '') + 'G';
+    }
+    if (num >= 10000000) {
+      return (num / 10000000).toFixed(2).replace(/\.0$/, '') + 'Crore';
+    }
+    if (num >= 100000) {
+      return (num / 100000).toFixed(2).replace(/\.0$/, '') + 'Lac';
+    }
+    if (num >= 1000) {
+      this.e=num;
+      var t = (this.e = this.e ? this.e.toString() : "").substring(this.e.length - 3)
+      , n = this.e.substring(0, this.e.length - 3);
+    return "" !== n && (t = "," + t),
+      n.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + t
+    }
+    return num;
+  }
+  
+  sub_navigate(id:number,name:string,city:string){
+    this.router.navigate(['/product-details'],{queryParams:{'id':id,'name':name,'city':city}})
+  }
+  
+  redirect_to_login(): void {
+    this.router.navigate(['/login'])
+  }
+  
+  // wishlist refreh functionalty 
+  wishlist_refresh(){
+    this.CommonService.emit<string>('true');
+  } 
+  // product comapre refresh function 
+  pro_comp_refresh(){
+    this.CommonService.pro_comp_emit<string>('true');
+  } 
+  // carosule image
+  customOptions: OwlOptions = {
+   loop: true,
+   mouseDrag: false,
+   touchDrag: false,
+   pullDrag: false,
+   dots: false,
+   navSpeed: 700,
+   navText: ['<span class="outer_slider"><i class="flaticon-left-arrow-1 left"></i></span> ', '<span class="outer_slider"><i class="flaticon-right-arrow right"></i></span>'],
+   responsive: {
+     0: {
+       items: 1
+     },
+     400: {
+       items: 1
+     },
+     740: {
+       items: 1
+     },
+     940: {
+       items: 1
+     },
+     1050: {
+       items: 1
+     }
+   },
+   nav: true
+ }
 }

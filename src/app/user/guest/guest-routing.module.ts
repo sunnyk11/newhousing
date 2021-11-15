@@ -11,6 +11,8 @@ import { ProductPageComponent } from './components/product-page/product-page.com
 import { SubscriptionPlansComponent } from './components/subscription-plans/subscription-plans.component';
 import { LoginComponent } from './components/login/login.component';
 import { LogoutComponent } from './components/logout/logout.component';
+import { WishlistComponent } from './components/wishlist/wishlist.component';
+import { CompareComponent } from './components/compare/compare.component';
 import { ProPaymentSummaryComponent } from './components/pro-payment-summary/pro-payment-summary.component';
 import { VerifyMobileComponent } from './components/verify-mobile/verify-mobile.component';
 import { InvoiceComponent } from './components/invoice/invoice.component';
@@ -28,6 +30,8 @@ const routes: Routes = [
         { path: "product-details", component:ProductPageComponent },
         { path: "plans", component:SubscriptionPlansComponent },
         { path: "login", component:LoginComponent},
+        { path: "wishlist", component:WishlistComponent},
+        { path: "product-compare", component:CompareComponent},
         { path: "logout", component:LogoutComponent},
         {path: "product_payment_summary", component: ProPaymentSummaryComponent},
         {path: "verify-mobile", component: VerifyMobileComponent},

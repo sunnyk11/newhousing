@@ -11,7 +11,9 @@ import { IndexPageService } from '../../services/index-page.service';
 export class ArticalsComponent implements OnInit {
 
   public artical_data:any;
+  public artical_length:number=0;
   public ftpstring=environment.ftpURL;
+  public showLoadingIndicator:boolean= false;
 
   constructor(
       private indexPageService: IndexPageService
@@ -23,10 +25,12 @@ export class ArticalsComponent implements OnInit {
   
   // artical tips & data 
   getArtical(){
+    this.showLoadingIndicator= true;
     this.indexPageService.getArtical({ param: null }).subscribe(
       response => {
-        //console.log(response);
         this.artical_data=response;
+        this.artical_length=this.artical_data.length;
+        this.showLoadingIndicator= false;
       }
     );
   }
