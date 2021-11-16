@@ -2,6 +2,17 @@
 
     "use strict";
 
+    /* ----- Preloader ----- */
+    function preloaderLoad() {
+        // console.log($('.preloader').length);
+        if ($('.preloader').length) {
+            $('.preloader').delay(200).fadeOut(300);
+        }
+        $(".preloader_disabler").on('click', function() {
+            $("#preloader").hide();
+        });
+    }
+
     /** Main Menu Custom Script Start **/
     $(document).on('ready', function() {
         $("#respMenu").aceResponsiveMenu({
@@ -376,5 +387,9 @@
             }
         }
     });*/
+
+    $(window).on('load', function() {
+        preloaderLoad();
+    });
 
 })(window.jQuery);

@@ -63,7 +63,7 @@ export class LoginComponent implements OnInit {
 
     if (this.jwtService.getToken()) {
       this.user_id = this.jwtService.getUserId();
-      this.userEmail = JSON.parse(this.jwtService.getUserEmail());
+      this.userEmail = this.jwtService.getUserEmail();
       this.returnUrl = this.jwtService.getReturnURL();
       //console.log(this.returnUrl);
       if (this.returnUrl?.includes('/product_payment_summary')) {
@@ -98,7 +98,7 @@ export class LoginComponent implements OnInit {
           this.token=this.jwtService.getToken();
           this.commonService.sendUpdate(this.LoggedIn,this.token);
           this.user_id = this.jwtService.getUserId();
-          this.userEmail = JSON.parse(this.jwtService.getUserEmail());
+          this.userEmail = this.jwtService.getUserEmail();
 
           this.returnUrl = this.jwtService.getReturnURL();
           //console.log(this.returnUrl);
