@@ -1,0 +1,175 @@
+<!--Breadcrumb-->
+<div class="bg-secondary">
+    <div class="container-fluid py-4">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Register</li>
+            </ol>
+        </nav>
+        <h2 class="col-custom">Register</h2>
+    </div>
+</div>
+
+<section class="our-log-reg bgc-fa">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-lg-6 offset-lg-3">
+                <div class="sign_up_form inner_page">
+                    <div class="heading" *ngIf="isSuccessful == false">
+                        <h3 class="text-center">Register</h3>
+                        <p class="text-center">Have an account? <a class="text-thm" href="/login">Login</a></p>
+                    </div>
+                    <div class="details">
+                        <form [formGroup]="form" *ngIf="!isSuccessful" name="form" (ngSubmit)="onSubmit()">
+                            <div class="row">
+                                <div class="col-xl-6 col-lg-12 col-md-6 col-sm-12">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">First Name</span>
+                                        <input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" name="firstName" id="firstName" aria-describedby="basic-addon1" required>
+                                        <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+                                            <div *ngIf="f.firstName.errors.required">First Name is required</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-6 col-lg-12 col-md-6 col-sm-12">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="basic-addon1">Last Name</span>
+                                        <input type="text" class="form-control" formControlName="lastName" name="lastName" id="lastName">
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1">Email</span>
+                                    <input type="email" class="form-control" formControlName="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" name="email" required>
+                                    <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                                        <div *ngIf="f.email.errors.required">Email is required</div>
+                                        <div *ngIf="f.email.errors.email">Email is invalid</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1">Password</span>
+                                    <input type="password" class="form-control" formControlName="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" name="password" minlength="6" required>
+                                    <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                                        <div *ngIf="f.password.errors.required">Password is required</div>
+                                        <div *ngIf="f.password.errors.minlength">
+                                            Password must be at least 6 characters
+                                        </div>
+                                        <div *ngIf="f.password.errors.maxlength">
+                                            Password must not exceed 40 characters
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1">Confirm Password</span>
+                                    <input type="password" class="form-control" formControlName="cpassword" [ngClass]="{ 'is-invalid': submitted && f.cpassword.errors }" name="cpassword" minlength="6" required>
+                                    <div *ngIf="submitted && f.cpassword.errors" class="invalid-feedback">
+                                        <div *ngIf="f.cpassword.errors.required">
+                                            Confirm Password is required
+                                        </div>
+                                        <div *ngIf="f.cpassword.errors.confirmedValidator">
+                                            Confirm Password does not match
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1">+91</span>
+                                    <input type="number" class="form-control" formControlName="phone_number" [ngClass]="{ 'is-invalid': submitted && f.phone_number.errors }" placeholder="Mobile Number" name="phone_number" minlength="10" maxlength="10" id="phone_number" pattern="[0-9]{10}"
+                                        required>
+                                    <div *ngIf="submitted && f.phone_number.errors" class="invalid-feedback">
+                                        <div *ngIf="f.phone_number.errors.required">Phone number is required</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="input-group mb-3">
+                                    <label class="input-group-text" for="inputGroupSelect01">User Type</label>
+                                    <select class="form-select" id="inputGroupSelect01" formControlName="select_type" [ngClass]="{ 'is-invalid': submitted && f.select_type.errors }" name="select_type" required>
+                                        <option value="5">Individual</option>
+                                        <option value="3">Agent</option>
+                                        <option value="4">Builder</option>
+                                    </select>
+                                    <div *ngIf="submitted && f.select_type.errors" class="invalid-feedback">
+                                        <div *ngIf="f.select_type.errors.required">Please select the User Type</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="mb-3 ms-2 form-check">
+                                    <input type="checkbox" class="form-check-input" id="tnc_check" formControlName="tnc_check" [ngClass]="{ 'is-invalid': submitted && f.tnc_check.errors }" name="tnc_check" value="" required>
+                                    <label class="form-check-label" for="exampleCheck1">I have read and accept the Terms
+                                        and Conditions and Privacy Policy</label>
+                                    <div *ngIf="submitted && f.tnc_check.errors" class="invalid-feedback">
+                                        Please accept the Terms & Conditions and Privacy Policy
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <button class="btn btn-log btn-block btn-thm">Register</button>
+                            </div>
+
+                            <div class="alert alert-warning mt20" *ngIf="submitted && isSignUpFailed">
+                                <h4>SignUp Failed</h4>
+
+                                <div *ngIf="!errorMessage.errors && errorMessage.message">
+                                    {{ errorMessage.message }}
+                                </div>
+
+                                <div *ngIf="errorMessage.errors && errorMessage.errors.email">
+                                    <p><strong> The Email Address has already been taken. </strong></p>
+                                </div>
+
+                                <div *ngIf="errorMessage.errors && errorMessage.errors.other_mobile_number">
+                                    <p><strong>The Mobile Number has already been taken.</strong></p>
+                                </div>
+
+                            </div>
+                        </form>
+
+                        <div class="alert alert-success" *ngIf="isSuccessful">
+                            Your registration is successful. Check your SMS for verification OTP.
+                        </div>
+                        <div class="alert alert-success" *ngIf="isVerified">
+                            Your Number is verified, Login to continue.<a href="/login">Login</a>
+                        </div>
+
+                        <form [formGroup]="otp_form" *ngIf="verify" name="form" (ngSubmit)="onSubmitotp()">
+                            <div class="heading">
+                                <h3 class="text-center">Enter OTP</h3>
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1">OTP</span>
+                                <input type="number" class="form-control" formControlName="otp_number" [ngClass]="{ 'is-invalid': otp_submitted && g.otp_number.errors }" required>
+                            </div>
+
+                            <div class="row">
+                                <button class="btn btn-log btn-block btn-thm2">Verify</button>
+                            </div>
+                            <div *ngIf="otp_submitted && g.otp_number.errors" class="invalid-feedback">
+                                <div *ngIf="g.otp_number.errors.required">OTP is required</div>
+                            </div>
+                            <div class="row">
+                                <div class="alert alert-danger" role="alert" *ngIf="otp_submitted && isFailedVerify">
+                                    Verification Failed, Wrong OTP
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

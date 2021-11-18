@@ -18,6 +18,7 @@ import { VerifyMobileComponent } from './components/verify-mobile/verify-mobile.
 import { InvoiceComponent } from './components/invoice/invoice.component';
 import { MyPropertiesComponent } from './components/my-properties/my-properties.component';
 import { AuthGuard } from './guards/auth.guard';
+import { RegisterComponent } from './components/register/register.component';
 //custom component imports
 
 const routes: Routes = [
@@ -38,7 +39,8 @@ const routes: Routes = [
         {path: "product_payment_summary", component: ProPaymentSummaryComponent},
         {path: "verify-mobile", component: VerifyMobileComponent, canActivate: [AuthGuard]},
         {path: "invoice", component: InvoiceComponent, canActivate: [AuthGuard]},
-        {path: "my-properties", component: MyPropertiesComponent, canActivate: [AuthGuard]}
+        {path: "my-properties", component: MyPropertiesComponent, canActivate: [AuthGuard]},
+        {path: "register", component: RegisterComponent}
       ]
     }
 ];
