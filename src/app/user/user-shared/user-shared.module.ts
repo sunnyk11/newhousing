@@ -7,6 +7,7 @@ import { GuestHeaderComponent } from '../components/guest-header/guest-header.co
 import { RouterModule } from '@angular/router';
 import { AgentHeaderComponent } from '../components/agent-header/agent-header.component';
 import { AgentFooterComponent } from '../components/agent-footer/agent-footer.component';
+import { AgentSidenavComponent } from '../components/agent-sidenav/agent-sidenav.component';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { AgentFooterComponent } from '../components/agent-footer/agent-footer.co
     GuestHeaderComponent,
     GuestFooterComponent,
     AgentHeaderComponent,
-    AgentFooterComponent
+    AgentFooterComponent,
+    AgentSidenavComponent
   ],
   imports: [
     CommonModule,
@@ -24,7 +26,8 @@ import { AgentFooterComponent } from '../components/agent-footer/agent-footer.co
     GuestHeaderComponent,
     GuestFooterComponent,
     AgentHeaderComponent,
-    AgentFooterComponent
+    AgentFooterComponent,
+    AgentSidenavComponent
   ]
 })
 export class UserSharedModule { }

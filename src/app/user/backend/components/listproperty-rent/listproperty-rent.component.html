@@ -1,0 +1,388 @@
+<div class="container p-3">
+    <div class="h-100 p-3 bg-light border rounded-3">
+        <mat-horizontal-stepper [linear]="true" #stepper="matHorizontalStepper">
+
+            <mat-step label="Step 1" state="phone" [stepControl]="form_step1">
+                <div class="h-100 p-3 bg-lightgray bg-gradient border rounded-3 mt-2">
+                    <form [formGroup]="form_step1" class="g-3">
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <label for="property_name" class="form-label">Property Name</label>
+                                <input type="text" class="form-control" id="property_name" formControlName="property_name" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="property_type" class="form-label">Property Type</label>
+                                <select id="property_type" class="form-select form-select-lg w100" formControlName="property_type">
+                                    <option selected>Select</option>
+                                    <option>1</option>
+                                    <option>2</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <label for="area_unit" class="form-label">Area Unit</label>
+                                <select id="area_unit" class="form-select form-select-lg w100" formControlName="area_unit">
+                                    <option selected>Select</option>
+                                    <option>1</option>
+                                    <option>2</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="property_area" class="form-label">Property Area</label>
+                                <input type="text" class="form-control" id="property_area" formControlName="property_area">
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-4">
+                                <label for="bedrooms" class="form-label">Bedrooms</label>
+                                <select id="bedrooms" class="form-select form-select-lg w100" formControlName="bedrooms">
+                                    <option selected>Select</option>
+                                    <option>1</option>
+                                    <option>2</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="bathrooms" class="form-label">Bathrooms</label>
+                                <select id="bathrooms" class="form-select form-select-lg w100" formControlName="bathrooms">
+                                    <option selected>Select</option>
+                                    <option>1</option>
+                                    <option>2</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="balconies" class="form-label">Balconies</label>
+                                <select id="balconies" class="form-select form-select-lg w100" formControlName="balconies">
+                                    <option selected>Select</option>
+                                    <option>1</option>
+                                    <option>2</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="col-md-12">
+                                <label for="property_desc" class="form-label">Property Description</label>
+                                <textarea class="form-control" aria-label="With textarea" id="property_desc" formControlName="property_desc"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="row mt-3">
+                        <div class="col-md-12 text-right">
+                            <button mat-raised-button matStepperNext>Next</button>
+                        </div>
+                    </div>
+                </div>
+            </mat-step>
+
+            <mat-step label="Step 2" state="chat" [stepControl]="form_step2">
+                <form [formGroup]="form_step2" class="g-3">
+                    <div class="h-100 p-3 bg-lightgray bg-gradient border rounded-3 mt-2">
+                        <div class="row mt-3">
+                            <div class="col-md-12">
+                                <label for="address" class="form-label">Enter Address</label>
+                                <input type="text" class="form-control" id="address" formControlName="address">
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-3">
+                                <label for="city" class="form-label">City</label>
+                                <select id="city" class="form-select form-select-lg w100" formControlName="city">
+                                    <option selected>Select</option>
+                                    <option>Delhi</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="locality" class="form-label">Locality</label>
+                                <select id="locality" class="form-select form-select-lg w100" formControlName="locality">
+                                    <option selected>Select</option>
+                                    <option>Locality 1</option>
+                                    <option>Locality 2</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="pincode" class="form-label">Pincode</label>
+                                <input type="text" class="form-control" id="pincode" formControlName="pincode">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="nearest_place" class="form-label">Nearest Place</label>
+                                <input type="text" class="form-control" id="nearest_place" formControlName="nearest_place">
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="col-md-6 col-sm-6">
+                                <button mat-raised-button matStepperPrevious>Back</button>
+                            </div>
+                            <div class="col-md-6 col-sm-6 text-right">
+                                <button mat-raised-button matStepperNext>Next</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </mat-step>
+
+            <mat-step label="Step 3" [stepControl]="form_step3">
+                <form [formGroup]="form_step3" class="g-3">
+                    <div class="h-100 p-3 bg-lightgray bg-gradient border rounded-3 mt-2">
+                        <div class="row mt-3">
+                            <div class="col-md-4">
+                                <label for="additional_rooms" class="form-label">Additional Rooms</label>
+                                <select id="additional_rooms" class="form-select form-select-lg w100" formControlName="additional_rooms">
+                                    <option selected>Select</option>
+                                    <option>Yes</option>
+                                    <option>No</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="facing_towards" class="form-label">Facing Towards</label>
+                                <select id="facing_towards" class="form-select form-select-lg w100" formControlName="facing_towards">
+                                    <option selected>Select</option>
+                                    <option>East</option>
+                                    <option>North East</option>
+                                    <option>North</option>
+                                    <option>West</option>
+                                    <option>South</option>
+                                    <option>South East</option>
+                                    <option>North West</option>
+                                    <option>South West</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="year_built" class="form-label">Year Built</label>
+                                <select id="year_built" class="form-select form-select-lg w100" formControlName="year_built">
+                                    <option selected>Select</option>
+                                    <option>2021</option>
+                                    <option>2020</option>
+                                    <option>2019</option>
+                                    <option>2018</option>
+                                    <option>2017</option>
+                                    <option>2016</option>
+                                    <option>2015</option>
+                                    <option>2014</option>
+                                    <option>2013</option>
+                                    <option>2012</option>
+                                    <option>2011</option>
+                                    <option>2010</option>
+                                    <option>2009</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-4">
+                                <label for="furnishings" class="form-label">Furnishings</label>
+                                <select id="furnishings" class="form-select form-select-lg w100" formControlName="furnishings">
+                                    <option selected>Select</option>
+                                    <option>Furnished</option>
+                                    <option>Not Furnished</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="reserved_parking" class="form-label">Reserved Parking</label>
+                                <select id="reserved_parking" class="form-select form-select-lg w100" formControlName="reserved_parking">
+                                    <option selected>Select</option>
+                                    <option>Yes</option>
+                                    <option>No</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="h-100 p-3 bg-lightgray border rounded-3 mt-2">
+                        <div class="row mt-3">
+                            <div class="col-md-4">
+                                <label for="willing_to_rent" class="form-label">Willing to Rent Out to</label>
+                                <select id="willing_to_rent" class="form-select form-select-lg w100" formControlName="willing_to_rent">
+                                    <option selected>Select</option>
+                                    <option>Family</option>
+                                    <option>Single Men</option>
+                                    <option>Single Women</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="agreement_type" class="form-label">Agreement Type</label>
+                                <select id="agreement_type" class="form-select form-select-lg w100" formControlName="agreement_type">
+                                    <option selected>Select</option>
+                                    <option>Company Lease Agreement</option>
+                                    <option>Any</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="available_date" class="form-label">Available On</label>
+                                <input type="date" class="form-control" id="available_date" formControlName="available_date">
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-4">
+                                <label for="notice_month" class="form-label">Month of Notice</label>
+                                <select id="notice_month" class="form-select form-select-lg w100" formControlName="notice_month">
+                                    <option selected>Select</option>
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                    <option>6</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="agreement_duration" class="form-label">Duration of Rent Agreement</label>
+                                <select id="agreement_duration" class="form-select form-select-lg w100" formControlName="agreement_duration">
+                                    <option selected>Select</option>
+                                    <option>One Year</option>
+                                    <option>Three Years</option>
+                                    <option>Custom</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="h-100 p-3 bg-lightgray bg-gradient border rounded-3 mt-2">
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <label for="property_floor" class="form-label">Property is present on which
+                                    floor?</label>
+                                <select id="property_floor" class="form-select form-select-lg w100" formControlName="property_floor">
+                                    <option selected>Select</option>
+                                    <option>Ground Floor</option>
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                    <option>6</option>
+                                    <option>7</option>
+                                    <option>8</option>
+                                    <option>9</option>
+                                    <option>10</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="total_floors" class="form-label">Number of floors in the property?</label>
+                                <select id="total_floors" class="form-select form-select-lg w100" formControlName="total_floors">
+                                    <option selected>Select</option>
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                    <option>6</option>
+                                    <option>7</option>
+                                    <option>8</option>
+                                    <option>9</option>
+                                    <option>10</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <button mat-raised-button matStepperPrevious>Back</button>
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <button mat-raised-button matStepperNext>Next</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </mat-step>
+
+            <mat-step label="Step 4">
+                <form [formGroup]="form_step4" class="g-3">
+                    <div class="h-100 p-3 bg-lightgray bg-gradient border rounded-3 mt-2">
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <label for="security_deposit" class="form-label">Security Deposit</label>
+                                <select id="security_deposit" class="form-select form-select-lg w100" formControlName="security_deposit">
+                                    <option selected>Select</option>
+                                    <option>One Month Rent</option>
+                                    <option>Two Months Rent</option>
+                                    <option>Three Months Rent</option>
+                                    <option>Four Months Rent</option>
+                                    <option>Five Months Rent</option>
+                                    <option>Six Months Rent</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="expected_rent" class="form-label">Expected Rent</label>
+                                <mat-slider thumbLabel [displayWith]="formatLabel" tickInterval="1000" step="500" min="5000" max="100000" aria-label="units" formControlName="expected_rent">
+                                </mat-slider>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <label for="electricity_water" class="form-label">Inclusive Electricity and Water
+                                    Bill</label>
+                                <select id="electricity_water" class="form-select form-select-lg w100" formControlName="electricity_water">
+                                    <option selected>Select</option>
+                                    <option>Yes</option>
+                                    <option>No</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="price_negotiable" class="form-label">Is Price Negotiable?</label>
+                                <select id="price_negotiable" class="form-select form-select-lg w100" formControlName="price_negotiable">
+                                    <option selected>Select</option>
+                                    <option>Yes</option>
+                                    <option>No</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <label for="tax_govt_charge" class="form-label">Is Tax and Govt. Charges
+                                    Included?</label>
+                                <select id="tax_govt_charge" class="form-select form-select-lg w100" formControlName="tax_govt_charge">
+                                    <option selected>Select</option>
+                                    <option>Yes</option>
+                                    <option>No</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="maintenance_charge_status" class="form-label">Any Maintenance
+                                    Charge?</label>
+                                <select id="maintenance_charge_status" class="form-select form-select-lg w100" formControlName="maintenance_charge_status">
+                                    <option selected>Select</option>
+                                    <option>Yes</option>
+                                    <option>No</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="h-100 p-3 bg-lightgray bg-gradient border rounded-3 mt-2">
+                        <div class="row mt-3">
+                            <div class="col-md-12">
+                                <label for="images" class="form-label">Click to Upload Multiple Images</label>
+                                <input type="file" class="form-control" id="images" formControlName="images" multiple>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-12">
+                                <label for="video_link" class="form-label">Property Video Link (You Tube)</label>
+                                <input type="text" class="form-control" id="video_link" formControlName="video_link">
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <button mat-raised-button matStepperPrevious>Back</button>
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <button mat-raised-button matStepperNext>Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </mat-step>
+
+            <!-- Icon overrides. -->
+            <ng-template matStepperIcon="phone">
+                <mat-icon>call_end</mat-icon>
+            </ng-template>
+
+            <ng-template matStepperIcon="chat">
+                <mat-icon>forum</mat-icon>
+            </ng-template>
+
+        </mat-horizontal-stepper>
+    </div>
+</div>
