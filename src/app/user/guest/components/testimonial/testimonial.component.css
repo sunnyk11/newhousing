@@ -3,3 +3,8 @@
     padding: 0px 5px!important;
     color: #FDCC0D!important;
 }
+@media(max-width: 768px) {  
+    .testimonial_grid .details .content{
+        text-align: justify!important;
+    }
+}

@@ -4232,6 +4232,7 @@ input[type="range"]::-ms-fill-upper {
 }
 .testimonial_grid_slider .owl-carousel.owl-theme .owl-nav{
   margin: 0;
+  display: none!important;
 }
 .testimonial_grid_slider .owl-carousel.owl-theme .owl-dots .owl-dot {
   background-color: transparent;

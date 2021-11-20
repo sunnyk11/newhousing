@@ -1,0 +1,11 @@
+#feature-property .propertyListingPage .home_page_slider .owl-nav  .outer_slider{
+    background-color: transparent!important;
+}
+.home1-advnc-search ul .amentites_li{
+    margin: 0px!important;
+}
+.ui_kit_checkbox .form-check-label{
+    display: flex!important;
+    align-items: flex-end!important;
+    justify-content: space-between!important;
+}

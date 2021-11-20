@@ -183,7 +183,7 @@ export class HomepagefeatureComponent implements OnInit {
     autoplay:false,
     dots: false,
     navSpeed: 700,
-    navText: ['<span class="outer_slider"><i class="flaticon-left-arrow-1 left"></i></span> ', '<span class="outer_slider"><i class="flaticon-right-arrow right"></i></span>'],
+    navText: ['<span class="inner_slider"><i class="flaticon-left-arrow-1 left"></i></span> ', '<span class="inner_slider"><i class="flaticon-right-arrow right"></i></span>'],
     responsive: {
       0: {
         items: 1

@@ -43,11 +43,11 @@ export class ProductCategoryComponent implements OnInit {
       }
     );
   } 
-  on_search(id:number){
-    this.searchForm.controls['type'].setValue(id);
+  on_search(type:string){
+    this.searchForm.controls['type'].setValue(type);
     let data:any=this.searchForm.value;
     console.log(this.searchForm.value);
-    const url:any = this.router.createUrlTree(['/product-listing'],{queryParams:{data:JSON.stringify(data),amenties:this.amenityArray}})
+    const url:any = this.router.createUrlTree(['/product-listing'],{queryParams:{'category':type}})
     window.open(url.toString(), '_blank')
   }
 

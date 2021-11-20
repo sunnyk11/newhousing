@@ -114,7 +114,6 @@ export class IndexComponent implements OnInit {
     this.indexPageService.get_Property({ param: null }).subscribe(
       response => {
         this.property=response;
-        console.log(this.property);
         this.city_name=this.property.data['0'].city;
         this.product_length=this.property.data['0'].city_count;
       }
@@ -126,20 +125,14 @@ export class IndexComponent implements OnInit {
       positionClass: 'toast-bottom-right',
     });
   }
+  
   // searching city name property 
   property_search(city:string){
-    this.searchForm.controls['city'].setValue(city);
-    this.searchForm.value.sliderControl[0] = 5000;
-    this.searchForm.value.sliderControl[1] = 50000000;
-    this.searchForm.controls['search_type'].setValue('Select Availability');
-    let data:any=this.searchForm.value;
-    this.router.navigate(['/product-listing'],{
-      queryParams:{data:JSON.stringify(data),amenties:this.amenityArray}})
+    this.router.navigate(['/product-listing'],{queryParams:{'city':city}})
   }
   navigate(): void{
     let data:any=this.searchForm.value;
-    this.router.navigate(['/product-listing'],{
-      queryParams:{data:JSON.stringify(data),amenties:this.amenityArray}})
+    this.router.navigate(['/product-listing'],{queryParams:{'name':data.build_name,'city':data.city,'type':data.type,'search_type':data.search_type,'area_unit':data.area_unit,'years':data.years,'bedrooms':data.bedrooms,'bathrooms':data.bathrooms,'minimum':data.sliderControl[0],'maximum':data.sliderControl[1],'location':data.location,amenties:this.amenityArray}});
   }  
   onchangeAmenties(e:any,id:string){
     if(e.target.checked){

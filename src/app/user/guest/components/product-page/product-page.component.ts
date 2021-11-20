@@ -36,6 +36,8 @@ export class ProductPageComponent implements OnInit {
   public login_usertype:number = 0;
   public login_userid:number= 0;
   public product_length:number=0;
+  public security_dep_amount:number=0;
+  public total_amount_owner:number=0;
 
   private e: any;
   private product_id: any;
@@ -74,6 +76,8 @@ export class ProductPageComponent implements OnInit {
         response => {
           this.product_details=response;
           this.product_data=this.product_details.data;
+          this.security_dep_amount = Number(this.product_details.data.expected_rent) * Number(this.product_details.data.security_deposit);
+          this.total_amount_owner =  Number(this.product_details.data.expected_rent) + Number(this.security_dep_amount);
           if(this.product_details.data != null){
             this.youtube_url = "https://www.youtube-nocookie.com/embed/" + this.product_data.video_link+"?playlist="+this.product_data.video_link+"&loop=1&mute=1";          
             this.safeURL = this._sanitizer.bypassSecurityTrustResourceUrl(this.youtube_url);
@@ -105,6 +109,8 @@ export class ProductPageComponent implements OnInit {
         response => {
           this.product_details=response;
           this.product_data=this.product_details.data;
+          this.security_dep_amount = Number(this.product_details.data.expected_rent) * Number(this.product_details.data.security_deposit);
+          this.total_amount_owner =  Number(this.product_details.data.expected_rent) + Number(this.security_dep_amount);
           if(this.product_details.data != null){
             this.youtube_url = "https://www.youtube-nocookie.com/embed/" + this.product_data.video_link+"?playlist="+this.product_data.video_link+"&loop=1&mute=1";          
             this.safeURL = this._sanitizer.bypassSecurityTrustResourceUrl(this.youtube_url);
@@ -166,6 +172,12 @@ export class ProductPageComponent implements OnInit {
       });
   }
   
+  commaSeperated(e: any) {
+    var t = (e = e ? e.toString() : "").substring(e.length - 3)
+      , n = e.substring(0, e.length - 3);
+    return "" !== n && (t = "," + t),
+      n.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + t
+  }
   // property compare
   product_comp(id:number){
     let param={id:id}
