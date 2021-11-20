@@ -26,7 +26,7 @@
                                             <div class="form-group">
                                                 <input type="hidden" class="form-control" id="search_type" name="search_type"
                                                     formControlName="search_type">
-                                                <input type="text" class="form-control input-text" name="build_name"
+                                                <input type="text" class="form-control input-text" name="name"
                                                     formControlName="build_name" id="build_name" placeholder="Enter keywords...">
                                             </div>
                                         </li>
@@ -37,32 +37,32 @@
                                                     formControlName="type" id="type">
                                                         <option value ="" selected>Select Property Type</option>
                                                         <optgroup label="ALL RESIDENTIAL">
-                                                            <option value="1">Flat/ Apartment</option>
-                                                            <option value="2">Residential House</option>
-                                                            <option value="3">Villa</option>
-                                                            <option value="4">Builder Floor Apartment
+                                                            <option value="Flat/ Apartment">Flat/ Apartment</option>
+                                                            <option value="Residential House">Residential House</option>
+                                                            <option value="Villa">Villa</option>
+                                                            <option value="Builder Floor Apartment">Builder Floor Apartment
                                                             </option>
-                                                            <option value="5">Residential Land/ Plot
+                                                            <option value="Residential Land/ Plot">Residential Land/ Plot
                                                             </option>
-                                                            <option value="6">Penthouse</option>
-                                                            <option value="7">Studio Apartment</option>
+                                                            <option value="Penthouse">Penthouse</option>
+                                                            <option value="Studio Apartment">Studio Apartment</option>
                                                         </optgroup>
                                                         <optgroup label="ALL COMMERCIAL">
-                                                            <option value="8">Commercial Office Space
+                                                            <option value="Commercial Office Space">Commercial Office Space
                                                             </option>
-                                                            <option value="9">Office in IT Park/ SEZ
+                                                            <option value="Office in IT Park/ SEZ">Office in IT Park/ SEZ
                                                             </option>
-                                                            <option value="10">Commercial Shop</option>
-                                                            <option value="11">Commercial Showroom</option>
-                                                            <option value="12">Commercial Land</option>
-                                                            <option value="13">Warehouse/ Godown</option>
-                                                            <option value="14">Industrial Land</option>
-                                                            <option value="15">Industrial Building</option>
-                                                            <option value="16 ">Industrial Shed</option>
+                                                            <option value="Commercial Shop">Commercial Shop</option>
+                                                            <option value="Commercial Showroom">Commercial Showroom</option>
+                                                            <option value="Commercial Land">Commercial Land</option>
+                                                            <option value="Warehouse/ Godown">Warehouse/ Godown</option>
+                                                            <option value="Industrial Land">Industrial Land</option>
+                                                            <option value="Industrial Building">Industrial Building</option>
+                                                            <option value="Industrial Shed">Industrial Shed</option>
                                                         </optgroup>
                                                         <optgroup label="ALL AGRICULTURAL">
-                                                            <option value="17">Agricultural Land</option>
-                                                            <option value="18">Farm House</option>
+                                                            <option value="Agricultural Land">Agricultural Land</option>
+                                                            <option value="Farm House">Farm House</option>
                                                         </optgroup>
                                                     </select>
                                                 </div>
@@ -114,7 +114,7 @@
                                             <ul class="col-lg-12 ui_kit_checkbox selectable-list">
                                                 <!-- <div class="row"> -->
                                                     <li *ngFor="let amenties of amenties?.data"
-                                                        class="col-lg-2 col-xs-6">
+                                                        class="col-lg-2 col-xs-6 amentites_li">
                                                         <div class="form-check">
                                                             <input class="form-check-input" type="checkbox" value="{{amenties.id}}" id="{{amenties.id}}"  (change)="onchangeAmenties($event,amenties.id)">
                                                             <label class="form-check-label" for="{{amenties.id}}">
@@ -376,20 +376,4 @@
 <app-articals></app-articals>
 
 <!-- Real Estate Agent -->
-<section class="start-partners bgc-thm pt50 pb50">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8">
-                <div class="start_partner tac-smd">
-                    <h2>Become a Real Estate Agent</h2>
-                    <p>We only work with the best companies around the globe</p>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="parner_reg_btn tac-smd">
-                    <a class="btn btn-thm2" href="#">Register Now</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+<app-real-estate-agent></app-real-estate-agent>

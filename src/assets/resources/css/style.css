@@ -3940,6 +3940,10 @@ input[type="range"]::-ms-fill-upper {
     padding: 25px 20px 10px;
     position: relative;
 }
+.testimonial_grid_slider .owl-carousel.owl-theme .owl-nav{
+  margin: 0;
+  display: none!important;
+}
 
 .feat_property.list .dtls_headr {
     display: -webkit-inline-flex;

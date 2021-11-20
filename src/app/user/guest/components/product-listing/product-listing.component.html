@@ -59,34 +59,34 @@
                                             <div class="search_option_two">
                                                 <div class="candidate_revew_select">
                                                     <select class="form-select w100 show-tick" name="type" formControlName="type" id="type">
-                                                        <option value="">Select Property Type</option>
+                                                        <option value ="" selected>Select Property Type</option>
                                                         <optgroup label="ALL RESIDENTIAL">
-                                                            <option value="1">Flat/ Apartment</option>
-                                                            <option value="2">Residential House</option>
-                                                            <option value="3">Villa</option>
-                                                            <option value="4">Builder Floor Apartment
+                                                            <option value="Flat/ Apartment">Flat/ Apartment</option>
+                                                            <option value="Residential House">Residential House</option>
+                                                            <option value="Villa">Villa</option>
+                                                            <option value="Builder Floor Apartment">Builder Floor Apartment
                                                             </option>
-                                                            <option value="5">Residential Land/ Plot
+                                                            <option value="Residential Land/ Plot">Residential Land/ Plot
                                                             </option>
-                                                            <option value="6">Penthouse</option>
-                                                            <option value="7">Studio Apartment</option>
+                                                            <option value="Penthouse">Penthouse</option>
+                                                            <option value="Studio Apartment">Studio Apartment</option>
                                                         </optgroup>
                                                         <optgroup label="ALL COMMERCIAL">
-                                                            <option value="8">Commercial Office Space
+                                                            <option value="Commercial Office Space">Commercial Office Space
                                                             </option>
-                                                            <option value="9">Office in IT Park/ SEZ
+                                                            <option value="Office in IT Park/ SEZ">Office in IT Park/ SEZ
                                                             </option>
-                                                            <option value="10">Commercial Shop</option>
-                                                            <option value="11">Commercial Showroom</option>
-                                                            <option value="12">Commercial Land</option>
-                                                            <option value="13">Warehouse/ Godown</option>
-                                                            <option value="14">Industrial Land</option>
-                                                            <option value="15">Industrial Building</option>
-                                                            <option value="16 ">Industrial Shed</option>
+                                                            <option value="Commercial Shop">Commercial Shop</option>
+                                                            <option value="Commercial Showroom">Commercial Showroom</option>
+                                                            <option value="Commercial Land">Commercial Land</option>
+                                                            <option value="Warehouse/ Godown">Warehouse/ Godown</option>
+                                                            <option value="Industrial Land">Industrial Land</option>
+                                                            <option value="Industrial Building">Industrial Building</option>
+                                                            <option value="Industrial Shed">Industrial Shed</option>
                                                         </optgroup>
                                                         <optgroup label="ALL AGRICULTURAL">
-                                                            <option value="17">Agricultural Land</option>
-                                                            <option value="18">Farm House</option>
+                                                            <option value="Agricultural Land">Agricultural Land</option>
+                                                            <option value="Farm House">Farm House</option>
                                                         </optgroup>
                                                     </select>
                                                 </div>
@@ -165,7 +165,7 @@
                                             <div class="search_option_two">
                                                 <div class="candidate_revew_select">
                                                     <select class="form-select w100 show-tick" name="search_type" formControlName="search_type" id="search_type" (change)="property_type()">
-                                                        <option value="Select Availability">Select Availability</option>
+                                                        <option value="all">Select Availability</option>
                                                         <option value="rent">Rental Property</option>
                                                         <option value="sales">Sales Property</option>
                                                     </select>
@@ -234,7 +234,7 @@
                                                                             <div class="col-lg-6 col-6" *ngFor="let amenties of amenties?.data">
                                                                                 <li>
                                                                                     <div class="form-check">
-                                                                                        <input class="form-check-input" type="checkbox" value="{{amenties.id}}" id="{{amenties.id}}" (change)="onchangeAmenties($event,amenties.id)">
+                                                                                        <input type="checkbox" class="form-check-input"  value="{{amenties.id}}" id="{{amenties.id}}"  (change)="onchangeAmenties($event,amenties.id)">
                                                                                         <label class="form-check-label" for="{{amenties.id}}">
                                                                                             {{amenties.name}}
                                                                                         </label>
@@ -334,34 +334,34 @@
                                         <div class="search_option_two">
                                             <div class="candidate_revew_select">
                                                 <select class="form-select w100 show-tick" name="type" formControlName="type" id="type">
-                                                    <option value="">Select Property Type</option>
+                                                    <option value ="" selected>Select Property Type</option>
                                                     <optgroup label="ALL RESIDENTIAL">
-                                                        <option value="1">Flat/ Apartment</option>
-                                                        <option value="2">Residential House</option>
-                                                        <option value="3">Villa</option>
-                                                        <option value="4">Builder Floor Apartment
+                                                        <option value="Flat/ Apartment">Flat/ Apartment</option>
+                                                        <option value="Residential House">Residential House</option>
+                                                        <option value="Villa">Villa</option>
+                                                        <option value="Builder Floor Apartment">Builder Floor Apartment
                                                         </option>
-                                                        <option value="5">Residential Land/ Plot
+                                                        <option value="Residential Land/ Plot">Residential Land/ Plot
                                                         </option>
-                                                        <option value="6">Penthouse</option>
-                                                        <option value="7">Studio Apartment</option>
+                                                        <option value="Penthouse">Penthouse</option>
+                                                        <option value="Studio Apartment">Studio Apartment</option>
                                                     </optgroup>
                                                     <optgroup label="ALL COMMERCIAL">
-                                                        <option value="8">Commercial Office Space
+                                                        <option value="Commercial Office Space">Commercial Office Space
                                                         </option>
-                                                        <option value="9">Office in IT Park/ SEZ
+                                                        <option value="Office in IT Park/ SEZ">Office in IT Park/ SEZ
                                                         </option>
-                                                        <option value="10">Commercial Shop</option>
-                                                        <option value="11">Commercial Showroom</option>
-                                                        <option value="12">Commercial Land</option>
-                                                        <option value="13">Warehouse/ Godown</option>
-                                                        <option value="14">Industrial Land</option>
-                                                        <option value="15">Industrial Building</option>
-                                                        <option value="16 ">Industrial Shed</option>
+                                                        <option value="Commercial Shop">Commercial Shop</option>
+                                                        <option value="Commercial Showroom">Commercial Showroom</option>
+                                                        <option value="Commercial Land">Commercial Land</option>
+                                                        <option value="Warehouse/ Godown">Warehouse/ Godown</option>
+                                                        <option value="Industrial Land">Industrial Land</option>
+                                                        <option value="Industrial Building">Industrial Building</option>
+                                                        <option value="Industrial Shed">Industrial Shed</option>
                                                     </optgroup>
                                                     <optgroup label="ALL AGRICULTURAL">
-                                                        <option value="17">Agricultural Land</option>
-                                                        <option value="18">Farm House</option>
+                                                        <option value="Agricultural Land">Agricultural Land</option>
+                                                        <option value="Farm House">Farm House</option>
                                                     </optgroup>
                                                 </select>
                                             </div>
@@ -440,7 +440,7 @@
                                         <div class="search_option_two">
                                             <div class="candidate_revew_select">
                                                 <select class="form-select w100 show-tick" name="search_type" formControlName="search_type" id="search_type" (change)="property_type()">
-                                                    <option value="Select Availability">Select Availability</option>
+                                                    <option value="all">Select Availability</option>
                                                     <option value="rent">Rental Property</option>
                                                     <option value="sales">Sales Property</option>
                                                 </select>
@@ -684,7 +684,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row" *ngIf="property.data?.length<1 && product_show">
+                <div class="row" *ngIf="propertyresultlength==true">
                     <div class="col-lg-12">
                         <h3>No Search property!!!... </h3>
                     </div>
