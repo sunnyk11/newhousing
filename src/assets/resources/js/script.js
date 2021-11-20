@@ -341,7 +341,7 @@
     }
 
     function scrollToTop() {
-        //console.log("Scroll to Top called");
+        console.log("Scroll to Top called");
         $(window).scroll(function() {
             if ($(this).scrollTop() > 600) {
                 $('.scrollToHome').fadeIn();

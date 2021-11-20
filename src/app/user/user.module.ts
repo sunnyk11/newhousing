@@ -11,7 +11,6 @@ import { BackendModule } from './backend/backend.module';
 
 @NgModule({
   declarations: [
-  
   ],
   imports: [
     CommonModule,
@@ -20,6 +19,7 @@ import { BackendModule } from './backend/backend.module';
     BackendModule
     
   ],
+  exports: []
   
 })
 export class UserModule { }

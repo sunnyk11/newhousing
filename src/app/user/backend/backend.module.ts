@@ -5,17 +5,36 @@ import { BackendRoutingModule } from './backend-routing.module';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { MasterComponent } from './components/master/master.component';
 import { UserSharedModule } from '../user-shared/user-shared.module';
-
+import { ListpropertyRentComponent } from './components/listproperty-rent/listproperty-rent.component';
+import { ListpropertyComponent } from './components/listproperty/listproperty.component';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+import { ReactiveFormsModule } from '@angular/forms';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatSliderModule} from '@angular/material/slider';
 
 @NgModule({
   declarations: [
     DashboardComponent,
-    MasterComponent
+    MasterComponent,
+    ListpropertyRentComponent,
+    ListpropertyComponent
   ],
   imports: [
     CommonModule,
     BackendRoutingModule,
-    UserSharedModule
+    UserSharedModule,
+    MatStepperModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatIconModule,
+    MatButtonModule,
+    MatDividerModule,
+    MatSliderModule
   ]
 })
 export class BackendModule { }
