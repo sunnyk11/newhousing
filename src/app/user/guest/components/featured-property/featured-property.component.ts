@@ -64,6 +64,7 @@ export class FeaturedPropertyComponent implements OnInit {
     touchDrag: false,
     pullDrag: false,
     autoplay:true,
+    autoplayHoverPause:true,
     dots: true,
     navSpeed: 500,
     navText: ['<span class="outer_slider"><i class="flaticon-left-arrow-1 left"></i></span> ', '<span class="outer_slider"><i class="flaticon-right-arrow right"></i></span>'],

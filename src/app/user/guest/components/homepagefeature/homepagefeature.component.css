@@ -12,3 +12,6 @@
     width: 100%!important;
     height: 50vh!important;
 }
+.inner_carosule .outer_slider{
+    background-color: transparent!important;
+}

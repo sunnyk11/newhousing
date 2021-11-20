@@ -35,6 +35,7 @@ export class TestimonialComponent implements OnInit {
     touchDrag: false,
     pullDrag: false,
     autoplay:true,
+    autoplayHoverPause:true,
     dots: true,
     navSpeed: 500,
     navText: ['', ''],

@@ -3,7 +3,7 @@
     <div class="widget_list">
         <ul class="list_details">
             <li *ngFor="let properrt_category of category?.count">
-                <a (click)="on_search(properrt_category.id)">
+                <a (click)="on_search(properrt_category.pro_type)">
                     <i class="fa fa-caret-right mr10"></i>{{properrt_category.pro_type}} 
                     <span  class="float-right">{{properrt_category.pro_count}} properties</span>
                 </a>

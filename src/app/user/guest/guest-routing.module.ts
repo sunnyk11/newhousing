@@ -18,6 +18,9 @@ import { VerifyMobileComponent } from './components/verify-mobile/verify-mobile.
 import { InvoiceComponent } from './components/invoice/invoice.component';
 import { MyPropertiesComponent } from './components/my-properties/my-properties.component';
 import { AuthGuard } from './guards/auth.guard';
+import { TermsConditionsComponent } from './components/terms-conditions/terms-conditions.component';
+import { IpDisclaimerComponent } from './components/ip-disclaimer/ip-disclaimer.component';
+import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 //custom component imports
 
 const routes: Routes = [
@@ -34,6 +37,9 @@ const routes: Routes = [
         { path: "login", component:LoginComponent},
         { path: "wishlist", component:WishlistComponent},
         { path: "product-compare", component:CompareComponent},
+        { path: "terms-conditions", component:TermsConditionsComponent},
+        { path: "ip-disclaimer", component:IpDisclaimerComponent},
+        { path: "privacy-policy", component:PrivacyPolicyComponent},
         { path: "logout", component:LogoutComponent},
         {path: "product_payment_summary", component: ProPaymentSummaryComponent},
         {path: "verify-mobile", component: VerifyMobileComponent, canActivate: [AuthGuard]},

@@ -15,7 +15,6 @@ import { HomepagefeatureComponent } from './components/homepagefeature/homepagef
 import { ProductListingComponent } from './components/product-listing/product-listing.component';
 import { ProductCategoryComponent } from './components/product-category/product-category.component';
 import { FeaturedPropertyComponent } from './components/featured-property/featured-property.component';
-import { ProductListingDetailsComponent } from './components/product-listing-details/product-listing-details.component';
 import { ProductPageComponent } from './components/product-page/product-page.component';
 import { RecentlyViewedProductComponent } from './components/recently-viewed-product/recently-viewed-product.component';
 import { AgmCoreModule } from '@agm/core';
@@ -36,6 +35,10 @@ import { VerifyMobileComponent } from './components/verify-mobile/verify-mobile.
 import { InvoiceComponent } from './components/invoice/invoice.component';
 import { MobileCheckComponent } from './modals/mobile-check/mobile-check.component';
 import { MyPropertiesComponent } from './components/my-properties/my-properties.component';
+import { RealEstateAgentComponent } from './components/real-estate-agent/real-estate-agent.component';
+import { TermsConditionsComponent } from './components/terms-conditions/terms-conditions.component';
+import { IpDisclaimerComponent } from './components/ip-disclaimer/ip-disclaimer.component';
+import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +52,6 @@ import { MyPropertiesComponent } from './components/my-properties/my-properties.
     ProductListingComponent,
     ProductCategoryComponent,
     FeaturedPropertyComponent,
-    ProductListingDetailsComponent,
     ProductPageComponent,
     RecentlyViewedProductComponent,
     AmenitiesactivePipe,
@@ -65,6 +67,10 @@ import { MyPropertiesComponent } from './components/my-properties/my-properties.
     InvoiceComponent,
     MobileCheckComponent,
     MyPropertiesComponent,
+    RealEstateAgentComponent,
+    TermsConditionsComponent,
+    IpDisclaimerComponent,
+    PrivacyPolicyComponent,
   ],
   imports: [
     CommonModule,

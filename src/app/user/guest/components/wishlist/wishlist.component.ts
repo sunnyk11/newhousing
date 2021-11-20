@@ -128,9 +128,11 @@ export class WishlistComponent implements OnInit {
   customOptions: OwlOptions = {
     loop: true,
     mouseDrag: false,
-    touchDrag: false,
+    touchDrag: true,
     pullDrag: false,
     dots: false,
+    autoplay:true,
+    autoplayHoverPause:true,
     navSpeed: 700,
     navText: ['<span class="outer_slider"><i class="flaticon-left-arrow-1 left"></i></span> ', '<span class="outer_slider"><i class="flaticon-right-arrow right"></i></span>'],
     responsive: {
