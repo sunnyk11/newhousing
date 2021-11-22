@@ -97,6 +97,12 @@ export class CompareComponent implements OnInit {
         }else{
           this.amenitiesresult=[];
         }
+      }, err => { 
+        this.showLoadingIndicator = false;
+        let Message =err.error.message;
+        this.toastr.error(Message, 'Something Error', {
+          timeOut: 3000,
+        });
       }
     );    
   }
@@ -142,6 +148,12 @@ export class CompareComponent implements OnInit {
           timeOut: 4000,
         });
         this.product_comapre();
+        }, err => { 
+          this.showLoadingIndicator = false;
+          let Message =err.error.message;
+          this.toastr.error(Message, 'Something Error', {
+            timeOut: 3000,
+          });
         }
       );
   }

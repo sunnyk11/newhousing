@@ -41,6 +41,12 @@ export class HomepagefeatureComponent implements OnInit {
         this.showLoadingIndicator= false;
         this.property=response;
         this.product_length=this.property.data.length;
+      }, err => { 
+        this.showLoadingIndicator = false;
+        let Message =err.error.message;
+        this.toastr.error(Message, 'Something Error', {
+          timeOut: 3000,
+        });
       }
      );
     }else{
@@ -49,6 +55,12 @@ export class HomepagefeatureComponent implements OnInit {
         this.showLoadingIndicator= false;
         this.property=response;
         this.product_length=this.property.data.length;
+      }, err => { 
+        this.showLoadingIndicator = false;
+        let Message =err.error.message;
+        this.toastr.error(Message, 'Something Error', {
+          timeOut: 3000,
+        });
       }
      );
     }
@@ -73,6 +85,12 @@ export class HomepagefeatureComponent implements OnInit {
             timeOut: 3000,
           });
         }
+      }, err => { 
+        this.showLoadingIndicator = false;
+        let Message =err.error.message;
+        this.toastr.error(Message, 'Something Error', {
+          timeOut: 3000,
+        });
       }
      );
     }else{
@@ -88,6 +106,12 @@ export class HomepagefeatureComponent implements OnInit {
       response => {
         this.product_length=0;
         this.feature_property();
+      }, err => { 
+        this.showLoadingIndicator = false;
+        let Message =err.error.message;
+        this.toastr.error(Message, 'Something Error', {
+          timeOut: 3000,
+        });
       }
      );
     }
@@ -103,6 +127,12 @@ export class HomepagefeatureComponent implements OnInit {
       response => {
         this.product_length=0;
         this.feature_property();
+      }, err => { 
+        this.showLoadingIndicator = false;
+        let Message =err.error.message;
+        this.toastr.error(Message, 'Something Error', {
+          timeOut: 3000,
+        });
       }
      );
     }else{

@@ -46,6 +46,12 @@ export class WishlistComponent implements OnInit {
         this.showLoadingIndicator = false;
         this.wishlist_refresh();
         this.pro_comp_refresh();
+      }, err => { 
+        this.showLoadingIndicator = false;
+        let Message =err.error.message;
+        this.toastr.error(Message, 'Something Error', {
+          timeOut: 3000,
+        });
       }
     );
   }    
@@ -57,6 +63,12 @@ export class WishlistComponent implements OnInit {
       response => {
         this.wishlist_length=0;
         this.product_wishlist();
+      }, err => { 
+        this.showLoadingIndicator = false;
+        let Message =err.error.message;
+        this.toastr.error(Message, 'Something Error', {
+          timeOut: 3000,
+        });
       }
      );
     }else{
@@ -80,6 +92,12 @@ export class WishlistComponent implements OnInit {
             timeOut: 3000,
           });
         }
+      }, err => { 
+        this.showLoadingIndicator = false;
+        let Message =err.error.message;
+        this.toastr.error(Message, 'Something Error', {
+          timeOut: 3000,
+        });
       }
      );
     }else{

@@ -29,6 +29,7 @@ export class FeaturedPropertyComponent implements OnInit {
     this.CommonService.getFeaturedproduct({ param: null }).subscribe(
       response => {
         this.pro_featured=response;
+      }, err => { 
       }
     );
   } 

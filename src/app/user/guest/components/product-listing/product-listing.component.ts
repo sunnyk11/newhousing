@@ -158,7 +158,7 @@ export class ProductListingComponent implements OnInit {
           type:params.type,
           location:params.location,
           years:params.years,
-          city:params.type,
+          city:params.city,
         });
         this.search_type=params.search_type;
           if(params.amenties != null){  
@@ -202,6 +202,12 @@ export class ProductListingComponent implements OnInit {
             this.propertyresultlength=true;
           }
           this.showLoadingIndicator = false;
+        }, err => { 
+          this.showLoadingIndicator = false;
+          let Message =err.error.message;
+          this.toastr.error(Message, 'Something Error', {
+            timeOut: 3000,
+          });
         }
       );
 
@@ -214,6 +220,9 @@ export class ProductListingComponent implements OnInit {
             this.propertyresultlength=true;
           }
           this.showLoadingIndicator = false;
+        }, err => { 
+          this.showLoadingIndicator = false;
+          let Message =err.error.message;
         }
       );
     }
@@ -328,6 +337,12 @@ export class ProductListingComponent implements OnInit {
             timeOut: 3000,
           });
         }
+      }, err => { 
+        this.showLoadingIndicator = false;
+        let Message =err.error.message;
+        this.toastr.error(Message, 'Something Error', {
+          timeOut: 3000,
+        });
       }
      );
     }else{
@@ -342,6 +357,12 @@ export class ProductListingComponent implements OnInit {
       response => {
         this.product_length=0;
         this.onsearch();
+      }, err => { 
+        this.showLoadingIndicator = false;
+        let Message =err.error.message;
+        this.toastr.error(Message, 'Something Error', {
+          timeOut: 3000,
+        });
       }
      );
     }
@@ -357,6 +378,12 @@ export class ProductListingComponent implements OnInit {
       response => {
         this.product_length=0;
         this.onsearch();
+      }, err => { 
+        this.showLoadingIndicator = false;
+        let Message =err.error.message;
+        this.toastr.error(Message, 'Something Error', {
+          timeOut: 3000,
+        });
       }
      );
     }else{

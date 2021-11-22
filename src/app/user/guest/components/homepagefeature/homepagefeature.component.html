@@ -97,7 +97,7 @@
                                 <div class="details">
                                     <a (click)="navigate(number.id,number.build_name,number.city)">
                                         <div class="tc_content">
-                                            <p class="text-thm" *ngIf="number.property__type != null">{{ number?.property__type.name | titlecase }}</p>
+                                            <p class="text-thm" *ngIf="number.type != null">{{ number?.type | titlecase }}</p>
                                             <h4>{{number?.build_name | titlecase}}</h4>
                                             <p><span class="flaticon-placeholder"></span> {{ number?.address | titlecase }}</p>
                                             <ul class="prop_details mb0">

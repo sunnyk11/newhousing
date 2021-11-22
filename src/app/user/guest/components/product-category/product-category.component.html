@@ -1,11 +1,11 @@
-<div class="terms_condition_widget" *ngIf="category?.count">
+<div class="terms_condition_widget" *ngIf="category?.data">
     <h4 class="title">Categories Property</h4>
     <div class="widget_list">
         <ul class="list_details">
-            <li *ngFor="let properrt_category of category?.count">
-                <a (click)="on_search(properrt_category.pro_type)">
-                    <i class="fa fa-caret-right mr10"></i>{{properrt_category.pro_type}} 
-                    <span  class="float-right">{{properrt_category.pro_count}} properties</span>
+            <li *ngFor="let properrt_category of category?.data">
+                <a (click)="on_search(properrt_category.category)">
+                    <i class="fa fa-caret-right mr10"></i>{{properrt_category.category}} 
+                    <span  class="float-right">{{properrt_category.category_count}} properties</span>
                 </a>
             </li>
         </ul>

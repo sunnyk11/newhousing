@@ -29,13 +29,12 @@ export class CommonService {
   pro_comp_on<T>(): Observable<T>{
     return this.pro_comp_subject.asObservable();
   }
-
   getAmenities(reqModel:any): Observable<ResultModel> {
     const route = "/api/amenities";
     return this.apiService.get<ResultModel>(route, reqModel);
   }  
   getproductcategory(reqModel:any): Observable<ResultModel> {
-    const route = "/api/property_type";
+    const route = "/api/product/property_category";
     return this.apiService.get<ResultModel>(route, reqModel);
   }
   getFeaturedproduct(reqModel:any): Observable<ResultModel> {

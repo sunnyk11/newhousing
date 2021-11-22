@@ -1,6 +1,7 @@
 <div class="container p-3">
     <div class="h-100 p-3 bg-light border rounded-3">
         <mat-horizontal-stepper [linear]="true" #stepper="matHorizontalStepper">
+
             <mat-step label="Step 1" state="phone" [stepControl]="form_step1">
                 <div class="h-100 p-3 bg-lightgray bg-gradient border rounded-3 mt-2">
                     <form [formGroup]="form_step1" class="g-3">
@@ -8,7 +9,6 @@
                             <div class="col-md-6">
                                 <label for="property_name" class="form-label">Property Name</label>
                                 <input type="text" class="form-control" id="property_name" formControlName="property_name" required>
-                                <!-- <input type="hidden" class="form-control" id="draft_form_id" formControlName="draft_form_id" required> -->
                             </div>
                             <div class="col-md-6">
                                 <label for="property_type" class="form-label">Property Type</label>
@@ -132,13 +132,12 @@
                         <div class="row mt-3">
                             <div class="col-md-12">
                                 <label for="property_desc" class="form-label">Property Description</label>
-                                <textarea class="form-control" aria-label="With textarea" id="property_desc" formControlName="property_desc"></textarea>
+                                <textarea  rows="4" cols="20" class="form-control" aria-label="With textarea" id="property_desc" formControlName="property_desc"></textarea>
                             </div>
                         </div>
                     </form>
                     <div class="row mt-3">
                         <div class="col-md-12 text-right">
-                            <button class="draftbtn" mat-raised-button (click)="save_draft()">Save Draft</button>
                             <button mat-raised-button matStepperNext>Next</button>
                         </div>
                     </div>
@@ -181,7 +180,7 @@
                                 <label for="locality" class="form-label">Locality</label>
                                 <select id="locality" class="form-select form-select-lg w100" formControlName="locality" (ngModelChange)="onchange_locality($event)">
                                     <option value="" disabled>Select Option</option>
-                                    <option *ngFor="let locality of locality_data" value="{{locality.id}}">{{locality.area}}</option>             
+                                    <option *ngFor="let locality of locality_data" value="{{locality.id}}">{{locality.area}}</option>                    
                                 </select>
                             </div>
                             <div class="col-md-3">
@@ -199,7 +198,6 @@
                                 <button mat-raised-button matStepperPrevious>Back</button>
                             </div>
                             <div class="col-md-6 col-sm-6 text-right">
-                                <button class="draftbtn" mat-raised-button (click)="save_draft()">Save Draft</button>
                                 <button mat-raised-button matStepperNext>Next</button>
                             </div>
                         </div>
@@ -261,20 +259,31 @@
                                 </select>
                             </div>
                         </div>
-                        
                         <div class="row additional_row" *ngIf="add_room_tab == true"> 
                             <div class="col-6 col-sm col-lg-3" *ngFor="let add_room of addition_room">
                                 <ul class="ui_kit_checkbox selectable-list">
-                                    <li>
+                                    <li *ngIf="add_room_check(add_room.name)==true,else Other_room">
                                         <div class="custom-control custom-checkbox ">
                                             <div class="form-group">
                                             <input type="checkbox" class="custom-control-input"
-                                                id="{{add_room.id}}" (change)="onchange_rooms($event,add_room.name)">
+                                                id="{{add_room.id}}" (change)="onchange_rooms($event,add_room.name)" checked>
                                                 <label class="custom-control-label"
                                                 for="{{add_room.id}}">{{add_room.name}}</label>
                                             </div>
                                         </div>
                                     </li>
+                                    <ng-template #Other_room>
+                                        <li>
+                                            <div class="custom-control custom-checkbox ">
+                                                <div class="form-group">
+                                                <input type="checkbox" class="custom-control-input"
+                                                    id="{{add_room.id}}" (change)="onchange_rooms($event,add_room.name)">
+                                                    <label class="custom-control-label"
+                                                    for="{{add_room.id}}">{{add_room.name}}</label>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ng-template>
                                 </ul>
                             </div>
                         </div>
@@ -298,12 +307,20 @@
                             <div class="col-12  col-lg-12" >
                                 <ul class="row ui_kit_checkbox selectable-list">
                                     <li *ngFor="let amenties_data of amenties?.data" class="col-lg-2 col-xs-6 amentites_li">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="{{amenties_data.name}}"  (change)="onchangeAmenties($event,amenties_data.id)">
+                                        <div class="form-check"  *ngIf="amenties_funtion(amenties_data.id)==true,else OtherAmenties">
+                                            <input class="form-check-input" type="checkbox" id="{{amenties_data.name}}"  (change)="onchangeAmenties($event,amenties_data.id)" checked>
                                             <label class="form-check-label" for="{{amenties_data.name}}" (change)="onchangeAmenties($event,amenties_data.id)">
                                                 {{amenties_data.name}}
                                             </label>
                                         </div>
+                                        <ng-template #OtherAmenties>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="{{amenties_data.name}}"  (change)="onchangeAmenties($event,amenties_data.id)">
+                                                <label class="form-check-label" for="{{amenties_data.name}}" (change)="onchangeAmenties($event,amenties_data.id)">
+                                                    {{amenties_data.name}}
+                                                </label>
+                                            </div>
+                                        </ng-template>
                                     </li>
                                 </ul>
                             </div>
@@ -312,7 +329,7 @@
                             <div class="col-md-6">
                                 <label for="parking_covered_count" class="form-label">Covered Parking</label>
                                 <select id="parking_covered_count" class="form-select form-select-lg w100" formControlName="parking_covered_count">
-                                    <option value="" disabled>Select Option</option>
+                                    <option value="null" disabled>Select Option</option>
                                     <option value="0">0</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
@@ -324,7 +341,8 @@
                             <div class="col-md-6">
                                 <label for="parking_open_count" class="form-label">Open Parking</label>
                                 <select id="parking_open_count" class="form-select form-select-lg w100" formControlName="parking_open_count">
-                                    <option value="" disabled>Select Option</option>
+                                    <!-- <option value="" disabled>Select Option</option> -->
+                                    <option value="null" disabled>Select Option</option>
                                     <option value="0">0</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
@@ -437,7 +455,6 @@
                                 <button mat-raised-button matStepperPrevious>Back</button>
                             </div>
                             <div class="col-md-6 text-right">
-                                <button class="draftbtn" mat-raised-button (click)="save_draft()">Save Draft</button>
                                 <button mat-raised-button matStepperNext>Next</button>
                             </div>
                         </div>
@@ -648,13 +665,37 @@
                                 <button mat-raised-button matStepperPrevious>Back</button>
                             </div>
                             <div class="col-md-6 text-right">
-                                <button class="draftbtn" mat-raised-button (click)="save_draft()">Save Draft</button>
                                 <button mat-raised-button matStepperNext (click)="submit_rent()">Submit</button>
                             </div>
                         </div>
                     </div>
                 </form>
+                <div class="row mt-3">
+                    <div class="col-lg-12 UpdateProperty_select_img" *ngIf="product_img_length>0">
+                        <h4>Selected Images</h4>
+                        <ul class="mb0">
+                            <li class="list-inline-item col-lg-4"
+                                *ngFor="let p_images of selected_product_img let i = index">
+                                <div class="portfolio_item">
+                                    <img class="img-fluid" src="{{ftpstring}}{{p_images.image}}"
+                                        alt="Product Image">
+                                    <div class="edu_stats_list" data-toggle="tooltip"
+                                        data-placement="top" title="Delete"
+                                        data-original-title="Delete">
+                                        <button type="button" class="btn btn-thm2 float-right"
+                                            (click)=" delete_Pro_img(p_images.id)"><span
+                                                class="flaticon-garbage"></span></button>
+                                    </div>
+                                    <div class="overlay">
+                                        <h4>Rent Property Selected Image({{i+1}})</h4>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </mat-step>
+
             <!-- Icon overrides. -->
             <ng-template matStepperIcon="phone">
                 <mat-icon>call_end</mat-icon>

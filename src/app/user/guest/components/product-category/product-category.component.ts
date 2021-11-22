@@ -40,13 +40,13 @@ export class ProductCategoryComponent implements OnInit {
     this.CommonService.getproductcategory({ param: null }).subscribe(
       response => {
         this.category=response;
+      }, err => { 
       }
     );
   } 
   on_search(type:string){
     this.searchForm.controls['type'].setValue(type);
     let data:any=this.searchForm.value;
-    console.log(this.searchForm.value);
     const url:any = this.router.createUrlTree(['/product-listing'],{queryParams:{'category':type}})
     window.open(url.toString(), '_blank')
   }
