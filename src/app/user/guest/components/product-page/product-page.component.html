@@ -145,7 +145,7 @@
                                             </li>
                                             <li>
                                                 <p><span *ngIf="product_data?.expected_rent != null">₹
-                                                    {{Price_convert(product_data?.expected_rent) }}<small>{{product_data?.maintenance_charge_condition}}</small>
+                                                    {{Price_convert(product_data?.expected_rent) }}/<small>{{product_data?.maintenance_charge_condition}}</small>
                                                 </span>
                                                     <span *ngIf="product_data?.expected_pricing != null">₹
                                                     {{Price_convert(product_data?.expected_pricing)}}
@@ -163,30 +163,36 @@
                                     <div class="col-md-6 col-lg-6 col-xl-6">
                                         <ul class="list-inline-item">
                                             <li>
+                                                <p>Property Type :</p>
+                                            </li>
+                                            <li>
                                                 <p>Bedrooms :</p>
                                             </li>
                                             <li>
                                                 <p>Bathrooms :</p>
                                             </li>
+                                            <li>
+                                                <p>Balconies :</p>
+                                            </li>
                                             <li *ngIf="product_data?.rera_registration_status != null">
                                                 <p>Property Status :</p>
                                             </li>
-                                            <li>
-                                                <p>Property Type :</p>
-                                            </li>
                                         </ul>
                                         <ul class="list-inline-item">
+                                            <li>
+                                                <p><span>{{product_data?.type}}</span></p>
+                                            </li>
                                             <li>
                                                 <p><span>{{product_data?.bedroom}}</span></p>
                                             </li>
                                             <li>
                                                 <p><span>{{product_data?.bathroom }}</span></p>
                                             </li>
+                                            <li>
+                                                <p><span>{{product_data?.bathroom }}</span></p>
+                                            </li>
                                             <li *ngIf="product_data?.rera_registration_status != null">
                                                 <p>{{product_data?.rera_registration_status}}</p>
-                                            </li>
-                                            <li>
-                                                <p><span>{{product_data?.property__type?.name}}</span></p>
                                             </li>
                                         </ul>
                                     </div>
@@ -201,8 +207,8 @@
                                     </div>
                                     <div class="col-md-6 col-lg-6">
                                         <ul class="list-inline-item">
-                                            <li>
-                                                <p>Ownership:</p>
+                                            <li *ngIf='product_data?.security_deposit'>
+                                                <p>Security Deposit:</p>
                                             </li>
                                             <li>
                                                 <p>Landmark :</p>
@@ -212,8 +218,8 @@
                                             </li>
                                         </ul>
                                         <ul class="list-inline-item">
-                                            <li>
-                                                <p><span>{{product_data?.ownership}}</span></p>
+                                            <li *ngIf='product_data?.security_deposit'>
+                                                <p><span>{{product_data?.security_deposit}}</span></p>
                                             </li>
                                             <li>
                                                 <p><span>{{product_data?.nearest_landmark}}</span></p>
@@ -411,7 +417,7 @@
                                 <div class="details">
                                     <a (click)="navigate(number.id,number.build_name,number.city)">
                                         <div class="tc_content">
-                                            <p class="text-thm" *ngIf="number.property__type != null">{{ number.property__type.name | titlecase }}</p>
+                                            <p class="text-thm" *ngIf="number.type != null">{{ number.type | titlecase }}</p>
                                             <h4>{{number.build_name | titlecase}}</h4>
                                             <p><span class="flaticon-placeholder"></span> {{ number.address | titlecase }}</p>
                                             <ul class="prop_details mb0">
@@ -445,9 +451,9 @@
                     <div class="sidebar_listing_list payment_summery" *ngIf="product_data?.expected_rent != null">
                             <h4>Payment Details</h4> 
                             <h6>1 Month Rent: <strong>{{commaSeperated(product_data?.expected_rent)}}</strong></h6>
-                            <h6>Security Deposit ({{commaSeperated(product_data?.security_deposit)}})/Months:  <strong>{{commaSeperated(security_dep_amount)}}</strong></h6>
+                            <h6>Security Deposit ({{product_data?.security_deposit}})/Months:  <strong>{{commaSeperated(security_dep_amount)}}</strong></h6>
                                 <h6 *ngIf="product_data?.maintenance_charge_status == '1'"> <hr>
-                                    <span>Maintenance Charge({{commaSeperated(product_data?.maintenance_charge_condition )}}):</span> 
+                                    <span>Maintenance Charge({{product_data?.maintenance_charge_condition}}):</span> 
                                     <strong>{{commaSeperated(product_data?.maintenance_charge)}}</strong>
                                 </h6>
                                 <hr>

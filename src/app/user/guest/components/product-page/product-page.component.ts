@@ -74,6 +74,7 @@ export class ProductPageComponent implements OnInit {
       this.login_userid = this.jwtService.getUserId();
       this.ProductPageService.login_single_product_details(param).subscribe(
         response => {
+          console.log(response);
           this.product_details=response;
           this.product_data=this.product_details.data;
           this.security_dep_amount = Number(this.product_details.data.expected_rent) * Number(this.product_details.data.security_deposit);
@@ -102,6 +103,12 @@ export class ProductPageComponent implements OnInit {
           }else{
             this.redirect_to_home_page();
           }
+        }, err => { 
+          this.showLoadingIndicator = false;
+          let Message =err.error.message;
+          this.toastr.error(Message, 'Something Error', {
+            timeOut: 3000,
+          });
         }
       );
     }else{
@@ -135,6 +142,12 @@ export class ProductPageComponent implements OnInit {
           }else{
             this.redirect_to_home_page();
           }
+        }, err => { 
+          this.showLoadingIndicator = false;
+          let Message =err.error.message;
+          this.toastr.error(Message, 'Something Error', {
+            timeOut: 3000,
+          });
         }
       );
     }
@@ -150,6 +163,12 @@ export class ProductPageComponent implements OnInit {
           this.similar_property=response;
           this.showLoadingIndicator = false;
           this.product_length=this.similar_property.data.length;
+        }, err => { 
+          this.showLoadingIndicator = false;
+          let Message =err.error.message;
+          this.toastr.error(Message, 'Something Error', {
+            timeOut: 3000,
+          });
         }
       );      
     }else{
@@ -158,6 +177,12 @@ export class ProductPageComponent implements OnInit {
           this.similar_property=response;
           this.showLoadingIndicator = false;
           this.product_length=this.similar_property.data.length;
+        }, err => { 
+          this.showLoadingIndicator = false;
+          let Message =err.error.message;
+          this.toastr.error(Message, 'Something Error', {
+            timeOut: 3000,
+          });
         }
       );
     }
@@ -196,6 +221,12 @@ export class ProductPageComponent implements OnInit {
             timeOut: 3000,
           });
         }
+      }, err => { 
+        this.showLoadingIndicator = false;
+        let Message =err.error.message;
+        this.toastr.error(Message, 'Something Error', {
+          timeOut: 3000,
+        });
       }
      );
     }else{
@@ -210,6 +241,12 @@ export class ProductPageComponent implements OnInit {
       response => {
         this.product_length=0;
         this.single_product_details(this.product_id);
+      }, err => { 
+        this.showLoadingIndicator = false;
+        let Message =err.error.message;
+        this.toastr.error(Message, 'Something Error', {
+          timeOut: 3000,
+        });
       }
      );
     }else{
@@ -224,6 +261,12 @@ export class ProductPageComponent implements OnInit {
       response => {
         this.product_length=0;
         this.single_product_details(this.product_id);
+      }, err => { 
+        this.showLoadingIndicator = false;
+        let Message =err.error.message;
+        this.toastr.error(Message, 'Something Error', {
+          timeOut: 3000,
+        });
       }
      );
     }else{

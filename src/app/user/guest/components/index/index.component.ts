@@ -94,6 +94,7 @@ export class IndexComponent implements OnInit {
         this.ngZone.run(() => {
           let place: google.maps.places.PlaceResult = autocomplete.getPlace();
           this.location = place.formatted_address;
+          
           this.zoom = 15;
           this.searchForm.controls['location'].setValue(this.location);
         });
@@ -106,6 +107,11 @@ export class IndexComponent implements OnInit {
     this.CommonService.getAmenities({ param: null }).subscribe(
       response => {
         this.amenties=response;
+      }, err => { 
+        let Message =err.error.message;
+        this.toastr.error(Message, 'Something Error', {
+          timeOut: 3000,
+        });
       }
     );
   }
@@ -114,8 +120,14 @@ export class IndexComponent implements OnInit {
     this.indexPageService.get_Property({ param: null }).subscribe(
       response => {
         this.property=response;
+        console.log(response);
         this.city_name=this.property.data['0'].city;
         this.product_length=this.property.data['0'].city_count;
+      }, err => { 
+        let Message =err.error.message;
+        this.toastr.error(Message, 'Something Error', {
+          timeOut: 3000,
+        });
       }
      );
   }

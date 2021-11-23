@@ -36,6 +36,7 @@ export class RecentlyViewedProductComponent implements OnInit {
       response => {
         this.product=response;
         this.Recent_user_length=this.product.data.length;
+      }, err => { 
       }
     );
   }

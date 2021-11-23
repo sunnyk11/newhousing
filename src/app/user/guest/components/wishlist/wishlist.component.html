@@ -78,8 +78,7 @@
                     <div class="details">
                         <a (click)="navigate(data.id,data.build_name,data.city)">
                         <div class="tc_content">
-                            <p class="text-thm" *ngIf="data.property__type != null">{{ data?.productdetails?.property__type.name |
-                            titlecase }}</p>
+                            <p class="text-thm" >{{ data?.productdetails?.type | titlecase }}</p>
                             <h4>{{data?.productdetails?.build_name | titlecase}}</h4>
                             <p><span class="flaticon-placeholder"></span> {{ data?.productdetails?.address | titlecase }}</p>
                             <ul class="prop_details mb0">

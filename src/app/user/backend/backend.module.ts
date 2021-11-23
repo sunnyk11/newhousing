@@ -14,14 +14,18 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MatDividerModule} from '@angular/material/divider';
+import { AgmCoreModule } from '@agm/core';
 import {MatSliderModule} from '@angular/material/slider';
+import { NgxSliderModule } from '@angular-slider/ngx-slider';
+import { UpdatepropertyRentComponent } from './components/updateproperty-rent/updateproperty-rent.component';
 
 @NgModule({
   declarations: [
     DashboardComponent,
     MasterComponent,
     ListpropertyRentComponent,
-    ListpropertyComponent
+    ListpropertyComponent,
+    UpdatepropertyRentComponent
   ],
   imports: [
     CommonModule,
@@ -34,6 +38,10 @@ import {MatSliderModule} from '@angular/material/slider';
     MatIconModule,
     MatButtonModule,
     MatDividerModule,
+    NgxSliderModule,
+    AgmCoreModule.forRoot({  
+      apiKey: 'AIzaSyC2S5kHeGYkW9cL4d7_uxfauTBfQEtN4HA', libraries: ['places']
+    }),
     MatSliderModule
   ]
 })
