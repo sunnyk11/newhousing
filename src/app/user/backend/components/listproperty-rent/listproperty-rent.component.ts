@@ -39,8 +39,8 @@ export class ListpropertyRentComponent implements OnInit {
   zoom!: number;
   location:any='';
   geoCoder:any;
-  public latCus:any=78.89;
-  public longCus:any=76.897;
+  public latCus:any;
+  public longCus:any;
   public locality_data:any=[];
   public Expected_PriceEroor: boolean = false;
   public add_room_tab:boolean=false;
@@ -236,7 +236,7 @@ export class ListpropertyRentComponent implements OnInit {
         this.toastr.success('Successfuly Saved', 'Property Rental', {
           timeOut: 3000,
         });
-        this.router.navigate(['/list-property']); 
+        this.router.navigate(['/agent/my-properties']);
       }, err => { 
         this.showLoadingIndicator = false;
         let Message =err.error.message;
@@ -255,8 +255,7 @@ export class ListpropertyRentComponent implements OnInit {
   // draft property 
   save_draft(){
     this.form_step4.value.draft_form_id='1';
-    let param={form_step1:this.form_step1.value,form_step2:this.form_step2.value,form_step3:this.form_step3.value,form_step4:this.form_step4.value,rooms:this.additional_room_array,amenties:this.amenityArray,images:this.product_img}
-    console.log(param);  
+    let param={form_step1:this.form_step1.value,form_step2:this.form_step2.value,form_step3:this.form_step3.value,form_step4:this.form_step4.value,rooms:this.additional_room_array,amenties:this.amenityArray,images:this.product_img} 
     if(this.form_step4.value.expected_rent >=5000 && this.form_step4.value.expected_rent <=500000){
       this.RentPropertyService.product_insert_rent(param).subscribe(
         response => {
@@ -302,7 +301,6 @@ export class ListpropertyRentComponent implements OnInit {
       this.additional_room_array=[];
       this.selected_room=[];
     }
-    console.log(this.additional_room_array);
   }
   furnishStatus(event:any): void {
     if (event == '1') {
@@ -486,27 +484,22 @@ export class ListpropertyRentComponent implements OnInit {
   delete_pic1(id:any) {
     this.image1 = null;
     this.product_img = this.product_img.filter((m: any) => m != id);
-    console.log(this.product_img);
   }
   delete_pic2(id:any) {
     this.image2 = null;
     this.product_img = this.product_img.filter((m: any) => m != id);
-    console.log(this.product_img);
   }
   delete_pic3(id:any){
     this.image3 = null;
     this.product_img = this.product_img.filter((m: any) => m != id);
-    console.log(this.product_img);
   }
   delete_pic4(id:any){
     this.image4 = null;
     this.product_img = this.product_img.filter((m: any) => m != id);
-    console.log(this.product_img);
   }
   delete_pic5(id:any) {
     this.image5 = null;
     this.product_img = this.product_img.filter((m: any) => m != id);
-    console.log(this.product_img);
   }
 
 }

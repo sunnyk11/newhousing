@@ -39,7 +39,6 @@ export class ProductListingComponent implements OnInit {
   public p:any;
   public ftpstring=environment.ftpURL;
   public product_copm:any={};
-  public product_show:boolean=false;
   public product_length:number=0;
   public propertyresultlength:boolean=false;
   

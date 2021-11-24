@@ -1,0 +1,169 @@
+<div class="wrapper">
+    <div class="container mt20">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="alert alert-dark" role="alert">
+                    {{product_length+this.draft_pro_length}} Listing Properties
+                </div>
+            </div>
+        </div>
+        <div class="row preloader_row" *ngIf="showLoadingIndicator">
+            <div class="col-lg-12">
+                <div class="preloader"></div>
+            </div>
+        </div>
+        <div class="row" *ngIf="product_length>0">
+            <div class="col-lg-12">
+                <div class="my_dashboard_review">
+                    <div class="property_table">
+                        <div class="table-responsive mt0">
+                            <span class="status_tag badge">My Property({{product_length}})</span>
+                            <table class="table text-center">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th scope="col heading">Listing Title</th>
+                                        <th scope="col">Date published</th>
+                                        <th scope="col">Views</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let property of agentproperty?.data | paginate:{itemsPerPage:2, currentPage:p}">
+                                    <td>
+                                        <div class="feat_property list favorite_page style2">
+                                        <div class="thumb">
+                                            <img class="img-whp" *ngIf="property.product_img.length>0;else OtherImage"
+                                            src="{{ftpstring}}{{property.product_img[0].image}}" alt="fp1.jpg">
+                                            <ng-template #OtherImage>
+                                            <img class="img-whp" src="./../../assets/resources/images/no_image_available.jpg"
+                                                alt="No Product Image">
+                                            </ng-template>
+                                            <div class="thmb_cntnt">
+                                            <ul class="tag mb0">
+                                                <li class="list-inline-item dn"></li>
+                                                <li class="list-inline-item" *ngIf=" property.rent_availability  != null"><a>For
+                                                    Rent</a></li>
+                                                <li class="list-inline-item" *ngIf=" property.sale_availability  != null"><a>For
+                                                    Sale</a></li>
+                                            </ul>
+                                            </div>
+                                        </div>
+                                        <div class="details">
+                                            <div class="tc_content">
+                                            <h4>{{ property.build_name | titlecase}}</h4>
+                                            <p class="hidden-xs hidden-sm"><span class="flaticon-placeholder"></span>{{ property.address | titlecase }}</p>
+                                            <a class="fp_price text-thm" *ngIf="property.expected_pricing != null">₹
+                                                {{price_comma(property.expected_pricing) }}<small></small></a>
+                                            <a class="fp_price text-thm" *ngIf="property.expected_rent != null">₹
+                                                {{price_comma(property.expected_rent) }}<small></small></a>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </td>
+                                        <td>{{ property.updated_at | date: 'MMM d, y, h:mm:ss a' }}</td>
+                                        <td>{{ property.view_counter }}</td>
+                                        <td>
+                                            <ul class="view_edit_delete_list mb0">
+                                            <li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="Edit"
+                                                *ngIf=" property.sale_availability  != null">
+                                                <a (click)="navigate(property.id)"><span class="flaticon-edit"></span></a>
+                                            </li>
+                                            <li class="list-inline-item " data-toggle="tooltip" data-placement="top" title="Edit"
+                                                *ngIf=" property.rent_availability  != null">
+                                                <a (click)="navigate(property.id)"><span class="flaticon-edit"></span></a>
+                                            </li>
+                                            <li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="Delete">
+                                                <a (click)="delete_property(property.id)"><span class="flaticon-garbage"></span></a>
+                                            </li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="col-lg-12 agent_property " *ngIf="product_length>2">
+                            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row" *ngIf="draft_pro_length>0">
+            <div class="col-lg-12">
+                <div class="my_dashboard_review">
+                    <div class="property_table">
+                        <div class="table-responsive mt0">
+                            <span class="status_tag badge">Draft Property({{draft_pro_length}})</span>
+                            <table class="table text-center">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th scope="col heading">Listing Title</th>
+                                        <th scope="col">Date published</th>
+                                        <th scope="col">Views</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let property of draftproperty?.data | paginate:{itemsPerPage:2, currentPage:d,id: 'd'}">
+                                    <td>
+                                        <div class="feat_property list favorite_page style2">
+                                        <div class="thumb">
+                                            <img class="img-whp" *ngIf="property.product_img.length>0;else OtherImage"
+                                            src="{{ftpstring}}{{property.product_img[0].image}}" alt="fp1.jpg">
+                                            <ng-template #OtherImage>
+                                            <img class="img-whp" src="./../../assets/resources/images/no_image_available.jpg"
+                                                alt="No Product Image">
+                                            </ng-template>
+                                            <div class="thmb_cntnt">
+                                            <ul class="tag mb0">
+                                                <li class="list-inline-item dn"></li>
+                                                <li class="list-inline-item" *ngIf=" property.rent_availability  != null"><a>For
+                                                    Rent</a></li>
+                                                <li class="list-inline-item" *ngIf=" property.sale_availability  != null"><a>For
+                                                    Sale</a></li>
+                                            </ul>
+                                            </div>
+                                        </div>
+                                        <div class="details">
+                                            <div class="tc_content">
+                                            <h4 *ngIf="property.build_name != null">{{ property.build_name | titlecase}}</h4>
+                                            <p class="hidden-xs hidden-sm" *ngIf="property.address != null"><span class="flaticon-placeholder"></span>{{ property.address | titlecase }}</p>
+                                            <a class="fp_price text-thm" *ngIf="property.expected_pricing != null">₹
+                                                {{price_comma(property.expected_pricing) }}<small></small></a>
+                                            <a class="fp_price text-thm" *ngIf="property.expected_rent != null">₹
+                                                {{price_comma(property.expected_rent) }}<small></small></a>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </td>
+                                        <td>{{ property.updated_at | date: 'MMM d, y, h:mm:ss a' }}</td>
+                                        <td>{{ property.view_counter }}</td>
+                                        <td>
+                                            <ul class="view_edit_delete_list mb0">
+                                            <li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="Edit"
+                                                *ngIf=" property.sale_availability  != null">
+                                                <a (click)="navigate(property.id)"><span class="flaticon-edit"></span></a>
+                                            </li>
+                                            <li class="list-inline-item " data-toggle="tooltip" data-placement="top" title="Edit"
+                                                *ngIf=" property.rent_availability  != null">
+                                                <a (click)="navigate(property.id)"><span class="flaticon-edit"></span></a>
+                                            </li>
+                                            <li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="Delete">
+                                                <a (click)="delete_draft(property.id)"><span class="flaticon-garbage"></span></a>
+                                            </li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="col-lg-12 agent_property " *ngIf="draft_pro_length>2">
+                            <pagination-controls (pageChange)="d = $event" id="d"></pagination-controls>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

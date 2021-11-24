@@ -32,11 +32,7 @@ export class CompareComponent implements OnInit {
     private jwtService: JwtService,
     private router:Router,
     private toastr: ToastrService
-    ) { 
-      if(!this.jwtService.getToken()){
-        this.redirect_to_login();
-       }
-    }
+    ) {   }
 
   ngOnInit(): void {
     this.product_comapre();

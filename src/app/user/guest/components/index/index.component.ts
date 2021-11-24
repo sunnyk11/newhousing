@@ -120,7 +120,6 @@ export class IndexComponent implements OnInit {
     this.indexPageService.get_Property({ param: null }).subscribe(
       response => {
         this.property=response;
-        console.log(response);
         this.city_name=this.property.data['0'].city;
         this.product_length=this.property.data['0'].city_count;
       }, err => { 

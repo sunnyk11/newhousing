@@ -195,10 +195,10 @@
                         </div>
 
                         <div class="row mt-3">
-                            <div class="col-md-6 col-sm-6">
+                            <div class="col-md-6 col-4">
                                 <button mat-raised-button matStepperPrevious>Back</button>
                             </div>
-                            <div class="col-md-6 col-sm-6 text-right">
+                            <div class="col-md-6 col-8 text-right">
                                 <button class="draftbtn" mat-raised-button (click)="save_draft()">Save Draft</button>
                                 <button mat-raised-button matStepperNext>Next</button>
                             </div>
@@ -433,10 +433,10 @@
                             </div>
                         </div>
                         <div class="row mt-3">
-                            <div class="col-md-6">
+                            <div class="col-md-6 col-4">
                                 <button mat-raised-button matStepperPrevious>Back</button>
                             </div>
-                            <div class="col-md-6 text-right">
+                            <div class="col-md-6 col-8 text-right">
                                 <button class="draftbtn" mat-raised-button (click)="save_draft()">Save Draft</button>
                                 <button mat-raised-button matStepperNext>Next</button>
                             </div>
@@ -463,15 +463,15 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="expected_rent" class="form-label">Expected Rent</label>
-                               <div class="row">
-                                <div class="col-9">
-                                    <ngx-slider [options]="options" formControlName="sliderControl" (valueChange)="RangeSlider_Price($event)"></ngx-slider>
-                                </div>
-                                <div class="col-3">
-                                    <input type="text" class="form-control"  formControlName="expected_rent" id="expected_rent" name="expected_rent" placeholder="Please Enter Expected Rent..."  maxlength="8"
-                                     (keypress)="keyPressNumbers($event)" autocomplete="off" (ngModelChange)="rangeInput_Price($event)">
-                                </div>
-                               </div>
+                                <div class="row">
+                                    <div class="col-7 col-lg-9">
+                                        <ngx-slider [options]="options" formControlName="sliderControl" (valueChange)="RangeSlider_Price($event)"></ngx-slider>
+                                    </div>
+                                    <div class="col-5 col-lg-3">
+                                        <input type="text" class="form-control"  formControlName="expected_rent" id="expected_rent" name="expected_rent" placeholder="Please Enter Expected Rent..."  maxlength="8"
+                                         (keypress)="keyPressNumbers($event)" autocomplete="off" (ngModelChange)="rangeInput_Price($event)">
+                                    </div>
+                                   </div>
                                <span class="alert-danger" *ngIf="Expected_PriceEroor == true">Expected Price Between 5k to 5 lakhs</span>                                  
                             </div>
                         </div>
@@ -644,10 +644,10 @@
                             </div>
                         </div>
                         <div class="row mt-3">
-                            <div class="col-md-6">
+                            <div class="col-md-6  col-4">
                                 <button mat-raised-button matStepperPrevious>Back</button>
                             </div>
-                            <div class="col-md-6 text-right">
+                            <div class="col-md-6 col-8 text-right">
                                 <button class="draftbtn" mat-raised-button (click)="save_draft()">Save Draft</button>
                                 <button mat-raised-button matStepperNext (click)="submit_rent()">Submit</button>
                             </div>
