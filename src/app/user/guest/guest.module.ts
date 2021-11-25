@@ -39,6 +39,8 @@ import { RealEstateAgentComponent } from './components/real-estate-agent/real-es
 import { TermsConditionsComponent } from './components/terms-conditions/terms-conditions.component';
 import { IpDisclaimerComponent } from './components/ip-disclaimer/ip-disclaimer.component';
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
+import { RegisterComponent } from './components/register/register.component';
+import { BlogPostComponent } from './components/blog-post/blog-post.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +73,8 @@ import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-poli
     TermsConditionsComponent,
     IpDisclaimerComponent,
     PrivacyPolicyComponent,
+    RegisterComponent,
+    BlogPostComponent,
   ],
   imports: [
     CommonModule,
