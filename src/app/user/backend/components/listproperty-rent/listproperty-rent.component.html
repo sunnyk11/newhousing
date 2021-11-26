@@ -1,18 +1,18 @@
 <div class="container p-3">
     <div class="h-100 p-3 bg-light border rounded-3">
         <mat-horizontal-stepper [linear]="true" #stepper="matHorizontalStepper">
-            <mat-step label="Step 1" state="phone" [stepControl]="form_step1">
+            <mat-step label="Step 1" state="phone"  [stepControl]="form_step1">
                 <div class="h-100 p-3 bg-lightgray bg-gradient border rounded-3 mt-2">
                     <form [formGroup]="form_step1" class="g-3">
                         <div class="row mt-3">
                             <div class="col-md-6">
                                 <label for="property_name" class="form-label">Property Name</label>
-                                <input type="text" class="form-control" id="property_name" formControlName="property_name" required>
+                                <input type="text"    class="form-control" id="property_name" formControlName="property_name" [ngClass]="{ 'is-invalid': submitted1 && step1.property_name.errors }">
                                 <!-- <input type="hidden" class="form-control" id="draft_form_id" formControlName="draft_form_id" required> -->
                             </div>
                             <div class="col-md-6">
                                 <label for="property_type" class="form-label">Property Type</label>
-                                <select id="property_type" class="form-select form-select-lg w100" formControlName="property_type">
+                                <select id="property_type"  class="form-select form-select-lg w100" formControlName="property_type" [ngClass]="{ 'is-invalid': submitted1 && step1.property_type.errors }">
                                     <option value ="" selected>Select Property Type</option>
                                     <optgroup label="ALL RESIDENTIAL">
                                         <option value="Flat/ Apartment">Flat/ Apartment</option>
@@ -49,7 +49,7 @@
                         <div class="row mt-3">
                             <div class="col-md-6">
                                 <label for="area_unit" class="form-label">Area Unit</label>
-                                <select id="area_unit" class="form-select form-select-lg w100" formControlName="area_unit">
+                                <select id="area_unit" class="form-select form-select-lg w100" formControlName="area_unit" [ngClass]="{ 'is-invalid': submitted1 && step1.area_unit.errors }">
                                     <option value="">Select Area Unit</option>
                                     <option value="sq.ft.">sq.ft.</option>
                                     <option value="sq.yards">sq.yards</option>
@@ -72,14 +72,14 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="property_area" class="form-label">Property Area</label>
-                                <input type="text" class="form-control" id="property_area" formControlName="property_area" (keypress)="keyPressNumbers($event)" maxlength="8">
+                                <input type="text" class="form-control" id="property_area" formControlName="property_area" (keypress)="keyPressNumbers($event)" maxlength="8" [ngClass]="{ 'is-invalid': submitted1 && step1.property_area.errors }">
                             </div>
                         </div>
                         <div class="row mt-3">
                             <div class="col-md-4">
                                 <label for="bedrooms" class="form-label">Bedrooms</label>
-                                <select id="bedrooms" class="form-select form-select-lg w100" formControlName="bedrooms">
-                                    <option value="" disabled>Select Bedrooms
+                                <select id="bedrooms" class="form-select form-select-lg w100" formControlName="bedrooms" [ngClass]="{ 'is-invalid': submitted1 && step1.bedrooms.errors }">
+                                    <option value="" >Select Bedrooms
                                     </option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
@@ -95,8 +95,8 @@
                             </div>
                             <div class="col-md-4">
                                 <label for="bathrooms" class="form-label">Bathrooms</label>
-                                <select id="bathrooms" class="form-select form-select-lg w100" formControlName="bathrooms">
-                                    <option value="" disabled>Select Bathrooms
+                                <select id="bathrooms" class="form-select form-select-lg w100" formControlName="bathrooms" [ngClass]="{ 'is-invalid': submitted1 && step1.bathrooms.errors }">
+                                    <option value="">Select Bathrooms
                                     </option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
@@ -112,8 +112,8 @@
                             </div>
                             <div class="col-md-4">
                                 <label for="balconies" class="form-label">Balconies</label>
-                                <select id="balconies" class="form-select form-select-lg w100" formControlName="balconies">
-                                    <option value="" disabled>Select Balconies</option>
+                                <select id="balconies" class="form-select form-select-lg w100" formControlName="balconies" [ngClass]="{ 'is-invalid': submitted1 && step1.balconies.errors }">
+                                    <option value="">Select Balconies</option>
                                     <option value="0">0</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
@@ -132,14 +132,14 @@
                         <div class="row mt-3">
                             <div class="col-md-12">
                                 <label for="property_desc" class="form-label">Property Description</label>
-                                <textarea class="form-control" aria-label="With textarea" id="property_desc" formControlName="property_desc"></textarea>
+                                <textarea class="form-control" aria-label="With textarea" id="property_desc" formControlName="property_desc" [ngClass]="{ 'is-invalid': submitted1 && step1.property_desc.errors }"></textarea>
                             </div>
                         </div>
                     </form>
                     <div class="row mt-3">
                         <div class="col-md-12 text-right">
                             <button class="draftbtn" mat-raised-button (click)="save_draft()">Save Draft</button>
-                            <button mat-raised-button matStepperNext>Next</button>
+                            <button mat-raised-button matStepperNext (click)="step1_next()">Next</button>
                         </div>
                     </div>
                 </div>
@@ -152,7 +152,7 @@
                             <div class="col-md-12">
                                 <label for="address" class="form-label">Enter Address</label>
                                 <input #search autocorrect="off" autocapitalize="on"
-                                spellcheck="off" formControlName="address" type="search"
+                                spellcheck="off" formControlName="address" [ngClass]="{ 'is-invalid': submitted2 && step2.address.errors }" type="search"
                                 class="form-control input-text"
                                 placeholder="Enter Address" />
                             <span class="flaticon-maps-and-flags"
@@ -172,25 +172,25 @@
                         <div class="row mt-3">
                             <div class="col-md-3">
                                 <label for="city" class="form-label">City</label>
-                                <select id="city" class="form-select form-select-lg w100" formControlName="city">
-                                    <option value="" disabled>Select</option>
+                                <select id="city" class="form-select form-select-lg w100" formControlName="city" [ngClass]="{ 'is-invalid': submitted2 && step2.city.errors }">
+                                    <option value="">Select</option>
                                     <option>Delhi</option>
                                 </select>
                             </div>
                             <div class="col-md-3">
                                 <label for="locality" class="form-label">Locality</label>
-                                <select id="locality" class="form-select form-select-lg w100" formControlName="locality" (ngModelChange)="onchange_locality($event)">
-                                    <option value="" disabled>Select Option</option>
+                                <select id="locality" class="form-select form-select-lg w100" formControlName="locality" (ngModelChange)="onchange_locality($event)" [ngClass]="{ 'is-invalid': submitted2 && step2.locality.errors }">
+                                    <option value="">Select Option</option>
                                     <option *ngFor="let locality of locality_data" value="{{locality.id}}">{{locality.area}}</option>             
                                 </select>
                             </div>
                             <div class="col-md-3">
                                 <label for="pincode" class="form-label">Pincode</label>
-                                <input type="text" class="form-control" id="pincode" formControlName="pincode" readonly>
+                                <input type="text" class="form-control" id="pincode" formControlName="pincode" [ngClass]="{ 'is-invalid': submitted2 && step2.pincode.errors }" readonly >
                             </div>
                             <div class="col-md-3">
                                 <label for="nearest_place" class="form-label">Nearest Place</label>
-                                <input type="text" class="form-control" id="nearest_place" formControlName="nearest_place">
+                                <input type="text" class="form-control" id="nearest_place" formControlName="nearest_place" [ngClass]="{ 'is-invalid': submitted2 && step2.nearest_place.errors }">
                             </div>
                         </div>
 
@@ -200,7 +200,7 @@
                             </div>
                             <div class="col-md-6 col-8 text-right">
                                 <button class="draftbtn" mat-raised-button (click)="save_draft()">Save Draft</button>
-                                <button mat-raised-button matStepperNext>Next</button>
+                                <button mat-raised-button matStepperNext (click)="step2_next()">Next</button>
                             </div>
                         </div>
                     </div>
@@ -213,15 +213,15 @@
                         <div class="row mt-3">
                             <div class="col-md-4">
                                 <label for="additional_rooms" class="form-label">Additional Rooms</label>
-                                <select id="additional_rooms" class="form-select form-select-lg w100" formControlName="additional_rooms" (ngModelChange)="onchange_add_room($event)">
+                                <select id="additional_rooms" class="form-select form-select-lg w100" formControlName="additional_rooms" [ngClass]="{ 'is-invalid': submitted3 && step3.additional_rooms.errors }" (ngModelChange)="onchange_add_room($event)">
                                     <option value="1">Yes</option>
                                     <option value="0">No</option>
                                 </select>
                             </div>
                             <div class="col-md-4">
                                 <label for="facing_towards" class="form-label">Facing Towards</label>
-                                <select id="facing_towards" class="form-select form-select-lg w100" formControlName="facing_towards">
-                                    <option value="" disabled>Select</option>
+                                <select id="facing_towards" class="form-select form-select-lg w100" formControlName="facing_towards" [ngClass]="{ 'is-invalid': submitted3 && step3.facing_towards.errors }">
+                                    <option value="">Select</option>
                                     <option value="East">East</option>
                                     <option value="North East">North East</option>
                                     <option value="North">North</option>
@@ -234,7 +234,7 @@
                             </div>
                             <div class="col-md-4">
                                 <label for="year_built" class="form-label">Year Built</label>
-                                <select id="year_built" class="form-select form-select-lg w100" formControlName="year_built">
+                                <select id="year_built" class="form-select form-select-lg w100" formControlName="year_built" [ngClass]="{ 'is-invalid': submitted3 && step3.year_built.errors }">
                                     <option value="">Select Built year</option>
                                     <option value="2000">2000</option>
                                     <option value="2001">2001</option>
@@ -281,14 +281,14 @@
                         <div class="row mt-3">
                             <div class="col-md-4">
                                 <label for="furnishings" class="form-label">Furnishings</label>
-                                <select id="furnishings" class="form-select form-select-lg w100" formControlName="furnishings" (ngModelChange)="furnishStatus($event)">
+                                <select id="furnishings" class="form-select form-select-lg w100" formControlName="furnishings" [ngClass]="{ 'is-invalid': submitted3 && step3.furnishings.errors }" (ngModelChange)="furnishStatus($event)">
                                     <option value="1">Furnished</option>
                                     <option value="0">Not furnished</option>
                                 </select>
                             </div>
                             <div class="col-md-4">
                                 <label for="reserved_parking" class="form-label">Reserved Parking</label>
-                                <select id="reserved_parking" class="form-select form-select-lg w100" formControlName="reserved_parking"  (ngModelChange)="parkingStatus($event)">
+                                <select id="reserved_parking" class="form-select form-select-lg w100" formControlName="reserved_parking" [ngClass]="{ 'is-invalid': submitted3 && step3.reserved_parking.errors }"  (ngModelChange)="parkingStatus($event)">
                                     <option value="1">Yes</option>
                                     <option value="0">No</option>
                                 </select>
@@ -311,8 +311,8 @@
                         <div class="row additional_row " *ngIf="parking_row == true">
                             <div class="col-md-6">
                                 <label for="parking_covered_count" class="form-label">Covered Parking</label>
-                                <select id="parking_covered_count" class="form-select form-select-lg w100" formControlName="parking_covered_count">
-                                    <option value="" disabled>Select Option</option>
+                                <select id="parking_covered_count" class="form-select form-select-lg w100" formControlName="parking_covered_count" [ngClass]="{ 'is-invalid': submitted3 && step3.parking_covered_count.errors }" >
+                                    <option value="">Select Option</option>
                                     <option value="0">0</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
@@ -323,8 +323,8 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="parking_open_count" class="form-label">Open Parking</label>
-                                <select id="parking_open_count" class="form-select form-select-lg w100" formControlName="parking_open_count">
-                                    <option value="" disabled>Select Option</option>
+                                <select id="parking_open_count" class="form-select form-select-lg w100" formControlName="parking_open_count"  [ngClass]="{ 'is-invalid': submitted3 && step3.parking_open_count.errors }" >
+                                    <option value="">Select Option</option>
                                     <option value="0">0</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
@@ -340,8 +340,8 @@
                         <div class="row mt-3">
                             <div class="col-md-4">
                                 <label for="willing_to_rent" class="form-label">Willing to Rent Out to</label>
-                                <select id="willing_to_rent" class="form-select form-select-lg w100" formControlName="willing_to_rent">
-                                    <option value="" disabled>Select</option>
+                                <select id="willing_to_rent" class="form-select form-select-lg w100" formControlName="willing_to_rent" [ngClass]="{ 'is-invalid': submitted3 && step3.willing_to_rent.errors }">
+                                    <option value="">Select</option>
                                     <option value="Family">Family</option>
                                     <option value="Single Men">Single Men</option>
                                     <option value="Single Women">Single Women</option>
@@ -349,8 +349,8 @@
                             </div>
                             <div class="col-md-4">
                                 <label for="agreement_type" class="form-label">Agreement Type</label>
-                                <select id="agreement_type" class="form-select form-select-lg w100" formControlName="agreement_type">
-                                    <option value="" disabled>Select Preferred </option>
+                                <select id="agreement_type" class="form-select form-select-lg w100" formControlName="agreement_type" [ngClass]="{ 'is-invalid': submitted3 && step3.agreement_type.errors }">
+                                    <option value="">Select Preferred </option>
                                     <option value="Company Lease Agreement">Company Lease
                                         Agreement</option>
                                     <option value="Any">Any</option>
@@ -358,14 +358,14 @@
                             </div>
                             <div class="col-md-4">
                                 <label for="available_date" class="form-label">Available On</label>
-                                <input type="date" class="form-control" id="available_date" formControlName="available_date">
+                                <input type="date" class="form-control" id="available_date" formControlName="available_date" [ngClass]="{ 'is-invalid': submitted3 && step3.available_date.errors }">
                             </div>
                         </div>
                         <div class="row mt-3">
                             <div class="col-md-4">
                                 <label for="notice_month" class="form-label">Month of Notice</label>
-                                <select id="notice_month" class="form-select form-select-lg w100" formControlName="notice_month">
-                                    <option value="" disabled>Select</option>
+                                <select id="notice_month" class="form-select form-select-lg w100" formControlName="notice_month" [ngClass]="{ 'is-invalid': submitted3 && step3.notice_month.errors }">
+                                    <option value="">Select</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
@@ -376,8 +376,8 @@
                             </div>
                             <div class="col-md-4">
                                 <label for="agreement_duration" class="form-label">Duration of Rent Agreement</label>
-                                <select id="agreement_duration" class="form-select form-select-lg w100" formControlName="agreement_duration">
-                                    <option value="" disabled>Select</option>
+                                <select id="agreement_duration" class="form-select form-select-lg w100" formControlName="agreement_duration" [ngClass]="{ 'is-invalid': submitted3 && step3.agreement_duration.errors }">
+                                    <option value="">Select</option>
                                     <option value="One Year">One Year</option>
                                     <option value="Three Year">Three Years</option>
                                     <option value="Custom">Custom</option>
@@ -385,8 +385,8 @@
                             </div>
                             <div class="col-md-4">
                                 <label for="agreement_duration" class="form-label">Availability</label>
-                                <select id="agreement_duration" class="form-select form-select-lg w100" formControlName="availability_condition">
-                                    <option value="" disabled>Select Availability</option>
+                                <select id="agreement_duration" class="form-select form-select-lg w100" formControlName="availability_condition" [ngClass]="{ 'is-invalid': submitted3 && step3.availability_condition.errors }">
+                                    <option value="">Select Availability</option>
                                     <option value="Under Construction">Under Construction
                                     </option>
                                     <option value="Ready To Move">Ready To Move</option>
@@ -400,8 +400,8 @@
                             <div class="col-md-6">
                                 <label for="property_floor" class="form-label">Property is present on which
                                     floor?</label>
-                                <select id="property_floor" class="form-select form-select-lg w100" formControlName="property_floor">
-                                    <option value="" disabled>Select Present Floors </option>
+                                <select id="property_floor" class="form-select form-select-lg w100" formControlName="property_floor" [ngClass]="{ 'is-invalid': submitted3 && step3.property_floor.errors }">
+                                    <option value="">Select Present Floors </option>
                                     <option value="Ground Floor">Ground Floor</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
@@ -417,8 +417,8 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="total_floors" class="form-label">Number of floors in the property?</label>
-                                <select id="total_floors" class="form-select form-select-lg w100" formControlName="total_floors">
-                                    <option value="" disabled>Select Number of Floors </option>
+                                <select id="total_floors" class="form-select form-select-lg w100" formControlName="total_floors" [ngClass]="{ 'is-invalid': submitted3 && step3.total_floors.errors }">
+                                    <option value="">Select Number of Floors </option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
@@ -438,7 +438,7 @@
                             </div>
                             <div class="col-md-6 col-8 text-right">
                                 <button class="draftbtn" mat-raised-button (click)="save_draft()">Save Draft</button>
-                                <button mat-raised-button matStepperNext>Next</button>
+                                <button mat-raised-button matStepperNext (click)="step3_next()">Next</button>
                             </div>
                         </div>
                     </div>
@@ -451,14 +451,14 @@
                         <div class="row mt-3">
                             <div class="col-md-6">
                                 <label for="security_deposit" class="form-label">Security Deposit</label>
-                                <select id="security_deposit" class="form-select form-select-lg w100" formControlName="security_deposit">
-                                    <option value="" disabled>Select Option</option>
-                                    <option value="1 Month Rent">1 Month Rent</option>
-                                    <option value="2 Month Rent">2 Month Rent</option>
-                                    <option value="3 Month Rent">3 Month Rent</option>
-                                    <option value="4 Month Rent">4 Month Rent</option>
-                                    <option value="5 Month Rent">5 Month Rent</option>
-                                    <option value="6 Month Rent">6 Month Rent</option>
+                                <select id="security_deposit" class="form-select form-select-lg w100" formControlName="security_deposit"  [ngClass]="{ 'is-invalid': submitted4 && step4.security_deposit.errors }">
+                                    <option value="" >Select Option</option>
+                                    <option value="1">1 Month Rent</option>
+                                    <option value="2">2 Month Rent</option>
+                                    <option value="3">3 Month Rent</option>
+                                    <option value="4">4 Month Rent</option>
+                                    <option value="5">5 Month Rent</option>
+                                    <option value="6">6 Month Rent</option>
                                 </select>
                             </div>
                             <div class="col-md-6">
@@ -468,7 +468,7 @@
                                         <ngx-slider [options]="options" formControlName="sliderControl" (valueChange)="RangeSlider_Price($event)"></ngx-slider>
                                     </div>
                                     <div class="col-5 col-lg-3">
-                                        <input type="text" class="form-control"  formControlName="expected_rent" id="expected_rent" name="expected_rent" placeholder="Please Enter Expected Rent..."  maxlength="8"
+                                        <input type="text" class="form-control"  formControlName="expected_rent" id="expected_rent" name="expected_rent" [ngClass]="{ 'is-invalid': submitted4 && step4.expected_rent.errors }" placeholder="Please Enter Expected Rent..."  maxlength="8"
                                          (keypress)="keyPressNumbers($event)" autocomplete="off" (ngModelChange)="rangeInput_Price($event)">
                                     </div>
                                    </div>
@@ -479,8 +479,8 @@
                             <div class="col-md-6">
                                 <label for="electricity_water" class="form-label">Inclusive Electricity and Water
                                     Bill</label>
-                                <select id="electricity_water" class="form-select form-select-lg w100" formControlName="electricity_water">
-                                    <option value="" disabled>Select Option</option>
+                                <select id="electricity_water" class="form-select form-select-lg w100" formControlName="electricity_water" [ngClass]="{ 'is-invalid': submitted4 && step4.electricity_water.errors }">
+                                    <!-- <option value="" >Select Option</option> -->
                                     <option value="1">Yes</option>
                                     <option value="0">No</option>
                                 </select>
@@ -498,7 +498,7 @@
                                 <div class="form-group">
                                     <label for="locality">Price Negotiable</label>
                                     <input type="text" class="form-control"
-                                        formControlName="price_negotiable" placeholder="Enter the Price Negotiable" maxlength="8" (keypress)="keyPressNumbers($event)">
+                                        formControlName="price_negotiable" [ngClass]="{ 'is-invalid': submitted4 && step4.price_negotiable.errors }" placeholder="Enter the Price Negotiable" maxlength="8" (keypress)="keyPressNumbers($event)">
                                 </div>
                             </div>
                             <div class="col-lg-2 col-md-2 col-sm-12" id="Negotiable_info_btn">
@@ -510,7 +510,7 @@
                                 <label for="tax_govt_charge" class="form-label">Is Tax and Govt. Charges
                                     Included?</label>
                                 <select id="tax_govt_charge" class="form-select form-select-lg w100" formControlName="tax_govt_charge">
-                                    <option value="" disabled>Select Option</option>
+                                    <!-- <option value="">Select Option</option> -->
                                     <option value="1">Yes</option>
                                     <option value="0">No</option>
                                 </select>
@@ -528,8 +528,8 @@
                             <div class="col-lg-6 col-12">
                                 <div class="form-group">
                                     <label>Maintenance Charge Condition</label>
-                                    <select class="form-select form-select-lg w100" formControlName="maintenance_charge_condition">
-                                      <option value="" disabled>Select Option</option>
+                                    <select class="form-select form-select-lg w100" formControlName="maintenance_charge_condition" [ngClass]="{ 'is-invalid': submitted4 && step4.maintenance_charge_condition.errors }">
+                                      <option value="" >Select Option</option>
                                       <option value="Monthly">Monthly</option>
                                       <option value="Annually">Annually</option>
                                       <option value="One Time">One Time</option>
@@ -539,7 +539,7 @@
                                 <div class="form-group">
                                     <label for="locality">Maintenance Charge Amount</label>
                                     <input type="text" class="form-control"
-                                        formControlName="maintenance_charge" placeholder="Enter the Maintenance Charge Negotiable" maxlength="8" (keypress)="keyPressNumbers($event)">
+                                        formControlName="maintenance_charge"  [ngClass]="{ 'is-invalid': submitted4 && step4.maintenance_charge.errors }" placeholder="Enter the Maintenance Charge Negotiable" maxlength="8" (keypress)="keyPressNumbers($event)">
                                 </div>
                             </div>
                         </div>
@@ -548,7 +548,7 @@
                         <div class="row mt-3">
                             <div class="col-md-12">
                                 <label for="images" class="form-label">Click to Upload Multiple Images</label>
-                                <input type="file" class="form-control" id="images" formControlName="images" accept=".jpg,.png,.jpeg" multiple (change)="insert_image($event)">
+                                <input type="file" class="form-control" id="images" formControlName="images" [ngClass]="{ 'is-invalid': submitted4 && step4.images.errors }" accept=".jpg,.png,.jpeg" multiple (change)="insert_image($event)">
                             </div>
                         </div>                        
                         <div class="row">

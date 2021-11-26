@@ -62,6 +62,10 @@ export class UpdatepropertyRentComponent implements OnInit {
   public selected_product_img:any=[];
   public property_length:number=0;
   public property_show:boolean=false;
+  public submitted1: boolean = false;
+  public submitted2: boolean = false;
+  public submitted3: boolean = false;
+  public submitted4: boolean = false;
 
   private update_room_array: any = [];
   private unique_room_array: any = [];
@@ -158,8 +162,8 @@ export class UpdatepropertyRentComponent implements OnInit {
       price_negotiable: [''],
       tax_govt_charge: ['0', Validators.required],
       maintenance_charge_status: ['0', Validators.required],
-      maintenance_charge: ['', Validators.required],
-      maintenance_charge_condition: ['', Validators.required],
+      maintenance_charge: [''],
+      maintenance_charge_condition: [''],
       images: [''],
       video_link: [''],
       sliderControl: [[5000]]
@@ -459,7 +463,7 @@ export class UpdatepropertyRentComponent implements OnInit {
               maintenance_charge_condition:  data.data.maintenance_charge_condition
             });
           }
-          if(data.data.video_link != null){
+          if(data.data.video_link){
             this.form_step4.patchValue({
               video_link:  "https://www.youtube.com/watch?v=" +data.data.video_link
             });
@@ -485,35 +489,60 @@ export class UpdatepropertyRentComponent implements OnInit {
       }
     );
   }
+  get step1() {
+    return this.form_step1.controls;
+  }
+  get step2() {
+    return this.form_step2.controls;
+  }
+  get step3() {
+    return this.form_step3.controls;
+  }
+  get step4() {
+    return this.form_step4.controls;
+  }
+  step1_next() {
+    this.submitted1 = true;
+  }
+  step2_next() {
+    this.submitted2 = true;
+  }
+  step3_next() {
+    this.submitted3 = true;
+  }
   submit_rent(){
-    this.form_step4.value.draft_form_id='0';
-    let param={id:this.prod_id,form_step1:this.form_step1.value,form_step2:this.form_step2.value,form_step3:this.form_step3.value,form_step4:this.form_step4.value,rooms:this.additional_room_array,amenties:this.amenityArray,images:this.product_img}
-    if(this.form_step4.value.expected_rent >=5000 && this.form_step4.value.expected_rent <=500000){
-      this.RentPropertyService.product_rent_update(param).subscribe(
-        response => {
-          let data:any=response;
-          this.form_step1.patchValue({
-            draft_form_id: data.last_id,
-          }); 
-          let Message =data.message;
-          this.toastr.info(Message, 'Rent Property', {
-            timeOut: 3000,
-          });
-          this.showLoadingIndicator = false;
-          this.router.navigate(['/agent/my-properties']);
-        }, err => { 
-          this.showLoadingIndicator = false;
-          let Message =err.error.message;
-          this.toastr.error(Message, 'Something Error', {
-            timeOut: 3000,
-          });
+    if(this.form_step4.invalid){
+      this.submitted4 = true;
+    }else{
+      this.form_step4.value.draft_form_id='0';
+      let param={id:this.prod_id,form_step1:this.form_step1.value,form_step2:this.form_step2.value,form_step3:this.form_step3.value,form_step4:this.form_step4.value,rooms:this.additional_room_array,amenties:this.amenityArray,images:this.product_img}
+      if(this.form_step4.value.expected_rent >=5000 && this.form_step4.value.expected_rent <=500000){
+        this.RentPropertyService.product_rent_update(param).subscribe(
+          response => {
+            let data:any=response;
+            this.form_step1.patchValue({
+              draft_form_id: data.last_id,
+            }); 
+            let Message =data.message;
+            this.toastr.info(Message, 'Rent Property', {
+              timeOut: 3000,
+            });
+            this.showLoadingIndicator = false;
+            this.router.navigate(['/agent/my-properties']);
+          }, err => { 
+            this.showLoadingIndicator = false;
+            let Message =err.error.message;
+            this.toastr.error(Message, 'Something Error', {
+              timeOut: 3000,
+            });
+          }
+        );
+      }else {
+        this.toastr.error("Expected Price Between 5k to 5Lakhs", 'Price Invalid..!!', {
+          timeOut: 2000,
         }
-      );
-    }else {
-      this.toastr.error("Expected Price Between 5k to 5Lakhs", 'Price Invalid..!!', {
-        timeOut: 2000,
+        );
       }
-      );
     }
   }
    // draft property 

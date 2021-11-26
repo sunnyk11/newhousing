@@ -7,6 +7,9 @@ mat-slider {
 ul .list-inline-item{
     width: 100%!important;
 }
+/* .row .ng-invalid{
+  border: 1px solid  red!important;
+} */
 .portfolio_item{
     border-radius: 8px;
     background-color: rgb(247, 247, 247);

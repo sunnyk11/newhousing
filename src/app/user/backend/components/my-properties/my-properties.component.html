@@ -51,7 +51,7 @@
                                         <div class="details">
                                             <div class="tc_content">
                                             <h4>{{ property.build_name | titlecase}}</h4>
-                                            <p class="hidden-xs hidden-sm"><span class="flaticon-placeholder"></span>{{ property.address | titlecase }}</p>
+                                            <p class="hidden-xs hidden-sm"  *ngIf="property.address"><span class="flaticon-placeholder"></span>{{ property.address | titlecase }}</p>
                                             <a class="fp_price text-thm" *ngIf="property.expected_pricing != null">₹
                                                 {{price_comma(property.expected_pricing) }}<small></small></a>
                                             <a class="fp_price text-thm" *ngIf="property.expected_rent != null">₹
@@ -128,7 +128,7 @@
                                         <div class="details">
                                             <div class="tc_content">
                                             <h4 *ngIf="property.build_name != null">{{ property.build_name | titlecase}}</h4>
-                                            <p class="hidden-xs hidden-sm" *ngIf="property.address != null"><span class="flaticon-placeholder"></span>{{ property.address | titlecase }}</p>
+                                            <p class="hidden-xs hidden-sm" *ngIf="property.address"><span class="flaticon-placeholder"></span>{{ property.address | titlecase }}</p>
                                             <a class="fp_price text-thm" *ngIf="property.expected_pricing != null">₹
                                                 {{price_comma(property.expected_pricing) }}<small></small></a>
                                             <a class="fp_price text-thm" *ngIf="property.expected_rent != null">₹
