@@ -7,6 +7,9 @@ mat-slider {
 ul .list-inline-item{
     width: 100%!important;
 }
+/* .row .ng-invalid{
+  border: 1px solid  red!important;
+} */
 .portfolio_item{
     border-radius: 8px;
     background-color: rgb(247, 247, 247);
@@ -87,6 +90,14 @@ ul .list-inline-item{
     }
     .additional_row .col-6{
         padding: 0px!important;
+    }
+    .flaticon-maps-and-flags{
+      right: 90px!important;
+    }
+    .text-right{
+      display: flex;
+      justify-content: flex-end!important;
+      align-items: center;
     }
 
 }

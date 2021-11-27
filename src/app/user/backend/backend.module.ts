@@ -17,8 +17,10 @@ import {MatDividerModule} from '@angular/material/divider';
 import { AgmCoreModule } from '@agm/core';
 import {MatSliderModule} from '@angular/material/slider';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { UpdatepropertyRentComponent } from './components/updateproperty-rent/updateproperty-rent.component';
 import { MyPlansComponent } from './components/my-plans/my-plans.component';
+import { MyPropertiesComponent } from './components/my-properties/my-properties.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,8 @@ import { MyPlansComponent } from './components/my-plans/my-plans.component';
     ListpropertyRentComponent,
     ListpropertyComponent,
     UpdatepropertyRentComponent,
-    MyPlansComponent
+    MyPlansComponent,
+    MyPropertiesComponent
   ],
   imports: [
     CommonModule,
@@ -36,6 +39,7 @@ import { MyPlansComponent } from './components/my-plans/my-plans.component';
     MatStepperModule,
     MatFormFieldModule,
     ReactiveFormsModule,
+    NgxPaginationModule,
     MatInputModule,
     MatIconModule,
     MatButtonModule,

@@ -123,6 +123,11 @@ mat-slider {
     color: #fff;
     background-color:#ff5a5f!important;
   }
+  .preloader_row{
+      position: relative;
+      width: 100%;
+      height: 100vh;
+  }
 @media(max-width: 768px) { 
     .additional_row li label{
       margin-left: 2px!important;
@@ -139,5 +144,12 @@ mat-slider {
     .UpdateProperty_select_img .portfolio_item{
       margin: 0px!important;
     }
-
+    .text-right{
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+    .flaticon-maps-and-flags{
+      right: 90px!important;
+    }
 }

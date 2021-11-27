@@ -25,11 +25,7 @@ export class WishlistComponent implements OnInit {
     private CommonService:CommonService,
     private toastr: ToastrService,
     private router:Router
-    ) {
-        if(!this.jwtService.getToken()){
-          this.redirect_to_login();
-        } 
-      }
+    ) { }
 
   ngOnInit(): void {
     if(this.jwtService.getToken()){

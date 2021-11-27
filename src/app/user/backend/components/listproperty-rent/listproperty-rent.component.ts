@@ -40,8 +40,8 @@ export class ListpropertyRentComponent implements OnInit {
   zoom!: number;
   location:any='';
   geoCoder:any;
-  public latCus:any=78.89;
-  public longCus:any=76.897;
+  public latCus:any;
+  public longCus:any;
   public locality_data:any=[];
   public Expected_PriceEroor: boolean = false;
   public add_room_tab:boolean=false;
@@ -54,6 +54,10 @@ export class ListpropertyRentComponent implements OnInit {
   public  amenityArray:any= [];
   public  additional_room_array:any=[];
   public  selectedItems: any=[];
+  public submitted1: boolean = false;
+  public submitted2: boolean = false;
+  public submitted3: boolean = false;
+  public submitted4: boolean = false;
 
   private product_img: any = [];
   private selected_room:any=[];
@@ -133,13 +137,13 @@ export class ListpropertyRentComponent implements OnInit {
     this.form_step4 = this._formBuilder.group({
       security_deposit: ['', Validators.required],
       expected_rent: ['5000', Validators.required],
-      electricity_water: ['', Validators.required],
+      electricity_water: ['0', Validators.required],
       price_negotiable_status: ['0', Validators.required],
       price_negotiable: [''],
       tax_govt_charge: ['0', Validators.required],
       maintenance_charge_status: ['0', Validators.required],
-      maintenance_charge: ['', Validators.required],
-      maintenance_charge_condition: ['', Validators.required],
+      maintenance_charge: [''],
+      maintenance_charge_condition: [''],
       images: [''],
       video_link: [''],
       sliderControl: [[5000]]
@@ -148,9 +152,26 @@ export class ListpropertyRentComponent implements OnInit {
     this.product_img = new Array<string>();
     this.selected_room = new Array<string>();
   }
-
-  get f() {
+  get step1() {
     return this.form_step1.controls;
+  }
+  get step2() {
+    return this.form_step2.controls;
+  }
+  get step3() {
+    return this.form_step3.controls;
+  }
+  get step4() {
+    return this.form_step4.controls;
+  }
+  step1_next() {
+    this.submitted1 = true;
+  }
+  step2_next() {
+    this.submitted2 = true;
+  }
+  step3_next() {
+    this.submitted3 = true;
   }
   google_map(){
     this.mapsAPILoader.load().then(() => {
@@ -229,41 +250,44 @@ export class ListpropertyRentComponent implements OnInit {
       }
     );
   }  
-  submit_rent(){    
-    this.form_step4.value.draft_form_id='0';
-    let param={form_step1:this.form_step1.value,form_step2:this.form_step2.value,form_step3:this.form_step3.value,form_step4:this.form_step4.value,rooms:this.additional_room_array,amenties:this.amenityArray,images:this.product_img}
-    if(this.form_step4.value.expected_rent >=5000 && this.form_step4.value.expected_rent <=500000){
-    this.RentPropertyService.product_insert_rent(param).subscribe(
-      response => {
-        let data:any=response;
-        this.form_step1.patchValue({
-          draft_form_id: data.last_id,
-        });
-        this.showLoadingIndicator = false;
-        this.toastr.success('Successfuly Saved', 'Property Rental', {
-          timeOut: 3000,
-        });
-        this.router.navigate(['/list-property']); 
-      }, err => { 
-        this.showLoadingIndicator = false;
-        let Message =err.error.message;
-        this.toastr.error(Message, 'Something Error', {
-          timeOut: 3000,
-        });
-      }
-    );
-  }else {
-    this.toastr.error("Expected Price Between 5k to 5 5Lakhs", 'Price Invalid..!!', {
-      timeOut: 2000,
+  submit_rent(){ 
+      if(this.form_step4.invalid){
+      this.submitted4 = true;
+      }else{  
+        this.form_step4.value.draft_form_id='0';
+        let param={form_step1:this.form_step1.value,form_step2:this.form_step2.value,form_step3:this.form_step3.value,form_step4:this.form_step4.value,rooms:this.additional_room_array,amenties:this.amenityArray,images:this.product_img}
+        if(this.form_step4.value.expected_rent >=5000 && this.form_step4.value.expected_rent <=500000){
+        this.RentPropertyService.product_insert_rent(param).subscribe(
+          response => {
+            let data:any=response;
+            this.form_step1.patchValue({
+              draft_form_id: data.last_id,
+            });
+            this.showLoadingIndicator = false;
+            this.toastr.success('Successfuly Saved', 'Property Rental', {
+              timeOut: 3000,
+            });
+            this.router.navigate(['/agent/my-properties']);
+          }, err => { 
+            this.showLoadingIndicator = false;
+            let Message =err.error.message;
+            this.toastr.error(Message, 'Something Error', {
+              timeOut: 3000,
+            });
+          }
+        );
+      }else {
+        this.toastr.error("Expected Price Between 5k to 5 5Lakhs", 'Price Invalid..!!', {
+          timeOut: 2000,
+        }
+        );
+      };
     }
-    );
-  };
   }
   // draft property 
   save_draft(){
     this.form_step4.value.draft_form_id='1';
-    let param={form_step1:this.form_step1.value,form_step2:this.form_step2.value,form_step3:this.form_step3.value,form_step4:this.form_step4.value,rooms:this.additional_room_array,amenties:this.amenityArray,images:this.product_img}
-    console.log(param);  
+    let param={form_step1:this.form_step1.value,form_step2:this.form_step2.value,form_step3:this.form_step3.value,form_step4:this.form_step4.value,rooms:this.additional_room_array,amenties:this.amenityArray,images:this.product_img} 
     if(this.form_step4.value.expected_rent >=5000 && this.form_step4.value.expected_rent <=500000){
       this.RentPropertyService.product_insert_rent(param).subscribe(
         response => {
@@ -291,6 +315,7 @@ export class ListpropertyRentComponent implements OnInit {
       );
     }
   }
+  
   keyPressNumbers(event: { which: any; keyCode: any; preventDefault: () => void; }) {
     var charCode = (event.which) ? event.which : event.keyCode;
     // Only Numbers 0-9
@@ -309,7 +334,6 @@ export class ListpropertyRentComponent implements OnInit {
       this.additional_room_array=[];
       this.selected_room=[];
     }
-    console.log(this.additional_room_array);
   }
   furnishStatus(event:any): void {
     if (event == '1') {
@@ -493,31 +517,22 @@ export class ListpropertyRentComponent implements OnInit {
   delete_pic1(id:any) {
     this.image1 = null;
     this.product_img = this.product_img.filter((m: any) => m != id);
-    console.log(this.product_img);
   }
   delete_pic2(id:any) {
     this.image2 = null;
     this.product_img = this.product_img.filter((m: any) => m != id);
-    console.log(this.product_img);
   }
   delete_pic3(id:any){
     this.image3 = null;
     this.product_img = this.product_img.filter((m: any) => m != id);
-    console.log(this.product_img);
   }
   delete_pic4(id:any){
     this.image4 = null;
     this.product_img = this.product_img.filter((m: any) => m != id);
-    console.log(this.product_img);
   }
   delete_pic5(id:any) {
     this.image5 = null;
     this.product_img = this.product_img.filter((m: any) => m != id);
-    console.log(this.product_img);
-  }
-
-  step1_next() {
-    this.submitted = true;
   }
 
 }

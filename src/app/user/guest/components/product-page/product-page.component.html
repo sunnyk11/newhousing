@@ -66,7 +66,7 @@
                         <p>{{ product_data?.address }}</p>
                     </div>
                 </div>
-                <div class="col-lg-5 col-xl-4">
+                <div class="col-lg-5 col-xl-4 share-tab">
                     <div class="spss mt20 text-right tal-400">
                         <ul class="mb0">
                             <li class="list-inline-item" *ngIf="product_data?.product_comparision ==null">
@@ -449,17 +449,24 @@
                 </div>
                 <div class="col-lg-4 col-xl-4 mt50">
                     <div class="sidebar_listing_list payment_summery" *ngIf="product_data?.expected_rent != null">
-                            <h4>Payment Details</h4> 
-                            <h6>1 Month Rent: <strong>{{commaSeperated(product_data?.expected_rent)}}</strong></h6>
-                            <h6>Security Deposit ({{product_data?.security_deposit}})/Months:  <strong>{{commaSeperated(security_dep_amount)}}</strong></h6>
-                                <h6 *ngIf="product_data?.maintenance_charge_status == '1'"> <hr>
-                                    <span>Maintenance Charge({{product_data?.maintenance_charge_condition}}):</span> 
-                                    <strong>{{commaSeperated(product_data?.maintenance_charge)}}</strong>
-                                </h6>
-                                <hr>
-                                <h6><strong>Total Amount: <strong>{{commaSeperated(total_amount_owner)}}</strong></strong>
-                                </h6>
-                                <hr>
+                        <div class="row">
+                            <div class="col-lg-12 col-12">
+                                <h4>Payment Details</h4> 
+                            </div>
+                            <div class="col-lg-9 col-9"><h6>1 Month Rent:</h6></div>
+                            <div class="col-lg-3 col-3"> <h6><strong>{{commaSeperated(product_data?.expected_rent)}}</strong></h6></div>   
+                            <div class="col-lg-9 col-9"><h6>Security Deposit ({{product_data?.security_deposit}} Month Rent): </h6></div>
+                            <div class="col-lg-3 col-3"> <h6><strong>{{commaSeperated(security_dep_amount)}}</strong></h6></div>   
+                            <div class="col-lg-9 col-9" *ngIf="product_data?.maintenance_charge_status == '1'">
+                                <!-- <hr> -->
+                                <h6>Maintenance Charge({{product_data?.maintenance_charge_condition}}): </h6>
+                            </div>
+                            <div class="col-lg-3 col-3" *ngIf="product_data?.maintenance_charge_status == '1'">
+                                 <h6><strong>{{commaSeperated(product_data?.maintenance_charge)}}</strong></h6>
+                            </div>
+                            <div class="col-lg-9 col-9"><h6>Total Amount: </h6></div>
+                            <div class="col-lg-3 col-3"> <h6><strong>{{commaSeperated(total_amount_owner)}}</strong></h6></div>   
+                        </div>
                         <button class="chekout_btn w100 h50" (click)="proceedToPayment(product_data.id)">
                         Proceed to Checkout
                     </button>
