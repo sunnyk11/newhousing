@@ -703,7 +703,7 @@ h4 .h1,
     font-size: 14px !important;
     /* height: 50px !important; */
     width: 180px;
-    border: 1px solid #ebebeb !important;
+    /* border: 1px solid #ebebeb !important; */
 }
 
 .small_dropdown2 .dd_btn {
@@ -3940,9 +3940,10 @@ input[type="range"]::-ms-fill-upper {
     padding: 25px 20px 10px;
     position: relative;
 }
-.testimonial_grid_slider .owl-carousel.owl-theme .owl-nav{
-  margin: 0;
-  display: none!important;
+
+.testimonial_grid_slider .owl-carousel.owl-theme .owl-nav {
+    margin: 0;
+    display: none!important;
 }
 
 .feat_property.list .dtls_headr {

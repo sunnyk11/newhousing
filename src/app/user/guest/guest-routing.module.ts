@@ -22,6 +22,7 @@ import { TermsConditionsComponent } from './components/terms-conditions/terms-co
 import { IpDisclaimerComponent } from './components/ip-disclaimer/ip-disclaimer.component';
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 import { RegisterComponent } from './components/register/register.component';
+import { PaymentSummaryComponent } from './components/payment-summary/payment-summary.component';
 //custom component imports
 
 const routes: Routes = [
@@ -46,7 +47,8 @@ const routes: Routes = [
         {path: "verify-mobile", component: VerifyMobileComponent, canActivate: [AuthGuard]},
         {path: "invoice", component: InvoiceComponent, canActivate: [AuthGuard]},
         {path: "my-properties", component: MyPropertiesComponent, canActivate: [AuthGuard]},
-        {path: "register", component: RegisterComponent}
+        {path: "register", component: RegisterComponent},
+        {path: "payment-summary", component: PaymentSummaryComponent}
       ]
     }
 ];

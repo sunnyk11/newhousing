@@ -38,6 +38,11 @@ export class PlansPageService {
     return this.apiService.post1<ResultModel>(route, reqModel);
   }
 
+  postSelectedPlan(reqModel: any): Observable<ResultModel> {
+    const route = "/api/auth/post_selected_plan";
+    return this.apiService.post1<ResultModel>(route, reqModel);
+  }
+
   proceedToPaymentRent(reqModel: any): Observable<ResultModel> {
     const route = "/api/auth/plans_rent_payment/";
     return this.apiService.get<ResultModel>(route + reqModel);
@@ -56,5 +61,20 @@ export class PlansPageService {
   getRentOrderDetails(reqModel: any): Observable<ResultModel> {
     const route = "/api/auth/get_rent_order_details/";
     return this.apiService.get<ResultModel>(route + reqModel);
+  }
+
+  getOrderDetails(reqModel: any): Observable<ResultModel> {
+    const route = "/api/auth/get_order_details/";
+    return this.apiService.get<ResultModel>(route + reqModel);
+  }
+
+  proceedToPayment(reqModel: any): Observable<ResultModel> {
+    const route = "/api/auth/plans_payment/";
+    return this.apiService.get<ResultModel>(route + reqModel);
+  }
+
+  generateInvoice(reqModel: any): Observable<ResultModel> {
+    const route = "/api/auth/generate_invoice";
+    return this.apiService.post<ResultModel>(route, { orderID: reqModel });
   }
 }

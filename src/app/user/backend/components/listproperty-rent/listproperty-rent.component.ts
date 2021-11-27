@@ -8,6 +8,7 @@ import { Options,LabelType } from '@angular-slider/ngx-slider';
 import { ToastrService } from 'ngx-toastr';
 import { RentPropertyService } from '../../services/rent-property.service';
 import { Router } from '@angular/router';
+import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 
 @Component({
   selector: 'app-listproperty-rent',
@@ -68,6 +69,8 @@ export class ListpropertyRentComponent implements OnInit {
   form_step3: FormGroup = new FormGroup({});
   form_step4: FormGroup = new FormGroup({});
   update_room_array: any = [];
+
+  public submitted: boolean = false;
 
 
   constructor(
@@ -144,6 +147,10 @@ export class ListpropertyRentComponent implements OnInit {
     this.selectedItems = new Array<string>();
     this.product_img = new Array<string>();
     this.selected_room = new Array<string>();
+  }
+
+  get f() {
+    return this.form_step1.controls;
   }
   google_map(){
     this.mapsAPILoader.load().then(() => {
@@ -507,6 +514,10 @@ export class ListpropertyRentComponent implements OnInit {
     this.image5 = null;
     this.product_img = this.product_img.filter((m: any) => m != id);
     console.log(this.product_img);
+  }
+
+  step1_next() {
+    this.submitted = true;
   }
 
 }

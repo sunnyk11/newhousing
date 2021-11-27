@@ -11,6 +11,7 @@ import { JwtService } from 'src/app/user/services/jwt.service';
 export class MobileCheckComponent implements OnInit {
 
   public returnUrl: string = '';
+  public plan_price: number = 0;
 
   @Input() fromParent:any;
 
@@ -26,6 +27,10 @@ export class MobileCheckComponent implements OnInit {
     this.closeModal("");
     this.returnUrl = this.router.url;
     //console.log(this.returnUrl);
+    if (this.returnUrl == '/plans') {
+      this.plan_price = this.fromParent.expected_rent / (30 / this.fromParent.price_duration);
+      this.fromParent.plan_price = this.plan_price;
+    }
     this.jwtService.saveReturnURL(this.returnUrl);
     this.jwtService.savePlansData(this.fromParent);
     this.router.navigate(['verify-mobile']);

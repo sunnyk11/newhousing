@@ -5,6 +5,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ListpropertyComponent } from './components/listproperty/listproperty.component';
 import { ListpropertyRentComponent } from './components/listproperty-rent/listproperty-rent.component';
 import { UpdatepropertyRentComponent } from './components/updateproperty-rent/updateproperty-rent.component';
+import { MyPlansComponent } from './components/my-plans/my-plans.component';
 
 const routes: Routes = [
   {
@@ -14,7 +15,8 @@ const routes: Routes = [
       { path: "", component:DashboardComponent },
       { path: "list-property", component: ListpropertyComponent},
       { path: "update-property-rent", component: UpdatepropertyRentComponent},
-      { path: "list-property-rent", component: ListpropertyRentComponent}
+      { path: "list-property-rent", component: ListpropertyRentComponent},
+      { path: "my-plans", component: MyPlansComponent }
     ]
   }
 ];

@@ -15,6 +15,8 @@ import { PlansPageService } from '../../services/plans-page.service';
 })
 export class LoginComponent implements OnInit {
 
+  public showLoadingIndicator: boolean = false;
+
   loginForm = this.fb.group({
     email_address: ['', Validators.required],
     password: ['', Validators.required]
@@ -37,6 +39,7 @@ export class LoginComponent implements OnInit {
   private invoice_result: any;
   private paytm_data: any;
   private paytm_form_url: string = environment.Paytm_formURL;
+  public letOutPlanData: any;
 
   constructor(
     private fb: FormBuilder,
@@ -70,6 +73,9 @@ export class LoginComponent implements OnInit {
         //console.log(this.returnUrl);
         this.proceedToPayment();
       }
+      else if (this.returnUrl?.includes('/plans')) {
+        this.getPhoneDetails();
+      }
       else {
         this.router.navigateByUrl('');
       }
@@ -81,6 +87,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
+    this.showLoadingIndicator = true;
     this.submitted = true;
     if (this.loginForm.valid) {
       let loginData = {
@@ -90,6 +97,7 @@ export class LoginComponent implements OnInit {
       }
       this.loginPageService.login(loginData).subscribe(
         response => {
+          this.showLoadingIndicator = false;
           //console.log(response);
           this.LoginFailed = false;
           this.LoggedIn = true;
@@ -106,11 +114,15 @@ export class LoginComponent implements OnInit {
             //console.log(this.returnUrl);
             this.proceedToPayment();
           }
+          else if (this.returnUrl?.includes('/plans')) {
+            this.getPhoneDetails();
+          }
           else {
             this.router.navigateByUrl(this.returnUrl);
           }
         },
         err => {
+          this.showLoadingIndicator = false;
           this.errorMessage = err.error.message;
           this.LoginFailed = true;
           //console.log(err);
@@ -128,8 +140,10 @@ export class LoginComponent implements OnInit {
   }
 
   proceedToPayment() {
+    this.showLoadingIndicator = true;
     this.loginPageService.getUserPhoneDetails({ param: null }).subscribe(
       data => {
+        this.showLoadingIndicator = false;
         //console.log(data);
         this.mobile_ver_status = data;
         if (this.mobile_ver_status !== 1) {
@@ -184,6 +198,7 @@ export class LoginComponent implements OnInit {
         }
       },
       err => {
+        this.showLoadingIndicator = false;
         //console.log(err);
       }
     );
@@ -210,6 +225,42 @@ export class LoginComponent implements OnInit {
     my_form.submit();
     // after click will fire you will redirect to paytm payment page.
     // after complete or fail transaction you will redirect to your CALLBACK URL
+  }
+
+  getPhoneDetails() {
+    this.showLoadingIndicator = true;
+    this.loginPageService.getUserPhoneDetails({ param: null }).subscribe(
+      data => {
+        this.showLoadingIndicator = false;
+        this.mobile_ver_status = data;
+        if (this.mobile_ver_status !== 1) {
+          console.log("Mobile number not verified");
+          this.router.navigate(['verify-mobile']);
+        } 
+        else {
+          console.log("Mobile number verified");
+          this.plansData = JSON.parse(this.jwtService.getPlansData());
+          console.log(this.plansData);
+          this.plansData['user_id'] = this.user_id;
+          this.plansData['user_email'] = this.userEmail;
+          this.plansPageService.postSelectedPlan(this.plansData).subscribe(
+            res => {
+              console.log(res);
+              this.letOutPlanData = res;
+              if (this.letOutPlanData.data.plan_type == 'let_out') {
+                this.router.navigate(['/payment-summary'], { queryParams: { 'orderID': this.letOutPlanData.data.order_id } });
+              }
+            },
+            err => {
+              console.log(err);
+            }
+          );
+        }
+      },
+      err => {
+        this.showLoadingIndicator = false;
+      }
+    );
   }
 
 }

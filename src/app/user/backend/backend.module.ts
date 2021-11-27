@@ -18,6 +18,7 @@ import { AgmCoreModule } from '@agm/core';
 import {MatSliderModule} from '@angular/material/slider';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import { UpdatepropertyRentComponent } from './components/updateproperty-rent/updateproperty-rent.component';
+import { MyPlansComponent } from './components/my-plans/my-plans.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { UpdatepropertyRentComponent } from './components/updateproperty-rent/up
     MasterComponent,
     ListpropertyRentComponent,
     ListpropertyComponent,
-    UpdatepropertyRentComponent
+    UpdatepropertyRentComponent,
+    MyPlansComponent
   ],
   imports: [
     CommonModule,

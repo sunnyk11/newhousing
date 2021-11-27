@@ -153,7 +153,7 @@
                         <!-- Buttons -->
                         <tr>
                             <td>&nbsp;</td>
-                            <td *ngFor="let letout_plan of letout_response"><a class="btn btn-block btn-success">Select
+                            <td *ngFor="let letout_plan of letout_response"><a class="btn btn-block btn-success" (click)="plan_payment(letout_plan.plan_name, letout_plan.plan_ID, letout_plan.payment_type, 'let_out', expected_rent_value, letout_plan.plan_price)">Select
                                     Plan</a></td>
                         </tr>
                     </tbody>

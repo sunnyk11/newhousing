@@ -7,12 +7,12 @@
                         <div class="row mt-3">
                             <div class="col-md-6">
                                 <label for="property_name" class="form-label">Property Name</label>
-                                <input type="text" class="form-control" id="property_name" formControlName="property_name" required>
+                                <input type="text" class="form-control" id="property_name" formControlName="property_name" [ngClass]="{ 'is-invalid': submitted && f.property_name.errors }" required>
                                 <!-- <input type="hidden" class="form-control" id="draft_form_id" formControlName="draft_form_id" required> -->
                             </div>
                             <div class="col-md-6">
                                 <label for="property_type" class="form-label">Property Type</label>
-                                <select id="property_type" class="form-select form-select-lg w100" formControlName="property_type">
+                                <select id="property_type" class="form-select form-select-lg w100" formControlName="property_type" [ngClass]="{ 'is-invalid': submitted && f.property_type.errors }">
                                     <option value ="" selected>Select Property Type</option>
                                     <optgroup label="ALL RESIDENTIAL">
                                         <option value="Flat/ Apartment">Flat/ Apartment</option>
@@ -49,7 +49,7 @@
                         <div class="row mt-3">
                             <div class="col-md-6">
                                 <label for="area_unit" class="form-label">Area Unit</label>
-                                <select id="area_unit" class="form-select form-select-lg w100" formControlName="area_unit">
+                                <select id="area_unit" class="form-select form-select-lg w100" formControlName="area_unit" [ngClass]="{ 'is-invalid': submitted && f.area_unit.errors }">
                                     <option value="">Select Area Unit</option>
                                     <option value="sq.ft.">sq.ft.</option>
                                     <option value="sq.yards">sq.yards</option>
@@ -72,13 +72,13 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="property_area" class="form-label">Property Area</label>
-                                <input type="text" class="form-control" id="property_area" formControlName="property_area" (keypress)="keyPressNumbers($event)" maxlength="8">
+                                <input type="text" class="form-control" id="property_area" formControlName="property_area" (keypress)="keyPressNumbers($event)" maxlength="8" [ngClass]="{ 'is-invalid': submitted && f.property_area.errors }">
                             </div>
                         </div>
                         <div class="row mt-3">
                             <div class="col-md-4">
                                 <label for="bedrooms" class="form-label">Bedrooms</label>
-                                <select id="bedrooms" class="form-select form-select-lg w100" formControlName="bedrooms">
+                                <select id="bedrooms" class="form-select form-select-lg w100" formControlName="bedrooms" [ngClass]="{ 'is-invalid': submitted && f.bedrooms.errors }">
                                     <option value="" disabled>Select Bedrooms
                                     </option>
                                     <option value="1">1</option>
@@ -95,7 +95,7 @@
                             </div>
                             <div class="col-md-4">
                                 <label for="bathrooms" class="form-label">Bathrooms</label>
-                                <select id="bathrooms" class="form-select form-select-lg w100" formControlName="bathrooms">
+                                <select id="bathrooms" class="form-select form-select-lg w100" formControlName="bathrooms" [ngClass]="{ 'is-invalid': submitted && f.bathrooms.errors }">
                                     <option value="" disabled>Select Bathrooms
                                     </option>
                                     <option value="1">1</option>
@@ -112,7 +112,7 @@
                             </div>
                             <div class="col-md-4">
                                 <label for="balconies" class="form-label">Balconies</label>
-                                <select id="balconies" class="form-select form-select-lg w100" formControlName="balconies">
+                                <select id="balconies" class="form-select form-select-lg w100" formControlName="balconies" [ngClass]="{ 'is-invalid': submitted && f.balconies.errors }">
                                     <option value="" disabled>Select Balconies</option>
                                     <option value="0">0</option>
                                     <option value="1">1</option>
@@ -132,14 +132,14 @@
                         <div class="row mt-3">
                             <div class="col-md-12">
                                 <label for="property_desc" class="form-label">Property Description</label>
-                                <textarea class="form-control" aria-label="With textarea" id="property_desc" formControlName="property_desc"></textarea>
+                                <textarea class="form-control" aria-label="With textarea" id="property_desc" formControlName="property_desc" [ngClass]="{ 'is-invalid': submitted && f.property_desc.errors }"></textarea>
                             </div>
                         </div>
                     </form>
                     <div class="row mt-3">
                         <div class="col-md-12 text-right">
                             <button class="draftbtn" mat-raised-button (click)="save_draft()">Save Draft</button>
-                            <button mat-raised-button matStepperNext>Next</button>
+                            <button mat-raised-button matStepperNext (click)="step1_next()">Next</button>
                         </div>
                     </div>
                 </div>
@@ -151,22 +151,15 @@
                         <div class="row mt-3">
                             <div class="col-md-12">
                                 <label for="address" class="form-label">Enter Address</label>
-                                <input #search autocorrect="off" autocapitalize="on"
-                                spellcheck="off" formControlName="address" type="search"
-                                class="form-control input-text"
-                                placeholder="Enter Address" />
-                            <span class="flaticon-maps-and-flags"
-                                style="position: absolute;top: 278px; right: 215px"></span>
-                            <agm-map style="height: 300px;" [latitude]="latCus"
-                                [longitude]="longCus" [zoom]="15" class="main-card-agm-map">
-                                <agm-marker [latitude]="latCus" [longitude]="longCus"
-                                    [markerDraggable]="true"
-                                    (dragEnd)="markerDragEnd($event)">
-                                    <agm-info-window> </agm-info-window>
-                                </agm-marker>
-                            </agm-map>
-                            <input type="hidden" class="form-control" id="map_latitude" formControlName="map_latitude">
-                            <input type="hidden" class="form-control" id="map_longitude" formControlName="map_longitude">
+                                <input #search autocorrect="off" autocapitalize="on" spellcheck="off" formControlName="address" type="search" class="form-control input-text" placeholder="Enter Address" />
+                                <span class="flaticon-maps-and-flags" style="position: absolute;top: 278px; right: 215px"></span>
+                                <agm-map style="height: 300px;" [latitude]="latCus" [longitude]="longCus" [zoom]="15" class="main-card-agm-map">
+                                    <agm-marker [latitude]="latCus" [longitude]="longCus" [markerDraggable]="true" (dragEnd)="markerDragEnd($event)">
+                                        <agm-info-window> </agm-info-window>
+                                    </agm-marker>
+                                </agm-map>
+                                <input type="hidden" class="form-control" id="map_latitude" formControlName="map_latitude">
+                                <input type="hidden" class="form-control" id="map_longitude" formControlName="map_longitude">
                             </div>
                         </div>
                         <div class="row mt-3">
@@ -261,17 +254,15 @@
                                 </select>
                             </div>
                         </div>
-                        
-                        <div class="row additional_row" *ngIf="add_room_tab == true"> 
+
+                        <div class="row additional_row" *ngIf="add_room_tab == true">
                             <div class="col-6 col-sm col-lg-3" *ngFor="let add_room of addition_room">
                                 <ul class="ui_kit_checkbox selectable-list">
                                     <li>
                                         <div class="custom-control custom-checkbox ">
                                             <div class="form-group">
-                                            <input type="checkbox" class="custom-control-input"
-                                                id="{{add_room.id}}" (change)="onchange_rooms($event,add_room.name)">
-                                                <label class="custom-control-label"
-                                                for="{{add_room.id}}">{{add_room.name}}</label>
+                                                <input type="checkbox" class="custom-control-input" id="{{add_room.id}}" (change)="onchange_rooms($event,add_room.name)">
+                                                <label class="custom-control-label" for="{{add_room.id}}">{{add_room.name}}</label>
                                             </div>
                                         </div>
                                     </li>
@@ -288,18 +279,18 @@
                             </div>
                             <div class="col-md-4">
                                 <label for="reserved_parking" class="form-label">Reserved Parking</label>
-                                <select id="reserved_parking" class="form-select form-select-lg w100" formControlName="reserved_parking"  (ngModelChange)="parkingStatus($event)">
+                                <select id="reserved_parking" class="form-select form-select-lg w100" formControlName="reserved_parking" (ngModelChange)="parkingStatus($event)">
                                     <option value="1">Yes</option>
                                     <option value="0">No</option>
                                 </select>
                             </div>
                         </div>
-                        <div class="row additional_row" *ngIf="furnish_row == true"> 
-                            <div class="col-12  col-lg-12" >
+                        <div class="row additional_row" *ngIf="furnish_row == true">
+                            <div class="col-12  col-lg-12">
                                 <ul class="row ui_kit_checkbox selectable-list">
                                     <li *ngFor="let amenties_data of amenties?.data" class="col-lg-2 col-xs-6 amentites_li">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="{{amenties_data.name}}"  (change)="onchangeAmenties($event,amenties_data.id)">
+                                            <input class="form-check-input" type="checkbox" id="{{amenties_data.name}}" (change)="onchangeAmenties($event,amenties_data.id)">
                                             <label class="form-check-label" for="{{amenties_data.name}}" (change)="onchangeAmenties($event,amenties_data.id)">
                                                 {{amenties_data.name}}
                                             </label>
@@ -463,16 +454,15 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="expected_rent" class="form-label">Expected Rent</label>
-                               <div class="row">
-                                <div class="col-9">
-                                    <ngx-slider [options]="options" formControlName="sliderControl" (valueChange)="RangeSlider_Price($event)"></ngx-slider>
+                                <div class="row">
+                                    <div class="col-9">
+                                        <ngx-slider [options]="options" formControlName="sliderControl" (valueChange)="RangeSlider_Price($event)"></ngx-slider>
+                                    </div>
+                                    <div class="col-3">
+                                        <input type="text" class="form-control" formControlName="expected_rent" id="expected_rent" name="expected_rent" placeholder="Please Enter Expected Rent..." maxlength="8" (keypress)="keyPressNumbers($event)" autocomplete="off" (ngModelChange)="rangeInput_Price($event)">
+                                    </div>
                                 </div>
-                                <div class="col-3">
-                                    <input type="text" class="form-control"  formControlName="expected_rent" id="expected_rent" name="expected_rent" placeholder="Please Enter Expected Rent..."  maxlength="8"
-                                     (keypress)="keyPressNumbers($event)" autocomplete="off" (ngModelChange)="rangeInput_Price($event)">
-                                </div>
-                               </div>
-                               <span class="alert-danger" *ngIf="Expected_PriceEroor == true">Expected Price Between 5k to 5 lakhs</span>                                  
+                                <span class="alert-danger" *ngIf="Expected_PriceEroor == true">Expected Price Between 5k to 5 lakhs</span>
                             </div>
                         </div>
                         <div class="row mt-3">
@@ -487,7 +477,7 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="price_negotiable" class="form-label">Is Price Negotiable?</label>
-                                <select id="price_negotiable" class="form-select form-select-lg w100" formControlName="price_negotiable_status"  (ngModelChange)="price_negotiable_status($event)">
+                                <select id="price_negotiable" class="form-select form-select-lg w100" formControlName="price_negotiable_status" (ngModelChange)="price_negotiable_status($event)">
                                     <option value="1">Yes</option>
                                     <option value="0">No</option>
                                 </select>
@@ -497,8 +487,7 @@
                             <div class="col-lg-10 col-md-10 col-sm-12">
                                 <div class="form-group">
                                     <label for="locality">Price Negotiable</label>
-                                    <input type="text" class="form-control"
-                                        formControlName="price_negotiable" placeholder="Enter the Price Negotiable" maxlength="8" (keypress)="keyPressNumbers($event)">
+                                    <input type="text" class="form-control" formControlName="price_negotiable" placeholder="Enter the Price Negotiable" maxlength="8" (keypress)="keyPressNumbers($event)">
                                 </div>
                             </div>
                             <div class="col-lg-2 col-md-2 col-sm-12" id="Negotiable_info_btn">
@@ -524,7 +513,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="row mt-3" *ngIf="maintenance_row == true"> 
+                        <div class="row mt-3" *ngIf="maintenance_row == true">
                             <div class="col-lg-6 col-12">
                                 <div class="form-group">
                                     <label>Maintenance Charge Condition</label>
@@ -535,11 +524,11 @@
                                       <option value="One Time">One Time</option>
                                     </select>
                                 </div>
-                            </div> <div class="col-lg-6 col-6">
+                            </div>
+                            <div class="col-lg-6 col-6">
                                 <div class="form-group">
                                     <label for="locality">Maintenance Charge Amount</label>
-                                    <input type="text" class="form-control"
-                                        formControlName="maintenance_charge" placeholder="Enter the Maintenance Charge Negotiable" maxlength="8" (keypress)="keyPressNumbers($event)">
+                                    <input type="text" class="form-control" formControlName="maintenance_charge" placeholder="Enter the Maintenance Charge Negotiable" maxlength="8" (keypress)="keyPressNumbers($event)">
                                 </div>
                             </div>
                         </div>
@@ -550,7 +539,7 @@
                                 <label for="images" class="form-label">Click to Upload Multiple Images</label>
                                 <input type="file" class="form-control" id="images" formControlName="images" accept=".jpg,.png,.jpeg" multiple (change)="insert_image($event)">
                             </div>
-                        </div>                        
+                        </div>
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12">
                                 <ul class="row mt20">
@@ -558,81 +547,56 @@
                                         <li class="list-inline-item" *ngIf="image1">
                                             <span>Property Image1</span>
                                             <div class="portfolio_item">
-                                                <img class="img-fluid" src="{{ image1 }}"
-                                                    alt="First Image">
-                                                <div class="edu_stats_list" data-toggle="tooltip"
-                                                    data-placement="top" title="Delete"
-                                                    data-original-title="Delete"><button type="button"
-                                                        class="btn btn-thm2 float-right"
-                                                        (click)="delete_pic1(image1)"><span
+                                                <img class="img-fluid" src="{{ image1 }}" alt="First Image">
+                                                <div class="edu_stats_list" data-toggle="tooltip" data-placement="top" title="Delete" data-original-title="Delete"><button type="button" class="btn btn-thm2 float-right" (click)="delete_pic1(image1)"><span
                                                             class="flaticon-garbage"></span></button>
                                                 </div>
                                             </div>
                                         </li>
                                     </div>
-                                    <div class="col-6 col-lg-3" *ngIf="image2">                                   
-                                    <li class="list-inline-item" *ngIf="image2">
-                                        <span>Property Image2</span>
-                                        <div class="portfolio_item">
-                                            <img class="img-fluid" src="{{ image2 }}"
-                                                alt="Second Image">
-                                            <div class="edu_stats_list" data-toggle="tooltip"
-                                                data-placement="top" title="Delete"
-                                                data-original-title="Delete"><button type="button"
-                                                    class="btn btn-thm2 float-right"
-                                                    (click)="delete_pic2(image2)"><span
+                                    <div class="col-6 col-lg-3" *ngIf="image2">
+                                        <li class="list-inline-item" *ngIf="image2">
+                                            <span>Property Image2</span>
+                                            <div class="portfolio_item">
+                                                <img class="img-fluid" src="{{ image2 }}" alt="Second Image">
+                                                <div class="edu_stats_list" data-toggle="tooltip" data-placement="top" title="Delete" data-original-title="Delete"><button type="button" class="btn btn-thm2 float-right" (click)="delete_pic2(image2)"><span
                                                         class="flaticon-garbage"></span></button>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </li>
+                                        </li>
                                     </div>
                                     <div class="col-6 col-lg-3" *ngIf="image3">
-                                    <li class="list-inline-item" *ngIf="image3">
-                                        <span>Property Image3</span>
-                                        <div class="portfolio_item">
-                                            <img class="img-fluid" src="{{ image3 }}"
-                                                alt="Third Image">
-                                            <div class="edu_stats_list" data-toggle="tooltip"
-                                                data-placement="top" title="Delete"
-                                                data-original-title="Delete"><button type="button"
-                                                    class="btn btn-thm2 float-right"
-                                                    (click)="delete_pic3(image3)"><span
+                                        <li class="list-inline-item" *ngIf="image3">
+                                            <span>Property Image3</span>
+                                            <div class="portfolio_item">
+                                                <img class="img-fluid" src="{{ image3 }}" alt="Third Image">
+                                                <div class="edu_stats_list" data-toggle="tooltip" data-placement="top" title="Delete" data-original-title="Delete"><button type="button" class="btn btn-thm2 float-right" (click)="delete_pic3(image3)"><span
                                                         class="flaticon-garbage"></span></button>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </li>
+                                        </li>
                                     </div>
                                     <div class="col-6 col-lg-3" *ngIf="image4">
-                                    <li class="list-inline-item" *ngIf="image4">
-                                        <span>Property Image4</span>
-                                        <div class="portfolio_item">
-                                            <img class="img-fluid" src="{{ image4 }}"
-                                                alt="Fourth Image">
-                                            <div class="edu_stats_list" data-toggle="tooltip"
-                                                data-placement="top" title="Delete"
-                                                data-original-title="Delete"><button type="button"
-                                                    class="btn btn-thm2 float-right"
-                                                    (click)="delete_pic4(image4)"><span
+                                        <li class="list-inline-item" *ngIf="image4">
+                                            <span>Property Image4</span>
+                                            <div class="portfolio_item">
+                                                <img class="img-fluid" src="{{ image4 }}" alt="Fourth Image">
+                                                <div class="edu_stats_list" data-toggle="tooltip" data-placement="top" title="Delete" data-original-title="Delete"><button type="button" class="btn btn-thm2 float-right" (click)="delete_pic4(image4)"><span
                                                         class="flaticon-garbage"></span></button>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </li>
+                                        </li>
                                     </div>
                                     <div class="col-6 col-lg-3" *ngIf="image5">
-                                    <li class="list-inline-item" >
-                                        <span>Property Image5</span>
-                                        <div class="portfolio_item">
-                                            <img class="img-fluid" src="{{ image5 }}"
-                                                alt="Fifth Image">
-                                            <div class="edu_stats_list" data-toggle="tooltip"
-                                                data-placement="top" title="Delete"
-                                                data-original-title="Delete"><button type="button"
-                                                    class="btn btn-thm2 float-right"
-                                                    (click)="delete_pic5(image4)"><span
+                                        <li class="list-inline-item">
+                                            <span>Property Image5</span>
+                                            <div class="portfolio_item">
+                                                <img class="img-fluid" src="{{ image5 }}" alt="Fifth Image">
+                                                <div class="edu_stats_list" data-toggle="tooltip" data-placement="top" title="Delete" data-original-title="Delete"><button type="button" class="btn btn-thm2 float-right" (click)="delete_pic5(image4)"><span
                                                         class="flaticon-garbage"></span></button>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </li>
+                                        </li>
                                     </div>
                                 </ul>
                             </div>

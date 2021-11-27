@@ -13,6 +13,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class VerifyMobileComponent implements OnInit {
 
+  public showLoadingIndicator: boolean = false;
+
   constructor(private fb: FormBuilder,
     private jwtService: JwtService,
     private verifyMobileService: VerifyMobileService,
@@ -38,6 +40,8 @@ export class VerifyMobileComponent implements OnInit {
   private paytm_data: any;
   private paytm_form_url: string = environment.Paytm_formURL;
   private invoice_result: any;
+  public plansData: any;
+  public letOutPlanData: any;
 
   verifyForm = this.fb.group({
     form_phone: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]]
@@ -61,7 +65,8 @@ export class VerifyMobileComponent implements OnInit {
 
     if (this.jwtService.getToken()) {
       this.user_id = this.jwtService.getUserId();
-      this.userEmail = JSON.parse(this.jwtService.getUserEmail());
+      // this.userEmail = JSON.parse(this.jwtService.getUserEmail());
+      this.userEmail = this.jwtService.getUserEmail();
     }
   }
 
@@ -70,14 +75,16 @@ export class VerifyMobileComponent implements OnInit {
     if (this.verifyForm.invalid) {
       return;
     }
-
+    this.showLoadingIndicator = true;
     this.verifyMobileService.mobile_verify(this.verifyForm.value.form_phone, this.currentUserId).subscribe(
       data => {
+        this.showLoadingIndicator = false;
         //console.log(data);
         this.verify = true;
         this.number = this.verifyForm.value.form_phone;
       },
       err => {
+        this.showLoadingIndicator = false;
         this.errorMessage = err.error;
         this.isFailedVerify = true;
       }
@@ -89,9 +96,10 @@ export class VerifyMobileComponent implements OnInit {
     if (this.otpForm.invalid) {
       return;
     }
-
+    this.showLoadingIndicator = true;
     this.verifyMobileService.mobile_verify_otp(this.number, this.otpForm.value.otp_password, this.currentUserId).subscribe(
       data => {
+        this.showLoadingIndicator = false;
         this.isVerified = true;
         this.verify = false;
 
@@ -103,7 +111,7 @@ export class VerifyMobileComponent implements OnInit {
           this.property_data.user_email = this.userEmail;
           //console.log(this.property_data);
 
-          this,this.plansPageService.postSelectedRentPlan(this.property_data).subscribe(
+          this.plansPageService.postSelectedRentPlan(this.property_data).subscribe(
             res => {
               //console.log(res);
               this.selectedPlanData = res;
@@ -137,8 +145,28 @@ export class VerifyMobileComponent implements OnInit {
             }
           );
         }
+        else if (this.previousUrl.includes('plans')) {
+          console.log(this.previousUrl);
+          this.plansData = JSON.parse(this.jwtService.getPlansData());
+          console.log(this.plansData);
+          this.plansData['user_id'] = this.user_id;
+          this.plansData['user_email'] = this.userEmail;
+          this.plansPageService.postSelectedPlan(this.plansData).subscribe(
+            res => {
+              console.log(res);
+              this.letOutPlanData = res;
+              if (this.letOutPlanData.data.plan_type == 'let_out') {
+                this.router.navigate(['/payment-summary'], { queryParams: { 'orderID': this.letOutPlanData.data.order_id } });
+              }
+            },
+            err => {
+              console.log(err);
+            }
+          );
+        }
       },
       err => {
+        this.showLoadingIndicator = false;
         this.errorMessage = err.error;
         this.verify = true;
         this.isFailedVerify_otp = true;

@@ -12,6 +12,8 @@ import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 })
 export class InvoiceComponent implements OnInit {
 
+  public showLoadingIndicator: boolean = false;
+
   public invoice_id: any;
   private response: any;
   public inv_response: any;
@@ -26,9 +28,11 @@ export class InvoiceComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.showLoadingIndicator = true;
     this.invoice_id = this.route.snapshot.queryParams['invoice_no'];
     this.plansPageService.getInvoiceDetails(this.invoice_id).subscribe(
       res => {
+        this.showLoadingIndicator = false;
         //console.log(res);
         this.response = res;
         this.inv_response = this.response[0];
@@ -53,6 +57,12 @@ export class InvoiceComponent implements OnInit {
             }
           );
         }
+        else if (this.inv_response.plan_type == 'let_out') {
+          this.total_amount = this.inv_response.plan_price + this.gst_amount;
+        }
+      },
+      err => {
+        this.showLoadingIndicator = false;
       }
     );
   }

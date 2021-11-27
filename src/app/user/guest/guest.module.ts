@@ -41,6 +41,7 @@ import { IpDisclaimerComponent } from './components/ip-disclaimer/ip-disclaimer.
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 import { RegisterComponent } from './components/register/register.component';
 import { BlogPostComponent } from './components/blog-post/blog-post.component';
+import { PaymentSummaryComponent } from './components/payment-summary/payment-summary.component';
 
 @NgModule({
   declarations: [
@@ -75,6 +76,7 @@ import { BlogPostComponent } from './components/blog-post/blog-post.component';
     PrivacyPolicyComponent,
     RegisterComponent,
     BlogPostComponent,
+    PaymentSummaryComponent,
   ],
   imports: [
     CommonModule,

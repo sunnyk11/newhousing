@@ -10,6 +10,8 @@ import { ConfirmedValidator } from '../../utils/validation';
 })
 export class RegisterComponent implements OnInit {
 
+  public showLoadingIndicator: boolean = false;
+
   public isSuccessful = false;
   public errorMessage: any;
   public isSignUpFailed: boolean = false;
@@ -20,8 +22,8 @@ export class RegisterComponent implements OnInit {
   public submitted: boolean = false;
   public form: any;
   public otp_form: any;
-  public email_id:any;
-  public first_name:any;
+  public email_id: any;
+  public first_name: any;
   public number: any;
   public otp_submitted: boolean = false;
 
@@ -63,12 +65,13 @@ export class RegisterComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-
+    this.showLoadingIndicator = true;
     if (this.form.invalid) {
       return;
     }
     this.registerService.register_new(this.form).subscribe(
       data => {
+        this.showLoadingIndicator = false;
         console.log(data);
         this.isSignUpFailed = false;
         this.isSuccessful = true;
@@ -79,6 +82,7 @@ export class RegisterComponent implements OnInit {
         this.verify = true;
       },
       err => {
+        this.showLoadingIndicator = false;
         console.log(err);
         this.errorMessage = err.error;
         this.isSignUpFailed = true;
@@ -88,11 +92,12 @@ export class RegisterComponent implements OnInit {
 
   onSubmitotp(): void {
     {
-      //this.showLoadingIndicator = true;
+      
       this.otp_submitted = true;
       if (this.otp_form.invalid) {
         return;
       }
+      this.showLoadingIndicator = true;
       console.log(this.number);
       console.log(this.otp_form.otp_number);
       console.log(this.email_id);
@@ -100,12 +105,14 @@ export class RegisterComponent implements OnInit {
       this.registerService.verify_otp(this.number, this.otp_form.value.otp_number, this.email_id, this.first_name).subscribe(
 
         data => {
+          this.showLoadingIndicator = false;
           //console.log(data);
           this.isVerified = true;
           this.verify = false;
-          
+
         },
         err => {
+          this.showLoadingIndicator = false;
           this.errorMessage = err.error.message;
           this.verify = true;
           this.isFailedVerify = true;
