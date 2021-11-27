@@ -703,7 +703,7 @@ h4 .h1,
     font-size: 14px !important;
     /* height: 50px !important; */
     width: 180px;
-    border: 1px solid #ebebeb !important;
+    border: 1px solid #ebebeb;
 }
 
 .small_dropdown2 .dd_btn {

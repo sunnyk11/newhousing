@@ -55,8 +55,33 @@
         text-align: center!important;
         margin: 0px!important;
     }
+    .payment_summery h6{
+        font-size: 14px;
+        margin:8px 0px!important;
+    }
+    .chekout_btn {
+        margin-top: 15px!important;
+    }
+    .share-tab{
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+    }
+    section{
+        padding: 20px 0px!important;
+    }
+    .single_property_title{
+        margin:10px 0px!important;
+    }
+    .our-agent-single .mt50{
+     margin-top: 20px!important;
+    }
+
 }
 .payment_summery{
-    text-align: center!important;
     margin:0px auto 20px!important;
+}
+.payment_summery h6{
+    font-size: 14px;
+    margin:5px 0px;
 }

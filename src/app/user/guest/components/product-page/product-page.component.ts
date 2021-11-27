@@ -74,11 +74,10 @@ export class ProductPageComponent implements OnInit {
       this.login_userid = this.jwtService.getUserId();
       this.ProductPageService.login_single_product_details(param).subscribe(
         response => {
-          console.log(response);
           this.product_details=response;
           this.product_data=this.product_details.data;
           this.security_dep_amount = Number(this.product_details.data.expected_rent) * Number(this.product_details.data.security_deposit);
-          this.total_amount_owner =  Number(this.product_details.data.expected_rent) + Number(this.security_dep_amount);
+          this.total_amount_owner =  Number(this.product_details.data.expected_rent) + Number(this.security_dep_amount) + Number(this.product_data.maintenance_charge);
           if(this.product_details.data != null){
             this.youtube_url = "https://www.youtube-nocookie.com/embed/" + this.product_data.video_link+"?playlist="+this.product_data.video_link+"&loop=1&mute=1";          
             this.safeURL = this._sanitizer.bypassSecurityTrustResourceUrl(this.youtube_url);
@@ -117,7 +116,7 @@ export class ProductPageComponent implements OnInit {
           this.product_details=response;
           this.product_data=this.product_details.data;
           this.security_dep_amount = Number(this.product_details.data.expected_rent) * Number(this.product_details.data.security_deposit);
-          this.total_amount_owner =  Number(this.product_details.data.expected_rent) + Number(this.security_dep_amount);
+          this.total_amount_owner =  Number(this.product_details.data.expected_rent) + Number(this.security_dep_amount)+ Number(this.product_data.maintenance_charge);
           if(this.product_details.data != null){
             this.youtube_url = "https://www.youtube-nocookie.com/embed/" + this.product_data.video_link+"?playlist="+this.product_data.video_link+"&loop=1&mute=1";          
             this.safeURL = this._sanitizer.bypassSecurityTrustResourceUrl(this.youtube_url);
