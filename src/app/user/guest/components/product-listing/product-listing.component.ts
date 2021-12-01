@@ -146,7 +146,6 @@ export class ProductListingComponent implements OnInit {
   param_query_check(){
     this.route.queryParams.subscribe((params) => {
       if(params.minimum != null && params.maximum != null){
-        console.log("1111");
         this.searchForm.value.sliderControl['0']=Number(params.minimum);
         this.searchForm.value.sliderControl['1']=Number(params.maximum);
         this.searchForm.patchValue({
@@ -173,20 +172,17 @@ export class ProductListingComponent implements OnInit {
         this.property_type_check_url();
         this.onsearch();
        }else if(params.category != null){
-        console.log("cate222");
         this.searchForm.controls['type'].setValue(params.category);         
         this.searchForm.value.sliderControl[0] = 5000;
         this.searchForm.value.sliderControl[1] = 50000000;
         this.onsearch();
        }else if(params.cities != null){
-        console.log("3333");
         this.searchForm.controls['city'].setValue(params.cities);         
         this.searchForm.value.sliderControl[0] = 5000;
         this.searchForm.value.sliderControl[1] = 50000000;
         this.onsearch();
        }
        else{
-        console.log("4444");
         this.searchForm.value.sliderControl[0] = 5000;
         this.searchForm.value.sliderControl[1] = 50000000;
         this.onsearch();

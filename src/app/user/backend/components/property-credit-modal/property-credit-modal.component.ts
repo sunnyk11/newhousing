@@ -66,7 +66,7 @@ export class PropertyCreditModalComponent implements OnInit {
       this.user_id = this.jwtService.getUserId();
       this.userEmail = this.jwtService.getUserEmail();
       this.usertype = this.jwtService.getUserType();
-    this.loginPageService.getUserPhoneDetails({ param: null }).subscribe(
+      this.loginPageService.getUserPhoneDetails({ param: null }).subscribe(
         response => {
           this.user_phone_data = response;
           if(this.user_phone_data !== 1) {
