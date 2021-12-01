@@ -28,4 +28,8 @@ export class RentPropertyService {
     const route = "/api/product/delete_pro_img"; 
     return this.apiService.post<ResultModel>(route, reqModel);
   }
+  delete_video(reqModel:any): Observable<ResultModel> {
+    const route = "/api/product/delete_video"; 
+    return this.apiService.post<ResultModel>(route, reqModel);
+  }
 }

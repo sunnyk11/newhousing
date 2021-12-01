@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PlansPageService } from '../../services/plans-page.service';
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
@@ -24,7 +24,8 @@ export class InvoiceComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private plansPageService: PlansPageService) { }
+    private plansPageService: PlansPageService,
+    private router: Router) { }
 
   ngOnInit(): void {
 
@@ -97,6 +98,10 @@ export class InvoiceComponent implements OnInit {
     };
 
     pdfMake.createPdf(docDefinition).open();
+  }
+
+  navigate_plans() {
+    this.router.navigate(['my-plans'])
   }
 
 }

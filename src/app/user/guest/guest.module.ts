@@ -42,6 +42,8 @@ import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-poli
 import { RegisterComponent } from './components/register/register.component';
 import { BlogPostComponent } from './components/blog-post/blog-post.component';
 import { PaymentSummaryComponent } from './components/payment-summary/payment-summary.component';
+import { FixAppointmentComponent } from './modals/fix-appointment/fix-appointment.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -77,6 +79,8 @@ import { PaymentSummaryComponent } from './components/payment-summary/payment-su
     RegisterComponent,
     BlogPostComponent,
     PaymentSummaryComponent,
+    FixAppointmentComponent,
+    ProfileComponent,
   ],
   imports: [
     CommonModule,

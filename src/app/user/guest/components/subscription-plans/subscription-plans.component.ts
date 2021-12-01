@@ -7,6 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LoginCheckComponent } from '../../modals/login-check/login-check.component';
 import { MobileCheckComponent } from '../../modals/mobile-check/mobile-check.component';
+import { FixAppointmentComponent } from '../../modals/fix-appointment/fix-appointment.component';
 
 @Component({
   selector: 'app-subscription-plans',
@@ -187,6 +188,10 @@ export class SubscriptionPlansComponent implements OnInit {
                 if (plan_type == 'let_out') {
                   this.router.navigate(['/payment-summary'], { queryParams: { 'orderID': this.selected_plan_data.data.order_id } });
                 }
+                else if (plan_type == 'rent') {
+                  this.plansPageService.crm_call(this.user_id).subscribe();
+                  this.openConfirmationModal();
+                }
               },
               err => {
 
@@ -247,5 +252,15 @@ export class SubscriptionPlansComponent implements OnInit {
     }
 
     modalRef.componentInstance.fromParent = data;
+  }
+
+  openConfirmationModal() {
+    const modalRef = this.modalService.open(FixAppointmentComponent,
+      {
+        scrollable: true,
+        windowClass: 'myCustomModalClass',
+        // keyboard: false,
+        backdrop: 'static'
+      });
   }
 }

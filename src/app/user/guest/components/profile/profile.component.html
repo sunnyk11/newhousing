@@ -1,0 +1,229 @@
+<!--Breadcrumb-->
+<div class="bg-secondary">
+    <div class="container-fluid py-4">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">My Profile</li>
+            </ol>
+        </nav>
+        <h2 class="col-custom">Profile</h2>
+    </div>
+</div>
+
+<div *ngIf="showLoadingIndicator">
+    <div class="preloader"></div>
+</div>
+
+<div class="container my-4">
+    <div class="alert alert-danger text-center" *ngIf="mobile_verify_status == 0 && usertype != 8">
+        <h5>Please Verify your Phone Number</h5>
+        <a class="btn btn-thm2" href="verify-mobile" (click)="verify_mob()">Verify</a>
+    </div>
+</div>
+
+<div class="container my-4">
+    <div class="card">
+        <h5 class="card-header">Profile Information</h5>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-lg-4 col-md-4">
+                    <div class="h-100 p-5 bg-light border rounded-3">
+                        <div class="d-flex flex-column align-items-center text-center">
+                            <img *ngIf="profile_pic !== null && profile_pic?.indexOf('https') == -1" class="profile-img" src="{{ ftpstring }}images/{{ profile_pic }}" alt="Profile Pic">
+                            <img *ngIf="profile_pic !== null && profile_pic?.indexOf('https') != -1" class="profile-img" src="{{ profile_pic }}" alt="Profile Pic">
+                            <img *ngIf="profile_pic == null" class="profile-img" src="./../../assets/images/no_image_available.jpg" alt="Profile Pic">
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ProfileImageModal">
+                                Change Image
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8 col-md-8">
+                    <div class="h-100 p-5 bg-light border rounded-3">
+                        <dl class="row">
+                            <dt class="col-sm-3">User Name</dt>
+                            <dd class="col-sm-6">{{ currentUser }}</dd>
+                            <dd class="col-sm-3">
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#EditUserNameModal" (click)="user_details_name()">
+                                    Edit
+                                </button>
+                            </dd>
+                            <hr>
+
+                            <dt class="col-sm-3">Email</dt>
+                            <dd class="col-sm-9">{{ email }}</dd>
+                            <hr>
+
+                            <dt class="col-sm-3">Phone Number</dt>
+                            <dd class="col-sm-6" *ngIf="phn_no">{{ phn_no }}</dd>
+                            <dd class="col-sm-6" *ngIf="!phn_no">NA</dd>
+                            <dd class="col-sm-3">
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#EditPhoneNumberModal" (click)="user_details_phone()">
+                                    Edit
+                                </button>
+                            </dd>
+                            <hr>
+
+                            <dt class="col-sm-3">User Type</dt>
+                            <dd class="col-sm-9">{{ user_cat }}</dd>
+                            <hr>
+
+                            <dt class="col-sm-3">ID Created At</dt>
+                            <dd class="col-sm-9">{{ id_created_at | date: 'MMM d y h:mm:ss a' }}</dd>
+                            <hr>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-lg-12">
+                    <div class="h-100 p-5 bg-light border rounded-3">
+                        <h4 class="text-center">Change Password</h4>
+                        <div class="col-lg-6 offset-lg-3 col-sm-12">
+                            <form [formGroup]="PasswordForm">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="old_password"><i class="fa fa-key"></i></span>
+                                    <input type="password" class="form-control" formControlName="old_password" placeholder="Old Password" [ngClass]="{ 'is-invalid': password_submitted && p.old_password.errors }">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="new_password"><i class="fa fa-key"></i></span>
+                                    <input type="password" class="form-control" formControlName="new_password" placeholder="New Password" [ngClass]="{ 'is-invalid': password_submitted && p.new_password.errors }">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="cnf_new_password"><i
+                                            class="fa fa-key"></i></span>
+                                    <input type="password" class="form-control" formControlName="cnf_new_password" placeholder="Confirm New Password" [ngClass]="{ 'is-invalid': password_submitted && p.cnf_new_password.errors }">
+
+                                    <div *ngIf="password_submitted && p.cnf_new_password.errors" class="invalid-feedback">
+                                        <div *ngIf="p.cnf_new_password.errors.confirmedValidator">
+                                            Confirm Password does not match
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-lg-6 offset-lg-3 col-sm-12 text-center">
+                            <button type="submit" class="btn btn-primary" (click)="onSubmitPassword()">Update</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Profile Image Modal -->
+<div class="modal fade" id="ProfileImageModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Change Profile Image</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <img [src]="imgURL ? imgURL : '../../../../assets/resources/images/noImageSelected.jpg'" class="profile-img">
+                <input type="file" class="form-control" (change)="onFileChange($event)" id="upload_pic" hidden>
+                <hr>
+                <label id="label_upload" for="upload_pic">Change Image</label>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" (click)="upload_image()">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit User Name Modal -->
+<div class="modal fade" id="EditUserNameModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Change User Name</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <form [formGroup]="UserNameForm">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">User Name</span>
+                        <input type="text" class="form-control" placeholder="Username" formControlName="user_name">
+                    </div>
+                </form>
+                <div class="alert alert-danger" *ngIf="username_submitted && alert">
+                    <div>
+                        <p><strong>You cannot enter the same Username.</strong></p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" (click)="onSubmitUserName()">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Phone Number Modal -->
+<div class="modal fade" id="EditPhoneNumberModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Change Profile Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <form [formGroup]="PhoneNumberForm" *ngIf="!otp_visible">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Phone Number</span>
+                        <span class="input-group-text">+91</span>
+                        <input type="text" class="form-control" placeholder="" formControlName="phone_number">
+                    </div>
+                </form>
+
+                <div class="alert alert-danger" *ngIf="phone_submitted && alert_phone">
+                    <div>
+                        <p><strong>You cannot enter the same mobile number.</strong></p>
+                    </div>
+                </div>
+                <div class="alert alert-warning" *ngIf="phone_submitted && updateFailed">
+                    <div *ngIf="errorMessage.errors && errorMessage.errors.other_mobile_number">
+                        <p><strong>The Mobile Number has already been taken.</strong></p>
+                    </div>
+                    <div *ngIf="errorMessage && errorMessage.message">
+                        <p><strong>{{ errorMessage.message }}</strong></p>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary" *ngIf="!otp_visible" (click)="onSubmitPhoneNumber()">Confirm</button>
+                <form [formGroup]="otpForm" *ngIf="otp_visible" (ngSubmit)="onSubmitotp()" novalidate>
+                    <p class="text-secondary-50 mb-5">Enter OTP</p>
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="mobile_number">OTP</span>
+                        <input type="text" class="form-control" autocomplete="off" formControlName="otp_password" minlength="6" [ngClass]="{ 'is-invalid': otp_submitted && g.otp_password.errors }" required>
+                    </div>
+                    <div class="alert alert-danger" role="alert" *ngIf="otp_submitted && g.otp_password.invalid">
+                        <div *ngIf="g.otp_password.errors?.required">OTP is required
+                        </div>
+                        <div *ngIf="g.otp_password.errors?.minlength">
+                            OTP must be 6 digits
+                        </div>
+                    </div>
+                    <button class="btn btn-thm btn-block btn-lg px-5" type="submit">Verify</button>
+                    <div class="alert alert-danger text-center" role="alert" *ngIf="otp_submitted && isFailedVerify_otp">
+                        <div *ngIf="errorMessage">
+                            <p><strong>Verification failed.</strong></p>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

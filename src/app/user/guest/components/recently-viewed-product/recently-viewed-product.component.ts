@@ -24,7 +24,6 @@ export class RecentlyViewedProductComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    
     if(this.jwtService.getToken()){
       this.LoggedIn = true;
      this.getrecently_product();

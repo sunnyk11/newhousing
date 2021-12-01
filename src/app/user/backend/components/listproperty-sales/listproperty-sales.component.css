@@ -1,0 +1,103 @@
+mat-slider {
+    width: 100%;
+}
+.bg-lightgray {
+    background-color: lightgray;
+}
+ul .list-inline-item{
+    width: 100%!important;
+}
+/* .row .ng-invalid{
+  border: 1px solid  red!important;
+} */
+.portfolio_item{
+    border-radius: 8px;
+    background-color: rgb(247, 247, 247);
+    height: 200px;
+    margin: 15px 0px;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+  }
+  .portfolio_item img{
+    height: 200px;
+    width: 100%;
+  }
+  .portfolio_item .edu_stats_list{
+    border-radius: 8px;
+    background-color: rgb(255, 90, 95);
+    cursor: pointer;
+    height: 35px;
+    line-height: 35px;
+    position: absolute;
+    right: 10px;
+    text-align: center;
+    top: 10px;
+    width: 35px;
+  }
+  .portfolio_item .edu_stats_list:hover{
+    border-radius: 8px;
+    background-color: rgb(255, 90, 95);
+    cursor: pointer;
+    height: 35px;
+    line-height: 35px;
+    position: absolute;
+    right: 10px;
+    text-align: center;
+    top: 10px;
+    width: 35px;
+  }
+  .portfolio_item .edu_stats_list span{
+    color: rgb(255, 255, 255);
+  }
+  .additional_row{
+      margin: 15px 0px!important;
+      padding: 15px 0px!important;
+      background-color: #fff!important;
+  }
+  .additional_row .form-group{
+      display: flex!important;
+      align-items: center!important;
+      justify-content: center!important;
+  }
+  .additional_row li label{
+    margin-left: 12px!important;
+    font-size: 12px!important;
+  }
+  #Negotiable_info_btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #Negotiable_info_btn i{
+    font-size: 32px;
+    color: #f35b3f;
+  }
+  .draftbtn{
+    margin-right: 15px!important;
+    color: #fff;
+    background-color:#ff5a5f!important;
+  }
+@media(max-width: 768px) { 
+    .additional_row li label{
+      margin-left: 2px!important;
+    }
+    .additional_row .form-group{
+        display: flex!important;
+        align-items: center!important;
+        justify-content: space-around!important;
+        margin:7px 0px!important;
+    }
+    .additional_row .col-6{
+        padding: 0px!important;
+    }
+    .flaticon-maps-and-flags{
+      right: 90px!important;
+    }
+    .text-right{
+      display: flex;
+      justify-content: flex-end!important;
+      align-items: center;
+    }
+
+}

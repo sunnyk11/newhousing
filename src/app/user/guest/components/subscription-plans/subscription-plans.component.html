@@ -83,7 +83,7 @@
                         <!-- Buttons -->
                         <tr>
                             <td>&nbsp;</td>
-                            <td *ngFor="let plan of rent_response?.data"><button class="btn btn-success">Fix
+                            <td *ngFor="let plan of rent_response?.data"><button class="btn btn-success" (click)="plan_payment(plan.plan_name, plan.plan_ID, plan.payment_type, 'rent', value, plan.plan_price)">Fix
                                     Appointment</button></td>
                         </tr>
                     </tbody>

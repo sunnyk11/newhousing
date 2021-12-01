@@ -7,6 +7,8 @@ import { CommonService } from '../../services/common.service';
 import { environment } from 'src/environments/environment';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PlansPageService } from '../../services/plans-page.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FixAppointmentComponent } from '../../modals/fix-appointment/fix-appointment.component';
 
 @Component({
   selector: 'app-login',
@@ -48,7 +50,8 @@ export class LoginComponent implements OnInit {
     private commonService: CommonService,
     private route: ActivatedRoute,
     private router: Router,
-    private plansPageService: PlansPageService
+    private plansPageService: PlansPageService,
+    private modalService: NgbModal
   ) { }
 
   ngOnInit(): void {
@@ -250,6 +253,11 @@ export class LoginComponent implements OnInit {
               if (this.letOutPlanData.data.plan_type == 'let_out') {
                 this.router.navigate(['/payment-summary'], { queryParams: { 'orderID': this.letOutPlanData.data.order_id } });
               }
+              else if(this.letOutPlanData.data.plan_type == 'rent') {
+                this.plansPageService.crm_call(this.user_id).subscribe();
+                this.router.navigate(['plans']);
+                this.openConfirmationModal();
+              }
             },
             err => {
               console.log(err);
@@ -261,6 +269,16 @@ export class LoginComponent implements OnInit {
         this.showLoadingIndicator = false;
       }
     );
+  }
+
+  openConfirmationModal() {
+    const modalRef = this.modalService.open(FixAppointmentComponent,
+      {
+        scrollable: true,
+        windowClass: 'myCustomModalClass',
+        // keyboard: false,
+        backdrop: 'static'
+      });
   }
 
 }

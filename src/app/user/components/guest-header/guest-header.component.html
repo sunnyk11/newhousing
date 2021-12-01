@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg sticky-top navbar-light bg-light py-4">
+<nav class="navbar navbar-expand-lg sticky-top navbar-light bg-white py-4">
     <a class="navbar-brand ps-4 m-auto" href="#">
         <img src="assets/resources/images/header-logo2.png" class="d-inline-block align-top" alt="">
     </a>
@@ -52,7 +52,7 @@
                 </a>
                 <ul class="dropdown-menu text-center user-info" aria-labelledby="navbarDropdown">
                     <li *ngIf="profile_pic && profile_pic.indexOf('https') == -1">
-                        <a class="dropdown-item " *ngIf="profile_pic == null;else OtherImage">
+                        <a class="dropdown-item " *ngIf="profile_pic != null;else OtherImage">
                             <img class="profile_image" src="{{ftpstring}}images/{{profile_pic}} " alt="Profile Pic">
                         </a>
                         <ng-template #OtherImage>
@@ -68,7 +68,7 @@
                     <li>
                         <hr class="dropdown-divider ">
                     </li>
-                    <li><a class="dropdown-item" href="# ">My Profile</a></li>
+                    <li><a class="dropdown-item" [routerLink]="['profile']">My Profile</a></li>
                     <li><a class="dropdown-item" [routerLink]="['my-properties']">My Properties</a></li>
                     <li><a class="dropdown-item" [routerLink]="['my-plans']">My Plans</a></li>
                     <li><a class="dropdown-item" [routerLink]="['agent/my-properties']">List Properties</a></li>

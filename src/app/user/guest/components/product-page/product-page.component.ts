@@ -31,6 +31,7 @@ export class ProductPageComponent implements OnInit {
   public product_img_length: any;
   public imageObject: any=[];
   public showLoadingIndicator:boolean=false;
+  public showLoadingIndicator1:boolean=true;
   public product_copm:any={};
   public isLoggedIn:boolean=false;
   public login_usertype:number = 0;
@@ -38,6 +39,7 @@ export class ProductPageComponent implements OnInit {
   public product_length:number=0;
   public security_dep_amount:number=0;
   public total_amount_owner:number=0;
+  public sectiondisplay:boolean=false;
 
   private e: any;
   private product_id: any;
@@ -65,6 +67,8 @@ export class ProductPageComponent implements OnInit {
   }
   // fetch amenties advance tab
   single_product_details(id: number) {
+    this.sectiondisplay=false;
+   this.showLoadingIndicator1 = true;
     let param = { id: id }
     this.showLoadingIndicator = true;
     if(this.jwtService.getToken()){
@@ -76,8 +80,13 @@ export class ProductPageComponent implements OnInit {
         response => {
           this.product_details=response;
           this.product_data=this.product_details.data;
-          this.security_dep_amount = Number(this.product_details.data.expected_rent) * Number(this.product_details.data.security_deposit);
-          this.total_amount_owner =  Number(this.product_details.data.expected_rent) + Number(this.security_dep_amount) + Number(this.product_data.maintenance_charge);
+          if(this.product_details.data.rent_availability ==1){
+            this.security_dep_amount = Number(this.product_details.data.expected_rent) * Number(this.product_details.data.security_deposit);
+            this.total_amount_owner =  Number(this.product_details.data.expected_rent) + Number(this.security_dep_amount) + Number(this.product_data.maintenance_charge);
+          }
+          if(this.product_details.data.sale_availability ==1){
+            this.total_amount_owner =  Number(this.product_details.data.expected_pricing) + Number(this.product_data.maintenance_charge);
+          }
           if(this.product_details.data != null){
             this.youtube_url = "https://www.youtube-nocookie.com/embed/" + this.product_data.video_link+"?playlist="+this.product_data.video_link+"&loop=1&mute=1";          
             this.safeURL = this._sanitizer.bypassSecurityTrustResourceUrl(this.youtube_url);
@@ -98,16 +107,12 @@ export class ProductPageComponent implements OnInit {
               });
               }               
             }
-          //  this.showLoadingIndicator = false;
+            this.sectiondisplay=true;
+           this.showLoadingIndicator1 = false;
           }else{
             this.redirect_to_home_page();
           }
         }, err => { 
-          this.showLoadingIndicator = false;
-          let Message =err.error.message;
-          this.toastr.error(Message, 'Something Error', {
-            timeOut: 3000,
-          });
         }
       );
     }else{
@@ -115,8 +120,13 @@ export class ProductPageComponent implements OnInit {
         response => {
           this.product_details=response;
           this.product_data=this.product_details.data;
-          this.security_dep_amount = Number(this.product_details.data.expected_rent) * Number(this.product_details.data.security_deposit);
-          this.total_amount_owner =  Number(this.product_details.data.expected_rent) + Number(this.security_dep_amount)+ Number(this.product_data.maintenance_charge);
+          if(this.product_details.data.rent_availability ==1){
+            this.security_dep_amount = Number(this.product_details.data.expected_rent) * Number(this.product_details.data.security_deposit);
+            this.total_amount_owner =  Number(this.product_details.data.expected_rent) + Number(this.security_dep_amount) + Number(this.product_data.maintenance_charge);
+          }
+          if(this.product_details.data.sale_availability ==1){
+            this.total_amount_owner =  Number(this.product_details.data.expected_pricing) + Number(this.product_data.maintenance_charge);
+          }
           if(this.product_details.data != null){
             this.youtube_url = "https://www.youtube-nocookie.com/embed/" + this.product_data.video_link+"?playlist="+this.product_data.video_link+"&loop=1&mute=1";          
             this.safeURL = this._sanitizer.bypassSecurityTrustResourceUrl(this.youtube_url);
@@ -137,16 +147,12 @@ export class ProductPageComponent implements OnInit {
               });
               }            
             }
-          //  this.showLoadingIndicator = false;
+            this.sectiondisplay=true;
+           this.showLoadingIndicator1 = false;
           }else{
             this.redirect_to_home_page();
           }
         }, err => { 
-          this.showLoadingIndicator = false;
-          let Message =err.error.message;
-          this.toastr.error(Message, 'Something Error', {
-            timeOut: 3000,
-          });
         }
       );
     }
@@ -155,6 +161,7 @@ export class ProductPageComponent implements OnInit {
   }
   // fetch similar property 
   similarproperty(cityname: any){
+    this.showLoadingIndicator=true;
     let param={cityname:cityname}
     if(this.jwtService.getToken()){
       this.ProductPageService.login_getsimilarproperty(param).subscribe(
@@ -162,12 +169,8 @@ export class ProductPageComponent implements OnInit {
           this.similar_property=response;
           this.showLoadingIndicator = false;
           this.product_length=this.similar_property.data.length;
+          this.showLoadingIndicator=false;
         }, err => { 
-          this.showLoadingIndicator = false;
-          let Message =err.error.message;
-          this.toastr.error(Message, 'Something Error', {
-            timeOut: 3000,
-          });
         }
       );      
     }else{
@@ -176,12 +179,8 @@ export class ProductPageComponent implements OnInit {
           this.similar_property=response;
           this.showLoadingIndicator = false;
           this.product_length=this.similar_property.data.length;
+          this.showLoadingIndicator=false;
         }, err => { 
-          this.showLoadingIndicator = false;
-          let Message =err.error.message;
-          this.toastr.error(Message, 'Something Error', {
-            timeOut: 3000,
-          });
         }
       );
     }
@@ -239,6 +238,9 @@ export class ProductPageComponent implements OnInit {
       this.CommonService.wishlist_addd({param}).subscribe(
       response => {
         this.product_length=0;
+        this.toastr.success('Wishlist Successfully', 'Property', {
+          timeOut: 3000,
+        });
         this.single_product_details(this.product_id);
       }, err => { 
         this.showLoadingIndicator = false;
@@ -259,6 +261,9 @@ export class ProductPageComponent implements OnInit {
       this.CommonService.wishlist_remove({param}).subscribe(
       response => {
         this.product_length=0;
+        this.toastr.error('Wishlist Removed', 'Property', {
+          timeOut: 3000,
+        });
         this.single_product_details(this.product_id);
       }, err => { 
         this.showLoadingIndicator = false;
@@ -266,6 +271,64 @@ export class ProductPageComponent implements OnInit {
         this.toastr.error(Message, 'Something Error', {
           timeOut: 3000,
         });
+      }
+     );
+    }else{
+      this.redirect_to_login();
+    }
+  }
+  // wishlist delete
+  wishlist_remove_similar(id: number){
+    let param={id:id}
+    if(this.jwtService.getToken()){
+      this.CommonService.wishlist_remove({param}).subscribe(
+      response => {
+        this.product_length=0;
+        this.similarproperty(this.product_data.city);
+      }, err => { 
+        
+      }
+     );
+    }else{
+      this.redirect_to_login();
+    }
+  }
+  // wishlist add 
+  wishlist_added_similar(id: number){
+    let param={id:id}
+    if(this.jwtService.getToken()){
+      this.CommonService.wishlist_addd({param}).subscribe(
+      response => {
+        this.product_length=0;
+        this.similarproperty(this.product_data.city);
+      }, err => { 
+       
+      }
+     );
+    }else{
+      this.redirect_to_login();
+    }
+  }
+  // property compare
+  product_comp_similar(id:number){
+    let param={id:id}
+    if(this.jwtService.getToken()){
+      this.CommonService.product_comp({param}).subscribe(
+      response => {
+        this.product_copm=response;
+        this.product_length=0;
+        this.similarproperty(this.product_data.city);
+        if(this.product_copm.data.length>4){
+          this.toastr.info('Compare are the Full...!!!', 'Property', {
+            timeOut: 3000,
+          });
+        }else{
+          this.toastr.success('Added To compare Successfully', 'Property', {
+            timeOut: 3000,
+          });
+        }
+      }, err => { 
+        
       }
      );
     }else{

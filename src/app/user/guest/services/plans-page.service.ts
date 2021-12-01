@@ -77,4 +77,9 @@ export class PlansPageService {
     const route = "/api/auth/generate_invoice";
     return this.apiService.post<ResultModel>(route, { orderID: reqModel });
   }
+
+  crm_call(reqModel: any): Observable<ResultModel> {
+    const route = "/api/auth/crm_api_call";
+    return this.apiService.post<ResultModel>(route, { id: reqModel });
+  }
 }

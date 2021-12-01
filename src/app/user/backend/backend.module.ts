@@ -9,18 +9,32 @@ import { ListpropertyRentComponent } from './components/listproperty-rent/listpr
 import { ListpropertyComponent } from './components/listproperty/listproperty.component';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
-import {MatIconModule} from '@angular/material/icon';
-import {MatButtonModule} from '@angular/material/button';
-import { ReactiveFormsModule } from '@angular/forms';
-import {MatDividerModule} from '@angular/material/divider';
+import { MatInputModule} from '@angular/material/input';
+import { MatIconModule} from '@angular/material/icon';
+import { MatButtonModule} from '@angular/material/button';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { MatDividerModule} from '@angular/material/divider';
 import { AgmCoreModule } from '@agm/core';
-import {MatSliderModule} from '@angular/material/slider';
+import { MatSliderModule} from '@angular/material/slider';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { UpdatepropertyRentComponent } from './components/updateproperty-rent/updateproperty-rent.component';
 import { MyPlansComponent } from './components/my-plans/my-plans.component';
 import { MyPropertiesComponent } from './components/my-properties/my-properties.component';
+import { ListpropertySalesComponent } from './components/listproperty-sales/listproperty-sales.component';
+import { UpdatepropertySalesComponent } from './components/updateproperty-sales/updateproperty-sales.component';
+import { PropertyCreditModalComponent } from './components/property-credit-modal/property-credit-modal.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ModalComponent } from './components/modal/modal.component';
+import { MatExpansionModule} from '@angular/material/expansion';
+import { MatBadgeModule} from '@angular/material/badge';
+import { MatSelectModule } from '@angular/material/select';
+import { MatOptionModule } from '@angular/material/core';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { PaymentSummaryComponent } from './components/payment-summary/payment-summary.component';
+import { InvoiceComponent } from './components/invoice/invoice.component';
+import { PlanApplyComponent } from './components/plan-apply/plan-apply.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +44,14 @@ import { MyPropertiesComponent } from './components/my-properties/my-properties.
     ListpropertyComponent,
     UpdatepropertyRentComponent,
     MyPlansComponent,
-    MyPropertiesComponent
+    MyPropertiesComponent,
+    ListpropertySalesComponent,
+    UpdatepropertySalesComponent,
+    PropertyCreditModalComponent,
+    ModalComponent,
+    PaymentSummaryComponent,
+    InvoiceComponent,
+    PlanApplyComponent
   ],
   imports: [
     CommonModule,
@@ -39,12 +60,20 @@ import { MyPropertiesComponent } from './components/my-properties/my-properties.
     MatStepperModule,
     MatFormFieldModule,
     ReactiveFormsModule,
+    FormsModule,
     NgxPaginationModule,
     MatInputModule,
     MatIconModule,
     MatButtonModule,
     MatDividerModule,
     NgxSliderModule,
+    MatDialogModule,
+    MatAutocompleteModule,
+    MatOptionModule,
+    MatRadioModule,
+    MatSelectModule,
+    MatBadgeModule,
+    MatExpansionModule,
     AgmCoreModule.forRoot({  
       apiKey: 'AIzaSyC2S5kHeGYkW9cL4d7_uxfauTBfQEtN4HA', libraries: ['places']
     }),

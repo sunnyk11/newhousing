@@ -3,6 +3,10 @@ import { MypropertiesService } from '../../services/myproperties.service';
 import { environment } from 'src/environments/environment';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { PlansServiceService } from '../../services/plans-service.service';
+import { JwtService } from 'src/app/user/services/jwt.service';
+import { MatDialog } from '@angular/material/dialog';
+import { PropertyCreditModalComponent } from './../property-credit-modal/property-credit-modal.component';
 
 @Component({
   selector: 'app-my-properties',
@@ -18,18 +22,24 @@ export class MyPropertiesComponent implements OnInit {
   public draftproperty:any=[];
   public draft_pro_length:number=0;
   public showLoadingIndicator:boolean=false;
+  public userEmail:any= null;
+  public response_data: any;
 
   private e:any;
 
   constructor(
     private MypropertiesService:MypropertiesService,
     private toastr: ToastrService,
+    private PlansServiceService:PlansServiceService,
+    private jwtService: JwtService,
+    private dialog: MatDialog,
     private router:Router
     ) { }
 
   ngOnInit(): void {
     this.agent_properties();
     this.draft_properties();
+    this.userEmail = this.jwtService.getUserEmail();
   }
   // fetch agent_properties 
   agent_properties(){
@@ -90,8 +100,29 @@ export class MyPropertiesComponent implements OnInit {
       }
     );
   }
-
-  navigate(id:string){
+  checkCredits(product_id:any, product_price:any){
+     this.showLoadingIndicator = true;
+     this.PlansServiceService.getUserInvoices(this.userEmail).subscribe(
+      response => {
+        this.response_data=response;
+        const dialogRef = this.dialog.open(PropertyCreditModalComponent, {
+          data: {
+            response: this.response_data,
+            product_id: product_id,
+            product_price: product_price
+          }
+        }); 
+        dialogRef.afterClosed().subscribe(result => {
+          console.log(`Dialog result: ${result}`);
+        });
+        this.showLoadingIndicator = false;
+      }
+     );
+  }
+  navigate_sales(id:any){
+    this.router.navigate(['/update-property-sales'],{queryParams:{id:id}})
+  }
+  navigate_rent(id:any){
     this.router.navigate(['/update-property-rent'],{queryParams:{id:id}})
   }
 

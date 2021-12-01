@@ -80,7 +80,7 @@
                         <div class="tc_content">
                             <p class="text-thm" >{{ data?.productdetails?.type | titlecase }}</p>
                             <h4>{{data?.productdetails?.build_name | titlecase}}</h4>
-                            <p><span class="flaticon-placeholder"></span> {{ data?.productdetails?.address | titlecase }}</p>
+                            <p *ngIf="data?.productdetails?.address != null"><span class="flaticon-placeholder"></span> {{ data?.productdetails?.address | titlecase }}</p>
                             <ul class="prop_details mb0">
                             <li class="list-inline-item"><a>Beds: {{ data?.productdetails?.bedroom }}</a></li>
                             <li class="list-inline-item"><a>Baths: {{ data?.productdetails?.bathroom }}</a></li>

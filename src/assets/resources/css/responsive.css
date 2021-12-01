@@ -245,8 +245,7 @@
         justify-content: space-between;
         padding: 0px 20px 0px 0px;
     }
-    #user_details ul .bucket-btn,
-    .bg-white {
+    #user_details ul .bucket-btn {
         font-size: 11px!important;
         margin: 0px!important;
         padding: 10px 15px!important;

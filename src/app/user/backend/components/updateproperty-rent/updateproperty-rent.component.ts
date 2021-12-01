@@ -3,13 +3,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MapsAPILoader, AgmMap } from '@agm/core';
 // import { google } from "google-maps";
 import { ElementRef, Input, NgZone, ViewChild } from '@angular/core';
-import { CommonService } from '../../services/common.service';
 import { Options,LabelType } from '@angular-slider/ngx-slider';
 import { ToastrService } from 'ngx-toastr';
 import { Router,ActivatedRoute } from '@angular/router';
-import { JwtService } from 'src/app/user/services/jwt.service';
-import { RentPropertyService } from '../../services/rent-property.service';
 import { environment } from 'src/environments/environment';
+import { CommonService } from '../../services/common.service';
+import { RentPropertyService } from '../../services/rent-property.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-updateproperty-rent',
@@ -52,6 +52,9 @@ export class UpdatepropertyRentComponent implements OnInit {
   public showLoadingIndicator:boolean=false;
   public show_draft_btn: boolean = false;
   public amenties:any=[];
+  public videolink:number=0;
+  public youtube_url: any;
+  public safeURL: any;
   public  amenityArray:any= [];
   public  additional_room_array:any=[];
   public  selectedItems: any=[];
@@ -95,7 +98,7 @@ export class UpdatepropertyRentComponent implements OnInit {
     private toastr: ToastrService,
     private CommonService:CommonService,
     private router:Router,
-    private jwtService: JwtService,
+    private _sanitizer: DomSanitizer,
     private RentPropertyService:RentPropertyService,
     private route:ActivatedRoute
     ) { 
@@ -103,7 +106,6 @@ export class UpdatepropertyRentComponent implements OnInit {
         if(params.id.length>0){
           this.prod_id = params.id;
           this.property_details(this.prod_id);
-          this.getLocation();
         }else{
           this.redirect_to_myproperty();
         }
@@ -113,6 +115,7 @@ export class UpdatepropertyRentComponent implements OnInit {
 
  
   ngOnInit(): void {
+   this.getLocation();
    this.getAmenities(); 
     this.form_step1 = this._formBuilder.group({
       property_name: ['', Validators.required],
@@ -226,6 +229,7 @@ export class UpdatepropertyRentComponent implements OnInit {
   
   property_details(prod_id:number): void {
     this.showLoadingIndicator =true;
+    this.property_show=false;
     let param = { id: prod_id }
     this.RentPropertyService.property_get_id(param).subscribe(
       response => {
@@ -235,10 +239,13 @@ export class UpdatepropertyRentComponent implements OnInit {
         }else{
           this.property_show=true;
           this.google_map();
-          if(data.data.additional_rooms ==1){
+          if(data.data.additional_rooms_status == 1){
             this.add_room_string = data.data.additional_rooms;
             this.update_room_array = this.add_room_string.split(',');
             this.additional_room_array = this.update_room_array;
+            this.form_step3.patchValue({
+              additional_rooms: data.data.additional_rooms_status
+            });
             this.add_room_tab=true;
           }
           // amenties details fetch 
@@ -250,7 +257,6 @@ export class UpdatepropertyRentComponent implements OnInit {
               this.search_amenties_convert.push(this.product_amenties[i].amenties.id);
             }
             this.amenityArray=this.search_amenties_convert;
-            console.log(this.amenityArray);
           }
           this.latCus=parseFloat(data.data.map_latitude);
           this.longCus=parseFloat(data.data.map_longitude);
@@ -328,11 +334,6 @@ export class UpdatepropertyRentComponent implements OnInit {
             });
           }
           // step 3 
-          if(data.data.additional_rooms_status != null){
-            this.form_step3.patchValue({
-              additional_rooms: data.data.additional_rooms_status
-            });
-          }
           if(data.data.facing_towards != null){
             this.form_step3.patchValue({
               facing_towards:  data.data.facing_towards
@@ -463,16 +464,17 @@ export class UpdatepropertyRentComponent implements OnInit {
               maintenance_charge_condition:  data.data.maintenance_charge_condition
             });
           }
-          if(data.data.video_link){
+          if(data.data.video_link.length>1){
             this.form_step4.patchValue({
               video_link:  "https://www.youtube.com/watch?v=" +data.data.video_link
-            });
+            });     
+            this.youtube_url = "https://www.youtube-nocookie.com/embed/" +data.data.video_link+"?playlist="+data.data.video_link+"&loop=1&mute=1";          
+            this.safeURL = this._sanitizer.bypassSecurityTrustResourceUrl(this.youtube_url);
+            this.videolink=data.data.video_link.length;       
           }
           this.showLoadingIndicator =false;
         }
-        
       });
-   
   }
   // fetch amenties advance tab
   getAmenities(){
@@ -516,7 +518,7 @@ export class UpdatepropertyRentComponent implements OnInit {
     }else{
       this.form_step4.value.draft_form_id='0';
       let param={id:this.prod_id,form_step1:this.form_step1.value,form_step2:this.form_step2.value,form_step3:this.form_step3.value,form_step4:this.form_step4.value,rooms:this.additional_room_array,amenties:this.amenityArray,images:this.product_img}
-      if(this.form_step4.value.expected_rent >=5000 && this.form_step4.value.expected_rent <=500000){
+     if(this.form_step4.value.expected_rent >=5000 && this.form_step4.value.expected_rent <=500000){
         this.RentPropertyService.product_rent_update(param).subscribe(
           response => {
             let data:any=response;
@@ -679,7 +681,6 @@ export class UpdatepropertyRentComponent implements OnInit {
        this.price_negotiable_row = true;
      }
      else {
-       this.price_negotiable_row = false;
      }
    }
    maintenanceStatus(event:number): void {
@@ -687,7 +688,7 @@ export class UpdatepropertyRentComponent implements OnInit {
        this.maintenance_row = true;
      }
      else {
-       this.maintenance_row = false;
+       this.maintenance_row = false; 
      }
    }
    rangeInput_Price(event: number) {
@@ -711,6 +712,12 @@ export class UpdatepropertyRentComponent implements OnInit {
      }
    }
    insert_image(event:any) {
+    let files:any = event.target.files;
+    const mimeType = files[0].type;
+    if (mimeType.match(/image\/*/) == null) {
+      this.toastr.error("Only Image Supported");
+      return;
+    }
     let files_length:any = this.p_images - this.product_img_length;
     if (event.target.files.length <=files_length) {
      this.product_img=[];
@@ -856,12 +863,24 @@ export class UpdatepropertyRentComponent implements OnInit {
         });
         this.property_details(this.prod_id);
       }, err => { 
-        this.showLoadingIndicator = false;
-        let Message =err.error.message;
-        this.toastr.error(Message, 'Something Error', {
+        }
+    );
+   }
+   delete_video(product_id:any,video:any){  
+    let param = { product_id: product_id,video:video }
+    this.RentPropertyService.delete_video(param).subscribe(
+      response => {
+        let data:any=response;
+        let Message =data.message;
+        this.form_step4.patchValue({
+          video_link: ''
+        });   
+        this.videolink=0;
+        this.toastr.success(Message, 'Sales property', {
           timeOut: 3000,
         });
-        }
+      },err => { 
+      }
     );
    }
    redirect_to_myproperty(): void {

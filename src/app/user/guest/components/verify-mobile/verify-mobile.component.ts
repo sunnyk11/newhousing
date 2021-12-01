@@ -5,6 +5,8 @@ import { VerifyMobileService } from '../../services/verify-mobile.service';
 import { PlansPageService } from '../../services/plans-page.service';
 import { environment } from 'src/environments/environment';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FixAppointmentComponent } from '../../modals/fix-appointment/fix-appointment.component';
 
 @Component({
   selector: 'app-verify-mobile',
@@ -19,7 +21,8 @@ export class VerifyMobileComponent implements OnInit {
     private jwtService: JwtService,
     private verifyMobileService: VerifyMobileService,
     private plansPageService: PlansPageService,
-    private router: Router) { }
+    private router: Router,
+    private modalService: NgbModal) { }
 
   public verify: boolean = false;
   public submitted: boolean = false;
@@ -30,7 +33,7 @@ export class VerifyMobileComponent implements OnInit {
   public number: string = '';
   public isFailedVerify_otp: boolean = false;
   public isVerified: boolean = false;
-  private previousUrl: string = '';
+  private previousUrl: any;
 
   public property_data: any;
   private user_id: any;
@@ -62,7 +65,7 @@ export class VerifyMobileComponent implements OnInit {
   ngOnInit(): void {
     this.currentUserId = this.jwtService.getUserId();
     this.previousUrl = this.jwtService.getReturnURL();
-
+    console.log(this.previousUrl);
     if (this.jwtService.getToken()) {
       this.user_id = this.jwtService.getUserId();
       // this.userEmail = JSON.parse(this.jwtService.getUserEmail());
@@ -158,11 +161,19 @@ export class VerifyMobileComponent implements OnInit {
               if (this.letOutPlanData.data.plan_type == 'let_out') {
                 this.router.navigate(['/payment-summary'], { queryParams: { 'orderID': this.letOutPlanData.data.order_id } });
               }
+              else if (this.letOutPlanData.data.plan_type == 'rent') {
+                this.plansPageService.crm_call(this.user_id).subscribe();
+                this.router.navigate(['plans']);
+                this.openConfirmationModal();
+              }
             },
             err => {
               console.log(err);
             }
           );
+        }
+        else if(this.previousUrl.includes('profile')) {
+          this.router.navigate(['profile']);
         }
       },
       err => {
@@ -195,6 +206,16 @@ export class VerifyMobileComponent implements OnInit {
     my_form.submit();
     // after click will fire you will redirect to paytm payment page.
     // after complete or fail transaction you will redirect to your CALLBACK URL
+  }
+
+  openConfirmationModal() {
+    const modalRef = this.modalService.open(FixAppointmentComponent,
+      {
+        scrollable: true,
+        windowClass: 'myCustomModalClass',
+        // keyboard: false,
+        backdrop: 'static'
+      });
   }
 
 }

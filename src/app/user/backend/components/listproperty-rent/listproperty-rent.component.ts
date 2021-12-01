@@ -1,14 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MapsAPILoader, AgmMap } from '@agm/core';
-// import { google } from "google-maps";
 import { ElementRef, Input, NgZone, ViewChild } from '@angular/core';
-import { CommonService } from '../../services/common.service';
 import { Options,LabelType } from '@angular-slider/ngx-slider';
 import { ToastrService } from 'ngx-toastr';
 import { RentPropertyService } from '../../services/rent-property.service';
 import { Router } from '@angular/router';
-import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import { CommonService } from '../../services/common.service';
 
 @Component({
   selector: 'app-listproperty-rent',
@@ -351,6 +349,11 @@ export class ListpropertyRentComponent implements OnInit {
     }
     else {
       this.parking_row = false;
+      this.price_negotiable_row = false;
+      this.form_step3.patchValue({
+        parking_covered_count:'',
+        parking_open_count:'',
+     });
     }
    }
    price_negotiable_status(event:number): void {
@@ -359,6 +362,9 @@ export class ListpropertyRentComponent implements OnInit {
      }
      else {
        this.price_negotiable_row = false;
+       this.form_step4.patchValue({
+        price_negotiable:'',
+     });
      }
    }
   rangeInput_Price(event: number) {
@@ -387,6 +393,10 @@ export class ListpropertyRentComponent implements OnInit {
     }
     else {
       this.maintenance_row = false;
+      this.form_step4.patchValue({
+       maintenance_charge:'',
+       maintenance_charge_condition:'',
+     });
     }
   }
   onchange_rooms(e: any, id: string){
@@ -407,6 +417,12 @@ export class ListpropertyRentComponent implements OnInit {
     this.amenityArray = this.selectedItems;
   }
   insert_image(event:any) {
+    let files:any = event.target.files;
+    const mimeType = files[0].type;
+    if (mimeType.match(/image\/*/) == null) {
+      this.toastr.error("Only Image Supported");
+      return;
+    }
     this.product_img=[];
     if (event.target.files.length <= 5) {
       for (let i = 0; i < event.target.files.length; i++) {

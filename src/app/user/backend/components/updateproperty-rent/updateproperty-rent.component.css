@@ -4,6 +4,18 @@ mat-slider {
 .bg-lightgray {
     background-color: lightgray;
 }
+.application_statics{
+  padding:  20px 0px 0px!important;
+}
+.single-page_inner_column #myTab{
+  width: 100%!important;
+  display: flex!important;
+  justify-content: space-between!important;
+  align-items: center!important;
+}
+.shop_single_tab_content  .btn-thm2 {
+  width: 80px!important;
+}
 .list-inline-item{
   margin: 0px!important;
 }

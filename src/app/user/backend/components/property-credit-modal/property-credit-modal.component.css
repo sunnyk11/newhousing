@@ -1,0 +1,229 @@
+.example-action-buttons {
+    padding-bottom: 20px;
+  }
+  
+  .example-headers-align .mat-expansion-panel-header-title,
+  .example-headers-align .mat-expansion-panel-header-description {
+    flex-basis: 0;
+  }
+  
+  .example-headers-align .mat-expansion-panel-header-description {
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .example-headers-align .mat-form-field + .mat-form-field {
+    margin-left: 8px;
+  }
+
+  .pricing{
+    margin:40px 0px;
+  }
+  .pricing .table{
+    border-top:1px solid #ddd;
+    background:#fff;
+  }
+  .pricing .table th,
+  .pricing .table {
+    text-align: center;
+  }
+  .pricing .table th,
+  .pricing .table td {
+    padding: 20px 10px;
+    border:1px solid #ddd;
+    border: 1px solid #eee;
+  }
+  .pricing .table th {
+    width: 25%;
+    font-size: 28px;
+    font-weight: 400;
+    border-bottom: 0;
+    background:#3e4c66;
+    color: #EBEDF3;
+    /*text-transform: uppercase;*/
+  }
+  .pricing .table th.highlight{
+    border-top: 4px solid #4caf50 !important;
+  }
+  
+  .pricing .table td:first-child{
+    padding-left: 20px;
+    text-align: left;
+    padding-top:35px;
+    background: #949ba8;
+  }
+  .pricing tr td .ptable-title {
+    font-size: 20px;
+    font-weight:400;
+    color: #fff;
+  }
+  .pricing tr td .ptable-title i {
+    width: 23px;
+    line-height: 25px;
+    text-align: right;
+    margin-right: 5px;
+  }
+  .pricing .ptable-star {
+    position: relative;
+    display: block;
+    text-align: center;
+  }
+  .pricing .ptable-star.red{
+    color: #e91e63;
+  }
+  .pricing .ptable-star.green{
+    color: #4caf50;
+  }
+  .pricing .ptable-star.lblue{
+    color: #03a9f4;
+  }
+  .pricing .ptable-star i {
+    width: 8px;
+    font-size: 13px;
+  }
+  .pricing .ptable-price {
+    display: block;
+    font-size: 18px;
+  }
+
+  .pricing .pay_type {
+    color: #B2A399;
+  }
+  .pricing tr td {
+    font-size: 18px;
+    line-height:26px;
+    vertical-align: middle;
+    /*text-transform:uppercase;*/
+  }
+  .pricing tr td.bg-red{
+    background: #ff5a5f;
+    border-radius: 10px;  
+  }
+
+  .pricing tr td.bg-green{
+    background: #196F3D ;
+  }
+
+  .pricing tr td.bg-lblue{
+    background: #03a9f4;
+  }
+  .pricing tr td.bg-red a,
+  .pricing tr td.bg-green a,
+  .pricing tr td.bg-lblue a{
+    color: #fff;
+  }
+
+  .pricing tr td.bg-green:hover {
+    background-color: #ffffff;
+  }
+
+  .pricing tr td.bg-green:hover a {
+    color: #4caf50;
+  }
+  .pricing tr td i {
+    display: block;
+    margin-bottom: 12px;
+    font-size: 30px;
+  }
+  .pricing tr td i.red{
+    color: #e91e63;
+  }
+  .pricing tr td i.green{
+    color: #4caf50;
+  }
+  .pricing tr td i.lblue{
+    color: #03a9f4;
+  }
+  .pricing tr td:first-child i{
+    display:inline;
+    margin-bottom:0px;
+    font-size:22px;
+  }
+
+  .checkmark {
+    color: #00D100;
+  }
+
+  hr {
+    border-top: 1px solid #fff;
+  }
+
+  .visible-xs {
+    display: none;
+  }
+
+  thead > tr > th > tr {
+    height: 45px;
+    text-align: center;
+  }
+
+  thead > tr > th {
+    text-align: center;
+    text-align: -webkit-center;
+  }
+
+  input[type="text"] {
+    font-weight: 400;
+    font-size: 18px;
+  }
+
+  @media only screen and (max-width: 992px) {
+    .pricing tr td .ptable-title {
+      font-size: 18px;
+      font-weight:300;
+      color: #fff;
+    }
+
+    .pricing .table th {
+      font-size: 24px;
+    }
+
+    .pricing tr td {
+      font-size: 18px;
+      line-height:24px;
+    }
+    thead > tr > th > tr {
+      height: 60px;
+    }
+  }
+  
+  @media only screen and (max-width: 768px) {
+    thead > tr > th > tr {
+      height: 60px;
+    }
+  }
+
+  @media only screen and (max-width: 576px){
+    .pricing tr td .ptable-title {
+      font-size: 16px;
+      font-weight:300;
+      color: #fff;
+    }
+
+    .pricing .table th {
+      width: 33%;
+      font-size: 20px;
+    }
+
+    .pricing tr td {
+      font-size: 16px;
+      line-height:20px;
+    }
+
+    .visible-xs {
+      display: table-row;
+      background: #efefef;
+    }
+
+    td:first-child,
+    th:first-child {
+    display: none;
+  }
+
+  thead > tr > th > tr {
+    height: 60px;
+  }
+
+  }
+
+  

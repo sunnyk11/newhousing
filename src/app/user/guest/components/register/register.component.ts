@@ -67,6 +67,7 @@ export class RegisterComponent implements OnInit {
     this.submitted = true;
     this.showLoadingIndicator = true;
     if (this.form.invalid) {
+      this.showLoadingIndicator = false;
       return;
     }
     this.registerService.register_new(this.form).subscribe(
