@@ -27,8 +27,8 @@
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr *ngFor="let property of agentproperty?.data | paginate:{itemsPerPage:2, currentPage:p}">
+                                <tbody *ngFor="let property of agentproperty?.data | paginate:{itemsPerPage:2, currentPage:p}">
+                                    <tr>
                                     <td>
                                         <div class="feat_property list favorite_page style2">
                                         <div class="thumb">
@@ -66,17 +66,33 @@
                                             <ul class="view_edit_delete_list mb0">
                                             <li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="Edit"
                                                 *ngIf=" property.sale_availability  != null">
-                                                <a (click)="navigate(property.id)"><span class="flaticon-edit"></span></a>
+                                                <a (click)="navigate_sales(property.id)"><span class="flaticon-edit"></span></a>
                                             </li>
                                             <li class="list-inline-item " data-toggle="tooltip" data-placement="top" title="Edit"
                                                 *ngIf=" property.rent_availability  != null">
-                                                <a (click)="navigate(property.id)"><span class="flaticon-edit"></span></a>
+                                                <a (click)="navigate_rent(property.id)"><span class="flaticon-edit"></span></a>
                                             </li>
                                             <li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="Delete">
                                                 <a (click)="delete_property(property.id)"><span class="flaticon-garbage"></span></a>
                                             </li>
                                             </ul>
                                         </td>
+                                    </tr>
+                                    <tr *ngIf="property?.enabled == 'no' && property.rent_availability == '1'">
+                                      <td class="disabled_text" colspan="2">
+                                        <h4>Your property is not live</h4>
+                                      </td>
+                                      <td colspan="2">
+                                        <button mat-raised-button color="primary" (click)="checkCredits(property.product_uid, property.expected_rent)">
+                                          Make your property Live
+                                        </button>
+                                      </td>
+                                    </tr>
+                                    <tr *ngIf="property?.enabled == 'yes'">
+                                      <td class="enabled_text" colspan="4">
+                                        <h4><span
+                                          class="checkmark"><strong>&#10004;</strong></span> Your property is live</h4>
+                                      </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -143,11 +159,11 @@
                                             <ul class="view_edit_delete_list mb0">
                                             <li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="Edit"
                                                 *ngIf=" property.sale_availability  != null">
-                                                <a (click)="navigate(property.id)"><span class="flaticon-edit"></span></a>
+                                                <a (click)="navigate_sales(property.id)"><span class="flaticon-edit"></span></a>
                                             </li>
                                             <li class="list-inline-item " data-toggle="tooltip" data-placement="top" title="Edit"
                                                 *ngIf=" property.rent_availability  != null">
-                                                <a (click)="navigate(property.id)"><span class="flaticon-edit"></span></a>
+                                                <a (click)="navigate_rent(property.id)"><span class="flaticon-edit"></span></a>
                                             </li>
                                             <li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="Delete">
                                                 <a (click)="delete_draft(property.id)"><span class="flaticon-garbage"></span></a>

@@ -38,11 +38,18 @@
     width: 100%!important;
     height: 50vh!important;
 }
+.preloader_row1{
+    width: 100%!important;
+    height: 100vh!important;
+}
 @media(min-width: 768px) {  
     .single_page_address h6{
         justify-content: flex-end!important;
         align-items: flex-end!important;
         display: flex!important;
+    }
+    .chekout_btn {
+        margin-top: 15px!important;
     }
 }
 @media(max-width: 768px) {  

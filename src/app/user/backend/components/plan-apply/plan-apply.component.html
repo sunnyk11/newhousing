@@ -1,0 +1,41 @@
+<div class="container mt150"    >
+    <div class="jumbotron">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <h3>Plan Details</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th scope="row">Plan Name</th>
+                            <td>{{ response?.plan_name }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Plan Price</th>
+                            <td>{{ response?.plan_price }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Expected Rent</th>
+                            <td>{{ response?.expected_rent }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Property Rent</th>
+                            <td>{{ pro_response?.expected_rent }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Difference Amount</th>
+                            <td>{{ response?.expected_rent - pro_response?.expected_rent }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p *ngIf="response?.expected_rent - pro_response?.expected_rent < 0">A total amount of {{ pro_response?.expected_rent - response?.expected_rent }} is pending.</p>
+                <p *ngIf="response?.expected_rent - pro_response?.expected_rent > 0">A total amount of {{ response?.expected_rent - pro_response?.expected_rent }} will be refunded.</p>
+
+                <button mat-raised-button color="primary" (click)="property_live(pro_response.expected_rent)">Make the property Live</button>
+            </div>
+        </div>
+    </div>
+</div>

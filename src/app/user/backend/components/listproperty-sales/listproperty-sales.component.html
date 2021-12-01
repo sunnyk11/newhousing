@@ -1,23 +1,18 @@
 <div class="container p-3">
-    <div class="row preloader_row" *ngIf="showLoadingIndicator">
-        <div class="col-lg-12">
-            <div class="preloader"></div>
-        </div>
-    </div>
-    <div class="h-100 p-3 bg-light border rounded-3" >
+    <div class="h-100 p-3 bg-light border rounded-3">
         <mat-horizontal-stepper [linear]="true" #stepper="matHorizontalStepper">
-
-            <mat-step label="Step 1" state="phone" [stepControl]="form_step1" *ngIf="property_show">
+            <mat-step label="Step 1" state="phone"  [stepControl]="form_step1">
                 <div class="h-100 p-3 bg-lightgray bg-gradient border rounded-3 mt-2">
                     <form [formGroup]="form_step1" class="g-3">
                         <div class="row mt-3">
                             <div class="col-md-6">
                                 <label for="property_name" class="form-label">Property Name</label>
-                                <input type="text" class="form-control" id="property_name" formControlName="property_name" [ngClass]="{ 'is-invalid': submitted1 && step1.property_name.errors }">
+                                <input type="text"    class="form-control" id="property_name" formControlName="property_name" [ngClass]="{ 'is-invalid': submitted1 && step1.property_name.errors }">
+                                <!-- <input type="hidden" class="form-control" id="draft_form_id" formControlName="draft_form_id" required> -->
                             </div>
                             <div class="col-md-6">
                                 <label for="property_type" class="form-label">Property Type</label>
-                                <select id="property_type" class="form-select form-select-lg w100" formControlName="property_type" [ngClass]="{ 'is-invalid': submitted1 && step1.property_type.errors }">
+                                <select id="property_type"  class="form-select form-select-lg w100" formControlName="property_type" [ngClass]="{ 'is-invalid': submitted1 && step1.property_type.errors }">
                                     <option value ="" selected>Select Property Type</option>
                                     <optgroup label="ALL RESIDENTIAL">
                                         <option value="Flat/ Apartment">Flat/ Apartment</option>
@@ -54,7 +49,7 @@
                         <div class="row mt-3">
                             <div class="col-md-6">
                                 <label for="area_unit" class="form-label">Area Unit</label>
-                                <select id="area_unit" class="form-select form-select-lg w100" formControlName="area_unit"  [ngClass]="{ 'is-invalid': submitted1 && step1.area_unit.errors }">
+                                <select id="area_unit" class="form-select form-select-lg w100" formControlName="area_unit" [ngClass]="{ 'is-invalid': submitted1 && step1.area_unit.errors }">
                                     <option value="">Select Area Unit</option>
                                     <option value="sq.ft.">sq.ft.</option>
                                     <option value="sq.yards">sq.yards</option>
@@ -84,7 +79,7 @@
                             <div class="col-md-4">
                                 <label for="bedrooms" class="form-label">Bedrooms</label>
                                 <select id="bedrooms" class="form-select form-select-lg w100" formControlName="bedrooms" [ngClass]="{ 'is-invalid': submitted1 && step1.bedrooms.errors }">
-                                    <option value="">Select Bedrooms
+                                    <option value="" >Select Bedrooms
                                     </option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
@@ -100,7 +95,7 @@
                             </div>
                             <div class="col-md-4">
                                 <label for="bathrooms" class="form-label">Bathrooms</label>
-                                <select id="bathrooms" class="form-select form-select-lg w100" formControlName="bathrooms"  [ngClass]="{ 'is-invalid': submitted1 && step1.bathrooms.errors }">
+                                <select id="bathrooms" class="form-select form-select-lg w100" formControlName="bathrooms" [ngClass]="{ 'is-invalid': submitted1 && step1.bathrooms.errors }">
                                     <option value="">Select Bathrooms
                                     </option>
                                     <option value="1">1</option>
@@ -133,19 +128,20 @@
                                 </select>
                             </div>
                         </div>
+
                         <div class="row mt-3">
                             <div class="col-md-12">
                                 <label for="property_desc" class="form-label">Property Description</label>
-                                <textarea  rows="4" cols="20" class="form-control" aria-label="With textarea" id="property_desc" formControlName="property_desc"  [ngClass]="{ 'is-invalid': submitted1 && step1.property_desc.errors }"></textarea>
+                                <textarea class="form-control" aria-label="With textarea" id="property_desc" formControlName="property_desc" [ngClass]="{ 'is-invalid': submitted1 && step1.property_desc.errors }"></textarea>
                             </div>
                         </div>
+                    </form>
                     <div class="row mt-3">
-                        <div class="col-md-12  col-12 text-right ">
-                            <button class="draftbtn"  *ngIf="show_draft_btn == true" mat-raised-button (click)="save_draft()">Save Draft</button>
+                        <div class="col-md-12 text-right">
+                            <button class="draftbtn" mat-raised-button (click)="save_draft()">Save Draft</button>
                             <button mat-raised-button matStepperNext (click)="step1_next()">Next</button>
                         </div>
                     </div>
-                </form>
                 </div>
             </mat-step>
 
@@ -157,7 +153,8 @@
                                 <label for="address" class="form-label">Enter Address</label>
                                 <input #search autocorrect="off" autocapitalize="on"
                                 spellcheck="off" formControlName="address" [ngClass]="{ 'is-invalid': submitted2 && step2.address.errors }" type="search"
-                                class="form-control input-text" placeholder="Enter Address" />
+                                class="form-control input-text"
+                                placeholder="Enter Address" />
                             <span class="flaticon-maps-and-flags"
                                 style="position: absolute;top: 278px; right: 215px"></span>
                             <agm-map style="height: 300px;" [latitude]="latCus"
@@ -182,18 +179,18 @@
                             </div>
                             <div class="col-md-3">
                                 <label for="locality" class="form-label">Locality</label>
-                                <select id="locality" class="form-select form-select-lg w100" formControlName="locality" [ngClass]="{ 'is-invalid': submitted2 && step2.locality.errors }" (ngModelChange)="onchange_locality($event)">
+                                <select id="locality" class="form-select form-select-lg w100" formControlName="locality" (ngModelChange)="onchange_locality($event)" [ngClass]="{ 'is-invalid': submitted2 && step2.locality.errors }">
                                     <option value="">Select Option</option>
-                                    <option *ngFor="let locality of locality_data" value="{{locality.id}}">{{locality.area}}</option>                    
+                                    <option *ngFor="let locality of locality_data" value="{{locality.id}}">{{locality.area}}</option>             
                                 </select>
                             </div>
                             <div class="col-md-3">
                                 <label for="pincode" class="form-label">Pincode</label>
-                                <input type="text" class="form-control" id="pincode" formControlName="pincode" [ngClass]="{ 'is-invalid': submitted2 && step2.pincode.errors }" readonly>
+                                <input type="text" class="form-control" id="pincode" formControlName="pincode" [ngClass]="{ 'is-invalid': submitted2 && step2.pincode.errors }" readonly >
                             </div>
                             <div class="col-md-3">
                                 <label for="nearest_place" class="form-label">Nearest Place</label>
-                                <input type="text" class="form-control" id="nearest_place" formControlName="nearest_place"  [ngClass]="{ 'is-invalid': submitted2 && step2.nearest_place.errors }">
+                                <input type="text" class="form-control" id="nearest_place" formControlName="nearest_place" [ngClass]="{ 'is-invalid': submitted2 && step2.nearest_place.errors }">
                             </div>
                         </div>
 
@@ -202,8 +199,8 @@
                                 <button mat-raised-button matStepperPrevious>Back</button>
                             </div>
                             <div class="col-md-6 col-8 text-right">
-                                <button class="draftbtn"  *ngIf="show_draft_btn == true" mat-raised-button (click)="save_draft()">Save Draft</button>
-                                <button mat-raised-button matStepperNext  (click)="step2_next()">Next</button>
+                                <button class="draftbtn" mat-raised-button (click)="save_draft()">Save Draft</button>
+                                <button mat-raised-button matStepperNext (click)="step2_next()">Next</button>
                             </div>
                         </div>
                     </div>
@@ -216,14 +213,14 @@
                         <div class="row mt-3">
                             <div class="col-md-4">
                                 <label for="additional_rooms" class="form-label">Additional Rooms</label>
-                                <select id="additional_rooms" class="form-select form-select-lg w100" formControlName="additional_rooms"  [ngClass]="{ 'is-invalid': submitted3 && step3.additional_rooms.errors }" (ngModelChange)="onchange_add_room($event)">
+                                <select id="additional_rooms" class="form-select form-select-lg w100" formControlName="additional_rooms" [ngClass]="{ 'is-invalid': submitted3 && step3.additional_rooms.errors }" (ngModelChange)="onchange_add_room($event)">
                                     <option value="1">Yes</option>
                                     <option value="0">No</option>
                                 </select>
                             </div>
                             <div class="col-md-4">
                                 <label for="facing_towards" class="form-label">Facing Towards</label>
-                                <select id="facing_towards" class="form-select form-select-lg w100" formControlName="facing_towards"  [ngClass]="{ 'is-invalid': submitted3 && step3.facing_towards.errors }">
+                                <select id="facing_towards" class="form-select form-select-lg w100" formControlName="facing_towards" [ngClass]="{ 'is-invalid': submitted3 && step3.facing_towards.errors }">
                                     <option value="">Select</option>
                                     <option value="East">East</option>
                                     <option value="North East">North East</option>
@@ -237,7 +234,7 @@
                             </div>
                             <div class="col-md-4">
                                 <label for="year_built" class="form-label">Year Built</label>
-                                <select id="year_built" class="form-select form-select-lg w100" formControlName="year_built"  [ngClass]="{ 'is-invalid': submitted3 && step3.year_built.errors }">
+                                <select id="year_built" class="form-select form-select-lg w100" formControlName="year_built" [ngClass]="{ 'is-invalid': submitted3 && step3.year_built.errors }">
                                     <option value="">Select Built year</option>
                                     <option value="2000">2000</option>
                                     <option value="2001">2001</option>
@@ -264,31 +261,20 @@
                                 </select>
                             </div>
                         </div>
+                        
                         <div class="row additional_row" *ngIf="add_room_tab == true"> 
                             <div class="col-6 col-sm col-lg-3" *ngFor="let add_room of addition_room">
                                 <ul class="ui_kit_checkbox selectable-list">
-                                    <li *ngIf="add_room_check(add_room.name)==true,else Other_room">
+                                    <li>
                                         <div class="custom-control custom-checkbox ">
                                             <div class="form-group">
                                             <input type="checkbox" class="custom-control-input"
-                                                id="{{add_room.id}}" (change)="onchange_rooms($event,add_room.name)" checked>
+                                                id="{{add_room.id}}" (change)="onchange_rooms($event,add_room.name)">
                                                 <label class="custom-control-label"
                                                 for="{{add_room.id}}">{{add_room.name}}</label>
                                             </div>
                                         </div>
                                     </li>
-                                    <ng-template #Other_room>
-                                        <li>
-                                            <div class="custom-control custom-checkbox ">
-                                                <div class="form-group">
-                                                <input type="checkbox" class="custom-control-input"
-                                                    id="{{add_room.id}}" (change)="onchange_rooms($event,add_room.name)">
-                                                    <label class="custom-control-label"
-                                                    for="{{add_room.id}}">{{add_room.name}}</label>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ng-template>
                                 </ul>
                             </div>
                         </div>
@@ -302,30 +288,34 @@
                             </div>
                             <div class="col-md-4">
                                 <label for="reserved_parking" class="form-label">Reserved Parking</label>
-                                <select id="reserved_parking" class="form-select form-select-lg w100" formControlName="reserved_parking"  [ngClass]="{ 'is-invalid': submitted3 && step3.reserved_parking.errors }"    (ngModelChange)="parkingStatus($event)">
+                                <select id="reserved_parking" class="form-select form-select-lg w100" formControlName="reserved_parking" [ngClass]="{ 'is-invalid': submitted3 && step3.reserved_parking.errors }"  (ngModelChange)="parkingStatus($event)">
                                     <option value="1">Yes</option>
                                     <option value="0">No</option>
                                 </select>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-12">
+                                <div class="form-group">
+                                    <label for="rera_registration_status"  class="form-label">RERA Registration Status</label>
+                                    <select id="rera_registration_status" class="form-select form-select-lg w100"
+                                        formControlName="rera_registration_status" [ngClass]="{ 'is-invalid': submitted3 && step3.rera_registration_status.errors }">
+                                        <option value="">Select Option</option>
+                                        <option value="Registered">Registered</option>
+                                        <option value="Applied For">Applied For</option>
+                                        <option value="Not Applicable">Not Applicable</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                         <div class="row additional_row" *ngIf="furnish_row == true"> 
                             <div class="col-12  col-lg-12" >
                                 <ul class="row ui_kit_checkbox selectable-list">
                                     <li *ngFor="let amenties_data of amenties?.data" class="col-lg-2 col-xs-6 amentites_li">
-                                        <div class="form-check"  *ngIf="amenties_funtion(amenties_data.id)==true,else OtherAmenties">
-                                            <input class="form-check-input" type="checkbox" id="{{amenties_data.name}}"  (change)="onchangeAmenties($event,amenties_data.id)" checked>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="{{amenties_data.name}}"  (change)="onchangeAmenties($event,amenties_data.id)">
                                             <label class="form-check-label" for="{{amenties_data.name}}" (change)="onchangeAmenties($event,amenties_data.id)">
                                                 {{amenties_data.name}}
                                             </label>
                                         </div>
-                                        <ng-template #OtherAmenties>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="{{amenties_data.name}}"  (change)="onchangeAmenties($event,amenties_data.id)">
-                                                <label class="form-check-label" for="{{amenties_data.name}}" (change)="onchangeAmenties($event,amenties_data.id)">
-                                                    {{amenties_data.name}}
-                                                </label>
-                                            </div>
-                                        </ng-template>
                                     </li>
                                 </ul>
                             </div>
@@ -333,7 +323,7 @@
                         <div class="row additional_row " *ngIf="parking_row == true">
                             <div class="col-md-6">
                                 <label for="parking_covered_count" class="form-label">Covered Parking</label>
-                                <select id="parking_covered_count" class="form-select form-select-lg w100" formControlName="parking_covered_count">
+                                <select id="parking_covered_count" class="form-select form-select-lg w100" formControlName="parking_covered_count" [ngClass]="{ 'is-invalid': submitted3 && step3.parking_covered_count.errors }" >
                                     <option value="">Select Option</option>
                                     <option value="0">0</option>
                                     <option value="1">1</option>
@@ -345,7 +335,7 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="parking_open_count" class="form-label">Open Parking</label>
-                                <select id="parking_open_count" class="form-select form-select-lg w100" formControlName="parking_open_count">
+                                <select id="parking_open_count" class="form-select form-select-lg w100" formControlName="parking_open_count"  [ngClass]="{ 'is-invalid': submitted3 && step3.parking_open_count.errors }" >
                                     <option value="">Select Option</option>
                                     <option value="0">0</option>
                                     <option value="1">1</option>
@@ -371,7 +361,7 @@
                             </div>
                             <div class="col-md-4">
                                 <label for="agreement_type" class="form-label">Agreement Type</label>
-                                <select id="agreement_type" class="form-select form-select-lg w100" formControlName="agreement_type"  [ngClass]="{ 'is-invalid': submitted3 && step3.agreement_type.errors }">
+                                <select id="agreement_type" class="form-select form-select-lg w100" formControlName="agreement_type" [ngClass]="{ 'is-invalid': submitted3 && step3.agreement_type.errors }">
                                     <option value="">Select Preferred </option>
                                     <option value="Company Lease Agreement">Company Lease
                                         Agreement</option>
@@ -380,7 +370,7 @@
                             </div>
                             <div class="col-md-4">
                                 <label for="available_date" class="form-label">Available On</label>
-                                <input type="date" class="form-control" id="available_date" formControlName="available_date"  [ngClass]="{ 'is-invalid': submitted3 && step3.available_date.errors }">
+                                <input type="date" class="form-control" id="available_date" formControlName="available_date" [ngClass]="{ 'is-invalid': submitted3 && step3.available_date.errors }">
                             </div>
                         </div>
                         <div class="row mt-3">
@@ -407,7 +397,7 @@
                             </div>
                             <div class="col-md-4">
                                 <label for="agreement_duration" class="form-label">Availability</label>
-                                <select id="agreement_duration" class="form-select form-select-lg w100" formControlName="availability_condition"  [ngClass]="{ 'is-invalid': submitted3 && step3.availability_condition.errors }">
+                                <select id="agreement_duration" class="form-select form-select-lg w100" formControlName="availability_condition" [ngClass]="{ 'is-invalid': submitted3 && step3.availability_condition.errors }">
                                     <option value="">Select Availability</option>
                                     <option value="Under Construction">Under Construction
                                     </option>
@@ -419,10 +409,10 @@
 
                     <div class="h-100 p-3 bg-lightgray bg-gradient border rounded-3 mt-2">
                         <div class="row mt-3">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <label for="property_floor" class="form-label">Property is present on which
                                     floor?</label>
-                                <select id="property_floor" class="form-select form-select-lg w100" formControlName="property_floor"  [ngClass]="{ 'is-invalid': submitted3 && step3.property_floor.errors }">
+                                <select id="property_floor" class="form-select form-select-lg w100" formControlName="property_floor" [ngClass]="{ 'is-invalid': submitted3 && step3.property_floor.errors }">
                                     <option value="">Select Present Floors </option>
                                     <option value="Ground Floor">Ground Floor</option>
                                     <option value="1">1</option>
@@ -437,7 +427,7 @@
                                     <option value="10">10</option>
                                 </select>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <label for="total_floors" class="form-label">Number of floors in the property?</label>
                                 <select id="total_floors" class="form-select form-select-lg w100" formControlName="total_floors" [ngClass]="{ 'is-invalid': submitted3 && step3.total_floors.errors }">
                                     <option value="">Select Number of Floors </option>
@@ -453,14 +443,32 @@
                                     <option value="10">10</option>
                                 </select>
                             </div>
+                            <div class="col-lg-4 col-md-4 col-sm-12">
+                                <div class="form-group">
+                                    <label  for="possession_by" class="form-label">Possession By</label>
+                                    <select id="possession_by" class="form-select form-select-lg w100" formControlName="possession_by" [ngClass]="{ 'is-invalid': submitted3  && step3.possession_by.errors }"> 
+                                        <option value="">Select Possession Date</option>
+                                        <option value="Now">Now</option>
+                                        <option value="Within 1 year">Within 1 year</option>
+                                        <option value="Within 2 year">Within 2 years</option>
+                                        <option value="Within 3 year">Within 3 years</option>
+                                        <option value="Within 4 year">Within 4 years</option>
+                                        <option value="Within 5 year">Within 5 years</option>
+                                        <option value="Within 6 year">Within 6 years</option>
+                                        <option value="Within 7 year">Within 7 years</option>
+                                        <option value="Within 8 year">Within 8 years</option>
+                                        <option value="Within 9 year">Within 9 years</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                         <div class="row mt-3">
                             <div class="col-md-6 col-4">
                                 <button mat-raised-button matStepperPrevious>Back</button>
                             </div>
                             <div class="col-md-6 col-8 text-right">
-                                <button class="draftbtn"  *ngIf="show_draft_btn == true" mat-raised-button (click)="save_draft()">Save Draft</button>
-                                <button mat-raised-button matStepperNext  (click)="step3_next()">Next</button>
+                                <button class="draftbtn" mat-raised-button (click)="save_draft()">Save Draft</button>
+                                <button mat-raised-button matStepperNext (click)="step3_next()">Next</button>
                             </div>
                         </div>
                     </div>
@@ -472,37 +480,36 @@
                     <div class="h-100 p-3 bg-lightgray bg-gradient border rounded-3 mt-2">
                         <div class="row mt-3">
                             <div class="col-md-6">
-                                <label for="security_deposit" class="form-label">Security Deposit</label>
-                                <select id="security_deposit" class="form-select form-select-lg w100" formControlName="security_deposit"   [ngClass]="{ 'is-invalid': submitted4 && step4.security_deposit.errors }">
-                                    <option value="">Select Option</option>
-                                    <option value="1">1 Month Rent</option>
-                                    <option value="2">2 Month Rent</option>
-                                    <option value="3">3 Month Rent</option>
-                                    <option value="4">4 Month Rent</option>
-                                    <option value="5">5 Month Rent</option>
-                                    <option value="6">6 Month Rent</option>
+                                <label for="ownership" class="form-label">Ownership</label>
+                                <select id="ownership" class="form-select form-select-lg w100" formControlName="ownership"  [ngClass]="{ 'is-invalid': submitted4 && step4.ownership.errors }">
+                                    <option value="">Select Ownership Type</option>
+                                    <option value="Freehold">Freehold</option>
+                                    <option value="Leasehold">Leasehold</option>
+                                    <option value="Co-operative Society">Co-operative Society
+                                    </option>
+                                    <option value="Power of Attorney">Power of Attorney</option>                
                                 </select>
                             </div>
                             <div class="col-md-6">
-                                <label for="expected_rent" class="form-label">Expected Rent</label>
-                               <div class="row">
-                                <div class="col-7 col-lg-9">
-                                    <ngx-slider [options]="options" formControlName="sliderControl" (valueChange)="RangeSlider_Price($event)"></ngx-slider>
-                                </div>
-                                <div class="col-5 col-lg-3">
-                                    <input type="text" class="form-control"  formControlName="expected_rent" id="expected_rent" name="expected_rent" placeholder="Please Enter Expected Rent..."  maxlength="8"
-                                     (keypress)="keyPressNumbers($event)" autocomplete="off" (ngModelChange)="rangeInput_Price($event)"  [ngClass]="{ 'is-invalid': submitted4 && step4.expected_rent.errors }">
-                                </div>
-                               </div>
-                               <span class="alert-danger" *ngIf="Expected_PriceEroor == true">Expected Price Between 5k to 5 lakhs</span>                                  
+                                <label for="expected_pricing" class="form-label">Expected Pricing</label>
+                                <div class="row">
+                                    <div class="col-7 col-lg-9">
+                                        <ngx-slider [options]="options" formControlName="sliderControl" (valueChange)="RangeSlider_Price($event)"></ngx-slider>
+                                    </div>
+                                    <div class="col-5 col-lg-3">
+                                        <input type="text" class="form-control"  formControlName="expected_pricing" id="expected_pricing" name="expected_pricing" [ngClass]="{ 'is-invalid': submitted4 && step4.expected_pricing.errors }" placeholder="Please Enter Expected Rent..."  maxlength="10"
+                                         (keypress)="keyPressNumbers($event)" autocomplete="off" (ngModelChange)="rangeInput_Price($event)">
+                                    </div>
+                                   </div>
+                               <span class="alert-danger" *ngIf="Expected_PriceEroor == true">Expected Price Between 5 lakhs to 5 Crore</span>                                  
                             </div>
                         </div>
                         <div class="row mt-3">
                             <div class="col-md-6">
                                 <label for="electricity_water" class="form-label">Inclusive Electricity and Water
                                     Bill</label>
-                                <select id="electricity_water" class="form-select form-select-lg w100" formControlName="electricity_water"  [ngClass]="{ 'is-invalid': submitted4 && step4.electricity_water.errors }">
-                                    <!-- <option value="">Select Option</option> -->
+                                <select id="electricity_water" class="form-select form-select-lg w100" formControlName="electricity_water" [ngClass]="{ 'is-invalid': submitted4 && step4.electricity_water.errors }">
+                                    <!-- <option value="" >Select Option</option> -->
                                     <option value="1">Yes</option>
                                     <option value="0">No</option>
                                 </select>
@@ -531,7 +538,7 @@
                             <div class="col-md-6">
                                 <label for="tax_govt_charge" class="form-label">Is Tax and Govt. Charges
                                     Included?</label>
-                                <select id="tax_govt_charge" class="form-select form-select-lg w100" formControlName="tax_govt_charge" >
+                                <select id="tax_govt_charge" class="form-select form-select-lg w100" formControlName="tax_govt_charge">
                                     <!-- <option value="">Select Option</option> -->
                                     <option value="1">Yes</option>
                                     <option value="0">No</option>
@@ -550,8 +557,8 @@
                             <div class="col-lg-6 col-12">
                                 <div class="form-group">
                                     <label>Maintenance Charge Condition</label>
-                                    <select class="form-select form-select-lg w100" formControlName="maintenance_charge_condition"  [ngClass]="{ 'is-invalid': submitted4 && step4.maintenance_charge_condition.errors }">
-                                      <option value="">Select Option</option>
+                                    <select class="form-select form-select-lg w100" formControlName="maintenance_charge_condition" [ngClass]="{ 'is-invalid': submitted4 && step4.maintenance_charge_condition.errors }">
+                                      <option value="" >Select Option</option>
                                       <option value="Monthly">Monthly</option>
                                       <option value="Annually">Annually</option>
                                       <option value="One Time">One Time</option>
@@ -570,7 +577,7 @@
                         <div class="row mt-3">
                             <div class="col-md-12">
                                 <label for="images" class="form-label">Click to Upload Multiple Images</label>
-                                <input type="file" class="form-control" id="images" formControlName="images" accept=".jpg,.png,.jpeg" multiple (change)="insert_image($event)">
+                                <input type="file" class="form-control" id="images" formControlName="images" [ngClass]="{ 'is-invalid': submitted4 && step4.images.errors }" accept=".jpg,.png,.jpeg" multiple (change)="insert_image($event)">
                             </div>
                         </div>                        
                         <div class="row">
@@ -666,71 +673,17 @@
                             </div>
                         </div>
                         <div class="row mt-3">
-                            <div class="col-md-6 col-4">
+                            <div class="col-md-6  col-4">
                                 <button mat-raised-button matStepperPrevious>Back</button>
                             </div>
                             <div class="col-md-6 col-8 text-right">
-                                <button class="draftbtn"  *ngIf="show_draft_btn == true" mat-raised-button (click)="save_draft()">Save Draft</button>
+                                <button class="draftbtn" mat-raised-button (click)="save_draft()">Save Draft</button>
                                 <button mat-raised-button matStepperNext (click)="submit_rent()">Submit</button>
                             </div>
                         </div>
                     </div>
                 </form>
-                <div class="row mt-3">
-                    <div class="col-lg-12 UpdateProperty_select_img" *ngIf="product_img_length>0">
-                        <h4>Selected Images</h4>
-                        <ul class="mb0">
-                            <li class="list-inline-item col-lg-4"
-                                *ngFor="let p_images of selected_product_img let i = index">
-                                <div class="portfolio_item">
-                                    <img class="img-fluid" src="{{ftpstring}}{{p_images.image}}"
-                                        alt="Product Image">
-                                    <div class="edu_stats_list" data-toggle="tooltip"
-                                        data-placement="top" title="Delete"
-                                        data-original-title="Delete">
-                                        <button type="button" class="btn btn-thm2 float-right"
-                                            (click)=" delete_Pro_img(p_images.id)"><span
-                                                class="flaticon-garbage"></span></button>
-                                    </div>
-                                    <div class="overlay">
-                                        <h4>Rent Property Selected Image({{i+1}})</h4>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="row mt-3" >                
-                    <div class="col-lg-12 single-page_inner_column" *ngIf="videolink>0">
-                        <div class="shop_single_tab_content style2 application_statics">
-                            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                <li class="nav-item">
-                                    <a class="nav-link active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Property video </a>
-                                </li>
-                                <li> 
-                                    <div class="edu_stats_list" data-toggle="tooltip"
-                                        data-placement="top" title="Delete"
-                                        data-original-title="Delete"><button type="button"
-                                        class="btn btn-thm2 float-right"
-                                        (click)="delete_video(prod_id,videolink)"><span
-                                            class="flaticon-garbage"></span></button>
-                                    </div>
-                                </li>
-                            </ul>
-                            <div class="tab-content" id="myTabContent2">
-                                <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
-                                    <div class="property_video">
-                                        <div class="thumb">
-                                            <iframe width="560" height="315" [src]='safeURL' frameborder="0"></iframe>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </mat-step>
-
             <!-- Icon overrides. -->
             <ng-template matStepperIcon="phone">
                 <mat-icon>call_end</mat-icon>

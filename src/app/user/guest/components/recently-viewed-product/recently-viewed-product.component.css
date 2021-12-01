@@ -5,3 +5,10 @@ img{
 .media{
     cursor: pointer!important;
 }
+.media span{
+    width: 100%!important;
+    display: flex!important;
+}
+.media span ul li{
+    padding-right: 5px!important;
+}
