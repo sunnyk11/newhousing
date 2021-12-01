@@ -1,5 +1,10 @@
 <div class="wrapper">
-    <div class="single_page_listing_tab mt100">
+        <div class="row preloader_row1" *ngIf="showLoadingIndicator1">
+            <div class="col-lg-12">
+                <div class="preloader"></div>
+            </div>
+        </div>
+    <div class="single_page_listing_tab mt100" *ngIf="sectiondisplay == true">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -57,7 +62,7 @@
             </div>
         </div>
     </div>
-    <section class="our-agent-single bgc-f7 pb30-991">
+    <section class="our-agent-single bgc-f7 pb30-991" *ngIf="sectiondisplay == true">
         <div class="container">
             <div class="row">
                 <div class="col-lg-7 col-xl-8">
@@ -394,13 +399,13 @@
                                         <div class="thmb_cntnt style3">
                                             <ul class="icon mb0">
                                                 <li class="list-inline-item" *ngIf="number[0] != null;else wishlistcontent">
-                                                    <a class="wishlist-icon" (click)="wishlist_remove(number.id)">
+                                                    <a class="wishlist-icon" (click)="wishlist_remove_similar(number.id)">
                                                         <i class="fa fa-heart" aria-hidden="true"></i>
                                                     </a>
                                                 </li>
                                                 <ng-template #wishlistcontent>
                                                     <li class="list-inline-item">
-                                                        <a class="wishlist-icon" (click)="wishlist_added(number.id)">
+                                                        <a class="wishlist-icon" (click)="wishlist_added_similar(number.id)">
                                                             <i class="fa fa-heart-o" aria-hidden="true"></i>
                                                         </a>
                                                     </li>
@@ -435,7 +440,7 @@
                                             </li>
                                             <li class="list-inline-item"><a href="#">{{number.user_detail.name | titlecase}}</a></li>
                                             <div class="fp_pdate float-right" *ngIf="number.product_comparision==null">
-                                                <button type="button" (click)="product_comp(number.id)" class="btn btn-log btn-block btn-thm bg-white text-black-50">Add to compare</button>
+                                                <button type="button" (click)="product_comp_similar(number.id)" class="btn btn-log btn-block btn-thm bg-white text-black-50">Add to compare</button>
                                             </div>
                                             <div class="fp_pdate float-right" *ngIf="number.product_comparision !=null">
                                                 <button type="button" class="btn  text-black-50 bucket-btn">Added To Compare</button>
@@ -448,7 +453,24 @@
                     </div>
                 </div>
                 <div class="col-lg-4 col-xl-4 mt50">
-                    <div class="sidebar_listing_list payment_summery" *ngIf="product_data?.expected_rent != null">
+                    <div class="sidebar_listing_list payment_summery" *ngIf="product_data?.sale_availability == 1">
+                        <div class="row">
+                            <div class="col-lg-12 col-12">
+                                <h4>Payment Details</h4> 
+                            </div>
+                            <div class="col-lg-9 col-9"><h6>Property Price:</h6></div>
+                            <div class="col-lg-3 col-3"> <h6><strong>{{commaSeperated(product_data?.expected_pricing)}}</strong></h6></div>   
+                             <div class="col-lg-9 col-9" *ngIf="product_data?.maintenance_charge_status == '1'">
+                                <h6>Maintenance Charge({{product_data?.maintenance_charge_condition}}): </h6>
+                            </div>
+                            <div class="col-lg-3 col-3" *ngIf="product_data?.maintenance_charge_status == '1'">
+                                 <h6><strong>{{commaSeperated(product_data?.maintenance_charge)}}</strong></h6>
+                            </div>
+                            <div class="col-lg-9 col-9"><h6>Total Amount: </h6></div>
+                            <div class="col-lg-3 col-3"> <h6><strong>{{commaSeperated(total_amount_owner)}}</strong></h6></div>   
+                        </div>
+                    </div>
+                    <div class="sidebar_listing_list payment_summery" *ngIf="product_data?.rent_availability == 1">
                         <div class="row">
                             <div class="col-lg-12 col-12">
                                 <h4>Payment Details</h4> 

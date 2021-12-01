@@ -139,7 +139,7 @@ export class IndexComponent implements OnInit {
   
   // searching city name property 
   property_search(city:string){
-    this.router.navigate(['/product-listing'],{queryParams:{'city':city}})
+    this.router.navigate(['/product-listing'],{queryParams:{'cities':city}})
   }
   navigate(): void{
     let data:any=this.searchForm.value;

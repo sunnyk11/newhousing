@@ -1,0 +1,141 @@
+<h2 mat-dialog-title>Plan Details</h2>
+<mat-dialog-content class="mat-typography">
+  <mat-accordion class="example-headers-align">
+    <mat-expansion-panel expanded>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Plans Available
+        </mat-panel-title>
+        <mat-panel-description>
+          Choose from the plans available
+          <mat-icon>list</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Invoice No</th>
+            <th scope="col">Plan Name</th>
+            <th scope="col">Payment Type</th>
+            <th scope="col">Payment Status</th>
+            <th scope="col">Plan Price</th>
+            <th scope="col">Amount Available</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let data of response.response; index as i">
+          <tr>
+            <th scope="row">{{ i+1 }}</th>
+            <td>{{ data.invoice_no }}</td>
+            <td>{{ data.plan_name }}</td>
+            <td>{{ data.payment_type }}</td>
+            <td>{{ data.payment_status }}</td>
+            <td>{{ data.plan_price }}</td>
+            <td>{{ data.expected_rent }}</td>
+            <td>
+              <button type="button" class="btn btn-success" *ngIf="data.payment_received != 'Pending'"
+                (click)="apply_plan(data.invoice_no)">Use Plan</button>
+              <button type="button" disabled class="btn btn-danger" *ngIf="data.payment_received == 'Pending'">Use
+                Plan</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Purchase a Plan
+        </mat-panel-title>
+        <mat-panel-description>
+          Purchase a Plan
+          <mat-icon>shopping_cart</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="pricing">
+        <div class="container">
+          <div class="pricing-table">
+            <table class="table">
+             
+              <thead>
+                <tr>
+                  <th>&nbsp;</th>
+                  <th *ngFor="let letout_plan of letout_response">
+                    {{ letout_plan.plan_name }}
+                    <span class="ptable-price pay_type pt15">{{ letout_plan.payment_type }}
+                      Payment</span>
+                    <hr>
+                    <span class="ptable-price">{{ letout_plan.plan_price }} Days
+                      Rent</span>
+                    <span class="ptable-price pt10">Rs. {{
+                      response.product_price /
+                      (30 / letout_plan.plan_price)}}</span>
+                    <!--<span class="ptable-price" *ngIf="selected && plan.plan_price == 15">Rs. {{ selected.value / 2 }}</span>-->
+                  </th>
+                </tr>
+              </thead>
+              <tbody *ngFor="let letout_feature of letout_feat_res">
+                <tr class="visible-xs" aria-hidden="true">
+                  <td>&nbsp;</td>
+                  <td colspan="3">{{letout_feature.feature_name}}</td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="ptable-title">{{letout_feature.feature_name}}</span>
+                  </td>
+                  <!-- <td><span class="checkmark">{{letout_feature.feature_details | split:
+                                    "," : 0}}</span></td>
+                            <td><span class="checkmark">{{letout_feature.feature_details | split:
+                                    "," : 1}}</span></td>
+                            <td><span class="checkmark">{{letout_feature.feature_details | split:
+                                    "," : 2}}</span></td>-->
+                  <td *ngIf="letout_feature.feature_details[0] === 'yes'"><span class="checkmark">&#10004;</span></td>
+                  <td *ngIf="letout_feature.feature_details[0] === 'no'">&#10006;</td>
+                  <td *ngIf="letout_feature.feature_details[0] != 'no' && letout_feature.feature_details[0] != 'yes'">
+                    <span>{{letout_feature.feature_details[0]}}</span>
+                  </td>
+
+                  <td *ngIf="letout_feature.feature_details[1] === 'yes'"><span class="checkmark">&#10004;</span></td>
+                  <td *ngIf="letout_feature.feature_details[1] === 'no'">
+                    <span>&#10006;</span>
+                  </td>
+                  <td *ngIf="letout_feature.feature_details[1] != 'no' && letout_feature.feature_details[1] != 'yes'">
+                    <span>{{letout_feature.feature_details[1]}}</span>
+                  </td>
+
+                  <td *ngIf="letout_feature.feature_details[2] === 'yes'"><span class="checkmark">&#10004;</span></td>
+                  <td *ngIf="letout_feature.feature_details[2] === 'no'">
+                    <span>&#10006;</span>
+                  </td>
+                  <td *ngIf="letout_feature.feature_details[2] != 'no' && letout_feature.feature_details[2] != 'yes'">
+                    <span>{{letout_feature.feature_details[2]}}</span>
+                  </td>
+                </tr>
+              </tbody>
+              <tbody>
+                <!-- Buttons -->
+                <tr>
+                  <td>&nbsp;</td>
+                  <td *ngFor="let letout_plan of letout_response" class="bg-green"><a class="btn"
+                      (click)="plan_payment(letout_plan.plan_name, letout_plan.plan_ID, letout_plan.payment_type, 'let_out', response.product_price, letout_plan.plan_price)">Select
+                      Plan</a></td>
+                </tr>
+                <!-- <tr>
+                            <td>&nbsp;</td>
+                            <td class="bg-green"><a class="btn" (click)="plan_payment('letout', 'maharaja', expected_rent_value)">Select Plan</a></td>
+                            <td class="bg-green"><a class="btn" (click)="plan_payment('letout', 'raja', expected_rent_value)">Select Plan</a></td>
+                            <td class="bg-green"><a class="btn" (click)="plan_payment('letout', 'standard', expected_rent_value)">Select Plan</a></td>
+                        </tr>-->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Close</button>
+  <!--<button mat-button [mat-dialog-close]="true" cdkFocusInitial>Make Live</button>-->
+</mat-dialog-actions>

@@ -1,7 +1,8 @@
 
         <div class="sidebar_feature_listing" *ngIf="LoggedIn==true && Recent_user_length>0">
             <h4 class="title">Recently Viewed</h4>
-            <div class="media"  *ngFor="let data of product?.data" (click)="navigate(data?.productdetails?.id,data?.productdetails?.build_name,data?.productdetails.city)"> 
+            <div class="media"  *ngFor="let data of product?.data" (click)="navigate(data?.productdetails?.id,data?.productdetails?.build_name,data?.productdetails?.city)"> 
+                <span *ngIf='data?.productdetails != null'>
                 <img class="align-self-start mr-3"
                     *ngIf="data.product_img.length>0;else OtherImage"
                     src="{{ftpstring}}{{data.product_img[0].image}}" alt="fls1.jpg">
@@ -20,11 +21,12 @@
                         }}
                     </a>
                     <ul class="mb0">
-                        <li class="list-inline-item">Beds:  {{data?.productdetails.bedroom}}</li>
-                        <li class="list-inline-item">Baths:  {{data?.productdetails.bedroom}}</li>
+                        <li class="list-inline-item">Beds:  {{data?.productdetails?.bedroom}}</li>
+                        <li class="list-inline-item">Baths:  {{data?.productdetails?.bedroom}}</li>
                         <li class="list-inline-item">Area: {{ data?.productdetails?.area_unit
                         }}</li>
                     </ul>
                 </div>
+            </span>
             </div>
         </div>

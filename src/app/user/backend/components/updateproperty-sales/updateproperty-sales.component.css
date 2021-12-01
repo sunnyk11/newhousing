@@ -84,7 +84,7 @@ mat-slider {
     text-align: center;
     top: 10px;
     width: 35px;
-    z-index: 100000!important;
+    z-index: 1000!important;
   }
   .portfolio_item button:active .flaticon-garbage{
     color: rgb(255, 90, 95);

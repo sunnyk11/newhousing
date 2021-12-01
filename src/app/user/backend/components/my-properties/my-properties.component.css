@@ -21,7 +21,27 @@
     position: relative;
     width: 100%;
     height: 100vh;
+}.disabled_text h4 {
+    color: red !important;
 }
+
+.enabled_text h4{
+    color: green !important;
+}
+
+.mat-raised-button.mat-primary {
+    background-color: #888;
+    border: 1px solid #ff5a5f;
+}
+.disabled_text{
+    text-align: left;
+}
+.enabled_text{
+    text-align: left;
+}
+.checkmark {
+    color: #00D100;
+  }
 @media(max-width: 768px) {
     .feat_property{
         width: 150px!important;

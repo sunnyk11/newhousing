@@ -1,13 +1,12 @@
 import { ProductListingPageService } from '../../services/product-listing-page.service';
 import { CommonService } from '../../services/common.service';
-import { ActivatedRoute } from '@angular/router';
 import { FormBuilder} from '@angular/forms';
 import { MapsAPILoader,AgmMap } from '@agm/core';
 import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
 import { Options } from '@angular-slider/ngx-slider';
 import { LabelType } from '@angular-slider/ngx-slider';
 import { environment } from 'src/environments/environment';
-import { Router } from '@angular/router';
+import { Router,ActivatedRoute } from '@angular/router';
 import { JwtService } from 'src/app/user/services/jwt.service';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { ToastrService } from 'ngx-toastr';
@@ -21,7 +20,7 @@ export class ProductListingComponent implements OnInit {
 
   public displayStyle = "none";
   public amenties:any={};
-  public property:any={};
+  public property:any=[];
   public showLoadingIndicator:boolean= false;
   public  year:any='';
   public search_amenties:any=[];
@@ -143,9 +142,11 @@ export class ProductListingComponent implements OnInit {
   closePopup() {
     this.displayStyle = "none";
   }
+  
   param_query_check(){
     this.route.queryParams.subscribe((params) => {
       if(params.minimum != null && params.maximum != null){
+        console.log("1111");
         this.searchForm.value.sliderControl['0']=Number(params.minimum);
         this.searchForm.value.sliderControl['1']=Number(params.maximum);
         this.searchForm.patchValue({
@@ -172,17 +173,20 @@ export class ProductListingComponent implements OnInit {
         this.property_type_check_url();
         this.onsearch();
        }else if(params.category != null){
+        console.log("cate222");
         this.searchForm.controls['type'].setValue(params.category);         
         this.searchForm.value.sliderControl[0] = 5000;
         this.searchForm.value.sliderControl[1] = 50000000;
         this.onsearch();
-       }else if(params.city != null){
-        this.searchForm.controls['city'].setValue(params.city);         
+       }else if(params.cities != null){
+        console.log("3333");
+        this.searchForm.controls['city'].setValue(params.cities);         
         this.searchForm.value.sliderControl[0] = 5000;
         this.searchForm.value.sliderControl[1] = 50000000;
         this.onsearch();
        }
        else{
+        console.log("4444");
         this.searchForm.value.sliderControl[0] = 5000;
         this.searchForm.value.sliderControl[1] = 50000000;
         this.onsearch();
@@ -190,23 +194,22 @@ export class ProductListingComponent implements OnInit {
     });
   }
   onsearch(): void{  
+    this.property=[];
     this.showLoadingIndicator =true;
+    this.propertyresultlength=false;
+    this.product_length=0;
     let param={data:this.searchForm.value,amenities:this.amenityArray}
     if(this.jwtService.getToken()){
       this.ProductListingPageService.login_product_details(param).subscribe(
         response => {
-          this.property=response;
-          this.product_length=this.property.data.length;
-          if(this.product_length==0){
-            this.propertyresultlength=true;
+          let data:any=response;
+          this.property=data.data;
+          this.product_length=data.data.length;
+          if(data.data.length < 1){
+            this.propertyresultlength = true;
           }
           this.showLoadingIndicator = false;
-        }, err => { 
-          this.showLoadingIndicator = false;
-          let Message =err.error.message;
-          this.toastr.error(Message, 'Something Error', {
-            timeOut: 3000,
-          });
+        }, err => {
         }
       );
 
@@ -215,13 +218,12 @@ export class ProductListingComponent implements OnInit {
         response => {
           this.property=response;
           this.product_length=this.property.data.length;
-          if(this.product_length==0){
-            this.propertyresultlength=true;
+          if(this.property.data.length < 1){
+            this.propertyresultlength = true;
           }
           this.showLoadingIndicator = false;
         }, err => { 
           this.showLoadingIndicator = false;
-          let Message =err.error.message;
         }
       );
     }
@@ -280,12 +282,12 @@ export class ProductListingComponent implements OnInit {
     }   
   }  
   property_type_check_url():void{
-    if(this.search_type=='rent'){ 
+    if(this.search_type == 'rent'){ 
       this.rent_range_slider=true;
       this.buyyer_range_slider=false;
       this.range_slider=false;
     }
-    if(this.search_type=='sales'){ 
+    if(this.search_type == 'sales'){ 
       this.rent_range_slider=false;
       this.buyyer_range_slider=true;
       this.range_slider=false;
@@ -313,7 +315,7 @@ export class ProductListingComponent implements OnInit {
     this.search_amenties=[];
     this.amenityArray=[];
     this.product_length=0;
-    this.router.navigate(['product-listing']);
+    this.router.navigate(['/product-listing']);
     this.onsearch();
   }
   

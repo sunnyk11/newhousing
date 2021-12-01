@@ -1,26 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MapsAPILoader, AgmMap } from '@agm/core';
-// import { google } from "google-maps";
 import { ElementRef, Input, NgZone, ViewChild } from '@angular/core';
 import { Options,LabelType } from '@angular-slider/ngx-slider';
 import { ToastrService } from 'ngx-toastr';
 import { Router,ActivatedRoute } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { CommonService } from '../../services/common.service';
-import { RentPropertyService } from '../../services/rent-property.service';
+import { SalesPropertyService } from '../../services/sales-property.service';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-updateproperty-rent',
-  templateUrl: './updateproperty-rent.component.html',
-  styleUrls: ['./updateproperty-rent.component.css']
+  selector: 'app-updateproperty-sales',
+  templateUrl: './updateproperty-sales.component.html',
+  styleUrls: ['./updateproperty-sales.component.css']
 })
-export class UpdatepropertyRentComponent implements OnInit {
+export class UpdatepropertySalesComponent implements OnInit {
   options: Options = {
-    step:500,
-    floor: 5000,
-    ceil: 500000,
+    step:10000,
+    floor: 500000,
+    ceil: 50000000,
     translate: (value: number, label: LabelType): string => {
       return '₹' + value.toLocaleString('en');
     },
@@ -53,17 +52,17 @@ export class UpdatepropertyRentComponent implements OnInit {
   public show_draft_btn: boolean = false;
   public amenties:any=[];
   public videolink:number=0;
-  public youtube_url: any;
-  public safeURL: any;
   public  amenityArray:any= [];
   public  additional_room_array:any=[];
   public  selectedItems: any=[];
   public prod_id:any=null;
+  public safeURL: any;
   public product_img_length: number = 0;
   public siteURL=environment.siteURL;
   public ftpstring=environment.ftpURL;
   public selected_product_img:any=[];
   public property_length:number=0;
+  public youtube_url: any;
   public property_show:boolean=false;
   public submitted1: boolean = false;
   public submitted2: boolean = false;
@@ -94,18 +93,19 @@ export class UpdatepropertyRentComponent implements OnInit {
   constructor(
     private _formBuilder: FormBuilder,
     private mapsAPILoader: MapsAPILoader,
+    private _sanitizer: DomSanitizer,
     private ngZone: NgZone,
     private toastr: ToastrService,
     private CommonService:CommonService,
     private router:Router,
-    private _sanitizer: DomSanitizer,
-    private RentPropertyService:RentPropertyService,
+    private SalesPropertyService:SalesPropertyService,
     private route:ActivatedRoute
     ) { 
       this.route.queryParams.subscribe((params) => {
         if(params.id.length>0){
           this.prod_id = params.id;
           this.property_details(this.prod_id);
+          this.getLocation();
         }else{
           this.redirect_to_myproperty();
         }
@@ -115,7 +115,6 @@ export class UpdatepropertyRentComponent implements OnInit {
 
  
   ngOnInit(): void {
-   this.getLocation();
    this.getAmenities(); 
     this.form_step1 = this._formBuilder.group({
       property_name: ['', Validators.required],
@@ -146,6 +145,7 @@ export class UpdatepropertyRentComponent implements OnInit {
       furnishings: ['0', Validators.required],
       willing_to_rent: ['', Validators.required],
       agreement_type: ['', Validators.required],
+      rera_registration_status:['',Validators.required],
       reserved_parking:['0',Validators.required],
       parking_open_count:[''],
       parking_covered_count:[''],
@@ -154,12 +154,13 @@ export class UpdatepropertyRentComponent implements OnInit {
       agreement_duration: ['', Validators.required],
       property_floor: ['', Validators.required],
       availability_condition: ['', Validators.required],
-      total_floors: ['', Validators.required]
+      total_floors: ['', Validators.required],
+      possession_by: ['', Validators.required]
     });
 
     this.form_step4 = this._formBuilder.group({
-      security_deposit: ['', Validators.required],
-      expected_rent: ['5000', Validators.required],
+      ownership: ['', Validators.required],
+      expected_pricing: ['500000', Validators.required],
       electricity_water: ['', Validators.required],
       price_negotiable_status: ['0', Validators.required],
       price_negotiable: [''],
@@ -229,9 +230,8 @@ export class UpdatepropertyRentComponent implements OnInit {
   
   property_details(prod_id:number): void {
     this.showLoadingIndicator =true;
-    this.property_show=false;
     let param = { id: prod_id }
-    this.RentPropertyService.property_get_id(param).subscribe(
+    this.SalesPropertyService.property_get_id(param).subscribe(
       response => {
         let data:any =response;
         if(data.data == null){
@@ -355,6 +355,11 @@ export class UpdatepropertyRentComponent implements OnInit {
               willing_to_rent:  data.data.willing_to_rent_out_to
             });
           }
+          if(data.data.rera_registration_status != null){
+            this.form_step3.patchValue({
+              rera_registration_status:  data.data.rera_registration_status
+            });
+          }
           if(data.data.agreement_type != null){
             this.form_step3.patchValue({
               agreement_type:  data.data.agreement_type
@@ -405,16 +410,22 @@ export class UpdatepropertyRentComponent implements OnInit {
             this.form_step3.patchValue({
               total_floors:  data.data.total_floors
             });
-          }
+          } 
+          if(data.data.possession_by != null){
+            this.form_step3.patchValue({
+              possession_by:  data.data.possession_by
+            });
+          } 
+          
           // step 4
-          if(data.data.security_deposit != null){
+          if(data.data.ownership != null){
             this.form_step4.patchValue({
-              security_deposit:  data.data.security_deposit
+              ownership:  data.data.ownership
             });
           }
-          if(data.data.expected_rent != null){
+          if(data.data.expected_pricing != null){
             this.form_step4.patchValue({
-              sliderControl:  data.data.expected_rent
+              sliderControl:  data.data.expected_pricing
             });
           }
           if(data.data.inc_electricity_and_water_bill != null){
@@ -474,7 +485,9 @@ export class UpdatepropertyRentComponent implements OnInit {
           }
           this.showLoadingIndicator =false;
         }
+        
       });
+   
   }
   // fetch amenties advance tab
   getAmenities(){
@@ -518,15 +531,15 @@ export class UpdatepropertyRentComponent implements OnInit {
     }else{
       this.form_step4.value.draft_form_id='0';
       let param={id:this.prod_id,form_step1:this.form_step1.value,form_step2:this.form_step2.value,form_step3:this.form_step3.value,form_step4:this.form_step4.value,rooms:this.additional_room_array,amenties:this.amenityArray,images:this.product_img}
-     if(this.form_step4.value.expected_rent >=5000 && this.form_step4.value.expected_rent <=500000){
-        this.RentPropertyService.product_rent_update(param).subscribe(
+     if(this.form_step4.value.expected_pricing >=500000 && this.form_step4.value.expected_pricing <=50000000){
+        this.SalesPropertyService.product_sales_update(param).subscribe(
           response => {
             let data:any=response;
             this.form_step1.patchValue({
               draft_form_id: data.last_id,
             }); 
             let Message =data.message;
-            this.toastr.info(Message, 'Rent Property', {
+            this.toastr.info(Message, 'Sales Property', {
               timeOut: 3000,
             });
             this.showLoadingIndicator = false;
@@ -540,7 +553,7 @@ export class UpdatepropertyRentComponent implements OnInit {
           }
         );
       }else {
-        this.toastr.error("Expected Price Between 5k to 5Lakhs", 'Price Invalid..!!', {
+        this.toastr.error("Expected Price Between 5Lakhs to 5 Crore", 'Price Invalid..!!', {
           timeOut: 2000,
         }
         );
@@ -551,8 +564,8 @@ export class UpdatepropertyRentComponent implements OnInit {
    save_draft(){
     this.form_step4.value.draft_form_id='1';
     let param={id:this.prod_id,form_step1:this.form_step1.value,form_step2:this.form_step2.value,form_step3:this.form_step3.value,form_step4:this.form_step4.value,rooms:this.additional_room_array,amenties:this.amenityArray,images:this.product_img} 
-    if(this.form_step4.value.expected_rent >=5000 && this.form_step4.value.expected_rent <=500000){
-      this.RentPropertyService.product_rent_update(param).subscribe(
+    if(this.form_step4.value.expected_pricing >=500000 && this.form_step4.value.expected_pricing <=50000000){
+      this.SalesPropertyService.product_sales_update(param).subscribe(
         response => {
           let data:any=response;
           this.form_step1.patchValue({
@@ -692,7 +705,7 @@ export class UpdatepropertyRentComponent implements OnInit {
      }
    }
    rangeInput_Price(event: number) {
-     if(event<5000 || event>500000){
+     if(event<500000 || event>50000000){
        this.Expected_PriceEroor=true;
      }else{
        this.Expected_PriceEroor=false;
@@ -702,12 +715,12 @@ export class UpdatepropertyRentComponent implements OnInit {
      }
    }
    RangeSlider_Price(event: number) {
-     if (event <5000 || event >500000) {
+     if (event <500000 || event >50000000) {
        this.Expected_PriceEroor = true;
      } else {
        this.Expected_PriceEroor = false;
        this.form_step4.patchValue({
-         expected_rent: event,
+        expected_pricing: event,
        });      
      }
    }
@@ -854,11 +867,11 @@ export class UpdatepropertyRentComponent implements OnInit {
    }
    delete_Pro_img(id:number){
      let param = {product_id: id}
-     this.RentPropertyService.delete_pro_img(param).subscribe(
+     this.SalesPropertyService.delete_pro_img(param).subscribe(
       response => {
         let data:any=response;
         let Message =data.message;
-        this.toastr.success(Message, 'Rent property', {
+        this.toastr.success(Message, 'Sales property', {
           timeOut: 3000,
         });
         this.property_details(this.prod_id);
@@ -868,7 +881,7 @@ export class UpdatepropertyRentComponent implements OnInit {
    }
    delete_video(product_id:any,video:any){  
     let param = { product_id: product_id,video:video }
-    this.RentPropertyService.delete_video(param).subscribe(
+    this.SalesPropertyService.delete_video(param).subscribe(
       response => {
         let data:any=response;
         let Message =data.message;

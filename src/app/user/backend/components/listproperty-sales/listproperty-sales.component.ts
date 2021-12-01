@@ -1,24 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MapsAPILoader, AgmMap } from '@agm/core';
+// import { google } from "google-maps";
 import { ElementRef, Input, NgZone, ViewChild } from '@angular/core';
 import { Options,LabelType } from '@angular-slider/ngx-slider';
 import { ToastrService } from 'ngx-toastr';
-import { RentPropertyService } from '../../services/rent-property.service';
-import { Router } from '@angular/router';
 import { CommonService } from '../../services/common.service';
+import { Router } from '@angular/router';
+import { SalesPropertyService } from '../../services/sales-property.service';
 
 @Component({
-  selector: 'app-listproperty-rent',
-  templateUrl: './listproperty-rent.component.html',
-  styleUrls: ['./listproperty-rent.component.css']
+  selector: 'app-listproperty-sales',
+  templateUrl: './listproperty-sales.component.html',
+  styleUrls: ['./listproperty-sales.component.css']
 })
-export class ListpropertyRentComponent implements OnInit {
+export class ListpropertySalesComponent implements OnInit {
   
   options: Options = {
-    step:500,
-    floor: 5000,
-    ceil: 500000,
+    step:10000,
+    floor: 500000,
+    ceil: 50000000,
     translate: (value: number, label: LabelType): string => {
       return '₹' + value.toLocaleString('en');
     },
@@ -78,7 +79,7 @@ export class ListpropertyRentComponent implements OnInit {
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
     private toastr: ToastrService,
-    private RentPropertyService:RentPropertyService,
+    private SalesPropertyService:SalesPropertyService,
     private router:Router,
     private CommonService:CommonService
     ) {
@@ -119,6 +120,7 @@ export class ListpropertyRentComponent implements OnInit {
       furnishings: ['0', Validators.required],
       willing_to_rent: ['', Validators.required],
       agreement_type: ['', Validators.required],
+      rera_registration_status:['',Validators.required],
       reserved_parking:['0',Validators.required],
       parking_open_count:[''],
       parking_covered_count:[''],
@@ -127,12 +129,13 @@ export class ListpropertyRentComponent implements OnInit {
       agreement_duration: ['', Validators.required],
       property_floor: ['', Validators.required],
       availability_condition: ['', Validators.required],
-      total_floors: ['', Validators.required]
+      total_floors: ['', Validators.required],
+      possession_by: ['', Validators.required]
     });
 
     this.form_step4 = this._formBuilder.group({
-      security_deposit: ['', Validators.required],
-      expected_rent: ['5000', Validators.required],
+      ownership: ['', Validators.required],
+      expected_pricing: ['500000', Validators.required],
       electricity_water: ['0', Validators.required],
       price_negotiable_status: ['0', Validators.required],
       price_negotiable: [''],
@@ -252,15 +255,15 @@ export class ListpropertyRentComponent implements OnInit {
       }else{  
         this.form_step4.value.draft_form_id='0';
         let param={form_step1:this.form_step1.value,form_step2:this.form_step2.value,form_step3:this.form_step3.value,form_step4:this.form_step4.value,rooms:this.additional_room_array,amenties:this.amenityArray,images:this.product_img}
-        if(this.form_step4.value.expected_rent >=5000 && this.form_step4.value.expected_rent <=500000){
-        this.RentPropertyService.product_insert_rent(param).subscribe(
+        if(this.form_step4.value.expected_pricing >=500000 && this.form_step4.value.expected_pricing <=50000000){
+        this.SalesPropertyService.product_insert_sales(param).subscribe(
           response => {
             let data:any=response;
             this.form_step1.patchValue({
               draft_form_id: data.last_id,
             });
             this.showLoadingIndicator = false;
-            this.toastr.success('Successfuly Saved', 'Property Rental', {
+            this.toastr.success('Successfuly Saved', 'Property Sales', {
               timeOut: 3000,
             });
             this.router.navigate(['/agent/my-properties']);
@@ -273,7 +276,7 @@ export class ListpropertyRentComponent implements OnInit {
           }
         );
       }else {
-        this.toastr.error("Expected Price Between 5k to 5 5Lakhs", 'Price Invalid..!!', {
+        this.toastr.error("Expected Price Between 5 5Lakhs to 5 Crore", 'Price Invalid..!!', {
           timeOut: 2000,
         }
         );
@@ -284,8 +287,8 @@ export class ListpropertyRentComponent implements OnInit {
   save_draft(){
     this.form_step4.value.draft_form_id='1';
     let param={form_step1:this.form_step1.value,form_step2:this.form_step2.value,form_step3:this.form_step3.value,form_step4:this.form_step4.value,rooms:this.additional_room_array,amenties:this.amenityArray,images:this.product_img} 
-    if(this.form_step4.value.expected_rent >=5000 && this.form_step4.value.expected_rent <=500000){
-      this.RentPropertyService.product_insert_rent(param).subscribe(
+    if(this.form_step4.value.expected_pricing >=500000&& this.form_step4.value.expected_pricing <=50000000){
+      this.SalesPropertyService.product_insert_sales(param).subscribe(
         response => {
           let data:any=response;
           this.form_step1.patchValue({
@@ -305,7 +308,7 @@ export class ListpropertyRentComponent implements OnInit {
         }
       );
     }else {
-      this.toastr.error("Expected Price Between 5k to 5Lakhs", 'Price Invalid..!!', {
+      this.toastr.error("Expected Price Between  5Lakhs to % Crore", 'Price Invalid..!!', {
         timeOut: 2000,
       }
       );
@@ -347,7 +350,6 @@ export class ListpropertyRentComponent implements OnInit {
     }
     else {
       this.parking_row = false;
-      this.price_negotiable_row = false;
       this.form_step3.patchValue({
         parking_covered_count:'',
         parking_open_count:'',
@@ -366,7 +368,7 @@ export class ListpropertyRentComponent implements OnInit {
      }
    }
   rangeInput_Price(event: number) {
-    if(event<5000 || event>500000){
+    if(event<500000 || event>50000000){
       this.Expected_PriceEroor=true;
     }else{
       this.Expected_PriceEroor=false;
@@ -376,12 +378,12 @@ export class ListpropertyRentComponent implements OnInit {
     }
   }
   RangeSlider_Price(event: number) {
-    if (event <5000 || event >500000) {
+    if (event <500000 || event >5000000000) {
       this.Expected_PriceEroor = true;
     } else {
       this.Expected_PriceEroor = false;
       this.form_step4.patchValue({
-        expected_rent: event,
+        expected_pricing: event,
       });      
     }
   }

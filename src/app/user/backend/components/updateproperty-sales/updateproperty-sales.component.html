@@ -4,7 +4,7 @@
             <div class="preloader"></div>
         </div>
     </div>
-    <div class="h-100 p-3 bg-light border rounded-3" >
+    <div class="h-100 p-3 bg-light border rounded-3">
         <mat-horizontal-stepper [linear]="true" #stepper="matHorizontalStepper">
 
             <mat-step label="Step 1" state="phone" [stepControl]="form_step1" *ngIf="property_show">
@@ -133,6 +133,7 @@
                                 </select>
                             </div>
                         </div>
+
                         <div class="row mt-3">
                             <div class="col-md-12">
                                 <label for="property_desc" class="form-label">Property Description</label>
@@ -157,7 +158,8 @@
                                 <label for="address" class="form-label">Enter Address</label>
                                 <input #search autocorrect="off" autocapitalize="on"
                                 spellcheck="off" formControlName="address" [ngClass]="{ 'is-invalid': submitted2 && step2.address.errors }" type="search"
-                                class="form-control input-text" placeholder="Enter Address" />
+                                class="form-control input-text"
+                                placeholder="Enter Address" />
                             <span class="flaticon-maps-and-flags"
                                 style="position: absolute;top: 278px; right: 215px"></span>
                             <agm-map style="height: 300px;" [latitude]="latCus"
@@ -307,6 +309,18 @@
                                     <option value="0">No</option>
                                 </select>
                             </div>
+                            <div class="col-lg-4 col-md-4 col-sm-12">
+                                <div class="form-group">
+                                    <label for="rera_registration_status"  class="form-label">RERA Registration Status</label>
+                                    <select id="rera_registration_status" class="form-select form-select-lg w100"
+                                        formControlName="rera_registration_status" [ngClass]="{ 'is-invalid': submitted3 && step3.rera_registration_status.errors }">
+                                        <option value="">Select Option</option>
+                                        <option value="Registered">Registered</option>
+                                        <option value="Applied For">Applied For</option>
+                                        <option value="Not Applicable">Not Applicable</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                         <div class="row additional_row" *ngIf="furnish_row == true"> 
                             <div class="col-12  col-lg-12" >
@@ -419,7 +433,7 @@
 
                     <div class="h-100 p-3 bg-lightgray bg-gradient border rounded-3 mt-2">
                         <div class="row mt-3">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <label for="property_floor" class="form-label">Property is present on which
                                     floor?</label>
                                 <select id="property_floor" class="form-select form-select-lg w100" formControlName="property_floor"  [ngClass]="{ 'is-invalid': submitted3 && step3.property_floor.errors }">
@@ -437,7 +451,7 @@
                                     <option value="10">10</option>
                                 </select>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <label for="total_floors" class="form-label">Number of floors in the property?</label>
                                 <select id="total_floors" class="form-select form-select-lg w100" formControlName="total_floors" [ngClass]="{ 'is-invalid': submitted3 && step3.total_floors.errors }">
                                     <option value="">Select Number of Floors </option>
@@ -452,6 +466,24 @@
                                     <option value="9">9</option>
                                     <option value="10">10</option>
                                 </select>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-12">
+                                <div class="form-group">
+                                    <label  for="possession_by" class="form-label">Possession By</label>
+                                    <select id="possession_by" class="form-select form-select-lg w100" formControlName="possession_by" [ngClass]="{ 'is-invalid': submitted3 && step3.possession_by.errors }">
+                                        <option value="">Select Possession Date</option>
+                                        <option value="Now">Now</option>
+                                        <option value="Within 1 year">Within 1 year</option>
+                                        <option value="Within 2 year">Within 2 years</option>
+                                        <option value="Within 3 year">Within 3 years</option>
+                                        <option value="Within 4 year">Within 4 years</option>
+                                        <option value="Within 5 year">Within 5 years</option>
+                                        <option value="Within 6 year">Within 6 years</option>
+                                        <option value="Within 7 year">Within 7 years</option>
+                                        <option value="Within 8 year">Within 8 years</option>
+                                        <option value="Within 9 year">Within 9 years</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                         <div class="row mt-3">
@@ -472,29 +504,28 @@
                     <div class="h-100 p-3 bg-lightgray bg-gradient border rounded-3 mt-2">
                         <div class="row mt-3">
                             <div class="col-md-6">
-                                <label for="security_deposit" class="form-label">Security Deposit</label>
-                                <select id="security_deposit" class="form-select form-select-lg w100" formControlName="security_deposit"   [ngClass]="{ 'is-invalid': submitted4 && step4.security_deposit.errors }">
-                                    <option value="">Select Option</option>
-                                    <option value="1">1 Month Rent</option>
-                                    <option value="2">2 Month Rent</option>
-                                    <option value="3">3 Month Rent</option>
-                                    <option value="4">4 Month Rent</option>
-                                    <option value="5">5 Month Rent</option>
-                                    <option value="6">6 Month Rent</option>
+                                <label for="ownership" class="form-label">Ownership</label>
+                                <select id="ownership" class="form-select form-select-lg w100" formControlName="ownership"  [ngClass]="{ 'is-invalid': submitted4 && step4.ownership.errors }">
+                                    <option value="">Select Ownership Type</option>
+                                    <option value="Freehold">Freehold</option>
+                                    <option value="Leasehold">Leasehold</option>
+                                    <option value="Co-operative Society">Co-operative Society
+                                    </option>
+                                    <option value="Power of Attorney">Power of Attorney</option>                
                                 </select>
                             </div>
                             <div class="col-md-6">
-                                <label for="expected_rent" class="form-label">Expected Rent</label>
+                                <label for="expected_pricing" class="form-label">Expected Pricing</label>
                                <div class="row">
                                 <div class="col-7 col-lg-9">
                                     <ngx-slider [options]="options" formControlName="sliderControl" (valueChange)="RangeSlider_Price($event)"></ngx-slider>
                                 </div>
                                 <div class="col-5 col-lg-3">
-                                    <input type="text" class="form-control"  formControlName="expected_rent" id="expected_rent" name="expected_rent" placeholder="Please Enter Expected Rent..."  maxlength="8"
-                                     (keypress)="keyPressNumbers($event)" autocomplete="off" (ngModelChange)="rangeInput_Price($event)"  [ngClass]="{ 'is-invalid': submitted4 && step4.expected_rent.errors }">
+                                    <input type="text" class="form-control"  formControlName="expected_pricing" id="expected_pricing" name="expected_pricing" placeholder="Please Enter Expected Rent..."  maxlength="10"
+                                     (keypress)="keyPressNumbers($event)" autocomplete="off" (ngModelChange)="rangeInput_Price($event)"  [ngClass]="{ 'is-invalid': submitted4 && step4.expected_pricing.errors }">
                                 </div>
                                </div>
-                               <span class="alert-danger" *ngIf="Expected_PriceEroor == true">Expected Price Between 5k to 5 lakhs</span>                                  
+                               <span class="alert-danger" *ngIf="Expected_PriceEroor == true">Expected Price Between 5 lakhs to 5 Crore</span>                                  
                             </div>
                         </div>
                         <div class="row mt-3">

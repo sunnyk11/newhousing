@@ -577,7 +577,7 @@
                 </div>
                 <!-- property listing page details -->
                 <div class="row propertyListingPage" *ngIf="product_length>0">
-                    <div class="col-md-6 col-lg-6" *ngFor="let number of property?.data | paginate:{itemsPerPage:8, currentPage:p}">
+                    <div class="col-md-6 col-lg-6" *ngFor="let number of property | paginate:{itemsPerPage:8, currentPage:p}">
                         <div class="feat_property home7 style4">
                             <owl-carousel-o [options]="customOptions" *ngIf="number.product_img.length>0;else OtherImage">
                                 <ng-template carouselSlide *ngFor="let img of number?.product_img">
@@ -653,7 +653,7 @@
                                     <div class="tc_content">
                                         <p class="text-thm" *ngIf="number.type != null">{{ number.type | titlecase }}</p>
                                         <h4>{{number.build_name | titlecase}}</h4>
-                                        <p><span class="flaticon-placeholder"></span> {{ number.address | titlecase }}
+                                        <p *ngIf="number.address != null"><span class="flaticon-placeholder"></span> {{ number.address | titlecase }}
                                         </p>
                                         <ul class="prop_details mb0">
                                             <li class="list-inline-item"><a>Beds: {{ number.bedroom }}</a></li>
@@ -684,12 +684,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="row" *ngIf="propertyresultlength==true">
+                <div class="row" *ngIf="propertyresultlength == true">
                     <div class="col-lg-12">
                         <h3>No Search property!!!... </h3>
                     </div>
                 </div>
-                <div class="row" *ngIf="property.data?.length>8">
+                <div class="row" *ngIf="property?.length>8">
                     <div class="col-lg-12  agent_property">
                         <pagination-controls (pageChange)="p=$event"></pagination-controls>
                     </div>
