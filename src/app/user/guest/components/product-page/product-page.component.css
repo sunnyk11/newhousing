@@ -42,6 +42,10 @@
     width: 100%!important;
     height: 100vh!important;
 }
+.payment_summery .heading strong{
+    color: #ff5a5f!important;
+    padding-left: 10px!important;
+}
 @media(min-width: 768px) {  
     .single_page_address h6{
         justify-content: flex-end!important;
@@ -52,7 +56,16 @@
         margin-top: 15px!important;
     }
 }
-@media(max-width: 768px) {  
+@media(max-width: 768px) {      
+    .listing_single_description .ul_details{
+        display: grid!important;
+    }      
+    .listing_single_description .ul_details li{
+        margin: 5px 0px!important;
+    }
+    .icon_box_area{
+        margin: 5px 0px!important;
+    }
     .single_page_address h6{
         justify-content: center!important;
         align-items: center!important;

@@ -27,3 +27,9 @@
     display: flex!important;
     padding-right: 0px!important;
 }
+.form-select {
+    font-size: 14px !important;
+    height: 50px!important;
+    width: 180px;
+    border: 1px solid #ebebeb;
+}

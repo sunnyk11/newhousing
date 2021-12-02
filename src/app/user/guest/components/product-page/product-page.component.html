@@ -106,7 +106,7 @@
                         <div class="col-lg-12">
                             <div class="listing_single_description">
                                 <div class="lsd_list">
-                                    <ul class="mb0">
+                                    <ul class="mb0 ul_details">
                                         <li class="list-inline-item"><a href="#">Apartment</a></li>
                                         <li class="list-inline-item"><a href="#">Beds: {{product_data?.bedroom}}</a></li>
                                         <li class="list-inline-item"><a href="#">Baths: {{product_data?.bathroom}}</a></li>
@@ -150,7 +150,7 @@
                                             </li>
                                             <li>
                                                 <p><span *ngIf="product_data?.expected_rent != null">₹
-                                                    {{Price_convert(product_data?.expected_rent) }}/<small>{{product_data?.maintenance_charge_condition}}</small>
+                                                    {{Price_convert(product_data?.expected_rent) }}<small *ngIf="product_data?.maintenance_charge_condition != null">/{{product_data?.maintenance_charge_condition}}</small>
                                                 </span>
                                                     <span *ngIf="product_data?.expected_pricing != null">₹
                                                     {{Price_convert(product_data?.expected_pricing)}}
@@ -265,8 +265,8 @@
                         <div class="col-lg-12">
                             <div class="property_attachment_area">
                                 <h4 class="mb30">Property Attachments</h4>
-                                <div class="iba_container style2">
-                                    <div class="icon_box_area style2">
+                                <div class="row iba_container style2">
+                                    <div class="col-lg-6 col-12 icon_box_area style2">
                                         <div class="score"><span class="flaticon-document text-thm fz30"></span>
                                         </div>
                                         <div class="details">
@@ -274,7 +274,7 @@
                                             </h5>
                                         </div>
                                     </div>
-                                    <div class="icon_box_area style2">
+                                    <div class="col-lg-6 col-12 icon_box_area style2">
                                         <div class="score"><span class="flaticon-pdf text-thm fz30"></span></div>
                                         <div class="details">
                                             <h5><span class="flaticon-download text-thm pr10"></span> Demo pdf Document
@@ -436,7 +436,7 @@
                                         <ul class="fp_meta float-left mb0">
                                             <li class="list-inline-item">
                                                 <a href="#">
-                                                    <img src="./../../assets/resources/images/property/pposter1.png" alt="pposter1.png"></a>
+                                                    <img src="./../../assets/resources/images/property/img_avatar2-png-9.png" alt="img_avatar2-png-9.png"></a>
                                             </li>
                                             <li class="list-inline-item"><a href="#">{{number.user_detail.name | titlecase}}</a></li>
                                             <div class="fp_pdate float-right" *ngIf="number.product_comparision==null">
@@ -455,8 +455,8 @@
                 <div class="col-lg-4 col-xl-4 mt50">
                     <div class="sidebar_listing_list payment_summery" *ngIf="product_data?.sale_availability == 1">
                         <div class="row">
-                            <div class="col-lg-12 col-12">
-                                <h4>Payment Details</h4> 
+                            <div class="col-lg-12 col-12 heading">
+                                <h4>Payment Details<strong>(For Sales)</strong></h4> 
                             </div>
                             <div class="col-lg-9 col-9"><h6>Property Price:</h6></div>
                             <div class="col-lg-3 col-3"> <h6><strong>{{commaSeperated(product_data?.expected_pricing)}}</strong></h6></div>   
@@ -472,8 +472,8 @@
                     </div>
                     <div class="sidebar_listing_list payment_summery" *ngIf="product_data?.rent_availability == 1">
                         <div class="row">
-                            <div class="col-lg-12 col-12">
-                                <h4>Payment Details</h4> 
+                            <div class="col-lg-12 col-12 heading">
+                                <h4>Payment Details<strong>(For Rent)</strong></h4> 
                             </div>
                             <div class="col-lg-9 col-9"><h6>1 Month Rent:</h6></div>
                             <div class="col-lg-3 col-3"> <h6><strong>{{commaSeperated(product_data?.expected_rent)}}</strong></h6></div>   
