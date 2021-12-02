@@ -20,7 +20,7 @@ export class ProductListingComponent implements OnInit {
 
   public displayStyle = "none";
   public amenties:any={};
-  public property:any=[];
+  public property:any={};
   public showLoadingIndicator:boolean= false;
   public  year:any='';
   public search_amenties:any=[];
@@ -146,8 +146,7 @@ export class ProductListingComponent implements OnInit {
   param_query_check(){
     this.route.queryParams.subscribe((params) => {
       if(params.minimum != null && params.maximum != null){
-        this.searchForm.value.sliderControl['0']=Number(params.minimum);
-        this.searchForm.value.sliderControl['1']=Number(params.maximum);
+        console.log('111')
         this.searchForm.patchValue({
           build_name:params.name,
           area_unit:params.area_unit,
@@ -158,6 +157,7 @@ export class ProductListingComponent implements OnInit {
           location:params.location,
           years:params.years,
           city:params.city,
+          sliderControl:[Number(params.minimum),Number(params.maximum)]
         });
         this.search_type=params.search_type;
           if(params.amenties != null){  
@@ -172,17 +172,20 @@ export class ProductListingComponent implements OnInit {
         this.property_type_check_url();
         this.onsearch();
        }else if(params.category != null){
+        console.log('222')
         this.searchForm.controls['type'].setValue(params.category);         
         this.searchForm.value.sliderControl[0] = 5000;
-        this.searchForm.value.sliderControl[1] = 50000000;
+        this.searchForm.value.sliderControl[1] = 50000000;    
         this.onsearch();
        }else if(params.cities != null){
+        console.log('333')
         this.searchForm.controls['city'].setValue(params.cities);         
         this.searchForm.value.sliderControl[0] = 5000;
         this.searchForm.value.sliderControl[1] = 50000000;
         this.onsearch();
        }
        else{
+        console.log('444')
         this.searchForm.value.sliderControl[0] = 5000;
         this.searchForm.value.sliderControl[1] = 50000000;
         this.onsearch();
@@ -190,7 +193,6 @@ export class ProductListingComponent implements OnInit {
     });
   }
   onsearch(): void{  
-    this.property=[];
     this.showLoadingIndicator =true;
     this.propertyresultlength=false;
     this.product_length=0;
@@ -199,7 +201,7 @@ export class ProductListingComponent implements OnInit {
       this.ProductListingPageService.login_product_details(param).subscribe(
         response => {
           let data:any=response;
-          this.property=data.data;
+          this.property=response;
           this.product_length=data.data.length;
           if(data.data.length < 1){
             this.propertyresultlength = true;
@@ -212,9 +214,10 @@ export class ProductListingComponent implements OnInit {
     }else{
       this.ProductListingPageService.product_details(param).subscribe(
         response => {
+          let data:any=response;
           this.property=response;
-          this.product_length=this.property.data.length;
-          if(this.property.data.length < 1){
+          this.product_length=data.data.length;
+          if(data.data.length < 1){
             this.propertyresultlength = true;
           }
           this.showLoadingIndicator = false;
