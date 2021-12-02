@@ -115,7 +115,7 @@ export class JwtService {
   }  
 
   getProfilePic() {
-    return JSON.parse(window.localStorage["USER_PROFILE_PIC"]);
+    return window.localStorage["USER_PROFILE_PIC"];
   }
   
   signOut() {
