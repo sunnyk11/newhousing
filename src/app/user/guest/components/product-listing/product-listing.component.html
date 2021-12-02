@@ -576,7 +576,7 @@
                     </div>
                 </div>
                 <!-- property listing page details -->
-                <div class="row propertyListingPage" *ngIf="product_length>0">
+                <div class="row propertyListingPage" *ngIf="showLoadingIndicator == false">
                     <div class="col-md-6 col-lg-6" *ngFor="let number of property.data | paginate:{itemsPerPage:8, currentPage:p}">
                         <div class="feat_property home7 style4">
                             <owl-carousel-o [options]="customOptions" *ngIf="number.product_img.length>0;else OtherImage">
@@ -666,7 +666,7 @@
                                     <ul class="fp_meta float-left mb0">
                                         <li class="list-inline-item">
                                             <a href="#">
-                                                <img src="./../../assets/resources/images/property/pposter1.png" alt="pposter1.png"></a>
+                                                <img src="./../../assets/resources/images/property/img_avatar2-png-9.png" alt="img_avatar2-png-9.png"></a>
                                         </li>
                                         <li class="list-inline-item"><a href="#">{{number.user_detail.name |
                                                 titlecase}}</a></li>

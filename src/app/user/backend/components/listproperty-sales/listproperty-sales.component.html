@@ -347,69 +347,18 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="h-100 p-3 bg-lightgray border rounded-3 mt-2">
+                    <div class="h-100 p-3 bg-lightgray bg-gradient border rounded-3 mt-2">
                         <div class="row mt-3">
-                            <div class="col-md-4">
-                                <label for="willing_to_rent" class="form-label">Willing to Rent Out to</label>
-                                <select id="willing_to_rent" class="form-select form-select-lg w100" formControlName="willing_to_rent" [ngClass]="{ 'is-invalid': submitted3 && step3.willing_to_rent.errors }">
-                                    <option value="">Select</option>
-                                    <option value="Family">Family</option>
-                                    <option value="Single Men">Single Men</option>
-                                    <option value="Single Women">Single Women</option>
-                                </select>
-                            </div>
-                            <div class="col-md-4">
-                                <label for="agreement_type" class="form-label">Agreement Type</label>
-                                <select id="agreement_type" class="form-select form-select-lg w100" formControlName="agreement_type" [ngClass]="{ 'is-invalid': submitted3 && step3.agreement_type.errors }">
-                                    <option value="">Select Preferred </option>
-                                    <option value="Company Lease Agreement">Company Lease
-                                        Agreement</option>
-                                    <option value="Any">Any</option>
-                                </select>
-                            </div>
-                            <div class="col-md-4">
-                                <label for="available_date" class="form-label">Available On</label>
-                                <input type="date" class="form-control" id="available_date" formControlName="available_date" [ngClass]="{ 'is-invalid': submitted3 && step3.available_date.errors }">
-                            </div>
-                        </div>
-                        <div class="row mt-3">
-                            <div class="col-md-4">
-                                <label for="notice_month" class="form-label">Month of Notice</label>
-                                <select id="notice_month" class="form-select form-select-lg w100" formControlName="notice_month" [ngClass]="{ 'is-invalid': submitted3 && step3.notice_month.errors }">
-                                    <option value="">Select</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                </select>
-                            </div>
-                            <div class="col-md-4">
-                                <label for="agreement_duration" class="form-label">Duration of Rent Agreement</label>
-                                <select id="agreement_duration" class="form-select form-select-lg w100" formControlName="agreement_duration" [ngClass]="{ 'is-invalid': submitted3 && step3.agreement_duration.errors }">
-                                    <option value="">Select</option>
-                                    <option value="One Year">One Year</option>
-                                    <option value="Three Year">Three Years</option>
-                                    <option value="Custom">Custom</option>
-                                </select>
-                            </div>
-                            <div class="col-md-4">
-                                <label for="agreement_duration" class="form-label">Availability</label>
-                                <select id="agreement_duration" class="form-select form-select-lg w100" formControlName="availability_condition" [ngClass]="{ 'is-invalid': submitted3 && step3.availability_condition.errors }">
+                            <div class="col-md-6">
+                                <label for="availability_condition" class="form-label">Availability</label>
+                                <select id="availability_condition" class="form-select form-select-lg w100" formControlName="availability_condition" [ngClass]="{ 'is-invalid': submitted3 && step3.availability_condition.errors }">
                                     <option value="">Select Availability</option>
                                     <option value="Under Construction">Under Construction
                                     </option>
                                     <option value="Ready To Move">Ready To Move</option>
                                 </select>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="h-100 p-3 bg-lightgray bg-gradient border rounded-3 mt-2">
-                        <div class="row mt-3">
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <label for="property_floor" class="form-label">Property is present on which
                                     floor?</label>
                                 <select id="property_floor" class="form-select form-select-lg w100" formControlName="property_floor" [ngClass]="{ 'is-invalid': submitted3 && step3.property_floor.errors }">
@@ -427,7 +376,7 @@
                                     <option value="10">10</option>
                                 </select>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <label for="total_floors" class="form-label">Number of floors in the property?</label>
                                 <select id="total_floors" class="form-select form-select-lg w100" formControlName="total_floors" [ngClass]="{ 'is-invalid': submitted3 && step3.total_floors.errors }">
                                     <option value="">Select Number of Floors </option>
@@ -443,7 +392,7 @@
                                     <option value="10">10</option>
                                 </select>
                             </div>
-                            <div class="col-lg-4 col-md-4 col-sm-12">
+                            <div class="col-lg-6 col-sm-12">
                                 <div class="form-group">
                                     <label  for="possession_by" class="form-label">Possession By</label>
                                     <select id="possession_by" class="form-select form-select-lg w100" formControlName="possession_by" [ngClass]="{ 'is-invalid': submitted3  && step3.possession_by.errors }"> 

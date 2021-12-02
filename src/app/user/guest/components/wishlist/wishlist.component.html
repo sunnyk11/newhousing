@@ -74,9 +74,8 @@
                         </div>
                         </div>
                     </ng-template>
-
                     <div class="details">
-                        <a (click)="navigate(data.id,data.build_name,data.city)">
+                        <a (click)="navigate(data?.productdetails?.id,data?.productdetails?.build_name,data?.productdetails?.city)">
                         <div class="tc_content">
                             <p class="text-thm" >{{ data?.productdetails?.type | titlecase }}</p>
                             <h4>{{data?.productdetails?.build_name | titlecase}}</h4>
@@ -91,8 +90,8 @@
                         <div class="fp_footer" id="user_details">
                         <ul class="fp_meta float-left mb0">
                             <li class="list-inline-item"><a href="#">
-                                <img src="./../../assets/resources/images/property/pposter1.png"
-                                alt="pposter1.png"></a></li>
+                                <img src="./../../assets/resources/images/property/img_avatar2-png-9.png"
+                                alt="img_avatar2-png-9.png"></a></li>
                             <li class="list-inline-item"><a href="#">{{data?.productdetails?.user_detail.name | titlecase}}</a></li>
                             <div class="fp_pdate float-right" *ngIf="data?.productdetails?.product_comparision==null">
                             <button type="button" (click)="product_comp(data.product_id)"

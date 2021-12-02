@@ -146,7 +146,6 @@ export class ProductListingComponent implements OnInit {
   param_query_check(){
     this.route.queryParams.subscribe((params) => {
       if(params.minimum != null && params.maximum != null){
-        console.log('111')
         this.searchForm.patchValue({
           build_name:params.name,
           area_unit:params.area_unit,
@@ -172,20 +171,17 @@ export class ProductListingComponent implements OnInit {
         this.property_type_check_url();
         this.onsearch();
        }else if(params.category != null){
-        console.log('222')
         this.searchForm.controls['type'].setValue(params.category);         
         this.searchForm.value.sliderControl[0] = 5000;
         this.searchForm.value.sliderControl[1] = 50000000;    
         this.onsearch();
        }else if(params.cities != null){
-        console.log('333')
         this.searchForm.controls['city'].setValue(params.cities);         
         this.searchForm.value.sliderControl[0] = 5000;
         this.searchForm.value.sliderControl[1] = 50000000;
         this.onsearch();
        }
        else{
-        console.log('444')
         this.searchForm.value.sliderControl[0] = 5000;
         this.searchForm.value.sliderControl[1] = 50000000;
         this.onsearch();
@@ -235,7 +231,6 @@ export class ProductListingComponent implements OnInit {
     let data:any=this.searchForm.value;
     this.product_length=0;
     this.router.navigate(['/product-listing'],{queryParams:{'name':data.build_name,'city':data.city,'type':data.type,'search_type':data.search_type,'area_unit':data.area_unit,'years':data.years,'bedrooms':data.bedrooms,'bathrooms':data.bathrooms,'minimum':data.sliderControl[0],'maximum':data.sliderControl[1],'location':data.location,amenties:this.amenityArray}});
-    this.param_query_check(); 
   } 
   onchangeAmenties(e:any,id:any){
     if(e.target.checked){
@@ -315,6 +310,7 @@ export class ProductListingComponent implements OnInit {
     this.amenityArray=[];
     this.product_length=0;
     this.router.navigate(['/product-listing']);
+    this.property_type();
     this.onsearch();
   }
   

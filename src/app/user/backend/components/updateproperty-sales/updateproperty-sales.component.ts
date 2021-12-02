@@ -143,15 +143,10 @@ export class UpdatepropertySalesComponent implements OnInit {
       facing_towards: ['', Validators.required],
       year_built: ['', Validators.required],
       furnishings: ['0', Validators.required],
-      willing_to_rent: ['', Validators.required],
-      agreement_type: ['', Validators.required],
       rera_registration_status:['',Validators.required],
       reserved_parking:['0',Validators.required],
       parking_open_count:[''],
       parking_covered_count:[''],
-      available_date: ['', Validators.required],
-      notice_month: ['', Validators.required],
-      agreement_duration: ['', Validators.required],
       property_floor: ['', Validators.required],
       availability_condition: ['', Validators.required],
       total_floors: ['', Validators.required],
@@ -350,19 +345,9 @@ export class UpdatepropertySalesComponent implements OnInit {
             });
             this.furnish_row=true;
           }
-          if(data.data.willing_to_rent_out_to != null){
-            this.form_step3.patchValue({
-              willing_to_rent:  data.data.willing_to_rent_out_to
-            });
-          }
           if(data.data.rera_registration_status != null){
             this.form_step3.patchValue({
               rera_registration_status:  data.data.rera_registration_status
-            });
-          }
-          if(data.data.agreement_type != null){
-            this.form_step3.patchValue({
-              agreement_type:  data.data.agreement_type
             });
           }
           if(data.data.additional_parking_status==1){
@@ -379,21 +364,6 @@ export class UpdatepropertySalesComponent implements OnInit {
           if(data.data.parking_covered_count != null){
             this.form_step3.patchValue({
               parking_covered_count:  data.data.parking_covered_count
-            });
-          }
-          if(data.data.available_for != null){
-            this.form_step3.patchValue({
-              available_date:  data.data.available_for
-            });
-          }
-          if(data.data.month_of_notice != null){
-            this.form_step3.patchValue({
-              notice_month:  data.data.month_of_notice
-            });
-          }
-          if(data.data.duration_of_rent_aggreement != null){
-            this.form_step3.patchValue({
-              agreement_duration:  data.data.duration_of_rent_aggreement
             });
           }
           if(data.data.property_on_floor != null){
