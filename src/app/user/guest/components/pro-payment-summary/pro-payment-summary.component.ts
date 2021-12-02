@@ -16,6 +16,8 @@ import { environment } from 'src/environments/environment';
 })
 export class ProPaymentSummaryComponent implements OnInit {
 
+  public showLoadingIndicator: boolean = false;
+
   public rent_response: any;
   public rent_feat_res: any;
   public myArray: any = [];
@@ -68,9 +70,11 @@ export class ProPaymentSummaryComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
+    this.showLoadingIndicator = true;
     this.product_id = this.route.snapshot.queryParams['productID'];
     this.productService.get_product_details(this.product_id).subscribe(
       prod_data => {
+        this.showLoadingIndicator = false;
         this.product_data = prod_data;
         this.pro_data = this.product_data[0];
         //console.log(this.product_data[0]);
@@ -93,6 +97,7 @@ export class ProPaymentSummaryComponent implements OnInit {
         }
       },
       err => {
+        this.showLoadingIndicator = false;
         console.log(err);
       }
     );
@@ -101,17 +106,24 @@ export class ProPaymentSummaryComponent implements OnInit {
   }
 
   getRentPlans() {
+    this.showLoadingIndicator = true;
     this.plansPageService.getRentPlans({ param: null }).subscribe(
       response => {
+        this.showLoadingIndicator = false;
         this.rent_response = response;
         //console.log(response);
+      },
+      err => {
+        this.showLoadingIndicator = false;
       }
     );
   }
 
   getRentFeatures() {
+    this.showLoadingIndicator = true;
     this.plansPageService.getRentFeatures({ param: null }).subscribe(
       response => {
+        this.showLoadingIndicator = false;
         this.rent_feat_res = response;
         //console.log(response);
         for (let feat_res in this.rent_feat_res) {
@@ -121,6 +133,9 @@ export class ProPaymentSummaryComponent implements OnInit {
           this.rent_feat_res[feat_res].feature_details = this.myArray;
         }
         //console.log(this.rent_feat_res);
+      },
+      err => {
+        this.showLoadingIndicator = false;
       }
     );
   }
@@ -167,6 +182,8 @@ export class ProPaymentSummaryComponent implements OnInit {
 
   proceedToPayment() {
 
+    this.showLoadingIndicator = true;
+
     const formData: any = new FormData();
     formData.append('plan_name', this.plan_name);
     formData.append('plan_price', this.plan_price);
@@ -189,6 +206,7 @@ export class ProPaymentSummaryComponent implements OnInit {
       this.userEmail = this.jwtService.getUserEmail();
       this.loginPageService.getUserPhoneDetails({ param: null }).subscribe(
         data => {
+          this.showLoadingIndicator = false;
           //console.log(data);
           this.user_phone_data = data;
           if(this.user_phone_data !== 1) {
@@ -222,10 +240,14 @@ export class ProPaymentSummaryComponent implements OnInit {
               }
             );
           }
+        },
+        err => {
+          this.showLoadingIndicator = false;
         }
       );
     } 
     else {
+      this.showLoadingIndicator = false;
       //console.log("Not logged in: " + val);
       this.openModal();
     }
@@ -321,6 +343,7 @@ export class ProPaymentSummaryComponent implements OnInit {
   }
 
   generateInvoice() {
+    this.showLoadingIndicator = true;
     //console.log("Generate Invoice");
     var formData: any = new FormData();
     formData.append('plan_name', this.plan_name);
@@ -343,6 +366,7 @@ export class ProPaymentSummaryComponent implements OnInit {
       this.userEmail = this.jwtService.getUserEmail();
       this.loginPageService.getUserPhoneDetails({ param: null }).subscribe(
         data => {
+          this.showLoadingIndicator = false;
           //console.log(data);
           this.user_phone_data = data;
           if(this.user_phone_data !== 1) {
@@ -373,10 +397,14 @@ export class ProPaymentSummaryComponent implements OnInit {
               }
             );
           }
+        },
+        err => {
+          this.showLoadingIndicator = false;
         }
       );
     } 
     else {
+      this.showLoadingIndicator = false;
       //console.log("Not logged in: " + val);
       this.openModal();
     }

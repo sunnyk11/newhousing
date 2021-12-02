@@ -80,10 +80,14 @@ export class JwtService {
     window.localStorage["PLANS_DATA"] = JSON.stringify(data);
   }
 
+  saveProfilePic(data:any) {
+    window.localStorage["USER_PROFILE_PIC"] = JSON.stringify(data);
+  }
+
   saveReturnURL(url: any) {
     //console.log(url);
    // window.localStorage.removeItem("RETURN_URL");
-    window.localStorage["RETURN_URL"] = JSON.stringify(url);
+    window.localStorage["RETURN_URL"] = url;
   }
 
   getReturnURL() {

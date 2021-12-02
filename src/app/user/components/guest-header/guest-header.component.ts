@@ -54,6 +54,7 @@ export class GuestHeaderComponent implements OnInit {
       this.userEmail = this.jwtService.getUserEmail();
       this.userId = this.jwtService.getUserId();
       this.profile_pic = this.jwtService.getProfilePic();
+      console.log(this.profile_pic);
         if(this.profile_pic?.indexOf('https') != -1) {
           this.google_profile_pic = this.sanitize(this.profile_pic)
         }

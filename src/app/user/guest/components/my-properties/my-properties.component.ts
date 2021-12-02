@@ -9,6 +9,8 @@ import { JwtService } from 'src/app/user/services/jwt.service';
 })
 export class MyPropertiesComponent implements OnInit {
 
+  public showLoadingIndicator: boolean = false;
+
   private userEmail: string = '';
   public rent_property_data: any;
   public property_det: any;
@@ -27,12 +29,15 @@ export class MyPropertiesComponent implements OnInit {
   }
 
   get_rented_properties() {
+    this.showLoadingIndicator = true;
     this.propertiesService.get_rent_properties(this.userEmail).subscribe(
       res => {
+        this.showLoadingIndicator = false;
         console.log(res);
         this.rent_property_data = res;
       },
       err => {
+        this.showLoadingIndicator = false;
         console.log(err);
       }
     );

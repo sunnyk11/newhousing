@@ -19,6 +19,7 @@ import { MatSliderModule} from '@angular/material/slider';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { UpdatepropertyRentComponent } from './components/updateproperty-rent/updateproperty-rent.component';
+import { MyPlansComponent } from './components/my-plans/my-plans.component';
 import { MyPropertiesComponent } from './components/my-properties/my-properties.component';
 import { ListpropertySalesComponent } from './components/listproperty-sales/listproperty-sales.component';
 import { UpdatepropertySalesComponent } from './components/updateproperty-sales/updateproperty-sales.component';
@@ -42,6 +43,7 @@ import { PlanApplyComponent } from './components/plan-apply/plan-apply.component
     ListpropertyRentComponent,
     ListpropertyComponent,
     UpdatepropertyRentComponent,
+    MyPlansComponent,
     MyPropertiesComponent,
     ListpropertySalesComponent,
     UpdatepropertySalesComponent,

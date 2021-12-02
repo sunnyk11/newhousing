@@ -1,0 +1,21 @@
+.profile-img {
+    width: 60%;
+}
+
+#label_upload {
+    display: inline-block;
+    background-color: rgb(255, 90, 95);
+    color: white;
+    padding: 0.5rem;
+    font-family: sans-serif;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    margin: auto;
+    background-image: none !important;
+}
+
+@media(max-width: 768px) {
+    .profile-img {
+        width: 40%;
+    }
+}

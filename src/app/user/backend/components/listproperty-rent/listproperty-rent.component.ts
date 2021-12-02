@@ -72,6 +72,8 @@ export class ListpropertyRentComponent implements OnInit {
   form_step4: FormGroup = new FormGroup({});
   update_room_array: any = [];
 
+  public submitted: boolean = false;
+
 
   constructor(
     private _formBuilder: FormBuilder,

@@ -21,6 +21,9 @@ import { AuthGuard } from './guards/auth.guard';
 import { TermsConditionsComponent } from './components/terms-conditions/terms-conditions.component';
 import { IpDisclaimerComponent } from './components/ip-disclaimer/ip-disclaimer.component';
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
+import { RegisterComponent } from './components/register/register.component';
+import { PaymentSummaryComponent } from './components/payment-summary/payment-summary.component';
+import { ProfileComponent } from './components/profile/profile.component';
 //custom component imports
 
 const routes: Routes = [
@@ -41,10 +44,14 @@ const routes: Routes = [
         { path: "ip-disclaimer", component:IpDisclaimerComponent},
         { path: "privacy-policy", component:PrivacyPolicyComponent},
         { path: "logout", component:LogoutComponent},
-        {path: "product_payment_summary", component: ProPaymentSummaryComponent},
-        {path: "verify-mobile", component: VerifyMobileComponent, canActivate: [AuthGuard]},
-        {path: "invoice", component: InvoiceComponent, canActivate: [AuthGuard]},
-        {path: "my-properties", component: MyPropertiesComponent, canActivate: [AuthGuard]}
+        { path: "product_payment_summary", component: ProPaymentSummaryComponent},
+        { path: "verify-mobile", component: VerifyMobileComponent, canActivate: [AuthGuard]},
+        { path: "invoice", component: InvoiceComponent, canActivate: [AuthGuard]},
+        { path: "my-properties", component: MyPropertiesComponent, canActivate: [AuthGuard]},
+        { path: "register", component: RegisterComponent},
+        { path: 'agentregister', component: RegisterComponent},
+        { path: "payment-summary", component: PaymentSummaryComponent},
+        { path: "profile", component: ProfileComponent}
       ]
     }
 ];

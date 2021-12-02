@@ -18,7 +18,7 @@
                 <a class="nav-link" routerLink="contact">Contact</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" [routerLink]="['plans']">Plans</a>
+                <a class="nav-link" [routerLink]="['/guest/plans']">Plans</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Blog</a>
@@ -67,6 +67,7 @@
                     </li>
                     <li><a class="dropdown-item" href="# ">My Profile</a></li>
                     <li><a class="dropdown-item" [routerLink]="['my-properties']">My Properties</a></li>
+                    <li><a class="dropdown-item" [routerLink]="['my-plans']">My Plans</a></li>
                     <li><a class="dropdown-item" [routerLink]="['my-properties']">List Properties</a></li>
                     <li><a class="dropdown-item" [routerLink]="['logout']">Logout</a></li>
                 </ul>
