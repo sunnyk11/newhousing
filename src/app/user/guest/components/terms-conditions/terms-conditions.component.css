@@ -1,29 +1,34 @@
 .page_links {
     color: #007bff !important;
 }
+
 .ml-custom {
     margin-left: 2.5rem !important;
 }
-.terms_condition_grid{
+
+.terms_condition_grid {
     background-color: #ffffff;
     border: 1px solid #ebebeb;
     border-radius: 8px;
     padding: 30px;
     position: relative;
-  }
-  .terms_condition_grid .grids h4{
+}
+
+.terms_condition_grid .grids h4 {
     margin-bottom: 25px;
-  }
-  .terms_condition_grid .grids p{
+}
+
+.terms_condition_grid .grids p {
     font-size: 18px;
     font-family: "Nunito";
     color: #484848;
     line-height: 1.714;
     margin-left: 25px;
     text-align: justify;
-  }
-.terms_condition_grid .grids p{
-    margin-left: 0px!important;
+}
+
+.terms_condition_grid .grids p {
+    /* margin-left: 0px!important; */
     font-size: 14px!important;
     line-height: 26px!important;
-  }
+}

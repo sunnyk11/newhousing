@@ -6,6 +6,8 @@ import { AuthGuard } from './guards/auth.guard';
 import { ListpropertyComponent } from './components/listproperty/listproperty.component';
 import { ListpropertyRentComponent } from './components/listproperty-rent/listproperty-rent.component';
 import { UpdatepropertyRentComponent } from './components/updateproperty-rent/updateproperty-rent.component';
+import { MyPlansComponent } from './components/my-plans/my-plans.component';
+
 import { MyPropertiesComponent } from './components/my-properties/my-properties.component';
 import { ListpropertySalesComponent } from './components/listproperty-sales/listproperty-sales.component';
 import { UpdatepropertySalesComponent } from './components/updateproperty-sales/updateproperty-sales.component';
@@ -19,6 +21,7 @@ const routes: Routes = [
     path: "",
     component: MasterComponent,
     children: [
+      { path: "my-plans", component: MyPlansComponent },
       { path: "", component:DashboardComponent,canActivate: [AuthGuard] },
       { path: "list-property", component: ListpropertyComponent,canActivate: [AuthGuard]},
       { path: "my-properties", component: MyPropertiesComponent,canActivate: [AuthGuard]},

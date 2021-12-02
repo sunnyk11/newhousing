@@ -5,6 +5,8 @@ import { VerifyMobileService } from '../../services/verify-mobile.service';
 import { PlansPageService } from '../../services/plans-page.service';
 import { environment } from 'src/environments/environment';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FixAppointmentComponent } from '../../modals/fix-appointment/fix-appointment.component';
 
 @Component({
   selector: 'app-verify-mobile',
@@ -13,11 +15,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class VerifyMobileComponent implements OnInit {
 
+  public showLoadingIndicator: boolean = false;
+
   constructor(private fb: FormBuilder,
     private jwtService: JwtService,
     private verifyMobileService: VerifyMobileService,
     private plansPageService: PlansPageService,
-    private router: Router) { }
+    private router: Router,
+    private modalService: NgbModal) { }
 
   public verify: boolean = false;
   public submitted: boolean = false;
@@ -28,7 +33,7 @@ export class VerifyMobileComponent implements OnInit {
   public number: string = '';
   public isFailedVerify_otp: boolean = false;
   public isVerified: boolean = false;
-  private previousUrl: string = '';
+  private previousUrl: any;
 
   public property_data: any;
   private user_id: any;
@@ -38,6 +43,8 @@ export class VerifyMobileComponent implements OnInit {
   private paytm_data: any;
   private paytm_form_url: string = environment.Paytm_formURL;
   private invoice_result: any;
+  public plansData: any;
+  public letOutPlanData: any;
 
   verifyForm = this.fb.group({
     form_phone: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]]
@@ -58,10 +65,11 @@ export class VerifyMobileComponent implements OnInit {
   ngOnInit(): void {
     this.currentUserId = this.jwtService.getUserId();
     this.previousUrl = this.jwtService.getReturnURL();
-
+    console.log(this.previousUrl);
     if (this.jwtService.getToken()) {
       this.user_id = this.jwtService.getUserId();
-      this.userEmail = JSON.parse(this.jwtService.getUserEmail());
+      // this.userEmail = JSON.parse(this.jwtService.getUserEmail());
+      this.userEmail = this.jwtService.getUserEmail();
     }
   }
 
@@ -70,14 +78,16 @@ export class VerifyMobileComponent implements OnInit {
     if (this.verifyForm.invalid) {
       return;
     }
-
+    this.showLoadingIndicator = true;
     this.verifyMobileService.mobile_verify(this.verifyForm.value.form_phone, this.currentUserId).subscribe(
       data => {
+        this.showLoadingIndicator = false;
         //console.log(data);
         this.verify = true;
         this.number = this.verifyForm.value.form_phone;
       },
       err => {
+        this.showLoadingIndicator = false;
         this.errorMessage = err.error;
         this.isFailedVerify = true;
       }
@@ -89,9 +99,10 @@ export class VerifyMobileComponent implements OnInit {
     if (this.otpForm.invalid) {
       return;
     }
-
+    this.showLoadingIndicator = true;
     this.verifyMobileService.mobile_verify_otp(this.number, this.otpForm.value.otp_password, this.currentUserId).subscribe(
       data => {
+        this.showLoadingIndicator = false;
         this.isVerified = true;
         this.verify = false;
 
@@ -103,7 +114,7 @@ export class VerifyMobileComponent implements OnInit {
           this.property_data.user_email = this.userEmail;
           //console.log(this.property_data);
 
-          this,this.plansPageService.postSelectedRentPlan(this.property_data).subscribe(
+          this.plansPageService.postSelectedRentPlan(this.property_data).subscribe(
             res => {
               //console.log(res);
               this.selectedPlanData = res;
@@ -137,8 +148,36 @@ export class VerifyMobileComponent implements OnInit {
             }
           );
         }
+        else if (this.previousUrl.includes('plans')) {
+          console.log(this.previousUrl);
+          this.plansData = JSON.parse(this.jwtService.getPlansData());
+          console.log(this.plansData);
+          this.plansData['user_id'] = this.user_id;
+          this.plansData['user_email'] = this.userEmail;
+          this.plansPageService.postSelectedPlan(this.plansData).subscribe(
+            res => {
+              console.log(res);
+              this.letOutPlanData = res;
+              if (this.letOutPlanData.data.plan_type == 'let_out') {
+                this.router.navigate(['/payment-summary'], { queryParams: { 'orderID': this.letOutPlanData.data.order_id } });
+              }
+              else if (this.letOutPlanData.data.plan_type == 'rent') {
+                this.plansPageService.crm_call(this.user_id).subscribe();
+                this.router.navigate(['plans']);
+                this.openConfirmationModal();
+              }
+            },
+            err => {
+              console.log(err);
+            }
+          );
+        }
+        else if(this.previousUrl.includes('profile')) {
+          this.router.navigate(['profile']);
+        }
       },
       err => {
+        this.showLoadingIndicator = false;
         this.errorMessage = err.error;
         this.verify = true;
         this.isFailedVerify_otp = true;
@@ -167,6 +206,16 @@ export class VerifyMobileComponent implements OnInit {
     my_form.submit();
     // after click will fire you will redirect to paytm payment page.
     // after complete or fail transaction you will redirect to your CALLBACK URL
+  }
+
+  openConfirmationModal() {
+    const modalRef = this.modalService.open(FixAppointmentComponent,
+      {
+        scrollable: true,
+        windowClass: 'myCustomModalClass',
+        // keyboard: false,
+        backdrop: 'static'
+      });
   }
 
 }
