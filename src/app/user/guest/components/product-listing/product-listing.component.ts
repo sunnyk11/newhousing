@@ -20,7 +20,7 @@ export class ProductListingComponent implements OnInit {
 
   public displayStyle = "none";
   public amenties:any={};
-  public property:any=[];
+  public property:any={};
   public showLoadingIndicator:boolean= false;
   public  year:any='';
   public search_amenties:any=[];
@@ -146,8 +146,6 @@ export class ProductListingComponent implements OnInit {
   param_query_check(){
     this.route.queryParams.subscribe((params) => {
       if(params.minimum != null && params.maximum != null){
-        this.searchForm.value.sliderControl['0']=Number(params.minimum);
-        this.searchForm.value.sliderControl['1']=Number(params.maximum);
         this.searchForm.patchValue({
           build_name:params.name,
           area_unit:params.area_unit,
@@ -158,6 +156,7 @@ export class ProductListingComponent implements OnInit {
           location:params.location,
           years:params.years,
           city:params.city,
+          sliderControl:[Number(params.minimum),Number(params.maximum)]
         });
         this.search_type=params.search_type;
           if(params.amenties != null){  
@@ -174,7 +173,7 @@ export class ProductListingComponent implements OnInit {
        }else if(params.category != null){
         this.searchForm.controls['type'].setValue(params.category);         
         this.searchForm.value.sliderControl[0] = 5000;
-        this.searchForm.value.sliderControl[1] = 50000000;
+        this.searchForm.value.sliderControl[1] = 50000000;    
         this.onsearch();
        }else if(params.cities != null){
         this.searchForm.controls['city'].setValue(params.cities);         
@@ -190,7 +189,6 @@ export class ProductListingComponent implements OnInit {
     });
   }
   onsearch(): void{  
-    this.property=[];
     this.showLoadingIndicator =true;
     this.propertyresultlength=false;
     this.product_length=0;
@@ -199,7 +197,7 @@ export class ProductListingComponent implements OnInit {
       this.ProductListingPageService.login_product_details(param).subscribe(
         response => {
           let data:any=response;
-          this.property=data.data;
+          this.property=response;
           this.product_length=data.data.length;
           if(data.data.length < 1){
             this.propertyresultlength = true;
@@ -212,9 +210,10 @@ export class ProductListingComponent implements OnInit {
     }else{
       this.ProductListingPageService.product_details(param).subscribe(
         response => {
+          let data:any=response;
           this.property=response;
-          this.product_length=this.property.data.length;
-          if(this.property.data.length < 1){
+          this.product_length=data.data.length;
+          if(data.data.length < 1){
             this.propertyresultlength = true;
           }
           this.showLoadingIndicator = false;
@@ -232,7 +231,6 @@ export class ProductListingComponent implements OnInit {
     let data:any=this.searchForm.value;
     this.product_length=0;
     this.router.navigate(['/product-listing'],{queryParams:{'name':data.build_name,'city':data.city,'type':data.type,'search_type':data.search_type,'area_unit':data.area_unit,'years':data.years,'bedrooms':data.bedrooms,'bathrooms':data.bathrooms,'minimum':data.sliderControl[0],'maximum':data.sliderControl[1],'location':data.location,amenties:this.amenityArray}});
-    this.param_query_check(); 
   } 
   onchangeAmenties(e:any,id:any){
     if(e.target.checked){
@@ -312,6 +310,7 @@ export class ProductListingComponent implements OnInit {
     this.amenityArray=[];
     this.product_length=0;
     this.router.navigate(['/product-listing']);
+    this.property_type();
     this.onsearch();
   }
   

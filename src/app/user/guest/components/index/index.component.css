@@ -9,3 +9,9 @@
     align-items: flex-end!important;
     justify-content: space-between!important;
 }
+.form-select {
+    font-size: 14px !important;
+    height: 50px!important;
+    width: 180px;
+    border: 1px solid #ebebeb;
+}

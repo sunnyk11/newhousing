@@ -52,11 +52,11 @@
                 </a>
                 <ul class="dropdown-menu text-center user-info" aria-labelledby="navbarDropdown">
                     <li *ngIf="profile_pic && profile_pic.indexOf('https') == -1">
-                        <a class="dropdown-item " *ngIf="profile_pic != null;else OtherImage">
+                        <a class="dropdown-item " *ngIf="profile_pic == null;else OtherImage">
                             <img class="profile_image" src="{{ftpstring}}images/{{profile_pic}} " alt="Profile Pic">
                         </a>
                         <ng-template #OtherImage>
-                            <img style="width:30%;" class="align-self-start mr-3" src="./../../assets/resources/images/property/pposter1.png" alt="No Product Image">
+                            <img style="width:30%;" class="align-self-start mr-3" src="./../../assets/resources/images/property/img_avatar2-png-9.png" alt="No Product Image">
                         </ng-template>
                     </li>
                     <li *ngIf="profile_pic && profile_pic.indexOf('https') != -1">
