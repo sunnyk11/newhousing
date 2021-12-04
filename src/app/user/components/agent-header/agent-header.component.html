@@ -11,34 +11,7 @@
             <li class="nav-item active">
                 <a class="nav-link" routerLink="/">Home</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" routerLink="product-listing">Listing</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" routerLink="contact">Contact</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" [routerLink]="['/guest/plans']">Plans</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Blog</a>
-            </li>
-            <li class="nav-item" *ngIf="LoggedIn">
-                <a class="nav-link" routerLink="wishlist"><i class="fa fa-heart" aria-hidden="true"></i>
-                    <span class="wishlistValue">{{wishlist_length}}</span></a>
-            </li>
-            <li class="nav-item" *ngIf="LoggedIn">
-                <a class="nav-link" routerLink="product-compare" *ngIf="property_comp_length>1;else otherPro_menu">
-                    <i class="fa fa-exchange" aria-hidden="true"></i>
-                    <span class="wishlistValue">{{property_comp_length}}</span>
-                </a>
-                <ng-template #otherPro_menu>
-                    <a class="nav-link compare" (click)="compare_notification()">
-                        <i class="fa fa-exchange" aria-hidden="true"></i>
-                        <span class="wishlistValue">{{property_comp_length}}</span>
-                    </a>
-                </ng-template>
-            </li>
+
             <li class="nav-item" *ngIf="!LoggedIn">
                 <a class="nav-link" [routerLink]="['login']">Login/Register</a>
             </li>
@@ -68,15 +41,12 @@
                     <li><a class="dropdown-item" href="# ">My Profile</a></li>
                     <li><a class="dropdown-item" [routerLink]="['my-properties']">My Properties</a></li>
                     <li><a class="dropdown-item" [routerLink]="['my-plans']">My Plans</a></li>
-                    <li><a class="dropdown-item" [routerLink]="['my-properties']">List Properties</a></li>
+                    <li><a class="dropdown-item" [routerLink]="['my-properties']">Listed Properties</a></li>
                     <li><a class="dropdown-item" [routerLink]="['logout']">Logout</a></li>
                 </ul>
             </li>
             <li class="nav-item ">
                 <a class="nav-link " [routerLink]="['list-property']">List Property</a>
-            </li>
-            <li class="nav-item ">
-                <a class="nav-link " [routerLink]="['agent']">Agent Dashboard</a>
             </li>
         </ul>
     </div>

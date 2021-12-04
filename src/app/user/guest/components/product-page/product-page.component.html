@@ -1,9 +1,9 @@
 <div class="wrapper">
-        <div class="row preloader_row1" *ngIf="showLoadingIndicator1">
-            <div class="col-lg-12">
-                <div class="preloader"></div>
-            </div>
+    <div class="row preloader_row1" *ngIf="showLoadingIndicator1">
+        <div class="col-lg-12">
+            <div class="preloader"></div>
         </div>
+    </div>
     <div class="single_page_listing_tab mt100" *ngIf="sectiondisplay == true">
         <div class="container">
             <div class="row">
@@ -150,7 +150,7 @@
                                             </li>
                                             <li>
                                                 <p><span *ngIf="product_data?.expected_rent != null">₹
-                                                    {{Price_convert(product_data?.expected_rent) }}/<small>{{product_data?.maintenance_charge_condition}}</small>
+                                                    {{Price_convert(product_data?.expected_rent) }}/<small>month</small>
                                                 </span>
                                                     <span *ngIf="product_data?.expected_pricing != null">₹
                                                     {{Price_convert(product_data?.expected_pricing)}}
@@ -243,12 +243,12 @@
                                                 <p>Area Unit :</p>
                                             </li>
                                             <li>
-                                                <p>Aggrement :</p>
+                                                <p>Agreement :</p>
                                             </li>
                                         </ul>
                                         <ul class="list-inline-item">
                                             <li *ngIf="product_data?.maintenance_charge_condition != null">
-                                                <p><span>{{product_data?.maintenance_charge}}/{{product_data?.maintenance_charge_condition}}</span></p>
+                                                <p><span>{{product_data?.maintenance_charge}}({{product_data?.maintenance_charge_condition}})</span></p>
                                             </li>
                                             <li>
                                                 <p><span>{{product_data?.area_unit}}</span></p>
@@ -456,38 +456,58 @@
                     <div class="sidebar_listing_list payment_summery" *ngIf="product_data?.sale_availability == 1">
                         <div class="row">
                             <div class="col-lg-12 col-12">
-                                <h4>Payment Details</h4> 
+                                <h4>Payment Details</h4>
                             </div>
-                            <div class="col-lg-9 col-9"><h6>Property Price:</h6></div>
-                            <div class="col-lg-3 col-3"> <h6><strong>{{commaSeperated(product_data?.expected_pricing)}}</strong></h6></div>   
-                             <div class="col-lg-9 col-9" *ngIf="product_data?.maintenance_charge_status == '1'">
+                            <div class="col-lg-9 col-9">
+                                <h6>Property Price:</h6>
+                            </div>
+                            <div class="col-lg-3 col-3">
+                                <h6><strong>{{commaSeperated(product_data?.expected_pricing)}}</strong></h6>
+                            </div>
+                            <div class="col-lg-9 col-9" *ngIf="product_data?.maintenance_charge_status == '1'">
                                 <h6>Maintenance Charge({{product_data?.maintenance_charge_condition}}): </h6>
                             </div>
                             <div class="col-lg-3 col-3" *ngIf="product_data?.maintenance_charge_status == '1'">
-                                 <h6><strong>{{commaSeperated(product_data?.maintenance_charge)}}</strong></h6>
+                                <h6><strong>{{commaSeperated(product_data?.maintenance_charge)}}</strong></h6>
                             </div>
-                            <div class="col-lg-9 col-9"><h6>Total Amount: </h6></div>
-                            <div class="col-lg-3 col-3"> <h6><strong>{{commaSeperated(total_amount_owner)}}</strong></h6></div>   
+                            <div class="col-lg-9 col-9">
+                                <h6>Total Amount: </h6>
+                            </div>
+                            <div class="col-lg-3 col-3">
+                                <h6><strong>{{commaSeperated(total_amount_owner)}}</strong></h6>
+                            </div>
                         </div>
                     </div>
                     <div class="sidebar_listing_list payment_summery" *ngIf="product_data?.rent_availability == 1">
                         <div class="row">
                             <div class="col-lg-12 col-12">
-                                <h4>Payment Details</h4> 
+                                <h4>Payment Details</h4>
                             </div>
-                            <div class="col-lg-9 col-9"><h6>1 Month Rent:</h6></div>
-                            <div class="col-lg-3 col-3"> <h6><strong>{{commaSeperated(product_data?.expected_rent)}}</strong></h6></div>   
-                            <div class="col-lg-9 col-9"><h6>Security Deposit ({{product_data?.security_deposit}} Month Rent): </h6></div>
-                            <div class="col-lg-3 col-3"> <h6><strong>{{commaSeperated(security_dep_amount)}}</strong></h6></div>   
+                            <div class="col-lg-9 col-9">
+                                <h6>1 Month Rent:</h6>
+                            </div>
+                            <div class="col-lg-3 col-3">
+                                <h6><strong>{{commaSeperated(product_data?.expected_rent)}}</strong></h6>
+                            </div>
+                            <div class="col-lg-9 col-9">
+                                <h6>Security Deposit ({{product_data?.security_deposit}} Month Rent): </h6>
+                            </div>
+                            <div class="col-lg-3 col-3">
+                                <h6><strong>{{commaSeperated(security_dep_amount)}}</strong></h6>
+                            </div>
                             <div class="col-lg-9 col-9" *ngIf="product_data?.maintenance_charge_status == '1'">
                                 <!-- <hr> -->
                                 <h6>Maintenance Charge({{product_data?.maintenance_charge_condition}}): </h6>
                             </div>
                             <div class="col-lg-3 col-3" *ngIf="product_data?.maintenance_charge_status == '1'">
-                                 <h6><strong>{{commaSeperated(product_data?.maintenance_charge)}}</strong></h6>
+                                <h6><strong>{{commaSeperated(product_data?.maintenance_charge)}}</strong></h6>
                             </div>
-                            <div class="col-lg-9 col-9"><h6>Total Amount: </h6></div>
-                            <div class="col-lg-3 col-3"> <h6><strong>{{commaSeperated(total_amount_owner)}}</strong></h6></div>   
+                            <div class="col-lg-9 col-9">
+                                <h6>Total Amount: </h6>
+                            </div>
+                            <div class="col-lg-3 col-3">
+                                <h6><strong>{{commaSeperated(total_amount_owner)}}</strong></h6>
+                            </div>
                         </div>
                         <button class="chekout_btn w100 h50" (click)="proceedToPayment(product_data.id)">
                         Proceed to Checkout

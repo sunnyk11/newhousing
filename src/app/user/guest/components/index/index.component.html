@@ -8,33 +8,29 @@
                         <p class="fz18 color-white">Hamaara Sapna Ghar Ho Sabka Apna Apna</p>
                     </div>
                     <div class="home_adv_srch_opt">
-                        <ul class="nav nav-pills" id="pills-tab" role="tablist" >
+                        <ul class="nav nav-pills" id="pills-tab" role="tablist">
                             <li class="nav-item" (click)="rent_price_fun()">
                                 <a class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Rent</a>
                             </li>
-                            <li class="nav-item"  (click)="buyyer_price_fun()">
+                            <li class="nav-item" (click)="buyyer_price_fun()">
                                 <a class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-home" role="tab" aria-controls="pills-profile" aria-selected="false">Buy</a>
                             </li>
                         </ul>
                         <div class="tab-content home1_adsrchfrm" id="pills-tabContent">
                             <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                                <form [formGroup]="searchForm" class="home1-advnc-search" action="#" name="searchHome" id="searchhome"
-                                   #searchhome="ngForm">
-                                <div class="home1-advnc-search">
-                                    <ul class="h1ads_1st_list mb0">
-                                        <li class="list-inline-item">
-                                            <div class="form-group">
-                                                <input type="hidden" class="form-control" id="search_type" name="search_type"
-                                                    formControlName="search_type">
-                                                <input type="text" class="form-control input-text" name="name"
-                                                    formControlName="build_name" id="build_name" placeholder="Enter keywords...">
-                                            </div>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <div class="search_option_two">
-                                                <div class="candidate_revew_select">
-                                                    <select class="form-select"  name="type"
-                                                    formControlName="type" id="type">
+                                <form [formGroup]="searchForm" class="home1-advnc-search" action="#" name="searchHome" id="searchhome" #searchhome="ngForm">
+                                    <div class="home1-advnc-search">
+                                        <ul class="h1ads_1st_list mb0">
+                                            <li class="list-inline-item">
+                                                <div class="form-group">
+                                                    <input type="hidden" class="form-control" id="search_type" name="search_type" formControlName="search_type">
+                                                    <input type="text" class="form-control input-text" name="name" formControlName="build_name" id="build_name" placeholder="Enter keywords...">
+                                                </div>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <div class="search_option_two">
+                                                    <div class="candidate_revew_select">
+                                                        <select class="form-select h50" name="type" formControlName="type" id="type">
                                                         <option value ="" selected>Select Property Type</option>
                                                         <optgroup label="ALL RESIDENTIAL">
                                                             <option value="Flat/ Apartment">Flat/ Apartment</option>
@@ -65,73 +61,69 @@
                                                             <option value="Farm House">Farm House</option>
                                                         </optgroup>
                                                     </select>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <div class="form-group">
-                                                <input #search autocorrect="off" autocapitalize="off" spellcheck="off"
-                                                formControlName="location" type="search" class="form-control input-text"
-                                                placeholder="Enter Location..." />
-                                                <label for="exampleInputEmail"><span
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <div class="form-group">
+                                                    <input #search autocorrect="off" autocapitalize="off" spellcheck="off" formControlName="location" type="search" class="form-control input-text" placeholder="Enter Location..." />
+                                                    <label for="exampleInputEmail"><span
                                                         class="flaticon-maps-and-flags"></span></label>
-                                            </div>
-                                        </li>
-                                        <li class="list-inline-item" *ngIf="rent_range_slider== true">
-                                            <div class="small_dropdown2">
-                                                <div id="prncgs" class="btn dd_btn1">
-                                                   <ngx-slider [options]="options" formControlName="sliderControl"></ngx-slider>
                                                 </div>
-                                            </div>
-                                        </li>
-                                        <li class="list-inline-item" *ngIf="buyyer_range_slider== true">
-                                            <div class="small_dropdown2">
-                                                <div id="prncgs" class="btn dd_btn1">
-                                                   <ngx-slider [options]="options_sales" formControlName="sliderControl"></ngx-slider>
+                                            </li>
+                                            <li class="list-inline-item" *ngIf="rent_range_slider== true">
+                                                <div class="small_dropdown2">
+                                                    <div id="prncgs" class="btn dd_btn1">
+                                                        <ngx-slider [options]="options" formControlName="sliderControl"></ngx-slider>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </li>
-                                        <li class="custome_fields_520 list-inline-item">
-                                            <a class="btn" data-bs-toggle="collapse" data-bs-target="#amenities_collapse" role="button" aria-expanded="false" aria-controls="amenities_collapse">
+                                            </li>
+                                            <li class="list-inline-item" *ngIf="buyyer_range_slider== true">
+                                                <div class="small_dropdown2">
+                                                    <div id="prncgs" class="btn dd_btn1">
+                                                        <ngx-slider [options]="options_sales" formControlName="sliderControl"></ngx-slider>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="custome_fields_520 list-inline-item">
+                                                <a class="btn" data-bs-toggle="collapse" data-bs-target="#amenities_collapse" role="button" aria-expanded="false" aria-controls="amenities_collapse">
                                                 Advanced <i class="fa fa-angle-down"></i>
                                             </a>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <div class="search_option_button">
-                                                <button type="submit" class="btn btn-thm"  (click)="searchhome.form.valid && navigate()">Search</button>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="collapse" id="amenities_collapse">
-                                    <div class="card card-body">
-                                        <div class="row mt20 mb20">
-                                            <div class="col-lg-12">
-                                                <h4 class="text-thm3 text-center">Amenities
-                                                </h4>
-                                                <hr>
-                                            </div>
-                                            <ul class="col-lg-12 ui_kit_checkbox selectable-list">
-                                                <!-- <div class="row"> -->
-                                                    <li *ngFor="let amenties of amenties?.data"
-                                                        class="col-lg-2 col-xs-6 amentites_li">
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <div class="search_option_button">
+                                                    <button type="submit" class="btn btn-thm" (click)="searchhome.form.valid && navigate()">Search</button>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="collapse" id="amenities_collapse">
+                                        <div class="card card-body">
+                                            <div class="row mt20 mb20">
+                                                <div class="col-lg-12">
+                                                    <h4 class="text-thm3 text-center">Amenities
+                                                    </h4>
+                                                    <hr>
+                                                </div>
+                                                <ul class="col-lg-12 ui_kit_checkbox selectable-list">
+                                                    <!-- <div class="row"> -->
+                                                    <li *ngFor="let amenties of amenties?.data" class="col-lg-2 col-xs-6 amentites_li">
                                                         <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" value="{{amenties.id}}" id="{{amenties.id}}"  (change)="onchangeAmenties($event,amenties.id)">
+                                                            <input class="form-check-input" type="checkbox" value="{{amenties.id}}" id="{{amenties.id}}" (change)="onchangeAmenties($event,amenties.id)">
                                                             <label class="form-check-label" for="{{amenties.id}}">
                                                                 {{amenties.name}}
                                                             </label>
                                                         </div>
                                                     </li>
-                                                <!-- </div> -->
-                                            </ul>
-                                        </div>        
-                                        <div class="row p15 pt0-xsd">
-                                            <div class="col-lg-12 col-xl-12">
-                                                <div class="row">
-                                                    <div class="col-lg-3 col-md-3 col-sm-6">
-                                                        <div class="candidate_revew_select">
-                                                            <select class="form-select" aria-label="Default select example" name="bathrooms" formControlName="bathrooms"
-                                                            id="bathrooms">
+                                                    <!-- </div> -->
+                                                </ul>
+                                            </div>
+                                            <div class="row p15 pt0-xsd">
+                                                <div class="col-lg-12 col-xl-12">
+                                                    <div class="row">
+                                                        <div class="col-lg-3 col-md-3 col-sm-6">
+                                                            <div class="candidate_revew_select">
+                                                                <select class="form-select" aria-label="Default select example" name="bathrooms" formControlName="bathrooms" id="bathrooms">
                                                                 <option value="">Select Bathrooms
                                                                 </option>
                                                                 <option value="1">1</option>
@@ -145,12 +137,11 @@
                                                                 <option value="9">9</option>
                                                                 <option value="10">10 </option>
                                                             </select>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-lg-3 col-md-3 col-sm-6">
-                                                        <div class="candidate_revew_select">
-                                                            <select class="form-select" aria-label="Default select example" name="bedrooms" formControlName="bedrooms"
-                                                            id="bedrooms">
+                                                        <div class="col-lg-3 col-md-3 col-sm-6">
+                                                            <div class="candidate_revew_select">
+                                                                <select class="form-select" aria-label="Default select example" name="bedrooms" formControlName="bedrooms" id="bedrooms">
                                                                 <option value="">Select Bedrooms
                                                                 </option>
                                                                 <option value="1">1</option>
@@ -164,11 +155,11 @@
                                                                 <option value="9">9</option>
                                                                 <option value="10">10 </option>
                                                             </select>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-lg-3 col-md-3 col-sm-6">
-                                                        <div class="candidate_revew_select">
-                                                            <select class="form-select" aria-label="Default select example" name="years" formControlName="years" id="years">
+                                                        <div class="col-lg-3 col-md-3 col-sm-6">
+                                                            <div class="candidate_revew_select">
+                                                                <select class="form-select" aria-label="Default select example" name="years" formControlName="years" id="years">
                                                                 <option value="">Select Built year</option>
                                                                 <option value="2000">2000</option>
                                                                 <option value="2001">2001</option>
@@ -193,12 +184,11 @@
                                                                 <option value="2020">2020</option>
                                                                 <option value="2021">2021</option>
                                                             </select>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-lg-3 col-md-3 col-sm-6">
-                                                        <div class="candidate_revew_select">
-                                                            <select class="form-select" aria-label="Default select example"  name="area_unit" formControlName="area_unit"
-                                                            id="area_unit">
+                                                        <div class="col-lg-3 col-md-3 col-sm-6">
+                                                            <div class="candidate_revew_select">
+                                                                <select class="form-select" aria-label="Default select example" name="area_unit" formControlName="area_unit" id="area_unit">
                                                                 <option value="">Select Area Unit
                                                                 </option>
                                                                 <option value="sq.ft.">sq.ft.
@@ -236,15 +226,15 @@
                                                                 <option value="perch"> perch
                                                                 </option>
                                                             </select>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
+                                            <!--row -->
                                         </div>
-                                        <!--row -->
                                     </div>
-                                </div>  
-                              </form>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -270,11 +260,11 @@
         <div class="row">
             <div class="col-lg-4 col-xl-4" (click)="location_fetch()">
                 <div class="properti_city">
-                    <div class="thumb"><img class="img-fluid w100" src="assets/resources/images/property/pc1.jpg" alt="pc1.jpg">
+                    <div class="thumb"><img class="img-fluid w100" src="../../../../../assets/resources/images/property/rsz_pexels-sakshi-patwa-5238225.jpg" alt="pc1.jpg">
                     </div>
                     <div class="overlay">
                         <div class="details">
-                            <h4>Noida</h4>
+                            <h4>Chattarpur</h4>
                             <p>No Properties</p>
                         </div>
                     </div>
@@ -282,7 +272,7 @@
             </div>
             <div class="col-lg-8 col-xl-8" (click)="property_search(city_name)">
                 <div class="properti_city">
-                    <div class="thumb"><img class="img-fluid w100" src="assets/resources/images/property/pc2.jpg" alt="pc2.jpg">
+                    <div class="thumb"><img class="img-fluid w100" src="../../../../../assets/resources/images/property/chattarpur sharp.jpg" alt="pc2.jpg">
                     </div>
                     <div class="overlay" *ngIf="product_length > 0">
                         <div class="details">
@@ -292,9 +282,9 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-8 col-xl-8" (click)="location_fetch()">
+            <!-- <div class="col-lg-8 col-xl-8" (click)="location_fetch()">
                 <div class="properti_city">
-                    <div class="thumb"><img class="img-fluid w100" src="assets/resources/images/property/pc3.jpg" alt="pc3.jpg">
+                    <div class="thumb"><img class="img-fluid w100" src="../../../../../assets/resources/images/property/city_image_2.jpeg" alt="pc3.jpg">
                     </div>
                     <div class="overlay">
                         <div class="details">
@@ -306,7 +296,7 @@
             </div>
             <div class="col-lg-4 col-xl-4" (click)="location_fetch()">
                 <div class="properti_city">
-                    <div class="thumb"><img class="img-fluid w100" src="assets/resources/images/property/pc4.jpg" alt="pc4.jpg">
+                    <div class="thumb"><img class="img-fluid w100" src="../../../../../assets/resources/images/property/city_image_1.jpeg" alt="pc4.jpg">
                     </div>
                     <div class="overlay">
                         <div class="details">
@@ -315,7 +305,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </section>

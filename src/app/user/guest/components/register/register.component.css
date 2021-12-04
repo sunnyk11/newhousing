@@ -20,7 +20,7 @@
 }
 
 .terms_condition_grid .grids p {
-    margin-left: 0px!important;
+    /* margin-left: 0px!important; */
     font-size: 14px!important;
     line-height: 26px!important;
 }
@@ -32,4 +32,8 @@
 
 .page_links {
     color: #007bff !important;
+}
+
+.ml-custom {
+    margin-left: 2.5rem !important;
 }
