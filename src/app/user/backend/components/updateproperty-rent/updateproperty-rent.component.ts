@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MapsAPILoader, AgmMap } from '@agm/core';
 // import { google } from "google-maps";
 import { ElementRef, Input, NgZone, ViewChild } from '@angular/core';
@@ -10,6 +10,8 @@ import { environment } from 'src/environments/environment';
 import { CommonService } from '../../services/common.service';
 import { RentPropertyService } from '../../services/rent-property.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Observable } from 'rxjs';
+import { map, startWith, debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-updateproperty-rent',
@@ -17,6 +19,10 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./updateproperty-rent.component.css']
 })
 export class UpdatepropertyRentComponent implements OnInit {
+
+  public dropdownList: any = [];
+  private option: any;
+
   options: Options = {
     step:500,
     floor: 5000,
@@ -91,6 +97,9 @@ export class UpdatepropertyRentComponent implements OnInit {
   form_step3: FormGroup = new FormGroup({});
   form_step4: FormGroup = new FormGroup({});
 
+  public filteredOptions!: Observable<any[]>;
+  private locality: any;
+
   constructor(
     private _formBuilder: FormBuilder,
     private mapsAPILoader: MapsAPILoader,
@@ -117,6 +126,7 @@ export class UpdatepropertyRentComponent implements OnInit {
   ngOnInit(): void {
    this.getLocation();
    this.getAmenities(); 
+   this.get_area();
     this.form_step1 = this._formBuilder.group({
       property_name: ['', Validators.required],
       draft_form_id: ['0'],
@@ -174,7 +184,38 @@ export class UpdatepropertyRentComponent implements OnInit {
     this.selectedItems = new Array<string>();
     this.product_img = new Array<string>();
     this.selected_room = new Array<string>();
+
+    console.log(this.form_step2.controls);
+    
+    this.filteredOptions = this.form_step2.controls['locality'].valueChanges.pipe(
+        startWith(''),
+        debounceTime(400),
+        map((value) => this._filter(value))
+      );
+    console.log(this.filteredOptions); 
   }
+
+  get_area() {
+    this.RentPropertyService.get_areas().subscribe(
+      (data: any) => {
+        console.log(data);
+        for (let i = 0; i < data.length; i++) {
+          this.dropdownList = this.dropdownList?.concat({ item_id: data[i].id, item_text: data[i].area, item_pincode: data[i].pincode });
+        }
+        this.filteredOptions = this.form_step2.controls['locality'].valueChanges
+          .pipe(
+            startWith(''),
+            map((value) => this._filter(value))
+          );
+      },
+      (err: any) => {
+        // console.log(err);
+
+      }
+    );
+  }
+
+  
   
   google_map(){
     this.mapsAPILoader.load().then(() => {
@@ -319,9 +360,10 @@ export class UpdatepropertyRentComponent implements OnInit {
             });
           }
           if(data.data.locality != null){
-            this.form_step2.patchValue({
-              locality:  data.data.locality
-            });
+            this.locality = JSON.parse(data.data.locality);
+            console.log(this.locality);
+            this.form_step2.controls.locality.patchValue(this.locality);
+            console.log(this.form_step2.controls.locality);
           }
           if(data.data.pincode != null){
             this.form_step2.patchValue({
@@ -578,19 +620,18 @@ export class UpdatepropertyRentComponent implements OnInit {
       );
     }
   }
-  onchange_locality(id:any){
-    let param = { id: id }
-    this.CommonService.get_pincodebyid(param).subscribe(
+
+  onchange_locality(id: any) {
+    //let param = { id: id }
+    this.CommonService.get_pincodebyid(id.option.value.item_id).subscribe(
       response => {
-        let pincode_data:any=response;
-        if(pincode_data.data != null){
-          this.form_step2.patchValue({
-            pincode: pincode_data.data.pincode
-          });
-        }
+        let pincode_data: any = response;
+        this.form_step2.patchValue({
+          pincode: pincode_data.data.pincode
+        });
       }
     );
-  } 
+  }
   keyPressNumbers(event: { which: any; keyCode: any; preventDefault: () => void; }) {
     var charCode = (event.which) ? event.which : event.keyCode;
     // Only Numbers 0-9
@@ -886,5 +927,26 @@ export class UpdatepropertyRentComponent implements OnInit {
    redirect_to_myproperty(): void {
      this.router.navigate(['/agent/my-properties'])
    }
+
+   private _filter(value: any): string[] {
+    console.log(value);
+    if (value.item_text) {
+      const filterValue = value.item_text.toLowerCase();
+      console.log(filterValue);
+      // return this.dropdownList?.filter((option: any) => option.item_text.toLowerCase().includes(filterValue));
+      return this.dropdownList?.filter((option: any) => option.item_text.toLowerCase().includes(filterValue));
+    }
+    else {
+      const filterValue = value.toLowerCase();
+      console.log(filterValue);
+      return this.dropdownList?.filter((option: any) => option.item_text.toLowerCase().includes(filterValue));
+    }
+  }
+
+   displayFn(value?: any) {
+     console.log(value);
+     console.log(this.dropdownList);
+    return value ? this.dropdownList?.find((option: any) => option.item_id === value.item_id)?.item_text : undefined;
+  }
 }
 type addition_room = Array<{ id: number; name: string }>;

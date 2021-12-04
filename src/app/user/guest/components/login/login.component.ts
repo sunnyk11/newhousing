@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
   public LoginFailed: boolean = false;
   public response_data: any;
   public LoggedIn: boolean = false;
-  public token: string='';
+  public token: string = '';
   public plansData: any;
   public returnUrl: any;
   private mobile_ver_status: any;
@@ -55,14 +55,15 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+
     this.route.queryParams.subscribe(
       params => {
-        let google_token= params['token'];
+        let google_token = params['token'];
         let data = params['data'];
         if (google_token && data) {
           this.LoggedIn = true;
           this.jwtService.saveGoogleUser(google_token, data);
-          this.commonService.sendUpdate(this.LoggedIn,google_token);
+          this.commonService.sendUpdate(this.LoggedIn, google_token);
         }
       }
     );
@@ -75,12 +76,14 @@ export class LoginComponent implements OnInit {
       if (this.returnUrl?.includes('/product_payment_summary')) {
         //console.log(this.returnUrl);
         this.proceedToPayment();
+        this.jwtService.removeReturnURL();
       }
       else if (this.returnUrl?.includes('/plans')) {
         this.getPhoneDetails();
+        this.jwtService.removeReturnURL();
       }
       else {
-        this.router.navigateByUrl('');
+        this.router.navigateByUrl(this.returnUrl || '');
       }
     }
   }
@@ -106,13 +109,14 @@ export class LoginComponent implements OnInit {
           this.LoggedIn = true;
           this.response_data = response;
           this.jwtService.saveUser(this.response_data.data);
-          this.token=this.jwtService.getToken();
-          this.commonService.sendUpdate(this.LoggedIn,this.token);
+          this.token = this.jwtService.getToken();
+          this.commonService.sendUpdate(this.LoggedIn, this.token);
           this.user_id = this.jwtService.getUserId();
           this.userEmail = this.jwtService.getUserEmail();
 
           this.returnUrl = this.jwtService.getReturnURL();
-          //console.log(this.returnUrl);
+
+          console.log(this.returnUrl);
           if (this.returnUrl?.includes('/product_payment_summary')) {
             //console.log(this.returnUrl);
             this.proceedToPayment();
@@ -120,8 +124,9 @@ export class LoginComponent implements OnInit {
           else if (this.returnUrl?.includes('/plans')) {
             this.getPhoneDetails();
           }
+
           else {
-            this.router.navigateByUrl(this.returnUrl);
+            this.router.navigateByUrl(this.returnUrl || '');
           }
         },
         err => {
@@ -133,6 +138,7 @@ export class LoginComponent implements OnInit {
       );
     }
     else {
+      this.showLoadingIndicator = false;
       //console.log("Invalid");
     }
 
@@ -239,7 +245,7 @@ export class LoginComponent implements OnInit {
         if (this.mobile_ver_status !== 1) {
           console.log("Mobile number not verified");
           this.router.navigate(['verify-mobile']);
-        } 
+        }
         else {
           console.log("Mobile number verified");
           this.plansData = JSON.parse(this.jwtService.getPlansData());
@@ -253,7 +259,7 @@ export class LoginComponent implements OnInit {
               if (this.letOutPlanData.data.plan_type == 'let_out') {
                 this.router.navigate(['/payment-summary'], { queryParams: { 'orderID': this.letOutPlanData.data.order_id } });
               }
-              else if(this.letOutPlanData.data.plan_type == 'rent') {
+              else if (this.letOutPlanData.data.plan_type == 'rent') {
                 this.plansPageService.crm_call(this.user_id).subscribe();
                 this.router.navigate(['plans']);
                 this.openConfirmationModal();

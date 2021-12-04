@@ -203,9 +203,11 @@ export class ProfileComponent implements OnInit {
     }
     else {
       this.alert = false;
+      this.showLoadingIndicator = true;
       if (this.UserNameForm.value.user_name) {
         this.profilePageService.username_update(this.id, this.email, this.UserNameForm.value.user_name).subscribe(
           data => {
+            this.showLoadingIndicator = false;
             console.log(data);
             this.username_response = data;
             this.showSuccess(this.username_response.message);
@@ -214,6 +216,7 @@ export class ProfileComponent implements OnInit {
         );
       }
       else {
+        this.showLoadingIndicator = false;
         this.toastr.error("Please enter the User Name");
       }
     }
@@ -221,30 +224,38 @@ export class ProfileComponent implements OnInit {
 
   onSubmitPhoneNumber() {
     this.phone_submitted = true;
-    if (this.PhoneNumberForm.value.phone_number && this.PhoneNumberForm.value.phone_number == this.phn_no) {
-      this.alert_phone = true;
-      this.updateFailed = false;
+    if (this.PhoneNumberForm.value.phone_number) {
+      if (this.PhoneNumberForm.value.phone_number == this.phn_no) {
+        this.alert_phone = true;
+        this.updateFailed = false;
+        return;
+      }
+      else {
+        this.showLoadingIndicator = true;
+        this.alert_phone = false;
+        if (this.PhoneNumberForm.value.phone_number) {
+          this.profilePageService.phone_number_update(this.id, this.email, this.PhoneNumberForm.value.phone_number).subscribe(
+            data => {
+              this.showLoadingIndicator = false;
+              console.log(data);
+              this.mobile_response = data;
+              this.otp_visible = true;
+              this.phone_number = this.PhoneNumberForm.value.phone_number
+            },
+            err => {
+              this.showLoadingIndicator = false;
+              console.log(err);
+              this.updateFailed = true;
+              this.errorMessage = err.error;
+            }
+          );
+        }
+      }
+      
     }
     else {
       this.alert_phone = false;
-      if (this.PhoneNumberForm.value.phone_number) {
-        this.profilePageService.phone_number_update(this.id, this.email, this.PhoneNumberForm.value.phone_number).subscribe(
-          data => {
-            console.log(data);
-            this.mobile_response = data;
-            this.otp_visible = true;
-            this.phone_number = this.PhoneNumberForm.value.phone_number
-          },
-          err => {
-            console.log(err);
-            this.updateFailed = true;
-            this.errorMessage = err.error;
-          }
-        );
-      }
-      else {
-        this.toastr.error("Please enter the Mobile Number");
-      }
+      this.toastr.error("Please enter the Mobile Number");
     }
   }
 
@@ -257,8 +268,10 @@ export class ProfileComponent implements OnInit {
     if (this.otpForm.invalid) {
       return;
     }
+    this.showLoadingIndicator = true;
     this.profilePageService.verify_profile_mobile(this.phone_number, this.otpForm.value.otp_password, this.id).subscribe(
       data => {
+        this.showLoadingIndicator = false;
         this.otp_response = data;
         console.log(this.otp_response);
         this.isVerified = true;
@@ -268,6 +281,7 @@ export class ProfileComponent implements OnInit {
         window.location.reload();
       },
       err => {
+        this.showLoadingIndicator = false;
         this.errorMessage = err.error.message;
         this.isFailedVerify_otp = true;
         this.verify = true;
@@ -280,9 +294,10 @@ export class ProfileComponent implements OnInit {
     if (this.PasswordForm.invalid) {
       return;
     }
-
+    this.showLoadingIndicator = true;
     this.profilePageService.password_update(this.PasswordForm.value.old_password, this.PasswordForm.value.new_password, this.PasswordForm.value.cnf_new_password).subscribe(
       data => {
+        this.showLoadingIndicator = false;
         this.password_response = data;
         if (this.password_response.status == 200) {
           this.PasswordForm.reset();
@@ -298,6 +313,7 @@ export class ProfileComponent implements OnInit {
         }
       },
       err => {
+        this.showLoadingIndicator = false;
         console.log(err);
         this.password_message = err.message;
         this.toastr.error(this.password_message, 'Error', {

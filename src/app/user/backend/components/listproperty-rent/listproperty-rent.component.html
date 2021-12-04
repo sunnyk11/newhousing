@@ -1,5 +1,9 @@
 <div class="container p-3">
     <div class="h-100 p-3 bg-light border rounded-3">
+        <div class="row text-center my-4">
+            <h3>List Property for Rent</h3>
+            <p class="text-center">Fill in the form to list your property</p>
+        </div>
         <mat-horizontal-stepper [linear]="true" #stepper="matHorizontalStepper">
             <mat-step label="Step 1" state="phone" [stepControl]="form_step1">
                 <div class="h-100 p-3 bg-lightgray bg-gradient border rounded-3 mt-2">
@@ -13,7 +17,7 @@
                             <div class="col-md-6">
                                 <label for="property_type" class="form-label">Property Type</label>
                                 <select id="property_type" class="form-select form-select-lg w100" formControlName="property_type" [ngClass]="{ 'is-invalid': submitted1 && step1.property_type.errors }">
-                                    <option value ="" selected>Select Property Type</option>
+                                    <option value="" selected>Select Property Type</option>
                                     <optgroup label="ALL RESIDENTIAL">
                                         <option value="Flat/ Apartment">Flat/ Apartment</option>
                                         <option value="Residential House">Residential House</option>
@@ -79,7 +83,7 @@
                             <div class="col-md-4">
                                 <label for="bedrooms" class="form-label">Bedrooms</label>
                                 <select id="bedrooms" class="form-select form-select-lg w100" formControlName="bedrooms" [ngClass]="{ 'is-invalid': submitted1 && step1.bedrooms.errors }">
-                                    <option value="" >Select Bedrooms
+                                    <option value="">Select Bedrooms
                                     </option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
@@ -170,12 +174,19 @@
                                     <option>Delhi</option>
                                 </select>
                             </div>
-                            <div class="col-md-3">
-                                <label for="locality" class="form-label">Locality</label>
+                            <div class="col-md-3 m-auto">
+                                <!-- <label for="locality" class="form-label">Locality</label>
                                 <select id="locality" class="form-select form-select-lg w100" formControlName="locality" (ngModelChange)="onchange_locality($event)" [ngClass]="{ 'is-invalid': submitted2 && step2.locality.errors }">
                                     <option value="">Select Option</option>
                                     <option *ngFor="let locality of locality_data" value="{{locality.id}}">{{locality.area}}</option>             
-                                </select>
+                                </select> -->
+                                <label for="locality">Locality</label>
+                                <input class="w100 form-control mt-2" type="text" placeholder="Select Option" matInput aria-label="Number" formControlName="locality" [ngClass]="{ 'is-invalid': submitted2 && step2.locality.errors }" [matAutocomplete]="auto">
+                                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn.bind(this)" (optionSelected)="onchange_locality($event)">
+                                    <mat-option *ngFor="let area of filteredOptions | async" [value]="area">
+                                        {{area.item_text}}
+                                    </mat-option>
+                                </mat-autocomplete>
                             </div>
                             <div class="col-md-3">
                                 <label for="pincode" class="form-label">Pincode</label>
@@ -443,7 +454,7 @@
                             <div class="col-md-6">
                                 <label for="security_deposit" class="form-label">Security Deposit</label>
                                 <select id="security_deposit" class="form-select form-select-lg w100" formControlName="security_deposit" [ngClass]="{ 'is-invalid': submitted4 && step4.security_deposit.errors }">
-                                    <option value="" >Select Option</option>
+                                    <option value="">Select Option</option>
                                     <option value="1">1 Month Rent</option>
                                     <option value="2">2 Month Rent</option>
                                     <option value="3">3 Month Rent</option>
@@ -463,7 +474,8 @@
                                             autocomplete="off" (ngModelChange)="rangeInput_Price($event)">
                                     </div>
                                 </div>
-                                <span class="alert-danger" *ngIf="Expected_PriceEroor == true">Expected Price Between 5k to 5 lakhs</span>
+                                <span class="alert-danger" *ngIf="Expected_PriceEroor == true">Expected Price Between 5k
+                                    to 5 lakhs</span>
                             </div>
                         </div>
                         <div class="row mt-3">
@@ -519,10 +531,10 @@
                                 <div class="form-group">
                                     <label>Maintenance Charge Condition</label>
                                     <select class="form-select form-select-lg w100" formControlName="maintenance_charge_condition" [ngClass]="{ 'is-invalid': submitted4 && step4.maintenance_charge_condition.errors }">
-                                      <option value="" >Select Option</option>
-                                      <option value="Monthly">Monthly</option>
-                                      <option value="Annually">Annually</option>
-                                      <option value="One Time">One Time</option>
+                                        <option value="">Select Option</option>
+                                        <option value="Monthly">Monthly</option>
+                                        <option value="Annually">Annually</option>
+                                        <option value="One Time">One Time</option>
                                     </select>
                                 </div>
                             </div>
@@ -561,7 +573,7 @@
                                             <div class="portfolio_item">
                                                 <img class="img-fluid" src="{{ image2 }}" alt="Second Image">
                                                 <div class="edu_stats_list" data-toggle="tooltip" data-placement="top" title="Delete" data-original-title="Delete"><button type="button" class="btn btn-thm2 float-right" (click)="delete_pic2(image2)"><span
-                                                        class="flaticon-garbage"></span></button>
+                                                            class="flaticon-garbage"></span></button>
                                                 </div>
                                             </div>
                                         </li>
@@ -572,7 +584,7 @@
                                             <div class="portfolio_item">
                                                 <img class="img-fluid" src="{{ image3 }}" alt="Third Image">
                                                 <div class="edu_stats_list" data-toggle="tooltip" data-placement="top" title="Delete" data-original-title="Delete"><button type="button" class="btn btn-thm2 float-right" (click)="delete_pic3(image3)"><span
-                                                        class="flaticon-garbage"></span></button>
+                                                            class="flaticon-garbage"></span></button>
                                                 </div>
                                             </div>
                                         </li>
@@ -583,7 +595,7 @@
                                             <div class="portfolio_item">
                                                 <img class="img-fluid" src="{{ image4 }}" alt="Fourth Image">
                                                 <div class="edu_stats_list" data-toggle="tooltip" data-placement="top" title="Delete" data-original-title="Delete"><button type="button" class="btn btn-thm2 float-right" (click)="delete_pic4(image4)"><span
-                                                        class="flaticon-garbage"></span></button>
+                                                            class="flaticon-garbage"></span></button>
                                                 </div>
                                             </div>
                                         </li>
@@ -594,7 +606,7 @@
                                             <div class="portfolio_item">
                                                 <img class="img-fluid" src="{{ image5 }}" alt="Fifth Image">
                                                 <div class="edu_stats_list" data-toggle="tooltip" data-placement="top" title="Delete" data-original-title="Delete"><button type="button" class="btn btn-thm2 float-right" (click)="delete_pic5(image4)"><span
-                                                        class="flaticon-garbage"></span></button>
+                                                            class="flaticon-garbage"></span></button>
                                                 </div>
                                             </div>
                                         </li>

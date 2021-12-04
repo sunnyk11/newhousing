@@ -24,6 +24,7 @@ import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-poli
 import { RegisterComponent } from './components/register/register.component';
 import { PaymentSummaryComponent } from './components/payment-summary/payment-summary.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { LoginGuard } from './guards/login.guard';
 //custom component imports
 
 const routes: Routes = [
@@ -51,7 +52,7 @@ const routes: Routes = [
         { path: "register", component: RegisterComponent},
         { path: 'agentregister', component: RegisterComponent},
         { path: "payment-summary", component: PaymentSummaryComponent},
-        { path: "profile", component: ProfileComponent}
+        { path: "profile", component: ProfileComponent, canActivate: [AuthGuard]}
       ]
     }
 ];

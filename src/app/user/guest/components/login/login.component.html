@@ -10,10 +10,11 @@
         <h2 class="col-custom">Login</h2>
     </div>
 </div>
-<div *ngIf="showLoadingIndicator">
-    <div class="preloader"></div>
-</div>
+
 <div class="container py-5 h-100">
+    <div *ngIf="showLoadingIndicator">
+        <div class="preloader"></div>
+    </div>
     <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-12 col-md-8 col-lg-6 col-xl-5">
             <div class="card shadow text-dark login-card">
