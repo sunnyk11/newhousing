@@ -234,7 +234,7 @@
                                                                             <div class="col-lg-6 col-6" *ngFor="let amenties of amenties?.data">
                                                                                 <li>
                                                                                     <div class="form-check">
-                                                                                        <input type="checkbox" class="form-check-input"  value="{{amenties.id}}" id="{{amenties.id}}"  (change)="onchangeAmenties($event,amenties.id)">
+                                                                                        <input type="checkbox" class="form-check-input" value="{{amenties.id}}" id="{{amenties.id}}" (change)="onchangeAmenties($event,amenties.id)">
                                                                                         <label class="form-check-label" for="{{amenties.id}}">
                                                                                             {{amenties.name}}
                                                                                         </label>
@@ -268,7 +268,7 @@
             <div class="col-lg-6">
                 <div class="breadcrumb_content style2 mb0-991">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+                        <li class="breadcrumb-item text-drk"><a routerLink="/">Home</a></li>
                         <li class="breadcrumb-item active text-thm" aria-current="page">Property Listing
                         </li>
                     </ol>

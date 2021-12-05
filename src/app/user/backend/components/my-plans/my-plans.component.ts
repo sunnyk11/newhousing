@@ -14,6 +14,8 @@ export class MyPlansComponent implements OnInit {
   public userEmail: string = '';
   public response: any;
   public plan_det: any;
+  public rent_invoices: any;
+  public let_out_invoices: any;
 
   constructor(private jwtService: JwtService,
     private myPlansService: MyPlansPageService,
@@ -39,12 +41,24 @@ export class MyPlansComponent implements OnInit {
     }
   }
 
+  getRentInvoicesLength() {
+    this.rent_invoices = this.response?.filter((item:any) => item.plan_type == 'rent');
+    return this.rent_invoices?.length;
+  }
+
   getRentInvoices() {
-    return this.response?.filter((item:any) => item.plan_type == 'rent');
+    this.rent_invoices = this.response?.filter((item:any) => item.plan_type == 'rent');
+    return this.rent_invoices;
+  }
+
+  getLetOutInvoicesLength() {
+    this.let_out_invoices = this.response?.filter((item:any) => item.plan_type == 'let_out');
+    return this.let_out_invoices?.length;
   }
 
   getLetOutInvoices() {
-    return this.response?.filter((item:any) => item.plan_type == 'let_out');
+    this.let_out_invoices = this.response?.filter((item:any) => item.plan_type == 'let_out');
+    return this.let_out_invoices;
   }
 
   viewInvoice(invoice_no: any) {

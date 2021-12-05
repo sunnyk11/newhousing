@@ -26,10 +26,14 @@ export class MobileCheckComponent implements OnInit {
   actionFunction() {
     this.closeModal("");
     this.returnUrl = this.router.url;
-    //console.log(this.returnUrl);
+    console.log(this.returnUrl);
     if (this.returnUrl == '/plans') {
       this.plan_price = this.fromParent.expected_rent / (30 / this.fromParent.price_duration);
       this.fromParent.plan_price = this.plan_price;
+    }
+    else if (this.returnUrl == '/list-property') {
+      this.returnUrl = this.jwtService.getReturnURL();
+      console.log(this.returnUrl);
     }
     this.jwtService.saveReturnURL(this.returnUrl);
     this.jwtService.savePlansData(this.fromParent);

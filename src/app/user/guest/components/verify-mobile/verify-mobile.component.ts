@@ -147,6 +147,7 @@ export class VerifyMobileComponent implements OnInit {
               }
             }
           );
+          this.jwtService.removeReturnURL();
         }
         else if (this.previousUrl.includes('plans')) {
           console.log(this.previousUrl);
@@ -171,9 +172,15 @@ export class VerifyMobileComponent implements OnInit {
               console.log(err);
             }
           );
+          this.jwtService.removeReturnURL();
         }
-        else if(this.previousUrl.includes('profile')) {
+        else if (this.previousUrl.includes('profile')) {
+          this.jwtService.removeReturnURL();
           this.router.navigate(['profile']);
+        }
+        else {
+          this.router.navigateByUrl(this.previousUrl || '');
+          this.jwtService.removeReturnURL();
         }
       },
       err => {
