@@ -25,6 +25,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { PaymentSummaryComponent } from './components/payment-summary/payment-summary.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { LoginGuard } from './guards/login.guard';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 //custom component imports
 
 const routes: Routes = [
@@ -52,7 +53,8 @@ const routes: Routes = [
         { path: "register", component: RegisterComponent},
         { path: 'agentregister', component: RegisterComponent},
         { path: "payment-summary", component: PaymentSummaryComponent},
-        { path: "profile", component: ProfileComponent, canActivate: [AuthGuard]}
+        { path: "profile", component: ProfileComponent, canActivate: [AuthGuard]},
+        { path: "reset-password", component: ResetPasswordComponent }
       ]
     }
 ];
