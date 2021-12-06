@@ -3284,7 +3284,7 @@ input[type="range"]::-ms-fill-upper {
 }
 
 .nav-pills .nav-link {
-    width: 25%;
+    width: 50%;
 }
 
 .nav-pills .nav-link.active,
