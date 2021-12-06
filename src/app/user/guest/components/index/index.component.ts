@@ -58,14 +58,16 @@ export class IndexComponent implements OnInit {
     },
   };
   
-  options_sales: Options = {
+  /* Sale feature Commented */
+  /* options_sales: Options = {
     step:5000,
     floor: 500000,
     ceil: 50000000,
     translate: (value: number, label: LabelType): string => {
       return '₹' + value.toLocaleString('en');
     }
-  };
+  }; */
+  /* Sale feature Commented */
   
 
   constructor(
@@ -161,12 +163,13 @@ export class IndexComponent implements OnInit {
     this.rent_range_slider=true;
     this.buyyer_range_slider=false;
   }
-  buyyer_price_fun(){
+
+  /*buyyer_price_fun(){
     this.searchForm.value.sliderControl[0] = 500000;
     this.searchForm.value.sliderControl[1] = 50000000;
     this.searchForm.controls['search_type'].setValue('sales');
     this.rent_range_slider=false;
     this.buyyer_range_slider=true;
-  }
+  }*/
   
 }
