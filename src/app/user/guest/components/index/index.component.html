@@ -258,26 +258,27 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-4 col-xl-4" (click)="location_fetch()">
+            <div class="col-lg-4 col-xl-4" (click)="property_search(city_name)">
                 <div class="properti_city">
-                    <div class="thumb"><img class="img-fluid w100" src="../../../../../assets/resources/images/property/rsz_pexels-sakshi-patwa-5238225.jpg" alt="pc1.jpg">
+                    <div class="thumb"><img class="img-fluid w100" src="../../../../../assets/resources/images/property/city_image_1.jpeg" alt="pc1.jpg">
                     </div>
                     <div class="overlay">
                         <div class="details">
-                            <h4>Chattarpur</h4>
-                            <p>No Properties</p>
+                            <h4>{{city_name}}</h4>
+                            <p>{{product_length}} Properties</p>
+
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-8 col-xl-8" (click)="property_search(city_name)">
+            <div class="col-lg-8 col-xl-8" (click)="location_fetch()">
                 <div class="properti_city">
                     <div class="thumb"><img class="img-fluid w100" src="../../../../../assets/resources/images/property/chattarpur_sharp.jpg" alt="pc2.jpg">
                     </div>
                     <div class="overlay" *ngIf="product_length > 0">
                         <div class="details">
-                            <h4>{{city_name}}</h4>
-                            <p>{{product_length}} Properties</p>
+                            <h4>Chattarpur</h4>
+                            <p>No Properties</p>
                         </div>
                     </div>
                 </div>
