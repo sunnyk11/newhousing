@@ -27,7 +27,9 @@ const routes: Routes = [
       { path: "list-property", component: ListpropertyComponent,canActivate: [AuthGuard]},
       { path: "my-properties", component: MyPropertiesComponent,canActivate: [AuthGuard]},
       { path: "list-property-rent", component: ListpropertyRentComponent,canActivate: [AuthGuard, VerifyMobileGuard]},
-      { path: "list-property-sales", component: ListpropertySalesComponent,canActivate: [AuthGuard, VerifyMobileGuard]},
+      /* Sale feature Commented */
+      // { path: "list-property-sales", component: ListpropertySalesComponent,canActivate: [AuthGuard, VerifyMobileGuard]},
+      /* Sale feature Commented */
       { path: "update-property-rent", component: UpdatepropertyRentComponent,canActivate: [AuthGuard]},
       { path: "payment-summary", component: PaymentSummaryComponent,canActivate: [AuthGuard]},
       { path: "invoice", component: InvoiceComponent,canActivate: [AuthGuard]},

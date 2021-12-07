@@ -85,14 +85,17 @@ export class ProductListingComponent implements OnInit {
       return '₹' + value.toLocaleString('en');
     },
   };
-  options_sales: Options = {
+
+  /* Sale feature Commented */
+  /*options_sales: Options = {
     step:5000,
     floor: 500000,
     ceil: 50000000,
     translate: (value: number, label: LabelType): string => {
       return '₹' + value.toLocaleString('en');
     }
-  };
+  }; */
+  /* Sale feature Commented */
 
   constructor(
     private ProductListingPageService: ProductListingPageService,
