@@ -44,6 +44,7 @@ import { BlogPostComponent } from './components/blog-post/blog-post.component';
 import { PaymentSummaryComponent } from './components/payment-summary/payment-summary.component';
 import { FixAppointmentComponent } from './modals/fix-appointment/fix-appointment.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -81,6 +82,7 @@ import { ProfileComponent } from './components/profile/profile.component';
     PaymentSummaryComponent,
     FixAppointmentComponent,
     ProfileComponent,
+    ResetPasswordComponent,
   ],
   imports: [
     CommonModule,
