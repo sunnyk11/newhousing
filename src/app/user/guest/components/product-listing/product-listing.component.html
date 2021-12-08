@@ -689,7 +689,7 @@
                         <h3>No Search property!!!... </h3>
                     </div>
                 </div>
-                <div class="row" *ngIf="property?.length>8">
+                <div class="row" *ngIf="property?.data?.length>8">
                     <div class="col-lg-12  agent_property">
                         <pagination-controls (pageChange)="p=$event"></pagination-controls>
                     </div>
