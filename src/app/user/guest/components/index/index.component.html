@@ -34,34 +34,7 @@
                                                     <div class="candidate_revew_select">
                                                         <select class="form-select h50" name="type" formControlName="type" id="type">
                                                         <option value ="" selected>Select Property Type</option>
-                                                        <optgroup label="ALL RESIDENTIAL">
-                                                            <option value="Flat/ Apartment">Flat/ Apartment</option>
-                                                            <option value="Residential House">Residential House</option>
-                                                            <option value="Villa">Villa</option>
-                                                            <option value="Builder Floor Apartment">Builder Floor Apartment
-                                                            </option>
-                                                            <option value="Residential Land/ Plot">Residential Land/ Plot
-                                                            </option>
-                                                            <option value="Penthouse">Penthouse</option>
-                                                            <option value="Studio Apartment">Studio Apartment</option>
-                                                        </optgroup>
-                                                        <optgroup label="ALL COMMERCIAL">
-                                                            <option value="Commercial Office Space">Commercial Office Space
-                                                            </option>
-                                                            <option value="Office in IT Park/ SEZ">Office in IT Park/ SEZ
-                                                            </option>
-                                                            <option value="Commercial Shop">Commercial Shop</option>
-                                                            <option value="Commercial Showroom">Commercial Showroom</option>
-                                                            <option value="Commercial Land">Commercial Land</option>
-                                                            <option value="Warehouse/ Godown">Warehouse/ Godown</option>
-                                                            <option value="Industrial Land">Industrial Land</option>
-                                                            <option value="Industrial Building">Industrial Building</option>
-                                                            <option value="Industrial Shed">Industrial Shed</option>
-                                                        </optgroup>
-                                                        <optgroup label="ALL AGRICULTURAL">
-                                                            <option value="Agricultural Land">Agricultural Land</option>
-                                                            <option value="Farm House">Farm House</option>
-                                                        </optgroup>
+                                                        <option  *ngFor="let properrt_category of category?.data" [value]="properrt_category.category" >{{properrt_category.category}}</option>
                                                     </select>
                                                     </div>
                                                 </div>
@@ -257,7 +230,7 @@
             <div class="col-lg-6 offset-lg-3">
                 <div class="main-title text-center">
                     <h2>Find Properties in These Cities</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> -->
                 </div>
             </div>
         </div>
@@ -266,7 +239,7 @@
                 <div class="properti_city">
                     <div class="thumb"><img class="img-fluid w100" src="../../../../../assets/resources/images/property/city_image_1.jpeg" alt="pc1.jpg">
                     </div>
-                    <div class="overlay">
+                    <div class="overlay" *ngIf="product_length>0">
                         <div class="details">
                             <h4>{{city_name}}</h4>
                             <p>{{product_length}} Properties</p>
@@ -275,14 +248,14 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-8 col-xl-8" (click)="location_fetch()">
+            <div class="col-lg-8 col-xl-8" (click)="property_search_locality(chattarpur)">
                 <div class="properti_city">
                     <div class="thumb"><img class="img-fluid w100" src="../../../../../assets/resources/images/property/chattarpur_sharp.jpg" alt="pc2.jpg">
                     </div>
-                    <div class="overlay" *ngIf="product_length > 0">
+                    <div class="overlay" *ngIf="chattarpur_length>0">
                         <div class="details">
-                            <h4>Chattarpur</h4>
-                            <p>No Properties</p>
+                            <h4>{{chattarpur}}</h4>
+                            <p>{{chattarpur_length}} Properties</p>
                         </div>
                     </div>
                 </div>

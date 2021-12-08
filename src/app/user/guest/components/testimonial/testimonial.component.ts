@@ -37,7 +37,7 @@ export class TestimonialComponent implements OnInit {
     autoplay:true,
     autoplayHoverPause:true,
     dots: true,
-    navSpeed: 500,
+    navSpeed: 2000,
     navText: ['', ''],
     responsive: {
       0: {

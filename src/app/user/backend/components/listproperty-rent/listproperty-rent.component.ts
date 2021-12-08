@@ -132,7 +132,7 @@ export class ListpropertyRentComponent implements OnInit {
       notice_month: ['', Validators.required],
       agreement_duration: ['', Validators.required],
       property_floor: ['', Validators.required],
-      availability_condition: ['', Validators.required],
+      // availability_condition: ['', Validators.required],
       total_floors: ['', Validators.required]
     });
 
@@ -142,7 +142,7 @@ export class ListpropertyRentComponent implements OnInit {
       electricity_water: ['0', Validators.required],
       price_negotiable_status: ['0', Validators.required],
       price_negotiable: [''],
-      tax_govt_charge: ['0', Validators.required],
+      // tax_govt_charge: ['0', Validators.required],
       maintenance_charge_status: ['0', Validators.required],
       maintenance_charge: [''],
       maintenance_charge_condition: [''],
@@ -155,13 +155,10 @@ export class ListpropertyRentComponent implements OnInit {
     this.selected_room = new Array<string>();
 
     this.get_area();
-    console.log(this.form_step2.controls);
-
     this.filteredOptions = this.form_step2.controls.locality.valueChanges.pipe(
       startWith(''),
       map((value) => this._filter(value))
     );
-    console.log(this.filteredOptions);
   }
 
   get step1() {
@@ -189,7 +186,6 @@ export class ListpropertyRentComponent implements OnInit {
   get_area() {
     this.RentPropertyService.get_areas().subscribe(
       (data: any) => {
-        console.log(data);
         for (let i = 1; i < data.length; i++) {
           this.dropdownList = this.dropdownList?.concat({ item_id: data[i].id, item_text: data[i].area, item_pincode: data[i].pincode });
         }
@@ -207,15 +203,12 @@ export class ListpropertyRentComponent implements OnInit {
   }
 
   private _filter(value: any): string[] {
-    console.log(value);
     if (value.item_text) {
       const filterValue = value.item_text.toLowerCase();
-      console.log(filterValue);
       return this.dropdownList?.filter((option: any) => option.item_text.toLowerCase().includes(filterValue));
     }
     else {
       const filterValue = value.toLowerCase();
-      console.log(filterValue);
       return this.dropdownList?.filter((option: any) => option.item_text.toLowerCase().includes(filterValue));
     }
   }
@@ -288,7 +281,7 @@ export class ListpropertyRentComponent implements OnInit {
   }
   onchange_locality(id: any) {
     //let param = { id: id }
-    this.CommonService.get_pincodebyid(id.option.value.item_id).subscribe(
+    this.CommonService.get_pincodebyid(id.option.value).subscribe(
       response => {
         let pincode_data: any = response;
         this.form_step2.patchValue({
@@ -298,6 +291,7 @@ export class ListpropertyRentComponent implements OnInit {
     );
   }
   submit_rent() {
+    this.showLoadingIndicator = true;
     if (this.form_step4.invalid) {
       this.submitted4 = true;
     } else {
@@ -315,6 +309,7 @@ export class ListpropertyRentComponent implements OnInit {
               timeOut: 3000,
             });
             this.router.navigate(['/agent/my-properties']);
+            this.showLoadingIndicator = false;
           }, err => {
             this.showLoadingIndicator = false;
             let Message = err.error.message;
@@ -333,6 +328,7 @@ export class ListpropertyRentComponent implements OnInit {
   }
   // draft property 
   save_draft() {
+    this.showLoadingIndicator = true;
     this.form_step4.value.draft_form_id = '1';
     let param = { form_step1: this.form_step1.value, form_step2: this.form_step2.value, form_step3: this.form_step3.value, form_step4: this.form_step4.value, rooms: this.additional_room_array, amenties: this.amenityArray, images: this.product_img }
     if (this.form_step4.value.expected_rent >= 5000 && this.form_step4.value.expected_rent <= 500000) {

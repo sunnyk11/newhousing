@@ -40,6 +40,8 @@ export class ProductListingComponent implements OnInit {
   public product_copm:any={};
   public product_length:number=0;
   public propertyresultlength:boolean=false;
+  public category:any={};
+  public locality_heading:boolean=false;
   
   private amenityArray:any = [];
   private search_amenties_convert: any=[];
@@ -64,6 +66,7 @@ export class ProductListingComponent implements OnInit {
     type: [''],
     location: [''],
     city:[''],
+    locality:[''],
     property_status:['all'],
     sliderControl: [[]]
   });
@@ -112,6 +115,7 @@ export class ProductListingComponent implements OnInit {
      }
 
   ngOnInit(): void {  
+    this.productcategory();
     this.mapsAPILoader.load().then(() => {
       this.geoCoder = new google.maps.Geocoder();
     });
@@ -139,6 +143,16 @@ export class ProductListingComponent implements OnInit {
       }
     );
   }
+  // fetch productcategory advance tab
+  productcategory(){
+    this.CommonService.getproductcategory({ param: null }).subscribe(
+      response => {
+        this.category=response;
+      }, err => { 
+      }
+    );
+  } 
+  
   openPopup(){
     this.displayStyle = "block";
   }  
@@ -183,7 +197,14 @@ export class ProductListingComponent implements OnInit {
         this.searchForm.value.sliderControl[0] = 5000;
         this.searchForm.value.sliderControl[1] = 50000000;
         this.onsearch();
+       }else if(params.locality != null){
+        this.searchForm.controls['locality'].setValue(params.locality);         
+        this.searchForm.value.sliderControl[0] = 5000;
+        this.searchForm.value.sliderControl[1] = 50000000;
+        this.locality_heading=true;
+        this.onsearch();
        }
+       
        else{
         this.searchForm.value.sliderControl[0] = 5000;
         this.searchForm.value.sliderControl[1] = 50000000;
@@ -306,6 +327,7 @@ export class ProductListingComponent implements OnInit {
       type: '',
       location: '',
       city:'',
+      locality:'',
       property_status:'all',
       sliderControl: [5000,50000000]
     });    

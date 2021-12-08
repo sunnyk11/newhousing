@@ -7,7 +7,7 @@
     <div class="h-100 p-3 bg-light border rounded-3">
         <mat-horizontal-stepper [linear]="true" #stepper="matHorizontalStepper">
 
-            <mat-step label="Step 1" state="phone" [stepControl]="form_step1" *ngIf="property_show">
+            <mat-step label="Step 1" state="phone" [stepControl]="form_step1" >
                 <div class="h-100 p-3 bg-lightgray bg-gradient border rounded-3 mt-2">
                     <form [formGroup]="form_step1" class="g-3">
                         <div class="row mt-3">
@@ -183,8 +183,8 @@
 
                                 <label for="locality">Locality</label>
                                 <input class="w100 form-control mt-2" type="text" placeholder="Select Option" matInput aria-label="Number" formControlName="locality" [ngClass]="{ 'is-invalid': submitted2 && step2.locality.errors }" [matAutocomplete]="auto">
-                                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn.bind(this)" (optionSelected)="onchange_locality($event)">
-                                    <mat-option *ngFor="let area of filteredOptions | async" [value]="area">
+                                <mat-autocomplete #auto="matAutocomplete"  (optionSelected)="onchange_locality($event)">
+                                    <mat-option *ngFor="let area of filteredOptions | async" [value]="area.item_text">
                                         {{area.item_text}}
                                     </mat-option>
                                 </mat-autocomplete>
@@ -305,6 +305,10 @@
                                     <option value="0">No</option>
                                 </select>
                             </div>
+                            <div class="col-md-4">
+                                <label for="available_date" class="form-label">Available On</label>
+                                <input type="date" class="form-control" id="available_date" formControlName="available_date" [ngClass]="{ 'is-invalid': submitted3 && step3.available_date.errors }">
+                            </div>
                         </div>
                         <div class="row additional_row" *ngIf="furnish_row == true">
                             <div class="col-12  col-lg-12">
@@ -358,7 +362,7 @@
 
                     <div class="h-100 p-3 bg-lightgray border rounded-3 mt-2">
                         <div class="row mt-3">
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <label for="willing_to_rent" class="form-label">Willing to Rent Out to</label>
                                 <select id="willing_to_rent" class="form-select form-select-lg w100" formControlName="willing_to_rent" [ngClass]="{ 'is-invalid': submitted3 && step3.willing_to_rent.errors }">
                                     <option value="">Select</option>
@@ -367,7 +371,7 @@
                                     <option value="Single Women">Single Women</option>
                                 </select>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <label for="agreement_type" class="form-label">Agreement Type</label>
                                 <select id="agreement_type" class="form-select form-select-lg w100" formControlName="agreement_type" [ngClass]="{ 'is-invalid': submitted3 && step3.agreement_type.errors }">
                                     <option value="">Select Preferred </option>
@@ -376,13 +380,9 @@
                                     <option value="Any">Any</option>
                                 </select>
                             </div>
-                            <div class="col-md-4">
-                                <label for="available_date" class="form-label">Available On</label>
-                                <input type="date" class="form-control" id="available_date" formControlName="available_date" [ngClass]="{ 'is-invalid': submitted3 && step3.available_date.errors }">
-                            </div>
                         </div>
                         <div class="row mt-3">
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <label for="notice_month" class="form-label">Month of Notice</label>
                                 <select id="notice_month" class="form-select form-select-lg w100" formControlName="notice_month" [ngClass]="{ 'is-invalid': submitted3 && step3.notice_month.errors }">
                                     <option value="">Select</option>
@@ -394,22 +394,13 @@
                                     <option value="6">6</option>
                                 </select>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <label for="agreement_duration" class="form-label">Duration of Rent Agreement</label>
                                 <select id="agreement_duration" class="form-select form-select-lg w100" formControlName="agreement_duration" [ngClass]="{ 'is-invalid': submitted3 && step3.agreement_duration.errors }">
                                     <option value="">Select</option>
                                     <option value="One Year">One Year</option>
                                     <option value="Three Year">Three Years</option>
                                     <option value="Custom">Custom</option>
-                                </select>
-                            </div>
-                            <div class="col-md-4">
-                                <label for="agreement_duration" class="form-label">Availability</label>
-                                <select id="agreement_duration" class="form-select form-select-lg w100" formControlName="availability_condition" [ngClass]="{ 'is-invalid': submitted3 && step3.availability_condition.errors }">
-                                    <option value="">Select Availability</option>
-                                    <option value="Under Construction">Under Construction
-                                    </option>
-                                    <option value="Ready To Move">Ready To Move</option>
                                 </select>
                             </div>
                         </div>
@@ -526,21 +517,16 @@
                         </div>
                         <div class="row mt-3">
                             <div class="col-md-6">
-                                <label for="tax_govt_charge" class="form-label">Is Tax and Govt. Charges
-                                    Included?</label>
-                                <select id="tax_govt_charge" class="form-select form-select-lg w100" formControlName="tax_govt_charge">
-                                    <!-- <option value="">Select Option</option> -->
-                                    <option value="1">Yes</option>
-                                    <option value="0">No</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6">
                                 <label for="maintenance_charge_status" class="form-label">Any Maintenance
                                     Charge?</label>
                                 <select id="maintenance_charge_status" class="form-select form-select-lg w100" formControlName="maintenance_charge_status" (ngModelChange)="maintenanceStatus($event)">
                                     <option value="0">No</option>
                                     <option value="1">Yes</option>
                                 </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="video_link" class="form-label">Property Video Link (You Tube)</label>
+                                <input type="text" class="form-control" id="video_link" formControlName="video_link">
                             </div>
                         </div>
                         <div class="row mt-3" *ngIf="maintenance_row == true">
@@ -629,12 +615,6 @@
                                         </li>
                                     </div>
                                 </ul>
-                            </div>
-                        </div>
-                        <div class="row mt-3">
-                            <div class="col-md-12">
-                                <label for="video_link" class="form-label">Property Video Link (You Tube)</label>
-                                <input type="text" class="form-control" id="video_link" formControlName="video_link">
                             </div>
                         </div>
                         <div class="row mt-3">
