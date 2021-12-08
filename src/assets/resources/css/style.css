@@ -3252,11 +3252,15 @@ input[type="range"]::-ms-fill-upper {
 }
 
 .breadcrumb-item+.breadcrumb-item::before {
-    color: #fff;
+    color: #888;
 }
 
 .breadcrumb-item a {
     color: #ddd;
+}
+
+.breadcrumb-item.text-drk a {
+    color: #707B7C;
 }
 
 .col-custom {
@@ -3280,7 +3284,7 @@ input[type="range"]::-ms-fill-upper {
 }
 
 .nav-pills .nav-link {
-    width: 25%;
+    width: 50%;
 }
 
 .nav-pills .nav-link.active,
@@ -4753,5 +4757,5 @@ agm-map {
     position: absolute;
     top: 0px;
     width: 100%;
-    z-index: 999;
+    z-index: 10000;
 }

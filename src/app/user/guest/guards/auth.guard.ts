@@ -9,6 +9,7 @@ import { JwtService } from '../../services/jwt.service';
 export class AuthGuard implements CanActivate {
 
   private token: any;
+  public returnUrl: string = '';
 
   constructor(private jwtService: JwtService,
     private router: Router) {}
@@ -21,6 +22,9 @@ export class AuthGuard implements CanActivate {
         obs.next(true);
       }
       else {
+        this.returnUrl = state.url;
+        console.log(this.returnUrl);
+        this.jwtService.saveReturnURL(this.returnUrl);
         this.router.navigateByUrl('login');
         obs.next(false);
       }

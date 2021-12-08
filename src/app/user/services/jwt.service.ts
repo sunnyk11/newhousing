@@ -56,7 +56,7 @@ export class JwtService {
     window.localStorage["USER_ID"] = JSON.stringify(data.id);
     window.localStorage["USER_NAME"] = JSON.stringify(data.username);
     window.localStorage["USER_TYPE"] = JSON.stringify(data.usertype);
-    window.localStorage["USER_PROFILE_PIC"] = JSON.stringify(data.misc.profile_pic);
+    window.localStorage["USER_PROFILE_PIC"] = data.misc.profile_pic;
     //this.router.navigate([""]);
   }
 
@@ -81,7 +81,7 @@ export class JwtService {
   }
 
   saveProfilePic(data:any) {
-    window.localStorage["USER_PROFILE_PIC"] = JSON.stringify(data);
+    window.localStorage["USER_PROFILE_PIC"] = data;
   }
 
   saveReturnURL(url: any) {
@@ -92,6 +92,10 @@ export class JwtService {
 
   getReturnURL() {
     return window.localStorage["RETURN_URL"];
+  }
+
+  removeReturnURL() {
+    window.localStorage.removeItem("RETURN_URL");
   }
 
   getPlansData() {

@@ -32,4 +32,9 @@ export class RentPropertyService {
     const route = "/api/product/delete_video"; 
     return this.apiService.post<ResultModel>(route, reqModel);
   }
+
+  get_areas(): any {
+    const route = "/api/auth/get_areas";
+    return this.apiService.get<ResultModel>(route);
+  }
 }

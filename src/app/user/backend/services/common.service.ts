@@ -30,6 +30,6 @@ export class CommonService {
   } 
   get_pincodebyid(reqModel:any): Observable<ResultModel> {
     const route = "/api/auth/get_pincodebyid";
-    return this.apiService.post<ResultModel>(route, reqModel);
+    return this.apiService.post<ResultModel>(route, {id: reqModel});
   }
 }
