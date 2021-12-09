@@ -1,29 +1,48 @@
-.artical .thumb img {
-    height: 250px!important;
+.feat_property {
+    margin: 0px 8px;
 }
 
-.artical .feat_property .details .tc_content {
-    height: 130px!important;
+.feat_property .thumb img {
+    height: 250px;
 }
 
-.artical .for_blog {
-    /* width: 360px!important; */
-    width: 100% !important;
-}
-
-.list-inline-item .flaticon-user {
+.flaticon-user {
     color: #ff5a5f;
     font-size: 30px;
 }
 
-.preloader_row {
-    position: relative;
-    width: 100%!important;
-    height: 50vh!important;
+.tc_content {
+    height: 110px;
+    vertical-align: middle;
+}
+
+.feat_property:hover:before {
+    background-color: #ff5a5f;
+    bottom: 0;
+    content: "";
+    height: 5px;
+    left: 0;
+    position: absolute;
+    right: 0;
+    width: 100%;
 }
 
 .profile_image {
     width: 40px !important;
     height: 40px;
     border-radius: 50%;
+}
+
+.our-blog .thumb a {
+    width: 100%!important;
+}
+
+.feat_property .details .tc_content {
+    height: 110px !important;
+}
+
+@media (max-width: 768px) {
+    .feat_property {
+        height: auto !important;
+    }
 }

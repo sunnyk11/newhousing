@@ -141,7 +141,7 @@ ol {
 .footer_contact_widget li a {
     font-size: 14px;
     font-family: "Nunito";
-    color: #8a99b3;
+    color: #8a99b3 !important;
     line-height: 2.429;
     -webkit-transition: all 0.3s ease 0s;
     -moz-transition: all 0.3s ease 0s;
@@ -3369,26 +3369,28 @@ input[type="range"]::-ms-fill-upper {
 }
 
 .form_grid .contact_form input {
-    border: 1px solid #ebebeb;
+    /* border: 1px solid #ebebeb; */
     border-radius: 8px;
     background-color: #ffffff;
     color: #484848;
     font-size: 14px;
     height: 50px;
     line-height: 1.2;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+    margin-top: 10px;
     padding-left: 20px;
 }
 
 .form_grid .contact_form textarea.form-control {
     background-color: #ffffff;
-    border: 1px solid #ebebeb;
+    /* border: 1px solid #ebebeb; */
     border-radius: 8px;
     font-size: 14px;
     font-family: "Nunito";
     color: #484848;
     line-height: 1.2;
-    margin-bottom: 25px;
+    margin-bottom: 10px;
+    margin-top: 10px;
     padding: 20px;
 }
 
