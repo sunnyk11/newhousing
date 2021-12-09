@@ -20,7 +20,10 @@ export class IndexComponent implements OnInit {
   public buyyer_range_slider:boolean= false;
   public property:any={};
   public product_length:number=0;
-  public city_name:any=' ';
+  public city_name:any='';
+  public category:any={};
+  public chattarpur:any;
+  public chattarpur_length:number=0;
 
   
   private selectedItems:any=[];
@@ -85,6 +88,7 @@ export class IndexComponent implements OnInit {
     this.searchForm.value.sliderControl[1] = 500000;
     this.getAmenities();
     this.get_property();
+    this.productcategory();
     this.mapsAPILoader.load().then(() => {
       this.geoCoder = new google.maps.Geocoder();
     });
@@ -121,9 +125,12 @@ export class IndexComponent implements OnInit {
   get_property(){
     this.indexPageService.get_Property({ param: null }).subscribe(
       response => {
+        console.log(response);
         this.property=response;
         this.city_name=this.property.data['0'].city;
         this.product_length=this.property.data['0'].city_count;
+        this.chattarpur='Chattarpur';
+        this.chattarpur_length=this.property.Chattarpur_data.Chattarpur;
       }, err => { 
         let Message =err.error.message;
         this.toastr.error(Message, 'Something Error', {
@@ -132,16 +139,29 @@ export class IndexComponent implements OnInit {
       }
      );
   }
-  location_fetch():void{
-    this.toastr.info('Only For Delhi Location','', {
-      timeOut: 2000,
-      positionClass: 'toast-bottom-right',
-    });
-  }
+  // location_fetch():void{
+  //   this.toastr.info('Only For Delhi Location','', {
+  //     timeOut: 2000,
+  //     positionClass: 'toast-bottom-right',
+  //   });
+  // }
+  // fetch productcategory advance tab
+  productcategory(){
+    this.CommonService.getproductcategory({ param: null }).subscribe(
+      response => {
+        this.category=response;
+      }, err => { 
+      }
+    );
+  } 
   
   // searching city name property 
   property_search(city:string){
     this.router.navigate(['/product-listing'],{queryParams:{'cities':city}})
+  }
+   // searching locality name property 
+  property_search_locality(locality:string){
+    this.router.navigate(['/product-listing'],{queryParams:{'locality':locality}})
   }
   navigate(): void{
     let data:any=this.searchForm.value;

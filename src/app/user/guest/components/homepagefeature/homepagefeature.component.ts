@@ -180,7 +180,9 @@ export class HomepagefeatureComponent implements OnInit {
   pro_feature: OwlOptions = {
     loop:true,
     dots:true,
-    navSpeed: 700,
+    autoplay:true,
+    autoplayHoverPause:true,
+    navSpeed: 1500,
     navText: ['<span class="outer_slider"><i class="flaticon-left-arrow-1 left"></i></span> ', '<span class="outer_slider"><i class="flaticon-right-arrow right"></i></span>'],
     responsive: {
       0: {

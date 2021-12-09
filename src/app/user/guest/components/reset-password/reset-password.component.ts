@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ResetPasswordService } from '../../services/reset-password.service';
 import { ConfirmedValidator } from '../../utils/validation';
-import * as CryptoJS from 'crypto-js';
 
 @Component({
   selector: 'app-reset-password',

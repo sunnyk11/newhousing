@@ -60,34 +60,7 @@
                                                 <div class="candidate_revew_select">
                                                     <select class="form-select w100 show-tick" name="type" formControlName="type" id="type">
                                                         <option value ="" selected>Select Property Type</option>
-                                                        <optgroup label="ALL RESIDENTIAL">
-                                                            <option value="Flat/ Apartment">Flat/ Apartment</option>
-                                                            <option value="Residential House">Residential House</option>
-                                                            <option value="Villa">Villa</option>
-                                                            <option value="Builder Floor Apartment">Builder Floor Apartment
-                                                            </option>
-                                                            <option value="Residential Land/ Plot">Residential Land/ Plot
-                                                            </option>
-                                                            <option value="Penthouse">Penthouse</option>
-                                                            <option value="Studio Apartment">Studio Apartment</option>
-                                                        </optgroup>
-                                                        <optgroup label="ALL COMMERCIAL">
-                                                            <option value="Commercial Office Space">Commercial Office Space
-                                                            </option>
-                                                            <option value="Office in IT Park/ SEZ">Office in IT Park/ SEZ
-                                                            </option>
-                                                            <option value="Commercial Shop">Commercial Shop</option>
-                                                            <option value="Commercial Showroom">Commercial Showroom</option>
-                                                            <option value="Commercial Land">Commercial Land</option>
-                                                            <option value="Warehouse/ Godown">Warehouse/ Godown</option>
-                                                            <option value="Industrial Land">Industrial Land</option>
-                                                            <option value="Industrial Building">Industrial Building</option>
-                                                            <option value="Industrial Shed">Industrial Shed</option>
-                                                        </optgroup>
-                                                        <optgroup label="ALL AGRICULTURAL">
-                                                            <option value="Agricultural Land">Agricultural Land</option>
-                                                            <option value="Farm House">Farm House</option>
-                                                        </optgroup>
+                                                        <option  *ngFor="let properrt_category of category?.data" [value]="properrt_category.category" >{{properrt_category.category}}</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -339,34 +312,7 @@
                                             <div class="candidate_revew_select">
                                                 <select class="form-select w100 show-tick" name="type" formControlName="type" id="type">
                                                     <option value ="" selected>Select Property Type</option>
-                                                    <optgroup label="ALL RESIDENTIAL">
-                                                        <option value="Flat/ Apartment">Flat/ Apartment</option>
-                                                        <option value="Residential House">Residential House</option>
-                                                        <option value="Villa">Villa</option>
-                                                        <option value="Builder Floor Apartment">Builder Floor Apartment
-                                                        </option>
-                                                        <option value="Residential Land/ Plot">Residential Land/ Plot
-                                                        </option>
-                                                        <option value="Penthouse">Penthouse</option>
-                                                        <option value="Studio Apartment">Studio Apartment</option>
-                                                    </optgroup>
-                                                    <optgroup label="ALL COMMERCIAL">
-                                                        <option value="Commercial Office Space">Commercial Office Space
-                                                        </option>
-                                                        <option value="Office in IT Park/ SEZ">Office in IT Park/ SEZ
-                                                        </option>
-                                                        <option value="Commercial Shop">Commercial Shop</option>
-                                                        <option value="Commercial Showroom">Commercial Showroom</option>
-                                                        <option value="Commercial Land">Commercial Land</option>
-                                                        <option value="Warehouse/ Godown">Warehouse/ Godown</option>
-                                                        <option value="Industrial Land">Industrial Land</option>
-                                                        <option value="Industrial Building">Industrial Building</option>
-                                                        <option value="Industrial Shed">Industrial Shed</option>
-                                                    </optgroup>
-                                                    <optgroup label="ALL AGRICULTURAL">
-                                                        <option value="Agricultural Land">Agricultural Land</option>
-                                                        <option value="Farm House">Farm House</option>
-                                                    </optgroup>
+                                                    <option  *ngFor="let properrt_category of category?.data" [value]="properrt_category.category" >{{properrt_category.category}}</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -661,7 +607,7 @@
                                     <div class="tc_content">
                                         <p class="text-thm" *ngIf="number.type != null">{{ number.type | titlecase }}</p>
                                         <h4>{{number.build_name | titlecase}}</h4>
-                                        <p *ngIf="number.address != null"><span class="flaticon-placeholder"></span> {{ number.address | titlecase }}
+                                        <p *ngIf="number.address != null"><span class="flaticon-placeholder"></span> {{ number.address | titlecase }}<span class="locality_heading" *ngIf="locality_heading == true">({{number.locality | titlecase}})</span>
                                         </p>
                                         <ul class="prop_details mb0">
                                             <li class="list-inline-item"><a>Beds: {{ number.bedroom }}</a></li>
@@ -697,7 +643,7 @@
                         <h3>No Search property!!!... </h3>
                     </div>
                 </div>
-                <div class="row" *ngIf="property?.length>8">
+                <div class="row" *ngIf="property?.data?.length>8">
                     <div class="col-lg-12  agent_property">
                         <pagination-controls (pageChange)="p=$event"></pagination-controls>
                     </div>

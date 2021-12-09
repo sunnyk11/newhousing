@@ -34,19 +34,17 @@ export class ListpropertyComponent implements OnInit {
     }
     this.loginPageService.getUserPhoneDetails({ param: null }).subscribe(
       data => {
-        this.showLoadingIndicator = false;
         this.user_phone_data = data;
         if (this.user_phone_data !== 1) {
-          console.log("Mobile number not verified");
           this.openMobModal();
         }
         else {
-          console.log("Mobile Number verified");
           if (page == 'rent') {
             this.router.navigate(['/list-property-rent']);
           }
           else if (page == 'sale') {
             this.router.navigate(['/list-property-sales']);
+            this.showLoadingIndicator = false;
           }
         }
       },

@@ -34,6 +34,7 @@
 
 nav {
     border-bottom: 1px solid #888;
+    z-index: 1000000!important;
 }
 
 @media only screen and (min-width:768px) {

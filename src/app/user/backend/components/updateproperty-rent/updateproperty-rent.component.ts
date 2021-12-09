@@ -163,7 +163,7 @@ export class UpdatepropertyRentComponent implements OnInit {
       notice_month: ['', Validators.required],
       agreement_duration: ['', Validators.required],
       property_floor: ['', Validators.required],
-      availability_condition: ['', Validators.required],
+      // availability_condition: ['', Validators.required],
       total_floors: ['', Validators.required]
     });
 
@@ -173,7 +173,7 @@ export class UpdatepropertyRentComponent implements OnInit {
       electricity_water: ['', Validators.required],
       price_negotiable_status: ['0', Validators.required],
       price_negotiable: [''],
-      tax_govt_charge: ['0', Validators.required],
+      // tax_govt_charge: ['0', Validators.required],
       maintenance_charge_status: ['0', Validators.required],
       maintenance_charge: [''],
       maintenance_charge_condition: [''],
@@ -184,21 +184,17 @@ export class UpdatepropertyRentComponent implements OnInit {
     this.selectedItems = new Array<string>();
     this.product_img = new Array<string>();
     this.selected_room = new Array<string>();
-
-    console.log(this.form_step2.controls);
     
     this.filteredOptions = this.form_step2.controls['locality'].valueChanges.pipe(
         startWith(''),
         debounceTime(400),
         map((value) => this._filter(value))
       );
-    console.log(this.filteredOptions); 
   }
 
   get_area() {
     this.RentPropertyService.get_areas().subscribe(
       (data: any) => {
-        console.log(data);
         for (let i = 0; i < data.length; i++) {
           this.dropdownList = this.dropdownList?.concat({ item_id: data[i].id, item_text: data[i].area, item_pincode: data[i].pincode });
         }
@@ -279,6 +275,7 @@ export class UpdatepropertyRentComponent implements OnInit {
           this.redirect_to_myproperty();
         }else{
           this.property_show=true;
+          this.showLoadingIndicator =false;
           this.google_map();
           if(data.data.additional_rooms_status == 1){
             this.add_room_string = data.data.additional_rooms;
@@ -360,10 +357,9 @@ export class UpdatepropertyRentComponent implements OnInit {
             });
           }
           if(data.data.locality != null){
-            this.locality = JSON.parse(data.data.locality);
-            console.log(this.locality);
-            this.form_step2.controls.locality.patchValue(this.locality);
-            console.log(this.form_step2.controls.locality);
+            this.form_step2.patchValue({
+              locality:  data.data.locality
+            });
           }
           if(data.data.pincode != null){
             this.form_step2.patchValue({
@@ -514,7 +510,6 @@ export class UpdatepropertyRentComponent implements OnInit {
             this.safeURL = this._sanitizer.bypassSecurityTrustResourceUrl(this.youtube_url);
             this.videolink=data.data.video_link.length;       
           }
-          this.showLoadingIndicator =false;
         }
       });
   }
@@ -623,7 +618,7 @@ export class UpdatepropertyRentComponent implements OnInit {
 
   onchange_locality(id: any) {
     //let param = { id: id }
-    this.CommonService.get_pincodebyid(id.option.value.item_id).subscribe(
+    this.CommonService.get_pincodebyid(id.option.value).subscribe(
       response => {
         let pincode_data: any = response;
         this.form_step2.patchValue({
@@ -722,6 +717,7 @@ export class UpdatepropertyRentComponent implements OnInit {
        this.price_negotiable_row = true;
      }
      else {
+      this.price_negotiable_row = false;
      }
    }
    maintenanceStatus(event:number): void {
@@ -929,23 +925,18 @@ export class UpdatepropertyRentComponent implements OnInit {
    }
 
    private _filter(value: any): string[] {
-    console.log(value);
     if (value.item_text) {
       const filterValue = value.item_text.toLowerCase();
-      console.log(filterValue);
       // return this.dropdownList?.filter((option: any) => option.item_text.toLowerCase().includes(filterValue));
       return this.dropdownList?.filter((option: any) => option.item_text.toLowerCase().includes(filterValue));
     }
     else {
       const filterValue = value.toLowerCase();
-      console.log(filterValue);
       return this.dropdownList?.filter((option: any) => option.item_text.toLowerCase().includes(filterValue));
     }
   }
 
    displayFn(value?: any) {
-     console.log(value);
-     console.log(this.dropdownList);
     return value ? this.dropdownList?.find((option: any) => option.item_id === value.item_id)?.item_text : undefined;
   }
 }
