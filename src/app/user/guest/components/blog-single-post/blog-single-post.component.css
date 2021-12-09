@@ -1,0 +1,169 @@
+.main_blog_post_content {
+    position: relative;
+}
+
+.main_blog_post_content .mbp_thumb_post {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 30px;
+}
+
+.main_blog_post_content .mbp_thumb_post .details {
+    padding-top: 30px;
+}
+
+.main_blog_post_content .mbp_thumb_post .details p {
+    font-size: 14px;
+    font-family: "Nunito";
+    color: #484848;
+    line-height: 1.714;
+}
+
+.main_blog_post_content .mbp_thumb_post .details ul.post_meta {
+    margin-bottom: 20px;
+}
+
+.main_blog_post_content .event_lists:hover .blog_grid_post.event_lists {
+    -webkit-box-shadow: 0px 0px 30px 0px rgba(32, 32, 32, 0.15);
+    -moz-box-shadow: 0px 0px 30px 0px rgba(32, 32, 32, 0.15);
+    -o-box-shadow: 0px 0px 30px 0px rgba(32, 32, 32, 0.15);
+    box-shadow: 0px 0px 30px 0px rgba(32, 32, 32, 0.15);
+}
+
+.blog_sp_tag {
+    background-color: #ff5a5f;
+    border-radius: 3px;
+    height: 25px;
+    margin-bottom: 30px;
+    text-align: center;
+    width: 110px;
+}
+
+.blog_sp_tag a {
+    font-size: 14px;
+    font-family: "Nunito";
+    color: #fefefe;
+    line-height: 1.2;
+}
+
+.blog_sp_title {
+    font-size: 22px;
+    font-family: "Nunito";
+    color: #484848;
+    font-weight: bold;
+    line-height: 1.2;
+    margin-bottom: 30px;
+}
+
+.blog_sp_post_meta {
+    margin-bottom: 30px;
+}
+
+.blog_sp_post_meta li:nth-child(2),
+.blog_sp_post_meta li:nth-child(4),
+.blog_sp_post_meta li:nth-child(6) {
+    margin-right: 25px;
+}
+
+.blog_sp_post_meta li:last-child {
+    margin-right: 0;
+}
+
+.profile_pic {
+    height: 50px;
+    border-radius: 50%;
+}
+
+.mbp_thumb_post .thumb {
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+}
+
+.mbp_thumb_post .details .post_meta li:nth-child(2) {
+    margin-right: 20px;
+    margin-left: 8px;
+}
+
+.mbp_thumb_post .details .post_meta li:nth-child(4) {
+    margin-left: 8px;
+}
+
+.mbp_thumb_post li {
+    display: inline-block;
+}
+
+.blog_post_share li {
+    background-color: #f7f7f7;
+    border-radius: 8px;
+    height: 45px;
+    line-height: 45px;
+    text-align: center;
+    width: 45px;
+    -webkit-transition: all 0.3s ease 0s;
+    -moz-transition: all 0.3s ease 0s;
+    -o-transition: all 0.3s ease 0s;
+    transition: all 0.3s ease 0s;
+}
+
+.blog_post_share li:first-child {
+    background-color: transparent;
+    margin-right: 25px;
+    width: auto;
+}
+
+.blog_post_share li:first-child a {
+    font-size: 16px;
+    font-family: "Nunito";
+    color: #484848;
+    font-weight: bold;
+    line-height: 2.5;
+}
+
+.blog_post_share li:first-child:hover {
+    background-color: transparent;
+}
+
+.blog_post_share li:hover {
+    cursor: pointer;
+}
+
+.blog_post_share li a {
+    font-size: 14px;
+    color: #484848;
+    line-height: 1.2;
+}
+
+.blog_post_share li:hover a {
+    color: rgb(72, 73, 77);
+}
+
+.blog_post_share li p {
+    font-size: 18px;
+    font-family: "Nunito";
+    color: rgb(59, 59, 59);
+    line-height: 1.333;
+}
+
+@media only screen and (max-width: 1199.98px) {
+    .blog_sp_post_meta li:nth-child(2),
+    .blog_sp_post_meta li:nth-child(4),
+    .blog_sp_post_meta li:nth-child(6) {
+        margin-right: 10px;
+    }
+}
+
+@media only screen and (max-width:991px) {
+    .main_blog_post_content {
+        margin-bottom: 30px;
+    }
+}
+
+@media only screen and (max-width:400px) {
+    .main_blog_post_content .mbp_thumb_post {
+        padding: 30px 15px;
+    }
+    .blog_post_share li:first-child {
+        margin-right: 0;
+    }
+}

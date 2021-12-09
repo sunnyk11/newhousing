@@ -1,0 +1,94 @@
+<!--Breadcrumb-->
+<div class="bg-secondary">
+    <div class="container-fluid py-4">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Blog - {{ post_detail[0]?.title }}</li>
+            </ol>
+        </nav>
+        <h2 class="col-custom">Blog</h2>
+    </div>
+</div>
+<div *ngIf="showLoadingIndicator">
+    <div class="preloader"></div>
+</div>
+
+<div class="wrapper">
+    <section class="blog_post_container bgc-f7 pb30">
+        <div class="container mt65">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="main_blog_post_content">
+                        <div class="mbp_thumb_post">
+                            <div class="blog_sp_tag">
+                                <a href="#">{{ post_detail[0]?.category }}</a>
+                            </div>
+
+                            <!--<button (click)="editPost(post_detail[0].slug)" class="btn btn-primary float-right">Edit</button> -->
+                            <!--<a class="fp_pdate float-right text-thm" [routerLink]="['/blog-edit-post', post_detail[0].slug ]"><span
+                            class="flaticon-edit"></span> Edit</a> -->
+                            <!--<a class="fp_pdate float-right text-thm" [routerLink]="['']">Edit </a>-->
+                            <!--<div class="blog_sp_tag float-right"><a href="#">Edit</a></div>-->
+                            <h3 class="blog_sp_title">{{ post_detail[0]?.title }}</h3>
+                            <ul class="blog_sp_post_meta">
+                                <li class="list-inline-item" *ngIf="post_detail[0]?.profile_pic !== null"><img src="{{ images_folder }}/profile_image_file/{{ post_detail[0]?.profile_pic }}" alt="profile_pic" class="profile_pic"></li>
+                                <li class="list-inline-item" *ngIf="post_detail[0]?.profile_pic == null"><img src="../../assets/images/default_avatar.png" alt="profile_pic" class="profile_pic"></li>
+                                <li class="list-inline-item">{{ post_detail[0]?.name }}</li>
+                                <li class="list-inline-item"><span class="flaticon-calendar"></span></li>
+                                <li class="list-inline-item">{{ post_detail[0]?.updated_at | date: 'MMMM dd, yyyy' }}
+                                </li>
+                                <li class="list-inline-item"><span class="flaticon-view"></span></li>
+                                <li class="list-inline-item"> {{ post_detail[0]?.views}} views</li>
+                                <!--<li class="list-inline-item"><span class="flaticon-chat"></span></li>
+                            <li class="list-inline-item"><a href="#">15</a></li> -->
+                            </ul>
+                            <div class="thumb">
+                                <img class="img-fluid" src="{{ images_folder }}/images/{{ post_detail[0]?.image_path }}" alt="bs1.jpg">
+                            </div>
+                            <div class="details">
+                                <ul class="blog_post_share">
+                                    <li>
+                                        <p>Share</p>
+                                    </li>
+                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-google"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="details">
+                                <!--<p class="mb30">{{ post_detail[0].description }}</p> -->
+                                <div class="mb30 text-justify" [innerHTML]="post_detail[0]?.description | renderHtml: 'html'"></div>
+                                <!--<p class="mb30"></p>
+                            <h4 class="mb15"></h4>
+                            <p></p>
+                            <div class="mbp_blockquote">
+                                <div class="blockquote">
+                                    <span class="font-italic"><i class="fa fa-quote-left"></i></span><br>
+                                    <em class="mb-0"></em>
+                                </div>
+                            </div>
+                            <p class="mb25"></p>
+                            <p class="mb25"></p> -->
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-xl-4">
+                    <!-- Blog Search bar goes here -->
+                    <!-- <app-blog-search></app-blog-search> -->
+                    <!-- Categories Property section goes here -->
+                    <app-product-category></app-product-category>
+                    <!-- Featured Listings section goes here -->
+                    <app-featured-property></app-featured-property>
+                    <!-- Tags section goes here -->
+                    <!--<app-blog-tags></app-blog-tags> -->
+                </div>
+
+            </div>
+        </div>
+    </section>
+</div>
