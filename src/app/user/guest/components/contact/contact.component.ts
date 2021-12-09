@@ -12,10 +12,11 @@ export class ContactComponent implements OnInit {
   public response: any;
   public showLoadingIndicator: boolean =false;
   public errorMessage: any;
+  public submitted: boolean = false;
 
   contactForm = this.fb.group({
     name: ['', Validators.required],
-    email: ['', Validators.required],
+    email: ['', [Validators.required, Validators.email]],
     phone: ['', Validators.required],
     subject: ['', Validators.required],
     message: ['', Validators.required]
@@ -26,7 +27,17 @@ export class ContactComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  get f() {
+    return this.contactForm.controls;
+  }
   onSubmit(){
+    this.submitted = true;
+    if (this.contactForm.invalid) {
+      this.showLoadingIndicator = false;
+      return;
+    }
+    this.showLoadingIndicator = true;
     console.log(this.contactForm.value);
     var formData: any = new FormData();
     formData.append('name', this.contactForm.value.name);
