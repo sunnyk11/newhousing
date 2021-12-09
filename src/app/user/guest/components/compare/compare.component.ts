@@ -52,6 +52,7 @@ export class CompareComponent implements OnInit {
     this.CommonService.getproduct_comp({ param: null }).subscribe(
       response => {
         this.property=response;
+        console.log(this.property);
         this.property_comp_length=this.property.data.length;
         if(this.property_comp_length<2){
           this.toastr.warning('Comparision Minimun Two','Property', {
@@ -179,6 +180,15 @@ export class CompareComponent implements OnInit {
         n.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + t
     }
     return num;
+  }
+
+  navigate(id:number,name:string,city:string) {
+    const url:any = this.router.createUrlTree(['/product-details'], {queryParams:{'id':id,'name':name,'city':city}})
+    window.open(url.toString(), '_blank')
+  }
+
+  proceedToPayment(productId:any) {
+    this.router.navigate(['/product_payment_summary'], { queryParams: {'productID': productId } });
   }
 
 }

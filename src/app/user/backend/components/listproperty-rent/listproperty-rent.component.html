@@ -182,8 +182,8 @@
                                 </select> -->
                                 <label for="locality">Locality</label>
                                 <input class="w100 form-control mt-2" type="text" placeholder="Select Option" matInput aria-label="Number" formControlName="locality" [ngClass]="{ 'is-invalid': submitted2 && step2.locality.errors }" [matAutocomplete]="auto">
-                                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn.bind(this)" (optionSelected)="onchange_locality($event)">
-                                    <mat-option *ngFor="let area of filteredOptions | async" [value]="area">
+                                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onchange_locality($event)">
+                                    <mat-option *ngFor="let area of filteredOptions | async" [value]="area.item_text">
                                         {{area.item_text}}
                                     </mat-option>
                                 </mat-autocomplete>

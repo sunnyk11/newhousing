@@ -288,9 +288,10 @@ export class ListpropertyRentComponent implements OnInit {
   }
   onchange_locality(id: any) {
     //let param = { id: id }
-    this.CommonService.get_pincodebyid(id.option.value.item_id).subscribe(
+    this.CommonService.get_pincodebyid(id.option.value).subscribe(
       response => {
         let pincode_data: any = response;
+        console.log(pincode_data);
         this.form_step2.patchValue({
           pincode: pincode_data.data.pincode
         });

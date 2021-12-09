@@ -18,12 +18,12 @@
     <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-12 col-md-8 col-lg-6 col-xl-5">
             <div class="card shadow text-dark login-card">
-                <div class="card-body p-5 text-center">
+                <div class="card-body py-3 px-5 text-center">
 
-                    <div class="mb-md-5 mt-md-4 pb-5">
+                    <div class="mb-md-3 mt-md-3 pb-2">
                         <form [formGroup]="loginForm" #ngForm="ngForm" (ngSubmit)="onSubmit()">
                             <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
-                            <p class="text-secondary-50 mb-5">Please enter your email and password</p>
+                            <p class="text-secondary-50 mb-3">Please enter your email and password</p>
 
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="email_address">Email</span>
@@ -41,7 +41,7 @@
                                 </span>
                             </div>
 
-                            <p class="small mb-5 pb-lg-2"><a class="text-thm" [routerLink]="['/reset-password']">Forgot
+                            <p class="small mb-3 pb-lg-2"><a class="text-thm" [routerLink]="['/reset-password']">Forgot
                                     password?</a>
                             </p>
 
@@ -58,9 +58,9 @@
                         <div class="divider d-flex align-items-center my-4">
                             <p class="text-center mx-3 mb-0">Or</p>
                         </div>
-                        <button class="btn btn-lg btn-block google-btn" type="button" (click)="redirect_login_google()"><i class="fa fa-google me-2"></i>
+                        <button class="btn btn-lg google-btn" type="button" (click)="redirect_login_google()"><i class="fa fa-google me-2"></i>
                             Sign in with Google</button>
-                        <button class="btn btn-lg btn-block my-2 facebook-btn" type="submit"><i
+                        <button class="btn btn-lg my-2 facebook-btn" type="submit"><i
                                 class="fa fa-facebook-f me-2"></i>Sign in with Facebook</button>
                     </div>
 
