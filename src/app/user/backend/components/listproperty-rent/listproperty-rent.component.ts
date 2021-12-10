@@ -281,7 +281,9 @@ export class ListpropertyRentComponent implements OnInit {
   }
   onchange_locality(id: any) {
     //let param = { id: id }
-    this.CommonService.get_pincodebyid(id.option.value).subscribe(
+    console.log(id);
+    console.log(this.form_step2.value);
+    this.CommonService.get_pincodebyid(id.option.value.item_id).subscribe(
       response => {
         let pincode_data: any = response;
         console.log(pincode_data);
@@ -291,13 +293,18 @@ export class ListpropertyRentComponent implements OnInit {
       }
     );
   }
+
   submit_rent() {
     this.showLoadingIndicator = true;
     if (this.form_step4.invalid) {
       this.submitted4 = true;
+      this.showLoadingIndicator = false;
+      return;
     } else {
       this.form_step4.value.draft_form_id = '0';
+      this.form_step2.value.locality = this.form_step2.value.locality.item_id;
       let param = { form_step1: this.form_step1.value, form_step2: this.form_step2.value, form_step3: this.form_step3.value, form_step4: this.form_step4.value, rooms: this.additional_room_array, amenties: this.amenityArray, images: this.product_img }
+      console.log(param);
       if (this.form_step4.value.expected_rent >= 5000 && this.form_step4.value.expected_rent <= 500000) {
         this.RentPropertyService.product_insert_rent(param).subscribe(
           response => {
@@ -331,6 +338,7 @@ export class ListpropertyRentComponent implements OnInit {
   save_draft() {
     this.showLoadingIndicator = true;
     this.form_step4.value.draft_form_id = '1';
+    this.form_step2.value.locality = this.form_step2.value.locality.item_id;
     let param = { form_step1: this.form_step1.value, form_step2: this.form_step2.value, form_step3: this.form_step3.value, form_step4: this.form_step4.value, rooms: this.additional_room_array, amenties: this.amenityArray, images: this.product_img }
     if (this.form_step4.value.expected_rent >= 5000 && this.form_step4.value.expected_rent <= 500000) {
       this.RentPropertyService.product_insert_rent(param).subscribe(
@@ -353,6 +361,7 @@ export class ListpropertyRentComponent implements OnInit {
         }
       );
     } else {
+      this.showLoadingIndicator = false;
       this.toastr.error("Expected Price Between 5k to 5Lakhs", 'Price Invalid..!!', {
         timeOut: 2000,
       }
