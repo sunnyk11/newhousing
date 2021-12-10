@@ -46,6 +46,8 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { BlogSinglePostComponent } from './components/blog-single-post/blog-single-post.component';
 import { RenderHtmlPipe } from './pipes/render-html.pipe';
+import { BlogComponent } from './components/blog/blog.component';
+import { TruncateTextPipe } from './pipes/truncate-text.pipe';
 
 @NgModule({
   declarations: [
@@ -85,6 +87,8 @@ import { RenderHtmlPipe } from './pipes/render-html.pipe';
     ResetPasswordComponent,
     BlogSinglePostComponent,
     RenderHtmlPipe,
+    BlogComponent,
+    TruncateTextPipe,
   ],
   imports: [
     CommonModule,
