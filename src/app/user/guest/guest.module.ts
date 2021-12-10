@@ -40,11 +40,12 @@ import { TermsConditionsComponent } from './components/terms-conditions/terms-co
 import { IpDisclaimerComponent } from './components/ip-disclaimer/ip-disclaimer.component';
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 import { RegisterComponent } from './components/register/register.component';
-import { BlogPostComponent } from './components/blog-post/blog-post.component';
 import { PaymentSummaryComponent } from './components/payment-summary/payment-summary.component';
 import { FixAppointmentComponent } from './modals/fix-appointment/fix-appointment.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { BlogSinglePostComponent } from './components/blog-single-post/blog-single-post.component';
+import { RenderHtmlPipe } from './pipes/render-html.pipe';
 
 @NgModule({
   declarations: [
@@ -78,11 +79,12 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
     IpDisclaimerComponent,
     PrivacyPolicyComponent,
     RegisterComponent,
-    BlogPostComponent,
     PaymentSummaryComponent,
     FixAppointmentComponent,
     ProfileComponent,
     ResetPasswordComponent,
+    BlogSinglePostComponent,
+    RenderHtmlPipe,
   ],
   imports: [
     CommonModule,
