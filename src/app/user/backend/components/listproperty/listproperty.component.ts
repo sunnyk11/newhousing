@@ -36,11 +36,13 @@ export class ListpropertyComponent implements OnInit {
       data => {
         this.user_phone_data = data;
         if (this.user_phone_data !== 1) {
+          this.showLoadingIndicator = false;
           this.openMobModal();
         }
         else {
           if (page == 'rent') {
             this.router.navigate(['/list-property-rent']);
+            this.showLoadingIndicator = false;
           }
           else if (page == 'sale') {
             this.router.navigate(['/list-property-sales']);
