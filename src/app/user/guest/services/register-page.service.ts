@@ -21,6 +21,7 @@ export class RegisterPageService {
         other_mobile_number: data.value.phone_number,
         password: data.value.password,
         password_confirmation: data.value.cpassword,
+        gender: data.value.gender,
         selectType: data.value.select_type,
         agree_check: data.value.tnc_check
       });
