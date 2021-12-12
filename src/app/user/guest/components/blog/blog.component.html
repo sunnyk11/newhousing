@@ -1,0 +1,96 @@
+<!--Breadcrumb-->
+<div class="bg-secondary">
+    <div class="container-fluid py-4">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Blog</li>
+            </ol>
+        </nav>
+        <h2 class="col-custom">Blog</h2>
+    </div>
+</div>
+<div *ngIf="showLoadingIndicator">
+    <div class="preloader"></div>
+</div>
+<div class="wrapper">
+    <section class="blog_post_container bgc-f7">
+
+        <div class="container mt65">
+            <div class="row">
+                <div class="col-xl-4">
+                    <div class="breadcrumb_content style2">
+                        <h4 class="text-thm mt30" *ngIf="paginated_posts.data.length > 0">Showing post {{ paginated_posts.from }} to {{ paginated_posts.to }} of {{ paginated_posts.total }}</h4>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8">
+                    <div *ngIf="!paginated_posts.data.length">
+                        <h4>There are no blog posts at the moment.</h4>
+                    </div>
+                    <div class="main_blog_post_content">
+                        <div *ngIf="paginated_posts">
+                            <div class="for_blog feat_property" *ngFor="let post of paginated_posts.data">
+                                <div class="thumb">
+                                    <img class="img-whp" src="{{ images_folder }}/images/{{ post.image_path }}" alt="post.image_path">
+                                    <div class="blog_tag">{{ post.category }}</div>
+                                </div>
+                                <div class="details">
+                                    <div class="tc_content">
+                                        <h4 class="mb15">{{ post.title }}</h4>
+                                        <p [innerHTML]="post.description | truncateText:330"></p>
+                                    </div>
+                                    <div class="fp_footer">
+                                        <ul class="fp_meta float-left mb0">
+                                            <li class="list-inline-item" *ngIf="post.profile_pic !== null"><img class="profile_pic" src="{{ images_folder }}images/{{ post.profile_pic }}" alt="profile_pic"></li>
+                                            <li class="list-inline-item" *ngIf="post.profile_pic == null">
+                                                <img class="profile_pic" src="../../assets/images/default_avatar.png" alt="profile_pic">
+                                            </li>
+                                            <li class="list-inline-item">{{ post.name }}</li>
+                                            <li class="list-inline-item"><span class="flaticon-calendar pr10"></span> {{ post.updated_at | date: 'MMMM dd, yyyy' }}</li>
+                                        </ul>
+                                        <a class="fp_pdate float-right text-thm" [routerLink]="['/blog-single-post', post.slug]">Read More <span
+                                                class="flaticon-next"></span></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 class="text-thm" *ngIf="paginated_posts.data.length > 0">Showing post {{ paginated_posts.from }} to {{ paginated_posts.to }} of {{ paginated_posts.total }}
+                                </h4>
+                            </div>
+                            <div class="mbp_pagination mt20" *ngIf="paginated_posts.data.length > 0">
+                                <ul class="page_navigation">
+                                    <li class="page-item" *ngFor="let link of paginated_posts.links; index as i" [ngClass]="{'active' : link.active == true, 'disabled' : link.url == null}">
+                                        <button type="button" (click)="gotoPage(link.url)" class="page-link">
+                                            <span
+                                                *ngIf="link.label.indexOf('Previous') == -1 && link.label.indexOf('Next') == -1"
+                                                [innerHTML]="link.label"></span>
+                                            <span *ngIf="link.label.indexOf('Previous') > -1"
+                                                class="flaticon-left-arrow"></span>
+                                            <span *ngIf="link.label.indexOf('Next') > -1"
+                                                class="flaticon-right-arrow"></span>
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-xl-4">
+                    <!-- Blog Search bar goes here -->
+                    <!-- <app-blog-search></app-blog-search> -->
+                    <!-- Categories Property section goes here -->
+                    <app-product-category></app-product-category>
+                    <!-- Featured Listings section goes here -->
+                    <app-featured-property></app-featured-property>
+                    <!-- Tags section goes here -->
+                    <!-- <app-blog-tags></app-blog-tags> -->
+                </div>
+                <!--<ngx-spinner [fullScreen]="false" type="ball-clip-rotate-multiple" size="medium"></ngx-spinner>-->
+            </div>
+        </div>
+    </section>
+</div>

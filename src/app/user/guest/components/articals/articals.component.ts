@@ -10,8 +10,8 @@ import { IndexPageService } from '../../services/index-page.service';
 })
 export class ArticalsComponent implements OnInit {
 
-  public artical_data:any;
-  public artical_length:number=0;
+  public article_data:any;
+  public article_length:number=0;
   public ftpstring=environment.ftpURL;
   public showLoadingIndicator:boolean= false;
 
@@ -28,14 +28,14 @@ export class ArticalsComponent implements OnInit {
     this.showLoadingIndicator= true;
     this.indexPageService.getArtical({ param: null }).subscribe(
       response => {
-        this.artical_data=response;
-        this.artical_length=this.artical_data.length;
+        this.article_data=response;
+        this.article_length=this.article_data.length;
         this.showLoadingIndicator= false;
       }
     );
   }
 
-  articals: OwlOptions = {
+  customOptions: OwlOptions = {
     loop: false,
     mouseDrag: true,
     touchDrag: true,

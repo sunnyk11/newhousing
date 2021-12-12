@@ -1,34 +1,42 @@
-.wrapper_compare_row  .compare_page{
-padding: 105px 0px!important;
-border-bottom: 1px solid #ebebeb;
+.wrapper_compare_row .compare_page {
+    padding: 105px 0px!important;
+    border-bottom: 1px solid #ebebeb;
 }
-.wrapper_compare_row .inner_column li{
+
+.wrapper_compare_row .inner_column li {
     width: 100%;
 }
-.membership_container{
+
+.membership_container {
     overflow: hidden!important;
 }
-.wrapper_compare_row .inner_column1, .membership_header{
+
+.wrapper_compare_row .inner_column1,
+.membership_header {
     padding-left: 0px!important;
     padding-right: 0px!important;
 }
-.wrapper_compare_row .membership_header{
-height: 220px!important;
-border-bottom: 1px solid #ebebeb;
+
+.wrapper_compare_row .membership_header {
+    height: 220px!important;
+    border-bottom: 1px solid #ebebeb;
 }
-.wrapper_compare_row .list_heading{
-font-weight: 500;
-padding: 0px 0px!important;
-font-size: 12px!important;
-height: 70px!important;
-line-height: 24px!important;
-align-items: center;
-justify-content: center;
-display: flex;
-margin: 0px!important;
-border-bottom: 1px solid #dedede;
+
+.wrapper_compare_row .list_heading {
+    font-weight: 500;
+    padding: 0px 0px!important;
+    font-size: 12px!important;
+    height: 70px!important;
+    line-height: 24px!important;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    margin: 0px!important;
+    border-bottom: 1px solid #dedede;
 }
-.wrapper_compare_row .list_data,.amenties-check-comparision{
+
+.wrapper_compare_row .list_data,
+.amenties-check-comparision {
     padding: 0px!important;
     height: 70px!important;
     font-size: 14px!important;
@@ -37,45 +45,55 @@ border-bottom: 1px solid #dedede;
     display: flex;
     border-bottom: 1px solid #dedede;
 }
+
 .wrapper_compare_row .amenties-check-comparision i {
     font-size: 14px!important;
 }
-.wrapper_compare_row .inner_column{
+
+.wrapper_compare_row .inner_column {
     padding-right: 0px!important;
 }
-.wrapper_compare_row .list_data p{
+
+.wrapper_compare_row .list_data p {
     margin: 0px!important;
 }
-.wrapper_compare_row .membership_header{
+
+.wrapper_compare_row .membership_header {
     height: 211px!important;
     border-bottom: 1px solid #ebebeb;
 }
-.wrapper_compare_row .membership_header .price{
+
+.wrapper_compare_row .membership_header .price {
     font-size: 14px!important;
-    line-height:26px!important;
+    line-height: 26px!important;
 }
-.wrapper_compare_row .inner_column1 .membership_header{
+
+.wrapper_compare_row .inner_column1 .membership_header {
     padding-left: 0px!important;
     padding-right: 0px!important;
 }
-.property_compare li a p span{
-  color: #ff5a5f;
+
+.property_compare li a p span {
+    color: #ff5a5f;
 }
-ul.mc_parent_list .membership_header .thumb{
+
+ul.mc_parent_list .membership_header .thumb {
     border-radius: 8px;
     overflow: hidden;
     position: relative;
 }
-ul.mc_parent_list .membership_header .thumb:before{
-    background-color: rgba(0,0,0, .6);
+
+ul.mc_parent_list .membership_header .thumb:before {
+    background-color: rgba(0, 0, 0, .6);
     bottom: 0;
-    content:"";
+    content: "";
     position: absolute;
     left: 0;
     right: 0;
     top: 0;
 }
-ul.mc_parent_list .membership_header .thumb a{
+
+ul.mc_parent_list .membership_header .thumb a {
     background-color: #ffffff;
     border-radius: 8px;
     height: 30px;
@@ -86,10 +104,12 @@ ul.mc_parent_list .membership_header .thumb a{
     top: 10px;
     width: 30px;
 }
-ul.mc_parent_list .membership_header .thumb a span{
-  font-size: 10px;
+
+ul.mc_parent_list .membership_header .thumb a span {
+    font-size: 10px;
 }
-ul.mc_parent_list .membership_header .thumb .price{
+
+ul.mc_parent_list .membership_header .thumb .price {
     bottom: 15px;
     color: #ffffff;
     font-family: "Nunito";
@@ -101,43 +121,61 @@ ul.mc_parent_list .membership_header .thumb .price{
     position: absolute;
     right: 0;
 }
-ul.mc_parent_list .membership_header .details{
+
+ul.mc_parent_list .membership_header .details {
     padding-top: 12px;
 }
-.membership_header{
+
+.membership_header {
     width: 100%;
 }
-.membership_header .thumb{
+
+.membership_header .thumb {
     width: 95%!important;
     display: flex;
     align-items: center;
     justify-content: center;
 }
-ul.mc_parent_list .membership_header .details p{
+
+ul.mc_parent_list .membership_header .details p {
     font-size: 14px;
     font-family: "Nunito";
     color: #ff5a5f;
     line-height: 1.2;
-    margin:0px!important;
+    margin: 0px!important;
 }
-.membership_header .thumb, img{
+
+.membership_header .thumb,
+img {
     height: 120px!important;
 }
-li{
-    list-style:none;
+
+li {
+    list-style: none;
 }
-ul.mc_parent_list ul.mc_child_list .membership_header h4{
+
+ul.mc_parent_list ul.mc_child_list .membership_header h4 {
     font-size: 18px;
     font-family: "Nunito";
     color: #484848;
     line-height: 1.333;
     margin: 0;
 }
-.details p{
+
+.details p {
     margin: 0px!important;
 }
-.preloader_row{
+
+.preloader_row {
     position: relative;
     width: 100%;
     height: 100vh;
+}
+
+.membership_header a {
+    cursor: pointer;
+}
+
+.start-90 {
+    left: 90%;
 }
