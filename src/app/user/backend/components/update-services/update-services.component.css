@@ -1,0 +1,29 @@
+.search-column button{
+    width: 100%;
+    color:#fff!important;
+    background-color: #f35b3f!important;
+    opacity: 1!important;
+}
+.create_column{
+    box-shadow: 0 3px 8px 0 rgb(0 0 0 / 12%);
+    padding: 25px 20px;
+    height: 270px!important;
+}
+.service_heading{  
+    background: rgb(36, 50, 74);
+    padding: 15px 20px;
+    margin-bottom: 25px;
+}
+.service_heading h2{  
+    color: #fff!important;
+    font-size: 18px!important;
+    margin: 0px!important;
+}
+.status_tag{
+    background-color: #ff5a5f!important;
+}
+.flaticon-garbage{
+    color: #ff5a5f!important;
+    font-size: 20px;
+    cursor: pointer!important;
+}

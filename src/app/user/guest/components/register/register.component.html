@@ -110,6 +110,7 @@
                                 <div class="input-group mb-3">
                                     <label class="input-group-text" for="inputGroupSelect01">User Type</label>
                                     <select class="form-select" id="inputGroupSelect01" formControlName="select_type" [ngClass]="{ 'is-invalid': submitted && f.select_type.errors }" name="select_type" required>
+                                        <option value="">Select User Type</option>
                                         <option value="5">Individual</option>
                                         <option value="3">Agent</option>
                                         <option value="4">Builder</option>

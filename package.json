@@ -32,6 +32,9 @@
         "ngx-pagination": "^5.1.1",
         "ngx-toastr": "^14.1.4",
         "pdfmake": "^0.2.4",
+        "angular-progress-bar": "^1.0.11",
+        "ngx-star-rating": "^2.0.2",
+        "ng-multiselect-dropdown": "^0.3.4",
         "rxjs": "~6.6.0",
         "tslib": "^2.3.0",
         "zone.js": "~0.11.4"
