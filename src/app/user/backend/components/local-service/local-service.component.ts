@@ -24,16 +24,9 @@ export class LocalServiceComponent implements OnInit {
   public review_details: any;
   public UserDeatils:any;
   public review_data:any;
-  public product_img: any = [];
-  
-  image1: string | ArrayBuffer | null | undefined;
-  image2: string | ArrayBuffer | null | undefined;
-  image3: string | ArrayBuffer | null | undefined;
-  image4: string | ArrayBuffer | null | undefined;
-  image5: string | ArrayBuffer | null | undefined;
   
   Service_form = new FormGroup({
-    Area: new FormControl('470', Validators.required),
+    Area: new FormControl('', Validators.required),
     LocalArea: new FormControl('', Validators.required),
     service: new FormControl('', Validators.required)
   });
@@ -52,9 +45,6 @@ export class LocalServiceComponent implements OnInit {
 
   ngOnInit(): void {
     this.on_search();
-    this.local_area();
-    this.area_service();
-    this.product_img = new Array<string>();
   }
   
   on_search(){
@@ -71,7 +61,8 @@ export class LocalServiceComponent implements OnInit {
     );
   } 
   submit_review():void{
-    let param={data:this.review_form.value,product_image:this.product_img}
+    let param={data:this.review_form.value}
+    console.log(this.review_form.value);
     if (this.review_form.value.stars) {
       if(this.review_form.value.content){
         this.LocalServiceProviderService.service_user_reviews(param).subscribe(
@@ -79,6 +70,7 @@ export class LocalServiceComponent implements OnInit {
             let data:any=response;
             this.showLoadingIndicator = false;
             this.toastr.success('Successfuly Reviews For Service');
+            console.log(data.data);
             this.user_details(data.data);
           },
           err => {
@@ -198,112 +190,10 @@ export class LocalServiceComponent implements OnInit {
         }
     );
   }
-  insert_image1(event:any) {
-    if (event.target.files.length <= 3) {
-      for (let i = 0; i < event.target.files.length; i++) {
-        if (i == 0) {
-          this.readThis1(event.target.files[0]);
-        }
-        if (i == 1) {
-          this.readThis2(event.target.files[1]);
-        }
-        if (i == 2) {
-          this.readThis3(event.target.files[2]);
-        }
-        if (i == 3) {
-          this.readThis4(event.target.files[3]);
-        }
-        if (i == 4) {
-          this.readThis5(event.target.files[4]);
-        }
-      }
-    } else {
-      this.toastr.error("Maximum 5 Images Selected", 'Image Upload Error!!!...', {
-        timeOut: 1500,
-      });
-    }
-  }
-
-
-  readThis1(inputValue: any): void {
-    var file: File = inputValue;
-    var myReader: FileReader = new FileReader();
-
-    myReader.onloadend = (e) => {
-      this.image1 = myReader.result;
-      if (this.image1 != null) {
-        this.product_img.push(this.image1);
-      }
-    }
-    myReader.readAsDataURL(file);
-  }
-
-  insert_image2(event:any) {
-    this.readThis2(event.target)
-  }
-
-  readThis2(inputValue: any): void {
-    var file: File = inputValue;
-    var myReader: FileReader = new FileReader();
-
-    myReader.onloadend = (e) => {
-      this.image2 = myReader.result;
-      if (this.image2 != null) {
-        this.product_img.push(this.image2);
-      }
-    }
-    myReader.readAsDataURL(file);
-  }
-
-  insert_image3(event:any) {
-    this.readThis3(event.target)
-  }
-
-  readThis3(inputValue: any): void {
-    var file: File = inputValue;
-    var myReader: FileReader = new FileReader();
-
-    myReader.onloadend = (e) => {
-      this.image3 = myReader.result;
-      if (this.image3 != null) {
-        this.product_img.push(this.image3);
-      }
-    }
-    myReader.readAsDataURL(file);
-  }
-
-  insert_image4(event:any) {
-    this.readThis4(event.target)
-  }
-
-  readThis4(inputValue: any): void {
-    var file: File = inputValue;
-    var myReader: FileReader = new FileReader();
-
-    myReader.onloadend = (e) => {
-      this.image4 = myReader.result;
-      if (this.image4 != null) {
-        this.product_img.push(this.image4);
-      }
-    }
-    myReader.readAsDataURL(file);
-  }
-
-  insert_image5(event:any) {
-    this.readThis5(event.target)
-  }
-
-  readThis5(inputValue: any): void {
-    var file: File = inputValue;
-    var myReader: FileReader = new FileReader();
-
-    myReader.onloadend = (e) => {
-      this.image5 = myReader.result;
-      if (this.image5 != null) {
-        this.product_img.push(this.image5);
-      }
-    }
-    myReader.readAsDataURL(file);
-  }
+  
 
 }
+function id(id: any) {
+  throw new Error('Function not implemented.');
+}
+
