@@ -1,0 +1,130 @@
+.search-column{
+    display: flex;
+    align-items: end;
+    justify-content: center!important;
+}
+.search-column button{
+    width: 100%;
+    color:#fff!important;
+    background-color: #f35b3f!important;
+    opacity: 1!important;
+}
+.search-column button:hover{
+  background-color: #f35b3f!important;
+  color: #fff!important;
+  opacity: 1!important;
+}
+.status_tag{
+    background-color: #ff5a5f!important;
+}
+.property_table .table .thead-light th{
+    border: 1px solid rgb(36, 50, 74)!important;
+}
+.pagination{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin: 20px 0px;
+}
+.sign_up_modal .modal-dialog{
+    top: 18%!important;
+}
+.sign_up_modal .my_profile_setting_input.form-group {
+    margin-bottom: 0px!important;
+}
+.sign_up_modal .model_header_column h3{
+    font-size: 20px;
+    color: #ff5a5f;
+    margin: 0px;
+    font-weight: 600;
+}
+#user_details_btn a{
+    color: #ff5a5f;    
+    cursor: pointer;
+}
+.testimonial_data{
+    border: 1px solid #ff5a5f;
+    border-radius: 10px;
+    padding: 10px 5px!important;
+    margin: 5px 0px!important;
+}
+.testimonial_data .description p,h6{
+    margin: 0px;
+}
+.testimonial_data .description .fa-star{
+    color: #fd4!important;
+}
+#review_row .fa-star{
+    color: #fd4!important;
+    cursor: pointer;
+}
+.star_rating .star{
+    font-size: 20px!important;
+}
+#percentage_heading{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0px!important;
+}
+.bd-example-modal-lg1 .modal-content{
+    height: 450px!important;
+}
+.portfolio_item{
+    height: 60px;
+}
+.portfolio_item img{
+    width: 150px!important;
+    height: 60px!important;
+}
+
+.sign_up_modal .modal-header button.close{
+    margin-top: -5px;
+    margin-right: 0;
+    margin-left: 4px;
+    opacity: 1;
+    background-color: transparent!important;
+    border:none!important;
+    padding: 0;
+  }
+  .sign_up_modal .modal-header button.close span{
+    color: #ffffff;
+    font-size: 30px!important;
+  }
+  .modal-header {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center!important;
+  }
+  .sign_up_modal .modal-header button.close span:focus{
+    border: none;
+    outline: none;
+    text-shadow: none;
+  }
+  .sign_up_modal.modal .close:focus{
+    outline: none;
+  }
+  .no_review{
+    border:1px solid #ced4da; 
+    align-items: center;
+    justify-content: center;
+    display: flex;
+  }
+  .no_review h3{
+    font-size: 20px;
+    margin:20px;
+  }
+  .sign_up_modal .modal-header {
+    background-color: #ff5a5f;
+    border-radius: 50%;
+    border: none;
+    height: 50px;
+    cursor: pointer!important;
+    position: absolute;
+    right: -20px;
+    text-align: center;
+    top: -20px;
+    width: 50px;
+    z-index: 9;
+}

@@ -15,7 +15,11 @@ import { PaymentSummaryComponent } from './components/payment-summary/payment-su
 import { InvoiceComponent } from './components/invoice/invoice.component';
 import { PlanApplyComponent } from './components/plan-apply/plan-apply.component';
 import { VerifyMobileGuard } from './guards/verify-mobile.guard';
-
+import { LocalServiceComponent } from './components/local-service/local-service.component';
+import { ServiceListComponent } from './components/service-list/service-list.component';
+import { UpdateServicesComponent } from './components/update-services/update-services.component';
+import { ServiceUserListComponent } from './components/service-user-list/service-user-list.component';
+import { UpdateServiceUserListComponent } from './components/update-service-user-list/update-service-user-list.component';
 
 const routes: Routes = [
   {
@@ -34,7 +38,12 @@ const routes: Routes = [
       { path: "payment-summary", component: PaymentSummaryComponent,canActivate: [AuthGuard]},
       { path: "invoice", component: InvoiceComponent,canActivate: [AuthGuard]},
       { path: "plan-apply", component: PlanApplyComponent,canActivate: [AuthGuard]},
-      { path: "update-property-sales", component: UpdatepropertySalesComponent,canActivate: [AuthGuard]}
+      { path: "update-property-sales", component: UpdatepropertySalesComponent,canActivate: [AuthGuard]},
+      { path: "services-list", component: ServiceListComponent,canActivate: [AuthGuard]},
+      { path: "update-services", component: UpdateServicesComponent,canActivate: [AuthGuard]},
+      { path: "services-user-list", component: ServiceUserListComponent,canActivate: [AuthGuard]},
+      { path: "update-services-user", component: UpdateServiceUserListComponent,canActivate: [AuthGuard]},
+      { path: "local-services", component: LocalServiceComponent,canActivate: [AuthGuard]}
     ]
   }
 ];

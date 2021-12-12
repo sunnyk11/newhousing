@@ -35,7 +35,16 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { PaymentSummaryComponent } from './components/payment-summary/payment-summary.component';
 import { InvoiceComponent } from './components/invoice/invoice.component';
 import { PlanApplyComponent } from './components/plan-apply/plan-apply.component';
-
+import { LocalServiceComponent } from './components/local-service/local-service.component';
+import { GetAveragePipe } from './pipes/get-average.pipe';
+import { GetPercentagePipe } from './pipes/get-percentage.pipe';
+import { ProgressBarModule } from 'angular-progress-bar';
+import { NgxStarRatingModule } from 'ngx-star-rating';
+import { ServiceListComponent } from './components/service-list/service-list.component';
+import { ServiceUserListComponent } from './components/service-user-list/service-user-list.component';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { UpdateServiceUserListComponent } from './components/update-service-user-list/update-service-user-list.component';
+import { UpdateServicesComponent } from './components/update-services/update-services.component';
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -51,9 +60,17 @@ import { PlanApplyComponent } from './components/plan-apply/plan-apply.component
     ModalComponent,
     PaymentSummaryComponent,
     InvoiceComponent,
-    PlanApplyComponent
+    PlanApplyComponent,
+    LocalServiceComponent,
+    GetAveragePipe,
+    GetPercentagePipe,
+    ServiceListComponent,
+    ServiceUserListComponent,
+    UpdateServiceUserListComponent,
+    UpdateServicesComponent
   ],
   imports: [
+    ProgressBarModule,
     CommonModule,
     BackendRoutingModule,
     UserSharedModule,
@@ -74,10 +91,12 @@ import { PlanApplyComponent } from './components/plan-apply/plan-apply.component
     MatSelectModule,
     MatBadgeModule,
     MatExpansionModule,
+    NgMultiSelectDropDownModule.forRoot(),
     AgmCoreModule.forRoot({  
       apiKey: 'AIzaSyC2S5kHeGYkW9cL4d7_uxfauTBfQEtN4HA', libraries: ['places']
     }),
-    MatSliderModule
+    MatSliderModule,
+    NgxStarRatingModule
   ]
 })
 export class BackendModule { }
