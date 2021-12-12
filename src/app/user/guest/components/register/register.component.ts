@@ -41,6 +41,7 @@ export class RegisterComponent implements OnInit {
         password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(40)]],
         cpassword: ['', [Validators.required]],
         phone_number: ['', [Validators.required]],
+        gender: ['', Validators.required],
         select_type: ['', Validators.required],
         tnc_check: [false, Validators.required]
       }, {
