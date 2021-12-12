@@ -1,0 +1,65 @@
+<div class="wrapper">
+    <div class="container mt20">
+        <div class="row preloader_row" *ngIf="showLoadingIndicator">
+            <div class="col-lg-12">
+                <div class="preloader"></div>
+            </div>
+        </div>
+        <div class="row" *ngIf="showLoadingIndicator == false">
+            <div class="col-lg-10 offset-lg-1 col-12 create_column" >
+                <div class="my_dashboard_review">
+                    <form role="form" action="" method="post" class="f"  [formGroup]="Service_form" novalidate>
+                    <div class="row">
+                        <div class="col-lg-12 col-12 service_heading">
+                          <h2>Update User</h2>
+                          </div>                        
+                        <div class="col-lg-6 col-12 mt15">
+                            <div class="form-group">
+                                <!-- <label for="service" class="form-label">Enter User name</label> -->
+                                <input type="text" class="form-control" id="user" formControlName="user" placeholder="Enter User Name" [ngClass]="{ 'is-invalid': submitted && f.user.errors }" >
+                            </div>
+                        </div>                     
+                        <div class="col-lg-6 col-12 mt15">
+                            <div class="form-group">
+                                <!-- <label for="contact" class="form-label">Please Select Area</label> -->
+                                <input type="text" class="form-control" id="contact" formControlName="contact" placeholder="Enter Mobile No:" (keypress)="keyPressNumbers($event)" minlength="10"  maxlength="10" [ngClass]="{ 'is-invalid': submitted && f.contact.errors }" >
+                            </div>
+                        </div>        
+                        <div class="col-lg-4 col-12 mt15 ">
+                            <div class="form-group">
+                                <!-- <label for="Area" class="form-label">Please Select Area</label> -->
+                                <select id="Area" class="form-select form-select-lg w100" formControlName="Area" [ngClass]="{ 'is-invalid': submitted && f.Area.errors }" (ngModelChange)="onchange_area($event)"> 
+                                    <option value="">Select Area</option>
+                                    <option value="470">Chartartpur</option>
+                                </select>
+                            </div>
+                        </div>         
+                        <div class="col-lg-4 col-12 mt15 col-sm-12">
+                            <div class="form-group">
+                                <!-- <label for="LocalArea" class="form-label">Please Select Local Area</label> -->
+                                <select id="LocalArea" class="form-select form-select-lg w100" formControlName="LocalArea" [ngClass]="{ 'is-invalid': submitted && f.LocalArea.errors }"  (ngModelChange)="onchange_local_area($event)"> 
+                                  <option value="">Select Local Area</option>
+                                  <option *ngFor="let loc_Area of local_area_data?.data"
+                                        [value]="loc_Area.loc_area_id">{{loc_Area.local_area}}
+                                  </option>
+                                </select>
+                            </div>
+                        </div>                       
+                        <div class="col-lg-4 col-12 mt15 col-sm-12">
+                            <div class="form-group">
+                                <ng-multiselect-dropdown class="form-control" [placeholder]="'Select Service'"
+                                [settings]="dropdownSettings" [data]="dropdownList"
+                                formControlName="service"  [ngClass]="{ 'is-invalid': submitted && f.service.errors }">
+                                </ng-multiselect-dropdown>
+                            </div>
+                        </div>                   
+                      <div class="col-lg-4 offset-lg-8 col-12 mt20 search-column">
+                            <button type="submit" class="btn btn-submit" (click)="onSubmit()">Update</button>
+                      </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

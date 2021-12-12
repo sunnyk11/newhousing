@@ -1,0 +1,63 @@
+<div class="wrapper">
+    <div class="container mt20">
+        <div class="row">
+            <div class="col-lg-5 col-12 create_column">
+                <div class="my_dashboard_review">
+                    <form role="form" action="" method="post" class="f"  [formGroup]="Service_form" novalidate>
+                    <div class="row">
+                        <div class="col-lg-12 service_heading">
+                          <h2>Create New Service</h2>
+                          </div>                        
+                        <div class="col-lg-12 mtb10 col-sm-12">
+                            <div class="form-group">
+                                <!-- <label for="service" class="form-label">Enter Service Name:</label> -->
+                                <input type="text" class="form-control" id="service" formControlName="service" placeholder="Enter Service Name:" [ngClass]="{ 'is-invalid': submitted && f.service.errors }" >
+                            </div>
+                        </div>                
+                      <div class="col-lg-4 offset-lg-8 col-12 mt20 search-column">
+                            <button type="submit" class="btn btn-submit" (click)="onSubmit()">Create</button>
+                      </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-6 offset-lg-1 col-12">
+                <div class="my_dashboard_review">
+                    <div class="property_table">
+                        <div class="table-responsive mt0">
+                            <span class="status_tag badge">Service Provider {{service_data?.data?.length}}</span>
+                            <table class="table text-center">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th scope="col heading">Service Id</th>
+                                        <th scope="col">Service</th>
+                                        <th scope="col">Action On</th>
+                                    </tr>
+                                </thead>
+                                <tbody >
+                                    <tr  *ngFor="let data of service_data?.data | paginate:{itemsPerPage:5, currentPage:p} ">
+                                        <td>{{data?.service_id}}</td>
+                                        <td>{{data?.service_name}} </td>
+                                        <td>
+                                            <ul class="view_edit_delete_list mb0">
+                                                <li class="list-inline-item " data-toggle="tooltip" data-placement="top" title="Edit">
+                                                    <a [routerLink]="['/update-services']" [queryParams]="{id:data?.id}"><span class="flaticon-edit"></span></a>
+                                                </li>
+                                                <li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="Delete">
+                                                    <a (click)="delete_service(data?.service_id)"><span class="flaticon-garbage"></span></a>
+                                                </li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="col-lg-12 agent_property " *ngIf="service_data?.data?.length>5">
+                            <pagination-controls (pageChange)="p=$event"></pagination-controls>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
