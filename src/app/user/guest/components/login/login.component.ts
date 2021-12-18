@@ -72,7 +72,7 @@ export class LoginComponent implements OnInit {
       this.user_id = this.jwtService.getUserId();
       this.userEmail = this.jwtService.getUserEmail();
       this.returnUrl = this.jwtService.getReturnURL();
-      //console.log(this.returnUrl);
+      console.log(this.returnUrl);
       if (this.returnUrl?.includes('/product_payment_summary')) {
         //console.log(this.returnUrl);
         this.proceedToPayment();
@@ -153,7 +153,7 @@ export class LoginComponent implements OnInit {
     this.loginPageService.getUserPhoneDetails({ param: null }).subscribe(
       data => {
         this.showLoadingIndicator = false;
-        //console.log(data);
+        console.log(data);
         this.mobile_ver_status = data;
         if (this.mobile_ver_status !== 1) {
           //console.log("Mobile number not verified");

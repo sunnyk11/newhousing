@@ -8,7 +8,16 @@ import { RouterModule } from '@angular/router';
 import { AgentHeaderComponent } from '../components/agent-header/agent-header.component';
 import { AgentFooterComponent } from '../components/agent-footer/agent-footer.component';
 import { AgentSidenavComponent } from '../components/agent-sidenav/agent-sidenav.component';
-
+import { SidenavListComponent } from '../components/sidenav-list/sidenav-list.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
+import { MatBadgeModule } from '@angular/material/badge';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -16,18 +25,32 @@ import { AgentSidenavComponent } from '../components/agent-sidenav/agent-sidenav
     GuestFooterComponent,
     AgentHeaderComponent,
     AgentFooterComponent,
-    AgentSidenavComponent
+    AgentSidenavComponent,
+    SidenavListComponent
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule,
+    FlexLayoutModule,
+    MatMenuModule,
+    MatButtonModule,
+    MatBadgeModule,
+    NgbModule
   ],
   exports: [
     GuestHeaderComponent,
     GuestFooterComponent,
     AgentHeaderComponent,
     AgentFooterComponent,
-    AgentSidenavComponent
+    AgentSidenavComponent,
+    SidenavListComponent,
+    MatSidenavModule,
+    MatIconModule,
+    NgbModule
   ]
 })
 export class UserSharedModule { }

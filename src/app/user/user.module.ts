@@ -17,7 +17,6 @@ import { BackendModule } from './backend/backend.module';
     UserRoutingModule,
     GuestModule,
     BackendModule
-    
   ],
   exports: []
   

@@ -36,7 +36,7 @@ export class PaymentSummaryComponent implements OnInit {
         this.response_data = response;
         this.response=this.response_data[0];
         this.price_amount = this.response_data[0].plan_price;
-        this.gst_amount = (18 * this.price_amount) / 100;
+        this.gst_amount = Math.round((18 * this.price_amount) / 100);
         this.total_amount = this.price_amount + this.gst_amount;
         this.payment_type = this.response_data[0].payment_type;
       },

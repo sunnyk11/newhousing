@@ -62,7 +62,7 @@ export class CommonService {
   }
   getwishlit_property(reqModel:any): Observable<ResultModel> {
     const route = "/api/product/wishlist";
-    return this.apiService.get<ResultModel>(route, reqModel);
+    return this.apiService.get1<ResultModel>(route, reqModel);
   } 
   product_comp(reqModel:any): Observable<ResultModel> {
     const route = "/api/product/product_comp";
@@ -70,7 +70,7 @@ export class CommonService {
   } 
   getproduct_comp(reqModel:any): Observable<ResultModel> {
     const route = "/api/product/product_comp";
-    return this.apiService.get<ResultModel>(route, reqModel);
+    return this.apiService.get1<ResultModel>(route, reqModel);
   }
   pro_comp_delete(reqModel:any): Observable<ResultModel> {
     const route = "/api/product/pro_comp_delete";

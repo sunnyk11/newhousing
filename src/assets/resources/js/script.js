@@ -2,6 +2,10 @@
 
     "use strict";
 
+    $(document).on('ready', function() {
+        $('[data-bs-toggle="popover"]').popover();
+    });
+
     /* ----- Preloader ----- */
     function preloaderLoad() {
         // console.log($('.preloader').length);

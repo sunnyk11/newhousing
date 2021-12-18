@@ -55,6 +55,8 @@ export class SubscriptionPlansComponent implements OnInit {
   private plan_price: number = 0;
   public selected_plan_data: any;
 
+  public displayAlert: boolean = false;
+
   constructor(
     private plansPageService: PlansPageService,
     private jwtService: JwtService,
@@ -90,14 +92,14 @@ export class SubscriptionPlansComponent implements OnInit {
       response => {
         this.rent_feat_res = response;
         this.showLoadingIndicator = false;
-        //console.log(response);
+        console.log(response);
         for (let feat_res in this.rent_feat_res) {
           //console.log(this.rent_feat_res[feat_res].feature_details);
           this.myArray = this.rent_feat_res[feat_res].feature_details.split(',');
           //console.log(this.myArray);
           this.rent_feat_res[feat_res].feature_details = this.myArray;
         }
-        //console.log(this.rent_feat_res);
+        console.log(this.rent_feat_res);
       },
       err => {
         this.showLoadingIndicator = false;
@@ -262,5 +264,9 @@ export class SubscriptionPlansComponent implements OnInit {
         // keyboard: false,
         backdrop: 'static'
       });
+  }
+
+  toggleAlert() {
+    this.displayAlert = !this.displayAlert;
   }
 }
