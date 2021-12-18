@@ -35,16 +35,16 @@
                             </div>
                         </div>      
                         <div class="col-md-6" id="multiselect-dropdown">
-                            <label for="locality">Locality</label>
+                            <!-- <label for="locality">Locality</label> -->
                             <ng-multiselect-dropdown class="form-control localty_dropdown" [placeholder]="'Select locality'"
                             [settings]="dropdownSettings_locality" [data]="dropdown_locality"
                             formControlName="locality"  [ngClass]="{ 'is-invalid': submitted && f.locality.errors }"  (onSelect)="onchange_locality($event)">
                             </ng-multiselect-dropdown>
                         </div>  
-                        <div class="col-lg-6 col-12 mt15 col-sm-12">
+                        <div class="col-lg-6 col-12 mt15 col-sm-12" id="multiselect-dropdown2">
                             <div class="form-group">
                                 <!-- <label for="LocalArea" class="form-label">Please Select Local Area</label> -->
-                                <ng-multiselect-dropdown class="form-control" [placeholder]="'Select Sub-locality'"
+                                <ng-multiselect-dropdown class="form-control sub_localty_dropdown" [placeholder]="'Select Sub-locality'"
                                 [settings]="dropdownSettings1" [data]="dropdown_sublocality"
                                 formControlName="sub_locality" [ngClass]="{ 'is-invalid': submitted && f.sub_locality.errors }">
                                 </ng-multiselect-dropdown>

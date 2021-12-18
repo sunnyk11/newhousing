@@ -122,6 +122,12 @@ ol {
  #multiselect-dropdown1 .sub_localty_dropdown .selected-item-container .selected-item{
     max-width: 90%!important;
 }
+#multiselect-dropdown2 .sub_localty_dropdown .selected-item-container{
+    width: 100%!important;
+}
+ #multiselect-dropdown2 .sub_localty_dropdown .selected-item-container .selected-item{
+    max-width: 90%!important;
+}
 
   
 

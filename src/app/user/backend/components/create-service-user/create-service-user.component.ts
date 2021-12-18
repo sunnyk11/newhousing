@@ -60,7 +60,7 @@ export class CreateServiceUserComponent implements OnInit {
       enableCheckAll: false,
       itemsShowLimit: 2,
       allowSearchFilter: true,
-      noDataAvailablePlaceholderText: "Data not Availabale ",
+      noDataAvailablePlaceholderText: "Service not Availabale ",
       maxHeight: 250
     };
     this.dropdownSettings_locality = {
@@ -101,9 +101,9 @@ export class CreateServiceUserComponent implements OnInit {
         this.LocalServiceProviderService.service_user_create(param).subscribe(
           response => {
             let data:any=response;
-            // this.showLoadingIndicator = false;
-            // this.toastr.success('User  Create Successfully');
-            // // this.router.navigate(['/agent/services-user-list']); 
+            this.showLoadingIndicator = false;
+            this.toastr.success('User  Create Successfully');
+            this.router.navigate(['/agent/services-user-list']); 
           },
           err => {
             this.showLoadingIndicator = false;

@@ -85,7 +85,7 @@ export class UpdateServiceUserListComponent implements OnInit {
       idField: 'sub_locality_id',
       textField: 'sub_locality_text',
       enableCheckAll: true,
-      itemsShowLimit: 2,
+      itemsShowLimit: 1,
       allowSearchFilter: true,
       noDataAvailablePlaceholderText: "Sub-locality not availabale ",
       maxHeight: 250
