@@ -94,7 +94,18 @@
                                     </div>
                                 </div>
                             </div>
-
+                            <div class="row">
+                                <div class="input-group mb-3">
+                                    <label class="input-group-text" for="inputGroupSelect01">Gender</label>
+                                    <select class="form-select" id="inputGroupSelect01" formControlName="gender" [ngClass]="{ 'is-invalid': submitted && f.gender.errors }" name="gender" required>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                    </select>
+                                    <div *ngIf="submitted && f.gender.errors" class="invalid-feedback">
+                                        <div *ngIf="f.gender.errors.required">Please select the Gender</div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="input-group mb-3">
                                     <label class="input-group-text" for="inputGroupSelect01">User Type</label>
