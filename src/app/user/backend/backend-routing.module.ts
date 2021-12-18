@@ -20,6 +20,8 @@ import { ServiceListComponent } from './components/service-list/service-list.com
 import { UpdateServicesComponent } from './components/update-services/update-services.component';
 import { ServiceUserListComponent } from './components/service-user-list/service-user-list.component';
 import { UpdateServiceUserListComponent } from './components/update-service-user-list/update-service-user-list.component';
+import { CreateServiceUserComponent } from './components/create-service-user/create-service-user.component';
+
 
 const routes: Routes = [
   {
@@ -43,6 +45,7 @@ const routes: Routes = [
       { path: "update-services", component: UpdateServicesComponent,canActivate: [AuthGuard]},
       { path: "services-user-list", component: ServiceUserListComponent,canActivate: [AuthGuard]},
       { path: "update-services-user", component: UpdateServiceUserListComponent,canActivate: [AuthGuard]},
+      { path: "create-services-user", component: CreateServiceUserComponent,canActivate: [AuthGuard]},
       { path: "local-services", component: LocalServiceComponent,canActivate: [AuthGuard]}
     ]
   }

@@ -45,6 +45,8 @@ import { ServiceUserListComponent } from './components/service-user-list/service
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { UpdateServiceUserListComponent } from './components/update-service-user-list/update-service-user-list.component';
 import { UpdateServicesComponent } from './components/update-services/update-services.component';
+import { CreateServiceUserComponent } from './components/create-service-user/create-service-user.component';
+
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -67,7 +69,8 @@ import { UpdateServicesComponent } from './components/update-services/update-ser
     ServiceListComponent,
     ServiceUserListComponent,
     UpdateServiceUserListComponent,
-    UpdateServicesComponent
+    UpdateServicesComponent,
+    CreateServiceUserComponent
   ],
   imports: [
     ProgressBarModule,

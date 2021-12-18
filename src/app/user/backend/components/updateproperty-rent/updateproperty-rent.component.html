@@ -153,49 +153,47 @@
                 <form [formGroup]="form_step2" class="g-3">
                     <div class="h-100 p-3 bg-lightgray bg-gradient border rounded-3 mt-2">
                         <div class="row mt-3">
+                            <div class="col-md-4">
+                                <label for="city" class="form-label">City</label>
+                                <select id="city" class="form-select form-select-lg w100" formControlName="city" [ngClass]="{ 'is-invalid': submitted2 && step2.city.errors }">
+                                    <!-- <option value="">Select</option> -->
+                                    <option value="1">Delhi</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4" id="multiselect-dropdown">
+                                <label for="locality">Locality</label>
+                                <ng-multiselect-dropdown class="form-control localty_dropdown" [placeholder]="'Select locality'"
+                                [settings]="dropdownSettings" [data]="dropdown_locality"
+                                formControlName="locality"  [ngClass]="{ 'is-invalid': submitted2 && step2.locality.errors }"  (onSelect)="onchange_locality($event)">
+                                </ng-multiselect-dropdown>
+                            </div>
+                            <div class="col-md-4" id="multiselect-dropdown">
+                                <label for="pincode" class="form-label">Sub-Locality</label>                              
+                                <ng-multiselect-dropdown class="form-control sub_localty_dropdown" [placeholder]="'Select Sub-locality'"
+                                [settings]="dropdownSettings1" [data]="dropdown_sublocality"
+                                formControlName="sub_locality"  [ngClass]="{ 'is-invalid': submitted2 && step2.sub_locality.errors }" (ngModelChange)="onchange_sub_locality($event)">
+                                </ng-multiselect-dropdown>
+                            </div>
+                        </div>
+                        <div class="row mt-3" style="position: relative;">
                             <div class="col-md-12">
                                 <label for="address" class="form-label">Enter Address</label>
                                 <input #search autocorrect="off" autocapitalize="on" spellcheck="off" formControlName="address" [ngClass]="{ 'is-invalid': submitted2 && step2.address.errors }" type="search" class="form-control input-text" placeholder="Enter Address" />
-                                <span class="flaticon-maps-and-flags" style="position: absolute;top: 278px; right: 215px"></span>
+                                <span class="flaticon-maps-and-flags" style="position: absolute;top: 40px; right: 80px"></span>
                                 <agm-map style="height: 300px;" [latitude]="latCus" [longitude]="longCus" [zoom]="15" class="main-card-agm-map">
                                     <agm-marker [latitude]="latCus" [longitude]="longCus" [markerDraggable]="true" (dragEnd)="markerDragEnd($event)">
                                         <agm-info-window> </agm-info-window>
                                     </agm-marker>
                                 </agm-map>
                                 <input type="hidden" class="form-control" id="map_latitude" formControlName="map_latitude">
-                                <input type="hidden" class="form-control" id="map_longitude" formControlName="map_longitude">
+                                <input type="hidden" class="form-control" id="map_longitude" formControlName="map_longitude" [ngClass]="{ 'is-invalid': submitted2 && step2.map_longitude.errors }">
+                                <div *ngIf="submitted2 && step2.map_longitude.errors" class="invalid-feedback google_map_error">
+                                    <div *ngIf="step2.map_longitude.errors.required">Please Enter Google Map Current Location</div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row mt-3">
-                            <div class="col-md-3">
-                                <label for="city" class="form-label">City</label>
-                                <select id="city" class="form-select form-select-lg w100" formControlName="city" [ngClass]="{ 'is-invalid': submitted2 && step2.city.errors }">
-                                    <option value="">Select</option>
-                                    <option>Delhi</option>
-                                </select>
-                            </div>
-                            <div class="col-md-3">
-                                <!-- <label for="locality" class="form-label">Locality</label>
-                                <select id="locality" class="form-select form-select-lg w100" formControlName="locality" [ngClass]="{ 'is-invalid': submitted2 && step2.locality.errors }" (ngModelChange)="onchange_locality($event)">
-                                    <option value="">Select Option</option>
-                                    <option *ngFor="let locality of locality_data" value="{{locality.id}}">{{locality.area}}</option>                    
-                                </select> -->
-
-                                <label for="locality">Locality</label>
-                                <input class="w100 form-control mt-2" type="text" placeholder="Select Option" matInput aria-label="Number" formControlName="locality" [ngClass]="{ 'is-invalid': submitted2 && step2.locality.errors }" [matAutocomplete]="auto">
-                                <mat-autocomplete #auto="matAutocomplete"  (optionSelected)="onchange_locality($event)">
-                                    <mat-option *ngFor="let area of filteredOptions | async" [value]="area.item_text">
-                                        {{area.item_text}}
-                                    </mat-option>
-                                </mat-autocomplete>
-                            </div>
-                            <div class="col-md-3">
-                                <label for="pincode" class="form-label">Pincode</label>
-                                <input type="text" class="form-control" id="pincode" formControlName="pincode" [ngClass]="{ 'is-invalid': submitted2 && step2.pincode.errors }" readonly>
-                            </div>
-                            <div class="col-md-3">
-                                <label for="nearest_place" class="form-label">Nearest Place</label>
-                                <input type="text" class="form-control" id="nearest_place" formControlName="nearest_place" [ngClass]="{ 'is-invalid': submitted2 && step2.nearest_place.errors }">
+                            <div class="col-md-12  mt-3">
+                                <label for="property_desc" class="form-label">Full Address</label>
+                                <textarea class="form-control" aria-label="With textarea" id="property_desc" formControlName="address_details" [ngClass]="{ 'is-invalid': submitted2 && step2.address_details.errors }"></textarea>
                             </div>
                         </div>
 

@@ -34,7 +34,7 @@ export class RentPropertyService {
   }
 
   get_areas(): any {
-    const route = "/api/auth/get_areas";
+    const route = "/api/auth/get_locality";
     return this.apiService.get<ResultModel>(route);
   }
 }

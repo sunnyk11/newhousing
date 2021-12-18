@@ -8,38 +8,50 @@
                         <div class="col-lg-12">
                           <h2 class="mb10"> Filter Area Service Provider</h2>
                           </div>                        
-                        <div class="col-lg-3 col-sm-12">
+                        <!-- <div class="col-lg-6 col-sm-12 mt15">
                             <div class="form-group">
-                                <label for="Area" class="form-label">Please Select Area</label>
-                                <select id="Area" class="form-select form-select-lg w100" formControlName="Area" (ngModelChange)="onchange_area($event)"> 
-                                    <option value="">Select Area</option>
-                                    <option value="470">Chartartpur</option>
+                                <label for="Area" class="form-label">Please Select City</label>
+                                <select id="City" class="form-select form-select-lg w100" formControlName="city" (ngModelChange)="onchange_state($event)"> 
+                                    <option value="">Select City</option>
+                                  <option *ngFor="let state of state_data?.data"
+                                            [value]="state.state_id">{{state.state}}
+                                  </option>
+                              </select>
+                            </div>
+                        </div>             -->
+                        <!-- <div class="col-lg-6 col-12 mt15 ">
+                            <div class="form-group">
+                                <label for="Area" class="form-label">Please Select District</label>
+                                <select id="City" class="form-select form-select-lg w100" formControlName="district" (ngModelChange)="onchange_district($event)"> 
+                                    <option value="">Select District</option>
+                                    <option *ngFor="let district of district_data?.data"
+                                              [value]="district.district_id">{{district.district}}
+                                   </option>
                                 </select>
                             </div>
-                        </div>                      
-                      <div class="col-lg-3 col-sm-12">
-                          <div class="form-group">
-                              <label for="LocalArea" class="form-label">Please Select Local Area</label>
-                              <select id="LocalArea" class="form-select form-select-lg w100" formControlName="LocalArea" (ngModelChange)="onchange_local_area($event)"> 
-                                <option value="">Select Local Area</option>
-                                <option *ngFor="let loc_Area of local_area_data?.data"
-                                      [value]="loc_Area.loc_area_id">{{loc_Area.local_area}}
-                                </option>
-                              </select>
-                          </div>
-                      </div>                    
-                      <div class="col-lg-3 col-sm-12">
-                          <div class="form-group">
-                              <label for="service" class="form-label">Please Select Service</label>
-                              <select id="service" class="form-select form-select-lg w100" formControlName="service"> 
-                                <option value="">Select Services</option>
-                              <option *ngFor="let sevices of area_service_data?.data"
-                                    [value]="sevices.service_id">{{sevices.service_name}}
-                              </option>
-                              </select>
-                          </div>
-                      </div>
-                      <div class="col-lg-3 col-12 search-column">
+                        </div>        -->  
+                        <div class="col-md-4  col-12 mt15" id="multiselect-dropdown1">
+                            <label for="locality">Please Select Locality</label>
+                            <ng-multiselect-dropdown class="form-control localty_dropdown" [placeholder]="'Select locality'"
+                            [settings]="dropdownSettings_locality" [data]="dropdown_locality"
+                            formControlName="locality"  (ngModelChange)="onchange_locality($event)">
+                            </ng-multiselect-dropdown>
+                        </div>
+                        <div class="col-md-4  col-12 mt15" id="multiselect-dropdown1">
+                            <label for="pincode" class="form-label">Please Select Sub-Locality</label>                              
+                            <ng-multiselect-dropdown class="form-control sub_localty_dropdown" [placeholder]="'Select Sub-locality'"
+                            [settings]="dropdownSettings_sub_locality" [data]="dropdown_sublocality"
+                            formControlName="sub_locality">
+                            </ng-multiselect-dropdown>
+                        </div>                           
+                      <div class="col-md-4  col-12 mt15" id="multiselect-dropdown1">
+                        <label for="pincode" class="form-label">Please Select Sservices</label>                              
+                        <ng-multiselect-dropdown class="form-control sub_localty_dropdown" [placeholder]="'Select Services'"
+                        [settings]="dropdownSettings" [data]="dropdownList"
+                        formControlName="service" >
+                        </ng-multiselect-dropdown>
+                    </div>  
+                      <div class="col-lg-6 offset-lg-3 col-12 search-column mt15">
                           <!-- <div class="f1-buttons m-auto"> -->
                               <button type="submit" class="btn btn-submit" (click)="on_search()">Searching</button>
                           <!-- </div> -->

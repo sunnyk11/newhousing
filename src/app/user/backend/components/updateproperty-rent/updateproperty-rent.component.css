@@ -140,6 +140,13 @@ mat-slider {
       width: 100%;
       height: 100vh;
   }
+  
+.google_map_error{
+  font-size: 22px;
+  font-weight: 600;
+  background: #fff;
+  text-align: center;
+}
 @media(max-width: 768px) { 
     .additional_row li label{
       margin-left: 2px!important;

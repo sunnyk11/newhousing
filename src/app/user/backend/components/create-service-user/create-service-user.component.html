@@ -1,0 +1,62 @@
+<div class="wrapper">
+    <div class="container mt20">
+        <div class="row">
+            <div class="col-lg-10 offset-lg-1 col-12 create_column">
+                <div class="my_dashboard_review">
+                    <form role="form" action="" method="post" class="f"  [formGroup]="Service_form" novalidate>
+                    <div class="row">
+                        <div class="col-lg-12 col-12 service_heading">
+                          <h2>Create New User</h2>
+                          </div>                        
+                        <div class="col-lg-4 col-12 mt15">
+                            <div class="form-group">
+                                <!-- <label for="service" class="form-label">Enter User name</label> -->
+                                <input type="text" class="form-control" id="user" formControlName="user" placeholder="Enter User Name" [ngClass]="{ 'is-invalid': submitted && f.user.errors }" >
+                            </div>
+                        </div>                     
+                        <div class="col-lg-4 col-12 mt15">
+                            <div class="form-group">
+                                <!-- <label for="contact" class="form-label">Please Select Area</label> -->
+                                <input type="text" class="form-control" id="contact" formControlName="contact" placeholder="Enter Mobile No:" (keypress)="keyPressNumbers($event)" minlength="10"  maxlength="10" [ngClass]="{ 'is-invalid': submitted && f.contact.errors }" >
+                            </div>
+                        </div>        
+                        
+                        <div class="col-md-4  col-12 mt15">
+                            <!-- <label for="city" class="form-label">City</label> -->
+                            <select id="city" class="form-select form-select-lg w100" formControlName="city" [ngClass]="{ 'is-invalid': submitted && f.city.errors }">
+                                <!-- <option value="">Select City</option> -->
+                                <option value="1">Delhi</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4  col-12 mt15" id="multiselect-dropdown">
+                            <!-- <label for="locality">Locality</label> -->
+                            <ng-multiselect-dropdown class="form-control localty_dropdown" [placeholder]="'Select locality'"
+                            [settings]="dropdownSettings_locality" [data]="dropdown_locality"
+                            formControlName="locality"  [ngClass]="{ 'is-invalid': submitted && f.locality.errors }"  (ngModelChange)="onchange_locality($event)">
+                            </ng-multiselect-dropdown>
+                        </div>
+                        <div class="col-md-4  col-12 mt15">
+                            <!-- <label for="pincode" class="form-label">Sub-Locality</label>                               -->
+                            <ng-multiselect-dropdown class="form-control" [placeholder]="'Select Sub-locality'"
+                            [settings]="dropdownSettings_sub_locality" [data]="dropdown_sublocality"
+                            formControlName="sub_locality"  [ngClass]="{ 'is-invalid': submitted && f.sub_locality.errors }">
+                            </ng-multiselect-dropdown>
+                        </div>                   
+                        <div class="col-lg-4 col-12 mt15 col-sm-12">
+                            <div class="form-group">
+                                <ng-multiselect-dropdown class="form-control" [placeholder]="'Select Service'"
+                                [settings]="dropdownSettings" [data]="dropdownList"
+                                formControlName="service" [ngClass]="{ 'is-invalid': submitted && f.service.errors }">
+                                </ng-multiselect-dropdown>
+                            </div>
+                        </div>                   
+                      <div class="col-lg-6 offset-lg-3 col-12 mt20 search-column">
+                            <button type="submit" class="btn btn-submit" (click)="onSubmit()">Create</button>
+                      </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
