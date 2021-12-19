@@ -53,11 +53,22 @@ export class ApiService {
   ): Observable<ResultModel> {
     if(searchParams) {
       const activatedRoute = this.router.url.split("/");
+      console.log(activatedRoute);
       Object.assign(searchParams, {
         Route: activatedRoute[activatedRoute.length - 1]
       });
     }
 
+    return this.http.get<ResultModel>(`${environment.apiUrl}${path}`, {
+      headers: this.setHeaders(),
+      params: searchParams
+    }).pipe(catchError(this.formatErrors))
+  }
+
+  get1<ResultModel>(
+    path: string,
+    searchParams: HttpParams = new HttpParams()
+  ): Observable<ResultModel> {
     return this.http.get<ResultModel>(`${environment.apiUrl}${path}`, {
       headers: this.setHeaders(),
       params: searchParams

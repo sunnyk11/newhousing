@@ -143,14 +143,14 @@ export class ProPaymentSummaryComponent implements OnInit {
   plan_payment(plan_name:any, plan_id:any, payment_type:any, plan_type:any, expected_rent:any, price_duration:any) {
     //console.log(plan_name, plan_id, payment_type, plan_type, expected_rent, price_duration);
     this.plan_name = plan_name;
-    this.plan_price = expected_rent / (30 / price_duration);
+    this.plan_price = Math.round(expected_rent / (30 / price_duration));
     this.plan_type = 'rent';
     this.plan_id = plan_id;
     this.payment_type = payment_type;
     this.expected_rent = expected_rent;
     this.property_name = this.product_data[0].build_name;
     this.property_id = this.product_data[0].id;
-    this.gst_amount = (18 * this.plan_price) / 100;
+    this.gst_amount = Math.round((18 * this.plan_price) / 100);
     this.maintenance_charge = this.product_data[0].maintenance_charge;
     this.security_deposit = this.product_data[0].security_deposit;
     this.security_dep_amount = this.expected_rent * this.security_deposit;

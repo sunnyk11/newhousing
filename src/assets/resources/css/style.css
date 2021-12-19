@@ -4761,3 +4761,27 @@ agm-map {
     width: 100%;
     z-index: 10000;
 }
+
+.mt100 {
+    margin-top: 100px !important;
+}
+
+.mt120 {
+    margin-top: 120px !important;
+}
+
+.modal-backdrop {
+    display: none;
+}
+
+#ProfileImageModal::before,
+#EditUserNameModal::before,
+#EditPhoneNumberModal::before {
+    background-color: rgba(0, 0, 0, .9);
+    bottom: 0;
+    content: "";
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+}

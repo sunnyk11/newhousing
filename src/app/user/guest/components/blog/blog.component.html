@@ -1,5 +1,5 @@
 <!--Breadcrumb-->
-<div class="bg-secondary">
+<div class="bg-secondary mt100">
     <div class="container-fluid py-4">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
@@ -43,16 +43,22 @@
                                         <p [innerHTML]="post.description | truncateText:330"></p>
                                     </div>
                                     <div class="fp_footer">
-                                        <ul class="fp_meta float-left mb0">
-                                            <li class="list-inline-item" *ngIf="post.profile_pic !== null"><img class="profile_pic" src="{{ images_folder }}images/{{ post.profile_pic }}" alt="profile_pic"></li>
-                                            <li class="list-inline-item" *ngIf="post.profile_pic == null">
-                                                <img class="profile_pic" src="../../assets/images/default_avatar.png" alt="profile_pic">
-                                            </li>
-                                            <li class="list-inline-item">{{ post.name }}</li>
-                                            <li class="list-inline-item"><span class="flaticon-calendar pr10"></span> {{ post.updated_at | date: 'MMMM dd, yyyy' }}</li>
-                                        </ul>
-                                        <a class="fp_pdate float-right text-thm" [routerLink]="['/blog-single-post', post.slug]">Read More <span
-                                                class="flaticon-next"></span></a>
+                                        <div class="row">
+                                            <div class="col-lg-8 col-md-8 col-sm-12">
+                                                <ul class="fp_meta float-left mb0">
+                                                    <li class="list-inline-item" *ngIf="post.profile_pic !== null"><img class="profile_pic" src="{{ images_folder }}images/{{ post.profile_pic }}" alt="profile_pic"></li>
+                                                    <li class="list-inline-item" *ngIf="post.profile_pic == null">
+                                                        <img class="profile_pic" src="../../assets/images/default_avatar.png" alt="profile_pic">
+                                                    </li>
+                                                    <li class="list-inline-item">{{ post.name }}</li>
+                                                    <li class="list-inline-item"><span class="flaticon-calendar pr10"></span> {{ post.updated_at | date: 'MMMM dd, yyyy' }}</li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-12">
+                                                <a class="fp_pdate float-right text-thm" [routerLink]="['/blog-single-post', post.slug]">Read More <span
+                                                        class="flaticon-next"></span></a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
