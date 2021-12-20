@@ -106,7 +106,8 @@
         overflow: hidden;
         position: relative;
         transition: all 0.3s ease;
-        height: 510px;
+        /* height: 510px; */
+        height: auto;
         margin: 0px 4px !important;
     }
     .feat_property .fp_single_item_slider {

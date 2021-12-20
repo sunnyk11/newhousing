@@ -150,7 +150,7 @@
 }
 
 hr {
-    border-top: 1px solid #fff;
+    border-top: 1px solid #888;
 }
 
 .visible-xs {
@@ -170,6 +170,57 @@ thead>tr>th {
 input[type="text"] {
     font-weight: 400;
     font-size: 18px;
+}
+
+.strike_duration {
+    text-decoration: line-through;
+}
+
+.discount_price {
+    color: #00D100;
+    background: beige;
+    border-radius: 5px;
+    font-size: 25px;
+}
+
+.banner {
+    position: absolute;
+    right: 0;
+    display: block;
+    margin: -75px 0;
+    width: 100%;
+    height: 40px;
+    border: 1px solid #8a1;
+    font: normal 24px/36px 'Rye';
+    text-align: center;
+    color: #451;
+    background: #9b2;
+    border-radius: 4px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, .15) inset, 0 6px 10px rgba(0, 0, 0, .15);
+}
+
+.banner::before,
+.banner::after {
+    content: "";
+    position: absolute;
+    display: block;
+    border-style: solid;
+    border-color: #94b81e transparent transparent transparent;
+    bottom: -1em;
+}
+
+.banner::before {
+    left: 0;
+    border-width: 1em 0 0 1em;
+}
+
+.banner::after {
+    right: 0;
+    border-width: 1em 1em 0 0;
+}
+
+.plans-let-out th {
+    vertical-align: sub;
 }
 
 @media only screen and (max-width: 992px) {

@@ -37,7 +37,7 @@ export class InvoiceComponent implements OnInit {
         //console.log(res);
         this.response = res;
         this.inv_response = this.response[0];
-        this.gst_amount = (18 * this.response[0].plan_price) / 100;
+        this.gst_amount = Math.round((18 * this.response[0].plan_price) / 100);
 
         if (this.inv_response.plan_type == 'rent') {
           this.plansPageService.getRentOrderDetails(this.inv_response.order_id).subscribe(

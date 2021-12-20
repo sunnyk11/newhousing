@@ -1,68 +1,90 @@
-.fa.fa-user {
-    font-size: 24px;
+/* for sidenav to take a whole page */
+
+html,
+body {
+    margin: 0;
+    height: 100%;
+}
+
+a {
+    text-decoration: none;
+    /*color: white;*/
+}
+
+a:hover,
+a:active {
+    color: #ff5a5f;
+}
+
+.navigation-items {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    align-items: center;
+}
+
+mat-toolbar {
+    border-radius: 3px;
+    border-bottom: 1px solid darkgrey;
+    background: #fff;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 32px;
+}
+
+.material-icons {
+    vertical-align: middle !important;
+}
+
+
+/*a.img_logo .logo2 {
+    display: none;
+  }*/
+
+@media(max-width: 959px) {
+    mat-toolbar {
+        border-radius: 0px;
+    }
+}
+
+ ::ng-deep .mat-toolbar {
+    z-index: 1000!important;
+    position: fixed;
+    height: 100px;
+    width: 100% !important;
+    top: 0;
+    left: 0;
 }
 
 .profile_image {
-    width: 60px;
+    width: 60px !important;
+    height: 60px !important;
+}
+
+.user_acc {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.wishlist_icon {
+    color: orangered;
+}
+
+.wishlist_icon:hover {
+    transform: scale(1.5);
+}
+
+.add_listing {
+    border: 2px double #888;
+    border-radius: 5px;
+    padding: 0px 5px;
+}
+
+.mat-menu-item.pro_img {
     height: 60px;
 }
 
-.user-info li {
-    margin-right: 0;
-}
-
-.user-info {
-    border: 1px solid #888;
-    left: -50px;
-}
-
-.nav-item .fa-heart {
-    color: #ff5a5f !important;
-    font-size: 18px;
-    font-weight: 900;
-}
-
-.nav-item .fa-exchange {
-    color: #ff5a5f !important;
-    font-size: 18px;
-    font-weight: 500;
-}
-
-.compare {
-    cursor: pointer!important;
-}
-
-nav {
-    border-bottom: 1px solid #888;
-    z-index: 1000!important;
-}
-
-@media only screen and (min-width:768px) {
-    .wishlistValue {
-        background-color: #fff;
-        width: 24px;
-        height: 24px;
-        border-radius: 30px;
-        font-size: 14px;
-        box-shadow: 0 0 0 1px rgb(0 0 0 / 8%), 0 4px 12px 1px rgb(0 0 0 / 20%);
-        top: 15px!important;
-        position: absolute;
-        margin-left: 0px!important;
-        text-align: center;
-    }
-}
-
-@media only screen and (max-width:768px) {
-    .wishlistValue {
-        background-color: #fff;
-        width: 24px;
-        height: 24px;
-        border-radius: 30px;
-        font-size: 14px;
-        box-shadow: 0 0 0 1px rgb(0 0 0 / 8%), 0 4px 12px 1px rgb(0 0 0 / 20%);
-        top: none!important;
-        margin-left: 12px!important;
-        position: absolute;
-        text-align: center;
-    }
+.mat-menu-item.links {
+    height: 35px;
+    line-height: 30px;
 }

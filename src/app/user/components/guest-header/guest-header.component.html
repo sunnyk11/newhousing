@@ -1,86 +1,163 @@
-<nav class="navbar navbar-expand-lg sticky-top navbar-light bg-white py-4">
-    <a class="navbar-brand ps-4 m-auto" href="#">
-        <img src="assets/resources/images/header-logo2.png" class="d-inline-block align-top" alt="">
-    </a>
-    <button class="navbar-toggler mr15" type="button" data-bs-toggle="collapse" data-bs-target="#menu-navbar" aria-controls="menu-navbar" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+<mat-toolbar class="navbar-scrolltofixed stricky">
+    <div fxHide.gt-sm>
+        <button mat-icon-button (click)="onToggleSidenav()">
+            <mat-icon>menu</mat-icon>
+        </button>
+    </div>
+    <div class="m-auto">
+        <a class="img_logo" href="/">
+            <!-- <img class="logo1 img-fluid" src="./../../assets/css/images/header-logo.png" alt="header-logo.png"> -->
+            <img class="logo2 img-fluid" src="../../../../assets/resources/images/header-logo2.png" alt="header-logo2.png">
+        </a>
+    </div>
+    <div fxHide.gt-sm>
+        <button mat-icon-button [matMenuTriggerFor]="user_info" aria-label="">
+            <span class="material-icons">
+                person
+            </span>
+            <span class="material-icons">
+                expand_more
+            </span>
+        </button>
+        <mat-menu #user_info="matMenu">
+            <button mat-menu-item disabled *ngIf="LoggedIn">
+                <span>{{ userName }}</span>
+            </button>
+            <button mat-menu-item class="text-center links" *ngIf="LoggedIn">
+                <span>
+                    <a class="dropdown-item text-secondary" href="/profile">My Profile</a>
+                </span>
+            </button>
+            <button mat-menu-item class="text-center links" *ngIf="LoggedIn">
+                <span>
+                    <a class="dropdown-item text-secondary" href="/my-properties">My Properties</a>
+                </span>
+            </button>
+            <button mat-menu-item class="text-center links" *ngIf="LoggedIn">
+                <span>
+                    <a class="dropdown-item text-secondary" href="/my-plans">My Plans</a>
+                </span>
+            </button>
+            <button mat-menu-item class="text-center links" *ngIf="LoggedIn">
+                <span>
+                    <a class="dropdown-item text-secondary" href="/agent/my-properties">Listed Properties</a>
+                </span>
+            </button>
+            <button mat-menu-item class="text-center links" *ngIf="LoggedIn">
+                <span>
+                    <a class="dropdown-item text-secondary" href="/agent/local-services">Local Services</a>
+                </span>
+            </button>
+            <button mat-menu-item class="text-center links" *ngIf="LoggedIn">
+                <span><a class="dropdown-item text-secondary" href="/logout">Log out</a></span>
+            </button>
+            <button mat-menu-item class="text-center links" *ngIf="!LoggedIn">
+                <span><a class="dropdown-item text-secondary" href="/login">Login</a></span>
+            </button>
+        </mat-menu>
+    </div>
+    <div fxFlex fxLayout fxLayoutAlign="end" fxHide.lt-md>
+        <ul fxLayout fxLayoutGap="30px" class="navigation-items">
+            <li>
+                <a href="">Home</a>
+            </li>
+            <li>
+                <a [routerLink]="['about']">About</a>
+            </li>
+            <li>
+                <a href="/product-listing">Listing</a>
+            </li>
+            <li>
+                <a href="/contact">Contact</a>
+            </li>
+            <li>
+                <a href="/plans">Plans</a>
+            </li>
 
-    <div class="collapse navbar-collapse justify-content-end ml20" id="menu-navbar">
-        <ul class="navbar-nav">
-            <li class="nav-item active">
-                <a class="nav-link" routerLink="/" data-bs-toggle="collapse" data-bs-target="#menu-navbar">Home</a>
+            <li *ngIf="!LoggedIn">
+                <a href="/login">Login/Register</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" routerLink="about" data-bs-toggle="collapse" data-bs-target="#menu-navbar">About</a>
+            <li *ngIf="LoggedIn" class="user_acc">
+                <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                    <span class="material-icons">
+                        person
+                    </span>
+                    <span class="material-icons">
+                        expand_more
+                    </span>
+                </button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item class="text-center pro_img">
+                        <span *ngIf="profile_pic && profile_pic.indexOf('https') != -1">
+                            <img class="profile_image" src="{{profile_pic}}" alt="Profile Pic"></span>
+                        <span *ngIf="profile_pic && profile_pic.indexOf('https') == -1"><img class="profile_image"
+                                src="{{ftpstring}}images/{{profile_pic}}" alt="Profile Pic"></span>
+                        <span *ngIf="!profile_pic"><img class="profile_image"
+                                src="./../../assets/images/no-image-icon.png" alt="Profile Pic"></span>
+                    </button>
+                    <button mat-menu-item disabled class="text-center links">
+                        <span><strong>{{ userName }}</strong></span>
+                    </button>
+                    <button mat-menu-item class="text-center links">
+                        <span>
+                            <a class="dropdown-item text-secondary" href="/profile">My Profile</a>
+                        </span>
+                    </button>
+                    <button mat-menu-item class="text-center links">
+                        <span>
+                            <a class="dropdown-item text-secondary" href="/my-properties">My Properties</a>
+                        </span>
+                    </button>
+                    <button mat-menu-item class="text-center links">
+                        <span>
+                            <a class="dropdown-item text-secondary" href="/my-plans">My Plans</a>
+                        </span>
+                    </button>
+                    <button mat-menu-item class="text-center links">
+                        <span>
+                            <a class="dropdown-item text-secondary" href="/agent/my-properties">Listed Properties</a>
+                        </span>
+                    </button>
+                    <button mat-menu-item class="text-center links">
+                        <span>
+                            <a class="dropdown-item text-secondary" href="/agent/local-services">Local Services</a>
+                        </span>
+                    </button>
+                    <button mat-menu-item class="text-center links">
+                        <span><a class="dropdown-item text-secondary" [routerLink]="['logout']">Log out</a></span>
+                    </button>
+                </mat-menu>
+
             </li>
-            <li class="nav-item">
-                <a class="nav-link" routerLink="product-listing" data-bs-toggle="collapse" data-bs-target="#menu-navbar">Listing</a>
+            <li *ngIf="LoggedIn">
+                <a href="/wishlist">
+                    <span matBadge={{wishlist_length}} matBadgeOverlap="false" matBadgeColor="warn">
+                        <mat-icon>favorite_border</mat-icon>
+                    </span>
+                </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" routerLink="contact" data-bs-toggle="collapse" data-bs-target="#menu-navbar">Contact</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" [routerLink]="['plans']" data-bs-toggle="collapse" data-bs-target="#menu-navbar">Plans</a>
-            </li>
-            <li class="nav-item" *ngIf="LoggedIn">
-                <a class="nav-link" routerLink="wishlist" data-bs-toggle="collapse" data-bs-target="#menu-navbar"><i class="fa fa-heart" aria-hidden="true"></i>
-                    <span class="wishlistValue">{{wishlist_length}}</span></a>
-            </li>
-            <li class="nav-item" *ngIf="LoggedIn">
-                <a class="nav-link" routerLink="product-compare" *ngIf="property_comp_length>1;else otherPro_menu" data-bs-toggle="collapse" data-bs-target="#menu-navbar">
-                    <i class="fa fa-exchange" aria-hidden="true"></i>
-                    <span class="wishlistValue">{{property_comp_length}}</span>
+            <li *ngIf="LoggedIn">
+                <a href="/product-compare" *ngIf="property_comp_length>1;else otherPro_menu">
+                    <span matBadge={{property_comp_length}} matBadgeOverlap="false" matBadgeColor="warn">
+                        <mat-icon>compare_arrows</mat-icon>
+                    </span>
                 </a>
                 <ng-template #otherPro_menu>
-                    <a class="nav-link compare" (click)="compare_notification()" data-bs-toggle="collapse" data-bs-target="#menu-navbar">
-                        <i class="fa fa-exchange" aria-hidden="true"></i>
-                        <span class="wishlistValue">{{property_comp_length}}</span>
+                    <a (click)="compare_notification()">
+                        <span matBadge={{property_comp_length}} matBadgeOverlap="false" matBadgeColor="warn">
+                            <mat-icon>compare_arrows</mat-icon>
+                        </span>
                     </a>
                 </ng-template>
             </li>
-            <li class="nav-item" *ngIf="!LoggedIn">
-                <a class="nav-link" [routerLink]="['login']" data-bs-toggle="collapse" data-bs-target="#menu-navbar">Login/Register</a>
-            </li>
-            <li class="nav-item dropdown" *ngIf="LoggedIn">
-                <!-- <a class="nav-link" data-bs-toggle="collapse" data-bs-target="#menu-navbar" [routerLink]="['logout']">Logout</a> -->
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="fa fa-user"></i>
+            <li class="add_listing">
+                <span>
+                    <a href="/list-property">
+                        <mat-icon>add_circle_outline</mat-icon>
+                        <span> List Property</span>
                 </a>
-                <ul class="dropdown-menu text-center user-info" aria-labelledby="navbarDropdown">
-                    <li *ngIf="profile_pic && profile_pic.indexOf('https') == -1">
-                        <a class="dropdown-item " *ngIf="profile_pic != null;else OtherImage">
-                            <img class="profile_image" src="{{ftpstring}}images/{{profile_pic}} " alt="Profile Pic">
-                        </a>
-                        <ng-template #OtherImage>
-                            <img style="width:30%;" class="align-self-start mr-3" src="./../../assets/resources/images/property/img_avatar2-png-9.png" alt="No Product Image">
-                        </ng-template>
-                    </li>
-                    <li *ngIf="profile_pic && profile_pic.indexOf('https') != -1">
-                        <a class="dropdown-item "><img class="profile_image " [src]="google_profile_pic" alt="Profile Pic "></a>
-                    </li>
-                    <li>
-                        {{userName}}
-                    </li>
-                    <li>
-                        <hr class="dropdown-divider ">
-                    </li>
-                    <li><a class="dropdown-item" [routerLink]="['profile']" data-bs-toggle="collapse" data-bs-target="#menu-navbar">My Profile</a></li>
-                    <li><a class="dropdown-item" [routerLink]="['my-properties']" data-bs-toggle="collapse" data-bs-target="#menu-navbar">My Properties</a></li>
-                    <li><a class="dropdown-item" [routerLink]="['my-plans']" data-bs-toggle="collapse" data-bs-target="#menu-navbar">My Plans</a></li>
-                    <li><a class="dropdown-item" [routerLink]="['/agent/my-properties']" data-bs-toggle="collapse" data-bs-target="#menu-navbar">Listed Properties</a></li>
-                    <li><a class="dropdown-item" [routerLink]="['agent/local-services']" data-bs-toggle="collapse" data-bs-target="#menu-navbar">Local Services</a></li>
-                    <li><a class="dropdown-item" [routerLink]="['agent/services-user-list']" data-bs-toggle="collapse" data-bs-target="#menu-navbar">Services User</a></li>
-                    <li><a class="dropdown-item" [routerLink]="['agent/services-list']" data-bs-toggle="collapse" data-bs-target="#menu-navbar">Services list</a></li>
-                    <li><a class="dropdown-item" [routerLink]="['logout']" data-bs-toggle="collapse" data-bs-target="#menu-navbar">Logout</a></li>
-                </ul>
+                </span>
             </li>
-            <li class="nav-item ">
-                <a class="nav-link " [routerLink]="['list-property']" data-bs-toggle="collapse" data-bs-target="#menu-navbar">List Property</a>
-            </li>
-            <!-- <li class="nav-item ">
-                <a class="nav-link " [routerLink]="['agent']" data-bs-toggle="collapse" data-bs-target="#menu-navbar">Agent Dashboard</a>
-            </li> -->
         </ul>
     </div>
-</nav>
+</mat-toolbar>

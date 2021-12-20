@@ -1,3 +1,14 @@
-<app-guest-header></app-guest-header>
+<!-- <app-guest-header></app-guest-header>
 <router-outlet></router-outlet>
-<app-guest-footer></app-guest-footer>
+<app-guest-footer></app-guest-footer> -->
+
+<mat-sidenav-container>
+    <mat-sidenav #sidenav role="navigation">
+        <app-sidenav-list (sidenavClose)="sidenav.close()"></app-sidenav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <app-guest-header (sidenavToggle)="sidenav.toggle()"></app-guest-header>
+        <router-outlet></router-outlet>
+        <app-guest-footer></app-guest-footer>
+    </mat-sidenav-content>
+</mat-sidenav-container>

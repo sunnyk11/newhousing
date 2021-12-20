@@ -1,5 +1,5 @@
 <!--Breadcrumb-->
-<div class="p-5 mb-4 bg-secondary rounded-3">
+<div class="p-5 mb-4 bg-secondary rounded-3 mt100">
     <div class="container-fluid py-5">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
@@ -43,27 +43,57 @@
                 </div>
             </div>
             <div class="row">
-                <table class="table table-hover table-bordered plans-rent">
+                <table class="table table-hover table-bordered plans-rent mt-5">
                     <thead>
                         <tr>
                             <th scope="col">&nbsp;</th>
-                            <th scope="col" *ngFor="let plan of rent_response?.data">{{ plan.plan_name }} <br>
-                                <span>{{ plan.payment_type }} Payment</span>
+                            <th scope="col" *ngFor="let plan of rent_response?.data" class="position-relative">{{ plan.plan_name }}
+                                <span class="banner" *ngIf="plan.plan_name == 'VIP'">Popular</span>
+                                <!-- <br>
+                                <span>{{ plan.payment_type }} Payment</span> -->
                                 <hr>
+                                <span class="strike_duration" *ngIf="plan.plan_name == 'VVIP'">30 Days Rent</span>
+                                <span class="strike_duration" *ngIf="plan.plan_name == 'VIP'">20 Days Rent</span>
+                                <br>
+                                <span class="discount_price" *ngIf="plan.plan_name == 'VVIP'"> 33.33% Off</span>
+                                <span class="discount_price" *ngIf="plan.plan_name == 'VIP'"> 25% Off</span>
+                                <br>
                                 <span>{{ plan.plan_price }} Days Rent</span> <br>
                                 <span>Rs. {{ value /
-                                    (30 / plan.plan_price)}}</span>
+                                    (30 / plan.plan_price) | number: '4.0-0'}}</span>
                             </th>
                         </tr>
                     </thead>
                     <tbody *ngFor="let rent_feature of rent_feat_res">
                         <tr class="visible-xs" aria-hidden="true">
                             <td>&nbsp;</td>
-                            <td colspan="3">{{rent_feature.feature_name}}</td>
+                            <td colspan="3">{{rent_feature.feature_name}}
+                                <span *ngIf="rent_feature.feature_name.includes('Local Area Service')">
+                                    <mat-icon placement="bottom-right" [ngbPopover]="serviceContent">info</mat-icon>
+                                </span>
+                                <span *ngIf="rent_feature.feature_name.includes('Free Property Change')">
+                                    <mat-icon placement="bottom-right" [ngbPopover]="propertyContent">info</mat-icon>
+                                </span>
+                            </td>
                         </tr>
                         <tr>
                             <th>
-                                <span class="ptable-title">{{rent_feature.feature_name}}</span>
+                                <span class="ptable-title">{{rent_feature.feature_name}}
+                                    <span *ngIf="rent_feature.feature_name.includes('Local Area Service')">
+                                        <mat-icon placement="right" [ngbPopover]="serviceContent">info</mat-icon>
+                                    </span>
+                                <span *ngIf="rent_feature.feature_name.includes('Free Property Change')">
+                                        <mat-icon placement="right" [ngbPopover]="propertyContent">info</mat-icon>
+                                    </span>
+                                </span>
+                                <ng-template #propertyContent>
+                                    You dont have to pay if you want to change the property with in this time period
+                                </ng-template>
+                                <ng-template #serviceContent>
+                                    <strong>Service providers like: </strong><br> Maid
+                                    <br> Laundry Service<br>Water Bottle Supplier<br>Internet Service Provider
+                                    <br>Local Dry Cleaners<br>Grocery Stores Home suppliers<br>Bathroom Cleaner
+                                </ng-template>
                             </th>
                             <td *ngIf="rent_feature.feature_details[0] === 'yes'"><span class="checkmark">&#10003;</span></td>
                             <td *ngIf="rent_feature.feature_details[0] === 'no'"><span class="wrong-sym">&#215;</span>
@@ -106,27 +136,50 @@
                 </div>
             </div>
             <div class="row">
-                <table class="table table-hover table-bordered plans-let-out">
+                <table class="table table-hover table-bordered plans-let-out mt-5">
                     <thead>
                         <tr>
                             <th scope="col">&nbsp;</th>
-                            <th scope="col" *ngFor="let letout_plan of letout_response">{{ letout_plan.plan_name }} <br>
-                                <span>{{ letout_plan.payment_type }} Payment</span>
+                            <th scope="col" *ngFor="let letout_plan of letout_response" class="position-relative">{{ letout_plan.plan_name }}
+                                <span class="banner" *ngIf="letout_plan.plan_name == 'Raja'">Popular</span>
+
                                 <hr>
+                                <span class="strike_duration" *ngIf="letout_plan.plan_name == 'Maha Raja'">30 Days
+                                    Rent</span>
+                                <span class="strike_duration" *ngIf="letout_plan.plan_name == 'Raja'">20 Days
+                                    Rent</span>
+                                <br>
+                                <span class="discount_price" *ngIf="letout_plan.plan_name == 'Maha Raja'"> 33.33%
+                                    Off</span>
+                                <span class="discount_price" *ngIf="letout_plan.plan_name == 'Raja'"> 25% Off</span>
+                                <br>
                                 <span>{{ letout_plan.plan_price }} Days Rent</span> <br>
-                                <span>{{
+                                <span>Rs. {{
                                     expected_rent_value /
-                                    (30 / letout_plan.plan_price)}}</span>
+                                    (30 / letout_plan.plan_price) | number: '4.0-0'}}</span>
                             </th>
                         </tr>
                     </thead>
                     <tbody *ngFor="let letout_feature of letout_feat_res">
                         <tr class="visible-xs" aria-hidden="true">
                             <td>&nbsp;</td>
-                            <td colspan="3">{{letout_feature.feature_name}}</td>
+                            <td colspan="3">{{letout_feature.feature_name}}
+                                <span *ngIf="letout_feature.feature_name.includes('Local Area Service')">
+                                    <mat-icon placement="bottom-right" [ngbPopover]="serviceContent">info</mat-icon>
+                                </span>
+                            </td>
                         </tr>
                         <tr>
-                            <th scope="row">{{letout_feature.feature_name}}</th>
+                            <th scope="row">{{letout_feature.feature_name}}
+                                <span *ngIf="letout_feature.feature_name.includes('Local Area Service')">
+                                    <mat-icon placement="right" [ngbPopover]="serviceContent">info</mat-icon>
+                                </span>
+                                <ng-template #serviceContent>
+                                    <strong>Service providers like: </strong><br> Maid
+                                    <br> Laundry Service<br>Water Bottle Supplier<br>Internet Service Provider
+                                    <br>Local Dry Cleaners<br>Grocery Stores Home suppliers<br>Bathroom Cleaner
+                                </ng-template>
+                            </th>
                             <td *ngIf="letout_feature.feature_details[0] === 'yes'"><span class="checkmark">&#10003;</span></td>
                             <td *ngIf="letout_feature.feature_details[0] === 'no'"><span class="wrong-sym">&#215;</span>
                             </td>
@@ -148,7 +201,14 @@
                             </td>
                             <td *ngIf="letout_feature.feature_details[2] != 'no' && letout_feature.feature_details[2] != 'yes'">
                                 <span>{{letout_feature.feature_details[2]}}</span>
+                                <span *ngIf="letout_feature.feature_details[2].includes('Pay Later')">
+                                    <mat-icon placement="left" [ngbPopover]="standardContent">info</mat-icon>
+                                </span>
                             </td>
+
+                            <ng-template #standardContent>
+                                We will deduct this service charge from the rent which will be paid by the customer to us, and remaining rent amount will be settled to your account.
+                            </ng-template>
                         </tr>
                     </tbody>
                     <tbody>
