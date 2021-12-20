@@ -23,29 +23,49 @@
                                 <form [formGroup]="searchForm" class="home1-advnc-search" action="#" name="searchHome" id="searchhome" #searchhome="ngForm">
                                     <div class="home1-advnc-search">
                                         <ul class="h1ads_1st_list mb0">
-                                            <li class="list-inline-item">
+                                            <!-- <li class="list-inline-item">
                                                 <div class="form-group">
-                                                    <input type="hidden" class="form-control" id="search_type" name="search_type" formControlName="search_type">
                                                     <input type="text" class="form-control input-text" name="name" formControlName="build_name" id="build_name" placeholder="Enter keywords...">
+                                                </div>
+                                            </li> -->
+                                            <li class="list-inline-item">
+                                                <div class="search_option_two">
+                                                    <div class="candidate_revew_select">
+                                                        <select class="form-select h50" name="type" id="type" formControlName="city">
+                                                        <option value ="Delhi" selected>Delhi</option>
+                                                    </select>
+                                                    </div>
                                                 </div>
                                             </li>
                                             <li class="list-inline-item">
                                                 <div class="search_option_two">
                                                     <div class="candidate_revew_select">
-                                                        <select class="form-select h50" name="type" formControlName="type" id="type">
-                                                        <option value ="" selected>Select Property Type</option>
-                                                        <option  *ngFor="let properrt_category of category?.data" [value]="properrt_category.category" >{{properrt_category.category}}</option>
+                                                        <input type="hidden" class="form-control" id="search_type" name="search_type" formControlName="search_type">
+                                                       <select class="form-select h50" name="type" formControlName="type" id="type">
+                                                            <option value ="" selected>Select Property Type</option>
+                                                            <option  *ngFor="let properrt_category of category?.data" [value]="properrt_category.category" >{{properrt_category.category}}</option>
                                                     </select>
                                                     </div>
                                                 </div>
                                             </li>
                                             <li class="list-inline-item">
                                                 <div class="form-group">
+                                                    <!-- <input type="text" class="form-control input-text" name="name" formControlName="build_name" id="build_name" (ngModelChange)="get_locality($event)" placeholder="Enter keywords..."> -->
+                                                    <input class="w100 form-control" type="text" placeholder="Search locality" matInput aria-label="Number" formControlName="locality" [matAutocomplete]="auto" (ngModelChange)="get_locality($event)">
+                                                    <mat-autocomplete #auto="matAutocomplete" > 
+                                                        <mat-option *ngFor="let area of filteredOptions | async" [value]="area.item_text">
+                                                            {{area.item_text}}
+                                                        </mat-option>
+                                                    </mat-autocomplete>
+                                                </div>
+                                            </li>
+                                            <!-- <li class="list-inline-item">
+                                                <div class="form-group">
                                                     <input #search autocorrect="off" autocapitalize="off" spellcheck="off" formControlName="location" type="search" class="form-control input-text" placeholder="Enter Location..." />
                                                     <label for="exampleInputEmail"><span
                                                         class="flaticon-maps-and-flags"></span></label>
                                                 </div>
-                                            </li>
+                                            </li> -->
                                             <li class="list-inline-item" *ngIf="rent_range_slider== true">
                                                 <div class="small_dropdown2">
                                                     <div id="prncgs" class="btn dd_btn1">
@@ -62,11 +82,11 @@
                                                 </div>
                                             </li> -->
                                             <!-- Sale feature Commented -->
-                                            <li class="custome_fields_520 list-inline-item">
+                                            <!-- <li class="custome_fields_520 list-inline-item">
                                                 <a class="btn" data-bs-toggle="collapse" data-bs-target="#amenities_collapse" role="button" aria-expanded="false" aria-controls="amenities_collapse">
                                                 Advanced <i class="fa fa-angle-down"></i>
                                             </a>
-                                            </li>
+                                            </li> -->
                                             <li class="list-inline-item">
                                                 <div class="search_option_button">
                                                     <button type="submit" class="btn btn-thm" (click)="searchhome.form.valid && navigate()">Search</button>
@@ -235,26 +255,26 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-4 col-xl-4" (click)="property_search(city_name)">
+            <div class="col-lg-4 col-xl-4" (click)="property_search()">
                 <div class="properti_city">
                     <div class="thumb"><img class="img-fluid w100" src="../../../../../assets/resources/images/property/city_image_1.jpeg" alt="pc1.jpg">
                     </div>
                     <div class="overlay" *ngIf="product_length>0">
                         <div class="details">
-                            <h4>{{city_name}}</h4>
+                            <h4>{{city_name | titlecase}}</h4>
                             <p>{{product_length}} Properties</p>
 
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-8 col-xl-8" (click)="property_search_locality(chattarpur)">
+            <div class="col-lg-8 col-xl-8" (click)="property_search_locality()">
                 <div class="properti_city">
                     <div class="thumb"><img class="img-fluid w100" src="../../../../../assets/resources/images/property/chattarpur_sharp.jpg" alt="pc2.jpg">
                     </div>
                     <div class="overlay" *ngIf="chattarpur_length>0">
                         <div class="details">
-                            <h4>{{chattarpur}}</h4>
+                            <h4>{{chattarpur | titlecase}}</h4>
                             <p>{{chattarpur_length}} Properties</p>
                         </div>
                     </div>

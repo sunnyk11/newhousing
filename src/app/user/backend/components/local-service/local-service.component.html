@@ -29,10 +29,10 @@
                             </div>
                         </div>        -->  
                         <div class="col-md-4  col-12 mt15" id="multiselect-dropdown1">
-                            <label for="locality">Please Select Locality</label>
+                            <label for="locality" class="form-label">Please Select Locality</label>
                             <ng-multiselect-dropdown class="form-control localty_dropdown" [placeholder]="'Select locality'"
                             [settings]="dropdownSettings_locality" [data]="dropdown_locality"
-                            formControlName="locality"  (ngModelChange)="onchange_locality($event)">
+                            formControlName="locality"  (onSelect)="onchange_locality($event)" (onDeSelect)="onItemDeSelect($event)">
                             </ng-multiselect-dropdown>
                         </div>
                         <div class="col-md-4  col-12 mt15" id="multiselect-dropdown1">
@@ -43,7 +43,7 @@
                             </ng-multiselect-dropdown>
                         </div>                           
                       <div class="col-md-6  col-12 mt15" id="multiselect-dropdown1">
-                        <label for="pincode" class="form-label">Please Select Sservices</label>                              
+                        <label for="Services" class="form-label">Please Select Services</label>                              
                         <ng-multiselect-dropdown class="form-control sub_localty_dropdown" [placeholder]="'Select Services'"
                         [settings]="dropdownSettings" [data]="dropdownList"
                         formControlName="service" >

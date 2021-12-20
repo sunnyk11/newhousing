@@ -299,7 +299,7 @@
                                 <div class="property_video p0">
                                     <div class="thumb">
                                         <div class="overlay_icon">
-                                            <agm-map [latitude]="latCus" [longitude]="longCus" [zoom]="15" class="main-card-agm-map">
+                                            <agm-map [latitude]="latCus" [longitude]="longCus" [zoom]="15" class="main-card-agm-map" (mapReady)="onMapReady($event)">
                                                 <agm-marker [latitude]="latCus" [longitude]="longCus">
                                                 </agm-marker>
                                             </agm-map>

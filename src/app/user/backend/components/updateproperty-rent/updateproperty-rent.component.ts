@@ -46,6 +46,7 @@ export class UpdatepropertyRentComponent implements OnInit {
   geoCoder:any;
   public latCus:any;
   public longCus:any;
+  public map:any;
   public locality_data:any=[];
   public Expected_PriceEroor: boolean = false;
   public add_room_tab:boolean=false;
@@ -251,14 +252,14 @@ export class UpdatepropertyRentComponent implements OnInit {
     );
   }
   
-  onchange_sub_locality(id:any){
-    this.address_concated= this.form_step2.value.locality[0].locality_text  + ', Delhi' ;
-    this.form_step2.patchValue({
-      address:this.address_concated
-    });
-  }
+  // onchange_sub_locality(id:any){
+  //   this.address_concated= this.form_step2.value.locality[0].locality_text  + ', Delhi' ;
+  //   this.form_step2.patchValue({
+  //     address:this.address_concated
+  //   });
+  // }
   onchange_locality(id: any) {
-    this.address_concated= id.locality_text;
+    this.address_concated= id.locality_text + ', Delhi' ;;
     let param = { Locality_id:id.locality_id}
     this.CommonService.get_sub_locality(param).subscribe(
       response => {
@@ -359,6 +360,19 @@ export class UpdatepropertyRentComponent implements OnInit {
     })
   }  
   
+  onMapReady(map: any) {
+    this.map = map;
+    this.map.setOptions({
+      mapTypeControl: 'true',
+      mapTypeControlOptions: {
+        mapTypeIds: ['roadmap', 'hybrid'],
+        position: google.maps.ControlPosition.TOP_LEFT,
+        style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR
+      },
+      fullscreenControl: true,
+      streetViewControl: true
+  });
+}
   property_details(prod_id:number): void {
     this.showLoadingIndicator =true;
     this.property_show=false;

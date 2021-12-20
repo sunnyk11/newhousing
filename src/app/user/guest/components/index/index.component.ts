@@ -7,7 +7,8 @@ import { LabelType } from '@angular-slider/ngx-slider';
 import { Router } from '@angular/router';
 import { IndexPageService } from '../../services/index-page.service';
 import { ToastrService } from 'ngx-toastr';
-
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 @Component({
   selector: 'app-index',
   templateUrl: './index.component.html',
@@ -24,10 +25,10 @@ export class IndexComponent implements OnInit {
   public category:any={};
   public chattarpur:any;
   public chattarpur_length:number=0;
-
-  
+  public dropdownList: any = [];  
   private selectedItems:any=[];
   private amenityArray:any = [];
+  public filteredOptions!: Observable<any[]>;
 
   @ViewChild("search")
   searchElementRef!: ElementRef;
@@ -48,7 +49,8 @@ export class IndexComponent implements OnInit {
     build_name: [''],
     type: [''],
     location: [''],
-    city:[''],
+    city:['Delhi'],
+    locality:[''],
     sliderControl: [[]]
   });
   
@@ -89,24 +91,11 @@ export class IndexComponent implements OnInit {
     this.getAmenities();
     this.get_property();
     this.productcategory();
-    this.mapsAPILoader.load().then(() => {
-      this.geoCoder = new google.maps.Geocoder();
-    });
-    this.mapsAPILoader.load().then(() => {
-      let autocomplete = new google.maps.places.Autocomplete(
-        this.searchElementRef.nativeElement
-      );
-      autocomplete.addListener("place_changed", () => {
-        this.ngZone.run(() => {
-          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-          this.location = place.formatted_address;
-          
-          this.zoom = 15;
-          this.searchForm.controls['location'].setValue(this.location);
-        });
-      });
-    });
     this.selectedItems = new Array<string>();
+    this.filteredOptions = this.searchForm.controls.locality.valueChanges.pipe(
+      startWith(''),
+      map((value) => this._filter(value))
+    );
   }
   // fetch amenties advance tab
   getAmenities(){
@@ -125,12 +114,11 @@ export class IndexComponent implements OnInit {
   get_property(){
     this.indexPageService.get_Property({ param: null }).subscribe(
       response => {
-        console.log(response);
         this.property=response;
         this.city_name=this.property.data['0'].city;
         this.product_length=this.property.data['0'].city_count;
-        this.chattarpur='Chattarpur';
-        this.chattarpur_length=this.property.Chattarpur_data.Chattarpur;
+        this.chattarpur=this.property.Chattarpur_data.city;
+        this.chattarpur_length=this.property.Chattarpur_data.chattarpur_count;
       }, err => { 
         let Message =err.error.message;
         this.toastr.error(Message, 'Something Error', {
@@ -154,18 +142,69 @@ export class IndexComponent implements OnInit {
       }
     );
   } 
+  get_locality(value:any){
+    if(value.length>2){
+      this.CommonService.get_common_area_data(value).subscribe(
+        response => {
+          let data:any=response;
+          this.dropdownList=[];
+          if(data.data[0].length>0){
+            for (let i = 0; i < data.data[0].length; i++) {
+              this.dropdownList = this.dropdownList?.concat({ item_id: data.data[0][i].locality_id, item_text: data.data[0][i].locality});
+            }
+            this.filteredOptions = this.searchForm.controls.locality.valueChanges
+              .pipe(
+                startWith(''),
+                map((value) => this._filter(value))
+              );
+              }if(data.data[1].length>0){
+                for (let i = 1; i < data.data[1].length; i++) {
+                  this.dropdownList = this.dropdownList?.concat({ item_id: data.data[1][i].sub_locality_id, item_text: data.data[1][i].sub_locality});
+                }
+                this.filteredOptions = this.searchForm.controls.locality.valueChanges
+                  .pipe(
+                    startWith(''),
+                    map((value) => this._filter(value))
+                  );
+          }
+        }, err => {   
+        }
+      );
+    }else{
+      this.dropdownList=[]; 
+      this.filteredOptions = this.searchForm.controls.locality.valueChanges
+      .pipe(
+        startWith(''),
+        map((value) => this._filter(value))
+      );
+    }
+  }
+
+  private _filter(value: any): string[] {
+    if (value.item_text) {
+      const filterValue = value.item_text.toLowerCase();
+      return this.dropdownList?.filter((option: any) => option.item_text.toLowerCase().includes(filterValue));
+    }
+    else {
+      const filterValue = value.toLowerCase();
+      return this.dropdownList?.filter((option: any) => option.item_text.toLowerCase().includes(filterValue));
+    }
+  }
   
   // searching city name property 
-  property_search(city:string){
-    this.router.navigate(['/product-listing'],{queryParams:{'cities':city}})
+  property_search(){
+    this.router.navigate(['/product-listing'],{queryParams:{'cities':'Delhi'}})
   }
    // searching locality name property 
-  property_search_locality(locality:string){
-    this.router.navigate(['/product-listing'],{queryParams:{'locality':locality}})
+  property_search_locality(){
+    this.router.navigate(['/product-listing'],{queryParams:{'locality':'Chattarpur'}})
   }
   navigate(): void{
+    if(this.searchForm.value.locality.length<3){
+      this.searchForm.patchValue({locality:''});
+    }
     let data:any=this.searchForm.value;
-    this.router.navigate(['/product-listing'],{queryParams:{'name':data.build_name,'city':data.city,'type':data.type,'search_type':data.search_type,'area_unit':data.area_unit,'years':data.years,'bedrooms':data.bedrooms,'bathrooms':data.bathrooms,'minimum':data.sliderControl[0],'maximum':data.sliderControl[1],'location':data.location,amenties:this.amenityArray}});
+    this.router.navigate(['/product-listing'],{queryParams:{'city':data.city,'locality':data.locality,'type':data.type,'search_type':data.search_type,'minimum':data.sliderControl[0],'maximum':data.sliderControl[1]}});
   }  
   onchangeAmenties(e:any,id:string){
     if(e.target.checked){
@@ -192,4 +231,7 @@ export class IndexComponent implements OnInit {
     this.buyyer_range_slider=true;
   }*/
   
+  displayFn(value?: any) {
+    return value ? this.dropdownList.find((option: any) => option.item_id === value.item_id).item_text : undefined;
+  }
 }

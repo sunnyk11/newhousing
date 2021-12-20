@@ -471,12 +471,6 @@ h4 .h1,
     z-index: -1;
 }
 
-.home1-advnc-search ul li {
-    display: inline-block;
-    line-height: 3;
-    margin-right: 15px !important;
-    vertical-align: text-top;
-}
 
 .home1-advnc-search ul li:first-child .form-control {
     background-color: #ffffff;
@@ -486,7 +480,7 @@ h4 .h1,
     color: #484848;
     line-height: 1.2;
     height: 50px;
-    width: 180px;
+    width: 200px;
 }
 
 .home1-advnc-search ul li:first-child input[type="text"].form-control::-webkit-input-placeholder {
@@ -515,7 +509,7 @@ h4 .h1,
     background-color: #ffffff;
     font-size: 14px;
     height: 50px;
-    width: 190px;
+    width: 200px;
 }
 
 .home1-advnc-search ul li:nth-child(3) .form-group label {

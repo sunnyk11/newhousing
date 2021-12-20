@@ -171,7 +171,7 @@
                                 <label for="pincode" class="form-label">Sub-Locality</label>                              
                                 <ng-multiselect-dropdown class="form-control sub_localty_dropdown" [placeholder]="'Select Sub-locality'"
                                 [settings]="dropdownSettings1" [data]="dropdown_sublocality"
-                                formControlName="sub_locality"  [ngClass]="{ 'is-invalid': submitted2 && step2.sub_locality.errors }" (ngModelChange)="onchange_sub_locality($event)">
+                                formControlName="sub_locality"  [ngClass]="{ 'is-invalid': submitted2 && step2.sub_locality.errors }">
                                 </ng-multiselect-dropdown>
                             </div>
                         </div>
@@ -180,7 +180,7 @@
                                 <label for="address" class="form-label">Enter Address</label>
                                 <input #search autocorrect="off" autocapitalize="on" spellcheck="off" formControlName="address" [ngClass]="{ 'is-invalid': submitted2 && step2.address.errors }" type="search" class="form-control input-text" placeholder="Enter Address" />
                                 <span class="flaticon-maps-and-flags" style="position: absolute;top: 40px; right: 80px"></span>
-                                <agm-map style="height: 300px;" [latitude]="latCus" [longitude]="longCus" [zoom]="15" class="main-card-agm-map">
+                                <agm-map style="height: 300px;" [latitude]="latCus" [longitude]="longCus" [zoom]="15" class="main-card-agm-map" (mapReady)="onMapReady($event)" >
                                     <agm-marker [latitude]="latCus" [longitude]="longCus" [markerDraggable]="true" (dragEnd)="markerDragEnd($event)">
                                         <agm-info-window> </agm-info-window>
                                     </agm-marker>

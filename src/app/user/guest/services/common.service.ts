@@ -13,6 +13,15 @@ export class CommonService {
   constructor(
     private apiService: ApiService
     ) { }
+    
+  getLocationService():Promise<any>{
+    return new Promise((resolve, reject)=>{
+      navigator.geolocation.getCurrentPosition(resp=>{
+        resolve({lng:resp.coords.longitude, lat: resp.coords.latitude,accuracy: resp.coords.accuracy})
+       
+       })
+     })
+  }
   // topbar wishlist refresh functionalty start
   public _subject = new BehaviorSubject<any>('');
   emit<T>(data: T){
@@ -36,6 +45,10 @@ export class CommonService {
   getproductcategory(reqModel:any): Observable<ResultModel> {
     const route = "/api/product/property_category";
     return this.apiService.get<ResultModel>(route, reqModel);
+  }
+  get_common_area_data(reqModel:any): Observable<ResultModel> {
+    const route = "/api/auth/get_common_area_data/";
+    return this.apiService.get<ResultModel>(route + reqModel);
   }
   getFeaturedproduct(reqModel:any): Observable<ResultModel> {
     const route = "/api/product/feature_property";

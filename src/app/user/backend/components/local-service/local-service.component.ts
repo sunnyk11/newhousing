@@ -296,8 +296,8 @@ export class LocalServiceComponent implements OnInit {
     );
   }
   onchange_locality(id: any) {
-    if(id.length>0){
-    let param = { Locality_id:id[0].locality_id}
+    if(id.locality_id>0){
+    let param = { Locality_id:id.locality_id}
     this.CommonService.get_sub_locality(param).subscribe(
       response => {
         let data:any=response;
@@ -319,10 +319,17 @@ export class LocalServiceComponent implements OnInit {
     }else{
       this.dropdown_sublocality=[];
       this.Service_form.patchValue({
-        sub_locality:'',
-        locality:''
+        locality:'',
+        sub_locality:''
       });
     }
+  }
+  onItemDeSelect(value:any){
+    this.dropdown_sublocality=[];
+    this.Service_form.patchValue({
+      locality:'',
+      sub_locality:''
+    });
   }
   
   onchange_sublocality(id: any) {
