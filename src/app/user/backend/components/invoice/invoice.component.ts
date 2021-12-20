@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import * as pdfMake from 'pdfmake/build/pdfmake';
-import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import { PlansServiceService } from '../../services/plans-service.service';
-(<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
   selector: 'app-invoice',
@@ -39,37 +36,7 @@ export class InvoiceComponent implements OnInit {
     );
   }
   generatePDF() {
-    var docDefinition = {
-      content: [
-        {
-          text: 'Invoice',
-          style: 'header'
-        },
-        {
-          style: 'tableExample',
-          table: {
-            body: [
-              ['Invoice No: ', this.invoice_id],
-              ['Order ID: ', this.inv_response.order_id],
-              ['Payment Status: ', this.inv_response.payment_status],
-              ['Plan Price: ', this.inv_response.plan_price],
-              ['User Email: ', this.inv_response.user_email],
-              ['Plan Name: ', this.inv_response.plan_name],
-              ['GST@18%: ', this.gst_amount],
-              ['Total Amount: ', this.total_amount]
-            ]
-          }
-        }
-      ],
-      styles: {
-        header: {
-          fontSize: 18,
-          bold: true
-        }
-      },
-    };
-
-    pdfMake.createPdf(docDefinition).open();
+    
   }
 
 }
