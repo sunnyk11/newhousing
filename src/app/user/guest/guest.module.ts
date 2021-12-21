@@ -17,7 +17,7 @@ import { ProductCategoryComponent } from './components/product-category/product-
 import { FeaturedPropertyComponent } from './components/featured-property/featured-property.component';
 import { ProductPageComponent } from './components/product-page/product-page.component';
 import { RecentlyViewedProductComponent } from './components/recently-viewed-product/recently-viewed-product.component';
-import { AgmCoreModule } from '@agm/core';
+import { AgmCoreModule } from '@agm/core'; 
 import { NgImageSliderModule } from 'ng-image-slider';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
@@ -48,6 +48,7 @@ import { BlogSinglePostComponent } from './components/blog-single-post/blog-sing
 import { RenderHtmlPipe } from './pipes/render-html.pipe';
 import { BlogComponent } from './components/blog/blog.component';
 import { TruncateTextPipe } from './pipes/truncate-text.pipe';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [
@@ -100,10 +101,11 @@ import { TruncateTextPipe } from './pipes/truncate-text.pipe';
     FormsModule,
     ReactiveFormsModule,
     AgmCoreModule.forRoot({  
-      apiKey: 'AIzaSyC2S5kHeGYkW9cL4d7_uxfauTBfQEtN4HA', libraries: ['places']
-    }),
+      apiKey: 'AIzaSyC2S5kHeGYkW9cL4d7_uxfauTBfQEtN4HA', libraries: ['places','drawing', 'geometry']
+    }),  
     NgImageSliderModule,
-    NgbModule
+    NgbModule,
+    MatAutocompleteModule
   ],
 })
 export class GuestModule { }

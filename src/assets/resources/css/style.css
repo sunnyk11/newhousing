@@ -74,6 +74,63 @@ ol {
     position: relative;
 }
 
+#multiselect-dropdown .localty_dropdown .selected-item-container{
+    width: 100%!important;
+}
+
+#multiselect-dropdown .localty_dropdown .selected-item-container a{
+    display:none!important;
+}
+ #multiselect-dropdown .localty_dropdown .selected-item-container .selected-item{
+    max-width: 90%!important;
+}
+
+#multiselect-dropdown .multiselect-dropdown .dropdown-list .multiselect-item-checkbox div::before{
+    display: none!important;
+}
+
+#multiselect-dropdown .sub_localty_dropdown .selected-item-container{
+    width: 100%!important;
+}
+ #multiselect-dropdown .sub_localty_dropdown .selected-item-container .selected-item{
+    max-width: 90%!important;
+}
+
+#multiselect-dropdown .sub_localty_dropdown .selected-item-container a{
+    display:none!important;
+}
+
+
+
+
+
+#multiselect-dropdown1 .localty_dropdown .selected-item-container{
+    width: 100%!important;
+}
+
+ #multiselect-dropdown1 .localty_dropdown .selected-item-container .selected-item{
+    max-width: 90%!important;
+}
+
+#multiselect-dropdown1 .multiselect-dropdown .dropdown-list .multiselect-item-checkbox div::before{
+    display: none!important;
+}
+
+#multiselect-dropdown1 .sub_localty_dropdown .selected-item-container{
+    width: 100%!important;
+}
+ #multiselect-dropdown1 .sub_localty_dropdown .selected-item-container .selected-item{
+    max-width: 90%!important;
+}
+#multiselect-dropdown2 .sub_localty_dropdown .selected-item-container{
+    width: 100%!important;
+}
+ #multiselect-dropdown2 .sub_localty_dropdown .selected-item-container .selected-item{
+    max-width: 90%!important;
+}
+
+  
+
 .home1-overlay:before {
     content: "";
     background-color: rgb(29, 41, 62);
@@ -414,12 +471,6 @@ h4 .h1,
     z-index: -1;
 }
 
-.home1-advnc-search ul li {
-    display: inline-block;
-    line-height: 3;
-    margin-right: 15px !important;
-    vertical-align: text-top;
-}
 
 .home1-advnc-search ul li:first-child .form-control {
     background-color: #ffffff;
@@ -429,7 +480,7 @@ h4 .h1,
     color: #484848;
     line-height: 1.2;
     height: 50px;
-    width: 180px;
+    width: 200px;
 }
 
 .home1-advnc-search ul li:first-child input[type="text"].form-control::-webkit-input-placeholder {
@@ -458,7 +509,7 @@ h4 .h1,
     background-color: #ffffff;
     font-size: 14px;
     height: 50px;
-    width: 190px;
+    width: 200px;
 }
 
 .home1-advnc-search ul li:nth-child(3) .form-group label {

@@ -12,8 +12,9 @@ export class LocalServiceProviderService {
 
   searching_area(reqModel: any): Observable<ResultModel> {
     const route = "/api/product/local_service";
-    return this.apiService.get<ResultModel>(route, reqModel);
+    return this.apiService.post<ResultModel>(route, reqModel);
   }
+  
   getarea_user_details(reqModel: any): Observable<ResultModel> {
     const route = "/api/product/getarea_user_details";
     return this.apiService.get<ResultModel>(route, reqModel);
@@ -77,7 +78,7 @@ export class LocalServiceProviderService {
     return this.apiService.get<ResultModel>(route, reqModel);
   }
   sevice_user_get_id(reqModel:any): Observable<ResultModel> {
-    const route = "/api/product/sevice_user_get_id"; 
+    const route = "/api/product/update_sevice_user_get_id"; 
     return this.apiService.get<ResultModel>(route, reqModel);
   }
 }

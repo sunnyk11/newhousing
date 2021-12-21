@@ -49,6 +49,16 @@
                 </span>
             </button>
             <button mat-menu-item class="text-center links" *ngIf="LoggedIn">
+                <span>
+                    <a class="dropdown-item text-secondary" href="/agent/services-list">Services List</a>
+                </span>
+            </button>
+            <button mat-menu-item class="text-center links" *ngIf="LoggedIn">
+                <span>
+                    <a class="dropdown-item text-secondary" href="/agent/services-user-list">Service User list</a>
+                </span>
+            </button>
+            <button mat-menu-item class="text-center links" *ngIf="LoggedIn">
                 <span><a class="dropdown-item text-secondary" href="/logout">Log out</a></span>
             </button>
             <button mat-menu-item class="text-center links" *ngIf="!LoggedIn">
@@ -121,6 +131,16 @@
                     <button mat-menu-item class="text-center links">
                         <span>
                             <a class="dropdown-item text-secondary" href="/agent/local-services">Local Services</a>
+                        </span>
+                    </button>
+                    <button mat-menu-item class="text-center links" *ngIf="LoggedIn">
+                        <span>
+                            <a class="dropdown-item text-secondary" href="/agent/services-list">Services List</a>
+                        </span>
+                    </button>
+                    <button mat-menu-item class="text-center links" *ngIf="LoggedIn">
+                        <span>
+                            <a class="dropdown-item text-secondary" href="/agent/services-user-list">Service User list</a>
                         </span>
                     </button>
                     <button mat-menu-item class="text-center links">

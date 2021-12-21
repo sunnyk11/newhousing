@@ -40,10 +40,9 @@ export class ProductPageComponent implements OnInit {
   public security_dep_amount:number=0;
   public total_amount_owner:number=0;
   public sectiondisplay:boolean=false;
-
   private e: any;
   private product_id: any;
-
+  public map:any;
   constructor(
     private _sanitizer: DomSanitizer,
      private route:ActivatedRoute,
@@ -195,6 +194,7 @@ export class ProductPageComponent implements OnInit {
       });
   }
   
+  
   commaSeperated(e: any) {
     var t = (e = e ? e.toString() : "").substring(e.length - 3)
       , n = e.substring(0, e.length - 3);
@@ -339,6 +339,20 @@ export class ProductPageComponent implements OnInit {
   showText() {
     this.isReadMore = !this.isReadMore
   }
+  
+  onMapReady(map: any) {
+    this.map = map;
+    this.map.setOptions({
+      mapTypeControl: 'true',
+      mapTypeControlOptions: {
+        mapTypeIds: ['roadmap', 'hybrid'],
+        position: google.maps.ControlPosition.TOP_LEFT,
+        style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR
+      },
+      fullscreenControl: true,
+      streetViewControl: true
+  });
+}
   // pricre convert functionalty
   Price_convert(num: number) {
     if (num >= 1000000000) {

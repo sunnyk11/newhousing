@@ -7,8 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { RentPropertyService } from '../../services/rent-property.service';
 import { Router } from '@angular/router';
 import { CommonService } from '../../services/common.service';
-import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import { IDropdownSettings } from 'ng-multiselect-dropdown';
 
 @Component({
   selector: 'app-listproperty-rent',
@@ -18,7 +17,7 @@ import { map, startWith } from 'rxjs/operators';
 export class ListpropertyRentComponent implements OnInit {
 
   public dropdownList: any = [];
-
+  public dropdown_sublocality:any=[];
   options: Options = {
     step: 500,
     floor: 5000,
@@ -44,6 +43,7 @@ export class ListpropertyRentComponent implements OnInit {
   geoCoder: any;
   public latCus: any;
   public longCus: any;
+  public address_concated:any;
   public locality_data: any = [];
   public Expected_PriceEroor: boolean = false;
   public add_room_tab: boolean = false;
@@ -60,6 +60,9 @@ export class ListpropertyRentComponent implements OnInit {
   public submitted2: boolean = false;
   public submitted3: boolean = false;
   public submitted4: boolean = false;
+  dropdownSettings!: IDropdownSettings;
+  dropdownSettings1!: IDropdownSettings;
+  public dropdown_locality:any=[];
 
   private product_img: any = [];
   private selected_room: any = [];
@@ -77,7 +80,6 @@ export class ListpropertyRentComponent implements OnInit {
   update_room_array: any = [];
 
   public submitted: boolean = false;
-  public filteredOptions!: Observable<any[]>;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -88,14 +90,37 @@ export class ListpropertyRentComponent implements OnInit {
     private router: Router,
     private CommonService: CommonService,
   ) {
-    this.getLocation();
   }
 
   ngOnInit(): void {
-    this.google_map();
+    this.dropdownSettings = {
+      singleSelection: true,
+      idField: 'locality_id',
+      textField: 'locality_text',
+      enableCheckAll: false,
+      itemsShowLimit: 1, 
+      allowSearchFilter: true,
+      closeDropDownOnSelection:true,
+      noDataAvailablePlaceholderText: "Locality not Availabale",
+      maxHeight: 250,
+      clearSearchFilter:true,
+      showSelectedItemsAtTop:true,
+    };
+    
+    this.dropdownSettings1 = {
+      singleSelection: true,
+      idField: 'sub_locality_id',
+      textField: 'sub_locality_text',
+      enableCheckAll: false,
+      itemsShowLimit: 1,
+      allowSearchFilter: true,
+      closeDropDownOnSelection:true,
+      noDataAvailablePlaceholderText: "Sub Locality not Availabale",
+      maxHeight: 250,
+    };
     this.get_locality();
     this.getAmenities();
-
+    this.google_map();
     this.form_step1 = this._formBuilder.group({
       property_name: ['', Validators.required],
       draft_form_id: ['0'],
@@ -109,13 +134,14 @@ export class ListpropertyRentComponent implements OnInit {
     });
 
     this.form_step2 = this._formBuilder.group({
-      address: [' ', Validators.required],
-      city: ['Delhi', Validators.required],
+      address: ['', Validators.required],
+      address_details: ['', Validators.required],
+      city: ['1', Validators.required],
+      district_id: ['', Validators.required],
       locality: ['', Validators.required],
-      pincode: ['', Validators.required],
+      sub_locality: ['', Validators.required],
       map_latitude: ['', Validators.required],
-      map_longitude: ['', Validators.required],
-      nearest_place: ['', Validators.required]
+      map_longitude: ['', Validators.required]
     });
 
     this.form_step3 = this._formBuilder.group({
@@ -153,12 +179,6 @@ export class ListpropertyRentComponent implements OnInit {
     this.selectedItems = new Array<string>();
     this.product_img = new Array<string>();
     this.selected_room = new Array<string>();
-
-    this.get_area();
-    this.filteredOptions = this.form_step2.controls.locality.valueChanges.pipe(
-      startWith(''),
-      map((value) => this._filter(value))
-    );
   }
 
   get step1() {
@@ -166,6 +186,7 @@ export class ListpropertyRentComponent implements OnInit {
   }
   get step2() {
     return this.form_step2.controls;
+    
   }
   get step3() {
     return this.form_step3.controls;
@@ -183,36 +204,58 @@ export class ListpropertyRentComponent implements OnInit {
     this.submitted3 = true;
   }
 
-  get_area() {
-    this.RentPropertyService.get_areas().subscribe(
-      (data: any) => {
-        for (let i = 1; i < data.length; i++) {
-          this.dropdownList = this.dropdownList?.concat({ item_id: data[i].id, item_text: data[i].area, item_pincode: data[i].pincode });
+  get_locality() {
+    this.CommonService.get_locality({ param: null }).subscribe(
+      response => {
+        let data:any=response;
+        console.log(data);
+        if(data.data.length<1){
+          this.dropdown_sublocality=[];
+          this.form_step2.patchValue({sub_locality:''});
+        }else{
+          for (let i = 1; i < data.data.length; i++) {
+            this.dropdown_locality = this.dropdown_locality.concat({locality_id: data.data[i].locality_id, locality_text:  data.data[i].locality}); 
+          }
         }
-        this.filteredOptions = this.form_step2.controls.locality.valueChanges
-          .pipe(
-            startWith(''),
-            map((value) => this._filter(value))
-          );
       },
       (err: any) => {
-        // console.log(err);
-
       }
     );
   }
-
-  private _filter(value: any): string[] {
-    if (value.item_text) {
-      const filterValue = value.item_text.toLowerCase();
-      return this.dropdownList?.filter((option: any) => option.item_text.toLowerCase().includes(filterValue));
-    }
-    else {
-      const filterValue = value.toLowerCase();
-      return this.dropdownList?.filter((option: any) => option.item_text.toLowerCase().includes(filterValue));
-    }
+  onchange_sub_locality(id:any){
+    this.address_concated= this.form_step2.value.locality[0].locality_text  + ', Delhi' ;
+    this.form_step2.patchValue({
+      address:this.address_concated
+    });
   }
-
+  onchange_locality(id: any) {
+    console.log(id[0].locality_id);
+    this.address_concated= id[0].locality_text;
+    let param = { Locality_id:id[0].locality_id}
+    this.CommonService.get_sub_locality(param).subscribe(
+      response => {
+        let data:any=response;
+        console.log(data);
+        this.dropdown_sublocality=[];
+        this.form_step2.patchValue({sub_locality:''});
+        if(data.data.length<1){
+          this.dropdown_sublocality=[];
+          this.form_step2.patchValue({
+            sub_locality:'',
+            district_id:''
+          });
+        }else{
+          this.form_step2.patchValue({
+            district_id:data.district.district.district_id
+          });
+          for (let i = 1; i < data.data.length; i++) {
+            this.dropdown_sublocality = this.dropdown_sublocality?.concat({ sub_locality_id: data.data[i].sub_locality_id, sub_locality_text: data.data[i].sub_locality});
+          }
+          console.log(this.dropdown_sublocality);
+          }
+      }
+    );
+  }
   google_map() {
     this.mapsAPILoader.load().then(() => {
       this.geoCoder = new google.maps.Geocoder();
@@ -224,6 +267,7 @@ export class ListpropertyRentComponent implements OnInit {
       autocomplete.addListener("place_changed", () => {
         this.ngZone.run(() => {
           let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+          console.log(place);
           this.location = place.formatted_address;
           this.latCus = place.geometry?.location.lat();
           this.longCus = place.geometry?.location.lng();
@@ -272,28 +316,6 @@ export class ListpropertyRentComponent implements OnInit {
       }
     );
   }
-  get_locality(): void {
-    this.CommonService.get_locality({ param: null }).subscribe(
-      response => {
-        this.locality_data = response;
-      }
-    );
-  }
-  onchange_locality(id: any) {
-    //let param = { id: id }
-    console.log(id);
-    console.log(this.form_step2.value);
-    this.CommonService.get_pincodebyid(id.option.value.item_id).subscribe(
-      response => {
-        let pincode_data: any = response;
-        console.log(pincode_data);
-        this.form_step2.patchValue({
-          pincode: pincode_data.data.pincode
-        });
-      }
-    );
-  }
-
   submit_rent() {
     this.showLoadingIndicator = true;
     if (this.form_step4.invalid) {
@@ -301,10 +323,14 @@ export class ListpropertyRentComponent implements OnInit {
       this.showLoadingIndicator = false;
       return;
     } else {
-      this.form_step4.value.draft_form_id = '0';
-      this.form_step2.value.locality = this.form_step2.value.locality.item_id;
-      let param = { form_step1: this.form_step1.value, form_step2: this.form_step2.value, form_step3: this.form_step3.value, form_step4: this.form_step4.value, rooms: this.additional_room_array, amenties: this.amenityArray, images: this.product_img }
-      console.log(param);
+      this.form_step4.value.draft_form_id='0';
+      if(this.form_step2.value.locality.length>0){
+        this.form_step2.value.locality=this.form_step2.value.locality[0].locality_id;
+      }
+      if(this.form_step2.value.sub_locality.length>0){
+        this.form_step2.value.sub_locality=this.form_step2.value.sub_locality[0].sub_locality_id;
+      }
+      let param = {form_step1: this.form_step1.value, form_step2: this.form_step2.value, form_step3: this.form_step3.value, form_step4: this.form_step4.value, rooms: this.additional_room_array, amenties: this.amenityArray, images: this.product_img }
       if (this.form_step4.value.expected_rent >= 5000 && this.form_step4.value.expected_rent <= 500000) {
         this.RentPropertyService.product_insert_rent(param).subscribe(
           response => {
@@ -336,9 +362,13 @@ export class ListpropertyRentComponent implements OnInit {
   }
   // draft property 
   save_draft() {
-    this.showLoadingIndicator = true;
-    this.form_step4.value.draft_form_id = '1';
-    this.form_step2.value.locality = this.form_step2.value.locality.item_id;
+   if(this.form_step2.value.locality.length>0){
+      this.form_step2.value.locality=this.form_step2.value.locality[0].locality_id;
+    }
+    if(this.form_step2.value.sub_locality.length>0){
+      this.form_step2.value.sub_locality=this.form_step2.value.sub_locality[0].sub_locality_id;
+    }
+    this.form_step4.value.draft_form_id='1';
     let param = { form_step1: this.form_step1.value, form_step2: this.form_step2.value, form_step3: this.form_step3.value, form_step4: this.form_step4.value, rooms: this.additional_room_array, amenties: this.amenityArray, images: this.product_img }
     if (this.form_step4.value.expected_rent >= 5000 && this.form_step4.value.expected_rent <= 500000) {
       this.RentPropertyService.product_insert_rent(param).subscribe(
@@ -605,10 +635,5 @@ export class ListpropertyRentComponent implements OnInit {
     this.image5 = null;
     this.product_img = this.product_img.filter((m: any) => m != id);
   }
-
-  displayFn(value?: any) {
-    return value ? this.dropdownList.find((option: any) => option.item_id === value.item_id).item_text : undefined;
-  }
-
 }
 type addition_room = Array<{ id: number; name: string }>;

@@ -21,7 +21,7 @@ export class CommonService {
      })
   }
   get_locality(reqModel:any): Observable<ResultModel> {
-    const route = "/api/auth/get_areas";
+    const route = "/api/auth/get_locality";
     return this.apiService.get<ResultModel>(route, reqModel);
   }
   getAmenities(reqModel:any): Observable<ResultModel> {
@@ -31,5 +31,21 @@ export class CommonService {
   get_pincodebyid(reqModel:any): Observable<ResultModel> {
     const route = "/api/auth/get_pincodebyid";
     return this.apiService.post<ResultModel>(route, {id: reqModel});
+  }
+  get_sub_locality(reqModel:any): Observable<ResultModel> {
+    const route = "/api/auth/get_sub_locality";
+    return this.apiService.get<ResultModel>(route, reqModel);
+  }
+  get_state(reqModel:any): Observable<ResultModel> {
+    const route = "/api/auth/get_state";
+    return this.apiService.get<ResultModel>(route, reqModel);
+  }
+  get_district_byid(reqModel:any): Observable<ResultModel> {
+    const route = "/api/auth/get_district_byid";
+    return this.apiService.get<ResultModel>(route, reqModel);
+  }
+  get_locality_byid(reqModel:any): Observable<ResultModel> {
+    const route = "/api/auth/get_locality_byid";
+    return this.apiService.get<ResultModel>(route, reqModel);
   }
 }

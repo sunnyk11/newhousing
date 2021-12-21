@@ -275,6 +275,13 @@
     .propertyListingPage .btn {
         padding: 7px 15px!important;
     }
+    .home1-advnc-search ul li {
+        display: inline-block;
+        line-height: 3;
+        margin-right: 15px !important;
+        vertical-align: text-top;
+        width: 200px;
+    }
     #accordion .panel-heading,
     .panel-title {
         width: 100%!important;
@@ -312,7 +319,7 @@
         margin: 0;
         outline: none;
         text-align: left;
-        width: 170px;
+        width: 200px;
     }
     #single_page_banner .noproduct {
         height: 300px!important;
@@ -615,6 +622,16 @@
 @media only screen and (max-width: 767.98px) {
     .footer_mailchimp_form .col-auto input.form-control {
         width: 170px;
+    }
+    .home1-advnc-search ul li .search_option_button{
+        margin-top:20px!important;
+    }
+    .home1-advnc-search ul li {
+        display: inline-block;
+        line-height: 3;
+        margin-right: 15px !important;
+        vertical-align: text-top;
+        width: 100%;
     }
     .home_content {
         padding: 150px 0 400px !important;

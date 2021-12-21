@@ -10,7 +10,12 @@ ul .list-inline-item{
 /* .row .ng-invalid{
   border: 1px solid  red!important;
 } */
-
+.google_map_error{
+  font-size: 22px;
+  font-weight: 600;
+  background: #fff;
+  text-align: center;
+}
 .preloader_row{
   position: relative;
   width: 100%;
