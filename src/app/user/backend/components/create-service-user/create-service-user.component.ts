@@ -87,16 +87,13 @@ export class CreateServiceUserComponent implements OnInit {
       noDataAvailablePlaceholderText: "Sub Locality not Availabale",
       maxHeight: 250,
     };
-    this.get_state();
     this.get_locality();
     this.area_service();
   }
   onSubmit():void{
-    console.log(this.Service_form.value);
     if(this.Service_form.invalid){
       this.submitted = true;
       }else{
-        console.log(this.Service_form.value);
         let param={data:this.Service_form.value}
         this.LocalServiceProviderService.service_user_create(param).subscribe(
           response => {
@@ -123,7 +120,6 @@ export class CreateServiceUserComponent implements OnInit {
     this.showLoadingIndicator = true;
     this.CommonService.get_state({ param: null }).pipe().subscribe(
       response=> {
-        console.log(response);
         this.state_data=response;
         this.showLoadingIndicator = false;
       },
@@ -136,7 +132,6 @@ export class CreateServiceUserComponent implements OnInit {
     let param = { id: id }
     this.CommonService.get_district_byid(param).subscribe(
       response => {
-        console.log(response);
         this.district_data=[];
         this.dropdown_locality=[];
         this.dropdown_sublocality=[];
@@ -152,7 +147,6 @@ export class CreateServiceUserComponent implements OnInit {
     this.CommonService.get_locality({ param: null }).subscribe(
       response => {
         let data:any=response;
-        console.log(data);
         if(data.data.length<1){
           this.dropdown_sublocality=[];
           this.Service_form.patchValue({sub_locality:''});
@@ -166,13 +160,11 @@ export class CreateServiceUserComponent implements OnInit {
       }
     );
   }
-  onchange_locality(id: any) {
-    console.log(id[0].locality_id);
-    let param = { Locality_id:id[0].locality_id}
+  onchange_locality(id: any) { 
+    let param = { Locality_id:id.locality_id}
     this.CommonService.get_sub_locality(param).subscribe(
       response => {
         let data:any=response;
-        console.log(data);
         this.dropdown_sublocality=[];
         this.Service_form.patchValue({sub_locality:''});
         if(data.data.length<1){
@@ -199,7 +191,6 @@ export class CreateServiceUserComponent implements OnInit {
     this.LocalServiceProviderService.getarea_service({ param: null }).pipe().subscribe(
       response => {
         let data:any=response;
-        console.log(data);
         this.area_service_data=response;
         this.dropdownList=[];
         for (let i = 0; i < data.data.length; i++) {

@@ -78,9 +78,7 @@ export class IndexComponent implements OnInit {
   constructor(
     private CommonService:CommonService,
     private formBuilder: FormBuilder,
-    private mapsAPILoader: MapsAPILoader,
     private indexPageService: IndexPageService,
-    private ngZone:NgZone,
     private toastr: ToastrService,
     private router:Router
   ) { }
@@ -103,10 +101,6 @@ export class IndexComponent implements OnInit {
       response => {
         this.amenties=response;
       }, err => { 
-        let Message =err.error.message;
-        this.toastr.error(Message, 'Something Error', {
-          timeOut: 3000,
-        });
       }
     );
   }
@@ -120,19 +114,9 @@ export class IndexComponent implements OnInit {
         this.chattarpur=this.property.Chattarpur_data.city;
         this.chattarpur_length=this.property.Chattarpur_data.chattarpur_count;
       }, err => { 
-        let Message =err.error.message;
-        this.toastr.error(Message, 'Something Error', {
-          timeOut: 3000,
-        });
       }
      );
   }
-  // location_fetch():void{
-  //   this.toastr.info('Only For Delhi Location','', {
-  //     timeOut: 2000,
-  //     positionClass: 'toast-bottom-right',
-  //   });
-  // }
   // fetch productcategory advance tab
   productcategory(){
     this.CommonService.getproductcategory({ param: null }).subscribe(

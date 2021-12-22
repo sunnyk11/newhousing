@@ -53,7 +53,6 @@ export class ApiService {
   ): Observable<ResultModel> {
     if(searchParams) {
       const activatedRoute = this.router.url.split("/");
-      console.log(activatedRoute);
       Object.assign(searchParams, {
         Route: activatedRoute[activatedRoute.length - 1]
       });

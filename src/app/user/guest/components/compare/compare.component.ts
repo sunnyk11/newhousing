@@ -96,10 +96,7 @@ export class CompareComponent implements OnInit {
         }
       }, err => { 
         this.showLoadingIndicator = false;
-        let Message =err.error.message;
-        this.toastr.error(Message, 'Something Error', {
-          timeOut: 3000,
-        });
+        
       }
     );    
   }
@@ -148,9 +145,6 @@ export class CompareComponent implements OnInit {
         }, err => { 
           this.showLoadingIndicator = false;
           let Message =err.error.message;
-          this.toastr.error(Message, 'Something Error', {
-            timeOut: 3000,
-          });
         }
       );
   }
