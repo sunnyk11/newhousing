@@ -51,7 +51,7 @@
                                             <li class="list-inline-item">
                                                 <div class="form-group">
                                                     <!-- <input type="text" class="form-control input-text" name="name" formControlName="build_name" id="build_name" (ngModelChange)="get_locality($event)" placeholder="Enter keywords..."> -->
-                                                    <input class="w100 form-control" type="text" placeholder="Search locality/Sub-locality" matInput aria-label="Number" formControlName="locality" [matAutocomplete]="auto" (ngModelChange)="get_locality($event)">
+                                                    <input class="w100 form-control" type="text" placeholder="Search locality" matInput aria-label="Number" formControlName="locality" [matAutocomplete]="auto" (ngModelChange)="get_locality($event)">
                                                     <mat-autocomplete #auto="matAutocomplete" > 
                                                         <mat-option *ngFor="let area of filteredOptions | async" [value]="area.item_text">
                                                             {{area.item_text}}

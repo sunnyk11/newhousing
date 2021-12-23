@@ -69,19 +69,19 @@
     <div fxFlex fxLayout fxLayoutAlign="end" fxHide.lt-md>
         <ul fxLayout fxLayoutGap="30px" class="navigation-items">
             <li>
-                <a routerLink="/">Home</a>
+                <a href="">Home</a>
             </li>
             <li>
                 <a [routerLink]="['about']">About</a>
             </li>
             <li>
-                <a [routerLink]="['product-listing']">Listing</a>
+                <a href="/product-listing">Listing</a>
             </li>
             <li>
-                <a [routerLink]="['contact']">Contact</a>
+                <a href="/contact">Contact</a>
             </li>
             <li>
-                <a [routerLink]="['plans']">Plans</a>
+                <a href="/plans">Plans</a>
             </li>
 
             <li *ngIf="!LoggedIn">
