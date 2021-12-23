@@ -84,7 +84,7 @@
         if ($('.stricky').length) {
             //console.log($('.stricky').length);
             //console.log($('.header-navigation').next());
-            var headerScrollPos = $('.header-navigation').next().offset(200).top;
+            var headerScrollPos = $('.header-navigation').next().offset().top;
             var stricky = $('.stricky');
             if ($(window).scrollTop() > headerScrollPos) {
                 stricky.removeClass('slideIn animated');

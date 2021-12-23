@@ -259,10 +259,7 @@ export class UpdatepropertyRentComponent implements OnInit {
   //   });
   // }
   onchange_locality(id: any) {
-    this.address_concated= id.locality_text + ', Delhi' ;
-    this.form_step2.patchValue({
-          address:this.address_concated
-      });
+    this.address_concated= id.locality_text + ', Delhi' ;;
     let param = { Locality_id:id.locality_id}
     this.CommonService.get_sub_locality(param).subscribe(
       response => {
