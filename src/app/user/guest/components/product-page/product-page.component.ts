@@ -365,6 +365,7 @@ export class ProductPageComponent implements OnInit {
   redirect_to_home_page(): void {
     this.router.navigate(['/'])
   }
+  
   redirect_to_login(): void {
     this.router.navigate(['/login'])
   }
