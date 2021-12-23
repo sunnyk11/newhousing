@@ -36,6 +36,7 @@ export class ServiceListComponent implements OnInit {
           response => {
             let data:any=response;
             this.showLoadingIndicator = false;
+            this.Service_form.reset();
             this.get_services();
             this.toastr.success('Service Create Successfully');
           },
@@ -54,7 +55,6 @@ export class ServiceListComponent implements OnInit {
     this.showLoadingIndicator = true;
     this.LocalServiceProviderService.getarea_service({ param: null }).pipe().subscribe(
       response=> {
-        console.log(response);
         this.service_data=response;
         this.showLoadingIndicator = false;
       },
@@ -68,7 +68,6 @@ export class ServiceListComponent implements OnInit {
   }
   
   delete_service(service_id:any){
-    console.log(service_id);
     this.showLoadingIndicator = true;
     let param = { service_id: service_id}
     this.LocalServiceProviderService.delete_service(param).pipe().subscribe(
