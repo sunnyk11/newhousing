@@ -34,6 +34,10 @@ export class InvoiceComponent implements OnInit {
   public total_amount_owner: any;
   public amount_words: any;
   public user_name: any;
+  public address1: any;
+  public address2: any;
+  public address3: any;
+  public address4: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -53,13 +57,19 @@ export class InvoiceComponent implements OnInit {
         console.log(data);
         this.invoice_data = data;
         this.address = this.invoice_data.address.split(",");
+        this.address1 = this.address[0];
+        this.address2 = this.address[1];
+        this.address3 = this.address[2];
+        this.address4 = this.address[3];
         console.log(this.address);
+        this.showLoadingIndicator = false;
       },
       err => {
+        this.showLoadingIndicator = false;
         console.log(err);
       }
     );
-
+    this.showLoadingIndicator = true;
     this.plansPageService.getInvoiceDetails(this.invoice_id).subscribe(
       res => {
         console.log(res);
@@ -87,14 +97,12 @@ export class InvoiceComponent implements OnInit {
 
               this.productService.get_product_details(this.ord_details?.property_id).subscribe(
                 data => {
-                  this.showLoadingIndicator = false;
                   console.log(data);
                   this.product_data = data;
                   this.product_data = this.product_data[0];
                 },
                 err => {
-                  console.log(err);
-                  this.showLoadingIndicator = false;
+                  console.log(err); 
                 }
               );
 
@@ -110,7 +118,7 @@ export class InvoiceComponent implements OnInit {
               }
             },
             err => {
-              this.showLoadingIndicator = false;
+              console.log(err);
             }
           );
         }
@@ -118,6 +126,7 @@ export class InvoiceComponent implements OnInit {
           this.total_amount = this.inv_response.plan_price + this.sgst_amount + this.cgst_amount;
           this.amount_words = toWords.convert(this.total_amount);
         }
+        this.showLoadingIndicator = false;
       },
       err => {
         this.showLoadingIndicator = false;

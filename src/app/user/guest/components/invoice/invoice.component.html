@@ -60,8 +60,8 @@
                                     <span class="material-icons">
                                         place
                                     </span>
-                                    <span class="ms-2">{{ address[0] }}, {{ address[1] }},</span><br>
-                                    <span class="ms-4">{{ address[2] }}, {{ address[3] }}</span><br>
+                                    <span class="ms-2">{{ address1 }}, {{ address2 }},</span><br>
+                                    <span class="ms-4">{{ address3 }}, {{ address4 }}</span><br>
                                     <span class="ms-4">CIN: {{ invoice_data?.cin }}</span>
                                 </h4>
                             </th>
@@ -123,7 +123,7 @@
                                 <span *ngIf="inv_response?.plan_type == 'rent'">(Property Renting Plan)</span>
                                 <span *ngIf="inv_response?.plan_type == 'let_out'">(Property Let Out Plan)</span>
                             </td>
-                            <td>{{ invoice_data.sac }}</td>
+                            <td>{{ invoice_data?.sac }}</td>
                             <td>&#8377; {{ inv_response?.plan_price }}</td>
                         </tr>
                         <tr>
@@ -137,13 +137,13 @@
                         </tr>
                         <tr>
                             <th></th>
-                            <td>SGST : {{ invoice_data.sgst }}%</td>
+                            <td>SGST : {{ invoice_data?.sgst }}%</td>
                             <td></td>
                             <td>&#8377; {{ sgst_amount }}</td>
                         </tr>
                         <tr>
                             <th></th>
-                            <td>CGST : {{ invoice_data.cgst }}%</td>
+                            <td>CGST : {{ invoice_data?.cgst }}%</td>
                             <td></td>
                             <td>&#8377; {{ cgst_amount }}</td>
                         </tr>
