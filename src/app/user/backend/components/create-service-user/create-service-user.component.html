@@ -32,7 +32,7 @@
                             <!-- <label for="locality">Locality</label> -->
                             <ng-multiselect-dropdown class="form-control localty_dropdown" [placeholder]="'Select locality'"
                             [settings]="dropdownSettings_locality" [data]="dropdown_locality"
-                            formControlName="locality"  [ngClass]="{ 'is-invalid': submitted && f.locality.errors }"  (ngModelChange)="onchange_locality($event)">
+                            formControlName="locality"  [ngClass]="{ 'is-invalid': submitted && f.locality.errors }"  (onSelect)="onchange_locality($event)">
                             </ng-multiselect-dropdown>
                         </div>
                         <div class="col-md-4  col-12 mt15" id="multiselect-dropdown2">

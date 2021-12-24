@@ -222,16 +222,12 @@ export class ListpropertyRentComponent implements OnInit {
       }
     );
   }
-  onchange_sub_locality(id:any){
-    this.address_concated= this.form_step2.value.locality[0].locality_text  + ', Delhi' ;
+  onchange_locality(id: any) {
+    this.address_concated= id.locality_text + ', Delhi';
     this.form_step2.patchValue({
       address:this.address_concated
     });
-  }
-  onchange_locality(id: any) {
-    console.log(id[0].locality_id);
-    this.address_concated= id[0].locality_text;
-    let param = { Locality_id:id[0].locality_id}
+    let param = { Locality_id:id.locality_id}
     this.CommonService.get_sub_locality(param).subscribe(
       response => {
         let data:any=response;
@@ -251,8 +247,7 @@ export class ListpropertyRentComponent implements OnInit {
           for (let i = 1; i < data.data.length; i++) {
             this.dropdown_sublocality = this.dropdown_sublocality?.concat({ sub_locality_id: data.data[i].sub_locality_id, sub_locality_text: data.data[i].sub_locality});
           }
-          console.log(this.dropdown_sublocality);
-          }
+        }
       }
     );
   }

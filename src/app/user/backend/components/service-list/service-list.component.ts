@@ -36,6 +36,7 @@ export class ServiceListComponent implements OnInit {
           response => {
             let data:any=response;
             this.showLoadingIndicator = false;
+            this.Service_form.reset();
             this.get_services();
             this.toastr.success('Service Create Successfully');
           },

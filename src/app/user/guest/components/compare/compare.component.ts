@@ -52,7 +52,6 @@ export class CompareComponent implements OnInit {
     this.CommonService.getproduct_comp({ param: null }).subscribe(
       response => {
         this.property=response;
-        console.log(this.property);
         this.property_comp_length=this.property.data.length;
         if(this.property_comp_length<2){
           this.toastr.warning('Comparision Minimun Two','Property', {
