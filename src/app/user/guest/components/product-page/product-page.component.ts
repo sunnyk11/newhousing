@@ -222,9 +222,6 @@ export class ProductPageComponent implements OnInit {
       }, err => { 
         this.showLoadingIndicator = false;
         let Message =err.error.message;
-        this.toastr.error(Message, 'Something Error', {
-          timeOut: 3000,
-        });
       }
      );
     }else{
@@ -245,9 +242,6 @@ export class ProductPageComponent implements OnInit {
       }, err => { 
         this.showLoadingIndicator = false;
         let Message =err.error.message;
-        this.toastr.error(Message, 'Something Error', {
-          timeOut: 3000,
-        });
       }
      );
     }else{
@@ -268,9 +262,6 @@ export class ProductPageComponent implements OnInit {
       }, err => { 
         this.showLoadingIndicator = false;
         let Message =err.error.message;
-        this.toastr.error(Message, 'Something Error', {
-          timeOut: 3000,
-        });
       }
      );
     }else{

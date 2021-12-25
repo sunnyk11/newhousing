@@ -87,12 +87,10 @@ export class CreateServiceUserComponent implements OnInit {
       noDataAvailablePlaceholderText: "Sub Locality not Availabale",
       maxHeight: 250,
     };
-    this.get_state();
     this.get_locality();
     this.area_service();
   }
   onSubmit():void{
-    console.log(this.Service_form.value);
     if(this.Service_form.invalid){
       this.submitted = true;
       }else{
@@ -166,9 +164,8 @@ export class CreateServiceUserComponent implements OnInit {
       }
     );
   }
-  onchange_locality(id: any) {
-    console.log(id[0].locality_id);
-    let param = { Locality_id:id[0].locality_id}
+  onchange_locality(id: any) { 
+    let param = { Locality_id:id.locality_id}
     this.CommonService.get_sub_locality(param).subscribe(
       response => {
         let data:any=response;

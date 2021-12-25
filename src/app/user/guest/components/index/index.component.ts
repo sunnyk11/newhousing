@@ -1,7 +1,7 @@
 import { CommonService } from '../../services/common.service';
 import { FormBuilder} from '@angular/forms';
 import { MapsAPILoader,AgmMap } from '@agm/core';
-import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Options } from '@angular-slider/ngx-slider';
 import { LabelType } from '@angular-slider/ngx-slider';
 import { Router } from '@angular/router';
@@ -80,7 +80,6 @@ export class IndexComponent implements OnInit {
     private formBuilder: FormBuilder,
     private mapsAPILoader: MapsAPILoader,
     private indexPageService: IndexPageService,
-    private ngZone:NgZone,
     private toastr: ToastrService,
     private router:Router
   ) { }
@@ -104,9 +103,6 @@ export class IndexComponent implements OnInit {
         this.amenties=response;
       }, err => { 
         let Message =err.error.message;
-        this.toastr.error(Message, 'Something Error', {
-          timeOut: 3000,
-        });
       }
     );
   }
@@ -115,15 +111,22 @@ export class IndexComponent implements OnInit {
     this.indexPageService.get_Property({ param: null }).subscribe(
       response => {
         this.property=response;
-        this.city_name=this.property.data['0'].city;
-        this.product_length=this.property.data['0'].city_count;
-        this.chattarpur=this.property.Chattarpur_data.city;
-        this.chattarpur_length=this.property.Chattarpur_data.chattarpur_count;
+        if(this.property.data.length>0){
+          this.city_name=this.property.data['0'].city;
+          this.product_length=this.property.data['0'].city_count;
+        }else{
+          this.city_name='Delhi';
+          this.product_length=0;
+        }
+        if(this.property.Chattarpur_data.length>0){
+          this.chattarpur=this.property.Chattarpur_data['0'].city;
+          this.chattarpur_length=this.property.Chattarpur_data['0'].chattarpur_count;
+        }else{
+          this.chattarpur='Chattarpur';
+          this.chattarpur_length=0;
+        }
       }, err => { 
         let Message =err.error.message;
-        this.toastr.error(Message, 'Something Error', {
-          timeOut: 3000,
-        });
       }
      );
   }
