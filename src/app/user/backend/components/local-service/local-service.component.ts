@@ -4,8 +4,9 @@ import { LocalServiceProviderService } from '../../services/local-service-provid
 import { ToastrService } from 'ngx-toastr';
 import { environment } from 'src/environments/environment';
 import { CommonService } from '../../services/common.service';
-import { map, startWith } from 'rxjs/operators';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'app-local-service',
@@ -29,16 +30,19 @@ export class LocalServiceComponent implements OnInit {
   public state_data:any={};
   public locality_data:any={};
   public district_data:any={};
-  public dropdown_locality:any=[];
+  public dropdown_service:any=[];
   public dropdown_sublocality:any=[];
   public dropdownList:any=[]; 
+  public disabled:boolean=true;
   dropdownSettings_sub_locality!: IDropdownSettings;
   dropdownSettings_locality!: IDropdownSettings;
   dropdownSettings!: IDropdownSettings;
+  public filteredOptions!: Observable<any[]>;
   
   
   Service_form = new FormGroup({
     locality: new FormControl('', Validators.required),
+    locality_data: new FormControl('', Validators.required),
     sub_locality: new FormControl('', Validators.required),
     service: new FormControl('', Validators.required)
   });
@@ -93,8 +97,77 @@ export class LocalServiceComponent implements OnInit {
       maxHeight: 250,
     };
     this.on_search();
-    this.get_locality();
     this.area_service();
+    this.filteredOptions = this.Service_form.controls.locality_data.valueChanges.pipe(
+      startWith(''),
+      map((value) => this._filter(value))
+    );
+  }
+  
+  selected_locality(data:any){
+    this.disabled=true;
+    this.Service_form.patchValue({locality:data.item_id});
+    let param = { Locality_id:data.item_id}
+    this.CommonService.get_sub_locality(param).subscribe(
+      response => {
+        let data:any=response;
+        this.dropdown_sublocality=[];
+        this.Service_form.patchValue({sub_locality:''});
+        if(data.data.length<1){
+          this.dropdown_sublocality=[];
+          this.Service_form.patchValue({
+            sub_locality:''
+          });
+        }else{
+          for (let i = 1; i < data.data.length; i++) {
+            this.dropdown_sublocality = this.dropdown_sublocality?.concat({ sub_locality_id: data.data[i].sub_locality_id, sub_locality_text: data.data[i].sub_locality});
+          }
+          this.disabled=false;
+        }
+      }
+    );
+    
+  }
+  get_locality(value:any){
+    if(value.length>2){
+      this.CommonService.get_search_locality(value).subscribe(
+        response => {
+          let data:any=response;
+          this.dropdownList=[];
+          if(data?.data[0]?.length>0){
+            for (let i = 0; i < data.data[0].length; i++) {
+              this.dropdownList = this.dropdownList?.concat({ item_id: data.data[0][i].locality_id, item_text: data.data[0][i].locality});
+            }
+            this.filteredOptions = this.Service_form.controls.locality_data.valueChanges
+              .pipe(
+                startWith(''),
+                map((value) => this._filter(value))
+              );
+          }else{
+            this.dropdownList=[];
+            this.dropdown_sublocality=[];
+            this.Service_form.patchValue({locality:'',sub_locality:''});
+          }
+         
+        }, err => {   
+        }
+      );
+    }else{
+      this.dropdownList=[];
+      this.dropdown_sublocality=[];
+      this.Service_form.patchValue({locality:'',sub_locality:''});
+    }
+  }
+
+  private _filter(value: any): string[] {
+    if (value.item_text) {
+      const filterValue = value.item_text.toLowerCase();
+      return this.dropdownList?.filter((option: any) => option.item_text.toLowerCase().includes(filterValue));
+    }
+    else {
+      const filterValue = value.toLowerCase();
+      return this.dropdownList?.filter((option: any) => option.item_text.toLowerCase().includes(filterValue));
+    }
   }
   
   // get_state(){
@@ -149,20 +222,15 @@ export class LocalServiceComponent implements OnInit {
   // }
   
   on_search(){
-    if(this.Service_form.value.locality.length>0){
-      this.Service_form.value.locality=this.Service_form.value.locality[0].locality_id;
-    }
     if(this.Service_form.value.sub_locality.length>0){
       this.Service_form.value.sub_locality=this.Service_form.value.sub_locality[0].sub_locality_id;
     }
     if(this.Service_form.value.service.length>0){
       this.Service_form.value.service=this.Service_form.value.service[0].service_id;
     }
-    console.log(this.Service_form.value);
     this.showLoadingIndicator = true;
     this.LocalServiceProviderService.searching_area(this.Service_form.value).subscribe(
       response => {
-        console.log(response);
         this.search_data = response;
         this.showLoadingIndicator = false;
       },
@@ -174,7 +242,6 @@ export class LocalServiceComponent implements OnInit {
   
   submit_review():void{
     let param={data:this.review_form.value}
-    console.log(this.review_form.value);
     if (this.review_form.value.stars) {
       if(this.review_form.value.content){
         this.LocalServiceProviderService.service_user_reviews(param).subscribe(
@@ -182,7 +249,6 @@ export class LocalServiceComponent implements OnInit {
             let data:any=response;
             this.showLoadingIndicator = false;
             this.toastr.success('Successfuly Reviews For Service');
-            console.log(data.data);
             this.user_details(data.data);
           },
           err => {
@@ -222,9 +288,9 @@ export class LocalServiceComponent implements OnInit {
       response => {
         let data:any=response;
         this.area_service_data=response;
-        this.dropdownList=[];
+        this.dropdown_service=[];
         for (let i = 0; i < data.data.length; i++) {
-          this.dropdownList = this.dropdownList.concat({service_id: data.data[i].service_id, service_name: data.data[i].service_name});
+          this.dropdown_service = this.dropdown_service.concat({service_id: data.data[i].service_id, service_name: data.data[i].service_name});
           this.showLoadingIndicator = false;       
         }
       },
@@ -239,7 +305,6 @@ export class LocalServiceComponent implements OnInit {
     this.review_form.reset();
     this.LocalServiceProviderService.getarea_user_details(param).pipe().subscribe(
       response => {
-        console.log(response);
         let data:any=response;
         this.UserDeatils=data.user_data;
         
@@ -277,31 +342,30 @@ export class LocalServiceComponent implements OnInit {
       }
     )
   }
-  get_locality() {
-    this.CommonService.get_locality({ param: null }).subscribe(
-      response => {
-        let data:any=response;
-        console.log(data);
-        if(data.data.length<1){
-          this.dropdown_sublocality=[];
-          this.Service_form.patchValue({sub_locality:''});
-        }else{
-          for (let i = 1; i < data.data.length; i++) {
-            this.dropdown_locality = this.dropdown_locality.concat({locality_id: data.data[i].locality_id, locality_text:  data.data[i].locality}); 
-          }
-        }
-      },
-      (err: any) => {
-      }
-    );
-  }
+  // get_locality() {
+  //   this.CommonService.get_locality({ param: null }).subscribe(
+  //     response => {
+  //       let data:any=response;
+  //       console.log(data);
+  //       if(data.data.length<1){
+  //         this.dropdown_sublocality=[];
+  //         this.Service_form.patchValue({sub_locality:''});
+  //       }else{
+  //         for (let i = 1; i < data.data.length; i++) {
+  //           this.dropdown_locality = this.dropdown_locality.concat({locality_id: data.data[i].locality_id, locality_text:  data.data[i].locality}); 
+  //         }
+  //       }
+  //     },
+  //     (err: any) => {
+  //     }
+  //   );
+  // }
   onchange_locality(id: any) {
     if(id.locality_id>0){
     let param = { Locality_id:id.locality_id}
     this.CommonService.get_sub_locality(param).subscribe(
       response => {
         let data:any=response;
-        console.log(data);
         this.dropdown_sublocality=[];
         this.Service_form.patchValue({sub_locality:''});
         if(data.data.length<1){

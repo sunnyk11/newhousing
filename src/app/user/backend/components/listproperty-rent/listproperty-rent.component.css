@@ -90,6 +90,14 @@ ul .list-inline-item{
     color: #fff;
     background-color:#ff5a5f!important;
   }
+  #dropdownerror{
+    font-size: 16px!important;
+    font-weight: 600;
+    padding: 5px 10px!important;
+    background-color: #fff;
+    color: #dc3545;
+    margin-left: 10px;
+  }
 @media(max-width: 768px) { 
     .additional_row li label{
       margin-left: 2px!important;
@@ -103,8 +111,22 @@ ul .list-inline-item{
     .additional_row .col-6{
         padding: 0px!important;
     }
+    #mobile_view{
+      margin-bottom: 10px;
+      display: block;
+      font-size: 14px!important;
+      padding: 5px 10px!important;
+      background-color: #fff;
+      color: #dc3545;
+      border: 1px solid #dc3545;
+      box-shadow: 5px 1px 5px #dc3545;
+    }
+    #deshtop_view{
+      display: none!important;
+    }
     .flaticon-maps-and-flags{
-      right: 90px!important;
+      right: 50px!important;
+      top:80px!important;
     }
     .text-right{
       display: flex;
@@ -112,4 +134,19 @@ ul .list-inline-item{
       align-items: center;
     }
 
+}
+@media(min-width: 769px) { 
+  #mobile_view{
+    display: none!important;
+  }
+  #deshtop_view{
+    font-size: 16px!important;
+    font-weight: 600;
+    padding: 5px 10px!important;
+    background-color: #fff;
+    color: #dc3545;
+    margin-left: 10px;
+    border: 1px solid #dc3545;
+    box-shadow: 5px 1px 5px #dc3545;
+  }
 }

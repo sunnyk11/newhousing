@@ -10,8 +10,32 @@
     justify-content: space-between!important;
 }
 .form-select {
-    font-size: 14px !important;
+    font-size: 16px !important;
     height: 50px!important;
-    width: 200px;
-    border: 1px solid #ebebeb;
+    width: 100%;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    color: #212529!important;
+}
+.home1-advnc-search ul .locality_list {
+    display: inline-block;
+    line-height: 3;
+    margin-right: 0px!important;
+    vertical-align: text-top;
+    width: 60%!important;
+}
+.home1-advnc-search ul .locality_list  input{
+    padding: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+}
+@media(max-width: 768px) { 
+    .home1-advnc-search ul .locality_list {
+        display: inline-block;
+        line-height: 3;
+        margin-right: 0px!important;
+        vertical-align: text-top;
+        width: 100%!important;
+    }
 }
