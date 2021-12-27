@@ -24,6 +24,10 @@ export class CommonService {
     const route = "/api/auth/get_locality";
     return this.apiService.get<ResultModel>(route, reqModel);
   }
+  get_search_locality(reqModel:any): Observable<ResultModel> {
+    const route = "/api/auth/search_locality/";
+    return this.apiService.get<ResultModel>(route + reqModel);
+  }
   getAmenities(reqModel:any): Observable<ResultModel> {
     const route = "/api/amenities";
     return this.apiService.get<ResultModel>(route, reqModel);

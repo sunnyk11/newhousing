@@ -39,15 +39,15 @@
                                         <li>
                                             <div class="form-group mb20">
                                                 <!-- <input type="text" class="form-control input-text" name="name" formControlName="build_name" id="build_name" (ngModelChange)="get_locality($event)" placeholder="Enter keywords..."> -->
-                                                <input class="w100 form-control" type="text" placeholder="Search locality" matInput aria-label="Number" formControlName="locality" [matAutocomplete]="auto" (ngModelChange)="get_locality($event)">
+                                                <input class="w100 form-control" type="text" placeholder="Search locality/Sub-locality" matInput aria-label="Number" formControlName="locality_data" [matAutocomplete]="auto" (ngModelChange)="get_locality($event)">
                                                 <mat-autocomplete #auto="matAutocomplete" > 
-                                                    <mat-option *ngFor="let area of filteredOptions | async" [value]="area.item_text">
+                                                    <mat-option *ngFor="let area of filteredOptions | async" [value]="area.item_text" (onSelectionChange)="selected_locality(area.item_text)">
                                                         {{area.item_text}}
                                                     </mat-option>
                                                 </mat-autocomplete>
                                             </div>
                                         </li>
-                                        <li>
+                                        <!-- <li>
                                             <div class="search_option_two">
                                                 <div class="candidate_revew_select">
                                                     <select class="form-select w100 show-tick" name="search_type" formControlName="search_type" id="search_type" (change)="property_type()">
@@ -56,7 +56,7 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                        </li>
+                                        </li> -->
                                         <li *ngIf="range_slider== true">
                                             <div class="pricing_acontent pro_list mb20 mt40">
                                                 <ngx-slider [options]="options" formControlName="sliderControl">
@@ -172,9 +172,9 @@
                                     <li>
                                         <div class="form-group mb20">
                                             <!-- <input type="text" class="form-control input-text" name="name" formControlName="build_name" id="build_name" (ngModelChange)="get_locality($event)" placeholder="Enter keywords..."> -->
-                                            <input class="w100 form-control" type="text" placeholder="Search locality" matInput aria-label="Number" formControlName="locality" [matAutocomplete]="auto" (ngModelChange)="get_locality($event)">
+                                            <input class="w100 form-control" type="text" placeholder="Search locality/Sub-locality" matInput aria-label="Number" formControlName="locality_data" [matAutocomplete]="auto" (ngModelChange)="get_locality($event)">
                                             <mat-autocomplete #auto="matAutocomplete" > 
-                                                <mat-option *ngFor="let area of filteredOptions | async" [value]="area.item_text">
+                                                <mat-option *ngFor="let area of filteredOptions | async" [value]="area.item_text" (onSelectionChange)="selected_locality(area.item_text)">
                                                     {{area.item_text}}
                                                 </mat-option>
                                             </mat-autocomplete>
@@ -249,19 +249,17 @@
                                             </div>
                                         </div>
                                     </li> -->
-                                    <li>
+                                    <!-- <li>
                                         <div class="search_option_two">
                                             <div class="candidate_revew_select">
                                                 <select class="form-select w100 show-tick" name="search_type" formControlName="search_type" id="search_type" (change)="property_type()">
                                                     <option value="all">Select Availability</option>
                                                     <option value="rent">Rental Property</option>
-                                                    <!-- Sale feature Commented -->
-                                                    <!-- <option value="sales">Sales Property</option> -->
-                                                    <!-- Sale feature Commented -->
+                                                    <option value="sales">Sales Property</option>
                                                 </select>
                                             </div>
                                         </div>
-                                    </li>
+                                    </li> -->
                                     <li *ngIf="range_slider== true">
                                         <div class="pricing_acontent pro_list mb20 mt40">
                                             <ngx-slider [options]="options" formControlName="sliderControl">

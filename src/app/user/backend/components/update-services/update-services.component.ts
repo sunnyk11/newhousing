@@ -47,7 +47,6 @@ export class UpdateServicesComponent implements OnInit {
     let param = { service_id: service_id }
     this.LocalServiceProviderService.sevice_get_id(param).subscribe(
       response => {
-        console.log(response);
         let data:any=response;
         if(data.data == null){
           this.redirect_to_service();
