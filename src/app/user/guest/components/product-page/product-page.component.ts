@@ -79,13 +79,6 @@ export class ProductPageComponent implements OnInit {
         response => {
           this.product_details=response;
           this.product_data=this.product_details.data;
-          if(this.product_details.data.rent_availability ==1){
-            this.security_dep_amount = Number(this.product_details.data.expected_rent) * Number(this.product_details.data.security_deposit);
-            this.total_amount_owner =  Number(this.product_details.data.expected_rent) + Number(this.security_dep_amount) + Number(this.product_data.maintenance_charge);
-          }
-          if(this.product_details.data.sale_availability ==1){
-            this.total_amount_owner =  Number(this.product_details.data.expected_pricing) + Number(this.product_data.maintenance_charge);
-          }
           if(this.product_details.data != null){
             this.youtube_url = "https://www.youtube-nocookie.com/embed/" + this.product_data.video_link+"?playlist="+this.product_data.video_link+"&loop=1&mute=1";          
             this.safeURL = this._sanitizer.bypassSecurityTrustResourceUrl(this.youtube_url);
@@ -106,6 +99,13 @@ export class ProductPageComponent implements OnInit {
               });
               }               
             }
+            if(this.product_details.data.rent_availability ==1){
+              this.security_dep_amount = Number(this.product_details.data.expected_rent) * Number(this.product_details.data.security_deposit);
+              this.total_amount_owner =  Number(this.product_details.data.expected_rent) + Number(this.security_dep_amount) + Number(this.product_data.maintenance_charge);
+            }
+            if(this.product_details.data.sale_availability ==1){
+              this.total_amount_owner =  Number(this.product_details.data.expected_pricing) + Number(this.product_data.maintenance_charge);
+            }
             this.sectiondisplay=true;
            this.showLoadingIndicator1 = false;
           }else{
@@ -119,13 +119,6 @@ export class ProductPageComponent implements OnInit {
         response => {
           this.product_details=response;
           this.product_data=this.product_details.data;
-          if(this.product_details.data.rent_availability ==1){
-            this.security_dep_amount = Number(this.product_details.data.expected_rent) * Number(this.product_details.data.security_deposit);
-            this.total_amount_owner =  Number(this.product_details.data.expected_rent) + Number(this.security_dep_amount) + Number(this.product_data.maintenance_charge);
-          }
-          if(this.product_details.data.sale_availability ==1){
-            this.total_amount_owner =  Number(this.product_details.data.expected_pricing) + Number(this.product_data.maintenance_charge);
-          }
           if(this.product_details.data != null){
             this.youtube_url = "https://www.youtube-nocookie.com/embed/" + this.product_data.video_link+"?playlist="+this.product_data.video_link+"&loop=1&mute=1";          
             this.safeURL = this._sanitizer.bypassSecurityTrustResourceUrl(this.youtube_url);
@@ -145,6 +138,13 @@ export class ProductPageComponent implements OnInit {
                   title: this.product_data.build_name
               });
               }            
+            }
+            if(this.product_details.data.rent_availability ==1){
+              this.security_dep_amount = Number(this.product_details.data.expected_rent) * Number(this.product_details.data.security_deposit);
+              this.total_amount_owner =  Number(this.product_details.data.expected_rent) + Number(this.security_dep_amount) + Number(this.product_data.maintenance_charge);
+            }
+            if(this.product_details.data.sale_availability ==1){
+              this.total_amount_owner =  Number(this.product_details.data.expected_pricing) + Number(this.product_data.maintenance_charge);
             }
             this.sectiondisplay=true;
            this.showLoadingIndicator1 = false;

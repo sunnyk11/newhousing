@@ -28,13 +28,18 @@
                                 <option value="1">Delhi</option>
                             </select>
                         </div>
-                        <div class="col-md-4  col-12 mt15" id="multiselect-dropdown">
-                            <!-- <label for="locality">Locality</label> -->
-                            <ng-multiselect-dropdown class="form-control localty_dropdown" [placeholder]="'Select locality'"
-                            [settings]="dropdownSettings_locality" [data]="dropdown_locality"
-                            formControlName="locality"  [ngClass]="{ 'is-invalid': submitted && f.locality.errors }"  (onSelect)="onchange_locality($event)">
-                            </ng-multiselect-dropdown>
-                        </div>
+                        <div class="col-md-4  col-12 mt15">
+                            <input class="w100 form-control" type="text" placeholder="Search locality" matInput aria-label="Number" formControlName="locality_data" [matAutocomplete]="auto" (ngModelChange)="get_locality($event)"  [ngClass]="{ 'is-invalid': submitted && f.locality.errors }">
+                            <mat-autocomplete #auto="matAutocomplete"> 
+                                <mat-option *ngFor="let area of filteredOptions | async" [value]="area.locality_text" (onSelectionChange)="change_selected_locality(area)">
+                                    {{area.locality_text}}
+                                </mat-option>
+                            </mat-autocomplete>
+                            <input type="hidden" class="form-control" id="locality" formControlName="locality" [ngClass]="{ 'is-invalid': submitted && f.locality.errors }">
+                            <span *ngIf="submitted && f.locality.errors" id='dropdownerror'>
+                                <span *ngIf="f.locality.errors.required">(Please Select Any Locality)</span>
+                            </span>
+                        </div>  
                         <div class="col-md-4  col-12 mt15" id="multiselect-dropdown2">
                             <!-- <label for="pincode" class="form-label">Sub-Locality</label>                               -->
                             <ng-multiselect-dropdown class="form-control sub_localty_dropdown" [placeholder]="'Select Sub-locality'"
@@ -45,11 +50,11 @@
                         <div class="col-lg-4 col-12 mt15 col-sm-12">
                             <div class="form-group">
                                 <ng-multiselect-dropdown class="form-control" [placeholder]="'Select Service'"
-                                [settings]="dropdownSettings" [data]="dropdownList"
+                                [settings]="dropdownSettings" [data]="dropdownList_service"
                                 formControlName="service" [ngClass]="{ 'is-invalid': submitted && f.service.errors }">
                                 </ng-multiselect-dropdown>
                             </div>
-                        </div>                   
+                        </div>                 
                       <div class="col-lg-6 offset-lg-3 col-12 mt20 search-column">
                             <button type="submit" class="btn btn-submit" (click)="onSubmit()">Create</button>
                       </div>

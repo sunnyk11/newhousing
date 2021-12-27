@@ -125,5 +125,16 @@ export class MyPropertiesComponent implements OnInit {
   navigate_rent(id:any){
     this.router.navigate(['/update-property-rent'],{queryParams:{id:id}})
   }
+  
+  sub_navigate(id:number,name:string,city:string){
+    const url:any = this.router.createUrlTree(['/product-details'],{queryParams:{'id':id,'name':name,'city':city}})
+    window.open(url.toString(), '_blank')
+  }
+  live_navigate(){
+    this.toastr.warning('Your Property is not live', 'Property', {
+      timeOut: 3000,
+    });
+
+  }
 
 }

@@ -28,16 +28,21 @@
                                 </select>
                             </div>
                         </div>        -->  
-                        <div class="col-md-4  col-12 mt15" id="multiselect-dropdown1">
-                            <label for="locality" class="form-label">Please Select Locality</label>
-                            <ng-multiselect-dropdown class="form-control localty_dropdown" [placeholder]="'Select locality'"
-                            [settings]="dropdownSettings_locality" [data]="dropdown_locality"
-                            formControlName="locality"  (onSelect)="onchange_locality($event)" (onDeSelect)="onItemDeSelect($event)">
-                            </ng-multiselect-dropdown>
+                        
+                          <div class="col-md-4  col-12 mt15">
+                            <label for="Locality" class="form-label">Locality</label>
+                            <input type="hidden" class="form-control" id="locality" [attr.disabled]="disabled ? '' : null" formControlName="locality">                       
+                            <input class="w100 form-control" type="text" placeholder="Search locality" matInput aria-label="Number" formControlName="locality_data" [matAutocomplete]="auto" (ngModelChange)="get_locality($event)">
+                            <mat-autocomplete #auto="matAutocomplete"> 
+                                <mat-option *ngFor="let area of filteredOptions | async" [value]="area.item_text" (onSelectionChange)="selected_locality(area)">
+                                    {{area.item_text}}
+                                </mat-option>
+                            </mat-autocomplete>
                         </div>
                         <div class="col-md-4  col-12 mt15" id="multiselect-dropdown1">
+                          
                             <label for="pincode" class="form-label">Please Select Sub-Locality</label>                              
-                            <ng-multiselect-dropdown class="form-control sub_localty_dropdown" [placeholder]="'Select Sub-locality'"
+                            <ng-multiselect-dropdown class="form-control sub_localty_dropdown"[placeholder]="'Select Sub-locality'"
                             [settings]="dropdownSettings_sub_locality" [data]="dropdown_sublocality"
                             formControlName="sub_locality">
                             </ng-multiselect-dropdown>
@@ -45,7 +50,7 @@
                       <div class="col-md-6  col-12 mt15" id="multiselect-dropdown1">
                         <label for="Services" class="form-label">Please Select Services</label>                              
                         <ng-multiselect-dropdown class="form-control sub_localty_dropdown" [placeholder]="'Select Services'"
-                        [settings]="dropdownSettings" [data]="dropdownList"
+                        [settings]="dropdownSettings" [data]="dropdown_service"
                         formControlName="service" >
                         </ng-multiselect-dropdown>
                     </div>  

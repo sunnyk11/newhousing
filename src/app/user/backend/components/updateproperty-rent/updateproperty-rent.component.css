@@ -141,6 +141,14 @@ mat-slider {
       height: 100vh;
   }
   
+  #dropdownerror{
+    font-size: 16px!important;
+    font-weight: 600;
+    padding: 5px 10px!important;
+    background-color: #fff;
+    color: #dc3545;
+    margin-left: 10px;
+  }
 .google_map_error{
   font-size: 22px;
   font-weight: 600;
@@ -163,6 +171,19 @@ mat-slider {
     .UpdateProperty_select_img .portfolio_item{
       margin: 0px!important;
     }
+    #mobile_view{
+      margin-bottom: 10px;
+      display: block;
+      font-size: 14px!important;
+      padding: 5px 10px!important;
+      background-color: #fff;
+      color: #dc3545;
+      border: 1px solid #dc3545;
+      box-shadow: 5px 1px 5px #dc3545;
+    }
+    #deshtop_view{
+      display: none!important;
+    }
     .text-right{
       display: flex;
       justify-content: flex-end;
@@ -171,4 +192,19 @@ mat-slider {
     .flaticon-maps-and-flags{
       right: 90px!important;
     }
+}
+@media(min-width: 769px) { 
+  #mobile_view{
+    display: none!important;
+  }
+  #deshtop_view{
+    font-size: 16px!important;
+    font-weight: 600;
+    padding: 5px 10px!important;
+    background-color: #fff;
+    color: #dc3545;
+    margin-left: 10px;
+    border: 1px solid #dc3545;
+    box-shadow: 5px 1px 5px #dc3545;
+  }
 }

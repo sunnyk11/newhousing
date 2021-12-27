@@ -31,7 +31,24 @@
                                     <tr>
                                     <td>
                                         <div class="feat_property list favorite_page style2">
-                                        <div class="thumb">
+                                        <div class="thumb" *ngIf="property?.enabled == 'yes'"  (click)="sub_navigate(property.id,property.build_name,property.city)">
+                                            <img class="img-whp" *ngIf="property.product_img.length>0;else OtherImage"
+                                            src="{{ftpstring}}{{property.product_img[0].image}}" alt="fp1.jpg">
+                                            <ng-template #OtherImage>
+                                            <img class="img-whp" src="./../../assets/resources/images/no_image_available.jpg"
+                                                alt="No Product Image">
+                                            </ng-template>
+                                            <div class="thmb_cntnt">
+                                            <ul class="tag mb0">
+                                                <li class="list-inline-item dn"></li>
+                                                <li class="list-inline-item" *ngIf=" property.rent_availability  != null"><a>For
+                                                    Rent</a></li>
+                                                <li class="list-inline-item" *ngIf=" property.sale_availability  != null"><a>For
+                                                    Sale</a></li>
+                                            </ul>
+                                            </div>
+                                        </div>
+                                        <div class="thumb" *ngIf="property?.enabled == 'no'"  (click)="live_navigate()">
                                             <img class="img-whp" *ngIf="property.product_img.length>0;else OtherImage"
                                             src="{{ftpstring}}{{property.product_img[0].image}}" alt="fp1.jpg">
                                             <ng-template #OtherImage>

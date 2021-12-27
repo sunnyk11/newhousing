@@ -275,13 +275,19 @@
     .propertyListingPage .btn {
         padding: 7px 15px!important;
     }
-    .home1-advnc-search ul li {
+    .home1-advnc-search ul .li_list {
         display: inline-block;
         line-height: 3;
-        margin-right: 15px !important;
+        margin-right: 0px!important;
         vertical-align: text-top;
-        width: 200px;
-    }
+        width: 20%!important;
+    } 
+    .home1-advnc-search .form-select{
+        border-radius: 0px!important;
+    } 
+    .home1-advnc-search .form-control{
+        border-radius: 0px!important;
+    }  
     #accordion .panel-heading,
     .panel-title {
         width: 100%!important;
