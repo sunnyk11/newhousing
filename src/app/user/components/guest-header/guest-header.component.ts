@@ -28,7 +28,7 @@ export class GuestHeaderComponent implements OnInit {
   public property_comp: any = {};
   public property_comp_length: number = 0;
   public token: string = '';
-  private google_token: string = ' ';
+  private google_token: string = '';
 
 
   constructor(
@@ -38,10 +38,10 @@ export class GuestHeaderComponent implements OnInit {
     private toastr: ToastrService
   ) {
     this.logged_in = this.commonService.getUpdate().subscribe(
-      message => {
+      message => {console.log(message);
         this.LoggedIn = message.text;
         this.token = message.token;
-        if (this.token) {
+        if (this.token.length>5) {
           this.user_details();
         }
       });
@@ -51,7 +51,7 @@ export class GuestHeaderComponent implements OnInit {
     this.user_details();
   }
   user_details() {
-    if (this.jwtService.isTokenAvailable()) {
+    if (this.jwtService.getToken()) {
       this.LoggedIn = true;
       this.userEmail = this.jwtService.getUserEmail();
       this.userId = this.jwtService.getUserId();

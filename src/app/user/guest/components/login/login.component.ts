@@ -9,6 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { PlansPageService } from '../../services/plans-page.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FixAppointmentComponent } from '../../modals/fix-appointment/fix-appointment.component';
+import { UserLogsService } from '../../services/user-logs.service';
 
 @Component({
   selector: 'app-login',
@@ -43,6 +44,18 @@ export class LoginComponent implements OnInit {
   private paytm_form_url: string = environment.Paytm_formURL;
   public letOutPlanData: any;
 
+  private usertype: any;
+  public userDetails: any;
+  public ip_address: any;
+  public pro_id: any = null;
+  public type: any;
+  public device_info: any;
+  public  browser_info: any;
+  public url_info: string = '';
+  public url: any;
+  public input_info: any = null;
+  public user_cart: any = null;
+
   constructor(
     private fb: FormBuilder,
     private loginPageService: LoginPageService,
@@ -51,11 +64,20 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private plansPageService: PlansPageService,
-    private modalService: NgbModal
-  ) { }
+    private modalService: NgbModal,
+    private UserLogsService:UserLogsService
+  ) {
+    this.usertype = this.jwtService.getUserType();
+      this.url_info= this.router.url;
+      this.device_info = this.UserLogsService.getDeviceInfo();
+      this.browser_info = this.UserLogsService.getbrowserInfo();
+      this.ip_address = this.UserLogsService.getIpAddress();
+      console.log(this.browser_info);
+      console.log(this.ip_address);
+     }
 
   ngOnInit(): void {
-
+    this.ip_address = this.UserLogsService.getIpAddress();
     this.route.queryParams.subscribe(
       params => {
         let google_token = params['token'];
@@ -108,15 +130,21 @@ export class LoginComponent implements OnInit {
           this.LoginFailed = false;
           this.LoggedIn = true;
           this.response_data = response;
+          console.log(this.response_data.data.user_data);
           this.jwtService.saveUser(this.response_data.data);
           this.token = this.jwtService.getToken();
           this.commonService.sendUpdate(this.LoggedIn, this.token);
           this.user_id = this.jwtService.getUserId();
           this.userEmail = this.jwtService.getUserEmail();
-
           this.returnUrl = this.jwtService.getReturnURL();
-
-          console.log(this.returnUrl);
+          // user logs functionalty 
+          this.type="login page";
+          this.input_info=this.response_data.data.user_data;
+          let param={'userEmail':this.userEmail,'user_type':this.usertype,'device_info':this.device_info,'browser_info':this.browser_info,'ip_address':this.ip_address,'url_info':this.url_info,'type':this.type,'user_cart':this.user_cart,'input_info':this.input_info}
+          this.UserLogsService.user_logs(param).subscribe(
+            reponse => {
+              // console.log(data.status);
+            });
           if (this.returnUrl?.includes('/product_payment_summary')) {
             //console.log(this.returnUrl);
             this.proceedToPayment();

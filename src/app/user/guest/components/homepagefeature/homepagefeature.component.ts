@@ -35,7 +35,7 @@ export class HomepagefeatureComponent implements OnInit {
   // fetch feature property 
   feature_property(){
     this.showLoadingIndicator= true;
-    if(this.jwtService.getToken()){
+    if(this.jwtService.getToken().length>5){
       this.indexPageService.login_Feature_Property({ param: null }).subscribe(
       response => {
         this.showLoadingIndicator= false;
@@ -46,6 +46,8 @@ export class HomepagefeatureComponent implements OnInit {
         let Message =err.error.message;
       }
      );
+     this.wishlist_refresh();
+     this.pro_comp_refresh();
     }else{
     this.indexPageService.getFeature_Property({ param: null }).subscribe(
       response => {
@@ -58,8 +60,6 @@ export class HomepagefeatureComponent implements OnInit {
       }
      );
     }
-    this.wishlist_refresh();
-    this.pro_comp_refresh();
   }
   // property compare
   product_comp(id:number){

@@ -235,7 +235,7 @@ export class ProductListingComponent implements OnInit {
     this.propertyresultlength=false;
     this.product_length=0;
     let param={data:this.searchForm.value}
-    if(this.jwtService.getToken()){
+    if(this.jwtService.getToken().length>5){
       this.ProductListingPageService.login_product_details(param).subscribe(
         response => {
           let data:any=response;
@@ -248,7 +248,8 @@ export class ProductListingComponent implements OnInit {
         }, err => {
         }
       );
-
+      this.wishlist_refresh();
+      this.pro_comp_refresh();
     }else{
       this.ProductListingPageService.product_details(param).subscribe(
         response => {
@@ -264,8 +265,6 @@ export class ProductListingComponent implements OnInit {
         }
       );
     }
-    this.wishlist_refresh();
-    this.pro_comp_refresh();
     this.closePopup();
   } 
    
@@ -460,6 +459,7 @@ export class ProductListingComponent implements OnInit {
   
   // wishlist refreh functionalty 
   wishlist_refresh(){
+    console.log('testing');
     this.CommonService.emit<string>('true');
   } 
   // product comapre refresh function 
