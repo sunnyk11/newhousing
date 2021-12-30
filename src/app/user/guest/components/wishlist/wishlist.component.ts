@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { CommonService } from '../../services/common.service';
 import { JwtService } from 'src/app/user/services/jwt.service';
 import { ToastrService } from 'ngx-toastr';
+import { UserLogsService } from '../../services/user-logs.service';
 
 @Component({
   selector: 'app-wishlist',
@@ -19,18 +20,39 @@ export class WishlistComponent implements OnInit {
   public wishlist_length:number=0;
   public product_copm:any={};
   public showLoadingIndicator:boolean=false;
+  public  property_data: any = [];
+  public userEmail:any;
+  private usertype: any;
+  public userDetails: any;
+  public ip_address: any;
+  public pro_id: any = null;
+  public type: any;
+  public device_info: any;
+  public  browser_info: any;
+  public url_info: string = '';
+  public url: any;
+  public input_info: any = null;
+  public user_cart: any = null;
 
   constructor(
     private jwtService: JwtService,
     private CommonService:CommonService,
     private toastr: ToastrService,
+    private UserLogsService:UserLogsService,
     private router:Router
     ) { }
 
   ngOnInit(): void {
     if(this.jwtService.getToken()){
+      this.userEmail =  this.jwtService.getUserEmail();
+      this.usertype = this.jwtService.getUserType();
+      this.url_info= this.router.url;
+      this.device_info = this.UserLogsService.getDeviceInfo();
+      this.browser_info = this.UserLogsService.getbrowserInfo();
+      this.ip_address = this.UserLogsService.getIpAddress();
        this.product_wishlist();
     }
+    this.property_data = new Array<string>();
   }
    // fetch wishlist property 
   product_wishlist(){
@@ -39,6 +61,41 @@ export class WishlistComponent implements OnInit {
       response => {
         this.property=response;
         this.wishlist_length=this.property.data.length;
+        if(this.wishlist_length>0){
+          for(let i=0; i<this.wishlist_length; i++){
+            if(this.property.data[i].productdetails != null){
+              if(this.property.data[i].productdetails.expected_pricing != null){
+                let property_name:any=this.property.data[i].productdetails.build_name;
+                let property_price:any=this.property.data[i].productdetails.expected_pricing;
+                let property_type:any="property_sales";
+                let property_uid:any=this.property.data[i].productdetails.product_uid;
+                this.property_data.push({'name':property_name,'property_id':property_uid,'type':property_type,'price':property_price});
+                }
+                if(this.property.data[i].productdetails.expected_rent != null){
+                  let property_name:any=this.property.data[i].productdetails.build_name;
+                  let property_price:any=this.property.data[i].productdetails.expected_rent;
+                  let property_type:any="property_rent";
+                  let property_uid:any=this.property.data[i].productdetails.product_uid;
+                  this.property_data.push({'name':property_name,'property_id':property_uid,'type':property_type,'price':property_price});
+              }
+            }
+          }
+          this.type = "wishlist_page";
+          this.user_cart = this.property_data;
+          let param={'userEmail':this.userEmail,'user_type':this.usertype,'device_info':this.device_info,'browser_info':this.browser_info,'ip_address':this.ip_address,'url_info':this.url_info,'type':this.type,'user_cart':this.user_cart,'input_info':this.input_info}
+          this.UserLogsService.user_logs(param).subscribe(
+            reponse => {
+              // console.log(data.status);
+            });
+        }else{
+          this.type = "wishlist_page";
+          let param={'userEmail':this.userEmail,'user_type':this.usertype,'device_info':this.device_info,'browser_info':this.browser_info,'ip_address':this.ip_address,'url_info':this.url_info,'type':this.type,'user_cart':this.user_cart,'input_info':this.input_info}
+          this.UserLogsService.user_logs(param).subscribe(
+            reponse => {
+              // console.log(data.status);
+            });
+
+        }
         this.showLoadingIndicator = false;
         this.wishlist_refresh();
         this.pro_comp_refresh();
@@ -58,6 +115,7 @@ export class WishlistComponent implements OnInit {
       this.CommonService.wishlist_remove({param}).subscribe(
       response => {
         this.wishlist_length=0;
+        this.property_data=[];
         this.product_wishlist();
       }, err => { 
         this.showLoadingIndicator = false;
