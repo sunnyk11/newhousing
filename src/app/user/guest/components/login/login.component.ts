@@ -116,7 +116,6 @@ export class LoginComponent implements OnInit {
 
           this.returnUrl = this.jwtService.getReturnURL();
 
-          console.log(this.returnUrl);
           if (this.returnUrl?.includes('/product_payment_summary')) {
             //console.log(this.returnUrl);
             this.proceedToPayment();

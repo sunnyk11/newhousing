@@ -222,10 +222,10 @@
                             </div>
                         </div>
                         <div class="row mt-3">
-                            <div class="col-md-6 col-4">
+                            <div class="col-md-6 col-3">
                                 <button mat-raised-button matStepperPrevious>Back</button>
                             </div>
-                            <div class="col-md-6 col-8 text-right">
+                            <div class="col-md-6 col-9 text-right">
                                 <button class="draftbtn" mat-raised-button (click)="save_draft()">Save Draft</button>
                                 <button mat-raised-button matStepperNext (click)="step2_next()">Next</button>
                             </div>
@@ -326,7 +326,7 @@
                         <div class="row additional_row" *ngIf="furnish_row == true">
                             <div class="col-12  col-lg-12">
                                 <ul class="row ui_kit_checkbox selectable-list">
-                                    <li *ngFor="let amenties_data of amenties?.data" class="col-lg-2 col-xs-6 amentites_li">
+                                    <li *ngFor="let amenties_data of amenties?.data" class="col-lg-2 col-6 amentites_li">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" id="{{amenties_data.name}}" (change)="onchangeAmenties($event,amenties_data.id)">
                                             <label class="form-check-label" for="{{amenties_data.name}}" (change)="onchangeAmenties($event,amenties_data.id)">
@@ -458,10 +458,10 @@
                             </div>
                         </div>
                         <div class="row mt-3">
-                            <div class="col-md-6 col-4">
+                            <div class="col-md-6 col-3">
                                 <button mat-raised-button matStepperPrevious>Back</button>
                             </div>
-                            <div class="col-md-6 col-8 text-right">
+                            <div class="col-md-6 col-9 text-right">
                                 <button class="draftbtn" mat-raised-button (click)="save_draft()">Save Draft</button>
                                 <button mat-raised-button matStepperNext (click)="step3_next()">Next</button>
                             </div>
@@ -547,7 +547,7 @@
                         <div class="row mt-3" *ngIf="maintenance_row == true">
                             <div class="col-lg-6 col-12">
                                 <div class="form-group">
-                                    <label>Maintenance Charge Condition</label>
+                                    <label  class="form-label">Maintenance Charge Condition</label>
                                     <select class="form-select form-select-lg w100" formControlName="maintenance_charge_condition" [ngClass]="{ 'is-invalid': submitted4 && step4.maintenance_charge_condition.errors }">
                                         <option value="">Select Option</option>
                                         <option value="Monthly">Monthly</option>
@@ -556,10 +556,10 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-lg-6 col-6">
+                            <div class="col-lg-6 col-12">
                                 <div class="form-group">
-                                    <label for="locality">Maintenance Charge Amount</label>
-                                    <input type="text" class="form-control" formControlName="maintenance_charge" [ngClass]="{ 'is-invalid': submitted4 && step4.maintenance_charge.errors }" placeholder="Enter the Maintenance Charge Negotiable" maxlength="8" (keypress)="keyPressNumbers($event)">
+                                    <label for="maintenance_charge"  class="form-label">Maintenance Charge Amount</label>
+                                    <input type="text" class="form-control" formControlName="maintenance_charge" [ngClass]="{ 'is-invalid': submitted4 && step4.maintenance_charge.errors }" placeholder="Enter Maintenance Charge" maxlength="8" (keypress)="keyPressNumbers($event)">
                                 </div>
                             </div>
                         </div>
@@ -633,10 +633,10 @@
                             </div>
                         </div>
                         <div class="row mt-3">
-                            <div class="col-md-6  col-4">
+                            <div class="col-md-6  col-3">
                                 <button mat-raised-button matStepperPrevious>Back</button>
                             </div>
-                            <div class="col-md-6 col-8 text-right">
+                            <div class="col-md-6 col-9 text-right">
                                 <button class="draftbtn" mat-raised-button (click)="save_draft()">Save Draft</button>
                                 <button mat-raised-button matStepperNext (click)="submit_rent()">Submit</button>
                             </div>
