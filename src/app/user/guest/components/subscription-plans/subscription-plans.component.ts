@@ -8,6 +8,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LoginCheckComponent } from '../../modals/login-check/login-check.component';
 import { MobileCheckComponent } from '../../modals/mobile-check/mobile-check.component';
 import { FixAppointmentComponent } from '../../modals/fix-appointment/fix-appointment.component';
+import { OwlOptions } from 'ngx-owl-carousel-o';
 
 @Component({
   selector: 'app-subscription-plans',
@@ -66,24 +67,8 @@ export class SubscriptionPlansComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getRentPlans();
     this.getRentFeatures();
-    this.getLetOutPlans();
     this.getLetOutFeatures();
-  }
-
-  getRentPlans() {
-    this.showLoadingIndicator = true;
-    this.plansPageService.getRentPlans({ param: null }).subscribe(
-      response => {
-        this.rent_response = response;
-        this.showLoadingIndicator = false;
-        //console.log(response);
-      },
-      err => {
-        this.showLoadingIndicator = false;
-      }
-    );
   }
 
   getRentFeatures() {
@@ -91,49 +76,24 @@ export class SubscriptionPlansComponent implements OnInit {
     this.plansPageService.getRentFeatures({ param: null }).subscribe(
       response => {
         this.rent_feat_res = response;
-        this.showLoadingIndicator = false;
         console.log(response);
-        for (let feat_res in this.rent_feat_res) {
-          //console.log(this.rent_feat_res[feat_res].feature_details);
-          this.myArray = this.rent_feat_res[feat_res].feature_details.split(',');
-          //console.log(this.myArray);
-          this.rent_feat_res[feat_res].feature_details = this.myArray;
-        }
-        console.log(this.rent_feat_res);
+        this.showLoadingIndicator = false;
       },
       err => {
+        console.log(err);
         this.showLoadingIndicator = false;
       }
     );
   }
 
-  getLetOutPlans() {
-    this.showLoadingIndicator = true;
-    this.plansPageService.getLetOutPlans({ param: null }).subscribe(
-      response => {
-        this.showLoadingIndicator = false;
-        this.letout_response = response;
-        //console.log(response);
-      },
-      err => {
-        this.showLoadingIndicator = false;
-      }
-    );
-  }
 
   getLetOutFeatures() {
     this.showLoadingIndicator = true;
     this.plansPageService.getLetOutFeatures({ param: null }).subscribe(
       res => {
         this.letout_feat_res = res;
+        console.log(this.letout_feat_res);
         this.showLoadingIndicator = false;
-        for (let feat_res_lo in this.letout_feat_res) {
-          //console.log(this.letout_feat_res[feat_res_lo].feature_details);
-          this.myArray_lo = this.letout_feat_res[feat_res_lo].feature_details.split(',');
-          //console.log(this.myArray_lo);
-          this.letout_feat_res[feat_res_lo].feature_details = this.myArray_lo;
-        }
-        //console.log(this.letout_feat_res);
       },
       err => {
         this.showLoadingIndicator = false;
@@ -149,9 +109,9 @@ export class SubscriptionPlansComponent implements OnInit {
       n.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + t
   }
 
-  plan_payment(plan_name: any, plan_id: any, payment_type: any, plan_type: any, expected_rent: any, price_duration: any) {
+  plan_payment(plan_name: any, plan_id: any, payment_type: any, plan_type: any, expected_rent: any, price_duration_actual: any, price_duration_discount:any, plan_features: any) {
     this.showLoadingIndicator = true;
-    console.log(plan_name, plan_id, payment_type, plan_type, expected_rent, price_duration);
+    console.log(plan_name, plan_id, payment_type, plan_type, expected_rent, price_duration_actual, price_duration_discount);
     let val = this.jwtService.getToken();
     if (val) {
       console.log("Logged In");
@@ -165,7 +125,7 @@ export class SubscriptionPlansComponent implements OnInit {
             console.log("Mobile number not verified");
             this.returnUrl = this.router.url;
             this.jwtService.saveReturnURL(this.returnUrl);
-            this.openMobModal(plan_name, plan_id, payment_type, plan_type, expected_rent, price_duration);
+            this.openMobModal(plan_name, plan_id, payment_type, plan_type, expected_rent, price_duration_actual, price_duration_discount, plan_features);
           }
           else {
             console.log("Mobile number verified");
@@ -180,17 +140,26 @@ export class SubscriptionPlansComponent implements OnInit {
             formData.append('plan_id', plan_id);
             formData.append('payment_type', payment_type);
 
-            this.plan_price = expected_rent / (30 / price_duration);
+            if(price_duration_discount) {
+              this.plan_price = expected_rent / (30 / price_duration_discount);
+            }
+            else {
+              this.plan_price = expected_rent / (30 / price_duration_actual);
+            }
+            
             formData.append('plan_price', this.plan_price);
+            formData.append('plan_features_data', JSON.stringify(plan_features));
+            console.log(typeof(plan_features));
+            console.log(formData);
 
             this.plansPageService.postSelectedPlan(formData).subscribe(
               res => {
                 console.log(res);
                 this.selected_plan_data = res;
-                if (plan_type == 'let_out') {
+                if (plan_type == 'Let Out') {
                   this.router.navigate(['/payment-summary'], { queryParams: { 'orderID': this.selected_plan_data.data.order_id } });
                 }
-                else if (plan_type == 'rent') {
+                else if (plan_type == 'Rent') {
                   this.plansPageService.crm_call(this.user_id).subscribe();
                   this.openConfirmationModal();
                 }
@@ -210,11 +179,11 @@ export class SubscriptionPlansComponent implements OnInit {
       console.log("Not logged in");
       console.log(this.router.url);
       this.showLoadingIndicator = false;
-      this.openLoginModal(plan_name, plan_id, payment_type, plan_type, expected_rent, price_duration);
+      this.openLoginModal(plan_name, plan_id, payment_type, plan_type, expected_rent, price_duration_actual, price_duration_discount, plan_features);
     }
   }
 
-  openLoginModal(plan_name: any, plan_id: any, payment_type: any, plan_type: any, expected_rent: any, price_duration: any) {
+  openLoginModal(plan_name: any, plan_id: any, payment_type: any, plan_type: any, expected_rent: any, price_duration_actual: any, price_duration_discount: any, plan_features: any) {
     const modalRef = this.modalService.open(LoginCheckComponent,
       {
         scrollable: true,
@@ -229,13 +198,15 @@ export class SubscriptionPlansComponent implements OnInit {
       payment_type: payment_type,
       plan_type: plan_type,
       expected_rent: expected_rent,
-      price_duration: price_duration
+      price_duration_actual: price_duration_actual,
+      price_duration_discount: price_duration_discount,
+      plan_features_data: JSON.stringify(plan_features)
     }
 
     modalRef.componentInstance.fromParent = data;
   }
 
-  openMobModal(plan_name: any, plan_id: any, payment_type: any, plan_type: any, expected_rent: any, price_duration: any) {
+  openMobModal(plan_name: any, plan_id: any, payment_type: any, plan_type: any, expected_rent: any, price_duration_actual: any, price_duration_discount: any, plan_features:any) {
     const modalRef = this.modalService.open(MobileCheckComponent,
       {
         scrollable: true,
@@ -250,7 +221,9 @@ export class SubscriptionPlansComponent implements OnInit {
       payment_type: payment_type,
       plan_type: plan_type,
       expected_rent: expected_rent,
-      price_duration: price_duration
+      price_duration_actual: price_duration_actual,
+      price_duration_discount: price_duration_discount,
+      plan_features_data: JSON.stringify(plan_features)
     }
 
     modalRef.componentInstance.fromParent = data;

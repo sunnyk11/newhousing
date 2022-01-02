@@ -52,81 +52,56 @@
                     <mat-icon>shopping_cart</mat-icon>
                 </mat-panel-description>
             </mat-expansion-panel-header>
-            <div class="pricing">
-                <div class="container">
-                    <div class="pricing-table">
-                        <table class="table">
-
-                            <thead>
-                                <tr>
-                                    <th>&nbsp;</th>
-                                    <th *ngFor="let letout_plan of letout_response">
-                                        {{ letout_plan.plan_name }}
-                                        <span class="ptable-price pay_type pt15">{{ letout_plan.payment_type }}
-                      Payment</span>
+            <div class="container">
+                <div class="row mb-3 mt-5 text-center justify-content-center">
+                    <div *ngFor="let letout_plan of letout_feat_res" class="col-lg-4 col-md-4 mb-5">
+                        <div class="card mb-4 rounded-3 shadow-sm border-secondary h-100">
+                            <span class="banner" *ngIf="letout_plan.special_tag == 'yes'">Popular</span>
+                            <div class="card-header py-3 h-220">
+                                <h4>{{ letout_plan.plan_name }}</h4>
+                                <hr>
+                                <div *ngIf="letout_plan.discount == 1">
+                                    <h4 class="strike_duration">{{ letout_plan.actual_price_days }} Days Rent</h4>
+                                    <h4 class="discount_price">{{ letout_plan.discount_percentage }} % Off</h4>
+                                    <h4>{{ letout_plan.discounted_price_days }} Days Rent</h4>
+                                    <h4>Rs. {{ response.product_price / (30 / letout_plan.discounted_price_days) | number: '4.0-0'}}
+                                    </h4>
+                                </div>
+                                <div *ngIf="letout_plan.discount == 0">
+                                    <h4></h4>
+                                    <h4></h4>
+                                    <h4>{{ letout_plan.actual_price_days }} Days Rent</h4>
+                                    <h4>Rs. {{ response.product_price / (30 / letout_plan.actual_price_days) | number: '4.0-0'}}
+                                    </h4>
+                                </div>
+                            </div>
+                            <div class="card-body h-100">
+                                <h1 class="card-title pricing-card-title"></h1>
+                                <ul class="list-unstyled mt-3 mb-4">
+                                    <li *ngFor="let letout_plan_feature of letout_plan.features" class="h-100">
+                                        <p class="text-muted row1">{{ letout_plan_feature.feature_name }}
+                                            <!-- <span *ngIf="letout_plan_feature.more_info_status == '1'">
+                                                    <mat-icon placement="bottom" [ngbPopover]="popoverContent">info</mat-icon>
+                                                </span> -->
+                                        </p>
+                                        <ng-template #popoverContent>
+                                            <div [innerHTML]="letout_plan_feature.more_info.more_info"></div>
+                                        </ng-template>
+                                        <p class="row2" *ngIf="letout_plan_feature.feature_details === 'yes'">
+                                            <span class="checkmark">&#10003;</span>
+                                        </p>
+                                        <p class="row2" *ngIf="letout_plan_feature.feature_details === 'no'">
+                                            <span class="wrong-sym">&#215;</span>
+                                        </p>
+                                        <p class="row2" *ngIf="letout_plan_feature.feature_details != 'no' && letout_plan_feature.feature_details != 'yes'">
+                                            {{ letout_plan_feature.feature_details }}</p>
                                         <hr>
-                                        <span class="ptable-price">{{ letout_plan.plan_price }} Days
-                      Rent</span>
-                                        <span class="ptable-price pt10">Rs. {{
-                      response.product_price /
-                      (30 / letout_plan.plan_price) | number: '4.0-0'}}</span>
-                                        <!--<span class="ptable-price" *ngIf="selected && plan.plan_price == 15">Rs. {{ selected.value / 2 }}</span>-->
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody *ngFor="let letout_feature of letout_feat_res">
-                                <tr class="visible-xs" aria-hidden="true">
-                                    <td>&nbsp;</td>
-                                    <td colspan="3">{{letout_feature.feature_name}}</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span class="ptable-title">{{letout_feature.feature_name}}</span>
-                                    </td>
-                                    <!-- <td><span class="checkmark">{{letout_feature.feature_details | split:
-                                    "," : 0}}</span></td>
-                            <td><span class="checkmark">{{letout_feature.feature_details | split:
-                                    "," : 1}}</span></td>
-                            <td><span class="checkmark">{{letout_feature.feature_details | split:
-                                    "," : 2}}</span></td>-->
-                                    <td *ngIf="letout_feature.feature_details[0] === 'yes'"><span class="checkmark">&#10004;</span></td>
-                                    <td *ngIf="letout_feature.feature_details[0] === 'no'">&#10006;</td>
-                                    <td *ngIf="letout_feature.feature_details[0] != 'no' && letout_feature.feature_details[0] != 'yes'">
-                                        <span>{{letout_feature.feature_details[0]}}</span>
-                                    </td>
-
-                                    <td *ngIf="letout_feature.feature_details[1] === 'yes'"><span class="checkmark">&#10004;</span></td>
-                                    <td *ngIf="letout_feature.feature_details[1] === 'no'">
-                                        <span>&#10006;</span>
-                                    </td>
-                                    <td *ngIf="letout_feature.feature_details[1] != 'no' && letout_feature.feature_details[1] != 'yes'">
-                                        <span>{{letout_feature.feature_details[1]}}</span>
-                                    </td>
-
-                                    <td *ngIf="letout_feature.feature_details[2] === 'yes'"><span class="checkmark">&#10004;</span></td>
-                                    <td *ngIf="letout_feature.feature_details[2] === 'no'">
-                                        <span>&#10006;</span>
-                                    </td>
-                                    <td *ngIf="letout_feature.feature_details[2] != 'no' && letout_feature.feature_details[2] != 'yes'">
-                                        <span>{{letout_feature.feature_details[2]}}</span>
-                                    </td>
-                                </tr>
-                            </tbody>
-                            <tbody>
-                                <!-- Buttons -->
-                                <tr>
-                                    <td>&nbsp;</td>
-                                    <td *ngFor="let letout_plan of letout_response" class="bg-green"><a class="btn" (click)="plan_payment(letout_plan.plan_name, letout_plan.plan_ID, letout_plan.payment_type, 'let_out', response.product_price, letout_plan.plan_price)">Select
-                      Plan</a></td>
-                                </tr>
-                                <!-- <tr>
-                            <td>&nbsp;</td>
-                            <td class="bg-green"><a class="btn" (click)="plan_payment('letout', 'maharaja', expected_rent_value)">Select Plan</a></td>
-                            <td class="bg-green"><a class="btn" (click)="plan_payment('letout', 'raja', expected_rent_value)">Select Plan</a></td>
-                            <td class="bg-green"><a class="btn" (click)="plan_payment('letout', 'standard', expected_rent_value)">Select Plan</a></td>
-                        </tr>-->
-                            </tbody>
-                        </table>
+                                    </li>
+                                </ul>
+                                <a class="btn btn-block btn-success" (click)="plan_payment(letout_plan.plan_name, letout_plan.id, letout_plan.payment_type, letout_plan.plan_type, response.product_price, letout_plan.actual_price_days, letout_plan.discounted_price_days, letout_plan)">Select
+                                        Plan</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

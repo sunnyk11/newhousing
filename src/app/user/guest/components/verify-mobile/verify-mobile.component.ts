@@ -34,6 +34,7 @@ export class VerifyMobileComponent implements OnInit {
   public isFailedVerify_otp: boolean = false;
   public isVerified: boolean = false;
   private previousUrl: any;
+  private plan_price: number = 0;
 
   public property_data: any;
   private user_id: any;
@@ -150,19 +151,19 @@ export class VerifyMobileComponent implements OnInit {
           this.jwtService.removeReturnURL();
         }
         else if (this.previousUrl.includes('plans')) {
-          console.log(this.previousUrl);
+          //console.log(this.previousUrl);
           this.plansData = JSON.parse(this.jwtService.getPlansData());
           console.log(this.plansData);
           this.plansData['user_id'] = this.user_id;
           this.plansData['user_email'] = this.userEmail;
           this.plansPageService.postSelectedPlan(this.plansData).subscribe(
             res => {
-              console.log(res);
+              //console.log(res);
               this.letOutPlanData = res;
-              if (this.letOutPlanData.data.plan_type == 'let_out') {
+              if (this.letOutPlanData.data.plan_type == 'Let Out') {
                 this.router.navigate(['/payment-summary'], { queryParams: { 'orderID': this.letOutPlanData.data.order_id } });
               }
-              else if (this.letOutPlanData.data.plan_type == 'rent') {
+              else if (this.letOutPlanData.data.plan_type == 'Rent') {
                 this.plansPageService.crm_call(this.user_id).subscribe();
                 this.router.navigate(['plans']);
                 this.openConfirmationModal();
@@ -177,6 +178,40 @@ export class VerifyMobileComponent implements OnInit {
         else if (this.previousUrl.includes('profile')) {
           this.jwtService.removeReturnURL();
           this.router.navigate(['profile']);
+        }
+        else if (this.previousUrl.includes('my-properties')) {
+          this.plansData = JSON.parse(this.jwtService.getPlansData());
+          //console.log(this.plansData);
+          this.plansData.user_id = this.user_id;
+          this.plansData.user_email = this.userEmail;
+
+          if(this.plansData.price_duration_discount) {
+            this.plan_price = this.plansData.expected_rent / (30 / this.plansData.price_duration_discount);
+          }
+          else {
+            this.plan_price = this.plansData.expected_rent / (30 / this.plansData.price_duration_actual);
+          }
+
+          this.plansData.plan_price = this.plan_price;
+          
+          this.plansPageService.postSelectedPlan(this.plansData).subscribe(
+            res => {
+              console.log(res);
+              this.letOutPlanData = res;
+              if (this.letOutPlanData.data.plan_type == 'Let Out') {
+                this.router.navigate(['/payment-summary'], { queryParams: { 'orderID': this.letOutPlanData.data.order_id } });
+              }
+              else if (this.letOutPlanData.data.plan_type == 'Rent') {
+                this.plansPageService.crm_call(this.user_id).subscribe();
+                this.router.navigate(['plans']);
+                this.openConfirmationModal();
+              }
+            },
+            err => {
+              console.log(err);
+            }
+          );
+          this.jwtService.removeReturnURL();
         }
         else {
           this.router.navigateByUrl(this.previousUrl || '');

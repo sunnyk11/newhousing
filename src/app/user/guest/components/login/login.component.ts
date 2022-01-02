@@ -104,7 +104,7 @@ export class LoginComponent implements OnInit {
       this.loginPageService.login(loginData).subscribe(
         response => {
           this.showLoadingIndicator = false;
-          //console.log(response);
+          console.log(response);
           this.LoginFailed = false;
           this.LoggedIn = true;
           this.response_data = response;
@@ -256,10 +256,10 @@ export class LoginComponent implements OnInit {
             res => {
               console.log(res);
               this.letOutPlanData = res;
-              if (this.letOutPlanData.data.plan_type == 'let_out') {
+              if (this.letOutPlanData.data.plan_type == 'Let Out') {
                 this.router.navigate(['/payment-summary'], { queryParams: { 'orderID': this.letOutPlanData.data.order_id } });
               }
-              else if (this.letOutPlanData.data.plan_type == 'rent') {
+              else if (this.letOutPlanData.data.plan_type == 'Rent') {
                 this.plansPageService.crm_call(this.user_id).subscribe();
                 this.router.navigate(['plans']);
                 this.openConfirmationModal();
