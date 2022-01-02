@@ -13,7 +13,35 @@
     margin: auto;
     background-image: none !important;
 }
-
+.bank_details_section{
+    padding: 0px 25px 25px 25px!important;
+}
+.bank_details_section .heading{
+    font-size:16px;
+    font-weight: 600;
+    padding: 13px 0px!important;
+    margin: 0px 0px 20px!important;
+    background-color: #0d6efd!important;
+    color: #fff!important;
+}
+.status_heading .text-success{
+    text-align: center!important;
+    color: #fff!important;
+    font-size: 16px;
+    font-weight: 600!important;
+    padding: 5px 0px!important;
+    background-color: #4caf50!important;
+    letter-spacing: 1.5px!important;
+}
+.status_heading .text-danger{
+    text-align: center!important;
+    color: #fff!important;
+    font-size: 16px;
+    font-weight: 600!important;
+    background-color: #ff5a5f!important;
+    padding: 5px 0px!important;
+    letter-spacing: 1.5px!important;
+}
 @media(max-width: 768px) {
     .profile-img {
         width: 40%;

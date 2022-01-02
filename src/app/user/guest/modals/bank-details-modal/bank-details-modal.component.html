@@ -1,0 +1,60 @@
+<div *ngIf="!otp_visible">    
+    <div class="modal-header">
+        <h5 class="modal-title">Bank Deatails:</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" (click)="closeModal('dismiss')" >
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="bank_details" >
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">User Name*:</span>
+                <input type="text" class="form-control" placeholder="" formControlName="account_holder" [ngClass]="{ 'is-invalid': submitted && f.account_holder.errors }">
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">Account No*:</span>
+                <input type="text" class="form-control" placeholder="" formControlName="account_no" [ngClass]="{ 'is-invalid': submitted && f.account_no.errors }">
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">IFSC Code*:</span>
+                <input type="text" class="form-control" placeholder="" formControlName="ifsc_code" [ngClass]="{ 'is-invalid': submitted && f.ifsc_code.errors }">
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" *ngIf="bank_account_no != null" (click)="update_deatils()" >Update Details</button>
+        <button type="button" class="btn btn-primary" *ngIf="bank_account_no == null" (click)="update_deatils()" >Add Details</button>
+    </div>
+</div>
+
+<div *ngIf="otp_visible">    
+    <div class="modal-header">
+        <h5 class="modal-title">Please Enter Otp</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" (click)="closeModal('dismiss')" >
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="otpForm">
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">OTP*</span>
+                <input type="text" class="form-control" placeholder="" formControlName="otp_password" (keypress)="keyPressNumbers($event)" minlength="6" maxlength="6" [ngClass]="{ 'is-invalid': otp_submitted && g.otp_password.errors }" required>
+            </div>
+            <div class="alert alert-danger" role="alert" *ngIf="otp_submitted && g.otp_password.invalid">
+                <div *ngIf="g.otp_password.errors?.required">OTP is required
+                </div>
+                <div *ngIf="g.otp_password.errors?.minlength">
+                    OTP must be 6 digits
+                </div>
+            </div>
+            <div class="alert alert-danger text-center" role="alert" *ngIf="otp_submitted && isFailedVerify_otp">
+                <div *ngIf="errorMessage">
+                    <p><strong>Please Enter valid Otp.</strong></p>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="onSubmitotp()" >Verify</button>
+    </div>
+</div>

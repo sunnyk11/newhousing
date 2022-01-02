@@ -7,7 +7,10 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { ConfirmedValidator } from '../../utils/validation';
-
+import { MatDialog } from '@angular/material/dialog';
+import { BankDetailsModalComponent } from '../../modals/bank-details-modal/bank-details-modal.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { CommonService } from '../../services/common.service';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -53,6 +56,10 @@ export class ProfileComponent implements OnInit {
   public returnUrl: string = '';
   public password_submitted: boolean = false;
   private password_message: any;
+  public bank_account_no:any=null;
+  public ifsc_code:any;
+  public bank_account_holder:any;
+  public account_status:boolean=false;
 
   UserNameForm = this.fb.group({
     user_name: ['']
@@ -78,9 +85,21 @@ export class ProfileComponent implements OnInit {
   constructor(private userService: UserService,
     private profilePageService: ProfilePageService,
     private jwtService: JwtService,
+    private dialog: MatDialog,
     private fb: FormBuilder,
     private toastr: ToastrService,
-    private router: Router) { }
+    private modalService: NgbModal,
+    private commonService: CommonService,
+    private router: Router) {
+     this.commonService.bank_details_on().subscribe(
+      message => {
+        console.log(message);
+        if (message == 'true') {
+          console.log('testing');
+          this.user_details();
+        }
+      });
+     }
 
   get g() {
     return this.otpForm.controls;
@@ -92,6 +111,9 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.showLoadingIndicator = true;
+    this.user_details();
+  }
+  user_details(){
     this.userService.getUserDetails().pipe().subscribe(
       data => {
         this.showLoadingIndicator = false;
@@ -105,6 +127,10 @@ export class ProfileComponent implements OnInit {
         this.email = this.user_data.email;
         this.phn_no = this.user_data.other_mobile_number;
         this.id_created_at = this.user_data.created_at;
+        this.bank_account_no=this.user_data.bank_acount_no;
+        this.ifsc_code=this.user_data.ifsc_code;
+        this.bank_account_holder=this.user_data.account_holder;
+        this.account_status=this.user_data.account_status;
 
         switch (this.usertype) {
           case 3: {
@@ -183,7 +209,25 @@ export class ProfileComponent implements OnInit {
       }
     );
   }
+bank_details(){
+  const modalRef = this.modalService.open(BankDetailsModalComponent,
+    {
+      scrollable: true,
+      windowClass: 'myCustomModalClass',
+      // keyboard: false,
+      backdrop: 'static'
+    });
+    let data = {
+      bank_account_no: this.bank_account_no,
+      ifsc_code: this.ifsc_code,
+      bank_account_holder: this.bank_account_holder,
+      user_mobile_no: this.phn_no,
+      user_id:this.id
+    }
+    console.log(data);
 
+    modalRef.componentInstance.user_bank_details = data;
+}
   user_details_name() {
     this.UserNameForm.patchValue({
       user_name: this.currentUser

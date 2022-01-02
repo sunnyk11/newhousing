@@ -81,6 +81,42 @@
             </div>
             <div class="row mt-4">
                 <div class="col-lg-12">
+                    <div class="h-100  bg-light border rounded-3 bank_details_section">
+                        <h4 class="text-center heading">Bank Details:</h4>
+                        <div class="col-lg-8 offset-lg-2 col-12">
+                            <dl class="row">
+                                <dt class="col-sm-3">Accont Holder Name:</dt>
+                                <dd class="col-sm-9" *ngIf="user_data?.account_holder ==null">NA</dd>
+                                <dd class="col-sm-9" *ngIf="user_data?.account_holder !=null">{{user_data?.account_holder}}</dd>
+                                <hr>
+    
+                                <dt class="col-sm-3">Bank Account No:</dt>
+                                <dd class="col-sm-9" *ngIf="user_data?.bank_acount_no ==null">NA</dd>
+                                <dd class="col-sm-9" *ngIf="user_data?.bank_acount_no !=null">{{user_data?.bank_acount_no }}</dd>
+                                <hr>
+    
+                                <dt class="col-sm-3">Bank IFSC Code</dt>
+                                <dd class="col-sm-9" *ngIf="user_data?.ifsc_code !=null">{{ user_data?.ifsc_code}}</dd>
+                                <dd class="col-sm-9" *ngIf="user_data?.ifsc_code ==null">NA</dd>
+                                <hr>
+    
+                                <dt class="col-sm-3">Bank Verify Status</dt>
+                                <dd class="col-sm-9 status_heading" *ngIf="user_data?.account_status==0"><p class="text-danger">Account is not Verify</p></dd>
+                                <dd class="col-sm-9 status_heading" *ngIf="user_data?.account_status==1"><p class="text-success">Verify Account.This Account not Edit . </p></dd>
+                                <hr>
+                                <dd class="col-lg-3 offset-lg-8 col-12"  *ngIf="user_data?.account_status==0">
+                                <button type="button" class="btn btn-primary" *ngIf="bank_account_no != null" (click)="bank_details()">
+                                    Edit Bank Details
+                                </button>
+                               <button type="submit" class="btn btn-primary" *ngIf="bank_account_no == null" (click)="bank_details()">Add Details</button>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-lg-12">
                     <div class="h-100 p-5 bg-light border rounded-3">
                         <h4 class="text-center">Change Password</h4>
                         <div class="col-lg-6 offset-lg-3 col-sm-12">

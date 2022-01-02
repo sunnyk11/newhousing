@@ -38,6 +38,17 @@ export class CommonService {
   pro_comp_on<T>(): Observable<T>{
     return this.pro_comp_subject.asObservable();
   }
+  
+  // topbar bank details profile page refresh functionalty start
+  public bank_details = new BehaviorSubject<any>('');
+  bank_details_emit<T>(data: T){
+    this._subject.next(data);
+  }
+  bank_details_on<T>(): Observable<T>{
+    return this._subject.asObservable();
+  }
+
+
   getAmenities(reqModel:any): Observable<ResultModel> {
     const route = "/api/amenities";
     return this.apiService.get<ResultModel>(route, reqModel);
