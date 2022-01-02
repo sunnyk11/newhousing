@@ -28,7 +28,7 @@
                                                     <input type="text" class="form-control input-text" name="name" formControlName="build_name" id="build_name" placeholder="Enter keywords...">
                                                 </div>
                                             </li> -->
-                                            <li class="list-inline-item">
+                                            <li class="list-inline-item li_list">
                                                 <div class="search_option_two">
                                                     <div class="candidate_revew_select">
                                                         <select class="form-select h50" name="type" id="type" formControlName="city">
@@ -37,7 +37,7 @@
                                                     </div>
                                                 </div>
                                             </li>
-                                            <li class="list-inline-item">
+                                            <!-- <li class="list-inline-item">
                                                 <div class="search_option_two">
                                                     <div class="candidate_revew_select">
                                                         <input type="hidden" class="form-control" id="search_type" name="search_type" formControlName="search_type">
@@ -47,13 +47,12 @@
                                                     </select>
                                                     </div>
                                                 </div>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <div class="form-group">
-                                                    <!-- <input type="text" class="form-control input-text" name="name" formControlName="build_name" id="build_name" (ngModelChange)="get_locality($event)" placeholder="Enter keywords..."> -->
-                                                    <input class="w100 form-control" type="text" placeholder="Search locality" matInput aria-label="Number" formControlName="locality" [matAutocomplete]="auto" (ngModelChange)="get_locality($event)">
-                                                    <mat-autocomplete #auto="matAutocomplete" > 
-                                                        <mat-option *ngFor="let area of filteredOptions | async" [value]="area.item_text">
+                                            </li> -->
+                                            <li class="list-inline-item locality_list">
+                                                <div class="search_option_two form-group">
+                                                    <input class="w100 form-control" type="text" placeholder="Search locality/Sub-locality" matInput aria-label="Number" formControlName="locality_data" [matAutocomplete]="auto" (ngModelChange)="get_locality($event)">
+                                                    <mat-autocomplete #auto="matAutocomplete"> 
+                                                        <mat-option *ngFor="let area of filteredOptions | async" [value]="area.item_text" (onSelectionChange)="selected_locality(area.item_text)">
                                                             {{area.item_text}}
                                                         </mat-option>
                                                     </mat-autocomplete>
@@ -66,13 +65,13 @@
                                                         class="flaticon-maps-and-flags"></span></label>
                                                 </div>
                                             </li> -->
-                                            <li class="list-inline-item" *ngIf="rent_range_slider== true">
+                                            <!-- <li class="list-inline-item" *ngIf="rent_range_slider== true">
                                                 <div class="small_dropdown2">
                                                     <div id="prncgs" class="btn dd_btn1">
                                                         <ngx-slider [options]="options" formControlName="sliderControl"></ngx-slider>
                                                     </div>
                                                 </div>
-                                            </li>
+                                            </li> -->
                                             <!-- Sale feature Commented -->
                                             <!-- <li class="list-inline-item" *ngIf="buyyer_range_slider== true">
                                                 <div class="small_dropdown2">
@@ -87,7 +86,7 @@
                                                 Advanced <i class="fa fa-angle-down"></i>
                                             </a>
                                             </li> -->
-                                            <li class="list-inline-item">
+                                            <li class="list-inline-item li_list">
                                                 <div class="search_option_button">
                                                     <button type="submit" class="btn btn-thm" (click)="searchhome.form.valid && navigate()">Search</button>
                                                 </div>
@@ -259,7 +258,7 @@
                 <div class="properti_city">
                     <div class="thumb"><img class="img-fluid w100" src="../../../../../assets/resources/images/property/city_image_1.jpeg" alt="pc1.jpg">
                     </div>
-                    <div class="overlay" *ngIf="product_length>0">
+                    <div class="overlay">
                         <div class="details">
                             <h4>{{city_name | titlecase}}</h4>
                             <p>{{product_length}} Properties</p>
@@ -272,7 +271,7 @@
                 <div class="properti_city">
                     <div class="thumb"><img class="img-fluid w100" src="../../../../../assets/resources/images/property/chattarpur_sharp.jpg" alt="pc2.jpg">
                     </div>
-                    <div class="overlay" *ngIf="chattarpur_length>0">
+                    <div class="overlay">
                         <div class="details">
                             <h4>{{chattarpur | titlecase}}</h4>
                             <p>{{chattarpur_length}} Properties</p>

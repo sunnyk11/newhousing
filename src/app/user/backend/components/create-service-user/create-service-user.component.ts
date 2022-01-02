@@ -4,8 +4,9 @@ import { LocalServiceProviderService } from '../../services/local-service-provid
 import { ToastrService } from 'ngx-toastr';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { CommonService } from '../../services/common.service';
-import { Observable } from 'rxjs';
 import { Router,ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 
 @Component({
     selector: 'app-create-service-user',
@@ -23,7 +24,7 @@ export class CreateServiceUserComponent implements OnInit {
   public local_area_data:any;
   public dropdownList:any=[];
   public dropdown_sublocality:any=[];
-  public dropdown_locality:any=[];
+  public dropdownList_service:any=[];
   public search_data:any={};
   public state_data:any={};
   public district_data:any={};
@@ -31,7 +32,7 @@ export class CreateServiceUserComponent implements OnInit {
   dropdownSettings!: IDropdownSettings;
   dropdownSettings_sub_locality!: IDropdownSettings;
   dropdownSettings_locality!: IDropdownSettings;
-  public filtered_locality!: Observable<any[]>;
+  public filteredOptions!: Observable<any[]>;
   
   selectedItems = [];
 
@@ -40,6 +41,7 @@ export class CreateServiceUserComponent implements OnInit {
     city: new FormControl('1', Validators.required),
     district: new FormControl('', Validators.required),
     locality: new FormControl('', Validators.required),
+    locality_data: new FormControl('', Validators.required),
     sub_locality: new FormControl('', Validators.required),
     contact: new FormControl('', Validators.required),
     service: new FormControl('', Validators.required)
@@ -87,23 +89,91 @@ export class CreateServiceUserComponent implements OnInit {
       noDataAvailablePlaceholderText: "Sub Locality not Availabale",
       maxHeight: 250,
     };
-    this.get_state();
-    this.get_locality();
     this.area_service();
+    this.filteredOptions = this.Service_form.controls.locality_data.valueChanges.pipe(
+      startWith(''),
+      map((value) => this._filter(value))
+    );
+  }
+  
+  change_selected_locality(data:any){
+    this.Service_form.patchValue({locality:data.locality_id});
+    let param = { Locality_id:data.locality_id}
+    this.CommonService.get_sub_locality(param).subscribe(
+      response => {
+        let data:any=response;
+        this.dropdown_sublocality=[];
+        this.Service_form.patchValue({sub_locality:''});
+        if(data.data.length<1){
+          this.dropdown_sublocality=[];
+          this.Service_form.patchValue({
+            sub_locality:'',
+            district:''
+          });
+        }else{
+          this.Service_form.patchValue({
+            district:data.district.district.district_id
+          });
+          for (let i = 1; i < data.data.length; i++) {
+            this.dropdown_sublocality = this.dropdown_sublocality?.concat({ sub_locality_id: data.data[i].sub_locality_id, sub_locality_text: data.data[i].sub_locality});
+          }
+        }
+      }
+    );
+    
+  }
+  get_locality(value:any){
+    if(value.length>2){
+      this.CommonService.get_search_locality(value).subscribe(
+        response => {
+          let data:any=response;
+          this.dropdownList=[];
+          if(data?.data[0]?.length>0){
+            for (let i = 0; i < data.data[0].length; i++) {
+              this.dropdownList = this.dropdownList?.concat({ locality_id: data.data[0][i].locality_id, locality_text: data.data[0][i].locality});
+            }
+            this.filteredOptions = this.Service_form.controls.locality_data.valueChanges
+              .pipe(
+                startWith(''),
+                map((value) => this._filter(value))
+              );
+          }else{
+            this.dropdownList=[];
+            this.dropdown_sublocality=[];
+            this.Service_form.patchValue({locality:'',sub_locality:''});
+          }
+         
+        }, err => {   
+        }
+      );
+    }else{
+      this.dropdownList=[];
+      this.dropdown_sublocality=[];
+      this.Service_form.patchValue({locality:'',sub_locality:''});
+    }
+  }
+
+  private _filter(value: any): string[] {
+    if (value.locality_text) {
+      const filterValue = value.locality_text.toLowerCase();
+      return this.dropdownList?.filter((option: any) => option.locality_text.toLowerCase().includes(filterValue));
+    }
+    else {
+      const filterValue = value.toLowerCase();
+      return this.dropdownList?.filter((option: any) => option.locality_text.toLowerCase().includes(filterValue));
+    }
   }
   onSubmit():void{
-    console.log(this.Service_form.value);
     if(this.Service_form.invalid){
       this.submitted = true;
       }else{
-        console.log(this.Service_form.value);
         let param={data:this.Service_form.value}
         this.LocalServiceProviderService.service_user_create(param).subscribe(
           response => {
             let data:any=response;
             this.showLoadingIndicator = false;
             this.toastr.success('User  Create Successfully');
-            this.router.navigate(['/agent/services-user-list']); 
+            // this.router.navigate(['/agent/services-user-list']); 
           },
           err => {
             this.showLoadingIndicator = false;
@@ -123,7 +193,6 @@ export class CreateServiceUserComponent implements OnInit {
     this.showLoadingIndicator = true;
     this.CommonService.get_state({ param: null }).pipe().subscribe(
       response=> {
-        console.log(response);
         this.state_data=response;
         this.showLoadingIndicator = false;
       },
@@ -136,9 +205,8 @@ export class CreateServiceUserComponent implements OnInit {
     let param = { id: id }
     this.CommonService.get_district_byid(param).subscribe(
       response => {
-        console.log(response);
         this.district_data=[];
-        this.dropdown_locality=[];
+        // this.dropdown_locality=[];
         this.dropdown_sublocality=[];
         this.Service_form.patchValue({locality:''});
         this.Service_form.patchValue({sub_locality:''});
@@ -148,50 +216,49 @@ export class CreateServiceUserComponent implements OnInit {
       }
     );
   }
-  get_locality() {
-    this.CommonService.get_locality({ param: null }).subscribe(
-      response => {
-        let data:any=response;
-        console.log(data);
-        if(data.data.length<1){
-          this.dropdown_sublocality=[];
-          this.Service_form.patchValue({sub_locality:''});
-        }else{
-          for (let i = 1; i < data.data.length; i++) {
-            this.dropdown_locality = this.dropdown_locality.concat({locality_id: data.data[i].locality_id, locality_text:  data.data[i].locality}); 
-          }
-        }
-      },
-      (err: any) => {
-      }
-    );
-  }
-  onchange_locality(id: any) {
-    console.log(id[0].locality_id);
-    let param = { Locality_id:id[0].locality_id}
-    this.CommonService.get_sub_locality(param).subscribe(
-      response => {
-        let data:any=response;
-        console.log(data);
-        this.dropdown_sublocality=[];
-        this.Service_form.patchValue({sub_locality:''});
-        if(data.data.length<1){
-          this.dropdown_sublocality=[];
-          this.Service_form.patchValue({
-            sub_locality:'',
-            district_id:''
-          });
-        }else{
-          this.Service_form.patchValue({
-            district:data.district.district.district_id
-          });
-          for (let i = 1; i < data.data.length; i++) {
-            this.dropdown_sublocality = this.dropdown_sublocality?.concat({ sub_locality_id: data.data[i].sub_locality_id, sub_locality_text: data.data[i].sub_locality});
-          }
-          }
-      }
-    );
-  }
+  // get_locality() {
+  //   this.CommonService.get_locality({ param: null }).subscribe(
+  //     response => {
+  //       let data:any=response;
+  //       console.log(data);
+  //       if(data.data.length<1){
+  //         this.dropdown_sublocality=[];
+  //         this.Service_form.patchValue({sub_locality:''});
+  //       }else{
+  //         for (let i = 1; i < data.data.length; i++) {
+  //           this.dropdown_locality = this.dropdown_locality.concat({locality_id: data.data[i].locality_id, locality_text:  data.data[i].locality}); 
+  //         }
+  //       }
+  //     },
+  //     (err: any) => {
+  //     }
+  //   );
+  // }
+  // onchange_locality(id: any) { 
+  //   let param = { Locality_id:id.locality_id}
+  //   this.CommonService.get_sub_locality(param).subscribe(
+  //     response => {
+  //       let data:any=response;
+  //       console.log(data);
+  //       this.dropdown_sublocality=[];
+  //       this.Service_form.patchValue({sub_locality:''});
+  //       if(data.data.length<1){
+  //         this.dropdown_sublocality=[];
+  //         this.Service_form.patchValue({
+  //           sub_locality:'',
+  //           district_id:''
+  //         });
+  //       }else{
+  //         this.Service_form.patchValue({
+  //           district:data.district.district.district_id
+  //         });
+  //         for (let i = 1; i < data.data.length; i++) {
+  //           this.dropdown_sublocality = this.dropdown_sublocality?.concat({ sub_locality_id: data.data[i].sub_locality_id, sub_locality_text: data.data[i].sub_locality});
+  //         }
+  //         }
+  //     }
+  //   );
+  // }
   
   // fetch area service
   area_service():void{
@@ -199,11 +266,10 @@ export class CreateServiceUserComponent implements OnInit {
     this.LocalServiceProviderService.getarea_service({ param: null }).pipe().subscribe(
       response => {
         let data:any=response;
-        console.log(data);
         this.area_service_data=response;
-        this.dropdownList=[];
+        this.dropdownList_service=[];
         for (let i = 0; i < data.data.length; i++) {
-          this.dropdownList = this.dropdownList.concat({service_id: data.data[i].service_id, service_name: data.data[i].service_name});
+          this.dropdownList_service = this.dropdownList_service.concat({service_id: data.data[i].service_id, service_name: data.data[i].service_name});
           this.showLoadingIndicator = false;
         }
         this.showLoadingIndicator = false;
@@ -238,9 +304,7 @@ export class CreateServiceUserComponent implements OnInit {
       return true;
     }
   }
-  displayFn(value?: any) {
-    return value ? this.dropdown_locality.find((option: any) => option.locality_id === value.locality_id).locality: undefined;
-  }
+ 
 
 }
 

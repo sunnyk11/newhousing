@@ -5,7 +5,7 @@
         </button>
     </div>
     <div class="m-auto">
-        <a class="img_logo" href="/">
+        <a class="img_logo" [routerLink]="['/']">
             <!-- <img class="logo1 img-fluid" src="./../../assets/css/images/header-logo.png" alt="header-logo.png"> -->
             <img class="logo2 img-fluid" src="../../../../assets/resources/images/header-logo2.png" alt="header-logo2.png">
         </a>
@@ -25,67 +25,67 @@
             </button>
             <button mat-menu-item class="text-center links" *ngIf="LoggedIn">
                 <span>
-                    <a class="dropdown-item text-secondary" href="/profile">My Profile</a>
+                    <a class="dropdown-item text-secondary" [routerLink]="['/profile']">My Profile</a>
                 </span>
             </button>
             <button mat-menu-item class="text-center links" *ngIf="LoggedIn">
                 <span>
-                    <a class="dropdown-item text-secondary" href="/my-properties">My Properties</a>
+                    <a class="dropdown-item text-secondary" [routerLink]="['/my-properties']">My Properties</a>
                 </span>
             </button>
             <button mat-menu-item class="text-center links" *ngIf="LoggedIn">
                 <span>
-                    <a class="dropdown-item text-secondary" href="/my-plans">My Plans</a>
+                    <a class="dropdown-item text-secondary" [routerLink]="['/my-plans']">My Plans</a>
                 </span>
             </button>
             <button mat-menu-item class="text-center links" *ngIf="LoggedIn">
                 <span>
-                    <a class="dropdown-item text-secondary" href="/agent/my-properties">Listed Properties</a>
+                    <a class="dropdown-item text-secondary" [routerLink]="['/agent/my-properties']">Listed Properties</a>
                 </span>
             </button>
             <button mat-menu-item class="text-center links" *ngIf="LoggedIn">
                 <span>
-                    <a class="dropdown-item text-secondary" href="/agent/local-services">Local Services</a>
+                    <a class="dropdown-item text-secondary" [routerLink]="['/agent/local-services']">Local Services</a>
                 </span>
             </button>
             <button mat-menu-item class="text-center links" *ngIf="LoggedIn">
                 <span>
-                    <a class="dropdown-item text-secondary" href="/agent/services-list">Services List</a>
+                    <a class="dropdown-item text-secondary" [routerLink]="['/agent/services-list']">Services List</a>
                 </span>
             </button>
             <button mat-menu-item class="text-center links" *ngIf="LoggedIn">
                 <span>
-                    <a class="dropdown-item text-secondary" href="/agent/services-user-list">Service User list</a>
+                    <a class="dropdown-item text-secondary" [routerLink]="['/agent/services-user-list']">Service User list</a>
                 </span>
             </button>
             <button mat-menu-item class="text-center links" *ngIf="LoggedIn">
-                <span><a class="dropdown-item text-secondary" href="/logout">Log out</a></span>
+                <span><a class="dropdown-item text-secondary" [routerLink]="['/logout']">Log out</a></span>
             </button>
             <button mat-menu-item class="text-center links" *ngIf="!LoggedIn">
-                <span><a class="dropdown-item text-secondary" href="/login">Login</a></span>
+                <span><a class="dropdown-item text-secondary" [routerLink]="['/login']">Login</a></span>
             </button>
         </mat-menu>
     </div>
     <div fxFlex fxLayout fxLayoutAlign="end" fxHide.lt-md>
         <ul fxLayout fxLayoutGap="30px" class="navigation-items">
             <li>
-                <a href="">Home</a>
+                <a routerLink="/">Home</a>
             </li>
             <li>
                 <a [routerLink]="['about']">About</a>
             </li>
             <li>
-                <a href="/product-listing">Listing</a>
+                <a [routerLink]="['product-listing']">Listing</a>
             </li>
             <li>
-                <a href="/contact">Contact</a>
+                <a [routerLink]="['contact']">Contact</a>
             </li>
             <li>
-                <a href="/plans">Plans</a>
+                <a [routerLink]="['plans']">Plans</a>
             </li>
 
             <li *ngIf="!LoggedIn">
-                <a href="/login">Login/Register</a>
+                <a [routerLink]="['/login']">Login/Register</a>
             </li>
             <li *ngIf="LoggedIn" class="user_acc">
                 <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
@@ -110,37 +110,37 @@
                     </button>
                     <button mat-menu-item class="text-center links">
                         <span>
-                            <a class="dropdown-item text-secondary" href="/profile">My Profile</a>
+                            <a class="dropdown-item text-secondary" [routerLink]="['/profile']">My Profile</a>
                         </span>
                     </button>
                     <button mat-menu-item class="text-center links">
                         <span>
-                            <a class="dropdown-item text-secondary" href="/my-properties">My Properties</a>
+                            <a class="dropdown-item text-secondary" [routerLink]="['/my-properties']">My Properties</a>
                         </span>
                     </button>
                     <button mat-menu-item class="text-center links">
                         <span>
-                            <a class="dropdown-item text-secondary" href="/my-plans">My Plans</a>
+                            <a class="dropdown-item text-secondary" [routerLink]="['/my-plans']">My Plans</a>
                         </span>
                     </button>
                     <button mat-menu-item class="text-center links">
                         <span>
-                            <a class="dropdown-item text-secondary" href="/agent/my-properties">Listed Properties</a>
+                            <a class="dropdown-item text-secondary" [routerLink]="['/agent/my-properties']">Listed Properties</a>
                         </span>
                     </button>
                     <button mat-menu-item class="text-center links">
                         <span>
-                            <a class="dropdown-item text-secondary" href="/agent/local-services">Local Services</a>
+                            <a class="dropdown-item text-secondary" [routerLink]="['/agent/local-services']">Local Services</a>
                         </span>
                     </button>
                     <button mat-menu-item class="text-center links" *ngIf="LoggedIn">
                         <span>
-                            <a class="dropdown-item text-secondary" href="/agent/services-list">Services List</a>
+                            <a class="dropdown-item text-secondary" [routerLink]="['/agent/services-list']">Services List</a>
                         </span>
                     </button>
                     <button mat-menu-item class="text-center links" *ngIf="LoggedIn">
                         <span>
-                            <a class="dropdown-item text-secondary" href="/agent/services-user-list">Service User list</a>
+                            <a class="dropdown-item text-secondary" [routerLink]="['/agent/services-user-list']">Service User list</a>
                         </span>
                     </button>
                     <button mat-menu-item class="text-center links">
@@ -150,14 +150,14 @@
 
             </li>
             <li *ngIf="LoggedIn">
-                <a href="/wishlist">
+                <a [routerLink]="['/wishlist']">
                     <span matBadge={{wishlist_length}} matBadgeOverlap="false" matBadgeColor="warn">
                         <mat-icon>favorite_border</mat-icon>
                     </span>
                 </a>
             </li>
             <li *ngIf="LoggedIn">
-                <a href="/product-compare" *ngIf="property_comp_length>1;else otherPro_menu">
+                <a [routerLink]="['/product-compare']" *ngIf="property_comp_length>1;else otherPro_menu">
                     <span matBadge={{property_comp_length}} matBadgeOverlap="false" matBadgeColor="warn">
                         <mat-icon>compare_arrows</mat-icon>
                     </span>
@@ -172,7 +172,7 @@
             </li>
             <li class="add_listing">
                 <span>
-                    <a href="/list-property">
+                    <a [routerLink]="['/list-property']">
                         <mat-icon>add_circle_outline</mat-icon>
                         <span> List Property</span>
                 </a>

@@ -28,6 +28,7 @@ import { LoginGuard } from './guards/login.guard';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { BlogSinglePostComponent } from './components/blog-single-post/blog-single-post.component';
 import { BlogComponent } from './components/blog/blog.component';
+import { UserLogsGuard } from './guards/user-logs.guard';
 //custom component imports
 
 const routes: Routes = [
@@ -35,30 +36,30 @@ const routes: Routes = [
       path: "",
       component: MasterComponent,
       children: [
-        { path: "", component:IndexComponent },
-        { path: "about", component:AboutComponent },
-        { path: "contact", component:ContactComponent },
-        { path: "product-listing", component:ProductListingComponent },
-        { path: "product-details", component:ProductPageComponent },
-        { path: "plans", component:SubscriptionPlansComponent },
+        { path: "", component:IndexComponent,canActivate:  [UserLogsGuard]},
+        { path: "about", component:AboutComponent,canActivate: [UserLogsGuard]},
+        { path: "contact", component:ContactComponent,canActivate: [UserLogsGuard]},
+        { path: "product-listing", component:ProductListingComponent,canActivate:[UserLogsGuard]},
+        { path: "product-details", component:ProductPageComponent,canActivate:  [UserLogsGuard]},
+        { path: "plans", component:SubscriptionPlansComponent,canActivate:  [UserLogsGuard]},
         { path: "login", component:LoginComponent},
         { path: "wishlist", component:WishlistComponent,canActivate: [AuthGuard]},
         { path: "product-compare", component:CompareComponent,canActivate: [AuthGuard]},
-        { path: "terms-conditions", component:TermsConditionsComponent},
-        { path: "ip-disclaimer", component:IpDisclaimerComponent},
-        { path: "privacy-policy", component:PrivacyPolicyComponent},
-        { path: "logout", component:LogoutComponent},
+        { path: "terms-conditions", component:TermsConditionsComponent,canActivate:  [UserLogsGuard]},
+        { path: "ip-disclaimer", component:IpDisclaimerComponent,canActivate:  [UserLogsGuard]},
+        { path: "privacy-policy", component:PrivacyPolicyComponent,canActivate:  [UserLogsGuard]},
+        { path: "logout", component:LogoutComponent,canActivate:  [UserLogsGuard]},
         { path: "product_payment_summary", component: ProPaymentSummaryComponent},
-        { path: "verify-mobile", component: VerifyMobileComponent, canActivate: [AuthGuard]},
+        { path: "verify-mobile", component: VerifyMobileComponent, canActivate: [AuthGuard,UserLogsGuard]},
         { path: "invoice", component: InvoiceComponent, canActivate: [AuthGuard]},
         { path: "my-properties", component: MyPropertiesComponent, canActivate: [AuthGuard]},
-        { path: "register", component: RegisterComponent},
-        { path: 'agentregister', component: RegisterComponent},
+        { path: "register", component: RegisterComponent,canActivate:  [UserLogsGuard]},
+        { path: 'agentregister', component: RegisterComponent,canActivate:  [UserLogsGuard]},
         { path: "payment-summary", component: PaymentSummaryComponent},
         { path: "profile", component: ProfileComponent, canActivate: [AuthGuard]},
         { path: "reset-password", component: ResetPasswordComponent },
-        { path: 'blog-single-post/:slug', component: BlogSinglePostComponent},
-        { path: 'blog', component: BlogComponent }
+        { path: 'blog-single-post/:slug', component: BlogSinglePostComponent,canActivate:  [UserLogsGuard]},
+        { path: 'blog', component: BlogComponent,canActivate:  [UserLogsGuard] }
       ]
     }
 ];

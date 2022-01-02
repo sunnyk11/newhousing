@@ -10,6 +10,8 @@ import { CommonService } from '../../services/common.service';
 import { RentPropertyService } from '../../services/rent-property.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'app-updateproperty-rent',
@@ -91,6 +93,7 @@ export class UpdatepropertyRentComponent implements OnInit {
   public address_concated:any;
   public  selected_locality:any=[];
   public  selected_sub_locality:any=[];
+  public filteredOptions!: Observable<any[]>;
   
   
   image1: string | ArrayBuffer | null | undefined;
@@ -128,7 +131,6 @@ export class UpdatepropertyRentComponent implements OnInit {
 
  
   ngOnInit(): void {
-    this.get_locality();
     this.dropdownSettings = {
       singleSelection: true,
       idField: 'locality_id',
@@ -173,6 +175,7 @@ export class UpdatepropertyRentComponent implements OnInit {
       city: ['Delhi', Validators.required],
       district_id: ['', Validators.required],
       locality: ['', Validators.required],
+      locality_data: ['', Validators.required],
       sub_locality: ['', Validators.required],
       map_latitude:['',Validators.required],
       map_longitude:['',Validators.required]
@@ -213,6 +216,10 @@ export class UpdatepropertyRentComponent implements OnInit {
     this.selectedItems = new Array<string>();
     this.product_img = new Array<string>();
     this.selected_room = new Array<string>();
+    this.filteredOptions = this.form_step2.controls.locality_data.valueChanges.pipe(
+      startWith(''),
+      map((value) => this._filter(value))
+    );
  }
 
   get_area() {
@@ -228,43 +235,17 @@ export class UpdatepropertyRentComponent implements OnInit {
       }
     );
   }
-  get_locality() {
-    this.CommonService.get_locality({ param: null }).subscribe(
-      response => {
-        let data:any=response;
-        console.log(data);
-        console.log(this.form_step2.value.locality);
-        console.log(this.form_step2.value);
-        if(data.data.length<1){
-          this.dropdown_sublocality=[];
-          this.form_step2.patchValue({sub_locality:''});
-        }else{
-          for (let i = 1; i < data.data.length; i++) {
-            this.dropdown_locality = this.dropdown_locality.concat({locality_id: data.data[i].locality_id, locality_text:  data.data[i].locality}); 
-          }
-          if(this.form_step2.value.locality[0] != null){
-            this.onchange_locality1(this.form_step2.value.locality[0]);
-          }
-        }
-      },
-      (err: any) => {
-      }
-    );
-  }
   
-  // onchange_sub_locality(id:any){
-  //   this.address_concated= this.form_step2.value.locality[0].locality_text  + ', Delhi' ;
-  //   this.form_step2.patchValue({
-  //     address:this.address_concated
-  //   });
-  // }
-  onchange_locality(id: any) {
-    this.address_concated= id.locality_text + ', Delhi' ;;
-    let param = { Locality_id:id.locality_id}
+  change_selected_locality(data:any){
+    this.form_step2.patchValue({locality:data.locality_id});
+    this.address_concated= data.locality_text + ', Delhi';
+    this.form_step2.patchValue({
+      address:this.address_concated
+    });
+    let param = { Locality_id:data.locality_id}
     this.CommonService.get_sub_locality(param).subscribe(
       response => {
         let data:any=response;
-        console.log(data);
         this.dropdown_sublocality=[];
         this.form_step2.patchValue({sub_locality:''});
         if(data.data.length<1){
@@ -283,14 +264,19 @@ export class UpdatepropertyRentComponent implements OnInit {
         }
       }
     );
+    
   }
-  onchange_locality1(id: any) {
-    this.address_concated= id.locality_text;
-    let param = { Locality_id:id.locality_id}
+  
+  change_selected_locality1(data:any){
+    this.form_step2.patchValue({locality:data['0'].locality_id});
+    this.address_concated= data['0'].locality_text + ', Delhi';
+    this.form_step2.patchValue({
+      address:this.address_concated
+    });
+    let param = { Locality_id:data['0'].locality_id}
     this.CommonService.get_sub_locality(param).subscribe(
       response => {
         let data:any=response;
-        console.log(data);
         this.dropdown_sublocality=[];
         if(data.data.length<1){
           this.dropdown_sublocality=[];
@@ -308,7 +294,136 @@ export class UpdatepropertyRentComponent implements OnInit {
         }
       }
     );
+    
   }
+  get_locality(value:any){
+    if(value.length>2){
+      this.CommonService.get_search_locality(value).subscribe(
+        response => {
+          let data:any=response;
+          this.dropdownList=[];
+          if(data?.data[0]?.length>0){
+            for (let i = 0; i < data.data[0].length; i++) {
+              this.dropdownList = this.dropdownList?.concat({ locality_id: data.data[0][i].locality_id, locality_text: data.data[0][i].locality});
+            }
+            this.filteredOptions = this.form_step2.controls.locality_data.valueChanges
+              .pipe(
+                startWith(''),
+                map((value) => this._filter(value))
+              );
+              if(this.form_step2.value.locality.length>2){
+                this.change_selected_locality1(this.selected_locality);
+              }
+          }else{
+            this.dropdownList=[];
+            this.dropdown_sublocality=[];
+            this.form_step2.patchValue({locality:'',sub_locality:''});
+          }
+         
+        }, err => {   
+        }
+      );
+    }else{
+      this.dropdownList=[];
+      this.dropdown_sublocality=[];
+      this.form_step2.patchValue({locality:'',sub_locality:'',address:'',map_longitude:''});
+    }
+  }
+
+  private _filter(value: any): string[] {
+    if (value.locality_text) {
+      const filterValue = value.locality_text.toLowerCase();
+      return this.dropdownList?.filter((option: any) => option.locality_text.toLowerCase().includes(filterValue));
+    }
+    else {
+      const filterValue = value.toLowerCase();
+      return this.dropdownList?.filter((option: any) => option.locality_text.toLowerCase().includes(filterValue));
+    }
+  }
+  // get_locality1() {
+  //   this.CommonService.get_locality({ param: null }).subscribe(
+  //     response => {
+  //       let data:any=response;
+  //       console.log(data);
+  //       console.log(this.form_step2.value.locality);
+  //       console.log(this.form_step2.value);
+  //       if(data.data.length<1){
+  //         this.dropdown_sublocality=[];
+  //         this.form_step2.patchValue({sub_locality:''});
+  //       }else{
+  //         for (let i = 1; i < data.data.length; i++) {
+  //           this.dropdown_locality = this.dropdown_locality.concat({locality_id: data.data[i].locality_id, locality_text:  data.data[i].locality}); 
+  //         }
+  //         if(this.form_step2.value.locality[0] != null){
+  //           this.onchange_locality1(this.form_step2.value.locality[0]);
+  //         }
+  //       }
+  //     },
+  //     (err: any) => {
+  //     }
+  //   );
+  // }
+  
+  // onchange_sub_locality(id:any){
+  //   this.address_concated= this.form_step2.value.locality[0].locality_text  + ', Delhi' ;
+  //   this.form_step2.patchValue({
+  //     address:this.address_concated
+  //   });
+  // }
+  // onchange_locality(id: any) {
+  //   this.address_concated= id.locality_text + ', Delhi' ;
+  //   this.form_step2.patchValue({
+  //         address:this.address_concated
+  //     });
+  //   let param = { Locality_id:id.locality_id}
+  //   this.CommonService.get_sub_locality(param).subscribe(
+  //     response => {
+  //       let data:any=response;
+  //       console.log(data);
+  //       this.dropdown_sublocality=[];
+  //       this.form_step2.patchValue({sub_locality:''});
+  //       if(data.data.length<1){
+  //         this.dropdown_sublocality=[];
+  //         this.form_step2.patchValue({
+  //           sub_locality:'',
+  //           district_id:''
+  //         });
+  //       }else{
+  //         this.form_step2.patchValue({
+  //           district_id:data.district.district.district_id
+  //         });
+  //         for (let i = 1; i < data.data.length; i++) {
+  //           this.dropdown_sublocality = this.dropdown_sublocality?.concat({ sub_locality_id: data.data[i].sub_locality_id, sub_locality_text: data.data[i].sub_locality});
+  //         }
+  //       }
+  //     }
+  //   );
+  // }
+  // onchange_locality1(id: any) {
+  //   this.address_concated= id.locality_text;
+  //   let param = { Locality_id:id.locality_id}
+  //   this.CommonService.get_sub_locality(param).subscribe(
+  //     response => {
+  //       let data:any=response;
+  //       console.log(data);
+  //       this.dropdown_sublocality=[];
+  //       if(data.data.length<1){
+  //         this.dropdown_sublocality=[];
+  //         this.form_step2.patchValue({
+  //           sub_locality:'',
+  //           district_id:''
+  //         });
+  //       }else{
+  //         this.form_step2.patchValue({
+  //           district_id:data.district.district.district_id
+  //         });
+  //         for (let i = 1; i < data.data.length; i++) {
+  //           this.dropdown_sublocality = this.dropdown_sublocality?.concat({ sub_locality_id: data.data[i].sub_locality_id, sub_locality_text: data.data[i].sub_locality});
+  //         }
+  //       }
+  //     }
+  //   );
+  // }
   google_map(){
     this.mapsAPILoader.load().then(() => {
       this.geoCoder = new google.maps.Geocoder();
@@ -380,7 +495,6 @@ export class UpdatepropertyRentComponent implements OnInit {
     this.RentPropertyService.property_get_id(param).subscribe(
       response => {
         let data:any =response;
-        console.log(response);
         if(data.data == null){
           this.redirect_to_myproperty();
         }else{
@@ -470,7 +584,8 @@ export class UpdatepropertyRentComponent implements OnInit {
           if(data.data.locality_id != null){
             this.selected_locality =this.selected_locality.concat({locality_id: data.data.locality_id, locality_text: data.data.product_locality.locality});     
               this.form_step2.patchValue({
-                  locality: this.selected_locality
+                  locality:data.data.product_locality.locality,
+                  locality_data:data.data.product_locality.locality
                 }); 
           }  
           if(data.data.sub_locality_id != null){   
@@ -672,7 +787,7 @@ export class UpdatepropertyRentComponent implements OnInit {
         this.form_step2.value.sub_locality=this.form_step2.value.sub_locality[0].sub_locality_id;
       }
       let param={id:this.prod_id,form_step1:this.form_step1.value,form_step2:this.form_step2.value,form_step3:this.form_step3.value,form_step4:this.form_step4.value,rooms:this.additional_room_array,amenties:this.amenityArray,images:this.product_img}
-     if(this.form_step4.value.expected_rent >=5000 && this.form_step4.value.expected_rent <=500000){
+      if(this.form_step4.value.expected_rent >=5000 && this.form_step4.value.expected_rent <=500000){
         this.RentPropertyService.product_rent_update(param).subscribe(
           response => {
             let data:any=response;
@@ -683,8 +798,8 @@ export class UpdatepropertyRentComponent implements OnInit {
             this.toastr.info(Message, 'Rent Property', {
               timeOut: 3000,
             });
-            this.showLoadingIndicator = false;
-            this.router.navigate(['/agent/my-properties']);
+            // this.showLoadingIndicator = false;
+            // this.router.navigate(['/agent/my-properties']);
           }, err => { 
             this.showLoadingIndicator = false;
             let Message =err.error.message;

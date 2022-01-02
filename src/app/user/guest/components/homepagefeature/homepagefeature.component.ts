@@ -35,7 +35,7 @@ export class HomepagefeatureComponent implements OnInit {
   // fetch feature property 
   feature_property(){
     this.showLoadingIndicator= true;
-    if(this.jwtService.getToken()){
+    if(this.jwtService.getToken().length>5){
       this.indexPageService.login_Feature_Property({ param: null }).subscribe(
       response => {
         this.showLoadingIndicator= false;
@@ -44,11 +44,10 @@ export class HomepagefeatureComponent implements OnInit {
       }, err => { 
         this.showLoadingIndicator = false;
         let Message =err.error.message;
-        this.toastr.error(Message, 'Something Error', {
-          timeOut: 3000,
-        });
       }
      );
+     this.wishlist_refresh();
+     this.pro_comp_refresh();
     }else{
     this.indexPageService.getFeature_Property({ param: null }).subscribe(
       response => {
@@ -58,14 +57,9 @@ export class HomepagefeatureComponent implements OnInit {
       }, err => { 
         this.showLoadingIndicator = false;
         let Message =err.error.message;
-        this.toastr.error(Message, 'Something Error', {
-          timeOut: 3000,
-        });
       }
      );
     }
-    this.wishlist_refresh();
-    this.pro_comp_refresh();
   }
   // property compare
   product_comp(id:number){
@@ -88,9 +82,6 @@ export class HomepagefeatureComponent implements OnInit {
       }, err => { 
         this.showLoadingIndicator = false;
         let Message =err.error.message;
-        this.toastr.error(Message, 'Something Error', {
-          timeOut: 3000,
-        });
       }
      );
     }else{
@@ -130,9 +121,6 @@ export class HomepagefeatureComponent implements OnInit {
       }, err => { 
         this.showLoadingIndicator = false;
         let Message =err.error.message;
-        this.toastr.error(Message, 'Something Error', {
-          timeOut: 3000,
-        });
       }
      );
     }else{

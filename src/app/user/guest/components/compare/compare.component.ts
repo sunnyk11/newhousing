@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import { JwtService } from 'src/app/user/services/jwt.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { UserLogsService } from '../../services/user-logs.service';
 
 @Component({
   selector: 'app-compare',
@@ -26,17 +27,40 @@ export class CompareComponent implements OnInit {
   public devicetype:number=0;
   public showLoadingIndicator:boolean=false;
   public product_length:number=0;
+  public  property_data: any = [];
+  public userEmail:any;
+  private usertype: any;
+  public userDetails: any;
+  public ip_address: any;
+  public pro_id: any = null;
+  public type: any;
+  public device_info: any;
+  public  browser_info: any;
+  public url_info: string = '';
+  public url: any;
+  public input_info: any = null;
+  public user_cart: any = null;
 
   constructor(
     private CommonService:CommonService,
     private jwtService: JwtService,
     private router:Router,
+    private UserLogsService:UserLogsService,
     private toastr: ToastrService
     ) {   }
 
   ngOnInit(): void {
-    this.product_comapre();
-    this.getScreenSize();
+    if(this.jwtService.getToken()){
+      this.userEmail =  this.jwtService.getUserEmail();
+      this.usertype = this.jwtService.getUserType();
+      this.url_info= this.router.url;
+      this.device_info = this.UserLogsService.getDeviceInfo();
+      this.browser_info = this.UserLogsService.getbrowserInfo();
+      this.ip_address = this.UserLogsService.getIpAddress();
+      this.product_comapre();
+      this.getScreenSize();
+      this.property_data = new Array<string>();
+    }
   }
   getScreenSize(){
     this.screenWidth = window.innerWidth;
@@ -52,8 +76,37 @@ export class CompareComponent implements OnInit {
     this.CommonService.getproduct_comp({ param: null }).subscribe(
       response => {
         this.property=response;
-        console.log(this.property);
         this.property_comp_length=this.property.data.length;
+        console.log(this.property_comp_length);
+        // user logs funtionalty
+        if(this.property_comp_length>0){
+          // loop start
+          for(let i=0; i<this.property_comp_length; i++){
+            if(this.property.data[i].productdetails != null){
+              if(this.property.data[i].productdetails.expected_pricing != null){
+                let property_name:any=this.property.data[i].productdetails.build_name;
+                let property_price:any=this.property.data[i].productdetails.expected_pricing;
+                let property_type:any="property_sales";
+                let property_uid:any=this.property.data[i].productdetails.product_uid;
+                this.property_data.push({'name':property_name,'property_id':property_uid,'type':property_type,'price':property_price});
+                }
+                if(this.property.data[i].productdetails.expected_rent != null){
+                  let property_name:any=this.property.data[i].productdetails.build_name;
+                  let property_price:any=this.property.data[i].productdetails.expected_rent;
+                  let property_type:any="property_rent";
+                  let property_uid:any=this.property.data[i].productdetails.product_uid;
+                  this.property_data.push({'name':property_name,'property_id':property_uid,'type':property_type,'price':property_price});
+              }
+            }
+          }
+          this.type = "Product-comapare";
+          this.user_cart = this.property_data;
+          let param={'userEmail':this.userEmail,'user_type':this.usertype,'device_info':this.device_info,'browser_info':this.browser_info,'ip_address':this.ip_address,'url_info':this.url_info,'type':this.type,'user_cart':this.user_cart,'input_info':this.input_info}
+          this.UserLogsService.user_logs(param).subscribe(
+            reponse => {
+              // console.log(data.status);
+            });
+          }
         if(this.property_comp_length<2){
           this.toastr.warning('Comparision Minimun Two','Property', {
             timeOut: 3000,
@@ -141,6 +194,7 @@ export class CompareComponent implements OnInit {
     this.CommonService.pro_comp_delete(param).subscribe(
       response => {
         this.property_comp_length=0;
+        this.property_data=[];
         this.toastr.error('Remove Compare Property','Property', {
           timeOut: 4000,
         });

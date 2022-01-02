@@ -1,7 +1,6 @@
 import { CommonService } from '../../services/common.service';
 import { FormBuilder} from '@angular/forms';
-import { MapsAPILoader,AgmMap } from '@agm/core';
-import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { Options } from '@angular-slider/ngx-slider';
 import { LabelType } from '@angular-slider/ngx-slider';
 import { Router } from '@angular/router';
@@ -30,16 +29,6 @@ export class IndexComponent implements OnInit {
   private amenityArray:any = [];
   public filteredOptions!: Observable<any[]>;
 
-  @ViewChild("search")
-  searchElementRef!: ElementRef;
-  @ViewChild(AgmMap, { static: true })
-  public agmMap!: AgmMap;
-  zoom!: number;
-  location:any;
-  geoCoder:any;
-  latCus=78.89;
-  longCus=76.897;
-
   searchForm = this.formBuilder.group({
     bathrooms: [''],
     bedrooms: [''],
@@ -49,6 +38,7 @@ export class IndexComponent implements OnInit {
     build_name: [''],
     type: [''],
     location: [''],
+    locality_data:[''],
     city:['Delhi'],
     locality:[''],
     sliderControl: [[]]
@@ -78,9 +68,7 @@ export class IndexComponent implements OnInit {
   constructor(
     private CommonService:CommonService,
     private formBuilder: FormBuilder,
-    private mapsAPILoader: MapsAPILoader,
     private indexPageService: IndexPageService,
-    private ngZone:NgZone,
     private toastr: ToastrService,
     private router:Router
   ) { }
@@ -104,9 +92,6 @@ export class IndexComponent implements OnInit {
         this.amenties=response;
       }, err => { 
         let Message =err.error.message;
-        this.toastr.error(Message, 'Something Error', {
-          timeOut: 3000,
-        });
       }
     );
   }
@@ -115,15 +100,22 @@ export class IndexComponent implements OnInit {
     this.indexPageService.get_Property({ param: null }).subscribe(
       response => {
         this.property=response;
-        this.city_name=this.property.data['0'].city;
-        this.product_length=this.property.data['0'].city_count;
-        this.chattarpur=this.property.Chattarpur_data.city;
-        this.chattarpur_length=this.property.Chattarpur_data.chattarpur_count;
+        if(this.property.data.length>0){
+          this.city_name=this.property.data['0'].city;
+          this.product_length=this.property.data['0'].city_count;
+        }else{
+          this.city_name='Delhi';
+          this.product_length=0;
+        }
+        if(this.property.Chattarpur_data.length>0){
+          this.chattarpur=this.property.Chattarpur_data['0'].city;
+          this.chattarpur_length=this.property.Chattarpur_data['0'].chattarpur_count;
+        }else{
+          this.chattarpur='Chattarpur';
+          this.chattarpur_length=0;
+        }
       }, err => { 
         let Message =err.error.message;
-        this.toastr.error(Message, 'Something Error', {
-          timeOut: 3000,
-        });
       }
      );
   }
@@ -148,7 +140,7 @@ export class IndexComponent implements OnInit {
         response => {
           let data:any=response;
           this.dropdownList=[];
-          if(data.data[0].length>0){
+          if(data?.data[0]?.length>0){
             for (let i = 0; i < data.data[0].length; i++) {
               this.dropdownList = this.dropdownList?.concat({ item_id: data.data[0][i].locality_id, item_text: data.data[0][i].locality});
             }
@@ -157,7 +149,7 @@ export class IndexComponent implements OnInit {
                 startWith(''),
                 map((value) => this._filter(value))
               );
-              }if(data.data[1].length>0){
+              }if(data?.data[1]?.length>0){
                 for (let i = 1; i < data.data[1].length; i++) {
                   this.dropdownList = this.dropdownList?.concat({ item_id: data.data[1][i].sub_locality_id, item_text: data.data[1][i].sub_locality});
                 }
@@ -165,13 +157,20 @@ export class IndexComponent implements OnInit {
                   .pipe(
                     startWith(''),
                     map((value) => this._filter(value))
-                  );
+                  );    
+          }
+          if(this.dropdownList.length>0){
+            this.searchForm.patchValue({locality:this.dropdownList[0].item_text});
+          }else{
+            this.dropdownList=[];
+            this.searchForm.patchValue({locality:''});
           }
         }, err => {   
         }
       );
     }else{
-      this.dropdownList=[]; 
+      this.dropdownList=[];
+      this.searchForm.patchValue({locality:''});
       this.filteredOptions = this.searchForm.controls.locality.valueChanges
       .pipe(
         startWith(''),
@@ -199,12 +198,12 @@ export class IndexComponent implements OnInit {
   property_search_locality(){
     this.router.navigate(['/product-listing'],{queryParams:{'locality':'Chattarpur'}})
   }
+  selected_locality(data:any){
+    this.searchForm.patchValue({locality:data});
+  }
   navigate(): void{
-    if(this.searchForm.value.locality.length<3){
-      this.searchForm.patchValue({locality:''});
-    }
     let data:any=this.searchForm.value;
-    this.router.navigate(['/product-listing'],{queryParams:{'city':data.city,'locality':data.locality,'type':data.type,'search_type':data.search_type,'minimum':data.sliderControl[0],'maximum':data.sliderControl[1]}});
+    this.router.navigate(['/product-listing'],{queryParams:{'city':data.city,'locality':data.locality,'search_type':data.search_type}});
   }  
   onchangeAmenties(e:any,id:string){
     if(e.target.checked){
