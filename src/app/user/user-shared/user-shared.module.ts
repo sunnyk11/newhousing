@@ -18,6 +18,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { MatBadgeModule } from '@angular/material/badge';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     MatMenuModule,
     MatButtonModule,
     MatBadgeModule,
-    NgbModule
+    NgbModule,
+    MatTabsModule
   ],
   exports: [
     GuestHeaderComponent,
@@ -50,7 +52,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     SidenavListComponent,
     MatSidenavModule,
     MatIconModule,
-    NgbModule
+    NgbModule,
+    MatTabsModule
   ]
 })
 export class UserSharedModule { }

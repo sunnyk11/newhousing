@@ -21,7 +21,7 @@ import { UpdateServicesComponent } from './components/update-services/update-ser
 import { ServiceUserListComponent } from './components/service-user-list/service-user-list.component';
 import { UpdateServiceUserListComponent } from './components/update-service-user-list/update-service-user-list.component';
 import { CreateServiceUserComponent } from './components/create-service-user/create-service-user.component';
-
+import { VerifyMobileComponent } from '../guest/components/verify-mobile/verify-mobile.component';
 
 const routes: Routes = [
   {
@@ -46,7 +46,8 @@ const routes: Routes = [
       { path: "services-user-list", component: ServiceUserListComponent,canActivate: [AuthGuard]},
       { path: "update-services-user", component: UpdateServiceUserListComponent,canActivate: [AuthGuard]},
       { path: "create-services-user", component: CreateServiceUserComponent,canActivate: [AuthGuard]},
-      { path: "local-services", component: LocalServiceComponent,canActivate: [AuthGuard]}
+      { path: "local-services", component: LocalServiceComponent,canActivate: [AuthGuard]},
+      { path: "verify-details", component: VerifyMobileComponent, canActivate: [AuthGuard] }
     ]
   }
 ];

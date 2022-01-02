@@ -1,1 +1,14 @@
-<p>modal works!</p>
+<div id="modal-content-wrapper">
+    <header id="modal-header" class="text-center">
+        <h1 id="modal-title">Mobile Number Verification Required</h1>
+        <hr>
+    </header>
+
+    <section id="modal-body" class="text-center">
+        <h4>Please verify your mobile number to proceed.</h4>
+    </section>
+    <footer id="modal-footer" class="text-center">
+        <button mat-raised-button id="modal-action-button" (click)="actionFunction()">Verify</button>
+        <button mat-raised-button id="modal-cancel-button" (click)="closeModal()">Go back</button>
+    </footer>
+</div>

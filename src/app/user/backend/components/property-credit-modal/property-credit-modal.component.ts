@@ -15,7 +15,7 @@ import { JwtService } from 'src/app/user/services/jwt.service';
   styleUrls: ['./property-credit-modal.component.css']
 })
 export class PropertyCreditModalComponent implements OnInit {
-  
+
   public response: any;
   public letout_response: any;
   public letout_feat_res: any;
@@ -24,94 +24,106 @@ export class PropertyCreditModalComponent implements OnInit {
   private user_phone_data: any;
   public userEmail: any;
   public user_id: any;
-  public usertype:any;
+  public usertype: any;
   public plan_price: any;
+  public step: number = 0;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
-    private PlansServiceService:PlansServiceService,
+    private PlansServiceService: PlansServiceService,
     private dialogRef: MatDialogRef<PropertyCreditModalComponent>,
     private router: Router,
     private loginPageService: LoginPageService,
     private jwtService: JwtService,
     public matDialog: MatDialog
-    ) { }
+  ) { }
 
   ngOnInit(): void {
-    this.response = this.data;    
-    this.PlansServiceService.getLetOutPlans_Features({ param: null }).subscribe(
+    this.showLoadingIndicator = true;
+    this.response = this.data;
+    console.log(this.response);
+    this.step = this.response.dialog_step;
+    this.PlansServiceService.getLetOutFeatures({ param: null }).subscribe(
       response => {
-        let result:any=response;
-        this.letout_response = result.letout_plans;
-        this.letout_feat_res = result.letout_features;
-        for (let feat_res_lo in this.letout_feat_res) {
-          this.myArray_lo = this.letout_feat_res[feat_res_lo].feature_details.split(',');
-          this.letout_feat_res[feat_res_lo].feature_details = this.myArray_lo;
-          //this.showLoadingIndicator = false;
-        }
+        console.log(response);
+        this.letout_feat_res = response;
+        this.showLoadingIndicator = false;
       },
       err => {
-        // console.log(err);
+        console.log(err);
+        this.showLoadingIndicator = false;
       }
     );
   }
-  
-  apply_plan(invoice_no:any) {
+
+  apply_plan(invoice_no: any) {
     this.dialogRef.close();
     this.router.navigate(['agent/plan-apply'], { queryParams: { 'invoice_no': invoice_no, 'product_id': this.response.product_id } });
   }
-  plan_payment(plan_name:any, plan_id:any, payment_type:any, plan_type:any, expected_rent:any, price_duration:any) {
+  plan_payment(plan_name: any, plan_id: any, payment_type: any, plan_type: any, expected_rent: any, actual_price_days: any, discount_price_days: any, plan_features: any) {
     this.showLoadingIndicator = true;
-    let val = this.jwtService.getToken();
-    if (val) {
-      this.user_id = this.jwtService.getUserId();
-      this.userEmail = this.jwtService.getUserEmail();
-      this.usertype = this.jwtService.getUserType();
-      this.loginPageService.getUserPhoneDetails({ param: null }).subscribe(
-        response => {
-          this.user_phone_data = response;
-          if(this.user_phone_data !== 1) {
-            // console.log("Mobile number not verified");
-            this.showLoadingIndicator = false;
-            this.openModal();
+
+    this.loginPageService.getUserPhoneDetails({ param: null }).subscribe(
+      response => {
+        this.user_phone_data = response;
+        if (this.user_phone_data !== 1) {
+          console.log("Mobile number not verified");
+          this.showLoadingIndicator = false;
+          this.dialogRef.close();
+          this.openModal(plan_name, plan_id, payment_type, plan_type, expected_rent, actual_price_days, discount_price_days, plan_features);
+        }
+        else {
+          this.user_id = this.jwtService.getUserId();
+          this.userEmail = this.jwtService.getUserEmail();
+          this.usertype = this.jwtService.getUserType();
+
+          const formData: any = new FormData();
+          formData.append('user_id', this.user_id);
+          formData.append('user_email', this.userEmail);
+          formData.append('plan_type', plan_type);
+          formData.append('plan_name', plan_name);
+          formData.append('expected_rent', expected_rent);
+          formData.append('plan_id', plan_id);
+          formData.append('payment_type', payment_type);
+
+          if(discount_price_days) {
+            this.plan_price = expected_rent / (30 / discount_price_days);
           }
           else {
-            const formData: any = new FormData();
-            formData.append('user_id', this.user_id);
-            formData.append('user_email', this.userEmail);
-            formData.append('plan_type', plan_type);
-            formData.append('plan_name', plan_name);
-            formData.append('expected_rent', expected_rent);
-            formData.append('plan_id', plan_id);
-            formData.append('payment_type', payment_type);
-
-            this.plan_price = expected_rent / (30 / price_duration);
-            formData.append('plan_price', this.plan_price);
-            this.showLoadingIndicator = false;
-            this.PlansServiceService.postSelectedPlan(formData).subscribe(
-              response => {
-                let res:any=response;
-                this.dialogRef.close();
-                this.router.navigate(['/agent/payment-summary'], { queryParams: { 'orderID': res.data.order_id } });
-              },
-              err => {
-              }
-            );
+            this.plan_price = expected_rent / (30 / actual_price_days);
           }
+          
+          formData.append('plan_price', this.plan_price);
+          formData.append('plan_features_data', JSON.stringify(plan_features));
+          this.showLoadingIndicator = false;
+
+          this.PlansServiceService.postSelectedPlan(formData).subscribe(
+            response => {
+              let res: any = response;
+              this.dialogRef.close();
+              this.router.navigate(['/agent/payment-summary'], { queryParams: { 'orderID': res.data.order_id } });
+            },
+            err => {
+              console.log(err);
+              this.showLoadingIndicator = false;
+            }
+          );
         }
-      );
-    }else {
-      //console.log("Not logged in: " + val);
-      this.openModal();
-    }
+      }
+    );
   }
-  openModal() {
-    const dialogConfig = new MatDialogConfig();
-    // The user can't close the dialog by clicking outside its body
-    dialogConfig.disableClose = true;
-    dialogConfig.id = "modal-component";
-    dialogConfig.height = "250px";
-    dialogConfig.width = "600px";
-    const modalDialog = this.matDialog.open(ModalComponent, dialogConfig);
+  openModal(plan_name: any, plan_id: any, payment_type: any, plan_type: any, expected_rent: any, price_duration_actual: any, price_duration_discount: any, plan_features: any) {
+    const modalDialog = this.matDialog.open(ModalComponent, { 
+      data: {
+      plan_name: plan_name,
+      plan_id: plan_id,
+      payment_type: payment_type,
+      plan_type: plan_type,
+      expected_rent: expected_rent,
+      price_duration_actual: price_duration_actual,
+      price_duration_discount: price_duration_discount,
+      plan_features_data: JSON.stringify(plan_features)
+      }
+    });
   }
 
 }

@@ -11,52 +11,54 @@
             </h2>
             <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
-                    <div class="row">
-                        <table class="table table-hover table-bordered plans-rent">
-                            <thead>
-                                <tr>
-                                    <th scope="col">&nbsp;</th>
-                                    <th scope="col" *ngFor="let plan of rent_response?.data">{{ plan.plan_name }} <br>
-                                        <span>{{ plan.payment_type }} Payment</span>
-                                        <hr>
-                                        <span>{{ plan.plan_price }} Days Rent</span> <br>
-                                        <span>Rs. {{ expected_rent /
-                                            (30 / plan.plan_price) | number: '4.0-0'}}</span>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody *ngFor="let rent_feature of rent_feat_res">
-                                <tr class="visible-xs" aria-hidden="true">
-                                    <td>&nbsp;</td>
-                                    <td colspan="3">{{rent_feature.feature_name}}</td>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        <span class="ptable-title">{{rent_feature.feature_name}}</span>
-                                    </th>
-                                    <td *ngIf="rent_feature.feature_details[0] === 'yes'"><span class="checkmark">&#10003;</span></td>
-                                    <td *ngIf="rent_feature.feature_details[0] === 'no'"><span class="wrong-sym">&#215;</span></td>
-                                    <td *ngIf="rent_feature.feature_details[0] != 'no' && rent_feature.feature_details[0] != 'yes'">
-                                        <span>{{rent_feature.feature_details[0]}}</span>
-                                    </td>
-
-                                    <td *ngIf="rent_feature.feature_details[1] === 'yes'"><span class="checkmark">&#10003;</span></td>
-                                    <td *ngIf="rent_feature.feature_details[1] === 'no'">
-                                        <span class="wrong-sym">&#215;</span>
-                                    </td>
-                                    <td *ngIf="rent_feature.feature_details[1] != 'no' && rent_feature.feature_details[1] != 'yes'">
-                                        <span>{{rent_feature.feature_details[1]}}</span>
-                                    </td>
-                                </tr>
-                            </tbody>
-                            <tbody>
-                                <!-- Buttons -->
-                                <tr>
-                                    <td>&nbsp;</td>
-                                    <td *ngFor="let plan of rent_response?.data"><button class="btn btn-success" data-bs-toggle="collapse" data-bs-target="#collapseTwo" (click)="plan_payment(plan.plan_name, plan.plan_ID, plan.payment_type, 'rent', expected_rent, plan.plan_price)" id="select_plan">Select Plan</button></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="row mb-3 mt-5 text-center justify-content-center">
+                        <div *ngFor="let rent_plan of rent_feat_res" class="col-md-4 mb-5">
+                            <div class="card mb-4 rounded-3 shadow-sm border-secondary h-100">
+                                <span class="banner" *ngIf="rent_plan.special_tag == 'yes'">Popular</span>
+                                <div class="card-header py-3">
+                                    <h4>{{ rent_plan.plan_name }}</h4>
+                                    <hr>
+                                    <div *ngIf="rent_plan.discount == 1">
+                                        <h4 class="strike_duration">{{ rent_plan.actual_price_days }} Days Rent</h4>
+                                        <h4 class="discount_price">{{ rent_plan.discount_percentage }} % Off</h4>
+                                        <h4>{{ rent_plan.discounted_price_days }} Days Rent</h4>
+                                        <h4>Rs. {{ expected_rent / (30 / rent_plan.discounted_price_days) | number: '4.0-0'}}</h4>
+                                    </div>
+                                    <div *ngIf="rent_plan.discount == 0">
+                                        <h4>&nbsp;</h4>
+                                        <h4>&nbsp;</h4>
+                                        <h4>{{ rent_plan.actual_price_days }} Days Rent</h4>
+                                        <h4>Rs. {{ expected_rent / (30 / rent_plan.actual_price_days) | number: '4.0-0'}}</h4>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <h1 class="card-title pricing-card-title"></h1>
+                                    <ul class="list-unstyled mt-3 mb-4">
+                                        <li *ngFor="let rent_plan_feature of rent_plan.features">
+                                            <p class="text-muted row1">{{ rent_plan_feature.feature_name }}
+                                                <span *ngIf="rent_plan_feature.more_info_status == '1'">
+                                                    <mat-icon placement="bottom" [ngbPopover]="popoverContent">info</mat-icon>
+                                                </span>
+                                            </p>
+                                            <ng-template #popoverContent>
+                                                <div [innerHTML]="rent_plan_feature.more_info.more_info"></div>
+                                            </ng-template>
+                                            <p class="row2" *ngIf="rent_plan_feature.feature_details === 'yes'">
+                                                <span class="checkmark">&#10003;</span>
+                                            </p>
+                                            <p class="row2" *ngIf="rent_plan_feature.feature_details === 'no'">
+                                                <span class="wrong-sym">&#215;</span>
+                                            </p>
+                                            <p class="row2" *ngIf="rent_plan_feature.feature_details != 'no' && rent_plan_feature.feature_details != 'yes'">
+                                                {{ rent_plan_feature.feature_details }}</p>
+                                            <hr>
+                                        </li>
+                                    </ul>
+                                    <button class="btn btn-success" data-bs-toggle="collapse" data-bs-target="#collapseTwo" (click)="plan_payment(rent_plan.plan_name, rent_plan.id, rent_plan.payment_type, rent_plan.plan_type, expected_rent, rent_plan.actual_price_days, rent_plan.discounted_price_days, rent_plan)"
+                                        id="select_plan">Select Plan</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -142,7 +144,8 @@
                                         <h6><strong>Payable to HousingStreet</strong></h6>
                                         <hr>
                                         <h6>Plan Price: <strong>{{ plan_price }}</strong></h6>
-                                        <h6>GST@18%: <strong>{{ gst_amount }}</strong></h6>
+                                        <h6>SGST@9%: <strong>{{ sgst_amount }}</strong></h6>
+                                        <h6>CGST@9%: <strong>{{ cgst_amount }}</strong></h6>
                                         <hr>
                                         <h6><strong>Total Amount: <strong>{{ total_amount_hs }}</strong></strong>
                                         </h6>

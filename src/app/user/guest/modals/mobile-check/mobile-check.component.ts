@@ -28,8 +28,16 @@ export class MobileCheckComponent implements OnInit {
     this.returnUrl = this.router.url;
     console.log(this.returnUrl);
     if (this.returnUrl == '/plans') {
-      this.plan_price = this.fromParent.expected_rent / (30 / this.fromParent.price_duration);
+      if(this.fromParent.price_duration_discount) {
+        this.plan_price = this.fromParent.expected_rent / (30 / this.fromParent.price_duration_discount);
+      }
+      else {
+        this.plan_price = this.fromParent.expected_rent / (30 / this.fromParent.price_duration_actual);
+      }
+      
       this.fromParent.plan_price = this.plan_price;
+      console.log(this.plan_price);
+      console.log(this.fromParent);
     }
     else if (this.returnUrl == '/list-property') {
       this.returnUrl = this.jwtService.getReturnURL();

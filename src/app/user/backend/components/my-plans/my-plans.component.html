@@ -132,8 +132,7 @@
                         </tr>
                         <tr>
                             <th>Plan Type: </th>
-                            <td *ngIf="plan_det?.plan_type == 'let_out'">Let Out</td>
-                            <td *ngIf="plan_det?.plan_type == 'rent'">Rent</td>
+                            <td>{{ plan_det?.plan_type }}</td>
                         </tr>
                         <tr>
                             <th>Plan Name:</th>
