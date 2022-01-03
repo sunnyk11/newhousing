@@ -42,3 +42,10 @@
 .multiselect-dropdown[_ngcontent-tce-c281] .dropdown-btn[_ngcontent-tce-c281]{
     border-color: #fff!important;
 }
+@media(max-width: 768px) {   
+    #user_create{
+        align-items: center;
+        justify-content: end!important;
+        display: flex!important;
+    }
+}

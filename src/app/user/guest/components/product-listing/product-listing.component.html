@@ -468,7 +468,9 @@
                                     <div class="tc_content">
                                         <p class="text-thm" *ngIf="number.type != null">{{ number.type | titlecase }}</p>
                                         <h4>{{number.build_name | titlecase}}</h4>
-                                        <p *ngIf="number.address != null"><span class="flaticon-placeholder"></span> {{ number.address | titlecase }}
+                                        <p>
+                                            <span  *ngIf="number.product_locality != null">{{ number.product_locality?.locality | titlecase }}</span>
+                                            <span *ngIf="number.product_state != null">({{ number.product_state?.state | titlecase }})</span>
                                         </p>
                                         <ul class="prop_details mb0">
                                             <li class="list-inline-item"><a>Beds: {{ number.bedroom }}</a></li>
