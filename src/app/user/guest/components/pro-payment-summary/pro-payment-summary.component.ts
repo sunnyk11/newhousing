@@ -25,7 +25,8 @@ export class ProPaymentSummaryComponent implements OnInit {
   public product_data: any;
   public pro_data: any;
   public expected_rent: any;
-  public gst_amount: any;
+  public sgst_amount: any;
+  public cgst_amount: any;
   public total_amount_hs: any;
   public plan_price: any;
   public security_deposit: any;
@@ -56,6 +57,7 @@ export class ProPaymentSummaryComponent implements OnInit {
   public paytm_data: any;
   public rent_plan_data: any;
   public invoice_data: any;
+  public plan_features_data: any;
 
   private paytm_form_url: string = environment.Paytm_formURL;
 
@@ -79,8 +81,9 @@ export class ProPaymentSummaryComponent implements OnInit {
         this.pro_data = this.product_data[0];
         //console.log(this.product_data[0]);
         this.expected_rent = this.product_data[0].expected_rent;
-        this.gst_amount = (18 * this.plan_price) / 100;
-        this.total_amount_hs = this.plan_price + this.gst_amount;
+        this.sgst_amount = Math.round((9 * this.plan_price) / 100); 
+        this.cgst_amount = Math.round((9 * this.plan_price) / 100);
+        this.total_amount_hs = this.plan_price + this.sgst_amount + this.cgst_amount;
         this.security_deposit = this.product_data[0].security_deposit;
         this.security_dep_amount = this.expected_rent * this.security_deposit;
 
@@ -101,22 +104,7 @@ export class ProPaymentSummaryComponent implements OnInit {
         console.log(err);
       }
     );
-    this.getRentPlans();
     this.getRentFeatures();
-  }
-
-  getRentPlans() {
-    this.showLoadingIndicator = true;
-    this.plansPageService.getRentPlans({ param: null }).subscribe(
-      response => {
-        this.showLoadingIndicator = false;
-        this.rent_response = response;
-        //console.log(response);
-      },
-      err => {
-        this.showLoadingIndicator = false;
-      }
-    );
   }
 
   getRentFeatures() {
@@ -125,14 +113,6 @@ export class ProPaymentSummaryComponent implements OnInit {
       response => {
         this.showLoadingIndicator = false;
         this.rent_feat_res = response;
-        //console.log(response);
-        for (let feat_res in this.rent_feat_res) {
-          //console.log(this.rent_feat_res[feat_res].feature_details);
-          this.myArray = this.rent_feat_res[feat_res].feature_details.split(',');
-          //console.log(this.myArray);
-          this.rent_feat_res[feat_res].feature_details = this.myArray;
-        }
-        //console.log(this.rent_feat_res);
       },
       err => {
         this.showLoadingIndicator = false;
@@ -140,21 +120,28 @@ export class ProPaymentSummaryComponent implements OnInit {
     );
   }
 
-  plan_payment(plan_name:any, plan_id:any, payment_type:any, plan_type:any, expected_rent:any, price_duration:any) {
+  plan_payment(plan_name:any, plan_id:any, payment_type:any, plan_type:any, expected_rent:any, price_duration_actual: any, price_duration_discount:any, plan_features: any) {
     //console.log(plan_name, plan_id, payment_type, plan_type, expected_rent, price_duration);
     this.plan_name = plan_name;
-    this.plan_price = Math.round(expected_rent / (30 / price_duration));
-    this.plan_type = 'rent';
+    if(price_duration_discount) {
+      this.plan_price = Math.round(expected_rent / (30 / price_duration_discount));
+    }
+    else {
+      this.plan_price = Math.round(expected_rent / (30 / price_duration_actual));
+    }
+    this.plan_features_data = plan_features;
+    this.plan_type = plan_type;
     this.plan_id = plan_id;
     this.payment_type = payment_type;
     this.expected_rent = expected_rent;
     this.property_name = this.product_data[0].build_name;
     this.property_id = this.product_data[0].id;
-    this.gst_amount = Math.round((18 * this.plan_price) / 100);
+    this.sgst_amount = Math.round((9 * this.plan_price) / 100);
+    this.cgst_amount = Math.round((9 * this.plan_price) / 100);
     this.maintenance_charge = this.product_data[0].maintenance_charge;
     this.security_deposit = this.product_data[0].security_deposit;
     this.security_dep_amount = this.expected_rent * this.security_deposit;
-    this.total_amount_hs = this.plan_price + this.gst_amount;
+    this.total_amount_hs = this.plan_price + this.sgst_amount + this.cgst_amount;
     this.maintenance_charge = this.product_data[0].maintenance_charge;
     //console.log(this.maintenance_charge);
     if (this.maintenance_charge) {
@@ -187,13 +174,13 @@ export class ProPaymentSummaryComponent implements OnInit {
     const formData: any = new FormData();
     formData.append('plan_name', this.plan_name);
     formData.append('plan_price', this.plan_price);
-    formData.append('plan_type', 'rent');
+    formData.append('plan_type', this.plan_type);
     formData.append('plan_id', this.plan_id);
     formData.append('payment_type', this.payment_type);
     formData.append('expected_rent', this.expected_rent);
     formData.append('property_name', this.product_data[0].build_name);
     formData.append('property_id', this.product_data[0].id);
-    formData.append('gst_amount', this.gst_amount);
+    formData.append('gst_amount', this.sgst_amount + this.cgst_amount);
     formData.append('maintenance_charge', this.maintenance_charge);
     formData.append('security_deposit', this.security_dep_amount);
     formData.append('total_amount', this.total_amount_hs + this.total_amount_owner);
@@ -219,6 +206,7 @@ export class ProPaymentSummaryComponent implements OnInit {
             //console.log("Mobile number verified");
             formData.append('user_id', this.user_id);
             formData.append('user_email', this.userEmail);
+            formData.append('plan_features_data', JSON.stringify(this.plan_features_data));
             
             this.plansPageService.postSelectedRentPlan(formData).subscribe(
               res => {
@@ -288,13 +276,13 @@ export class ProPaymentSummaryComponent implements OnInit {
     let data = {
       plan_name: this.plan_name,
       plan_price: this.plan_price,
-      plan_type: 'rent',
+      plan_type: this.plan_type,
       plan_id: this.plan_id,
       payment_type: this.payment_type,
       expected_rent: this.expected_rent,
       property_name: this.product_data[0].build_name,
       property_id: this.product_data[0].id,
-      gst_amount: this.gst_amount,
+      gst_amount: this.sgst_amount + this.cgst_amount,
       maintenance_charge: this.maintenance_charge,
       security_deposit: this.security_dep_amount,
       total_amount: this.total_amount_hs + this.total_amount_owner,
@@ -321,13 +309,13 @@ export class ProPaymentSummaryComponent implements OnInit {
     let data = {
       plan_name: this.plan_name,
       plan_price: this.plan_price,
-      plan_type: 'rent',
+      plan_type: this.plan_type,
       plan_id: this.plan_id,
       payment_type: this.payment_type,
       expected_rent: this.expected_rent,
       property_name: this.product_data[0].build_name,
       property_id: this.product_data[0].id,
-      gst_amount: this.gst_amount,
+      gst_amount: this.sgst_amount + this.cgst_amount,
       maintenance_charge: this.maintenance_charge,
       security_deposit: this.security_dep_amount,
       total_amount: this.total_amount_hs + this.total_amount_owner,
@@ -348,13 +336,13 @@ export class ProPaymentSummaryComponent implements OnInit {
     var formData: any = new FormData();
     formData.append('plan_name', this.plan_name);
     formData.append('plan_price', this.plan_price);
-    formData.append('plan_type', 'rent');
+    formData.append('plan_type', this.plan_type);
     formData.append('plan_id', this.plan_id);
     formData.append('payment_type', this.payment_type);
     formData.append('expected_rent', this.expected_rent);
     formData.append('property_name', this.product_data[0].build_name);
     formData.append('property_id', this.product_data[0].id);
-    formData.append('gst_amount', this.gst_amount);
+    formData.append('gst_amount', this.sgst_amount + this.cgst_amount);
     formData.append('maintenance_charge', this.maintenance_charge);
     formData.append('security_deposit', this.security_dep_amount);
     formData.append('total_amount', this.total_amount_hs + this.total_amount_owner);
@@ -379,6 +367,7 @@ export class ProPaymentSummaryComponent implements OnInit {
             //console.log("Mobile number verified");
             formData.append('user_id', this.user_id);
             formData.append('user_email', this.userEmail);
+            formData.append('plan_features_data', JSON.stringify(this.plan_features_data));
             //console.log(formData);
             this.plansPageService.postSelectedRentPlan(formData).subscribe(
               res => {

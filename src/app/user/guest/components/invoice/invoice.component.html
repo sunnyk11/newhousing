@@ -73,7 +73,7 @@
                 </table>
 
                 <table class="table text-center">
-                    <thead *ngIf="inv_response?.plan_type == 'rent'">
+                    <thead *ngIf="inv_response?.plan_type == 'Rent'">
                         <tr>
                             <th>Sl No</th>
                             <th>Payment related to property owner</th>
@@ -81,7 +81,7 @@
                             <th>Amount</th>
                         </tr>
                     </thead>
-                    <tbody *ngIf="inv_response?.plan_type == 'rent'">
+                    <tbody *ngIf="inv_response?.plan_type == 'Rent'">
                         <tr *ngIf="ord_details?.expected_rent">
                             <th>1</th>
                             <td>Rent</td>
@@ -120,8 +120,8 @@
                         <tr>
                             <th>1</th>
                             <td> {{ inv_response?.plan_name }} Plan
-                                <span *ngIf="inv_response?.plan_type == 'rent'">(Property Renting Plan)</span>
-                                <span *ngIf="inv_response?.plan_type == 'let_out'">(Property Let Out Plan)</span>
+                                <span *ngIf="inv_response?.plan_type == 'Rent'">(Property Renting Plan)</span>
+                                <span *ngIf="inv_response?.plan_type == 'Let Out'">(Property Let Out Plan)</span>
                             </td>
                             <td>{{ invoice_data?.sac }}</td>
                             <td>&#8377; {{ inv_response?.plan_price }}</td>
@@ -129,8 +129,8 @@
                         <tr>
                             <th></th>
                             <td><strong>Taxable Value/Payout Value
-                                <span *ngIf="inv_response?.plan_type == 'rent'">(B)</span>
-                                <span *ngIf="inv_response?.plan_type == 'let_out'">(A)</span>
+                                <span *ngIf="inv_response?.plan_type == 'Rent'">(B)</span>
+                                <span *ngIf="inv_response?.plan_type == 'Let Out'">(A)</span>
                             </strong></td>
                             <td></td>
                             <td><strong>&#8377; {{ inv_response?.plan_price }}</strong></td>
@@ -150,8 +150,8 @@
                         <tr>
                             <th></th>
                             <td><strong>Taxable Value/Payout Value <span
-                                        *ngIf="inv_response?.plan_type == 'rent'">(C)</span>
-                                    <span *ngIf="inv_response?.plan_type == 'let_out'">(B)</span></strong></td>
+                                        *ngIf="inv_response?.plan_type == 'Rent'">(C)</span>
+                                    <span *ngIf="inv_response?.plan_type == 'Let Out'">(B)</span></strong></td>
                             <td></td>
                             <td><strong>&#8377; {{ sgst_amount + cgst_amount }}</strong></td>
                         </tr>
@@ -159,8 +159,8 @@
                             <td>Invoice Value (In words)</td>
                             <td>{{ amount_words }}</td>
                             <td><strong>Total Invoice Amount <br>
-                                    <span *ngIf="inv_response?.plan_type == 'rent'">(A+B+C)</span>
-                                    <span *ngIf="inv_response?.plan_type == 'let_out'">(A+B)</span>
+                                    <span *ngIf="inv_response?.plan_type == 'Rent'">(A+B+C)</span>
+                                    <span *ngIf="inv_response?.plan_type == 'Let Out'">(A+B)</span>
                                 </strong>
                             </td>
                             <td><strong>&#8377; {{ total_amount }}</strong></td>

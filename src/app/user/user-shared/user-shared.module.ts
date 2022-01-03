@@ -19,6 +19,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatBadgeModule } from '@angular/material/badge';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TopbarNotificationComponent } from '../components/topbar-notification/topbar-notification.component';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { TopbarNotificationComponent } from '../components/topbar-notification/t
     MatMenuModule,
     MatButtonModule,
     MatBadgeModule,
-    NgbModule
+    NgbModule,
+    MatTabsModule
   ],
   exports: [
     GuestHeaderComponent,
@@ -52,7 +54,8 @@ import { TopbarNotificationComponent } from '../components/topbar-notification/t
     SidenavListComponent,
     MatSidenavModule,
     MatIconModule,
-    NgbModule
+    NgbModule,
+    MatTabsModule
   ]
 })
 export class UserSharedModule { }

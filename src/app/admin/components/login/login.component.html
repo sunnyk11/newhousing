@@ -1,0 +1,62 @@
+<!--Breadcrumb-->
+<div class="bg-secondary">
+    <div class="container-fluid py-4">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Login</li>
+            </ol>
+        </nav>
+        <h2 class="col-custom">Admin Login</h2>
+    </div>
+</div>
+
+<div class="container py-5 h-100">
+    <div *ngIf="showLoadingIndicator">
+        <div class="preloader"></div>
+    </div>
+    <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+            <div class="card shadow text-dark login-card">
+                <div class="card-body py-3 px-5 text-center">
+
+                    <div class="mb-md-3 mt-md-3 pb-2">
+                        <form [formGroup]="loginForm" #ngForm="ngForm" (ngSubmit)="onSubmit()">
+                            <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
+                            <p class="text-secondary-50 mb-3">Please enter your email and password</p>
+
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="email_address">Email</span>
+                                <input type="email" class="form-control" aria-label="Email Address" aria-describedby="email_address" formControlName="email_address">
+                                <span class="text-danger w100" *ngIf="(LoginFormControl.email_address.touched || submitted) && LoginFormControl.email_address.errors?.required">
+                                    Email Address is required
+                                </span>
+                            </div>
+
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="password">Password</span>
+                                <input type="password" class="form-control" aria-label="Password" aria-describedby="password" formControlName="password">
+                                <span class="text-danger w100" *ngIf="(LoginFormControl.password.touched || submitted) && LoginFormControl.password.errors?.required">
+                                    Password is required
+                                </span>
+                            </div>
+
+                            <!-- <p class="small mb-3 pb-lg-2"><a class="text-thm" [routerLink]="['/reset-password']">Forgot
+                                    password?</a>
+                            </p> -->
+
+                            <button class="btn btn-thm btn-block btn-lg px-5" type="submit">Login</button>
+                        </form>
+
+                        <div class="alert alert-danger mt20" role="alert" *ngIf="ngForm.submitted && LoginFailed">
+                            Login failed: {{ errorMessage }}
+                        </div>
+                        <div class="alert alert-danger" role="alert" *ngIf="ngForm.submitted && LoginFailed">
+                            Either you have Entered Wrong credentials or you have No Account on this site.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

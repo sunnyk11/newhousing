@@ -13,7 +13,7 @@ export class PlansPageService {
   ) { }
 
   getRentPlans(reqModel: any): Observable<ResultModel> {
-    const route = "/api/get_rent_plans";
+    const route = "/api/get_enabled_rent_plans";
     return this.apiService.get<ResultModel>(route, reqModel);
   }
 
@@ -23,7 +23,7 @@ export class PlansPageService {
   }
 
   getLetOutPlans(reqModel: any): Observable<ResultModel> {
-    const route = "/api/get_letout_plans";
+    const route = "/api/get_enabled_letout_plans";
     return this.apiService.get<ResultModel>(route, reqModel);
   }
 

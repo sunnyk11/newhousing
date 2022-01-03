@@ -1,0 +1,20 @@
+<mat-toolbar class="navbar-scrolltofixed stricky">
+    <div fxHide.gt-sm>
+        <button mat-icon-button (click)="onToggleSidenav()">
+            <mat-icon>menu</mat-icon>
+        </button>
+    </div>
+    <div class="m-auto w250">
+        <a class="img_logo" href="/">
+            <!-- <img class="logo1 img-fluid" src="./../../assets/css/images/header-logo.png" alt="header-logo.png"> -->
+            <img class="logo2 img-fluid" src="../../../assets/resources/images/logo/logo.png" alt="header-logo2.png">
+        </a>
+    </div>
+    <div fxFlex fxLayout fxLayoutAlign="end" fxHide.lt-md>
+        <ul fxLayout fxLayoutGap="15px" class="navigation-items">
+            <li *ngIf="LoggedIn">
+                <a class="btn btn-secondary" (click)="logout()">Logout</a>
+            </li>
+        </ul>
+    </div>
+</mat-toolbar>

@@ -88,7 +88,7 @@ export class InvoiceComponent implements OnInit {
         this.sgst_amount = Math.round((this.invoice_data?.sgst * this.response[0].plan_price) / 100);
         this.cgst_amount = Math.round((this.invoice_data?.cgst * this.response[0].plan_price) / 100);
 
-        if (this.inv_response.plan_type == 'rent') {
+        if (this.inv_response.plan_type == 'Rent') {
           this.plansPageService.getRentOrderDetails(this.inv_response.order_id).subscribe(
             res => {
               this.order_details = res;
@@ -122,7 +122,7 @@ export class InvoiceComponent implements OnInit {
             }
           );
         }
-        else if (this.inv_response.plan_type == 'let_out') {
+        else if (this.inv_response.plan_type == 'Let Out') {
           this.total_amount = this.inv_response.plan_price + this.sgst_amount + this.cgst_amount;
           this.amount_words = toWords.convert(this.total_amount);
         }

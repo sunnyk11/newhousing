@@ -17,13 +17,10 @@ export class PlansServiceService {
     return this.apiService.get<ResultModel>(route + reqModel);
   }
   getLetOutPlans(reqModel: any): Observable<ResultModel> {
-    const route = "/api/get_letout_plans";
+    const route = "/api/get_enabled_letout_plans";
     return this.apiService.get<ResultModel>(route, reqModel);
   }
-  getLetOutPlans_Features(reqModel: any): Observable<ResultModel> {
-    const route = "/api/getLetOutPlans_Features";
-    return this.apiService.get<ResultModel>(route, reqModel);
-  }
+  
   getLetOutFeatures(reqModel: any): Observable<ResultModel> {
     const route = "/api/get_letout_features";
     return this.apiService.get<ResultModel>(route, reqModel);
