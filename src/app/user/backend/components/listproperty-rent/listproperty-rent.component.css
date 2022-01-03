@@ -22,6 +22,12 @@ ul .list-inline-item{
   height: 100vh;
   z-index: 100!important;
 }
+.preloader_row1{
+  position: relative;
+  width: 100%;
+  height: 250px;
+  z-index: 100!important;
+}
 .portfolio_item{
     border-radius: 8px;
     background-color: rgb(247, 247, 247);
