@@ -19,8 +19,11 @@ export class PaymentSummaryComponent implements OnInit {
   public content: any;
   public paytm_form_url: string = environment.Paytm_formURL;
   public response:any={}; 
-  public mode_payment: number = 1;
   public response_data:any;
+
+  public online_pay_btn: boolean = true;
+  public cash_pay_btn: boolean = false;
+  public mode_payment: any = 'Online';
 
   constructor(
     private PlansServiceService:PlansServiceService,
@@ -54,9 +57,6 @@ export class PaymentSummaryComponent implements OnInit {
           this.paytm_data = this.response.data;
           this.createPaytmForm();
         }
-        else {
-          
-        }
       },
       err => {
         this.content = err.error.message;
@@ -86,12 +86,27 @@ export class PaymentSummaryComponent implements OnInit {
    // after click will fire you will redirect to paytm payment page.
    // after complete or fail transaction you will redirect to your CALLBACK URL
    }
+
+   changePayment(e:any) {
+    //console.log(e.target.value);
+    if(e.target.value == 'Online') {
+      this.online_pay_btn = true;
+      this.cash_pay_btn = false;
+      this.mode_payment = "Online";
+    }
+    else if (e.target.value == 'Cash') {
+      this.online_pay_btn = false;
+      this.cash_pay_btn = true;
+      this.mode_payment = "Cash";
+    }
+  }
+
    generateInvoice(orderID:any) {
     let param = { orderID: orderID }
     this.PlansServiceService.generateInvoice(param).subscribe(
       response => {
         let res:any=response;
-        this.router.navigate(['/agent/invoice'], { queryParams: { 'invoice_no': res.data } });
+        this.router.navigate(['invoice'], { queryParams: { 'invoice_no': res.data } });
       },
       err => {
         console.log(err);

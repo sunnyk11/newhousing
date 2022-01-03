@@ -1,0 +1,122 @@
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header text-center">
+            <h5 class="card-title">Add Plan</h5>
+        </div>
+        <div class="card-body">
+            <form [formGroup]="PlanForm" (ngSubmit)="onSubmit()" class="mt-4">
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                        <div class="input-group mb-3">
+                            <label class="input-group-text" for="plan_type">Plan Type</label>
+                            <select class="form-select" id="plan_type" formControlName="plan_type" [ngClass]="{ 'is-invalid': submitted && g.plan_type.errors }" name="plan_type" required>
+                                <option value="Let Out">Let Out</option>
+                                <option value="Rent">Rent</option>
+                            </select>
+                            <div *ngIf="submitted && g.plan_type.errors" class="invalid-feedback">
+                                <div *ngIf="g.plan_type.errors.required">Please select plan type</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">Plan Name</span>
+                            <input type="text" formControlName="planName" class="form-control" [ngClass]="{ 'is-invalid': submitted && g.planName.errors }" name="planName" id="planName" aria-describedby="basic-addon1" required>
+                            <div *ngIf="submitted && g.planName.errors" class="invalid-feedback">
+                                <div *ngIf="g.planName.errors.required">Plan Name is required</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                        <div class="input-group mb-3">
+                            <label class="input-group-text" for="payment_type">Payment Type</label>
+                            <select class="form-select" id="payment_type" formControlName="payment_type" [ngClass]="{ 'is-invalid': submitted && g.payment_type.errors }" name="payment_type" required>
+                                <option value="Advance">Advance</option>
+                                <option value="Post">Post</option>
+                            </select>
+                            <div *ngIf="submitted && g.payment_type.errors" class="invalid-feedback">
+                                <div *ngIf="g.payment_type.errors.required">Please select payment type</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">Actual Price (Days)</span>
+                            <input type="number" class="form-control" formControlName="actualPrice" [ngClass]="{ 'is-invalid': submitted && g.actualPrice.errors }" name="actualPrice" id="actualPrice" required>
+                            <div *ngIf="submitted && g.actualPrice.errors" class="invalid-feedback">
+                                <div *ngIf="g.actualPrice.errors.required">Actual price is required</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                        <div class="input-group mb-3">
+                            <label class="input-group-text" for="plan_status">Status</label>
+                            <select class="form-select" id="plan_status" formControlName="plan_status" [ngClass]="{ 'is-invalid': submitted && g.plan_status.errors }" name="plan_status" required>
+                                <option value="enabled">Enabled</option>
+                                <option value="disabled">Disabled</option>
+                            </select>
+                            <div *ngIf="submitted && g.plan_status.errors" class="invalid-feedback">
+                                <div *ngIf="g.plan_status.errors.required">Please select plan status</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                        <div class="input-group mb-3">
+                            <label class="input-group-text" for="special_tag">Special Tag</label>
+                            <select class="form-select" id="special_tag" formControlName="special_tag" [ngClass]="{ 'is-invalid': submitted && g.special_tag.errors }" name="special_tag" required>
+                                <option value="yes">Enabled</option>
+                                <option value="no">Disabled</option>
+                            </select>
+                            <div *ngIf="submitted && g.special_tag.errors" class="invalid-feedback">
+                                <div *ngIf="g.special_tag.errors.required">Please select an option</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                        <div class="input-group mb-3">
+                            <label class="input-group-text" for="discount_status">Discount</label>
+                            <select class="form-select" id="discount_status" formControlName="discount_status" [ngClass]="{ 'is-invalid': submitted && g.discount_status.errors }" name="discount_status" (change)="changeDiscStatus($event)" required>
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                            <div *ngIf="submitted && g.discount_status.errors" class="invalid-feedback">
+                                <div *ngIf="g.discount_status.errors.required">Please select an option</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12" *ngIf="discount_stat">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">Discounted Price (Days)</span>
+                            <input type="number" class="form-control" formControlName="discountPrice" [ngClass]="{ 'is-invalid': submitted && g.discountPrice.errors }" name="discountPrice" id="discountPrice">
+                            <div *ngIf="submitted && g.discountPrice.errors" class="invalid-feedback">
+                                <div *ngIf="g.discountPrice.errors.required">Discounted price is required</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12" *ngIf="discount_stat">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">Discount Percentage</span>
+                            <input type="number" class="form-control" formControlName="discount_per" [ngClass]="{ 'is-invalid': submitted && g.discount_per.errors }" name="discount_per" id="discount_per">
+                            <div *ngIf="submitted && g.discount_per.errors" class="invalid-feedback">
+                                <div *ngIf="g.discount_per.errors.required">Please enter the percentage</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-lg-12 col-md-12 text-center">
+                        <button class="btn btn-primary" type="submit">Add Plan</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

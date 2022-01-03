@@ -1,0 +1,165 @@
+<div class="container mt-5">
+    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link m-auto active" id="pills-rent-tab" data-bs-toggle="pill" data-bs-target="#pills-rent" type="button" role="tab" aria-controls="pills-rent" aria-selected="true">Rent Plans</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link m-auto" id="pills-letout-tab" data-bs-toggle="pill" data-bs-target="#pills-letout" type="button" role="tab" aria-controls="pills-letout" aria-selected="false">Let Out Plans</button>
+        </li>
+    </ul>
+    <div class="tab-content" id="pills-tabContent">
+        <div class="tab-pane fade show active" id="pills-rent" role="tabpanel" aria-labelledby="pills-rent-tab">
+            <div class="accordion" id="rent_plans">
+                <div class="accordion-item" *ngFor="let rent_plan of rent_response?.data">
+                    <h2 class="accordion-header" id="rent_heading">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#RentPlansCollapse" aria-expanded="true" aria-controls="collapseOne">
+                            {{ rent_plan.plan_name }}
+                        </button>
+                    </h2>
+                    <div id="RentPlansCollapse" class="accordion-collapse collapse show" aria-labelledby="rent_heading" data-bs-parent="#rent_plans">
+                        <div class="accordion-body">
+                            <table class="table text-center">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Plan Type</th>
+                                        <th scope="col">Plan Name</th>
+                                        <th scope="col">Plan Actual Price(Days)</th>
+                                        <th scope="col">Plan Status</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>{{ rent_plan.plan_type }}</td>
+                                        <td>{{ rent_plan.plan_name }}</td>
+                                        <td>{{ rent_plan.actual_price_days }}</td>
+                                        <td>{{ rent_plan.plan_status }}</td>
+                                        <td><button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#EditDetailsModal" (click)="EditDetails(rent_plan)">Edit</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="pills-letout" role="tabpanel" aria-labelledby="pills-letout-tab">
+            <div class="accordion" id="let_out_plans">
+                <div class="accordion-item" *ngFor="let let_out_plan of letout_response?.data">
+                    <h2 class="accordion-header" id="let_out_heading">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#LetOutPlansCollapse" aria-expanded="true" aria-controls="collapseTwo">
+                            {{ let_out_plan.plan_name }}
+                        </button>
+                    </h2>
+                    <div id="LetOutPlansCollapse" class="accordion-collapse collapse show" aria-labelledby="let_out_heading" data-bs-parent="#let_out_plans">
+                        <div class="accordion-body">
+                            <table class="table text-center">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Plan Type</th>
+                                        <th scope="col">Plan Name</th>
+                                        <th scope="col">Plan Actual Price(Days)</th>
+                                        <th scope="col">Plan Status</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>{{ let_out_plan.plan_type }}</td>
+                                        <td>{{ let_out_plan.plan_name }}</td>
+                                        <td>{{ let_out_plan.actual_price_days }}</td>
+                                        <td>{{ let_out_plan.plan_status }}</td>
+                                        <td><button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#EditDetailsModal" (click)="EditDetails(let_out_plan)">Edit</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="EditDetailsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Details</h5>
+                <button type="button" #closeModal class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="EditPlanDetails">
+                    <div class="input-group mb-3">
+                        <input type="hidden" class="form-control" formControlName="id">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Plan Type</span>
+                        <input type="text" class="form-control" placeholder="Plan Type" formControlName="plan_type" readonly>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Plan Name</span>
+                        <input type="text" class="form-control" placeholder="Plan Name" formControlName="plan_name" [ngClass]="{ 'is-invalid': submitted && g.plan_name.errors }">
+                        <div *ngIf="submitted && g.plan_name.errors" class="invalid-feedback">
+                            <div *ngIf="g.plan_name.errors.required">Plan Name is required</div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="payment_type">Payment Type</label>
+                        <select class="form-select" id="payment_type" formControlName="payment_type" name="payment_type" required>
+                            <option value="Advance">Advance</option>
+                            <option value="Post">Post</option>
+                        </select>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Plan Actual Price (Days)</span>
+                        <input type="number" class="form-control" placeholder="Plan Actual Price" formControlName="plan_actual_price">
+                    </div>
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="discount_status">Discount</label>
+                        <select class="form-select" id="discount_status" formControlName="discount_status" name="discount_status" (change)="changeDiscStatus($event)" required>
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
+                        </select>
+                    </div>
+                    <div class="input-group mb-3" *ngIf="discount_stat">
+                        <span class="input-group-text" id="basic-addon1">Discounted Price (Days)</span>
+                        <input type="number" class="form-control" placeholder="Discounted Price" formControlName="discounted_price" [ngClass]="{ 'is-invalid': submitted && g.discounted_price.errors }">
+                        <div *ngIf="submitted && g.discounted_price.errors" class="invalid-feedback">
+                            <div *ngIf="g.discounted_price.errors.required">Discounted price is required</div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3" *ngIf="discount_stat">
+                        <span class="input-group-text" id="basic-addon1">Discount Percentage</span>
+                        <input type="number" class="form-control" formControlName="discount_per" [ngClass]="{ 'is-invalid': submitted && g.discount_per.errors }" name="discount_per" id="discount_per">
+                        <div *ngIf="submitted && g.discount_per.errors" class="invalid-feedback">
+                            <div *ngIf="g.discount_per.errors.required">Please enter the percentage</div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="plan_status">Plan Status</label>
+                        <select class="form-select" id="plan_status" formControlName="plan_status" name="plan_status" required>
+                            <option value="enabled">Enabled</option>
+                            <option value="disabled">Disabled</option>
+                        </select>
+                    </div>
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="special_tag">Special Tag</label>
+                        <select class="form-select" id="special_tag" formControlName="special_tag" [ngClass]="{ 'is-invalid': submitted && g.special_tag.errors }" name="special_tag" required>
+                            <option value="yes">Enabled</option>
+                            <option value="no">Disabled</option>
+                        </select>
+                        <div *ngIf="submitted && g.special_tag.errors" class="invalid-feedback">
+                            <div *ngIf="g.special_tag.errors.required">Please select an option</div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="save_plan_details()">Save</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

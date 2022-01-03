@@ -42,22 +42,22 @@ export class MyPlansComponent implements OnInit {
   }
 
   getRentInvoicesLength() {
-    this.rent_invoices = this.response?.filter((item:any) => item.plan_type == 'rent');
+    this.rent_invoices = this.response?.filter((item:any) => item.plan_type == 'Rent');
     return this.rent_invoices?.length;
   }
 
   getRentInvoices() {
-    this.rent_invoices = this.response?.filter((item:any) => item.plan_type == 'rent');
+    this.rent_invoices = this.response?.filter((item:any) => item.plan_type == 'Rent');
     return this.rent_invoices;
   }
 
   getLetOutInvoicesLength() {
-    this.let_out_invoices = this.response?.filter((item:any) => item.plan_type == 'let_out');
+    this.let_out_invoices = this.response?.filter((item:any) => item.plan_type == 'Let Out');
     return this.let_out_invoices?.length;
   }
 
   getLetOutInvoices() {
-    this.let_out_invoices = this.response?.filter((item:any) => item.plan_type == 'let_out');
+    this.let_out_invoices = this.response?.filter((item:any) => item.plan_type == 'Let Out');
     return this.let_out_invoices;
   }
 
