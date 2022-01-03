@@ -93,9 +93,7 @@ export class ProfileComponent implements OnInit {
     private router: Router) {
      this.commonService.bank_details_on().subscribe(
       message => {
-        console.log(message);
         if (message == 'true') {
-          console.log('testing');
           this.user_details();
         }
       });
@@ -117,8 +115,8 @@ export class ProfileComponent implements OnInit {
     this.userService.getUserDetails().pipe().subscribe(
       data => {
         this.showLoadingIndicator = false;
-        this.user_data = data;
-        console.log(this.user_data);
+        let result:any=data;
+        this.user_data = result.data;
         this.mobile_verify_status = this.user_data.phone_number_verification_status;
         this.usertype = this.user_data.usertype;
         this.profile_pic = this.user_data.profile_pic;
@@ -160,18 +158,15 @@ export class ProfileComponent implements OnInit {
       },
       err => {
         this.showLoadingIndicator = false;
-        console.log(err);
       }
     );
   }
 
   verify_mob() {
     this.returnUrl = this.router.url;
-    console.log(this.returnUrl);
     this.jwtService.saveReturnURL(this.returnUrl);
   }
   onFileChange(event: any) {
-    //console.log(event);
     this.files = event.target.files;
     if (this.files.length === 0)
       return;
@@ -182,9 +177,7 @@ export class ProfileComponent implements OnInit {
       return;
     }
     const reader = new FileReader();
-    //console.log(reader);
     this.imagePath = this.files;
-    //console.log(this.imagePath);
     reader.readAsDataURL(this.files[0]);
     reader.onload = (event) => {
       this.imgURL = event.target?.result;
@@ -198,7 +191,6 @@ export class ProfileComponent implements OnInit {
     formData.append('id', this.id);
     this.profilePageService.uploadProfileImage(formData).subscribe(
       data => {
-        console.log(data);
         this.profile_data = data;
         this.jwtService.saveProfilePic(this.profile_data.data);
         this.showLoadingIndicator = false;
@@ -224,8 +216,6 @@ bank_details(){
       user_mobile_no: this.phn_no,
       user_id:this.id
     }
-    console.log(data);
-
     modalRef.componentInstance.user_bank_details = data;
 }
   user_details_name() {
@@ -252,7 +242,6 @@ bank_details(){
         this.profilePageService.username_update(this.id, this.email, this.UserNameForm.value.user_name).subscribe(
           data => {
             this.showLoadingIndicator = false;
-            console.log(data);
             this.username_response = data;
             this.showSuccess(this.username_response.message);
             window.location.reload();
@@ -281,14 +270,12 @@ bank_details(){
           this.profilePageService.phone_number_update(this.id, this.email, this.PhoneNumberForm.value.phone_number).subscribe(
             data => {
               this.showLoadingIndicator = false;
-              console.log(data);
               this.mobile_response = data;
               this.otp_visible = true;
               this.phone_number = this.PhoneNumberForm.value.phone_number
             },
             err => {
               this.showLoadingIndicator = false;
-              console.log(err);
               this.updateFailed = true;
               this.errorMessage = err.error;
             }
@@ -317,7 +304,6 @@ bank_details(){
       data => {
         this.showLoadingIndicator = false;
         this.otp_response = data;
-        console.log(this.otp_response);
         this.isVerified = true;
         this.verify = false;
 
@@ -358,7 +344,6 @@ bank_details(){
       },
       err => {
         this.showLoadingIndicator = false;
-        console.log(err);
         this.password_message = err.message;
         this.toastr.error(this.password_message, 'Error', {
           timeOut: 3000,

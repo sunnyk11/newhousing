@@ -49,7 +49,6 @@ import { RenderHtmlPipe } from './pipes/render-html.pipe';
 import { BlogComponent } from './components/blog/blog.component';
 import { TruncateTextPipe } from './pipes/truncate-text.pipe';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MobileVerifyBankComponent } from './modals/mobile-verify-bank/mobile-verify-bank.component';
 import { BankDetailsModalComponent } from './modals/bank-details-modal/bank-details-modal.component';
 
 @NgModule({
@@ -92,7 +91,6 @@ import { BankDetailsModalComponent } from './modals/bank-details-modal/bank-deta
     RenderHtmlPipe,
     BlogComponent,
     TruncateTextPipe,
-    MobileVerifyBankComponent,
     BankDetailsModalComponent,
   ],
   imports: [

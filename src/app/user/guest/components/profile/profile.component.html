@@ -101,10 +101,11 @@
                                 <hr>
     
                                 <dt class="col-sm-3">Bank Verify Status</dt>
-                                <dd class="col-sm-9 status_heading" *ngIf="user_data?.account_status==0"><p class="text-danger">Account is not Verify</p></dd>
-                                <dd class="col-sm-9 status_heading" *ngIf="user_data?.account_status==1"><p class="text-success">Verify Account.This Account not Edit . </p></dd>
+                                <dd class="col-sm-9 status_heading" *ngIf="user_data?.bank_acount_no ==null"><p class="text-danger">NA</p></dd>
+                                <dd class="col-sm-9 status_heading" *ngIf="user_data?.account_status ==0 && user_data?.bank_acount_no !=null"><p class="text-danger">Account is not Verify</p></dd>
+                                <dd class="col-sm-9 status_heading" *ngIf="user_data?.account_status ==1 && user_data?.bank_acount_no !=null"><p class="text-success">Verify Account.This Account not Edit . </p></dd>
                                 <hr>
-                                <dd class="col-lg-3 offset-lg-8 col-12"  *ngIf="user_data?.account_status==0">
+                                <dd class="col-lg-3 offset-lg-8 col-12">
                                 <button type="button" class="btn btn-primary" *ngIf="bank_account_no != null" (click)="bank_details()">
                                     Edit Bank Details
                                 </button>
@@ -144,6 +145,31 @@
                         </div>
                         <div class="col-lg-6 offset-lg-3 col-sm-12 text-center">
                             <button type="submit" class="btn btn-primary" (click)="onSubmitPassword()">Update</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row  mt-4" *ngIf="user_data?.bank_details_history.length>0">
+                <div class="col-lg-12">
+                    <div class="h-100  bg-light border rounded-3 bank_details_section">
+                        <h4 class="text-center heading">Bank Details History</h4>
+                        <div class="col-lg-12">
+                            <div class="row bank_details_history">
+                                <div  class="col-lg-6  col-12" id="column_bank_histroy" *ngFor="let bank_details of user_data?.bank_details_history">
+                                    <h4 class="text-center heading">Details Update At: <span> {{ bank_details?.created_at | date: 'MMM d y h:mm:ss a' }}</span></h4>
+                                    <dl class="row">
+                                        <dt class="col-sm-6">Accont Holder Name:</dt>
+                                        <dd class="col-sm-6" *ngIf="bank_details?.account_holder !=null">{{bank_details?.account_holder}}</dd>
+                                        <hr>
+                                        <dt class="col-sm-6">Bank Account No:</dt>
+                                        <dd class="col-sm-6" *ngIf="bank_details?.bank_acount_no !=null">{{bank_details?.bank_acount_no }}</dd>
+                                        <hr>
+                                        <dt class="col-sm-6">Bank IFSC Code</dt>
+                                        <dd class="col-sm-6" *ngIf="bank_details?.ifsc_code !=null">{{ bank_details?.ifsc_code}}</dd>
+                                        <!-- <hr> -->
+                                    </dl>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

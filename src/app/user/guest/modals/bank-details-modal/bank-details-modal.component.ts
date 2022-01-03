@@ -19,6 +19,7 @@ export class BankDetailsModalComponent implements OnInit {
   public isFailedVerify_otp: boolean = false;
   public isVerified:boolean=false;
   public errorMessage: any;
+  public mobile_no:any;
 
   bank_details = this.fb.group({
     account_holder: ['', Validators.required],
@@ -44,6 +45,7 @@ export class BankDetailsModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.bank_account_no=this.user_bank_details.bank_account_no;
+    this.mobile_no=this.user_bank_details.user_mobile_no;
     this.bank_details.patchValue({
       account_holder:this.user_bank_details.bank_account_holder,
       account_no:this.user_bank_details.bank_account_no,
@@ -83,14 +85,12 @@ export class BankDetailsModalComponent implements OnInit {
         let param={data:this.bank_details.value,otp:this.otpForm.value.otp_password}
         this.profilePageService.bank_verify_otp(param).subscribe(
           data => {
-            console.log(data);
-            // this.closeModal('');
-            // this.otp_visible = false;
-            // this.isVerified = true;
-            // this.bank_details_refresh();
+            this.closeModal('');
+            this.otp_visible = false;
+            this.isVerified = true;
+            this.bank_details_refresh();
           },
           err => {
-            console.log(err.error);
             this.errorMessage = err.error;
             this.otp_submitted = true;
             this.isFailedVerify_otp = true;

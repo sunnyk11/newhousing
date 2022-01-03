@@ -100,5 +100,9 @@ export class CommonService {
     const route = "/api/product/pro_comp_delete";
     return this.apiService.post<ResultModel>(route, reqModel);
   }
+  getUserDetails(): Observable<ResultModel> {
+    const route = "/api/auth/user";
+    return this.apiService.get<ResultModel>(route);
+  }
   
 }

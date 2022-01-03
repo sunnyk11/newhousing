@@ -13,7 +13,7 @@
             </div>
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">Account No*:</span>
-                <input type="text" class="form-control" placeholder="" formControlName="account_no" [ngClass]="{ 'is-invalid': submitted && f.account_no.errors }">
+                <input type="text" class="form-control" placeholder="" formControlName="account_no" (keypress)="keyPressNumbers($event)" [ngClass]="{ 'is-invalid': submitted && f.account_no.errors }">
             </div>
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">IFSC Code*:</span>
@@ -29,7 +29,7 @@
 
 <div *ngIf="otp_visible">    
     <div class="modal-header">
-        <h5 class="modal-title">Please Enter Otp</h5>
+        <h5 class="modal-title">OTP Send ({{mobile_no}}) </h5>
         <button type="button" class="close" data-bs-dismiss="modal" (click)="closeModal('dismiss')" >
             <span aria-hidden="true">&times;</span>
         </button>
