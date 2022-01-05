@@ -68,7 +68,9 @@
                 <div class="col-lg-7 col-xl-8">
                     <div class="single_property_title mt30-767 mb30-767">
                         <h2>{{ product_data?.build_name }}</h2>
-                        <p>{{ product_data?.address }}</p>
+                        <p><span *ngIf="product_data?.product_locality?.locality">{{ product_data?.product_locality?.locality}}</span>
+                            <span *ngIf="product_data?.product_state?.state">({{ product_data?.product_state?.state}})</span> 
+                        </p>
                     </div>
                 </div>
                 <div class="col-lg-5 col-xl-4 share-tab">
@@ -107,10 +109,10 @@
                             <div class="listing_single_description">
                                 <div class="lsd_list">
                                     <ul class="mb0 ul_details">
-                                        <li class="list-inline-item"><a href="#">Apartment</a></li>
-                                        <li class="list-inline-item"><a href="#">Beds: {{product_data?.bedroom}}</a></li>
-                                        <li class="list-inline-item"><a href="#">Baths: {{product_data?.bathroom}}</a></li>
-                                        <li class="list-inline-item"><a href="#">Sq Ft: {{product_data?.area}}</a></li>
+                                        <li class="list-inline-item">Apartment</li>
+                                        <li class="list-inline-item">Beds: {{product_data?.bedroom}}</li>
+                                        <li class="list-inline-item">Baths: {{product_data?.bathroom}}</li>
+                                        <li class="list-inline-item">Sq Ft: {{product_data?.area}}</li>
                                         <li class="list-inline-item product_id">Product-id:{{product_data?.created_at | date: 'hh:mm:ss'}}:{{product_data?.id}}</li>
                                     </ul>
                                 </div>
@@ -220,25 +222,7 @@
                                                 <p>Landmark :</p>
                                             </li>
                                             <li>
-                                                <p>Remodel year</p>
-                                            </li>
-                                        </ul>
-                                        <ul class="list-inline-item">
-                                            <li *ngIf='product_data?.security_deposit'>
-                                                <p><span>{{product_data?.security_deposit}}</span></p>
-                                            </li>
-                                            <li>
-                                                <p><span>{{product_data?.nearest_landmark}}</span></p>
-                                            </li>
-                                            <li>
-                                                <p><span>{{product_data?.buildyear}}</span></p>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-md-6 col-lg-6">
-                                        <ul class="list-inline-item">
-                                            <li *ngIf="product_data?.maintenance_charge_condition != null">
-                                                <p>Maintenance:</p>
+                                                <p>Available For</p>
                                             </li>
                                             <li>
                                                 <p>Area Unit :</p>
@@ -248,22 +232,122 @@
                                             </li>
                                         </ul>
                                         <ul class="list-inline-item">
-                                            <li *ngIf="product_data?.maintenance_charge_condition != null">
-                                                <p><span>{{product_data?.maintenance_charge}}({{product_data?.maintenance_charge_condition}})</span></p>
+                                            <li *ngIf='product_data?.security_deposit'>
+                                                <p><span>{{product_data?.security_deposit}} Month Rent</span></p>
+                                            </li>
+                                            <li>
+                                                <p><span>{{product_data?.nearest_landmark}}</span></p>
+                                            </li>
+                                            <li>
+                                                <p><span>{{product_data?.available_for}}</span></p>
                                             </li>
                                             <li>
                                                 <p><span>{{product_data?.area_unit}}</span></p>
                                             </li>
                                             <li>
                                                 <p><span>{{product_data?.duration_of_rent_aggreement}}</span></p>
-                                                <!-- </a> -->
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-6 col-lg-6">
+                                        <ul class="list-inline-item">
+                                            <li *ngIf="product_data?.maintenance_charge_condition != null">
+                                                <p>Maintenance:</p>
+                                            </li>
+                                            <li>
+                                                <p>Reserved Parking :</p>
+                                            </li>
+                                            <li *ngIf="product_data?.property_on_floor">
+                                                <p>Property Floor :</p>
+                                            </li>
+                                            <li *ngIf="product_data?.total_floors">
+                                                <p>Total Floor :</p>
+                                            </li>
+                                            <li>
+                                                <p>Electricity_and_water_bill:</p>
+                                            </li>
+                                        </ul>
+                                        <ul class="list-inline-item">
+                                            <li *ngIf="product_data?.maintenance_charge_condition != null">
+                                                <p><span>{{product_data?.maintenance_charge}}({{product_data?.maintenance_charge_condition}})</span></p>
+                                            </li>
+                                            <li>
+                                                <p><span *ngIf="product_data?.additional_parking_status == 1">Yes </span>
+                                                    <span *ngIf="product_data?.additional_parking_status == 0">No </span>
+                                                </p>
+                                            </li>
+                                            <li *ngIf="product_data?.property_on_floor">
+                                                <p><span>{{product_data?.property_on_floor}}</span></p>
+                                            </li>
+                                            <li *ngIf="product_data?.total_floors">
+                                                <p><span>{{product_data?.total_floors}}</span></p>
+                                            </li>
+                                            <li>
+                                                <p>
+                                                    <span *ngIf="product_data?.inc_electricity_and_water_bill == 1">Yes</span>
+                                                    <span *ngIf="product_data?.inc_electricity_and_water_bill == 0">No</span> 
+                                                </p>
                                             </li>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-12">
+                        <div class="col-lg-12"  *ngIf="login_usertype == 11 && isLoggedIn == true">
+                            <div class="additional_details">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <h4 class="mb15">Additional details</h4>
+                                    </div>
+                                    <div class="col-md-12 col-lg-12">
+                                        <div class="row">
+                                            <div class="col-lg-4 col-6">
+                                                <ul class="list-inline-item">
+                                                    <li>
+                                                        <p>Agreement Type:</p>
+                                                    </li>
+                                                    <li>
+                                                        <p>Month of Notice :</p>
+                                                    </li>
+                                                    <li>
+                                                        <p>Duration Rent Aggrement :</p>
+                                                    </li>
+                                                    <li>
+                                                        <p>Willing To Rent Out:</p>
+                                                    </li>
+                                                    <li>
+                                                        <p>Price Negotiable:</p>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-lg-8 col-6">
+                                                <ul class="list-inline-item">
+                                                    <li>
+                                                        <p><span>{{product_data?.agreement_type}}</span></p>
+                                                    </li>
+                                                    <li>
+                                                        <p><span>{{product_data?.month_of_notice}}</span></p>
+                                                    </li>
+                                                    <li>
+                                                        <p><span>{{product_data?.duration_of_rent_aggreement}}</span></p>
+                                                    </li>
+                                                    <li>
+                                                        <p><span>{{product_data?.willing_to_rent_out_to}}</span></p>
+                                                    </li>
+                                                    <li>
+                                                        <p>
+                                                            <span *ngIf="product_data?.negotiable_status == 1">Yes{{product_data?.price_negotiable}}</span>
+                                                            <span *ngIf="product_data?.negotiable_status == 0">No</span> 
+                                                        </p>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="col-lg-12">
                             <div class="property_attachment_area">
                                 <h4 class="mb30">Property Attachments</h4>
                                 <div class="row iba_container style2">
@@ -284,10 +368,72 @@
                                     </div>
                                 </div>
                             </div>
+                        </div> -->
+                     <div class="col-12 hidden-lg">
+                        <div class="sidebar_listing_list payment_summery" *ngIf="product_data?.sale_availability == 1">
+                            <div class="row">
+                                <div class="col-lg-12 col-12">
+                                    <h4>Payment Details</h4>
+                                </div>
+                                <div class="col-lg-9 col-9">
+                                    <h6>Property Price:</h6>
+                                </div>
+                                <div class="col-lg-3 col-3">
+                                    <h6><strong>{{commaSeperated(product_data?.expected_pricing)}}</strong></h6>
+                                </div>
+                                <div class="col-lg-9 col-9" *ngIf="product_data?.maintenance_charge_status == '1'">
+                                    <h6>Maintenance Charge({{product_data?.maintenance_charge_condition}}): </h6>
+                                </div>
+                                <div class="col-lg-3 col-3" *ngIf="product_data?.maintenance_charge_status == '1'">
+                                    <h6><strong>{{commaSeperated(product_data?.maintenance_charge)}}</strong></h6>
+                                </div>
+                                <div class="col-lg-9 col-9">
+                                    <h6>Total Amount: </h6>
+                                </div>
+                                <div class="col-lg-3 col-3">
+                                    <h6><strong>{{commaSeperated(total_amount_owner)}}</strong></h6>
+                                </div>
+                            </div>
                         </div>
+                        <div class="sidebar_listing_list payment_summery" *ngIf="product_data?.rent_availability == 1">
+                            <div class="row">
+                                <div class="col-lg-12 col-12">
+                                    <h4>Payment Details</h4>
+                                </div>
+                                <div class="col-lg-9 col-9">
+                                    <h6>1 Month Rent:</h6>
+                                </div>
+                                <div class="col-lg-3 col-3">
+                                    <h6><strong>{{commaSeperated(product_data?.expected_rent)}}</strong></h6>
+                                </div>
+                                <div class="col-lg-9 col-9">
+                                    <h6>Security Deposit ({{product_data?.security_deposit}} Month Rent): </h6>
+                                </div>
+                                <div class="col-lg-3 col-3">
+                                    <h6><strong>{{commaSeperated(security_dep_amount)}}</strong></h6>
+                                </div>
+                                <div class="col-lg-9 col-9" *ngIf="product_data?.maintenance_charge_status == '1'">
+                                    <!-- <hr> -->
+                                    <h6>Maintenance Charge({{product_data?.maintenance_charge_condition}}): </h6>
+                                </div>
+                                <div class="col-lg-3 col-3" *ngIf="product_data?.maintenance_charge_status == '1'">
+                                    <h6><strong>{{commaSeperated(product_data?.maintenance_charge)}}</strong></h6>
+                                </div>
+                                <div class="col-lg-9 col-9">
+                                    <h6>Total Amount: </h6>
+                                </div>
+                                <div class="col-lg-3 col-3">
+                                    <h6><strong>{{commaSeperated(total_amount_owner)}}</strong></h6>
+                                </div>
+                            </div>
+                            <button class="chekout_btn w100 h50" (click)="proceedToPayment(product_data.id)">
+                            Proceed to Checkout
+                        </button>
+                        </div>
+                     </div>
                     </div>
                     <div class="col-lg-12" *ngIf="isLoggedIn == true">
-                        <div class="col-lg-12" *ngIf="login_usertype==1 || login_userid == product_data?.user_id">
+                        <div class="col-lg-12" *ngIf="login_userid == product_data?.user_id">
                             <div class="application_statics mt30">
                                 <div class="row">
                                     <div class="col-lg-3">
@@ -307,8 +453,48 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-4 offset-lg-8 col-12 mt20">
-                                    <a href="https://maps.google.co.in/maps?q={{latCus}},{{longCus}}" target="_blanck"><button class="btn btn-primary">Visit The Direction Map</button></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12" *ngIf="isLoggedIn == true">
+                        <div class="col-lg-12" *ngIf="login_usertype == 11">
+                            <div class="application_statics mt30">
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <h4 class="Map_heading mb20">Location</h4>
+                                    </div>
+                                    <div class="col-lg-9 single_page_address">
+                                        <h6 class="mb20">{{address}}</h6>
+                                    </div>
+                                </div>
+                                <div class="property_video p0">
+                                    <div class="thumb">
+                                        <div class="overlay_icon">
+                                            <agm-map [latitude]="latCus" [longitude]="longCus" [zoom]="15" class="main-card-agm-map" (mapReady)="onMapReady($event)">
+                                                <agm-marker [latitude]="latCus" [longitude]="longCus">
+                                                </agm-marker>
+                                            </agm-map>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div  class="col-lg-12 col-12 mt20">
+                                    <div class="row">
+                                        <div class="col-lg-8 col-12 mt20" *ngIf="product_data?.product_sub_locality?.sub_locality">
+                                            <h6 class="mb20" style="font-weight: 700!important;">Sub-Locality-:<span>{{product_data?.product_sub_locality?.sub_locality}}</span></h6>
+                                        </div>
+                                        <div class="col-lg-4 col-12 mt20">
+                                            <a href="https://maps.google.co.in/maps?q={{latCus}},{{longCus}}" target="_blanck"><button class="btn btn-primary">Visit The Direction Map</button></a>
+                                        </div>
+                                        <div class="col-lg-12 col-12 mt20" id="address_details" *ngIf="address_details">
+                                            <h6><span style="font-weight: 800!important;">Address-Details:-</span><span>{{address_details}}</span></h6>
+                                        </div>
+                                        <div class="col-lg-12 col-12 mt20 user_details_map">
+                                            <a><img src="./../../assets/resources/images/property/img_avatar2-png-9.png" alt="img_avatar2-png-9.png">
+                                            <span>{{product_data?.user_detail?.name}}</span>
+                                            <span><a href="tel:{{product_data?.user_detail?.other_mobile_number}}">({{product_data?.user_detail?.other_mobile_number}})</a></span>
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -428,7 +614,10 @@
                                         <div class="tc_content">
                                             <p class="text-thm" *ngIf="number.type != null">{{ number.type | titlecase }}</p>
                                             <h4>{{number.build_name | titlecase}}</h4>
-                                            <p><span class="flaticon-placeholder"></span> {{ number.address | titlecase }}</p>
+                                            <p>
+                                                <span  *ngIf="number.product_locality != null">{{ number.product_locality?.locality | titlecase }}</span>
+                                                <span *ngIf="number.product_state != null">({{ number.product_state?.state | titlecase }})</span>
+                                            </p>
                                             <ul class="prop_details mb0">
                                                 <li class="list-inline-item"><a>Beds: {{ number.bedroom }}</a></li>
                                                 <li class="list-inline-item"><a>Baths: {{ number.bathroom }}</a></li>
@@ -529,6 +718,66 @@
 
                     <!-- Recently viewed product  -->
                     <app-recently-viewed-product></app-recently-viewed-product>
+                    <div class="sidebar_listing_list payment_summery hidden-sm" *ngIf="product_data?.sale_availability == 1">
+                        <div class="row">
+                            <div class="col-lg-12 col-12">
+                                <h4>Payment Details</h4>
+                            </div>
+                            <div class="col-lg-9 col-9">
+                                <h6>Property Price:</h6>
+                            </div>
+                            <div class="col-lg-3 col-3">
+                                <h6><strong>{{commaSeperated(product_data?.expected_pricing)}}</strong></h6>
+                            </div>
+                            <div class="col-lg-9 col-9" *ngIf="product_data?.maintenance_charge_status == '1'">
+                                <h6>Maintenance Charge({{product_data?.maintenance_charge_condition}}): </h6>
+                            </div>
+                            <div class="col-lg-3 col-3" *ngIf="product_data?.maintenance_charge_status == '1'">
+                                <h6><strong>{{commaSeperated(product_data?.maintenance_charge)}}</strong></h6>
+                            </div>
+                            <div class="col-lg-9 col-9">
+                                <h6>Total Amount: </h6>
+                            </div>
+                            <div class="col-lg-3 col-3">
+                                <h6><strong>{{commaSeperated(total_amount_owner)}}</strong></h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sidebar_listing_list payment_summery hidden-sm" *ngIf="product_data?.rent_availability == 1">
+                        <div class="row">
+                            <div class="col-lg-12 col-12">
+                                <h4>Payment Details</h4>
+                            </div>
+                            <div class="col-lg-9 col-9">
+                                <h6>1 Month Rent:</h6>
+                            </div>
+                            <div class="col-lg-3 col-3">
+                                <h6><strong>{{commaSeperated(product_data?.expected_rent)}}</strong></h6>
+                            </div>
+                            <div class="col-lg-9 col-9">
+                                <h6>Security Deposit ({{product_data?.security_deposit}} Month Rent): </h6>
+                            </div>
+                            <div class="col-lg-3 col-3">
+                                <h6><strong>{{commaSeperated(security_dep_amount)}}</strong></h6>
+                            </div>
+                            <div class="col-lg-9 col-9" *ngIf="product_data?.maintenance_charge_status == '1'">
+                                <!-- <hr> -->
+                                <h6>Maintenance Charge({{product_data?.maintenance_charge_condition}}): </h6>
+                            </div>
+                            <div class="col-lg-3 col-3" *ngIf="product_data?.maintenance_charge_status == '1'">
+                                <h6><strong>{{commaSeperated(product_data?.maintenance_charge)}}</strong></h6>
+                            </div>
+                            <div class="col-lg-9 col-9">
+                                <h6>Total Amount: </h6>
+                            </div>
+                            <div class="col-lg-3 col-3">
+                                <h6><strong>{{commaSeperated(total_amount_owner)}}</strong></h6>
+                            </div>
+                        </div>
+                        <button class="chekout_btn w100 h50" (click)="proceedToPayment(product_data.id)">
+                        Proceed to Checkout
+                    </button>
+                    </div>
 
                 </div>
             </div>

@@ -39,6 +39,7 @@ export class ProductCategoryComponent implements OnInit {
   productcategory(){
     this.CommonService.getproductcategory({ param: null }).subscribe(
       response => {
+      console.log(response);
         this.category=response;
       }, err => { 
       }

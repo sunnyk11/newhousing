@@ -550,7 +550,11 @@ h4 .h1,
     -o-transition: all .3s ease;
     transition: all .3s ease;
 }
-
+.mat-autocomplete-panel{
+    overflow: inherit!important;
+    height: auto!important;
+    max-height: revert!important;
+}
 .home1-advnc-search ul li .search_option_button button:hover {
     background-color: #ffffff;
     border: 2px solid #ff5a5f;
@@ -2771,7 +2775,7 @@ input.amount2 {
     line-height: 1.2;
 }
 
-.lsd_list li:hover a {
+.lsd_list li:hover{
     color: #ff5a5f;
 }
 

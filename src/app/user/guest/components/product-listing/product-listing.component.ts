@@ -483,7 +483,6 @@ export class ProductListingComponent implements OnInit {
   
   // wishlist refreh functionalty 
   wishlist_refresh(){
-    console.log('testing');
     this.CommonService.emit<string>('true');
   } 
   // product comapre refresh function 

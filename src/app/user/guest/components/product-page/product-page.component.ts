@@ -44,6 +44,7 @@ export class ProductPageComponent implements OnInit {
   public sectiondisplay:boolean=false;
   private e: any;
   private product_id: any;
+  public address_details:string = '';
   public map:any;
   constructor(
     private _sanitizer: DomSanitizer,
@@ -87,6 +88,7 @@ export class ProductPageComponent implements OnInit {
             this.safeURL = this._sanitizer.bypassSecurityTrustResourceUrl(this.youtube_url);
             this.similarproperty(this.product_data.city);
             this.address=this.product_data.address;
+            this.address_details=this.product_data.address_details;
             this.latCus=parseFloat(this.product_data.map_latitude);
             this.longCus=parseFloat(this.product_data.map_longitude);
             
