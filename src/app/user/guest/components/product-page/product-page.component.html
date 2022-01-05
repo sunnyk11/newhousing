@@ -111,6 +111,7 @@
                                         <li class="list-inline-item"><a href="#">Beds: {{product_data?.bedroom}}</a></li>
                                         <li class="list-inline-item"><a href="#">Baths: {{product_data?.bathroom}}</a></li>
                                         <li class="list-inline-item"><a href="#">Sq Ft: {{product_data?.area}}</a></li>
+                                        <li class="list-inline-item product_id">Product-id:{{product_data?.created_at | date: 'hh:mm:ss'}}:{{product_data?.id}}</li>
                                     </ul>
                                 </div>
                                 <h4 class="mb30">Description</h4>
@@ -516,32 +517,8 @@
                         Proceed to Checkout
                     </button>
                     </div>
-                    <div class="sidebar_listing_list">
-                        <div class="row">
-                            <h4>Post Review</h4>
-                        </div>
-                        <div class="row">
-                            <div class="rating rating2">
-                                <a>★</a>
-                                <a>★</a>
-                                <a>★</a>
-                                <a>★</a>
-                                <a>★</a>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="mb-3">
-                                <label for="review_subject" class="form-label">Review Subject</label>
-                                <input type="text" class="form-control" id="review_subject">
-                            </div>
-                            <div class="mb-3">
-                                <label for="review_content" class="form-label">Review Content</label>
-                                <textarea class="form-control" id="review_content" rows="3"></textarea>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <button class="btn-thm h50">Submit</button>
-                        </div>
+                    <div class="sidebar_listing_list" *ngIf="isLoggedIn == true">
+                        <div class="row"><h4 class="post_review" (click)="user_reviews()">Post Review <span>click here</span></h4></div>
                     </div>
 
                     <!-- featured property -->

@@ -52,6 +52,16 @@
     color: #ff5a5f!important;
     padding-left: 10px!important;
 }
+.post_review{
+    text-align: center!important;
+    cursor: pointer;
+}
+.product_id{
+    background: #ff5a5f;
+    color: #fff;
+    border-radius: 0px;
+    cursor: pointer;
+}
 @media(min-width: 768px) {  
     .single_page_address h6{
         justify-content: flex-end!important;

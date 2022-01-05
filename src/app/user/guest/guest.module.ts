@@ -50,6 +50,8 @@ import { BlogComponent } from './components/blog/blog.component';
 import { TruncateTextPipe } from './pipes/truncate-text.pipe';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { BankDetailsModalComponent } from './modals/bank-details-modal/bank-details-modal.component';
+import { UserReviewModalComponent } from './modals/user-review-modal/user-review-modal.component';
+import { NgxStarRatingModule } from 'ngx-star-rating';
 
 @NgModule({
   declarations: [
@@ -92,6 +94,7 @@ import { BankDetailsModalComponent } from './modals/bank-details-modal/bank-deta
     BlogComponent,
     TruncateTextPipe,
     BankDetailsModalComponent,
+    UserReviewModalComponent,
   ],
   imports: [
     CommonModule,
@@ -107,7 +110,8 @@ import { BankDetailsModalComponent } from './modals/bank-details-modal/bank-deta
     }),  
     NgImageSliderModule,
     NgbModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    NgxStarRatingModule
   ],
 })
 export class GuestModule { }

@@ -8,6 +8,8 @@ import { Router } from '@angular/router';
 import { JwtService } from 'src/app/user/services/jwt.service';
 import { CommonService } from '../../services/common.service';
 import { ToastrService } from 'ngx-toastr';
+import { UserReviewModalComponent } from '../../modals/user-review-modal/user-review-modal.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-product-page',
@@ -49,6 +51,7 @@ export class ProductPageComponent implements OnInit {
      private ProductPageService: ProductPageService,
      private jwtService: JwtService,
      public CommonService:CommonService,
+     private modalService: NgbModal,
      private toastr: ToastrService,
      private router:Router
   ) {
@@ -386,6 +389,21 @@ export class ProductPageComponent implements OnInit {
   proceedToPayment(productId:any) {
     this.router.navigate(['/product_payment_summary'], { queryParams: {'productID': productId } });
   }
+  user_reviews(){
+  const modalRef = this.modalService.open(UserReviewModalComponent,
+    {
+      scrollable: true,
+      windowClass: 'myCustomModalClass',
+      // keyboard: false,
+      backdrop: 'static'
+    });
+    
+    let data = {
+      product_id: this.product_id,
+      userid:this.login_userid
+    }
+    modalRef.componentInstance.data = data;
+}
   // carosule image
   customOptions: OwlOptions = {
     loop: true,

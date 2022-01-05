@@ -108,6 +108,9 @@ ul .list-inline-item{
     .additional_row li label{
       margin-left: 2px!important;
     }
+    .btn_location_map{
+      width:100%!important;
+    }
     .additional_row .form-group{
         display: flex!important;
         align-items: center!important;

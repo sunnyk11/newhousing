@@ -2,8 +2,8 @@ import { Component, OnInit,Input } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ProfilePageService } from '../../services/profile-page.service';
-import { Router } from '@angular/router';
 import { CommonService } from '../../services/common.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-bank-details-modal',
@@ -39,8 +39,8 @@ export class BankDetailsModalComponent implements OnInit {
   constructor(public activeModal: NgbActiveModal,
     private profilePageService: ProfilePageService,
     private fb: FormBuilder,
-    public CommonService:CommonService,
-    private router:Router
+    private toastr: ToastrService,
+    public CommonService:CommonService
     ) { }
 
   ngOnInit(): void {
@@ -88,6 +88,9 @@ export class BankDetailsModalComponent implements OnInit {
             this.closeModal('');
             this.otp_visible = false;
             this.isVerified = true;
+            this.toastr.success('Bank Details Update', 'User', {
+              timeOut: 3000,
+            });
             this.bank_details_refresh();
           },
           err => {

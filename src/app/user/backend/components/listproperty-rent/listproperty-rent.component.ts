@@ -370,7 +370,7 @@ export class ListpropertyRentComponent implements OnInit {
         });
         this.getCurrentLocation();
         this.map_show=true;
-      }, 4000)
+      }, 2500)
       
     })
   }
@@ -379,17 +379,26 @@ export class ListpropertyRentComponent implements OnInit {
       let geocoder = new google.maps.Geocoder;
       let latlng = {lat:  this.latCus, lng: this.longCus};
       let that = this;
-      geocoder.geocode({'location': latlng}, function(results) {
-        console.log(results);
+      geocoder.geocode({'location': latlng}, (results) => {
           if (results[0]) {
             that.zoom = 11;
-            // that.currentLocation = results[0].formatted_address;
-            console.log(results[0].formatted_address);
+            this.form_step2.patchValue({
+              address: results[0].formatted_address,
+            });
           } else {
             console.log('No results found');
           }
       });
     });
+  }
+  
+  map_address(value:any){
+    if(value.length<4){
+      this.form_step2.patchValue({
+        map_latitude: '',
+        map_longitude: '',
+      });
+    }
   }
   markerDragEnd($event: google.maps.MouseEvent) {
     this.latCus = $event.latLng.lat();

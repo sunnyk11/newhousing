@@ -208,8 +208,8 @@
                                     </div>
                                     </div>
                                </div> 
-                                <input #search autocorrect="off" autocapitalize="on" spellcheck="off" formControlName="address" [ngClass]="{ 'is-invalid': submitted2 && step2.map_longitude.errors }" class="form-control input-text" placeholder="Enter Address" />
-                                <button class="btn btn-primary mb10" (click)="getLocation()">Show My Localion</button>
+                                <input #search autocorrect="off" autocapitalize="on" spellcheck="off" formControlName="address" [ngClass]="{ 'is-invalid': submitted2 && step2.map_longitude.errors }" (ngModelChange)="map_address($event)" class="form-control input-text" placeholder="Enter Address" />
+                                <button class="btn btn-primary mb10 btn_location_map" (click)="getLocation()">Show My Localion</button>
                                 <span class="flaticon-maps-and-flags" style="position: absolute;top: 40px; right: 80px"></span>
                                 <agm-map style="height: 300px;" [latitude]="latCus" [longitude]="longCus" [zoom]="15" class="main-card-agm-map" *ngIf="map_show == true">
                                     <agm-marker [latitude]="latCus" [longitude]="longCus" [markerDraggable]="true" (dragEnd)="markerDragEnd($event)">

@@ -47,10 +47,8 @@ export class TopbarNotificationComponent implements OnInit {
       this.LoggedIn = true;
       this.commonService.getUserDetails().pipe().subscribe(
         data => {
-          console.log(data);
           let result:any=data;
           this.user_data = result.data;
-          console.log(this.user_data);
           if(this.user_data.bank_acount_no == null){
             this.show_topbar=true;
           }else{
@@ -88,7 +86,6 @@ bank_details(){
       user_mobile_no: this.phn_no,
       user_id:this.id
     }
-    console.log(data);
 
     modalRef.componentInstance.user_bank_details = data;
 }
