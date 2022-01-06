@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserReviewsService } from '../../services/user-reviews.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-user-reviews',
@@ -10,8 +11,10 @@ export class UserReviewsComponent implements OnInit {
   public user_reviews:any;
   public p:number=0;
   public review_length:any;
+  public showLoadingIndicator:boolean=false;
 
-  constructor(private UserReviewsService:UserReviewsService) { }
+  constructor(private UserReviewsService:UserReviewsService,
+    private toastr: ToastrService,) { }
 
   ngOnInit(): void {
     this.get_reviews();
@@ -29,7 +32,31 @@ export class UserReviewsComponent implements OnInit {
     );
   }
   delete_reviews(id:any){
+    let param = { user_id: id}
+    this.UserReviewsService.user_reviews_delete(param).subscribe(
+      response => {
+        this.showLoadingIndicator =false;
+        let data:any=response;
+        this.toastr.error('Delete Successfully', 'User Reviews', {
+          timeOut: 3000,
+        });
+        this.get_reviews();
+      }
+    );
 
+  }
+  reviews_status(id:any){
+    let param = { user_id: id}
+    this.UserReviewsService.reviews_status_changes(param).subscribe(
+      response => {
+        this.showLoadingIndicator =false;
+        let data:any=response;
+        this.toastr.success('Status Updated', 'User Reviews', {
+          timeOut: 3000,
+        });
+        this.get_reviews();
+      }
+    );
   }
 
 }
