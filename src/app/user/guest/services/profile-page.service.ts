@@ -29,6 +29,14 @@ export class ProfilePageService {
     const route = "/api/admin/profile_mobile_update";
     return this.apiService.post<ResultModel>(route, { id: id, email: email, other_mobile_number: phone_number });
   }
+  bank_mobile_verification(phone_number: any) {
+    const route = "/api/auth/bank_verify_mobile";
+    return this.apiService.post<ResultModel>(route, {phone_number: phone_number});
+  }
+  bank_verify_otp(reqModel: any) {
+    const route = "/api/auth/bank_verify_OTP";
+    return this.apiService.post<ResultModel>(route,reqModel);
+  }
 
   verify_profile_mobile(number: any, otp: string, id: number): Observable<ResultModel> {
     const route = "/api/auth/verify_profile_mob";

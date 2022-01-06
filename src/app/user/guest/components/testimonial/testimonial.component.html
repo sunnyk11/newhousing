@@ -20,7 +20,7 @@
                                             <img src="assets/resources/images/testimonial/1.jpg" alt="1.jpg">
                                         </div>
                                         <div class="details">
-                                            <h4 class="mt15 mb15">{{testimonial?.user_name}}</h4>
+                                            <h4 class="mt15 mb15">{{testimonial?.user_detail?.name}}</h4>
                                             <!-- <p>Sales Manager</p> -->
                                             <p class="mt15 mb15" *ngIf="testimonial.stars == 0">
                                                 <i class="fa fa-star-o" aria-hidden="true"></i>
@@ -64,7 +64,7 @@
                                                 <i class="fa fa-star" aria-hidden="true"></i>
                                                 <i class="fa fa-star" aria-hidden="true"></i>
                                             </p>
-                                            <p class="mt15 mb15 content">{{testimonial?.rev_content}}</p>
+                                            <p class="mt15 mb15 content">{{testimonial?.content}}</p>
                                         </div>
                                     </div>
                                 </div>
