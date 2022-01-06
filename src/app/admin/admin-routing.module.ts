@@ -6,6 +6,7 @@ import { MasterComponent } from './components/master/master.component';
 import { AuthGuard } from './guards/auth.guard';
 import { ViewPlansComponent } from './components/view-plans/view-plans.component';
 import { AddPlanComponent } from './components/add-plan/add-plan.component';
+import { UserReviewsComponent } from './components/user-reviews/user-reviews.component';
 
 const routes: Routes = [
   {
@@ -14,7 +15,8 @@ const routes: Routes = [
       { path: "login", component: LoginComponent },
       { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
       { path: 'view-plans', component: ViewPlansComponent, canActivate: [AuthGuard] },
-      { path: 'add-plan', component: AddPlanComponent, canActivate: [AuthGuard] }
+      { path: 'add-plan', component: AddPlanComponent, canActivate: [AuthGuard] },
+      { path: 'user-reviews', component: UserReviewsComponent, canActivate: [AuthGuard] }
     ]
   }
 ];

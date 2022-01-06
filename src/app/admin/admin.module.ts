@@ -16,6 +16,8 @@ import { HeaderComponent } from './components/header/header.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ViewPlansComponent } from './components/view-plans/view-plans.component';
 import { AddPlanComponent } from './components/add-plan/add-plan.component';
+import { UserReviewsComponent } from './components/user-reviews/user-reviews.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,8 @@ import { AddPlanComponent } from './components/add-plan/add-plan.component';
     SidenavComponent,
     HeaderComponent,
     ViewPlansComponent,
-    AddPlanComponent
+    AddPlanComponent,
+    UserReviewsComponent
   ],
   imports: [
     CommonModule,
@@ -37,6 +40,7 @@ import { AddPlanComponent } from './components/add-plan/add-plan.component';
     MatIconModule,
     MatButtonModule,
     MatListModule,
+    NgxPaginationModule,
     FlexLayoutModule
   ]
 })

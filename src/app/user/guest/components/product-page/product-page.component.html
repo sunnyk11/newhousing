@@ -271,7 +271,7 @@
                                                 <p><span>{{product_data?.maintenance_charge}}({{product_data?.maintenance_charge_condition}})</span></p>
                                             </li>
                                             <li>
-                                                <p><span *ngIf="product_data?.additional_parking_status == 1">Yes </span>
+                                                <p><span *ngIf="product_data?.additional_parking_status == 1">Yes({{product_data?.parking_covered_count}},{{product_data?.parking_open_count}}) </span>
                                                     <span *ngIf="product_data?.additional_parking_status == 0">No </span>
                                                 </p>
                                             </li>

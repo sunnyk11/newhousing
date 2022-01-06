@@ -1,0 +1,17 @@
+.status_tag{
+    background-color: #ff5a5f!important;
+    font-size: 16px;
+    letter-spacing: 1.4px;
+}
+.flaticon-garbage{    
+    color:#ff0000!important;
+    font-size: 20px;
+    cursor: pointer!important;
+}
+
+@media(max-width: 768px) {
+    .status_tag{
+        font-size: 16px!important;
+        letter-spacing: 1.2px!important;
+    }
+}
