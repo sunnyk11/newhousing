@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute,Router } from '@angular/router';
 import { ProductPageService } from '../../services/product-page.service';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { environment } from 'src/environments/environment';
 import { DomSanitizer } from '@angular/platform-browser';
-import { Router } from '@angular/router';
 import { JwtService } from 'src/app/user/services/jwt.service';
 import { CommonService } from '../../services/common.service';
 import { ToastrService } from 'ngx-toastr';
 import { UserReviewModalComponent } from '../../modals/user-review-modal/user-review-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ClipboardService } from 'ngx-clipboard';
 
 @Component({
   selector: 'app-product-page',
@@ -54,6 +54,7 @@ export class ProductPageComponent implements OnInit {
      public CommonService:CommonService,
      private modalService: NgbModal,
      private toastr: ToastrService,
+     private clipboardApi: ClipboardService,
      private router:Router
   ) {
     this.route.queryParams.subscribe((params) => {
@@ -335,7 +336,11 @@ export class ProductPageComponent implements OnInit {
   showText() {
     this.isReadMore = !this.isReadMore
   }
-  
+  copyText(type:any,create:any,id:any) {
+  let product_id:any=type+create+id;
+    this.clipboardApi.copyFromContent(product_id);
+    this.toastr.info('Property Id Coppy');
+  }
   onMapReady(map: any) {
     this.map = map;
     this.map.setOptions({

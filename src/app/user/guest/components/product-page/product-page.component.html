@@ -109,11 +109,17 @@
                             <div class="listing_single_description">
                                 <div class="lsd_list">
                                     <ul class="mb0 ul_details">
-                                        <li class="list-inline-item">Apartment</li>
+                                        <li class="list-inline-item product_id"  *ngIf=" product_data.rent_availability != null">
+                                           Property id:<span  *ngIf="product_data?.created_at | date: 'hhmmss' as created_at"  (click)="copyText('RP',created_at,product_data?.id)"> RP{{created_at}}{{product_data?.id}}</span> 
+                                        </li>
+                                        <li class="list-inline-item product_id" *ngIf=" product_data.sale_availability != null">
+                                            Property id:<span  *ngIf="product_data?.created_at | date: 'hhmmss' as created_at"  (click)="copyText('SP',created_at,product_data?.id)"> SP{{created_at}}{{product_data?.id}}</span> 
+                                        </li>
                                         <li class="list-inline-item">Beds: {{product_data?.bedroom}}</li>
                                         <li class="list-inline-item">Baths: {{product_data?.bathroom}}</li>
                                         <li class="list-inline-item">Sq Ft: {{product_data?.area}}</li>
-                                        <li class="list-inline-item product_id">Product-id:{{product_data?.created_at | date: 'hh:mm:ss'}}:{{product_data?.id}}</li>
+                                        <li class="list-inline-item" id="mobile_viewd_li">Apartment</li>
+                                                                               
                                     </ul>
                                 </div>
                                 <h4 class="mb30">Description</h4>

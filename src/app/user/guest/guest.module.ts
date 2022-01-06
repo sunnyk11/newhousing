@@ -52,6 +52,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { BankDetailsModalComponent } from './modals/bank-details-modal/bank-details-modal.component';
 import { UserReviewModalComponent } from './modals/user-review-modal/user-review-modal.component';
 import { NgxStarRatingModule } from 'ngx-star-rating';
+import { ClipboardModule } from 'ngx-clipboard';
 
 @NgModule({
   declarations: [
@@ -104,6 +105,7 @@ import { NgxStarRatingModule } from 'ngx-star-rating';
     NgxPaginationModule,
     NgxSliderModule,
     FormsModule,
+    ClipboardModule,
     ReactiveFormsModule,
     AgmCoreModule.forRoot({  
       apiKey: 'AIzaSyC2S5kHeGYkW9cL4d7_uxfauTBfQEtN4HA', libraries: ['places','drawing', 'geometry']
