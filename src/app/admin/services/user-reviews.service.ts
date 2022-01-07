@@ -11,7 +11,7 @@ export class UserReviewsService {
   constructor(private apiService: ApiService) { }
   
   get_reviews(reqModel: any): Observable<ResultModel> {
-    const route = "/api/product/get_reviews";
+    const route = "/api/admin/get_reviews";
     return this.apiService.get<ResultModel>(route, reqModel);
   }
   reviews_status_changes(reqModel: any): Observable<ResultModel> {
