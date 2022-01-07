@@ -76,6 +76,8 @@ export class UpdatepropertyRentComponent implements OnInit {
   public submitted2: boolean = false;
   public submitted3: boolean = false;
   public submitted4: boolean = false;
+  public map_show:boolean=true;
+
 
   private update_room_array: any = [];
   private unique_room_array: any = [];
@@ -263,16 +265,10 @@ export class UpdatepropertyRentComponent implements OnInit {
           }
         }
       }
-    );
-    
+    ); 
   }
-  
   change_selected_locality1(data:any){
     this.form_step2.patchValue({locality:data['0'].locality_id});
-    this.address_concated= data['0'].locality_text + ', Delhi';
-    this.form_step2.patchValue({
-      address:this.address_concated
-    });
     let param = { Locality_id:data['0'].locality_id}
     this.CommonService.get_sub_locality(param).subscribe(
       response => {
@@ -424,6 +420,14 @@ export class UpdatepropertyRentComponent implements OnInit {
   //     }
   //   );
   // }
+  map_address(value:any){
+    if(value.length<4){
+      this.form_step2.patchValue({
+        map_latitude: '',
+        map_longitude: '',
+      });
+    }
+  }
   google_map(){
     this.mapsAPILoader.load().then(() => {
       this.geoCoder = new google.maps.Geocoder();
@@ -464,16 +468,40 @@ export class UpdatepropertyRentComponent implements OnInit {
       }
     });
   }
+  
   getLocation() {
+    this.map_show=false;
     this.CommonService.getLocationService().then(resp => {
-      this.longCus = parseFloat(resp.lng);
-      this.latCus = parseFloat(resp.lat);
-      this.form_step2.patchValue({
-        map_latitude: this.latCus,
-        map_longitude: this.longCus,
-      });
+      setTimeout(()=>{ 
+        this.longCus = parseFloat(resp.lng);
+        this.latCus = parseFloat(resp.lat);
+        this.form_step2.patchValue({
+          map_latitude: this.latCus,
+          map_longitude: this.longCus,
+        });
+        this.getCurrentLocation();
+        this.map_show=true;
+      }, 2500)
+      
     })
-  }  
+  }
+  getCurrentLocation() {
+    this.mapsAPILoader.load().then(() => {
+      let geocoder = new google.maps.Geocoder;
+      let latlng = {lat:  this.latCus, lng: this.longCus};
+      let that = this;
+      geocoder.geocode({'location': latlng}, (results) => {
+          if (results[0]) {
+            that.zoom = 11;
+            this.form_step2.patchValue({
+              address: results[0].formatted_address,
+            });
+          } else {
+            console.log('No results found');
+          }
+      });
+    });
+  }
   
   onMapReady(map: any) {
     this.map = map;
@@ -494,6 +522,7 @@ export class UpdatepropertyRentComponent implements OnInit {
     let param = { id: prod_id }
     this.RentPropertyService.property_get_id(param).subscribe(
       response => {
+        console.log(response);
         let data:any =response;
         if(data.data == null){
           this.redirect_to_myproperty();
@@ -572,6 +601,7 @@ export class UpdatepropertyRentComponent implements OnInit {
           }
           // step 2 
           if(data.data.address != null){
+            console.log(data.data.address);
             this.form_step2.patchValue({
               address:  data.data.address
             });

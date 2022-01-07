@@ -12,6 +12,11 @@
                 <div class="preloader"></div>
             </div>
         </div>
+        <div class="row" *ngIf="product_length==0">
+            <div class="col-lg-12">
+                <h3>No Property this Account</h3>
+            </div>
+        </div>
         <div class="row" *ngIf="product_length>0">
             <div class="col-lg-12">
                 <div class="my_dashboard_review">

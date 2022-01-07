@@ -38,6 +38,17 @@ export class CommonService {
   pro_comp_on<T>(): Observable<T>{
     return this.pro_comp_subject.asObservable();
   }
+  
+  // topbar bank details profile page refresh functionalty start
+  public bank_details = new BehaviorSubject<any>('');
+  bank_details_emit<T>(data: T){
+    this._subject.next(data);
+  }
+  bank_details_on<T>(): Observable<T>{
+    return this._subject.asObservable();
+  }
+
+
   getAmenities(reqModel:any): Observable<ResultModel> {
     const route = "/api/amenities";
     return this.apiService.get<ResultModel>(route, reqModel);
@@ -87,6 +98,14 @@ export class CommonService {
   }
   pro_comp_delete(reqModel:any): Observable<ResultModel> {
     const route = "/api/product/pro_comp_delete";
+    return this.apiService.post<ResultModel>(route, reqModel);
+  }
+  getUserDetails(): Observable<ResultModel> {
+    const route = "/api/auth/user";
+    return this.apiService.get<ResultModel>(route);
+  }
+  user_reviews(reqModel:any): Observable<ResultModel> {
+    const route = "/api/product/post_review";
     return this.apiService.post<ResultModel>(route, reqModel);
   }
   

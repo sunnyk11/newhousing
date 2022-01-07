@@ -22,6 +22,12 @@ ul .list-inline-item{
   height: 100vh;
   z-index: 100!important;
 }
+.preloader_row1{
+  position: relative;
+  width: 100%;
+  height: 250px;
+  z-index: 100!important;
+}
 .portfolio_item{
     border-radius: 8px;
     background-color: rgb(247, 247, 247);
@@ -101,6 +107,9 @@ ul .list-inline-item{
 @media(max-width: 768px) { 
     .additional_row li label{
       margin-left: 2px!important;
+    }
+    .btn_location_map{
+      width:100%!important;
     }
     .additional_row .form-group{
         display: flex!important;
