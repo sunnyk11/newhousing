@@ -1,0 +1,132 @@
+<div class="wrapper">
+    <div class="container  mb20">
+        <div class="row">
+            <div class="col-lg-12 ">
+                <div class="my_dashboard_review">
+                    <form role="form" action="" method="post" class="f1"  [formGroup]="searching_form">
+                    <div class="row">
+                        <div class="col-lg-8  col-12">
+                          <h2 class="mb10"> Searching Reviews</h2>
+                        </div>
+                        <div class="col-lg-3 offset-lg-1 col-12 refresh">
+                            <button type="submit" class="btn btn-submit" (click)="refresh_data()">Refresh Form</button>
+                        </div>                        
+                        <div class="col-lg-4 col-sm-12 mt15">
+                            <div class="form-group">
+                                <label for="star_date" class="form-label">Select Sart Date</label>
+                                <input type="date" class="form-control" id="star_date" formControlName="star_date" [ngClass]="{ 'is-invalid': submitted && f.star_date.errors }" (ngModelChange)="onchange_date()">
+                            </div>
+                        </div>                  
+                        <div class="col-lg-4 col-sm-12 mt15">
+                            <div class="form-group">
+                                <label for="end_date" class="form-label">Select End Date</label>
+                                <input type="date" class="form-control" id="end_date"  formControlName="end_date" [ngClass]="{ 'is-invalid': submitted && f.end_date.errors }" (ngModelChange)="onchange_date()">
+                            </div>
+                        </div>  
+                      <div class="col-lg-4 col-12 search-column mt15">
+                          <!-- <div class="f1-buttons m-auto"> -->
+                              <button type="submit" class="btn btn-submit" [disabled]="disabled" (click)="on_search()"><span *ngIf="disabled==false">Search</span><span *ngIf="disabled== true">No Search data</span></button>
+                          <!-- </div> -->
+                      </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container mt20">
+        <div class="row">
+            <div class="col-lg-12  col-12">
+                <div class="row preloader_row" *ngIf="showLoadingIndicator == true">
+                    <div class="col-lg-12">
+                        <div class="preloader"></div>
+                    </div>
+                </div>
+                <div class="my_dashboard_review" *ngIf="showLoadingIndicator == false">
+                    <div class="property_table">
+                        <div class="table-responsive mt0">
+                            <span class="status_tag badge">User Reviews ({{review_length}})</span>
+                            <table class="table table-striped  text-center" *ngIf="showLoadingIndicator == false">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th scope="col heading">User</th>
+                                        <th scope="col">Stars</th>
+                                        <th scope="col">Reviews</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Action On</th>
+                                    </tr>
+                                </thead>
+                                <tbody >
+                                    <tr  *ngFor="let data of user_reviews?.data | paginate:{itemsPerPage:5, currentPage:p} ">
+                                        <td>{{data?.user_detail?.name}}</td>
+                                        <td class="star_rating">
+                                            <span *ngIf="data?.stars == 5">
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                            </span>
+                                            <span *ngIf="data?.stars == 4">
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                            </span>
+                                            <span *ngIf="data?.stars == 3">
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                            </span>
+                                            <span *ngIf="data?.stars == 2">
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                            </span>
+                                            <span *ngIf="data?.stars == 1">
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                            </span>
+                                        </td>
+                                        <td>{{data?.subject}}</td>
+                                        <td>
+                                            <label class="switch" *ngIf="data?.status == 1">
+                                                <input type="checkbox"  (click)="reviews_status(data?.id)" checked>
+                                                <span class="slider round"></span>
+                                              </label>
+                                              <label class="switch" *ngIf="data?.status == 0">
+                                                  <input type="checkbox"  (click)="reviews_status(data?.id)">
+                                                  <span class="slider round"></span>
+                                                </label>
+                                        </td>
+                                        <td>
+                                            <ul class="view_edit_delete_list mb0">
+                                                <li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="Delete">
+                                                    <a (click)="delete_reviews(data?.id)"><span class="flaticon-garbage"></span></a>
+                                                </li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="col-lg-12 agent_property " *ngIf="user_reviews?.data?.length>5 && showLoadingIndicator==false">
+                            <pagination-controls (pageChange)="p=$event"></pagination-controls>
+                            </div>
+                            <div class="col-lg-12"  *ngIf="review_length==0 && showLoadingIndicator==false">
+                                <h3>No Data Availabe</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
