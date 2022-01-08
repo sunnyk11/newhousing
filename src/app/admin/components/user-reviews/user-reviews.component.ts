@@ -34,7 +34,6 @@ export class UserReviewsComponent implements OnInit {
   get_reviews(){
     this.UserReviewsService.get_reviews({ param: null }).subscribe(
       response => {
-        console.log(response);
         this.user_reviews=response;
         this.review_length=this.user_reviews.data.length;
       }, err => { 
@@ -45,6 +44,13 @@ export class UserReviewsComponent implements OnInit {
   get f() {
     return this.searching_form.controls;
   }
+  refresh_data(){
+    this.searching_form.patchValue({
+      star_date:'',
+      end_date:''
+    });
+    this.get_reviews();
+  }
   on_search(){
     if(this.searching_form.invalid){
       this.submitted = true;
@@ -53,10 +59,8 @@ export class UserReviewsComponent implements OnInit {
       let start_date:any = this.pipe.transform(this.searching_form.value.star_date, 'y-MM-dd')+ " 00:00:00";
       let end_date:any = this.pipe.transform(this.searching_form.value.end_date, 'y-MM-dd')+ " 59:59:59";
        let param = { start_date: start_date,end_date:end_date}
-       console.log(param);
        this.UserReviewsService.get_reviews(param).subscribe(
         response => {
-          console.log(response);
           this.user_reviews=response;
           this.review_length=this.user_reviews.data.length;
           this.showLoadingIndicator =false;

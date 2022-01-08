@@ -5,9 +5,12 @@
                 <div class="my_dashboard_review">
                     <form role="form" action="" method="post" class="f1"  [formGroup]="searching_form">
                     <div class="row">
-                        <div class="col-lg-12">
+                        <div class="col-lg-8  col-12">
                           <h2 class="mb10"> Searching Reviews</h2>
-                          </div>                        
+                        </div>
+                        <div class="col-lg-3 offset-lg-1 col-12 refresh">
+                            <button type="submit" class="btn btn-submit" (click)="refresh_data()">Refresh Form</button>
+                        </div>                        
                         <div class="col-lg-4 col-sm-12 mt15">
                             <div class="form-group">
                                 <label for="star_date" class="form-label">Select Sart Date</label>
