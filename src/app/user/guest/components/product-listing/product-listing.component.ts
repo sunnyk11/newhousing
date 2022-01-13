@@ -258,6 +258,7 @@ export class ProductListingComponent implements OnInit {
     if(this.jwtService.getToken().length>5){
       this.ProductListingPageService.login_product_details(param).subscribe(
         response => {
+          console.log(response);
           let data:any=response;
           this.property=response;
           this.product_length=data.data.length;
