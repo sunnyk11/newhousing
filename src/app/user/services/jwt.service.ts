@@ -85,7 +85,7 @@ export class JwtService {
     window.localStorage["AUTH_TOKEN"] = JSON.stringify(data.access_token);
     window.localStorage["USER_EMAIL"] = JSON.stringify(data.email);
     window.localStorage["USER_ID"] = JSON.stringify(data.id);
-    window.localStorage["USER_NAME"] = JSON.stringify(data.username);
+    window.localStorage["USER_NAME"] = data.username;
     window.localStorage["USER_TYPE"] = JSON.stringify(data.usertype);
     window.localStorage["USER_PROFILE_PIC"] = data.misc.profile_pic;
     window.localStorage["USER_ROLE"] = data.misc.user_role;
@@ -96,10 +96,13 @@ export class JwtService {
     window.localStorage["ADMIN_AUTH_TOKEN"] = JSON.stringify(data.access_token);
     window.localStorage["ADMIN_EMAIL"] = JSON.stringify(data.email);
     window.localStorage["ADMIN_ID"] = JSON.stringify(data.id);
-    window.localStorage["ADMIN_NAME"] = JSON.stringify(data.username);
+    window.localStorage["ADMIN_NAME"] = data.username;
     window.localStorage["ADMIN_TYPE"] = JSON.stringify(data.usertype);
     window.localStorage["ADMIN_PROFILE_PIC"] = data.misc.profile_pic;
     window.localStorage["USER_ROLE"] = data.misc.user_role;
+    window.localStorage["USER_TYPE"] = data.misc.usertype;
+    window.localStorage["USER_ROLES"] = JSON.stringify(data.roles);
+    window.localStorage["USER_PERMISSIONS"] = JSON.stringify(data.permissions);
   }
 
   saveGoogleUser(token: any, data: any) {
@@ -111,7 +114,7 @@ export class JwtService {
     window.localStorage["AUTH_TOKEN"] = JSON.stringify(token);
     window.localStorage["USER_EMAIL"] = JSON.stringify(this.user_data.email);
     window.localStorage["USER_ID"] = JSON.stringify(this.user_data.id);
-    window.localStorage["USER_NAME"] = JSON.stringify(this.user_data.name);
+    window.localStorage["USER_NAME"] = this.user_data.name;
     window.localStorage["USER_TYPE"] = JSON.stringify(this.user_data.usertype);
     window.localStorage["USER_PROFILE_PIC"] = this.user_data.profile_pic;
     //this.router.navigate([""]);
@@ -176,8 +179,25 @@ export class JwtService {
   getUserRole() {
     return window.localStorage["USER_ROLE"];
   }
+
+  getUserRoles() {
+    return window.localStorage["USER_ROLES"];
+  }
+
+  getUserPermissions() {
+    return window.localStorage["USER_PERMISSIONS"];
+  }
+
+  getAdminName() {
+    return window.localStorage["ADMIN_NAME"];
+  }
+
+  getAdminId() {
+    return window.localStorage["ADMIN_ID"];
+  }
   
   signOut() {
+    console.log("Logout");
     window.localStorage.clear();
   }
 }

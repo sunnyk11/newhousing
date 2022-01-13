@@ -16,6 +16,13 @@ import { HeaderComponent } from './components/header/header.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ViewPlansComponent } from './components/view-plans/view-plans.component';
 import { AddPlanComponent } from './components/add-plan/add-plan.component';
+import { CreateUserComponent } from './components/create-user/create-user.component';
+import { CreateRoleComponent } from './components/create-role/create-role.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { ViewRoleComponent } from './components/view-role/view-role.component';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -25,7 +32,10 @@ import { AddPlanComponent } from './components/add-plan/add-plan.component';
     SidenavComponent,
     HeaderComponent,
     ViewPlansComponent,
-    AddPlanComponent
+    AddPlanComponent,
+    CreateUserComponent,
+    CreateRoleComponent,
+    ViewRoleComponent
   ],
   imports: [
     CommonModule,
@@ -37,7 +47,11 @@ import { AddPlanComponent } from './components/add-plan/add-plan.component';
     MatIconModule,
     MatButtonModule,
     MatListModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatCheckboxModule,
+    NgMultiSelectDropDownModule,
+    MatMenuModule,
+    MatExpansionModule
   ]
 })
 export class AdminModule { }

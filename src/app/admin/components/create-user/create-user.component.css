@@ -1,0 +1,8 @@
+:host ::ng-deep .multiselect-dropdown .dropdown-btn {
+    border: none !important;
+    padding: 0 10px !important;
+}
+
+:host ::ng-deep .multiselect-dropdown .dropdown-btn .dropdown-multiselect__caret {
+    height: 30px !important;
+}
