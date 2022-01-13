@@ -8,7 +8,7 @@ import { ViewPlansComponent } from './components/view-plans/view-plans.component
 import { AddPlanComponent } from './components/add-plan/add-plan.component';
 import { UserReviewsComponent } from './components/user-reviews/user-reviews.component';
 import { UserBankDetailsComponent } from './components/user-bank-details/user-bank-details.component';
-
+import { UserListComponent } from './components/user-list/user-list.component';
 const routes: Routes = [
   {
     path: '', component: MasterComponent,
@@ -18,6 +18,7 @@ const routes: Routes = [
       { path: 'view-plans', component: ViewPlansComponent, canActivate: [AuthGuard] },
       { path: 'add-plan', component: AddPlanComponent, canActivate: [AuthGuard] },
       { path: 'user-bank-details', component: UserBankDetailsComponent, canActivate: [AuthGuard] },
+      { path: 'user-list', component: UserListComponent, canActivate: [AuthGuard] },
       { path: 'user-reviews', component: UserReviewsComponent, canActivate: [AuthGuard] }
     ]
   }

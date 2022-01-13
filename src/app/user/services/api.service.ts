@@ -74,6 +74,15 @@ export class ApiService {
       params: searchParams
     }).pipe(catchError(this.formatErrors))
   }
+  get_pagination<ResultModel>(
+    path: string,
+    searchParams: HttpParams = new HttpParams()
+  ): Observable<ResultModel> {
+    return this.http.get<ResultModel>(`${path}`, {
+      headers: this.setHeaders(),
+      params: searchParams
+    }).pipe(catchError(this.formatErrors))
+  }
 
 
   put<ResultModel>(path: string, body: object = {}): Observable<ResultModel> {

@@ -11,6 +11,7 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { Pagination } from 'src/app/user/components/models/pagination.model';
 
 @Component({
   selector: 'app-product-listing',
@@ -44,24 +45,27 @@ export class ProductListingComponent implements OnInit {
   public category:any={};
   public dropdownList: any = []; 
   public filteredOptions!: Observable<any[]>;
+  public Pagination_data: Pagination;
   
   private amenityArray:any = [];
   private search_amenties_convert: any=[];
 
   searchForm = this.formBuilder.group({
-    bathrooms: [''],
-    bedrooms: [''],
-    years: [''],
-    area_unit: [''],
-    search_type: ['rent'],
-    build_name: [''],
+    // bathrooms: [''],
+    // bedrooms: [''],
+    // years: [''],
+    // area_unit: [''],
+    // build_name: [''],
     type: [''],
-    location: [''],
+    // location: [''],
     city:[''],
     locality:[''],
     locality_data:[''],
     property_status:['all'],
-    sliderControl: [[]]
+    search_type: ['rent'],
+    sliderControl: [[]],
+    max_price:[],
+    min_price:[]
   });
 
   
@@ -104,6 +108,7 @@ export class ProductListingComponent implements OnInit {
     private toastr: ToastrService,
     private router:Router
     ) {
+      this.Pagination_data = new Pagination();
       this.param_query_check();     
      }
 
@@ -135,6 +140,8 @@ export class ProductListingComponent implements OnInit {
         response => {
           let data:any=response;
           this.dropdownList=[];
+          console.log(this.dropdownList);
+          console.log(data);
           if(data.data[0].length>0){
             for (let i = 0; i < data.data[0].length; i++) {
               this.dropdownList = this.dropdownList?.concat({ item_id: data.data[0][i].locality_id, item_text: data.data[0][i].locality});
@@ -145,7 +152,7 @@ export class ProductListingComponent implements OnInit {
                 map((value) => this._filter(value))
               );
               }if(data.data[1].length>0){
-                for (let i = 1; i < data.data[1].length; i++) {
+                for (let i = 0; i < data.data[1].length; i++) {
                   this.dropdownList = this.dropdownList?.concat({ item_id: data.data[1][i].sub_locality_id, item_text: data.data[1][i].sub_locality});
                 }
                 this.filteredOptions = this.searchForm.controls.locality.valueChanges
@@ -153,7 +160,7 @@ export class ProductListingComponent implements OnInit {
                     startWith(''),
                     map((value) => this._filter(value))
                   );
-          }
+              }
           if(this.dropdownList.length>0){
             this.searchForm.patchValue({locality:this.dropdownList[0].item_text});
           }else{
@@ -227,7 +234,7 @@ export class ProductListingComponent implements OnInit {
        else if(params.category != null){
         this.searchForm.controls['type'].setValue(params.category);         
         this.searchForm.value.sliderControl[0] = 5000;
-        this.searchForm.value.sliderControl[1] = 50000000;    
+        this.searchForm.value.sliderControl[1] = 50000000;  
         this.onsearch();
        }else if(params.cities != null){
         this.searchForm.controls['city'].setValue(params.cities); 
@@ -254,34 +261,29 @@ export class ProductListingComponent implements OnInit {
     this.showLoadingIndicator =true;
     this.propertyresultlength=false;
     this.product_length=0;
-    let param={data:this.searchForm.value}
+    this.searchForm.value.min_price= this.searchForm.value.sliderControl[0];
+    this.searchForm.value.max_price=this.searchForm.value.sliderControl[1]; 
     if(this.jwtService.getToken().length>5){
-      this.ProductListingPageService.login_product_details(param).subscribe(
-        response => {
-          console.log(response);
-          let data:any=response;
-          this.property=response;
-          this.product_length=data.data.length;
-          if(data.data.length < 1){
-            this.propertyresultlength = true;
-          }
-          this.showLoadingIndicator = false;
-        }, err => {
-        }
-      );
+    this.ProductListingPageService.login_product_details(this.searchForm.value).then(
+      Pagination_data => {
+        this.property=Pagination_data;
+        this.product_length=this.property.data.total;
+        this.showLoadingIndicator = false;
+      },
+      err => {
+        this.showLoadingIndicator = false;
+      }
+    );
       this.wishlist_refresh();
       this.pro_comp_refresh();
     }else{
-      this.ProductListingPageService.product_details(param).subscribe(
-        response => {
-          let data:any=response;
-          this.property=response;
-          this.product_length=data.data.length;
-          if(data.data.length < 1){
-            this.propertyresultlength = true;
-          }
+      this.ProductListingPageService.product_details(this.searchForm.value).then(
+        Pagination_data => {
+          this.property=Pagination_data;
+          this.product_length=this.property.data.total;
           this.showLoadingIndicator = false;
-        }, err => { 
+        },
+        err => {
           this.showLoadingIndicator = false;
         }
       );
@@ -289,14 +291,27 @@ export class ProductListingComponent implements OnInit {
     this.closePopup();
   } 
   
+  gotoPage(link_url: any) {
+    this.showLoadingIndicator = true;
+    this.ProductListingPageService.getpagination(link_url).then(Pagination_data => {
+      this.showLoadingIndicator= false;
+      this.property=Pagination_data;
+      // this.user_list_length=this.user_list.data.data.length;
+    });
+  } 
   selected_locality(data:any){
-    this.searchForm.patchValue({locality:data});
+    console.log(data);
+    this.searchForm.controls['locality'].setValue(data);  
+    console.log(this.searchForm.value);
+    console.log(this.dropdownList);
   }   
   navigate(): void{
+    console.log(this.searchForm.value);
     if(this.searchForm.value.locality.length<3){
       this.searchForm.patchValue({locality:''});
     }
     let data:any=this.searchForm.value;
+    console.log(this.searchForm.value);
     this.product_length=0;
     this.router.navigate(['/product-listing'],{queryParams:{'city':data.city,'locality':data.locality,'type':data.type,'minimum':data.sliderControl[0],'maximum':data.sliderControl[1]}});
     // this.router.navigate(['/product-listing'],{queryParams:{'name':data.build_name,'city':data.city,'type':data.type,'search_type':data.search_type,'area_unit':data.area_unit,'years':data.years,'bedrooms':data.bedrooms,'bathrooms':data.bathrooms,'minimum':data.sliderControl[0],'maximum':data.sliderControl[1],'location':data.location,amenties:this.amenityArray}});
@@ -363,25 +378,27 @@ export class ProductListingComponent implements OnInit {
   }
   reset_Search():void{
     this.searchForm.setValue({
-      bathrooms: '',
-      bedrooms: '',
-      years: '',
-      area_unit:'',
+      // bathrooms: '',
+      // bedrooms: '',
+      // years: '',
+      // area_unit:'',
       search_type: 'all',
-      build_name: '',
+      // build_name: '',
       type: '',
-      location: '',
+      // location: '',
       city:'',
       locality:'',
       locality_data:'',
       property_status:'all',
-      sliderControl: [5000,50000000]
+      sliderControl: [5000,50000000],
+      min_price:Number(5000),
+      max_price:Number(500000) 
     });    
     this.search_amenties=[];
     this.amenityArray=[];
     this.product_length=0;
     this.router.navigate(['/product-listing']);
-    this.property_type();
+    // this.property_type();
     this.onsearch();
   }
   
