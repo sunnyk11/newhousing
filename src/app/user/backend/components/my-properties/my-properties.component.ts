@@ -7,6 +7,7 @@ import { PlansServiceService } from '../../services/plans-service.service';
 import { JwtService } from 'src/app/user/services/jwt.service';
 import { MatDialog } from '@angular/material/dialog';
 import { PropertyCreditModalComponent } from './../property-credit-modal/property-credit-modal.component';
+import { Pagination } from 'src/app/user/components/models/pagination.model';
 
 @Component({
   selector: 'app-my-properties',
@@ -22,8 +23,10 @@ export class MyPropertiesComponent implements OnInit {
   public draftproperty:any=[];
   public draft_pro_length:number=0;
   public showLoadingIndicator:boolean=false;
+  public showLoadingIndicator_draft:boolean=false;
   public userEmail:any= null;
   public response_data: any;
+  public Pagination_data: Pagination;
 
   private e:any;
 
@@ -34,35 +37,57 @@ export class MyPropertiesComponent implements OnInit {
     private jwtService: JwtService,
     private dialog: MatDialog,
     private router:Router
-    ) { }
+    ) {
+      this.Pagination_data = new Pagination(); }
 
   ngOnInit(): void {
     this.agent_properties();
     this.draft_properties();
     this.userEmail = this.jwtService.getUserEmail();
   }
-  // fetch agent_properties 
+  // fetch agent_properties   
   agent_properties(){
-    this.showLoadingIndicator =true;
-    this.MypropertiesService.agent_properties({ param: null }).subscribe(
-      response => {
-        this.agentproperty=response;
-        this.product_length=this.agentproperty.data.length;
-        this.showLoadingIndicator =false;
+    this.showLoadingIndicator= true;
+    this.MypropertiesService.agent_properties().then(
+      Pagination_data => {
+        this.agentproperty=Pagination_data;
+        console.log(this.agentproperty);
+        this.product_length=this.agentproperty.data.total;
+        this.showLoadingIndicator=false;
+      }, err => {
       }
     );
   }
   // fetch draft_properties 
   draft_properties(){
-    this.showLoadingIndicator =true;
-    this.MypropertiesService.draft_properties({ param: null }).subscribe(
-      response => {
-        this.draftproperty=response;
-        this.showLoadingIndicator =false;
-        this.draft_pro_length=this.draftproperty.data.length;
+    this.showLoadingIndicator= true;
+    this.MypropertiesService.draft_properties().then(
+      Pagination_data => {
+        this.draftproperty=Pagination_data;
+        console.log(this.agentproperty);
+        this.draft_pro_length=this.draftproperty.data.total;
+        this.showLoadingIndicator=false;
+      }, err => {
       }
     );
   }
+  
+  gotoPage(link_url: any) {
+    this.showLoadingIndicator = true;
+    this.MypropertiesService.getpagination(link_url).then(Pagination_data => {
+      this.showLoadingIndicator= false;
+      this.agentproperty=Pagination_data;
+      // this.user_list_length=this.user_list.data.data.length;
+    });
+  } 
+  gotoPage_draft(link_url: any) {
+    this.showLoadingIndicator_draft = true;
+    this.MypropertiesService.getpagination(link_url).then(Pagination_data => {
+      this.showLoadingIndicator_draft= false;
+      this.draftproperty=Pagination_data;
+      // this.user_list_length=this.user_list.data.data.length;
+    });
+  } 
   price_comma(value:number):void{
     this.e=value;
     var t = (this.e = this.e ? this.e.toString() : "").substring(this.e.length - 3)

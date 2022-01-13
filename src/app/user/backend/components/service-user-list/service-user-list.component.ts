@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LocalServiceProviderService } from '../../services/local-service-provider.service';
 import { ToastrService } from 'ngx-toastr';
-import { CommonService } from '../../services/common.service';
+import { Pagination } from 'src/app/user/components/models/pagination.model';
 
 @Component({
   selector: 'app-service-user-list',
@@ -13,30 +13,40 @@ export class ServiceUserListComponent implements OnInit {
   public submitted: boolean = false;
   public showLoadingIndicator: boolean =false;
   public p:number=0;
-  public search_data:any={};
+  public user_data:any={};
+  public Pagination_data: Pagination;
+  public user_length:number=0;
 
  
   constructor(
     private LocalServiceProviderService:LocalServiceProviderService,
     private toastr: ToastrService
-    ) { }
+    ) {
+      this.Pagination_data = new Pagination();  }
 
   ngOnInit(): void {  
     this.getservice_user();
   }
   getservice_user(){
-    this.showLoadingIndicator = true;
-    this.LocalServiceProviderService.getservice_user({ param: null }).pipe().subscribe(
-      response=> {
-        console.log(response);
-        this.search_data=response;
-        this.showLoadingIndicator = false;
-      },
-      err => {
-       this.showLoadingIndicator = false;
+    this.showLoadingIndicator= true;
+    this.LocalServiceProviderService.getservice_user().then(
+      Pagination_data => {
+        this.user_data=Pagination_data;
+        console.log(this.user_data);
+        this.user_length=this.user_data.data.total;
+        this.showLoadingIndicator=false;
+      }, err => {
       }
-    )
-
+    );
+  }
+  
+  gotoPage(link_url: any) {
+    this.showLoadingIndicator = true;
+    this.LocalServiceProviderService.getpagination(link_url).then(Pagination_data => {
+      this.showLoadingIndicator= false;
+      this.user_data=Pagination_data;
+      // this.user_list_length=this.user_list.data.data.length;
+    });
   }
     delete_service_user(id:any){
     this.showLoadingIndicator = true;

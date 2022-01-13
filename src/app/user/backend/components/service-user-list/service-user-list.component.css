@@ -20,6 +20,11 @@
     font-size: 18px!important;
     margin: 0px!important;
 }
+.preloader_row{
+    position: relative;
+    width: 100%;
+    height: 200px;
+}
 .status_tag{
     background-color: #ff5a5f!important;
 }
