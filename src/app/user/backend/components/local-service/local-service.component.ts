@@ -7,6 +7,7 @@ import { CommonService } from '../../services/common.service';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { Pagination } from 'src/app/user/components/models/pagination.model';
 
 @Component({
   selector: 'app-local-service',
@@ -18,8 +19,8 @@ export class LocalServiceComponent implements OnInit {
   public showLoadingIndicator: boolean =false;
   public ftpstring=environment.ftpURL;
   public search_data:any={};
-  public p:number=0;
   public d:number=0;
+  public search_data_length:number=0;
   public result:any;
   public star_rating: number=0;
   public rating_data: any;
@@ -38,6 +39,7 @@ export class LocalServiceComponent implements OnInit {
   dropdownSettings_locality!: IDropdownSettings;
   dropdownSettings!: IDropdownSettings;
   public filteredOptions!: Observable<any[]>;
+  public Pagination_data: Pagination;
   
   
   Service_form = new FormGroup({
@@ -58,7 +60,8 @@ export class LocalServiceComponent implements OnInit {
     private LocalServiceProviderService:LocalServiceProviderService,
     private toastr: ToastrService,
     private CommonService:CommonService
-  ) { }
+  ) {
+    this.Pagination_data = new Pagination(); }
 
   ngOnInit(): void {
     this.dropdownSettings = {
@@ -170,57 +173,6 @@ export class LocalServiceComponent implements OnInit {
     }
   }
   
-  // get_state(){
-  //   this.showLoadingIndicator = true;
-  //   this.CommonService.get_state({ param: null }).pipe().subscribe(
-  //     response=> {
-  //       console.log(response);
-  //       this.state_data=response;
-  //       this.showLoadingIndicator = false;
-  //     },
-  //     err => {
-  //      this.showLoadingIndicator = false;
-  //     }
-  //   )
-  // }
-  
-  // onchange_state(id:any){
-  //   let param = { id: id }
-  //   this.CommonService.get_district_byid(param).subscribe(
-  //     response => {
-  //       console.log(response);
-  //       this.district_data=[];
-  //       this.dropdown_locality=[];
-  //       this.dropdown_sublocality=[];
-  //       this.Service_form.patchValue({district:''});
-  //       this.Service_form.patchValue({locality:''});
-  //       this.Service_form.patchValue({sub_locality:''});
-  //       this.district_data=response;
-  //     },
-  //     err => {
-  //     }
-  //   );
-  // }
-  // onchange_district(id:any){
-  //   let param = { id: id }
-  //   this.CommonService.get_locality_byid(param).subscribe(
-  //     response => {
-  //       console.log(response);
-  //       this.locality_data=response;
-  //       this.dropdown_locality=[];
-  //       this.dropdown_sublocality=[];
-  //       this.Service_form.patchValue({locality:''});
-  //       this.Service_form.patchValue({sub_locality:''});
-  //       let data:any =response;
-  //       for (let i = 1; i < data.data.length; i++) {
-  //         this.dropdown_locality = this.dropdown_locality?.concat({ locality_id: data.data[i].locality_id, locality: data.data[i].locality});
-  //       }
-  //     },
-  //     err => {
-  //     }
-  //   );
-  // }
-  
   on_search(){
     if(this.Service_form.value.sub_locality.length>0){
       this.Service_form.value.sub_locality=this.Service_form.value.sub_locality[0].sub_locality_id;
@@ -229,15 +181,25 @@ export class LocalServiceComponent implements OnInit {
       this.Service_form.value.service=this.Service_form.value.service[0].service_id;
     }
     this.showLoadingIndicator = true;
-    this.LocalServiceProviderService.searching_area(this.Service_form.value).subscribe(
-      response => {
-        this.search_data = response;
+    this.LocalServiceProviderService.searching_area(this.Service_form.value).then(
+      Pagination_data => {
+        this.search_data=Pagination_data;
+        this.search_data_length=this.search_data.data.total;
         this.showLoadingIndicator = false;
       },
       err => {
         this.showLoadingIndicator = false;
       }
     );
+  } 
+  
+  gotoPage(link_url: any) {
+    this.showLoadingIndicator = true;
+    this.LocalServiceProviderService.getpagination(link_url).then(Pagination_data => {
+      this.showLoadingIndicator= false;
+      this.search_data=Pagination_data;
+      // this.user_list_length=this.user_list.data.data.length;
+    });
   } 
   
   submit_review():void{
@@ -250,6 +212,7 @@ export class LocalServiceComponent implements OnInit {
             this.showLoadingIndicator = false;
             this.toastr.success('Successfuly Reviews For Service');
             this.user_details(data.data);
+            this.on_search();
           },
           err => {
             this.showLoadingIndicator = false;
@@ -323,7 +286,7 @@ export class LocalServiceComponent implements OnInit {
             stars:data.user_review.stars,
           });
         }
-        this.on_search();
+        // this.on_search();
       },
       err => {
        this.showLoadingIndicator = false;

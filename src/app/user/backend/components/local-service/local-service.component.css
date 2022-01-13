@@ -9,6 +9,11 @@
     background-color: #f35b3f!important;
     opacity: 1!important;
 }
+.preloader_row{
+    position: relative;
+    width: 100%;
+    height: 150px;
+}
 .search-column button:hover{
   background-color: #f35b3f!important;
   color: #fff!important;

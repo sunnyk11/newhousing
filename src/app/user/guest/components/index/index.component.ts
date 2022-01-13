@@ -150,7 +150,7 @@ export class IndexComponent implements OnInit {
                 map((value) => this._filter(value))
               );
               }if(data?.data[1]?.length>0){
-                for (let i = 1; i < data.data[1].length; i++) {
+                for (let i = 0; i < data.data[1].length; i++) {
                   this.dropdownList = this.dropdownList?.concat({ item_id: data.data[1][i].sub_locality_id, item_text: data.data[1][i].sub_locality});
                 }
                 this.filteredOptions = this.searchForm.controls.locality.valueChanges

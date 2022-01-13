@@ -3,6 +3,8 @@ import { Observable } from 'rxjs';
 import { ResultModel } from 'src/app/user/models/response/base.model';
 import { ApiService } from 'src/app/user/services/api.service';
 import { BehaviorSubject, Subject } from 'rxjs';
+import { Pagination } from 'src/app/user/components/models/pagination.model';
+
 
 @Injectable({
   providedIn: 'root'
@@ -22,8 +24,21 @@ export class UserBankDetailsService {
     return this._subject.asObservable();
   }
 
-  get_userbank_details(reqModel: any): Observable<ResultModel> {
+  private handleError(error: any): Promise<any> {
+    console.error('An error occurred', error); 
+    return Promise.reject(error.message || error);
+  }  
+  get_userbank_details(): Promise<Pagination> {
     const route = "/api/admin/get_userbank_details";
+    return this.apiService.get(route).toPromise().then(
+      (response) => {
+        console.log(response);
+        return response as Pagination
+      })
+      .catch(this.handleError);
+  }
+  get_userbank_history_id(reqModel: any): Observable<ResultModel> {
+    const route = "/api/admin/get_userbank_history_id";
     return this.apiService.get<ResultModel>(route, reqModel);
   } 
   delete_user_bank(reqModel: any): Observable<ResultModel> {
@@ -33,6 +48,16 @@ export class UserBankDetailsService {
   update_bank_paytm_id(reqModel: any): Observable<ResultModel> {
     const route = "/api/admin/update_bank_paytm_id";
     return this.apiService.post<ResultModel>(route, reqModel);
+  }
+  
+  getpagination(url: string): Promise<Pagination> {
+    const route = url;
+    console.log(route);
+    return this.apiService.get_pagination(route).toPromise().then(
+      (response) => {
+      return response as Pagination
+    })
+    .catch(this.handleError);
   }
   
 }

@@ -103,7 +103,7 @@
                                 <dt class="col-sm-3">Bank Verify Status</dt>
                                 <dd class="col-sm-9 status_heading" *ngIf="user_data?.bank_acount_no ==null"><p class="text-danger">NA</p></dd>
                                 <dd class="col-sm-9 status_heading" *ngIf="user_data?.paytm_verify_status ==0 && user_data?.account_paytm_verify_id ==null"><p class="text-danger">Account is not Verify</p></dd>
-                                <dd class="col-sm-9 status_heading" *ngIf="user_data?.paytm_verify_status ==1 && user_data?.account_paytm_verify_id !=null"><p class="text-success">Verify Account.This Account not Edit . </p></dd>
+                                <dd class="col-sm-9 status_heading" *ngIf="user_data?.paytm_verify_status ==1 && user_data?.account_paytm_verify_id !=null"><p class="text-success">Verify Account.</p></dd>
                                 <hr>
                                 <dd class="col-lg-3 offset-lg-8 col-12">
                                 <button type="button" class="btn btn-primary" *ngIf="bank_account_no != null" (click)="bank_details()">

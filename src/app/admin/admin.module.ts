@@ -21,6 +21,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { UserBankDetailsComponent } from './components/user-bank-details/user-bank-details.component';
 import { UserPaytmVerifyComponent } from './modals/user-paytm-verify/user-paytm-verify.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { BankHistoryComponent } from './modals/bank-history/bank-history.component';
+import { UserListComponent } from './components/user-list/user-list.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AddPlanComponent,
     UserReviewsComponent,
     UserBankDetailsComponent,
-    UserPaytmVerifyComponent
+    UserPaytmVerifyComponent,
+    BankHistoryComponent,
+    UserListComponent
   ],
   imports: [
     CommonModule,

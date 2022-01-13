@@ -3,7 +3,9 @@ import { ToastrService } from 'ngx-toastr';
 import { UserBankDetailsService } from '../../services/user-bank-details.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserPaytmVerifyComponent } from '../../modals/user-paytm-verify/user-paytm-verify.component';
-
+import { BankHistoryComponent } from '../../modals/bank-history/bank-history.component';
+// import { Pagination } from '../../models/pagination.model';
+import { Pagination } from 'src/app/user/components/models/pagination.model';
 @Component({
   selector: 'app-user-bank-details',
   templateUrl: './user-bank-details.component.html',
@@ -12,8 +14,10 @@ import { UserPaytmVerifyComponent } from '../../modals/user-paytm-verify/user-pa
 export class UserBankDetailsComponent implements OnInit {
   public user_bank_details:any;
   public user_bank_length:any;
+  public user_bank_history_data:any;
   public p:number=0;
   public showLoadingIndicator:boolean=false;
+  public Pagination_data: Pagination;
 
   constructor(private toastr: ToastrService,
        private modalService: NgbModal,
@@ -24,24 +28,36 @@ export class UserBankDetailsComponent implements OnInit {
               this.get_userbank_details();
             }
           });
+          this.Pagination_data = new Pagination();
        }
 
   ngOnInit(): void {
+    this.showLoadingIndicator= true;
     this.get_userbank_details();
   }
   // fetch user bank details 
+  
   get_userbank_details(){
-    this.UserBankDetailsService.get_userbank_details({ param: null }).subscribe(
-      response => {
-        console.log(response);
-        this.user_bank_details=response;
-        this.user_bank_length=this.user_bank_details.data.length;
-      }, err => { 
-        let Message =err.error.message;
+    this.showLoadingIndicator= true;
+    this.UserBankDetailsService.get_userbank_details().then(
+      Pagination_data => {
+        this.user_bank_details=Pagination_data;
+        console.log(this.user_bank_details);
+        this.user_bank_length=this.user_bank_details.data.total;
+        this.showLoadingIndicator= false;
+      }, err => {
       }
     );
   }
   
+  gotoPage(link_url: any) {
+    this.showLoadingIndicator = true;
+    this.UserBankDetailsService.getpagination(link_url).then(Pagination_data => {
+      this.showLoadingIndicator= false;
+      this.user_bank_details=Pagination_data;
+      // this.user_list_length=this.user_list.data.data.length;
+    });
+  } 
 update_bank_details(account_holder:any,bank_acount_no:any,ifsc_code:any,paytm_verify_id:any,mobile:any,user_id:any){
    const modalRef = this.modalService.open(UserPaytmVerifyComponent,
     {
@@ -60,6 +76,36 @@ update_bank_details(account_holder:any,bank_acount_no:any,ifsc_code:any,paytm_ve
     }
     modalRef.componentInstance.user_bank_details = data;
 }
+  user_bank_history(id:any,email:any,mobile:any){
+      let param = { user_id: id }
+      this.UserBankDetailsService.get_userbank_history_id(param).subscribe(
+        response => {
+          this.user_bank_history_data=response;
+            if(this.user_bank_history_data.data.length){
+              const modalRef = this.modalService.open(BankHistoryComponent,
+                {
+                  scrollable: true,
+                  windowClass: 'myCustomModalClass',
+                  // keyboard: false,
+                  backdrop: 'static'
+                });
+              let data = {
+                data:this.user_bank_history_data,
+                email:email,
+                mobile:mobile
+              }
+              modalRef.componentInstance.data = data;
+            }else{
+              this.toastr.warning('This User Not Bank History', email, {
+                timeOut: 3000,
+              });
+            }
+        }, err => { 
+          let Message =err.error.message;
+        }
+      );
+    
+  }
   
   delete_user_bank(id:any){
     this.showLoadingIndicator =true;

@@ -23,8 +23,5 @@
 .preloader_row{
     position: relative;
     width: 100%;
-    height: 50px;
-}
-.view_edit_delete_list li{
-    padding-right: 10px;
+    height: 150px;
 }
