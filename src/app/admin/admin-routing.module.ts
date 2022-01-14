@@ -33,7 +33,7 @@ const routes: Routes = [
       } },
       { path: 'view-role', component: ViewRoleComponent, canActivate: [AuthGuard, PermissionGuard], data: {
         permission: ['access_manage_roles']
-      } }
+      } },
       { path: 'user-bank-details', component: UserBankDetailsComponent, canActivate: [AuthGuard] },
       { path: 'user-list', component: UserListComponent, canActivate: [AuthGuard] },
       { path: 'user-reviews', component: UserReviewsComponent, canActivate: [AuthGuard] }

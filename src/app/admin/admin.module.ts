@@ -42,7 +42,7 @@ import { UserListComponent } from './components/user-list/user-list.component';
     AddPlanComponent,
     CreateUserComponent,
     CreateRoleComponent,
-    ViewRoleComponent
+    ViewRoleComponent,
     UserReviewsComponent,
     UserBankDetailsComponent,
     UserPaytmVerifyComponent,
@@ -63,7 +63,7 @@ import { UserListComponent } from './components/user-list/user-list.component';
     MatCheckboxModule,
     NgMultiSelectDropDownModule,
     MatMenuModule,
-    MatExpansionModule
+    MatExpansionModule,
     NgxPaginationModule,
     NgbModule
   ]
