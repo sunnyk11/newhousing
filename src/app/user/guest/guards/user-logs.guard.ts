@@ -38,6 +38,15 @@ export class UserLogsGuard implements CanActivate {
       return this.checkLogin();
   }
   
+  loadScript(url: string) {
+    const body = <HTMLDivElement>document.body;
+    const script = document.createElement('script');
+    script.innerHTML = '';
+    script.src = url;
+    script.async = false;
+    script.defer = true;
+    body.appendChild(script);
+  }
   checkLogin() {
     if (this.jwtService.getToken()) {
       this.userEmail =  this.jwtService.getUserEmail();
