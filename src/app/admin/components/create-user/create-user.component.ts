@@ -62,14 +62,14 @@ export class CreateUserComponent implements OnInit {
   getRoles() {
     this.rolesService.getRoles({ param: null }).subscribe(
       response => {
-        console.log(response);
+        //console.log(response);
         this.response = response;
         this.roles_response = this.response.roles;
-        console.log(this.roles_response);
+        //console.log(this.roles_response);
         for (let i = 0; i < this.roles_response.length; i++) {
           this.dropdownList = this.dropdownList.concat({ item_id: this.roles_response[i].id, item_text: this.roles_response[i].role_name});
         }
-        console.log(this.dropdownList);
+        //console.log(this.dropdownList);
       },
       err => {
         console.log(err);
@@ -86,13 +86,13 @@ export class CreateUserComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-    console.log(this.UserForm);
+    //console.log(this.UserForm);
     if (this.UserForm.invalid) {
       return;
     }
     this.rolesService.createUser(this.UserForm.value).subscribe(
       response => {
-        console.log(response);
+        //console.log(response);
         this.UserForm.reset();
         this.toastr.success('Successfully created User');
       },

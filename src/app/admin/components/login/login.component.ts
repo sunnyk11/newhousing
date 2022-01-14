@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit {
           this.LoginFailed = false;
           this.LoggedIn = true;
           this.response_data = response;
-          console.log(this.response_data);
+          //console.log(this.response_data);
           this.jwtService.saveAdminUser(this.response_data);
           this.token = this.jwtService.getAdminToken();
           this.authService.sendUpdate(this.LoggedIn, this.token);

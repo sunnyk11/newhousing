@@ -83,7 +83,7 @@
 
 <!-- Modal -->
 <div class="modal fade" id="EditDetailsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Details</h5>
@@ -91,67 +91,99 @@
             </div>
             <div class="modal-body">
                 <form [formGroup]="EditPlanDetails">
-                    <div class="input-group mb-3">
-                        <input type="hidden" class="form-control" formControlName="id">
-                    </div>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1">Plan Type</span>
-                        <input type="text" class="form-control" placeholder="Plan Type" formControlName="plan_type" readonly>
-                    </div>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1">Plan Name</span>
-                        <input type="text" class="form-control" placeholder="Plan Name" formControlName="plan_name" [ngClass]="{ 'is-invalid': submitted && g.plan_name.errors }">
-                        <div *ngIf="submitted && g.plan_name.errors" class="invalid-feedback">
-                            <div *ngIf="g.plan_name.errors.required">Plan Name is required</div>
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active w-100" id="plans-details" data-bs-toggle="tab" data-bs-target="#plans" type="button" role="tab">Plan Details</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link w-100" id="feature-details" data-bs-toggle="tab" data-bs-target="#features" type="button" role="tab">Feature Details</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="plans" role="tabpanel">
+                            <div class="input-group mb-3">
+                                <input type="hidden" class="form-control" formControlName="id">
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1">Plan Type</span>
+                                <input type="text" class="form-control" placeholder="Plan Type" formControlName="plan_type" readonly>
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1">Plan Name</span>
+                                <input type="text" class="form-control" placeholder="Plan Name" formControlName="plan_name" [ngClass]="{ 'is-invalid': submitted && g.plan_name.errors }">
+                                <div *ngIf="submitted && g.plan_name.errors" class="invalid-feedback">
+                                    <div *ngIf="g.plan_name.errors.required">Plan Name is required</div>
+                                </div>
+                            </div>
+                            <div class="input-group mb-3">
+                                <label class="input-group-text" for="payment_type">Payment Type</label>
+                                <select class="form-select" id="payment_type" formControlName="payment_type" name="payment_type" required>
+                                    <option value="Advance">Advance</option>
+                                    <option value="Post">Post</option>
+                                </select>
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1">Plan Actual Price (Days)</span>
+                                <input type="number" class="form-control" placeholder="Plan Actual Price" formControlName="plan_actual_price">
+                            </div>
+                            <div class="input-group mb-3">
+                                <label class="input-group-text" for="discount_status">Discount</label>
+                                <select class="form-select" id="discount_status" formControlName="discount_status" name="discount_status" (change)="changeDiscStatus($event)" required>
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
+                            <div class="input-group mb-3" *ngIf="discount_stat">
+                                <span class="input-group-text" id="basic-addon1">Discounted Price (Days)</span>
+                                <input type="number" class="form-control" placeholder="Discounted Price" formControlName="discounted_price" [ngClass]="{ 'is-invalid': submitted && g.discounted_price.errors }">
+                                <div *ngIf="submitted && g.discounted_price.errors" class="invalid-feedback">
+                                    <div *ngIf="g.discounted_price.errors.required">Discounted price is required</div>
+                                </div>
+                            </div>
+                            <div class="input-group mb-3" *ngIf="discount_stat">
+                                <span class="input-group-text" id="basic-addon1">Discount Percentage</span>
+                                <input type="number" class="form-control" formControlName="discount_per" [ngClass]="{ 'is-invalid': submitted && g.discount_per.errors }" name="discount_per" id="discount_per">
+                                <div *ngIf="submitted && g.discount_per.errors" class="invalid-feedback">
+                                    <div *ngIf="g.discount_per.errors.required">Please enter the percentage</div>
+                                </div>
+                            </div>
+                            <div class="input-group mb-3">
+                                <label class="input-group-text" for="plan_status">Plan Status</label>
+                                <select class="form-select" id="plan_status" formControlName="plan_status" name="plan_status" required>
+                                    <option value="enabled">Enabled</option>
+                                    <option value="disabled">Disabled</option>
+                                </select>
+                            </div>
+                            <div class="input-group mb-3">
+                                <label class="input-group-text" for="special_tag">Special Tag</label>
+                                <select class="form-select" id="special_tag" formControlName="special_tag" [ngClass]="{ 'is-invalid': submitted && g.special_tag.errors }" name="special_tag" required>
+                                    <option value="yes">Enabled</option>
+                                    <option value="no">Disabled</option>
+                                </select>
+                                <div *ngIf="submitted && g.special_tag.errors" class="invalid-feedback">
+                                    <div *ngIf="g.special_tag.errors.required">Please select an option</div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="input-group mb-3">
-                        <label class="input-group-text" for="payment_type">Payment Type</label>
-                        <select class="form-select" id="payment_type" formControlName="payment_type" name="payment_type" required>
-                            <option value="Advance">Advance</option>
-                            <option value="Post">Post</option>
-                        </select>
-                    </div>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1">Plan Actual Price (Days)</span>
-                        <input type="number" class="form-control" placeholder="Plan Actual Price" formControlName="plan_actual_price">
-                    </div>
-                    <div class="input-group mb-3">
-                        <label class="input-group-text" for="discount_status">Discount</label>
-                        <select class="form-select" id="discount_status" formControlName="discount_status" name="discount_status" (change)="changeDiscStatus($event)" required>
-                            <option value="1">Yes</option>
-                            <option value="0">No</option>
-                        </select>
-                    </div>
-                    <div class="input-group mb-3" *ngIf="discount_stat">
-                        <span class="input-group-text" id="basic-addon1">Discounted Price (Days)</span>
-                        <input type="number" class="form-control" placeholder="Discounted Price" formControlName="discounted_price" [ngClass]="{ 'is-invalid': submitted && g.discounted_price.errors }">
-                        <div *ngIf="submitted && g.discounted_price.errors" class="invalid-feedback">
-                            <div *ngIf="g.discounted_price.errors.required">Discounted price is required</div>
-                        </div>
-                    </div>
-                    <div class="input-group mb-3" *ngIf="discount_stat">
-                        <span class="input-group-text" id="basic-addon1">Discount Percentage</span>
-                        <input type="number" class="form-control" formControlName="discount_per" [ngClass]="{ 'is-invalid': submitted && g.discount_per.errors }" name="discount_per" id="discount_per">
-                        <div *ngIf="submitted && g.discount_per.errors" class="invalid-feedback">
-                            <div *ngIf="g.discount_per.errors.required">Please enter the percentage</div>
-                        </div>
-                    </div>
-                    <div class="input-group mb-3">
-                        <label class="input-group-text" for="plan_status">Plan Status</label>
-                        <select class="form-select" id="plan_status" formControlName="plan_status" name="plan_status" required>
-                            <option value="enabled">Enabled</option>
-                            <option value="disabled">Disabled</option>
-                        </select>
-                    </div>
-                    <div class="input-group mb-3">
-                        <label class="input-group-text" for="special_tag">Special Tag</label>
-                        <select class="form-select" id="special_tag" formControlName="special_tag" [ngClass]="{ 'is-invalid': submitted && g.special_tag.errors }" name="special_tag" required>
-                            <option value="yes">Enabled</option>
-                            <option value="no">Disabled</option>
-                        </select>
-                        <div *ngIf="submitted && g.special_tag.errors" class="invalid-feedback">
-                            <div *ngIf="g.special_tag.errors.required">Please select an option</div>
+                        <div class="tab-pane fade" id="features" role="tabpanel">
+                            <table class="table text-center">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Feature</th>
+                                        <th scope="col">Select</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let feature of feature_response; let i = index">
+                                        <th scope="row">{{ i+1 }}</th>
+                                        <td>{{ feature.feature_name }} : {{ feature.feature_details }}</td>
+                                        <td formArrayName="features">
+                                            <input class="form-check-input" type="checkbox" id="{{ feature.id }}" [formControlName]="feature.id">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </form>
