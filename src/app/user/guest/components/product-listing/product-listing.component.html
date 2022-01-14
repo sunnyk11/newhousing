@@ -392,7 +392,7 @@
                 </div>
                 <!-- property listing page details -->
                 <div class="row propertyListingPage" *ngIf="showLoadingIndicator == false">
-                    <div class="col-md-6 col-lg-6" *ngFor="let number of property.data | paginate:{itemsPerPage:6, currentPage:p}">
+                    <div class="col-md-6 col-lg-6" *ngFor="let number of property.data.data">
                         <div class="feat_property home7 style4">
                             <owl-carousel-o [options]="customOptions" *ngIf="number.product_img.length>0;else OtherImage">
                                 <ng-template carouselSlide *ngFor="let img of number?.product_img">
@@ -408,7 +408,8 @@
                                         </div>
                                         <div class="thmb_cntnt style3">
                                             <ul class="icon mb0">
-                                                <li class="list-inline-item" *ngIf="number[0] != null;else wishlistcontent">
+                                                {{number?.single_wishlist}}
+                                                <li class="list-inline-item" *ngIf="number?.single_wishlist != null;else wishlistcontent">
                                                     <a (click)="wishlist_remove(number.id)">
                                                         <i class="fa fa-heart" aria-hidden="true"></i>
                                                     </a>
@@ -442,7 +443,7 @@
                                     </div>
                                     <div class="thmb_cntnt style3">
                                         <ul class="icon mb0">
-                                            <li class="list-inline-item" *ngIf="number[0] != null;else wishlistcontent">
+                                            <li class="list-inline-item" *ngIf="number?.single_wishlist != null;else wishlistcontent">
                                                 <a (click)="wishlist_remove(number.id)">
                                                     <i class="fa fa-heart" aria-hidden="true"></i>
                                                 </a>
@@ -468,7 +469,9 @@
                                     <div class="tc_content">
                                         <p class="text-thm" *ngIf="number.type != null">{{ number.type | titlecase }}</p>
                                         <h4>{{number.build_name | titlecase}}</h4>
-                                        <p *ngIf="number.address != null"><span class="flaticon-placeholder"></span> {{ number.address | titlecase }}
+                                        <p>
+                                            <span  *ngIf="number.product_locality != null">{{ number.product_locality?.locality | titlecase }}</span>
+                                            <span *ngIf="number.product_state != null">({{ number.product_state?.state | titlecase }})</span>
                                         </p>
                                         <ul class="prop_details mb0">
                                             <li class="list-inline-item"><a>Beds: {{ number.bedroom }}</a></li>
@@ -504,10 +507,22 @@
                         <h3>No Search property!!!... </h3>
                     </div>
                 </div>
-                <div class="row" *ngIf="property?.data?.length>6">
-                    <div class="col-lg-12  agent_property">
-                        <pagination-controls (pageChange)="p=$event"></pagination-controls>
-                    </div>
+   
+                <div class="mbp_pagination" *ngIf="product_length>0">
+                    <!-- {{user_bank_details.links | json}} -->
+                    <ul class="page_navigation">
+                        <li class="page-item" *ngFor="let link of property.data.links; index as i" [ngClass]="{'active' : link.active == true, 'disabled' : link.url == null}">
+                            <button type="button" (click)="gotoPage(link.url)" class="page-link">
+                                <span
+                                    *ngIf="link.label.indexOf('Previous') == -1 && link.label.indexOf('Next') == -1"
+                                    [innerHTML]="link.label"></span>
+                                <span *ngIf="link.label.indexOf('Previous') > -1"
+                                    class="flaticon-left-arrow"></span>
+                                <span *ngIf="link.label.indexOf('Next') > -1"
+                                    class="flaticon-right-arrow"></span>
+                            </button>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>

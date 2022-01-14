@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute,Router } from '@angular/router';
 import { ProductPageService } from '../../services/product-page.service';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { environment } from 'src/environments/environment';
 import { DomSanitizer } from '@angular/platform-browser';
-import { Router } from '@angular/router';
 import { JwtService } from 'src/app/user/services/jwt.service';
 import { CommonService } from '../../services/common.service';
 import { ToastrService } from 'ngx-toastr';
+import { UserReviewModalComponent } from '../../modals/user-review-modal/user-review-modal.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ClipboardService } from 'ngx-clipboard';
 
 @Component({
   selector: 'app-product-page',
@@ -42,6 +44,7 @@ export class ProductPageComponent implements OnInit {
   public sectiondisplay:boolean=false;
   private e: any;
   private product_id: any;
+  public address_details:string = '';
   public map:any;
   constructor(
     private _sanitizer: DomSanitizer,
@@ -49,7 +52,9 @@ export class ProductPageComponent implements OnInit {
      private ProductPageService: ProductPageService,
      private jwtService: JwtService,
      public CommonService:CommonService,
+     private modalService: NgbModal,
      private toastr: ToastrService,
+     private clipboardApi: ClipboardService,
      private router:Router
   ) {
     this.route.queryParams.subscribe((params) => {
@@ -84,6 +89,7 @@ export class ProductPageComponent implements OnInit {
             this.safeURL = this._sanitizer.bypassSecurityTrustResourceUrl(this.youtube_url);
             this.similarproperty(this.product_data.city);
             this.address=this.product_data.address;
+            this.address_details=this.product_data.address_details;
             this.latCus=parseFloat(this.product_data.map_latitude);
             this.longCus=parseFloat(this.product_data.map_longitude);
             
@@ -330,7 +336,11 @@ export class ProductPageComponent implements OnInit {
   showText() {
     this.isReadMore = !this.isReadMore
   }
-  
+  copyText(type:any,create:any,id:any) {
+  let product_id:any=type+create+id;
+    this.clipboardApi.copyFromContent(product_id);
+    this.toastr.info('Property Id Coppy');
+  }
   onMapReady(map: any) {
     this.map = map;
     this.map.setOptions({
@@ -386,6 +396,21 @@ export class ProductPageComponent implements OnInit {
   proceedToPayment(productId:any) {
     this.router.navigate(['/product_payment_summary'], { queryParams: {'productID': productId } });
   }
+  user_reviews(){
+  const modalRef = this.modalService.open(UserReviewModalComponent,
+    {
+      scrollable: true,
+      windowClass: 'myCustomModalClass',
+      // keyboard: false,
+      backdrop: 'static'
+    });
+    
+    let data = {
+      product_id: this.product_id,
+      userid:this.login_userid
+    }
+    modalRef.componentInstance.data = data;
+}
   // carosule image
   customOptions: OwlOptions = {
     loop: true,

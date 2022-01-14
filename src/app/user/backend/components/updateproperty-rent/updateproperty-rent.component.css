@@ -140,6 +140,12 @@ mat-slider {
       width: 100%;
       height: 100vh;
   }
+  .preloader_row1{
+    position: relative;
+    width: 100%;
+    height: 250px;
+    z-index: 100!important;
+  }
   
   #dropdownerror{
     font-size: 16px!important;
@@ -158,6 +164,14 @@ mat-slider {
 @media(max-width: 768px) { 
     .additional_row li label{
       margin-left: 2px!important;
+    }
+    .btn_location_map{
+      width:100%!important;
+    }
+    .additional_row{
+        margin: 15px 0px!important;
+        padding: 15px 5px!important;
+        background-color: #fff!important;
     }
     .additional_row .form-group{
         display: flex!important;
@@ -190,7 +204,18 @@ mat-slider {
       align-items: center;
     }
     .flaticon-maps-and-flags{
-      right: 90px!important;
+      right: 35px!important;
+      top: 50px!important;
+    }
+    
+    .form-label{
+      margin-top: 15px!important;
+    }
+    .mt-3{
+      margin-top: 0px!important;
+    }
+    .mt-3 button{
+      margin-top: 15px!important;
     }
 }
 @media(min-width: 769px) { 
