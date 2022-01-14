@@ -1,0 +1,31 @@
+<div>    
+    <div class="modal-header">
+        <h5 class="modal-title">User Bank Deatails:</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" (click)="closeModal('dismiss')" >
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="bank_details" >
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">User Name:</span>
+                <input type="text" class="form-control" placeholder="" formControlName="account_holder" [ngClass]="{ 'is-invalid': submitted && f.account_holder.errors }" readonly>
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">Account No:</span>
+                <input type="text" class="form-control" placeholder="" formControlName="account_no" (keypress)="keyPressNumbers($event)" [ngClass]="{ 'is-invalid': submitted && f.account_no.errors }" readonly>
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">IFSC Code:</span>
+                <input type="text" class="form-control" placeholder="" formControlName="ifsc_code" [ngClass]="{ 'is-invalid': submitted && f.ifsc_code.errors }" readonly>
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">Paytm Unique id:</span>
+                <input type="text" class="form-control" placeholder="" formControlName="Paytm_unique_id" [ngClass]="{ 'is-invalid': submitted && f.Paytm_unique_id.errors }">
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="update_deatils()" >Update Details</button>
+    </div>
+</div>

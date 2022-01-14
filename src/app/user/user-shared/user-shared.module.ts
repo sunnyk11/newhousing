@@ -18,6 +18,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { MatBadgeModule } from '@angular/material/badge';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TopbarNotificationComponent } from '../components/topbar-notification/topbar-notification.component';
 import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
@@ -27,6 +28,7 @@ import { MatTabsModule } from '@angular/material/tabs';
     AgentHeaderComponent,
     AgentFooterComponent,
     AgentSidenavComponent,
+    TopbarNotificationComponent,
     SidenavListComponent
   ],
   imports: [

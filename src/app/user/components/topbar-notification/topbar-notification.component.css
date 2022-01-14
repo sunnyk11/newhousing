@@ -1,0 +1,23 @@
+p{
+    font-size: 14px!important;
+    font-weight: 600!important;
+    text-align: center!important;
+    margin: 0px!important;
+    padding: 5px;
+    background: #f44336;
+    color: #fff;
+    line-height: 20px;
+    letter-spacing: 1.0px;
+    position: fixed;
+    width: 100%;
+    z-index: 10000000;
+    top: 0;
+}
+p span{
+    padding-left: 10px!important;
+    cursor: pointer!important;
+    color: #000!important;
+}
+.col-lg-12{
+    margin-bottom: 30px!important;
+}

@@ -52,7 +52,7 @@ mat-toolbar {
     position: fixed;
     height: 100px;
     width: 100% !important;
-    top: 0;
+    /* top: 0; */
     left: 0;
 }
 
