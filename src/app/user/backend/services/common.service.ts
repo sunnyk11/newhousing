@@ -31,7 +31,12 @@ export class CommonService {
   getAmenities(reqModel:any): Observable<ResultModel> {
     const route = "/api/amenities";
     return this.apiService.get<ResultModel>(route, reqModel);
-  } 
+  }
+  
+  get_dropdown_data(reqModel:any): Observable<ResultModel> {
+    const route = "/api/get_dropdown_data";
+    return this.apiService.get<ResultModel>(route, reqModel);
+  }
   get_pincodebyid(reqModel:any): Observable<ResultModel> {
     const route = "/api/auth/get_pincodebyid";
     return this.apiService.post<ResultModel>(route, {id: reqModel});

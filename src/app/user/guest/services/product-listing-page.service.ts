@@ -16,10 +16,9 @@ export class ProductListingPageService {
   private handleError(error: any): Promise<any> {
     return Promise.reject(error.message || error);
   }
-    
-  getpagination(url: string): Promise<Pagination> {
+  getpagination(url: string,reqModel:any): Promise<Pagination> {
     const route = url;
-    return this.apiService.get_pagination(route).toPromise().then(
+    return this.apiService.get_pagination(route,reqModel).toPromise().then(
       (response) => {
       return response as Pagination
     })

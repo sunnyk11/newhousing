@@ -11,7 +11,9 @@ export const environment = {
   ftpURL:  'http://127.0.0.1:8000/storage/',
   siteURL: 'http://localhost:4200/',
   googleURL: 'http://localhost:8000/api/auth/redirect/',
-  Paytm_formURL: 'https://securegw-stage.paytm.in/order/process'
+  Paytm_formURL: 'https://securegw-stage.paytm.in/order/process',
+  you_tube_url:'https://www.youtube-nocookie.com/embed/',
+  google_map_url:'https://maps.google.co.in/maps?q='
 };
 
 /*
