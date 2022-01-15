@@ -29,13 +29,6 @@ export class ListpropertyRentComponent implements OnInit {
     },
   };
 
-  addition_room: addition_room = [
-    { id: 1, name: "Pooja  Room" },
-    { id: 2, name: "Study Room" },
-    { id: 3, name: "Servant  Room" },
-    { id: 4, name: "Other Room" }
-  ];
-
   @ViewChild("search")
   searchElementRef!: ElementRef;
   @ViewChild(AgmMap, { static: true })
@@ -67,6 +60,12 @@ export class ListpropertyRentComponent implements OnInit {
   public dropdown_locality:any=[];
   public filteredOptions!: Observable<any[]>;
   public map_show:boolean=true;
+  public area_unit:any;
+  public addition_room:any;
+  public willing_to_rent:any;
+  public agreement_type:any;
+  public agreement_duration:any;
+  public maintenance_charge_condition:any;
 
   private product_img: any = [];
   private selected_room: any = [];
@@ -123,7 +122,7 @@ export class ListpropertyRentComponent implements OnInit {
       noDataAvailablePlaceholderText: "Sub Locality not Availabale",
       maxHeight: 250,
     };
-    this.getAmenities();
+    this.get_dropdown_data();
     this.google_map();
     this.form_step1 = this._formBuilder.group({
       property_name: ['', Validators.required],
@@ -361,9 +360,6 @@ export class ListpropertyRentComponent implements OnInit {
       setTimeout(()=>{ 
         this.longCus = parseFloat(resp.lng);
         this.latCus = parseFloat(resp.lat);
-        console.log(resp);
-        console.log(this.latCus);
-        console.log(this.longCus);
         this.form_step2.patchValue({
           map_latitude: this.latCus,
           map_longitude: this.longCus,
@@ -417,10 +413,17 @@ export class ListpropertyRentComponent implements OnInit {
     });
   }
   // fetch amenties advance tab
-  getAmenities() {
-    this.CommonService.getAmenities({ param: null }).subscribe(
+  get_dropdown_data() {
+    this.CommonService.get_dropdown_data({ param: null }).subscribe(
       response => {
-        this.amenties = response;
+        let data:any=response;
+        this.amenties = data.Amenitie;
+        this.willing_to_rent = data.property_willing_rent_out; 
+        this.agreement_duration = data.property_ageement_duration;
+        this.maintenance_charge_condition = data.property_maintenance_condition;
+        this.agreement_type = data.property_ageement_type;
+        this.addition_room = data.property_room;
+        this.area_unit = data.area_unit;
       }
     );
   }
@@ -744,4 +747,3 @@ export class ListpropertyRentComponent implements OnInit {
     this.product_img = this.product_img.filter((m: any) => m != id);
   }
 }
-type addition_room = Array<{ id: number; name: string }>;

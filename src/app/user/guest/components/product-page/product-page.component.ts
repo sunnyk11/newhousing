@@ -43,6 +43,7 @@ export class ProductPageComponent implements OnInit {
   public total_amount_owner:number=0;
   public sectiondisplay:boolean=false;
   private e: any;
+  public locality_id:any;
   private product_id: any;
   public address_details:string = '';
   public map:any;
@@ -82,12 +83,14 @@ export class ProductPageComponent implements OnInit {
       this.login_userid = this.jwtService.getUserId();
       this.ProductPageService.login_single_product_details(param).subscribe(
         response => {
+          console.log(response);
           this.product_details=response;
           this.product_data=this.product_details.data;
           if(this.product_details.data != null){
-            this.youtube_url = "https://www.youtube-nocookie.com/embed/" + this.product_data.video_link+"?playlist="+this.product_data.video_link+"&loop=1&mute=1";          
+            this.youtube_url = environment.you_tube_url + this.product_data.video_link+"?playlist="+this.product_data.video_link+"&loop=1&mute=1";          
             this.safeURL = this._sanitizer.bypassSecurityTrustResourceUrl(this.youtube_url);
-            this.similarproperty(this.product_data.city);
+            this.locality_id=this.product_data.locality_id;
+            this.similarproperty(this.product_data.locality_id);
             this.address=this.product_data.address;
             this.address_details=this.product_data.address_details;
             this.latCus=parseFloat(this.product_data.map_latitude);
@@ -126,9 +129,9 @@ export class ProductPageComponent implements OnInit {
           this.product_details=response;
           this.product_data=this.product_details.data;
           if(this.product_details.data != null){
-            this.youtube_url = "https://www.youtube-nocookie.com/embed/" + this.product_data.video_link+"?playlist="+this.product_data.video_link+"&loop=1&mute=1";          
+            this.youtube_url = environment.you_tube_url + this.product_data.video_link+"?playlist="+this.product_data.video_link+"&loop=1&mute=1";          
             this.safeURL = this._sanitizer.bypassSecurityTrustResourceUrl(this.youtube_url);
-            this.similarproperty(this.product_data.city);
+            this.similarproperty(this.product_data.locality_id);
             this.address=this.product_data.address;
             this.latCus=parseFloat(this.product_data.map_latitude);
             this.longCus=parseFloat(this.product_data.map_longitude);
@@ -165,9 +168,9 @@ export class ProductPageComponent implements OnInit {
     this.pro_comp_refresh();
   }
   // fetch similar property 
-  similarproperty(cityname: any){
+  similarproperty(locality_id: any){
     this.showLoadingIndicator=true;
-    let param={cityname:cityname}
+    let param={locality_id:locality_id}
     if(this.jwtService.getToken()){
       this.ProductPageService.login_getsimilarproperty(param).subscribe(
         response => {
@@ -281,7 +284,7 @@ export class ProductPageComponent implements OnInit {
       this.CommonService.wishlist_remove({param}).subscribe(
       response => {
         this.product_length=0;
-        this.similarproperty(this.product_data.city);
+        this.similarproperty(this.locality_id);
       }, err => { 
         
       }
@@ -297,7 +300,7 @@ export class ProductPageComponent implements OnInit {
       this.CommonService.wishlist_addd({param}).subscribe(
       response => {
         this.product_length=0;
-        this.similarproperty(this.product_data.city);
+        this.similarproperty(this.locality_id);
       }, err => { 
        
       }
@@ -314,7 +317,7 @@ export class ProductPageComponent implements OnInit {
       response => {
         this.product_copm=response;
         this.product_length=0;
-        this.similarproperty(this.product_data.city);
+        this.similarproperty(this.locality_id);
         if(this.product_copm.data.length>4){
           this.toastr.info('Compare are the Full...!!!', 'Property', {
             timeOut: 3000,

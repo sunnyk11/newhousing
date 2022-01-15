@@ -38,6 +38,7 @@ export class HomepagefeatureComponent implements OnInit {
     if(this.jwtService.getToken().length>5){
       this.indexPageService.login_Feature_Property({ param: null }).subscribe(
       response => {
+        console.log(response);
         this.showLoadingIndicator= false;
         this.property=response;
         this.product_length=this.property.data.length;

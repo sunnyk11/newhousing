@@ -129,6 +129,7 @@ export class ProductListingComponent implements OnInit {
   productcategory(){
     this.CommonService.getproductcategory({ param: null }).subscribe(
       response => {
+        console.log(response);
         this.category=response;
       }, err => { 
       }
@@ -292,8 +293,10 @@ export class ProductListingComponent implements OnInit {
   } 
   
   gotoPage(link_url: any) {
+    this.searchForm.value.min_price= this.searchForm.value.sliderControl[0];
+    this.searchForm.value.max_price=this.searchForm.value.sliderControl[1]; 
     this.showLoadingIndicator = true;
-    this.ProductListingPageService.getpagination(link_url).then(Pagination_data => {
+    this.ProductListingPageService.getpagination(link_url,this.searchForm.value).then(Pagination_data => {
       this.showLoadingIndicator= false;
       this.property=Pagination_data;
       // this.user_list_length=this.user_list.data.data.length;
