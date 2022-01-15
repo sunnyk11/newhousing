@@ -24,6 +24,7 @@ export class ProductPageComponent implements OnInit {
   public product_data: any;
   public isReadMore: boolean = true;
   public ftpstring = environment.ftpURL;
+  public google_map_url=environment.google_map_url;
   public property: any;
   public similar_property: any;
   public latCus: any;

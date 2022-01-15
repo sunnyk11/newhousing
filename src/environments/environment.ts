@@ -12,7 +12,8 @@ export const environment = {
   siteURL: 'http://localhost:4200/',
   googleURL: 'http://localhost:8000/api/auth/redirect/',
   Paytm_formURL: 'https://securegw-stage.paytm.in/order/process',
-  you_tube_url:'https://www.youtube-nocookie.com/embed/'
+  you_tube_url:'https://www.youtube-nocookie.com/embed/',
+  google_map_url:'https://maps.google.co.in/maps?q='
 };
 
 /*

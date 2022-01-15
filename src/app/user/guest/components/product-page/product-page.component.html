@@ -483,7 +483,7 @@
                                             <h6 class="mb20" style="font-weight: 700!important;">Sub-Locality-:<span>{{product_data?.product_sub_locality?.sub_locality}}</span></h6>
                                         </div>
                                         <div class="col-lg-4 col-12 mt20">
-                                            <a href="https://maps.google.co.in/maps?q={{latCus}},{{longCus}}" target="_blanck"><button class="btn btn-primary">Visit The Direction Map</button></a>
+                                            <a href="{{google_map_url}}{{latCus}},{{longCus}}" target="_blanck"><button class="btn btn-primary">Visit The Direction Map</button></a>
                                         </div>
                                         <div class="col-lg-12 col-12 mt20" id="address_details" *ngIf="address_details">
                                             <h6><span style="font-weight: 800!important;">Address-Details:-</span><span>{{address_details}}</span></h6>
