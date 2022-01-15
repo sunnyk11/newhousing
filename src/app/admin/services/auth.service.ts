@@ -11,7 +11,7 @@ export class AuthService {
   constructor() { }
 
   sendUpdate(message: boolean, token: any) {
-    console.log(message);
+    //console.log(message);
     this.login_check.next({ text:message, token: token });
   }
 

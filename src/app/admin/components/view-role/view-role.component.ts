@@ -54,10 +54,10 @@ export class ViewRoleComponent implements OnInit {
   getRoles() {
     this.rolesService.getRoles({ param: null }).subscribe(
       response => {
-        console.log(response);
+        //console.log(response);
         this.response = response;
         this.roles_response = this.response.roles;
-        console.log(this.roles_response);
+        //console.log(this.roles_response);
         // this.permissions_response.forEach((permission:any) => {
         //   console.log(permission);
         //   this.f.addControl(permission.permission_name, new FormControl(false));
@@ -71,11 +71,11 @@ export class ViewRoleComponent implements OnInit {
 
   moreDetails(role_details: any) {
     this.RoleForm.reset();
-    console.log(role_details);
+    //console.log(role_details);
     this.role_details = role_details;
     this.rolesService.getRolePermissions(this.role_details.id).subscribe(
       response => {
-        console.log(response);
+        //console.log(response);
         this.role_permissions_response = response;
         this.role_permissions_response.forEach((permission: any) => {
           if (permission.status == true) {
@@ -96,16 +96,16 @@ export class ViewRoleComponent implements OnInit {
         console.log(err);
       }
     );
-    console.log(this.RoleForm);
+    //console.log(this.RoleForm);
   }
 
   editDetails(role_details: any) {
     this.EditRoleForm.reset();
-    console.log(role_details);
+    //console.log(role_details);
     this.edit_role_details = role_details;
     this.rolesService.getRolePermissions(this.edit_role_details.id).subscribe(
       response => {
-        console.log(response);
+        //console.log(response);
         this.edit_role_permissions_response = response;
         this.edit_role_permissions_response.forEach((permission: any) => {
           if (permission.status == true) {
@@ -129,11 +129,11 @@ export class ViewRoleComponent implements OnInit {
   }
 
   save_role(role_id: any) {
-    console.log(role_id);
-    console.log(this.EditRoleForm);
+    //console.log(role_id);
+    //console.log(this.EditRoleForm);
     this.rolesService.editRole(role_id, this.EditRoleForm.value).subscribe(
       response => {
-        console.log(response);
+        //console.log(response);
         this.modalClose.nativeElement.click();
         this.toastr.success('Successfully updated Role details');
       },
@@ -150,7 +150,7 @@ export class ViewRoleComponent implements OnInit {
   delete_role(role_id: any) {
     this.rolesService.deleteRole(role_id).subscribe(
       response => {
-        console.log(response);
+        //console.log(response);
         this.toastr.success('Role successfully deleted');
         this.DeletemodalClose.nativeElement.click();
         this.router.routeReuseStrategy.shouldReuseRoute = () => false;

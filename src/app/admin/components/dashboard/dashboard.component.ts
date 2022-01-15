@@ -25,11 +25,11 @@ export class DashboardComponent implements OnInit {
     this.user_id = this.jwtService.getAdminId();
     this.rolesService.getUserPermissions(this.user_id).subscribe(
       response => {
-        console.log(response);
+        //console.log(response);
         this.response = response;
         this.permissions_response = this.response.permissions;
         this.roles_response = this.response.roles.roles;
-        console.log(this.roles_response);
+        //console.log(this.roles_response);
       },
       err => {
         console.log(err);

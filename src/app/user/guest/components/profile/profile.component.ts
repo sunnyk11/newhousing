@@ -115,8 +115,11 @@ export class ProfileComponent implements OnInit {
     this.userService.getUserDetails().pipe().subscribe(
       data => {
         this.showLoadingIndicator = false;
-        let result:any=data;
-        this.user_data = result.data;
+        this.user_data = data;
+        this.user_data = this.user_data.data;
+        //console.log(this.user_data);
+        /* let result:any=data;
+        this.user_data = result.data; */
         this.mobile_verify_status = this.user_data.phone_number_verification_status;
         this.usertype = this.user_data.usertype;
         this.profile_pic = this.user_data.profile_pic;

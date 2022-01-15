@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, FormControl } from '@angular/forms';
 import { PlansService } from '../../services/plans.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-plan',
@@ -11,27 +12,47 @@ export class AddPlanComponent implements OnInit {
 
   public submitted: boolean = false;
   public discount_stat: boolean = false;
-
-  PlanForm = this.fb.group({
-    plan_type: ['', Validators.required],
-    planName: ['', Validators.required],
-    actualPrice: ['', Validators.required],
-    payment_type: ['', Validators.required],
-    plan_status: ['', Validators.required],
-    special_tag: ['', Validators.required],
-    discount_status: ['', Validators.required],
-    discountPrice: [],
-    discount_per: []
-  });
+  public feature_response: any;
+  public PlanForm: any;
 
   constructor(private fb: FormBuilder,
-    private plansService: PlansService) { }
+    private plansService: PlansService,
+    private toastr: ToastrService) {
+      this.PlanForm = this.fb.group({
+        plan_type: ['', Validators.required],
+        planName: ['', Validators.required],
+        actualPrice: ['', Validators.required],
+        payment_type: ['', Validators.required],
+        plan_status: ['', Validators.required],
+        special_tag: ['', Validators.required],
+        discount_status: ['', Validators.required],
+        discountPrice: [],
+        discount_per: [],
+        features: this.fb.group([])
+      });
+     }
 
   ngOnInit(): void {
+    this.plansService.get_all_features({ param:null }).subscribe(
+      response => {
+        //console.log(response);
+        this.feature_response = response;
+        this.feature_response.features.forEach((obj:any,index:any) => {
+          this.f.addControl(obj.id, new FormControl(false));
+        })
+      },
+      err => {
+        console.log(err);
+      }
+    );
   }
 
   get g() {
     return this.PlanForm.controls;
+  }
+
+  get f() {
+    return this.PlanForm.controls.features;
   }
 
   onSubmit() {
@@ -39,11 +60,12 @@ export class AddPlanComponent implements OnInit {
     if (this.PlanForm.invalid) {
       return;
     }
-    console.log(this.PlanForm);
+    //console.log(this.PlanForm);
     this.plansService.add_property_plan(this.PlanForm.value).subscribe(
       res => {
-        console.log(res);
+        //console.log(res);
         this.PlanForm.reset();
+        this.toastr.success('Successfully created Plan');
       },
       err => {
         console.log(err);
@@ -53,7 +75,7 @@ export class AddPlanComponent implements OnInit {
   }
 
   changeDiscStatus(event: any) {
-    console.log(event);
+    //console.log(event);
     if(event.target.value == '1') {
       this.discount_stat = true;
       this.PlanForm.get('discountPrice')?.setValidators(Validators.required);

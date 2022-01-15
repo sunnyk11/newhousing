@@ -197,7 +197,7 @@ export class JwtService {
   }
   
   signOut() {
-    console.log("Logout");
+    //console.log("Logout");
     window.localStorage.clear();
   }
 }
