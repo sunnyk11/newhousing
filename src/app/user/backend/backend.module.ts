@@ -41,11 +41,8 @@ import { GetPercentagePipe } from './pipes/get-percentage.pipe';
 import { ProgressBarModule } from 'angular-progress-bar';
 import { NgxStarRatingModule } from 'ngx-star-rating';
 import { ServiceListComponent } from './components/service-list/service-list.component';
-import { ServiceUserListComponent } from './components/service-user-list/service-user-list.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
-import { UpdateServiceUserListComponent } from './components/update-service-user-list/update-service-user-list.component';
 import { UpdateServicesComponent } from './components/update-services/update-services.component';
-import { CreateServiceUserComponent } from './components/create-service-user/create-service-user.component';
 
 @NgModule({
   declarations: [
@@ -67,10 +64,7 @@ import { CreateServiceUserComponent } from './components/create-service-user/cre
     GetAveragePipe,
     GetPercentagePipe,
     ServiceListComponent,
-    ServiceUserListComponent,
-    UpdateServiceUserListComponent,
-    UpdateServicesComponent,
-    CreateServiceUserComponent
+    UpdateServicesComponent
   ],
   imports: [
     ProgressBarModule,

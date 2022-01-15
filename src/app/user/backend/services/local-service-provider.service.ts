@@ -98,11 +98,11 @@ export class LocalServiceProviderService {
   // user services list functionalty 
   service_user_create(reqModel: any): Observable<ResultModel> {
     const route = "/api/product/service_user_create";
-    return this.apiService.post<ResultModel>(route, reqModel);
+    return this.apiService.admin_post<ResultModel>(route, reqModel);
   }
   service_user_update(reqModel: any): Observable<ResultModel> {
     const route = "/api/product/service_user_update";
-    return this.apiService.post<ResultModel>(route, reqModel);
+    return this.apiService.admin_post<ResultModel>(route, reqModel);
   }
   getservice_user(): Promise<Pagination> {
     const route = "/api/product/service_user_list";

@@ -30,6 +30,10 @@ import { UserPaytmVerifyComponent } from './modals/user-paytm-verify/user-paytm-
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BankHistoryComponent } from './modals/bank-history/bank-history.component';
 import { UserListComponent } from './components/user-list/user-list.component';
+import { ServicesUserListComponent } from './components/services-user-list/services-user-list.component';
+import { CreateServicesUserComponent } from './components/create-services-user/create-services-user.component';
+import { UpdateServicesUserComponent } from './components/update-services-user/update-services-user.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [
@@ -47,7 +51,10 @@ import { UserListComponent } from './components/user-list/user-list.component';
     UserBankDetailsComponent,
     UserPaytmVerifyComponent,
     BankHistoryComponent,
-    UserListComponent
+    UserListComponent,
+    ServicesUserListComponent,
+    CreateServicesUserComponent,
+    UpdateServicesUserComponent
   ],
   imports: [
     CommonModule,
@@ -65,7 +72,8 @@ import { UserListComponent } from './components/user-list/user-list.component';
     MatMenuModule,
     MatExpansionModule,
     NgxPaginationModule,
-    NgbModule
+    NgbModule,
+    MatAutocompleteModule
   ]
 })
 export class AdminModule { }

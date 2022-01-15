@@ -18,7 +18,7 @@ export class UserReviewsService {
   
   get_reviews(reqModel: any): Promise<Pagination> {
     const route = "/api/admin/get_reviews";
-    return this.apiService.get(route,reqModel).toPromise().then(
+    return this.apiService.admin_get(route,reqModel).toPromise().then(
       (response) => {
         console.log(response);
         return response as Pagination

@@ -1,8 +1,8 @@
 <div class="wrapper">
     <div class="container mt20">
-        <div  class="row">
+        <div class="row">
             <div class="col-lg-3 col-12 offset-lg-9" id="user_create">
-                <a routerLink="/create-services-user"><button class="btn btn-success">Create User</button></a>
+                <a routerLink="/admin/create-services-user"><button class="btn btn-success">Create User</button></a>
             </div>
             <div class="col-lg-12 col-12">
                 <div class="my_dashboard_review">
@@ -27,14 +27,14 @@
                                         <td>
                                             <div>
                                                 {{data?.user_area?.area_state?.state}}
-                                            <span *ngIf="data?.user_area?.user_district !=null">
+                                                <span *ngIf="data?.user_area?.user_district !=null">
                                                 {{data?.user_area?.user_district[0]?.area_district?.district}}
                                              </span>
                                             </div>
-                                             <div *ngIf="data?.user_area?.user_district[0]?.user_locality !=null">
+                                            <div *ngIf="data?.user_area?.user_district[0]?.user_locality !=null">
                                                 {{data?.user_area?.user_district[0]?.user_locality[0]?.area_locality?.locality}}
                                             </div>
-                                             <!-- <div *ngIf="data?.user_area?.user_district[0]?.user_locality[0]?.user_sublocality.length>0">
+                                            <!-- <div *ngIf="data?.user_area?.user_district[0]?.user_locality[0]?.user_sublocality.length>0">
                                                 <div *ngFor="let sub_locality of data?.user_area?.user_district[0]?.user_locality[0]?.user_sublocality">
                                                     ({{sub_locality?.area_sub_locality?.sub_locality}}) 
                                                 </div>
@@ -43,22 +43,22 @@
                                         <td>
                                             <ul class="view_edit_delete_list mb0">
                                                 <li class="list-inline-item " data-toggle="tooltip" data-placement="top" title="Edit">
-                                                    <a [routerLink]="['/update-services-user']" [queryParams]="{id:data?.id}"><span class="flaticon-edit"></span></a>
+                                                    <a [routerLink]="['/admin/update-services-user']" [queryParams]="{id:data?.id}"><span class="flaticon-edit"></span></a>
                                                 </li>
                                                 <li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="Delete">
                                                     <a (click)="delete_service_user(data?.id)"><span class="flaticon-garbage"></span></a>
                                                 </li>
-                                                </ul>
+                                            </ul>
                                         </td>
                                     </tr>
                                 </tbody>
                                 <tbody>
-                                    <tr  class="preloader_row" *ngIf="showLoadingIndicator == true"> 
-                                         <div class="preloader"></div>
+                                    <tr class="preloader_row" *ngIf="showLoadingIndicator == true">
+                                        <div class="preloader"></div>
                                     </tr>
                                 </tbody>
                             </table>
-                            <div class="col-lg-12"  *ngIf="user_length==0 && showLoadingIndicator==false">
+                            <div class="col-lg-12" *ngIf="user_length==0 && showLoadingIndicator==false">
                                 <h3>No Data Availabe</h3>
                             </div>
                             <div class="mbp_pagination" *ngIf="user_length>0">
@@ -80,7 +80,7 @@
                         </div>
                     </div>
                 </div>
-            </div> 
+            </div>
         </div>
     </div>
 </div>

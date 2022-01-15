@@ -30,7 +30,7 @@ export class UserBankDetailsService {
   }  
   get_userbank_details(): Promise<Pagination> {
     const route = "/api/admin/get_userbank_details";
-    return this.apiService.get(route).toPromise().then(
+    return this.apiService.admin_get(route).toPromise().then(
       (response) => {
         console.log(response);
         return response as Pagination

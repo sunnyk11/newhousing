@@ -1,56 +1,68 @@
-.search-column button{
+.search-column button {
     width: 100%;
-    color:#fff!important;
+    color: #fff!important;
     background-color: #f35b3f!important;
     opacity: 1!important;
 }
-.create_column{
+
+.create_column {
     box-shadow: 0 3px 8px 0 rgb(0 0 0 / 12%);
     padding: 25px 20px;
     height: auto!important;
     margin-bottom: 30px!important;
 }
-.preloader_row{
-    position: relative;
-    width: 100%;
-    height: 100vh;
-}
-.service_heading{  
+
+.service_heading {
     background: rgb(36, 50, 74);
     padding: 15px 20px;
     margin-bottom: 25px;
 }
-.service_heading h2{  
+
+.service_heading h2 {
     color: #fff!important;
     font-size: 18px!important;
     margin: 0px!important;
 }
-.status_tag{
+
+.preloader_row {
+    position: relative;
+    width: 100%;
+    height: 200px;
+}
+
+.status_tag {
     background-color: #ff5a5f!important;
 }
-.flaticon-garbage{
+
+.flaticon-garbage {
     color: #ff5a5f!important;
     font-size: 20px;
     cursor: pointer!important;
 }
-.flaticon-edit{
+
+.flaticon-edit {
     color: #4caf50!important;
     font-size: 20px;
     cursor: pointer!important;
 }
-.property_table .table td, .property_table .table th{
+
+.property_table .table td,
+.property_table .table th {
     font-size: 14px!important;
 }
-.table_services span{
+
+.table_services span {
     color: #ff5a5f!important;
 }
-#dropdownerror{
-  font-size: 16px!important;
-  font-weight: 600;
-  padding: 5px 10px!important;
-  background-color: #fff;
-  color: #dc3545;
-  margin-left: 10px;
-  top: 6px;
-  position: relative;
+
+.multiselect-dropdown[_ngcontent-tce-c281] .dropdown-btn[_ngcontent-tce-c281] {
+    border-color: #fff!important;
+}
+
+@media(max-width: 768px) {
+    #user_create {
+        align-items: center;
+        justify-content: end!important;
+        display: flex!important;
+    }
 }
