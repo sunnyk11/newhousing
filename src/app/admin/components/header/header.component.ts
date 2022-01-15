@@ -31,7 +31,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.user_details();
-    console.log(this.LoggedIn);
+    //console.log(this.LoggedIn);
   }
 
   user_details() {

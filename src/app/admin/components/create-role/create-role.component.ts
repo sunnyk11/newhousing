@@ -42,14 +42,14 @@ export class CreateRoleComponent implements OnInit {
   get_permissions() {
     this.rolesService.getPermissions({ param:null }).subscribe(
       response => {
-        console.log(response);
+        //console.log(response);
         this.permissions_data = response;
         const group: any = {};
         this.permissions_data.data.forEach((obj:any,index:any) => {
           //group[obj.permission_name] = new FormControl(false);
           this.f.addControl(obj.permission_name, new FormControl(false));
         });
-        console.log(group);
+        //console.log(group);
       },
       err => {
         console.log(err);
@@ -62,11 +62,11 @@ export class CreateRoleComponent implements OnInit {
     if (this.RoleForm.invalid) {
       return;
     }
-    console.log(this.RoleForm);
-    console.log(this.f);
+    //console.log(this.RoleForm);
+    //console.log(this.f);
     this.rolesService.createRole(this.RoleForm.value).subscribe(
       response => {
-        console.log(response);
+        //console.log(response);
         this.toastr.success('Successfully created Role');
       },
       err => {

@@ -29,4 +29,14 @@ export class PlansService {
     const route = "/api/add_property_plan";
     return this.apiService.post<ResultModel>(route, reqModel);
   }
+
+  get_all_features(reqModel: any): Observable<ResultModel> {
+    const route = "/api/get_all_features";
+    return this.apiService.get<ResultModel>(route, reqModel);
+  }
+
+  get_plan_features(reqModel: any): Observable<ResultModel> {
+    const route = "/api/get_plan_features";
+    return this.apiService.post<ResultModel>(route, {plan_id: reqModel});
+  }
 }
