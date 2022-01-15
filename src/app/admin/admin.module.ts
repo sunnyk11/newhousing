@@ -23,6 +23,13 @@ import { ViewRoleComponent } from './components/view-role/view-role.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { UserReviewsComponent } from './components/user-reviews/user-reviews.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { UserBankDetailsComponent } from './components/user-bank-details/user-bank-details.component';
+import { UserPaytmVerifyComponent } from './modals/user-paytm-verify/user-paytm-verify.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { BankHistoryComponent } from './modals/bank-history/bank-history.component';
+import { UserListComponent } from './components/user-list/user-list.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +42,12 @@ import { MatExpansionModule } from '@angular/material/expansion';
     AddPlanComponent,
     CreateUserComponent,
     CreateRoleComponent,
-    ViewRoleComponent
+    ViewRoleComponent,
+    UserReviewsComponent,
+    UserBankDetailsComponent,
+    UserPaytmVerifyComponent,
+    BankHistoryComponent,
+    UserListComponent
   ],
   imports: [
     CommonModule,
@@ -51,7 +63,9 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatCheckboxModule,
     NgMultiSelectDropDownModule,
     MatMenuModule,
-    MatExpansionModule
+    MatExpansionModule,
+    NgxPaginationModule,
+    NgbModule
   ]
 })
 export class AdminModule { }

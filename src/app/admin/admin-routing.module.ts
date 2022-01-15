@@ -10,7 +10,9 @@ import { CreateUserComponent } from './components/create-user/create-user.compon
 import { CreateRoleComponent } from './components/create-role/create-role.component';
 import { ViewRoleComponent } from './components/view-role/view-role.component';
 import { PermissionGuard } from './guards/permission.guard';
-
+import { UserReviewsComponent } from './components/user-reviews/user-reviews.component';
+import { UserBankDetailsComponent } from './components/user-bank-details/user-bank-details.component';
+import { UserListComponent } from './components/user-list/user-list.component';
 const routes: Routes = [
   {
     path: '', component: MasterComponent,
@@ -31,7 +33,10 @@ const routes: Routes = [
       } },
       { path: 'view-role', component: ViewRoleComponent, canActivate: [AuthGuard, PermissionGuard], data: {
         permission: ['access_manage_roles']
-      } }
+      } },
+      { path: 'user-bank-details', component: UserBankDetailsComponent, canActivate: [AuthGuard] },
+      { path: 'user-list', component: UserListComponent, canActivate: [AuthGuard] },
+      { path: 'user-reviews', component: UserReviewsComponent, canActivate: [AuthGuard] }
     ]
   }
 ];

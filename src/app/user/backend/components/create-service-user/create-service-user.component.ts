@@ -173,7 +173,7 @@ export class CreateServiceUserComponent implements OnInit {
             let data:any=response;
             this.showLoadingIndicator = false;
             this.toastr.success('User  Create Successfully');
-            // this.router.navigate(['/agent/services-user-list']); 
+            this.router.navigate(['/agent/services-user-list']); 
           },
           err => {
             this.showLoadingIndicator = false;

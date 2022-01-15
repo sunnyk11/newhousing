@@ -66,6 +66,7 @@ export class ListpropertyRentComponent implements OnInit {
   dropdownSettings1!: IDropdownSettings;
   public dropdown_locality:any=[];
   public filteredOptions!: Observable<any[]>;
+  public map_show:boolean=true;
 
   private product_img: any = [];
   private selected_room: any = [];
@@ -96,6 +97,7 @@ export class ListpropertyRentComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.map_show=true;
     this.dropdownSettings = {
       singleSelection: true,
       idField: 'locality_id',
@@ -354,15 +356,49 @@ export class ListpropertyRentComponent implements OnInit {
     });
   }
   getLocation() {
+    this.map_show=false;
     this.CommonService.getLocationService().then(resp => {
-      this.longCus = parseFloat(resp.lng);
-      this.latCus = parseFloat(resp.lat);
-      this.form_step2.patchValue({
-        address: this.location,
-        map_latitude: this.latCus,
-        map_longitude: this.longCus,
-      });
+      setTimeout(()=>{ 
+        this.longCus = parseFloat(resp.lng);
+        this.latCus = parseFloat(resp.lat);
+        console.log(resp);
+        console.log(this.latCus);
+        console.log(this.longCus);
+        this.form_step2.patchValue({
+          map_latitude: this.latCus,
+          map_longitude: this.longCus,
+        });
+        this.getCurrentLocation();
+        this.map_show=true;
+      }, 2500)
+      
     })
+  }
+  getCurrentLocation() {
+    this.mapsAPILoader.load().then(() => {
+      let geocoder = new google.maps.Geocoder;
+      let latlng = {lat:  this.latCus, lng: this.longCus};
+      let that = this;
+      geocoder.geocode({'location': latlng}, (results) => {
+          if (results[0]) {
+            that.zoom = 11;
+            this.form_step2.patchValue({
+              address: results[0].formatted_address,
+            });
+          } else {
+            console.log('No results found');
+          }
+      });
+    });
+  }
+  
+  map_address(value:any){
+    if(value.length<4){
+      this.form_step2.patchValue({
+        map_latitude: '',
+        map_longitude: '',
+      });
+    }
   }
   markerDragEnd($event: google.maps.MouseEvent) {
     this.latCus = $event.latLng.lat();
