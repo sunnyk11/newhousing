@@ -13,6 +13,9 @@ import { PermissionGuard } from './guards/permission.guard';
 import { UserReviewsComponent } from './components/user-reviews/user-reviews.component';
 import { UserBankDetailsComponent } from './components/user-bank-details/user-bank-details.component';
 import { UserListComponent } from './components/user-list/user-list.component';
+import { ServicesUserListComponent } from './components/services-user-list/services-user-list.component';
+import { CreateServicesUserComponent } from './components/create-services-user/create-services-user.component';
+import { UpdateServicesUserComponent } from './components/update-services-user/update-services-user.component';																										 
 
 const routes: Routes = [
   {
@@ -35,9 +38,24 @@ const routes: Routes = [
       { path: 'view-role', component: ViewRoleComponent, canActivate: [AuthGuard, PermissionGuard], data: {
         permission: ['access_manage_roles']
       } },
-      { path: 'user-bank-details', component: UserBankDetailsComponent, canActivate: [AuthGuard] },
-      { path: 'user-list', component: UserListComponent, canActivate: [AuthGuard] },
-      { path: 'user-reviews', component: UserReviewsComponent, canActivate: [AuthGuard] }
+      { path: 'user-bank-details', component: UserBankDetailsComponent, canActivate: [AuthGuard, PermissionGuard], data: {
+        permission: ['access_bank_details']
+      } },
+      { path: 'user-list', component: UserListComponent, canActivate: [AuthGuard, PermissionGuard],  data: {
+        permission: ['access_all_users']
+      }},
+      { path: 'user-reviews', component: UserReviewsComponent, canActivate: [AuthGuard, PermissionGuard], data: {
+        permission: ['access_reviews']
+      }},
+      { path: 'services-user-list', component: ServicesUserListComponent, canActivate: [AuthGuard, PermissionGuard], data: {
+        permission: ['access_local_area_service_provider']
+      } },
+      { path: 'create-services-user', component: CreateServicesUserComponent, canActivate: [AuthGuard, PermissionGuard], data: {
+        permission: ['access_local_area_service_provider']
+      } },
+      { path: 'update-services-user', component: UpdateServicesUserComponent, canActivate: [AuthGuard, PermissionGuard], data: {
+        permission: ['access_local_area_service_provider']
+      } }
     ]
   }
 ];

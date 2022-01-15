@@ -1,20 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { Router,ActivatedRoute } from '@angular/router';
-import { LocalServiceProviderService } from '../../services/local-service-provider.service';
+import { LocalServiceProviderService } from 'src/app/user/backend/services/local-service-provider.service';
 import { ToastrService } from 'ngx-toastr';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { FormControl,FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CommonService } from '../../services/common.service';
+import { CommonService } from 'src/app/user/backend/services/common.service';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-update-service-user-list',
-  templateUrl: './update-service-user-list.component.html',
-  styleUrls: ['./update-service-user-list.component.css']
+  selector: 'app-update-services-user',
+  templateUrl: './update-services-user.component.html',
+  styleUrls: ['./update-services-user.component.css']
 })
-export class UpdateServiceUserListComponent implements OnInit {
-  
+export class UpdateServicesUserComponent implements OnInit {
+
   public user_id:any=null;
   public showLoadingIndicator:boolean=true;
   // dropdownSettings!: IDropdownSettings;
@@ -39,7 +39,6 @@ export class UpdateServiceUserListComponent implements OnInit {
   public  selected_locality:any=[];
   public filteredOptions!: Observable<any[]>;
 
-  
   Service_form = new FormGroup({
     id: new FormControl('', Validators.required),
     user_id: new FormControl('', Validators.required),
@@ -53,24 +52,24 @@ export class UpdateServiceUserListComponent implements OnInit {
     service: new FormControl('', Validators.required)
   });
 
-  constructor(
-    private route:ActivatedRoute,
+
+
+  constructor(private route:ActivatedRoute,
     private router:Router,
     private LocalServiceProviderService:LocalServiceProviderService,
     private fb: FormBuilder,
     private toastr: ToastrService,
-    private CommonService:CommonService
-    ) {
-    this.route.queryParams.subscribe((params) => {
-      if(params.id.length>0){
-        this.user_id = params.id;
-        this.showLoadingIndicator =true;
-        this.user_details(this.user_id);
-      }else{
-        this.redirect_to_service_user();
-      }
-    });
-  }
+    private CommonService:CommonService) { 
+      this.route.queryParams.subscribe((params) => {
+        if(params.id.length>0){
+          this.user_id = params.id;
+          this.showLoadingIndicator =true;
+          this.user_details(this.user_id);
+        }else{
+          this.redirect_to_service_user();
+        }
+      });
+    }
 
   ngOnInit(): void {
     this.dropdownSettings = {
@@ -112,8 +111,8 @@ export class UpdateServiceUserListComponent implements OnInit {
       startWith(''),
       map((value) => this._filter(value))
     );
-    
   }
+
   change_selected_locality(data:any){
     this.Service_form.patchValue({locality:data.locality_id});
     let param = { Locality_id:data.locality_id}
@@ -139,7 +138,7 @@ export class UpdateServiceUserListComponent implements OnInit {
       }
     );
   }
-  
+
   change_selected_locality1(data:any){
     this.Service_form.patchValue({locality:data['0'].locality_id});
     let param = { Locality_id:data['0'].locality_id}
@@ -164,6 +163,7 @@ export class UpdateServiceUserListComponent implements OnInit {
       }
     );
   }
+
   get_locality(value:any){
     if(value.length>2){
       this.CommonService.get_search_locality(value).subscribe(
@@ -205,6 +205,7 @@ export class UpdateServiceUserListComponent implements OnInit {
       return this.dropdownList?.filter((option: any) => option.locality_text.toLowerCase().includes(filterValue));
     }
   }
+
   user_details(id:any){
     this.showLoadingIndicator =true;
     let param = { user_id: id }
@@ -252,8 +253,8 @@ export class UpdateServiceUserListComponent implements OnInit {
       this.showLoadingIndicator =false;
   }
   
-  // fetch area service
-  area_service():void{
+   // fetch area service
+   area_service():void{
     this.showLoadingIndicator = true;
     this.LocalServiceProviderService.getarea_service({ param: null }).pipe().subscribe(
       response => {
@@ -270,10 +271,11 @@ export class UpdateServiceUserListComponent implements OnInit {
       }
     )
   }
-  
+
   get f() {
     return this.Service_form.controls;
   }
+
   onSubmit(){
     if(this.Service_form.invalid){
       this.submitted = true;
@@ -296,9 +298,7 @@ export class UpdateServiceUserListComponent implements OnInit {
         );
       }
   }
-  
-  
-  
+
   onchange_locality(id: any) {
     let param = { Locality_id:id.locality_id}
     this.CommonService.get_sub_locality(param).subscribe(
@@ -326,6 +326,7 @@ export class UpdateServiceUserListComponent implements OnInit {
       }
     );
   }
+
   keyPressNumbers(event: { which: any; keyCode: any; preventDefault: () => void; }) {
     var charCode = (event.which) ? event.which : event.keyCode;
     // Only Numbers 0-9
@@ -340,6 +341,5 @@ export class UpdateServiceUserListComponent implements OnInit {
   redirect_to_service_user(): void {
     this.router.navigate(['/agent/services-user-list'])
   }
-
 
 }

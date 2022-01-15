@@ -1,22 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { LocalServiceProviderService } from '../../services/local-service-provider.service';
+import { LocalServiceProviderService } from 'src/app/user/backend/services/local-service-provider.service';
 import { ToastrService } from 'ngx-toastr';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
-import { CommonService } from '../../services/common.service';
+import { CommonService } from 'src/app/user/backend/services/common.service';
 import { Router,ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
 @Component({
-    selector: 'app-create-service-user',
-    templateUrl: './create-service-user.component.html',
-    styleUrls: ['./create-service-user.component.css']
-  })
-export class CreateServiceUserComponent implements OnInit {
+  selector: 'app-create-services-user',
+  templateUrl: './create-services-user.component.html',
+  styleUrls: ['./create-services-user.component.css']
+})
+export class CreateServicesUserComponent implements OnInit {
 
- 
-  
   public submitted: boolean = false;
   public showLoadingIndicator: boolean =false;
   public p:number=0;
@@ -47,14 +45,12 @@ export class CreateServiceUserComponent implements OnInit {
     service: new FormControl('', Validators.required)
   });
 
-  constructor(
-    private LocalServiceProviderService:LocalServiceProviderService,
+  constructor( private LocalServiceProviderService:LocalServiceProviderService,
     private toastr: ToastrService,
     private router:Router,
-    private CommonService:CommonService
-    ) { }
+    private CommonService:CommonService) { }
 
-  ngOnInit(): void {    
+  ngOnInit(): void {
     this.dropdownSettings = {
       singleSelection: false,
       idField: 'service_id',
@@ -95,7 +91,7 @@ export class CreateServiceUserComponent implements OnInit {
       map((value) => this._filter(value))
     );
   }
-  
+
   change_selected_locality(data:any){
     this.Service_form.patchValue({locality:data.locality_id});
     let param = { Locality_id:data.locality_id}
@@ -122,6 +118,7 @@ export class CreateServiceUserComponent implements OnInit {
     );
     
   }
+
   get_locality(value:any){
     if(value.length>2){
       this.CommonService.get_search_locality(value).subscribe(
@@ -163,6 +160,7 @@ export class CreateServiceUserComponent implements OnInit {
       return this.dropdownList?.filter((option: any) => option.locality_text.toLowerCase().includes(filterValue));
     }
   }
+
   onSubmit():void{
     if(this.Service_form.invalid){
       this.submitted = true;
@@ -185,10 +183,11 @@ export class CreateServiceUserComponent implements OnInit {
         );
       }
   }
+
   get f() {
     return this.Service_form.controls;
   }
-  
+
   get_state(){
     this.showLoadingIndicator = true;
     this.CommonService.get_state({ param: null }).pipe().subscribe(
@@ -201,6 +200,7 @@ export class CreateServiceUserComponent implements OnInit {
       }
     )
   }
+
   onchange_state(id:any){
     let param = { id: id }
     this.CommonService.get_district_byid(param).subscribe(
@@ -216,51 +216,7 @@ export class CreateServiceUserComponent implements OnInit {
       }
     );
   }
-  // get_locality() {
-  //   this.CommonService.get_locality({ param: null }).subscribe(
-  //     response => {
-  //       let data:any=response;
-  //       console.log(data);
-  //       if(data.data.length<1){
-  //         this.dropdown_sublocality=[];
-  //         this.Service_form.patchValue({sub_locality:''});
-  //       }else{
-  //         for (let i = 1; i < data.data.length; i++) {
-  //           this.dropdown_locality = this.dropdown_locality.concat({locality_id: data.data[i].locality_id, locality_text:  data.data[i].locality}); 
-  //         }
-  //       }
-  //     },
-  //     (err: any) => {
-  //     }
-  //   );
-  // }
-  // onchange_locality(id: any) { 
-  //   let param = { Locality_id:id.locality_id}
-  //   this.CommonService.get_sub_locality(param).subscribe(
-  //     response => {
-  //       let data:any=response;
-  //       console.log(data);
-  //       this.dropdown_sublocality=[];
-  //       this.Service_form.patchValue({sub_locality:''});
-  //       if(data.data.length<1){
-  //         this.dropdown_sublocality=[];
-  //         this.Service_form.patchValue({
-  //           sub_locality:'',
-  //           district_id:''
-  //         });
-  //       }else{
-  //         this.Service_form.patchValue({
-  //           district:data.district.district.district_id
-  //         });
-  //         for (let i = 1; i < data.data.length; i++) {
-  //           this.dropdown_sublocality = this.dropdown_sublocality?.concat({ sub_locality_id: data.data[i].sub_locality_id, sub_locality_text: data.data[i].sub_locality});
-  //         }
-  //         }
-  //     }
-  //   );
-  // }
-  
-  // fetch area service
+
   area_service():void{
     this.showLoadingIndicator = true;
     this.LocalServiceProviderService.getarea_service({ param: null }).pipe().subscribe(
@@ -279,6 +235,7 @@ export class CreateServiceUserComponent implements OnInit {
       }
     )
   }
+
   
   // fetch local area 
   local_area():void{
@@ -294,6 +251,7 @@ export class CreateServiceUserComponent implements OnInit {
       }
     )
   }
+
   keyPressNumbers(event: { which: any; keyCode: any; preventDefault: () => void; }) {
     var charCode = (event.which) ? event.which : event.keyCode;
     // Only Numbers 0-9
@@ -304,7 +262,5 @@ export class CreateServiceUserComponent implements OnInit {
       return true;
     }
   }
- 
 
 }
-

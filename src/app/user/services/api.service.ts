@@ -18,40 +18,55 @@ export class ApiService {
     private jwtService: JwtService
   ) { }
 
-  private setHeaders():HttpHeaders {
+  private setHeaders(): HttpHeaders {
     const headersConfig = {
       "Content-Type": "application/json",
-      Accept:"application/json",
-      "Authorization":"NA"
+      Accept: "application/json",
+      "Authorization": "NA"
     };
     const authToken = this.jwtService.getToken();
-    if(authToken.length > 0){
+    if (authToken.length > 0) {
       headersConfig['Authorization'] = 'Bearer ' + authToken;
     }
     return new HttpHeaders(headersConfig);
   }
 
-  private setHeaders1():HttpHeaders {
+  private setHeaders1(): HttpHeaders {
     const headersConfig = {
-      Accept:"application/json",
-      "Authorization":"NA"
+      Accept: "application/json",
+      "Authorization": "NA"
     };
     const authToken = this.jwtService.getToken();
-    if(authToken.length > 0){
+    if (authToken.length > 0) {
       headersConfig['Authorization'] = 'Bearer ' + authToken;
     }
     return new HttpHeaders(headersConfig);
   }
 
-  private formatErrors(error: any){
+  /* For Admin API calls - Start */
+
+  private setAdminHeaders(): HttpHeaders {
+    const headersConfig = {
+      Accept: "application/json",
+      "Authorization": "NA"
+    };
+    const authToken = this.jwtService.getAdminToken();
+    if (authToken.length > 0) {
+      headersConfig['Authorization'] = 'Bearer ' + authToken;
+    }
+    return new HttpHeaders(headersConfig);
+  }
+
+  /* For Admin API calls - End */
+
+  private formatErrors(error: any) {
     return throwError(error);
   }
-  
+
   get<ResultModel>(
     path: string,
-    searchParams: HttpParams = new HttpParams()
-  ): Observable<ResultModel> {
-    if(searchParams) {
+    searchParams: HttpParams = new HttpParams()): Observable<ResultModel> {
+    if (searchParams) {
       const activatedRoute = this.router.url.split("/");
       //console.log(activatedRoute);
       Object.assign(searchParams, {
@@ -65,6 +80,24 @@ export class ApiService {
     }).pipe(catchError(this.formatErrors))
   }
 
+  admin_get<ResultModel>(
+    path: string,
+    searchParams: HttpParams = new HttpParams()): Observable<ResultModel> {
+    if (searchParams) {
+      const activatedRoute = this.router.url.split("/");
+      //console.log(activatedRoute);
+      Object.assign(searchParams, {
+        Route: activatedRoute[activatedRoute.length - 1]
+      });
+    }
+
+    return this.http.get<ResultModel>(`${environment.apiUrl}${path}`, {
+      headers: this.setAdminHeaders(),
+      params: searchParams
+    }).pipe(catchError(this.formatErrors))
+  }
+
+
   get1<ResultModel>(
     path: string,
     searchParams: HttpParams = new HttpParams()
@@ -74,12 +107,13 @@ export class ApiService {
       params: searchParams
     }).pipe(catchError(this.formatErrors))
   }
+
   get_pagination<ResultModel>(
     path: string,
     searchParams: HttpParams = new HttpParams()
   ): Observable<ResultModel> {
     return this.http.get<ResultModel>(`${path}`, {
-      headers: this.setHeaders(),
+      headers: this.setAdminHeaders(),
       params: searchParams
     }).pipe(catchError(this.formatErrors))
   }
@@ -102,6 +136,19 @@ export class ApiService {
       })
       .pipe(catchError(this.formatErrors));
   }
+
+  /* For Admin API calls - Start */
+
+  admin_post<ResultModel>(path: string, body: Object = {}): Observable<ResultModel> {
+
+    return this.http
+      .post<ResultModel>(`${environment.apiUrl}${path}`, body, {
+        headers: this.setAdminHeaders()
+      })
+      .pipe(catchError(this.formatErrors));
+  }
+
+  /* For Admin API calls - End */
 
   post1<ResultModel>(path: string, body: any): Observable<ResultModel> {
 

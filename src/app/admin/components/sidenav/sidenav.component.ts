@@ -22,6 +22,8 @@ export class SidenavComponent implements OnInit {
   public access_manage_plans: boolean = false;
   public access_manage_roles: boolean = false;
   public access_user_creator: boolean = false;
+  public access_bank_details: boolean = false;
+
   private user_id: any;
   public permissions_response: any;
   public roles_response: any;
@@ -71,6 +73,29 @@ export class SidenavComponent implements OnInit {
     this.router.navigate(['/admin/view-role']);
   }
 
+   user_list() {
+    this.router.navigate(['/admin/services-user-list']);
+  }
+
+  create_service_user() {
+    this.router.navigate(['/admin/create-services-user']);
+  }
+
+  view_all_users() {
+    this.router.navigate(['/admin/user-list']);
+  }
+
+  view_all_reviews() {
+    this.router.navigate(['/admin/user-reviews']);
+  }
+
+  bank_details() {
+    this.router.navigate(['/admin/user-bank-details']);
+  }
+
+  /* update_service_user() {
+    this.router.navigate(['/admin/update-services-user']);
+  } */			   
   get_user_permissions() {
     this.access_manage_plans = false;
       this.access_manage_roles = false;
@@ -80,6 +105,7 @@ export class SidenavComponent implements OnInit {
       this.access_reviews = false;
       this.access_la_service_provider = false;
       this.access_manage_blog = false;
+      this.access_bank_details = false;
 
     this.user_id = this.jwtService.getAdminId();
     //console.log(this.user_id);
@@ -93,6 +119,7 @@ export class SidenavComponent implements OnInit {
       this.access_reviews = true;
       this.access_la_service_provider = true;
       this.access_manage_blog = true;
+      this.access_bank_details = true;
 
     }
     if(this.user_id) {
@@ -111,6 +138,7 @@ export class SidenavComponent implements OnInit {
           this.access_reviews = this.permissions_response.includes('access_reviews');
           this.access_la_service_provider = this.permissions_response.includes('access_local_area_service_provider');
           this.access_manage_blog = this.permissions_response.includes('access_manage_blog');
+          this.access_bank_details = this.permissions_response.includes('access_bank_details');
   
         },
         err => {
