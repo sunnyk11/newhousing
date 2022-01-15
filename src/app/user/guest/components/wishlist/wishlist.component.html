@@ -75,7 +75,7 @@
                     <div class="details">
                         <a (click)="navigate(data?.productdetails?.id,data?.productdetails?.build_name,data?.productdetails?.city)">
                             <div class="tc_content">
-                                <p class="text-thm">{{ data?.productdetails?.type | titlecase }}</p>
+                                <p class="text-thm">{{ data?.productdetails?.property__type?.name | titlecase }}</p>
                                 <h4>{{data?.productdetails?.build_name | titlecase}}</h4>
                                 
                                 <p>
@@ -85,7 +85,7 @@
                                 <ul class="prop_details mb0">
                                     <li class="list-inline-item"><a>Beds: {{ data?.productdetails?.bedroom }}</a></li>
                                     <li class="list-inline-item"><a>Baths: {{ data?.productdetails?.bathroom }}</a></li>
-                                    <li class="list-inline-item"><a>Area unit: {{ data?.productdetails?.area_unit }}</a></li>
+                                    <li class="list-inline-item"><a>Area unit: {{ data?.productdetails?.property_area_unit?.unit }}</a></li>
                                 </ul>
                             </div>
                         </a>

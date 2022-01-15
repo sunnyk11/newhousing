@@ -134,12 +134,12 @@
 
                                                 <li class="list_data">
                                                     <a>
-                                                        <p>{{data?.productdetails?.type | titlecase}}</p>
+                                                        <p>{{data?.productdetails?.property__type?.name | titlecase}}</p>
                                                     </a>
                                                 </li>
                                                 <li class="list_data">
                                                     <a>
-                                                        <p>{{data?.productdetails?.city | titlecase}}</p>
+                                                        <p>{{data?.productdetails?.product_locality?.locality | titlecase}}({{data?.productdetails?.product_state?.state | titlecase}})</p>
                                                     </a>
                                                 </li>
                                                 <li class="list_data">
@@ -154,7 +154,7 @@
                                                 </li>
                                                 <li class="list_data">
                                                     <a>
-                                                        <p>{{data?.productdetails?.area}}/{{data?.productdetails?.area_unit}}
+                                                        <p>{{data?.productdetails?.area}}/{{ data?.productdetails?.property_area_unit?.unit}}
                                                         </p>
                                                     </a>
                                                 </li>

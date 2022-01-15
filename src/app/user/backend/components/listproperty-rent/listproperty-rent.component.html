@@ -24,32 +24,32 @@
                                 <select id="property_type" class="form-select form-select-lg w100" formControlName="property_type" [ngClass]="{ 'is-invalid': submitted1 && step1.property_type.errors }">
                                     <option value="" selected>Select Property Type</option>
                                     <optgroup label="ALL RESIDENTIAL">
-                                        <option value="Flat/ Apartment">Flat/ Apartment</option>
-                                        <option value="Residential House">Residential House</option>
-                                        <option value="Villa">Villa</option>
-                                        <option value="Builder Floor Apartment">Builder Floor Apartment
+                                        <option value="1">Flat/ Apartment</option>
+                                        <option value="2">Residential House</option>
+                                        <option value="3">Villa</option>
+                                        <option value="4">Builder Floor Apartment
                                         </option>
-                                        <option value="Residential Land/ Plot">Residential Land/ Plot
+                                        <option value="5">Residential Land/ Plot
                                         </option>
-                                        <option value="Penthouse">Penthouse</option>
-                                        <option value="Studio Apartment">Studio Apartment</option>
+                                        <option value="6">Penthouse</option>
+                                        <option value="7">Studio Apartment</option>
                                     </optgroup>
                                     <optgroup label="ALL COMMERCIAL">
-                                        <option value="Commercial Office Space">Commercial Office Space
+                                        <option value="8">Commercial Office Space
                                         </option>
-                                        <option value="Office in IT Park/ SEZ">Office in IT Park/ SEZ
+                                        <option value="9">Office in IT Park/ SEZ
                                         </option>
-                                        <option value="Commercial Shop">Commercial Shop</option>
-                                        <option value="Commercial Showroom">Commercial Showroom</option>
-                                        <option value="Commercial Land">Commercial Land</option>
-                                        <option value="Warehouse/ Godown">Warehouse/ Godown</option>
-                                        <option value="Industrial Land">Industrial Land</option>
-                                        <option value="Industrial Building">Industrial Building</option>
-                                        <option value="Industrial Shed">Industrial Shed</option>
+                                        <option value="10">Commercial Shop</option>
+                                        <option value="11">Commercial Showroom</option>
+                                        <option value="12">Commercial Land</option>
+                                        <option value="13">Warehouse/ Godown</option>
+                                        <option value="14">Industrial Land</option>
+                                        <option value="15">Industrial Building</option>
+                                        <option value="16">Industrial Shed</option>
                                     </optgroup>
                                     <optgroup label="ALL AGRICULTURAL">
-                                        <option value="Agricultural Land">Agricultural Land</option>
-                                        <option value="Farm House">Farm House</option>
+                                        <option value="17">Agricultural Land</option>
+                                        <option value="18">Farm House</option>
                                     </optgroup>
                                 </select>
                             </div>
@@ -60,23 +60,7 @@
                                 <label for="area_unit" class="form-label">Area Unit</label>
                                 <select id="area_unit" class="form-select form-select-lg w100" formControlName="area_unit" [ngClass]="{ 'is-invalid': submitted1 && step1.area_unit.errors }">
                                     <option value="">Select Area Unit</option>
-                                    <option value="sq.ft.">sq.ft.</option>
-                                    <option value="sq.yards">sq.yards</option>
-                                    <option value="sq.m.">sq.m.</option>
-                                    <option value="acres">acres</option>
-                                    <option value="marla">marla</option>
-                                    <option value="cents"> cents</option>
-                                    <option value="bigha">bigha</option>
-                                    <option value="kottah">kottah</option>
-                                    <option value="kanal"> kanal</option>
-                                    <option value="grounds">grounds</option>
-                                    <option value="biswa">biswa</option>
-                                    <option value="guntha"> guntha</option>
-                                    <option value="aankadam">aankadam</option>
-                                    <option value="hectares"> hectares</option>
-                                    <option value="rood">rood</option>
-                                    <option value="chataks">chataks</option>
-                                    <option value="perch"> perch</option>
+                                    <option  *ngFor="let area_unit of area_unit" [value]="area_unit?.id" >{{area_unit?.unit}}</option>
                                 </select>
                             </div>
                             <div class="col-md-6">
@@ -302,7 +286,7 @@
                                     <li>
                                         <div class="custom-control custom-checkbox ">
                                             <div class="form-group">
-                                                <input type="checkbox" class="custom-control-input" id="{{add_room.id}}" (change)="onchange_rooms($event,add_room.name)">
+                                                <input type="checkbox" class="custom-control-input" id="{{add_room.id}}" (change)="onchange_rooms($event,add_room.id)">
                                                 <label class="custom-control-label" for="{{add_room.id}}">{{add_room.name}}</label>
                                             </div>
                                         </div>
@@ -333,7 +317,7 @@
                         <div class="row additional_row" *ngIf="furnish_row == true">
                             <div class="col-12  col-lg-12">
                                 <ul class="row ui_kit_checkbox selectable-list">
-                                    <li *ngFor="let amenties_data of amenties?.data" class="col-lg-2 col-6 amentites_li">
+                                    <li *ngFor="let amenties_data of amenties" class="col-lg-2 col-6 amentites_li">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" id="{{amenties_data.name}}" (change)="onchangeAmenties($event,amenties_data.id)">
                                             <label class="form-check-label" for="{{amenties_data.name}}" (change)="onchangeAmenties($event,amenties_data.id)">
@@ -377,19 +361,15 @@
                             <div class="col-md-6">
                                 <label for="willing_to_rent" class="form-label">Willing to Rent Out to</label>
                                 <select id="willing_to_rent" class="form-select form-select-lg w100" formControlName="willing_to_rent" [ngClass]="{ 'is-invalid': submitted3 && step3.willing_to_rent.errors }">
-                                    <option value="">Select</option>
-                                    <option value="Family">Family</option>
-                                    <option value="Single Men">Single Men</option>
-                                    <option value="Single Women">Single Women</option>
+                                    <option value="">Please Select</option>
+                                    <option  *ngFor="let willing_to_rent of willing_to_rent" [value]="willing_to_rent?.id" >{{willing_to_rent?.name}}</option>
                                 </select>
                             </div>
                             <div class="col-md-6">
                                 <label for="agreement_type" class="form-label">Agreement Type</label>
                                 <select id="agreement_type" class="form-select form-select-lg w100" formControlName="agreement_type" [ngClass]="{ 'is-invalid': submitted3 && step3.agreement_type.errors }">
-                                    <option value="">Select Preferred </option>
-                                    <option value="Company Lease Agreement">Company Lease
-                                        Agreement</option>
-                                    <option value="Any">Any</option>
+                                    <option value="">Please Select</option>
+                                    <option  *ngFor="let agreement_type of agreement_type" [value]="agreement_type?.id" >{{agreement_type?.name}}</option>
                                 </select>
                             </div>
                         </div>
@@ -409,10 +389,8 @@
                             <div class="col-md-6">
                                 <label for="agreement_duration" class="form-label">Duration of Rent Agreement</label>
                                 <select id="agreement_duration" class="form-select form-select-lg w100" formControlName="agreement_duration" [ngClass]="{ 'is-invalid': submitted3 && step3.agreement_duration.errors }">
-                                    <option value="">Select</option>
-                                    <option value="One Year">One Year</option>
-                                    <option value="Three Year">Three Years</option>
-                                    <option value="Custom">Custom</option>
+                                    <option value="">Please Select</option>
+                                    <option  *ngFor="let agreement_duration of agreement_duration" [value]="agreement_duration?.id" >{{agreement_duration?.name}}</option>
                                 </select>
                             </div>
                             <!-- <div class="col-md-4">
@@ -556,10 +534,8 @@
                                 <div class="form-group">
                                     <label  class="form-label">Maintenance Charge Condition</label>
                                     <select class="form-select form-select-lg w100" formControlName="maintenance_charge_condition" [ngClass]="{ 'is-invalid': submitted4 && step4.maintenance_charge_condition.errors }">
-                                        <option value="">Select Option</option>
-                                        <option value="Monthly">Monthly</option>
-                                        <option value="Annually">Annually</option>
-                                        <option value="One Time">One Time</option>
+                                        <option value="">Please Select</option>
+                                        <option  *ngFor="let maintenance_charge_condition of maintenance_charge_condition" [value]="maintenance_charge_condition?.id" >{{maintenance_charge_condition?.name}}</option>    
                                     </select>
                                 </div>
                             </div>

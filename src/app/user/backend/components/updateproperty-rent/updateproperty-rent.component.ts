@@ -31,14 +31,6 @@ export class UpdatepropertyRentComponent implements OnInit {
       return '₹' + value.toLocaleString('en');
     },
   };
-
-  addition_room: addition_room= [
-    { id: 1, name: "Pooja  Room"},
-    { id: 2, name: "Study Room"},
-    { id: 3, name: "Servant  Room"},
-    { id: 4, name: "Other Room"}
-  ];
-
   @ViewChild("search")
   searchElementRef!: ElementRef;
   @ViewChild(AgmMap, { static: true })
@@ -96,6 +88,12 @@ export class UpdatepropertyRentComponent implements OnInit {
   public  selected_locality:any=[];
   public  selected_sub_locality:any=[];
   public filteredOptions!: Observable<any[]>;
+  public area_unit:any;
+  public addition_room:any;
+  public willing_to_rent:any;
+  public agreement_type:any;
+  public agreement_duration:any;
+  public maintenance_charge_condition:any;
   
   
   image1: string | ArrayBuffer | null | undefined;
@@ -157,7 +155,7 @@ export class UpdatepropertyRentComponent implements OnInit {
       noDataAvailablePlaceholderText: "Sub Locality not Availabale",
       maxHeight: 250,
     };
-   this.getAmenities(); 
+    this.get_dropdown_data();
    this.get_area();
     this.form_step1 = this._formBuilder.group({
       property_name: ['', Validators.required],
@@ -233,7 +231,22 @@ export class UpdatepropertyRentComponent implements OnInit {
       },
       (err: any) => {
         // console.log(err);
-
+      }
+    );
+  }
+  
+  // fetch amenties advance tab
+  get_dropdown_data() {
+    this.CommonService.get_dropdown_data({ param: null }).subscribe(
+      response => {
+        let data:any=response;
+        this.amenties = data.Amenitie;
+        this.willing_to_rent = data.property_willing_rent_out; 
+        this.agreement_duration = data.property_ageement_duration;
+        this.maintenance_charge_condition = data.property_maintenance_condition;
+        this.agreement_type = data.property_ageement_type;
+        this.addition_room = data.property_room;
+        this.area_unit = data.area_unit;
       }
     );
   }
@@ -522,7 +535,6 @@ export class UpdatepropertyRentComponent implements OnInit {
     let param = { id: prod_id }
     this.RentPropertyService.property_get_id(param).subscribe(
       response => {
-        console.log(response);
         let data:any =response;
         if(data.data == null){
           this.redirect_to_myproperty();
@@ -531,8 +543,14 @@ export class UpdatepropertyRentComponent implements OnInit {
           this.showLoadingIndicator =false;
           this.google_map();
           if(data.data.additional_rooms_status == 1){
-            this.add_room_string = data.data.additional_rooms;
-            this.update_room_array = this.add_room_string.split(',');
+            let addition_room_db:any=data.data.property_room
+            let addition_room_length:any=addition_room_db.length;
+            if(addition_room_length>0){
+              this.update_room_array=[];
+              for (let i = 0; i < addition_room_length; i++) {
+                this.update_room_array.push(addition_room_db[i].room_id);
+              }
+            }
             this.additional_room_array = this.update_room_array;
             this.form_step3.patchValue({
               additional_rooms: data.data.additional_rooms_status
@@ -601,7 +619,6 @@ export class UpdatepropertyRentComponent implements OnInit {
           }
           // step 2 
           if(data.data.address != null){
-            console.log(data.data.address);
             this.form_step2.patchValue({
               address:  data.data.address
             });
@@ -776,14 +793,6 @@ export class UpdatepropertyRentComponent implements OnInit {
         }
       });
   }
-  // fetch amenties advance tab
-  getAmenities(){
-    this.CommonService.getAmenities({ param: null }).subscribe(
-      response => {
-        this.amenties=response;
-      }
-    );
-  }
   get step1() {
     return this.form_step1.controls;
   }
@@ -828,8 +837,8 @@ export class UpdatepropertyRentComponent implements OnInit {
             this.toastr.info(Message, 'Rent Property', {
               timeOut: 3000,
             });
-            // this.showLoadingIndicator = false;
-            // this.router.navigate(['/agent/my-properties']);
+            this.showLoadingIndicator = false;
+            this.router.navigate(['/agent/my-properties']);
           }, err => { 
             this.showLoadingIndicator = false;
             let Message =err.error.message;
@@ -903,7 +912,7 @@ export class UpdatepropertyRentComponent implements OnInit {
       this.selected_room=[];
     }
   }
-  onchange_rooms(e: any, room: string) {
+  onchange_rooms(e: any, room: any) {
     if (e.target.checked) {
       this.update_room_array.push(room);
       const expected = new Set();
@@ -1182,4 +1191,3 @@ export class UpdatepropertyRentComponent implements OnInit {
    }
 
 }
-type addition_room = Array<{ id: number; name: string }>;

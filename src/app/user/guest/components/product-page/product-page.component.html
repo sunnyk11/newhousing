@@ -167,7 +167,7 @@
                                                 </p>
                                             </li>
                                             <li>
-                                                <p><span>{{product_data?.area}} {{product_data?.area_unit}}</span></p>
+                                                <p><span>{{product_data?.area}}({{product_data?.property_area_unit?.unit}})</span></p>
                                             </li>
                                             <li>
                                                 <p><span>{{product_data?.buildyear}}</span></p>
@@ -194,7 +194,7 @@
                                         </ul>
                                         <ul class="list-inline-item">
                                             <li>
-                                                <p><span>{{product_data?.type}}</span></p>
+                                                <p><span>{{product_data?.property__type?.name}}</span></p>
                                             </li>
                                             <li>
                                                 <p><span>{{product_data?.bedroom}}</span></p>
@@ -225,9 +225,6 @@
                                                 <p>Security Deposit:</p>
                                             </li>
                                             <li>
-                                                <p>Landmark :</p>
-                                            </li>
-                                            <li>
                                                 <p>Available For</p>
                                             </li>
                                             <li>
@@ -242,16 +239,13 @@
                                                 <p><span>{{product_data?.security_deposit}} Month Rent</span></p>
                                             </li>
                                             <li>
-                                                <p><span>{{product_data?.nearest_landmark}}</span></p>
-                                            </li>
-                                            <li>
                                                 <p><span>{{product_data?.available_for}}</span></p>
                                             </li>
                                             <li>
-                                                <p><span>{{product_data?.area_unit}}</span></p>
+                                                <p><span>{{product_data?.property_area_unit?.unit}}</span></p>
                                             </li>
                                             <li>
-                                                <p><span>{{product_data?.duration_of_rent_aggreement}}</span></p>
+                                                <p><span>{{product_data?.ageement_duration?.name}}</span></p>
                                             </li>
                                         </ul>
                                     </div>
@@ -275,7 +269,7 @@
                                         </ul>
                                         <ul class="list-inline-item">
                                             <li *ngIf="product_data?.maintenance_charge_condition != null">
-                                                <p><span>{{product_data?.maintenance_charge}}({{product_data?.maintenance_charge_condition}})</span></p>
+                                                <p><span>{{product_data?.maintenance_charge}}({{product_data?.maintenance_condition?.name}})</span></p>
                                             </li>
                                             <li>
                                                 <p><span *ngIf="product_data?.additional_parking_status == 1">Yes({{product_data?.parking_covered_count}},{{product_data?.parking_open_count}}) </span>
@@ -329,16 +323,16 @@
                                             <div class="col-lg-8 col-6">
                                                 <ul class="list-inline-item">
                                                     <li>
-                                                        <p><span>{{product_data?.agreement_type}}</span></p>
+                                                        <p><span>{{product_data?.aggeement_type?.name}}</span></p>
                                                     </li>
                                                     <li>
                                                         <p><span>{{product_data?.month_of_notice}}</span></p>
                                                     </li>
                                                     <li>
-                                                        <p><span>{{product_data?.duration_of_rent_aggreement}}</span></p>
+                                                        <p><span>{{product_data?.ageement_duration?.name}}</span></p>
                                                     </li>
                                                     <li>
-                                                        <p><span>{{product_data?.willing_to_rent_out_to}}</span></p>
+                                                        <p><span>{{product_data?.willing_rent_out?.name}}</span></p>
                                                     </li>
                                                     <li>
                                                         <p>
@@ -388,7 +382,7 @@
                                     <h6><strong>{{commaSeperated(product_data?.expected_pricing)}}</strong></h6>
                                 </div>
                                 <div class="col-lg-9 col-9" *ngIf="product_data?.maintenance_charge_status == '1'">
-                                    <h6>Maintenance Charge({{product_data?.maintenance_charge_condition}}): </h6>
+                                    <h6>Maintenance Charge({{product_data?.maintenance_condition?.name}}): </h6>
                                 </div>
                                 <div class="col-lg-3 col-3" *ngIf="product_data?.maintenance_charge_status == '1'">
                                     <h6><strong>{{commaSeperated(product_data?.maintenance_charge)}}</strong></h6>
@@ -420,7 +414,7 @@
                                 </div>
                                 <div class="col-lg-9 col-9" *ngIf="product_data?.maintenance_charge_status == '1'">
                                     <!-- <hr> -->
-                                    <h6>Maintenance Charge({{product_data?.maintenance_charge_condition}}): </h6>
+                                    <h6>Maintenance Charge({{product_data?.maintenance_condition?.name}}): </h6>
                                 </div>
                                 <div class="col-lg-3 col-3" *ngIf="product_data?.maintenance_charge_status == '1'">
                                     <h6><strong>{{commaSeperated(product_data?.maintenance_charge)}}</strong></h6>
@@ -489,7 +483,7 @@
                                             <h6 class="mb20" style="font-weight: 700!important;">Sub-Locality-:<span>{{product_data?.product_sub_locality?.sub_locality}}</span></h6>
                                         </div>
                                         <div class="col-lg-4 col-12 mt20">
-                                            <a href="https://maps.google.co.in/maps?q={{latCus}},{{longCus}}" target="_blanck"><button class="btn btn-primary">Visit The Direction Map</button></a>
+                                            <a href="{{google_map_url}}{{latCus}},{{longCus}}" target="_blanck"><button class="btn btn-primary">Visit The Direction Map</button></a>
                                         </div>
                                         <div class="col-lg-12 col-12 mt20" id="address_details" *ngIf="address_details">
                                             <h6><span style="font-weight: 800!important;">Address-Details:-</span><span>{{address_details}}</span></h6>
@@ -520,19 +514,19 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-12 single-page_inner_column" *ngIf="product_data?.video_link.length>0">
-                            <div class="shop_single_tab_content style2 mt30 application_statics">
-                                <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                    <li class="nav-item">
-                                        <a class="nav-link active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Property video </a>
-                                    </li>
-                                </ul>
-                                <div class="tab-content" id="myTabContent2">
-                                    <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
-                                        <div class="property_video">
-                                            <div class="thumb">
-                                                <iframe width="560" height="315" [src]='safeURL' frameborder="0"></iframe>
-                                            </div>
+                    </div>
+                    <div class="col-lg-12 single-page_inner_column" *ngIf="product_data?.video_link.length>0">
+                       <div class="shop_single_tab_content style2 mt30 application_statics">
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Property video </a>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="myTabContent2">
+                                <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
+                                    <div class="property_video">
+                                        <div class="thumb">
+                                            <iframe width="560" height="315" [src]='safeURL' frameborder="0"></iframe>
                                         </div>
                                     </div>
                                 </div>
@@ -540,7 +534,7 @@
                         </div>
                     </div>
                     <div class="col-lg-12">
-                        <h4 class="mt30 mb30">Similar Properties</h4>
+                        <h4 class="mt30 mb30" *ngIf="product_length>0">Similar Properties</h4>
                         <div class="row preloader_row" *ngIf="showLoadingIndicator">
                             <div class="col-lg-12">
                                 <div class="preloader"></div>
@@ -562,7 +556,7 @@
                                             </div>
                                             <div class="thmb_cntnt style3">
                                                 <ul class="icon mb0">
-                                                    <li class="list-inline-item" *ngIf="number[0] != null;else wishlistcontent">
+                                                    <li class="list-inline-item" *ngIf="number?.single_wishlist != null;else wishlistcontent">
                                                         <a class="wishlist-icon" (click)="wishlist_remove(number.id)">
                                                             <i class="fa fa-heart" aria-hidden="true"></i>
                                                         </a>
@@ -594,7 +588,7 @@
                                         </div>
                                         <div class="thmb_cntnt style3">
                                             <ul class="icon mb0">
-                                                <li class="list-inline-item" *ngIf="number[0] != null;else wishlistcontent">
+                                                <li class="list-inline-item" *ngIf="number?.single_wishlist != null;else wishlistcontent">
                                                     <a class="wishlist-icon" (click)="wishlist_remove_similar(number.id)">
                                                         <i class="fa fa-heart" aria-hidden="true"></i>
                                                     </a>
@@ -618,16 +612,16 @@
                                 <div class="details">
                                     <a (click)="navigate(number.id,number.build_name,number.city)">
                                         <div class="tc_content">
-                                            <p class="text-thm" *ngIf="number.type != null">{{ number.type | titlecase }}</p>
-                                            <h4>{{number.build_name | titlecase}}</h4>
+                                            <p class="text-thm" *ngIf="number.type != null">{{ number?.property__type?.name | titlecase  }}</p>
+                                            <h4>{{number?.build_name | titlecase}}</h4>
                                             <p>
-                                                <span  *ngIf="number.product_locality != null">{{ number.product_locality?.locality | titlecase }}</span>
-                                                <span *ngIf="number.product_state != null">({{ number.product_state?.state | titlecase }})</span>
+                                                <span  *ngIf="number.product_locality != null">{{ number?.product_locality?.locality | titlecase }}</span>
+                                                <span *ngIf="number.product_state != null">({{ number?.product_state?.state | titlecase }})</span>
                                             </p>
                                             <ul class="prop_details mb0">
-                                                <li class="list-inline-item"><a>Beds: {{ number.bedroom }}</a></li>
-                                                <li class="list-inline-item"><a>Baths: {{ number.bathroom }}</a></li>
-                                                <li class="list-inline-item"><a>Area unit: {{ number.area_unit }}</a></li>
+                                                <li class="list-inline-item"><a>Beds: {{ number?.bedroom }}</a></li>
+                                                <li class="list-inline-item"><a>Baths: {{ number?.bathroom }}</a></li>
+                                                <li class="list-inline-item"><a>Area unit: {{ number?.property_area_unit?.unit }}</a></li>
                                             </ul>
                                         </div>
                                     </a>
@@ -637,7 +631,7 @@
                                                 <a href="#">
                                                     <img src="./../../assets/resources/images/property/img_avatar2-png-9.png" alt="img_avatar2-png-9.png"></a>
                                             </li>
-                                            <li class="list-inline-item"><a href="#">{{number.user_detail.name | titlecase}}</a></li>
+                                            <li class="list-inline-item"><a href="#">{{number?.user_detail?.name | titlecase}}</a></li>
                                             <div class="fp_pdate float-right" *ngIf="number.product_comparision==null">
                                                 <button type="button" (click)="product_comp_similar(number.id)" class="btn btn-log btn-block btn-thm bg-white text-black-50">Add to compare</button>
                                             </div>
@@ -664,7 +658,7 @@
                                 <h6><strong>{{commaSeperated(product_data?.expected_pricing)}}</strong></h6>
                             </div>
                             <div class="col-lg-9 col-9" *ngIf="product_data?.maintenance_charge_status == '1'">
-                                <h6>Maintenance Charge({{product_data?.maintenance_charge_condition}}): </h6>
+                                <h6>Maintenance Charge({{product_data?.maintenance_condition?.name}}): </h6>
                             </div>
                             <div class="col-lg-3 col-3" *ngIf="product_data?.maintenance_charge_status == '1'">
                                 <h6><strong>{{commaSeperated(product_data?.maintenance_charge)}}</strong></h6>
@@ -696,7 +690,7 @@
                             </div>
                             <div class="col-lg-9 col-9" *ngIf="product_data?.maintenance_charge_status == '1'">
                                 <!-- <hr> -->
-                                <h6>Maintenance Charge({{product_data?.maintenance_charge_condition}}): </h6>
+                                <h6>Maintenance Charge({{product_data?.maintenance_condition?.name}}): </h6>
                             </div>
                             <div class="col-lg-3 col-3" *ngIf="product_data?.maintenance_charge_status == '1'">
                                 <h6><strong>{{commaSeperated(product_data?.maintenance_charge)}}</strong></h6>
@@ -736,7 +730,7 @@
                                 <h6><strong>{{commaSeperated(product_data?.expected_pricing)}}</strong></h6>
                             </div>
                             <div class="col-lg-9 col-9" *ngIf="product_data?.maintenance_charge_status == '1'">
-                                <h6>Maintenance Charge({{product_data?.maintenance_charge_condition}}): </h6>
+                                <h6>Maintenance Charge({{product_data?.maintenance_condition?.name}}): </h6>
                             </div>
                             <div class="col-lg-3 col-3" *ngIf="product_data?.maintenance_charge_status == '1'">
                                 <h6><strong>{{commaSeperated(product_data?.maintenance_charge)}}</strong></h6>
@@ -768,7 +762,7 @@
                             </div>
                             <div class="col-lg-9 col-9" *ngIf="product_data?.maintenance_charge_status == '1'">
                                 <!-- <hr> -->
-                                <h6>Maintenance Charge({{product_data?.maintenance_charge_condition}}): </h6>
+                                <h6>Maintenance Charge({{product_data?.maintenance_condition?.name}}): </h6>
                             </div>
                             <div class="col-lg-3 col-3" *ngIf="product_data?.maintenance_charge_status == '1'">
                                 <h6><strong>{{commaSeperated(product_data?.maintenance_charge)}}</strong></h6>

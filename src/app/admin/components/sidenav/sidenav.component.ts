@@ -118,7 +118,6 @@ export class SidenavComponent implements OnInit {
         }
       );
     }
-    
   }
 
   user_details() {

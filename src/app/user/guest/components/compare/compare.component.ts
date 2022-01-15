@@ -77,7 +77,6 @@ export class CompareComponent implements OnInit {
       response => {
         this.property=response;
         this.property_comp_length=this.property.data.length;
-        console.log(this.property_comp_length);
         // user logs funtionalty
         if(this.property_comp_length>0){
           // loop start
@@ -149,10 +148,6 @@ export class CompareComponent implements OnInit {
         }
       }, err => { 
         this.showLoadingIndicator = false;
-        let Message =err.error.message;
-        this.toastr.error(Message, 'Something Error', {
-          timeOut: 3000,
-        });
       }
     );    
   }
@@ -202,9 +197,7 @@ export class CompareComponent implements OnInit {
         }, err => { 
           this.showLoadingIndicator = false;
           let Message =err.error.message;
-          this.toastr.error(Message, 'Something Error', {
-            timeOut: 3000,
-          });
+         
         }
       );
   }
