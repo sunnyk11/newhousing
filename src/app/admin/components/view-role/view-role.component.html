@@ -1,0 +1,98 @@
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header text-center">
+            <h5 class="card-title">View Roles</h5>
+        </div>
+        <div class="card-body">
+            <table class="table table-hover text-center">
+                <thead>
+                    <tr>
+                        <th scope="col">Sl. No</th>
+                        <th scope="col">Role</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let role of roles_response; let i = index">
+                    <tr>
+                        <th scope="row">
+                            {{i+1}}
+                        </th>
+                        <td>{{ role.role_name }}</td>
+                        <td>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#MoreDetailsModal" (click)="moreDetails(role)">View Details</button>
+                            <button type="button" class="btn btn-primary edit-button" data-bs-toggle="modal" data-bs-target="#EditDetailsModal" (click)="editDetails(role)">Edit Details</button>
+                            <button type="button" class="btn btn-primary edit-button" data-bs-toggle="modal" data-bs-target="#DeleteRoleModal" (click)="deleteRole(role)">Delete Role</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- More Details Modal -->
+    <div class="modal fade" id="MoreDetailsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Role Details</h5>
+                    <button type="button" #closeModal class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h4>{{ role_details?.role_name }}</h4>
+                    <form [formGroup]="RoleForm" class="mt-4">
+                        <div class="form-check col-lg-6 ps-4" formArrayName="permissionsArray" *ngFor="let permission of role_permissions_response; let i = index">
+                            <input class="form-check-input" type="checkbox" [formControlName]="permission.permission_name">
+                            <label class="form-check-label">
+                                {{permission.description}}
+                            </label>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Details Modal -->
+    <div class="modal fade" id="EditDetailsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Role Details - {{ edit_role_details?.role_name }}</h5>
+                    <button type="button" #closeEditModal class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form [formGroup]="EditRoleForm" class="mt-4">
+                        <div class="form-check col-lg-6 ps-4" formArrayName="EditPermissionsArray" *ngFor="let permission of edit_role_permissions_response; let i = index">
+                            <input class="form-check-input" type="checkbox" [formControlName]="permission.permission_name">
+                            <label class="form-check-label">
+                                {{permission.description}}
+                            </label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" (click)="save_role(edit_role_details?.id)">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Role Modal -->
+    <div class="modal fade" id="DeleteRoleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete Role - {{ delete_role_details?.role_name }}</h5>
+                    <button type="button" #closeDeleteModal class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h4>Are you sure you want to delete?</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" (click)="delete_role(delete_role_details?.id)">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

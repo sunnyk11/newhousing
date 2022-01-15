@@ -1,6 +1,23 @@
-<!-- <router-outlet></router-outlet> -->
+<!-- <nav id="sidebar">
+    <div class="sidebar-header">
+        <img class="logo2 img-fluid" src="../../../assets/resources/images/logo/logo.png" alt="header-logo2.png">
+    </div>
+    <ul class="list-unstyled components">
+        <li>Link 1</li>
+        <li>Link 2</li>
+    </ul>
+</nav>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <button type="button" id="sidebarCollapse" class="btn btn-info">
+            <i class="fas fa-align-left"></i>
+            <span>Toggle Sidebar</span>
+        </button>
+    </div>
+</nav>
+<router-outlet></router-outlet> -->
 <mat-sidenav-container>
-    <mat-sidenav #sidenav role="navigation">
+    <mat-sidenav #sidenav role="navigation" [mode]="mode">
         <app-sidenav (sidenavClose)="sidenav.close()"></app-sidenav>
     </mat-sidenav>
     <mat-sidenav-content>

@@ -16,6 +16,13 @@ import { HeaderComponent } from './components/header/header.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ViewPlansComponent } from './components/view-plans/view-plans.component';
 import { AddPlanComponent } from './components/add-plan/add-plan.component';
+import { CreateUserComponent } from './components/create-user/create-user.component';
+import { CreateRoleComponent } from './components/create-role/create-role.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { ViewRoleComponent } from './components/view-role/view-role.component';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { UserReviewsComponent } from './components/user-reviews/user-reviews.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { UserBankDetailsComponent } from './components/user-bank-details/user-bank-details.component';
@@ -33,6 +40,9 @@ import { UserListComponent } from './components/user-list/user-list.component';
     HeaderComponent,
     ViewPlansComponent,
     AddPlanComponent,
+    CreateUserComponent,
+    CreateRoleComponent,
+    ViewRoleComponent
     UserReviewsComponent,
     UserBankDetailsComponent,
     UserPaytmVerifyComponent,
@@ -49,9 +59,13 @@ import { UserListComponent } from './components/user-list/user-list.component';
     MatIconModule,
     MatButtonModule,
     MatListModule,
+    FlexLayoutModule,
+    MatCheckboxModule,
+    NgMultiSelectDropDownModule,
+    MatMenuModule,
+    MatExpansionModule
     NgxPaginationModule,
     NgbModule,
-    FlexLayoutModule
   ]
 })
 export class AdminModule { }

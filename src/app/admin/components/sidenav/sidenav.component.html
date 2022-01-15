@@ -1,5 +1,103 @@
-<mat-nav-list>
+<!-- <mat-nav-list>
+    <a mat-list-item *ngIf="LoggedIn && access_manage_plans">
+        <mat-icon>list</mat-icon> <span class="nav-caption">Manage Plans</span>
+    </a>
+    <a mat-list-item *ngIf="LoggedIn && access_manage_roles">
+        <mat-icon>list</mat-icon> <span class="nav-caption">Manage Roles</span>
+    </a>
+    <a mat-list-item *ngIf="LoggedIn && access_manage_users">
+        <mat-icon>list</mat-icon> <span class="nav-caption">Manage Users</span>
+    </a>
     <a mat-list-item *ngIf="LoggedIn" (click)="logout()">
         <mat-icon>logout</mat-icon> <span class="nav-caption">Logout</span>
     </a>
-</mat-nav-list>
+</mat-nav-list> -->
+
+<mat-accordion>
+    <mat-expansion-panel *ngIf="LoggedIn && access_manage_plans">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Manage Plans
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-nav-list>
+            <a mat-list-item (click)="view_plans()">View Plans</a>
+            <a mat-list-item (click)="add_plan()">Add Plan</a>
+        </mat-nav-list>
+    </mat-expansion-panel>
+    <mat-expansion-panel *ngIf="LoggedIn && access_manage_roles">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Manage Roles
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-nav-list>
+            <a mat-list-item (click)="create_role()">Create Role</a>
+            <a mat-list-item (click)="view_role()">View/Edit Role</a>
+        </mat-nav-list>
+    </mat-expansion-panel>
+    <mat-expansion-panel *ngIf="LoggedIn && access_user_creator">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                User Creator
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-nav-list>
+            <a mat-list-item (click)="create_user()">Create User</a>
+        </mat-nav-list>
+    </mat-expansion-panel>
+    <mat-expansion-panel *ngIf="LoggedIn && access_all_users">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                All Users
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+    </mat-expansion-panel>
+    <mat-expansion-panel *ngIf="LoggedIn && access_reviews">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Reviews
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+    </mat-expansion-panel>
+    <mat-expansion-panel *ngIf="LoggedIn && access_manage_blog">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Manage Blog
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+    </mat-expansion-panel>
+    <mat-expansion-panel *ngIf="LoggedIn && access_la_service_provider">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Local Area Service Provider
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-nav-list>
+            <a mat-list-item (click)="create_user()">Create User</a>
+        </mat-nav-list>
+    </mat-expansion-panel>
+    <mat-expansion-panel *ngIf="LoggedIn">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Logout
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-nav-list>
+            <a mat-list-item (click)="logout()">Logout</a>
+        </mat-nav-list>
+    </mat-expansion-panel>
+</mat-accordion>
+<!-- <mat-menu #plans="matMenu">
+    <button mat-menu-item>View Plans</button>
+    <button mat-menu-item>Add Plan</button>
+</mat-menu>
+
+<mat-menu #roles="matMenu">
+    <button mat-menu-item>Create Role</button>
+    <button mat-menu-item>View/Edit Role</button>
+</mat-menu>
+
+<mat-menu #users="matMenu">
+    <button mat-menu-item>Create User</button>
+</mat-menu> -->

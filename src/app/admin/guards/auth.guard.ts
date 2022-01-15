@@ -11,6 +11,7 @@ export class AuthGuard implements CanActivate {
   private token: any;
   public returnUrl: string = '';
   private user_role: any;
+  private user_type: any;
 
   constructor(private jwtService: JwtService,
     private router: Router) {}
@@ -19,8 +20,9 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
       return new Observable<boolean>(obs => {
         this.token = this.jwtService.getAdminToken();
-        this.user_role = this.jwtService.getUserRole();
-        if(this.token && this.user_role == 'Admin') {
+        //this.user_role = this.jwtService.getUserRole();
+        this.user_type = this.jwtService.getUserType();
+        if(this.token && (this.user_type == 8 || this.user_type == 11)) {
           obs.next(true);
         }
         else {

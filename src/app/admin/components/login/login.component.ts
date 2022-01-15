@@ -61,6 +61,7 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/admin/dashboard']);
         },
         err => {
+          console.log(err);
           this.showLoadingIndicator = false;
           this.errorMessage = err.error.message;
           this.LoginFailed = true;

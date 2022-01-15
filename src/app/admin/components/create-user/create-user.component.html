@@ -1,0 +1,116 @@
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header text-center">
+            <h5 class="card-title">Create User</h5>
+        </div>
+        <div class="card-body">
+            <form [formGroup]="UserForm" (ngSubmit)="onSubmit()" class="mt-4">
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">User Name</span>
+                            <input type="text" formControlName="userName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.userName.errors }" name="userName" id="userName" aria-describedby="basic-addon1" required>
+                            <div *ngIf="submitted && f.userName.errors" class="invalid-feedback">
+                                <div *ngIf="f.userName.errors.required">User Name is required</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">Email</span>
+                            <input type="email" class="form-control" formControlName="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" name="email" required>
+                            <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                                <div *ngIf="f.email.errors.required">Email is required</div>
+                                <div *ngIf="f.email.errors.email">Email is invalid</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">+91</span>
+                            <input type="number" class="form-control" formControlName="other_mobile_number" [ngClass]="{ 'is-invalid': submitted && f.other_mobile_number.errors }" placeholder="Mobile Number" name="other_mobile_number" minlength="10" maxlength="10" id="other_mobile_number"
+                                pattern="[0-9]{10}" required>
+                            <div *ngIf="submitted && f.other_mobile_number.errors" class="invalid-feedback">
+                                <div *ngIf="f.other_mobile_number.errors.required">Phone number is required</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">Address Line 1</span>
+                            <input type="text" formControlName="address1" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.address1.errors }" name="address1" id="address1" aria-describedby="basic-addon1" required>
+                            <div *ngIf="submitted && f.address1.errors" class="invalid-feedback">
+                                <div *ngIf="f.address1.errors.required">Address is required</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">Address Line 2</span>
+                            <input type="text" formControlName="address2" class="form-control" name="address2" id="address2" aria-describedby="basic-addon1">
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">Password</span>
+                            <input type="password" class="form-control" formControlName="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" name="password" minlength="6" required>
+                            <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                                <div *ngIf="f.password.errors.required">Password is required</div>
+                                <div *ngIf="f.password.errors.minlength">
+                                    Password must be at least 6 characters
+                                </div>
+                                <div *ngIf="f.password.errors.maxlength">
+                                    Password must not exceed 40 characters
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">Confirm Password</span>
+                            <input type="password" class="form-control" formControlName="cpassword" [ngClass]="{ 'is-invalid': submitted && f.cpassword.errors }" name="cpassword" minlength="6" required>
+                            <div *ngIf="submitted && f.cpassword.errors" class="invalid-feedback">
+                                <div *ngIf="f.cpassword.errors.required">
+                                    Confirm Password is required
+                                </div>
+                                <div *ngIf="f.cpassword.errors.confirmedValidator">
+                                    Confirm Password does not match
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                        <div class="input-group mb-3">
+                            <div class="col-lg-3 col-md-4 col-sm-4 col-4">
+                                <label class="input-group-text" for="inputGroupSelect01">Select Role</label>
+                            </div>
+                            <!-- <select class="form-select" id="inputGroupSelect01" formControlName="userRole" [ngClass]="{ 'is-invalid': submitted && f.userRole.errors }" name="userRole" required>
+                                <option value="">Select Role</option>
+                                <option *ngFor="let role of roles_response" value="{{ role.id }}">{{ role.role_name }}</option>
+                            </select> -->
+                            <div class="col-lg-9 col-md-12 col-sm-8 col-8">
+                                <ng-multiselect-dropdown class="form-control" [settings]="dropdownSettings" [data]="dropdownList" formControlName="userRole" [ngClass]="{ 'is-invalid': submitted && f.userRole.errors }" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)"
+                                    required>
+                                </ng-multiselect-dropdown>
+                            </div>
+                            <div *ngIf="submitted && f.userRole.errors" class="invalid-feedback">
+                                <div *ngIf="f.userRole.errors.required">Please select the Role</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <button class="btn btn-primary">Create User</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
