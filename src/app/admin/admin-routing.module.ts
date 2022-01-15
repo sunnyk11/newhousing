@@ -13,6 +13,7 @@ import { PermissionGuard } from './guards/permission.guard';
 import { UserReviewsComponent } from './components/user-reviews/user-reviews.component';
 import { UserBankDetailsComponent } from './components/user-bank-details/user-bank-details.component';
 import { UserListComponent } from './components/user-list/user-list.component';
+
 const routes: Routes = [
   {
     path: '', component: MasterComponent,
