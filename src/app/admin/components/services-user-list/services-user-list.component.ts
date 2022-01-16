@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { LocalServiceProviderService } from '../../services/local-service-provider.service';
+import { LocalServiceProviderService } from 'src/app/user/backend/services/local-service-provider.service';
 import { ToastrService } from 'ngx-toastr';
 import { Pagination } from 'src/app/user/components/models/pagination.model';
 
 @Component({
-  selector: 'app-service-user-list',
-  templateUrl: './service-user-list.component.html',
-  styleUrls: ['./service-user-list.component.css']
+  selector: 'app-services-user-list',
+  templateUrl: './services-user-list.component.html',
+  styleUrls: ['./services-user-list.component.css']
 })
-export class ServiceUserListComponent implements OnInit {
-  
+export class ServicesUserListComponent implements OnInit {
+
   public submitted: boolean = false;
   public showLoadingIndicator: boolean =false;
   public p:number=0;
@@ -17,16 +17,15 @@ export class ServiceUserListComponent implements OnInit {
   public Pagination_data: Pagination;
   public user_length:number=0;
 
- 
-  constructor(
-    private LocalServiceProviderService:LocalServiceProviderService,
-    private toastr: ToastrService
-    ) {
-      this.Pagination_data = new Pagination();  }
+  constructor(private LocalServiceProviderService:LocalServiceProviderService,
+    private toastr: ToastrService) { 
+      this.Pagination_data = new Pagination();
+    }
 
-  ngOnInit(): void {  
+  ngOnInit(): void {
     this.getservice_user();
   }
+
   getservice_user(){
     this.showLoadingIndicator= true;
     this.LocalServiceProviderService.getservice_user().then(
@@ -39,7 +38,7 @@ export class ServiceUserListComponent implements OnInit {
       }
     );
   }
-  
+
   gotoPage(link_url: any) {
     this.showLoadingIndicator = true;
     this.LocalServiceProviderService.getpagination(link_url).then(Pagination_data => {
@@ -48,22 +47,24 @@ export class ServiceUserListComponent implements OnInit {
       // this.user_list_length=this.user_list.data.data.length;
     });
   }
-    delete_service_user(id:any){
+
+  delete_service_user(id: any) {
     this.showLoadingIndicator = true;
-    let param = { id: id}
+    let param = { id: id }
     this.LocalServiceProviderService.delete_service_user(param).pipe().subscribe(
-      response=> {
-        this.showLoadingIndicator =false;;
-        let data:any=response;
-        let Message =data.message;
+      response => {
+        this.showLoadingIndicator = false;;
+        let data: any = response;
+        let Message = data.message;
         this.toastr.error(Message, 'User', {
           timeOut: 3000,
         });
         this.getservice_user();
       },
       err => {
-       this.showLoadingIndicator = false;
+        this.showLoadingIndicator = false;
       }
     )
   }
+
 }
