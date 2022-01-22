@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { LocalServiceProviderService } from '../../services/local-service-provider.service';
+import { LocalServiceProviderService } from 'src/app/user/backend/services/local-service-provider.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router,ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'app-update-services',
@@ -10,7 +11,7 @@ import { Router,ActivatedRoute } from '@angular/router';
   styleUrls: ['./update-services.component.css']
 })
 export class UpdateServicesComponent implements OnInit {
-  
+
   public showLoadingIndicator:boolean=true;
   public submitted: boolean = false;
   public service_id:any={};
@@ -20,8 +21,8 @@ export class UpdateServicesComponent implements OnInit {
     service: new FormControl('', Validators.required),
     service_id: new FormControl('', Validators.required)
   });
-  constructor(
-    private route:ActivatedRoute,
+
+  constructor(private route:ActivatedRoute,
     private router:Router,
     private LocalServiceProviderService:LocalServiceProviderService,
     private toastr: ToastrService) { 
@@ -38,10 +39,11 @@ export class UpdateServicesComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  
+
   get f() {
     return this.Service_form.controls;
   }
+
   service_details(service_id:any){
     this.showLoadingIndicator =true;
     let param = { service_id: service_id }
@@ -59,30 +61,32 @@ export class UpdateServicesComponent implements OnInit {
         }
       });
   }
-  onSubmit(){
-    if(this.Service_form.invalid){
+
+  onSubmit() {
+    if (this.Service_form.invalid) {
       this.submitted = true;
-      }else{
-        let param={data:this.Service_form.value}
-        this.LocalServiceProviderService.service_update(param).subscribe(
-          response => {
-            let data:any=response;
-            this.showLoadingIndicator = false;
-            this.toastr.success('Services Updated');
-            this.router.navigate(['/agent/services-list']);   
-          },
-          err => {
-            this.showLoadingIndicator = false;
-            let errorMessage:any = err.error.errors;
-            this.toastr.error(errorMessage, 'Something Error', {
-              timeOut: 3000,
-            });
-          }
-        );
-      }
+    } else {
+      let param = { data: this.Service_form.value }
+      this.LocalServiceProviderService.service_update(param).subscribe(
+        response => {
+          let data: any = response;
+          this.showLoadingIndicator = false;
+          this.toastr.success('Services Updated');
+          this.router.navigate(['/agent/services-list']);
+        },
+        err => {
+          this.showLoadingIndicator = false;
+          let errorMessage: any = err.error.errors;
+          this.toastr.error(errorMessage, 'Something Error', {
+            timeOut: 3000,
+          });
+        }
+      );
     }
-    redirect_to_service(): void {
-      this.router.navigate(['/agent/services-list'])
-    }
+  }
+
+  redirect_to_service(): void {
+    this.router.navigate(['/agent/services-list'])
+  }
 
 }

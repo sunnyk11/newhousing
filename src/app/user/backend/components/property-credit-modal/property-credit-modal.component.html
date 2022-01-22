@@ -11,36 +11,38 @@
                     <mat-icon>list</mat-icon>
                 </mat-panel-description>
             </mat-expansion-panel-header>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Invoice No</th>
-                        <th scope="col">Plan Name</th>
-                        <th scope="col">Payment Type</th>
-                        <th scope="col">Payment Status</th>
-                        <th scope="col">Plan Price</th>
-                        <th scope="col">Amount Available</th>
-                        <th scope="col">Action</th>
-                    </tr>
-                </thead>
-                <tbody *ngFor="let data of response.response; index as i">
-                    <tr>
-                        <th scope="row">{{ i+1 }}</th>
-                        <td>{{ data.invoice_no }}</td>
-                        <td>{{ data.plan_name }}</td>
-                        <td>{{ data.payment_type }}</td>
-                        <td>{{ data.payment_status }}</td>
-                        <td>{{ data.plan_price }}</td>
-                        <td>{{ data.expected_rent }}</td>
-                        <td>
-                            <button type="button" class="btn btn-success" *ngIf="data.payment_received != 'Pending'" (click)="apply_plan(data.invoice_no)">Use Plan</button>
-                            <button type="button" disabled class="btn btn-danger" *ngIf="data.payment_received == 'Pending'">Use
-                Plan</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Invoice No</th>
+                            <th scope="col">Plan Name</th>
+                            <th scope="col">Payment Type</th>
+                            <th scope="col">Payment Status</th>
+                            <th scope="col">Plan Price</th>
+                            <th scope="col">Amount Available</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let data of response.response; index as i">
+                        <tr>
+                            <th scope="row">{{ i+1 }}</th>
+                            <td>{{ data.invoice_no }}</td>
+                            <td>{{ data.plan_name }}</td>
+                            <td>{{ data.payment_type }}</td>
+                            <td>{{ data.payment_status }}</td>
+                            <td>{{ data.plan_price }}</td>
+                            <td>{{ data.expected_rent }}</td>
+                            <td>
+                                <button type="button" class="btn btn-success" *ngIf="data.payment_received != 'Pending'" (click)="apply_plan(data.invoice_no)">Use Plan</button>
+                                <button type="button" disabled class="btn btn-danger" *ngIf="data.payment_received == 'Pending'">Use
+                                    Plan</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </mat-expansion-panel>
         <mat-expansion-panel>
             <mat-expansion-panel-header>
@@ -99,7 +101,7 @@
                                     </li>
                                 </ul>
                                 <a class="btn btn-block btn-success" (click)="plan_payment(letout_plan.plan_name, letout_plan.id, letout_plan.payment_type, letout_plan.plan_type, response.product_price, letout_plan.actual_price_days, letout_plan.discounted_price_days, letout_plan)">Select
-                                        Plan</a>
+                                    Plan</a>
                             </div>
                         </div>
                     </div>

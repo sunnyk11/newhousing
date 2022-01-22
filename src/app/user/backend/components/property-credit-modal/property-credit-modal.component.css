@@ -80,4 +80,10 @@
       .discount_price {
           font-size: 20px;
       }
+      .mat-expansion-panel-header-description {
+          display: none;
+      }
+       :host ::ng-deep .mat-expansion-panel-body {
+          padding: 0 8px 16px;
+      }
   }
