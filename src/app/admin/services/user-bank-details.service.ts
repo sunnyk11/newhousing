@@ -53,7 +53,7 @@ export class UserBankDetailsService {
   getpagination(url: string): Promise<Pagination> {
     const route = url;
     console.log(route);
-    return this.apiService.get_pagination(route).toPromise().then(
+    return this.apiService.get_admin_pagination(route).toPromise().then(
       (response) => {
       return response as Pagination
     })

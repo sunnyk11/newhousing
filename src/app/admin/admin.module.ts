@@ -34,6 +34,8 @@ import { ServicesUserListComponent } from './components/services-user-list/servi
 import { CreateServicesUserComponent } from './components/create-services-user/create-services-user.component';
 import { UpdateServicesUserComponent } from './components/update-services-user/update-services-user.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { ServiceListComponent } from './components/service-list/service-list.component';
+import { UpdateServicesComponent } from './components/update-services/update-services.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +56,9 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     UserListComponent,
     ServicesUserListComponent,
     CreateServicesUserComponent,
-    UpdateServicesUserComponent
+    UpdateServicesUserComponent,
+    ServiceListComponent,
+    UpdateServicesComponent
   ],
   imports: [
     CommonModule,
