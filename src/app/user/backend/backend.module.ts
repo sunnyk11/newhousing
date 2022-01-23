@@ -43,6 +43,7 @@ import { NgxStarRatingModule } from 'ngx-star-rating';
 import { ServiceListComponent } from './components/service-list/service-list.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { UpdateServicesComponent } from './components/update-services/update-services.component';
+import { ConfirmationmodalComponent } from './modals/confirmationmodal/confirmationmodal.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import { UpdateServicesComponent } from './components/update-services/update-ser
     GetAveragePipe,
     GetPercentagePipe,
     ServiceListComponent,
-    UpdateServicesComponent
+    UpdateServicesComponent,
+    ConfirmationmodalComponent
   ],
   imports: [
     ProgressBarModule,

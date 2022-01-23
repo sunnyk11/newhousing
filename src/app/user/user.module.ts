@@ -11,7 +11,6 @@ import { BackendModule } from './backend/backend.module';
 
 @NgModule({
   declarations: [
-  
   ],
   imports: [
     CommonModule,

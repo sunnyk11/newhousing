@@ -48,6 +48,10 @@ export class CommonService {
     return this._subject.asObservable();
   }
 
+  getarea_unit(reqModel:any): Observable<ResultModel> {
+    const route = "/api/getarea_unit";
+    return this.apiService.get<ResultModel>(route, reqModel);
+  }  
 
   getAmenities(reqModel:any): Observable<ResultModel> {
     const route = "/api/amenities";
