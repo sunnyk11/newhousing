@@ -84,7 +84,7 @@ export class ProductPageComponent implements OnInit {
       this.login_userid = this.jwtService.getUserId();
       this.ProductPageService.login_single_product_details(param).subscribe(
         response => {
-          console.log(response);
+          //console.log(response);
           this.product_details=response;
           this.product_data=this.product_details.data;
           if(this.product_details.data != null){

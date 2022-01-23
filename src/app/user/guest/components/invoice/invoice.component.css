@@ -1,3 +1,12 @@
 .material-icons {
     vertical-align: sub;
 }
+
+@media only screen and (max-width: 768px) {
+    #htmlData {
+        padding: 0 !important;
+    }
+    #cont1 {
+        padding: 0 !important;
+    }
+}

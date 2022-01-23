@@ -16,7 +16,7 @@ const toWords = new ToWords();
 })
 export class InvoiceComponent implements OnInit {
 
-  @ViewChild('htmlData') htmlData!:ElementRef;
+  @ViewChild('htmlData') htmlData!: ElementRef;
 
   public showLoadingIndicator: boolean = false;
 
@@ -44,8 +44,8 @@ export class InvoiceComponent implements OnInit {
     private plansPageService: PlansPageService,
     private router: Router,
     private invoicePageService: InvoicePageService,
-    private productService: ProductPageService) { 
-    }
+    private productService: ProductPageService) {
+  }
 
   ngOnInit(): void {
 
@@ -102,7 +102,7 @@ export class InvoiceComponent implements OnInit {
                   this.product_data = this.product_data[0];
                 },
                 err => {
-                  console.log(err); 
+                  console.log(err);
                 }
               );
 
@@ -136,20 +136,60 @@ export class InvoiceComponent implements OnInit {
   }
 
   generatePDF() {
+    if (screen.width < 1024) {
+      document.getElementById("viewport")?.setAttribute("content", "width=1200px");
+    }
     // let DATA = this.htmlData?.nativeElement;
     const data = document.getElementById('htmlData')!;
+    let html2canvasOptions = {
+      allowTaint: true,
+      removeContainer: true,
+      backgroundColor: null,
+      imageTimeout: 15000,
+      logging: true,
+      scale: 2,
+      useCORS: true
+    };
+
     html2canvas(data).then(canvas => {
 
-      let fileWidth = 208;
-      let fileHeight = canvas.height * fileWidth / canvas.width;
-
-      const FILEURI = canvas.toDataURL('image/png')
-      let PDF = new jsPDF('p', 'mm', 'a4');
+      const contentDataURL = canvas.toDataURL('image/png');
+      const imgWidth = 210;
+      const pageHeight = 295;
+      const imgHeight = canvas.height * imgWidth / canvas.width;
+      let heightLeft = imgHeight;
+      let pdf = new jsPDF('p', 'mm', 'a4', true); // A4 size page of PDF
       let position = 0;
-      PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight)
 
-      PDF.save('invoice.pdf');
+      pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight, undefined,'FAST');
+      heightLeft -= pageHeight;
+
+      while (heightLeft >= 0) {
+        position = heightLeft - imgHeight;
+        pdf.addPage();
+        pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight, undefined,'FAST')
+        heightLeft -= pageHeight;
+      }
+      pdf.save('invoice.pdf'); // Generated PDF
+
+      if(screen.width < 1024) {
+        document.getElementById('viewport')?.setAttribute("content", "width=device-width, initial-scale=1");
+      }
+
     });
+
+    /*  html2canvas(data).then(canvas => {
+ 
+       let fileWidth = 208;
+       let fileHeight = canvas.height * fileWidth / canvas.width;
+ 
+       const FILEURI = canvas.toDataURL('image/png')
+       let PDF = new jsPDF('p', 'mm', 'a4');
+       let position = 0;
+       PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight)
+ 
+       PDF.save('invoice.pdf');
+     }); */
   }
 
   navigate_plans() {

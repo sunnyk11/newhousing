@@ -15,7 +15,9 @@ import { UserBankDetailsComponent } from './components/user-bank-details/user-ba
 import { UserListComponent } from './components/user-list/user-list.component';
 import { ServicesUserListComponent } from './components/services-user-list/services-user-list.component';
 import { CreateServicesUserComponent } from './components/create-services-user/create-services-user.component';
-import { UpdateServicesUserComponent } from './components/update-services-user/update-services-user.component';																										 
+import { UpdateServicesUserComponent } from './components/update-services-user/update-services-user.component';	
+import { ServiceListComponent } from './components/service-list/service-list.component';		
+import { UpdateServicesComponent } from './components/update-services/update-services.component';																							 
 
 const routes: Routes = [
   {
@@ -54,6 +56,12 @@ const routes: Routes = [
         permission: ['access_local_area_service_provider']
       } },
       { path: 'update-services-user', component: UpdateServicesUserComponent, canActivate: [AuthGuard, PermissionGuard], data: {
+        permission: ['access_local_area_service_provider']
+      } },
+      { path: 'services-list', component: ServiceListComponent, canActivate: [AuthGuard, PermissionGuard], data: {
+        permission: ['access_local_area_service_provider']
+      } },
+      { path: 'update-services', component: UpdateServicesComponent, canActivate: [AuthGuard, PermissionGuard], data: {
         permission: ['access_local_area_service_provider']
       } }
     ]
