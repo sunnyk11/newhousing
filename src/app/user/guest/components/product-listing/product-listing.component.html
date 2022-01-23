@@ -660,7 +660,7 @@
                                                 </li>
                                                 <ng-template #wishlistcontent>
                                                     <li class="list-inline-item">
-                                                        <a (click)="wishlist_added(number.id)">
+                                                        <a (click)="wishlist_added(number.product_id)">
                                                             <i class="fa fa-heart-o" aria-hidden="true"></i>
                                                         </a>
                                                     </li>
@@ -688,7 +688,7 @@
                                     <div class="thmb_cntnt style3">
                                         <ul class="icon mb0">
                                             <li class="list-inline-item" *ngIf="number?.listing_wishlist != null;else wishlistcontent">
-                                                <a (click)="wishlist_remove(number.id)">
+                                                <a (click)="wishlist_remove(number.product_id)">
                                                     <i class="fa fa-heart" aria-hidden="true"></i>
                                                 </a>
                                             </li>
@@ -707,7 +707,6 @@
                                     </div>
                                 </div>
                             </ng-template>
-
                             <div class="details">
                                 <a (click)="sub_navigate(number.product_id,number.build_name,number.city)">
                                     <div class="tc_content">
