@@ -22,6 +22,7 @@ export class ProductListingComponent implements OnInit {
 
   public displayStyle = "none";
   public amenties:any={};
+  public area_unit:any={};
   public property:any={};
   public showLoadingIndicator:boolean= false;
   public  year:any='';
@@ -46,22 +47,23 @@ export class ProductListingComponent implements OnInit {
   public dropdownList: any = []; 
   public filteredOptions!: Observable<any[]>;
   public Pagination_data: Pagination;
+  public login_usertype:number = 0;
+  public isLoggedIn:boolean=false;
   
   private amenityArray:any = [];
   private search_amenties_convert: any=[];
 
   searchForm = this.formBuilder.group({
-    // bathrooms: [''],
-    // bedrooms: [''],
-    // years: [''],
-    // area_unit: [''],
-    // build_name: [''],
+    bathrooms: [''],
+    bedrooms: [''],
+    years: [''],
+    area_unit: [''],
+    build_name: [''],
     type: [''],
-    // location: [''],
     city:[''],
     locality:[''],
     locality_data:[''],
-    property_status:['all'],
+    property_status:[''],
     search_type: ['rent'],
     sliderControl: [[]],
     max_price:[],
@@ -87,14 +89,14 @@ export class ProductListingComponent implements OnInit {
   };
 
   /* Sale feature Commented */
-  /*options_sales: Options = {
+  options_sales: Options = {
     step:5000,
     floor: 500000,
     ceil: 50000000,
     translate: (value: number, label: LabelType): string => {
       return '₹' + value.toLocaleString('en');
     }
-  }; */
+  }; 
   /* Sale feature Commented */
 
   constructor(
@@ -115,6 +117,12 @@ export class ProductListingComponent implements OnInit {
   ngOnInit(): void {  
     this.productcategory();
      this.getAmenities();
+     this.getarea_unit();
+     
+    if(this.jwtService.getToken()){
+     this.login_usertype = this.jwtService.getUserType();
+     this.isLoggedIn=true;
+    }
     this.selectedItems = new Array<string>();
   }
   // fetch amenties advance tab
@@ -122,6 +130,13 @@ export class ProductListingComponent implements OnInit {
     this.CommonService.getAmenities({ param: null }).subscribe(
       response => {
         this.amenties=response;
+      }
+    );
+  }
+  getarea_unit(){
+    this.CommonService.getarea_unit({ param: null }).subscribe(
+      response => {
+        this.area_unit=response;
       }
     );
   }
@@ -210,15 +225,16 @@ export class ProductListingComponent implements OnInit {
           city:params.city,
           sliderControl:[Number(params.minimum),Number(params.maximum)]
         });
-          // if(params.amenties != null){  
-          // this.search_amenties=params.amenties;      
-          //     if(this.search_amenties.length>0){
-          //       for (var i = 0; i < this.search_amenties.length; i++){
-          //         this.search_amenties_convert.push(parseInt(this.search_amenties[i]));
-          //       }
-          //       this.amenityArray=this.search_amenties_convert;
-          //     }
-          // }
+          if(params.amenties != null){  
+          this.search_amenties=params.amenties;      
+              if(this.search_amenties.length>0){
+                this.amenityArray=[];
+                for (var i = 0; i < this.search_amenties.length; i++){
+                  this.search_amenties_convert.push(parseInt(this.search_amenties[i]));
+                }
+                this.amenityArray=this.search_amenties_convert;
+              }
+          }
         this.property_type_check_url();
         this.onsearch();
        }else if(params.search_type !=null){
@@ -262,22 +278,40 @@ export class ProductListingComponent implements OnInit {
     this.showLoadingIndicator =true;
     this.propertyresultlength=false;
     this.product_length=0;
+    this.login_usertype = this.jwtService.getUserType();
     this.searchForm.value.min_price= this.searchForm.value.sliderControl[0];
     this.searchForm.value.max_price=this.searchForm.value.sliderControl[1]; 
     if(this.jwtService.getToken().length>5){
-    this.ProductListingPageService.login_product_details(this.searchForm.value).then(
-      Pagination_data => {
-        this.property=Pagination_data;
-        this.product_length=this.property.data.total;
-        this.showLoadingIndicator = false;
-      },
-      err => {
-        this.showLoadingIndicator = false;
+      if(this.login_usertype == 11){
+        // let param={data:this.searchForm.value,amenities:this.amenityArray}
+        this.ProductListingPageService.login_product_details(this.searchForm.value).then(
+          Pagination_data => {
+            this.property=Pagination_data;
+            this.product_length=this.property.data.total;
+            this.showLoadingIndicator = false;
+          },
+          err => {
+            this.showLoadingIndicator = false;
+          }
+        );
+
+      }else{
+        // let param={data:this.searchForm.value}
+        this.ProductListingPageService.login_product_details(this.searchForm.value).then(
+          Pagination_data => {
+            this.property=Pagination_data;
+            this.product_length=this.property.data.total;
+            this.showLoadingIndicator = false;
+          },
+          err => {
+            this.showLoadingIndicator = false;
+          }
+        );
       }
-    );
       this.wishlist_refresh();
       this.pro_comp_refresh();
     }else{
+       // let param={data:this.searchForm.value}
       this.ProductListingPageService.product_details(this.searchForm.value).then(
         Pagination_data => {
           this.property=Pagination_data;
@@ -296,17 +330,14 @@ export class ProductListingComponent implements OnInit {
     this.searchForm.value.min_price= this.searchForm.value.sliderControl[0];
     this.searchForm.value.max_price=this.searchForm.value.sliderControl[1]; 
     this.showLoadingIndicator = true;
-    this.ProductListingPageService.getpagination(link_url,this.searchForm.value).then(Pagination_data => {
+    this.ProductListingPageService.post_pagination(link_url,this.searchForm.value).then(Pagination_data => {
       this.showLoadingIndicator= false;
       this.property=Pagination_data;
       // this.user_list_length=this.user_list.data.data.length;
     });
   } 
   selected_locality(data:any){
-    //console.log(data);
     this.searchForm.controls['locality'].setValue(data);  
-    //console.log(this.searchForm.value);
-    //console.log(this.dropdownList);
   }   
   navigate(): void{
     //console.log(this.searchForm.value);
@@ -314,11 +345,19 @@ export class ProductListingComponent implements OnInit {
       this.searchForm.patchValue({locality:''});
     }
     let data:any=this.searchForm.value;
-    //console.log(this.searchForm.value);
     this.product_length=0;
-    this.router.navigate(['/product-listing'],{queryParams:{'city':data.city,'locality':data.locality,'type':data.type,'minimum':data.sliderControl[0],'maximum':data.sliderControl[1]}});
-    // this.router.navigate(['/product-listing'],{queryParams:{'name':data.build_name,'city':data.city,'type':data.type,'search_type':data.search_type,'area_unit':data.area_unit,'years':data.years,'bedrooms':data.bedrooms,'bathrooms':data.bathrooms,'minimum':data.sliderControl[0],'maximum':data.sliderControl[1],'location':data.location,amenties:this.amenityArray}});
-  } 
+    if(this.jwtService.getToken()){
+      this.login_usertype = this.jwtService.getUserType();
+       if(this.login_usertype == 11){
+        this.router.navigate(['/product-listing'],{queryParams:{'name':data.build_name,'city':data.city,'type':data.type,'locality':data.locality,'search_type':data.search_type,'area_unit':data.area_unit,'years':data.years,'bedrooms':data.bedrooms,'bathrooms':data.bathrooms,'minimum':data.sliderControl[0],'maximum':data.sliderControl[1]}});
+        // this.router.navigate(['/product-listing'],{queryParams:{'name':data.build_name,'city':data.city,'type':data.type,'locality':data.locality,'search_type':data.search_type,'area_unit':data.area_unit,'years':data.years,'bedrooms':data.bedrooms,'bathrooms':data.bathrooms,'minimum':data.sliderControl[0],'maximum':data.sliderControl[1],amenties:this.amenityArray}});
+       }else{
+        this.router.navigate(['/product-listing'],{queryParams:{'city':data.city,'locality':data.locality,'type':data.type,'minimum':data.sliderControl[0],'maximum':data.sliderControl[1]}});
+       }
+     }else{
+      this.router.navigate(['/product-listing'],{queryParams:{'city':data.city,'locality':data.locality,'type':data.type,'minimum':data.sliderControl[0],'maximum':data.sliderControl[1]}});
+     }
+    } 
   onchangeAmenties(e:any,id:any){
     if(e.target.checked){
       this.search_amenties_convert.push(id);
@@ -381,21 +420,21 @@ export class ProductListingComponent implements OnInit {
   }
   reset_Search():void{
     this.searchForm.setValue({
-      // bathrooms: '',
-      // bedrooms: '',
-      // years: '',
-      // area_unit:'',
-      search_type: 'all',
-      // build_name: '',
+      bathrooms: '',
+      bedrooms: '',
+      years: '',
+      area_unit:'',
+      search_type: 'rent',
+      build_name: '',
       type: '',
       // location: '',
       city:'',
       locality:'',
       locality_data:'',
-      property_status:'all',
+      property_status:'',
       sliderControl: [5000,50000000],
       min_price:Number(5000),
-      max_price:Number(500000) 
+      max_price:Number(50000000) 
     });    
     this.search_amenties=[];
     this.amenityArray=[];

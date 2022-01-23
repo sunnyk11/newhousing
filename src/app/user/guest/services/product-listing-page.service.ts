@@ -16,9 +16,9 @@ export class ProductListingPageService {
   private handleError(error: any): Promise<any> {
     return Promise.reject(error.message || error);
   }
-  getpagination(url: string,reqModel:any): Promise<Pagination> {
+  post_pagination(url: string,reqModel:any): Promise<Pagination> {
     const route = url;
-    return this.apiService.get_pagination(route,reqModel).toPromise().then(
+    return this.apiService.post_pagination(route,reqModel).toPromise().then(
       (response) => {
       return response as Pagination
     })
@@ -28,10 +28,9 @@ export class ProductListingPageService {
     const route = "/api/product/product_list_featured";
     return this.apiService.get<ResultModel>(route, reqModel);
   }
-  
   login_product_details(reqModel: any): Promise<Pagination> {
     const route = "/api/product/product_searching_login";
-    return this.apiService.get(route,reqModel).toPromise().then(
+    return this.apiService.post(route,reqModel).toPromise().then(
       (response) => {
         return response as Pagination
       })
@@ -39,7 +38,7 @@ export class ProductListingPageService {
   }
   product_details(reqModel: any): Promise<Pagination> {
     const route = "/api/product/productsearching";
-    return this.apiService.get(route,reqModel).toPromise().then(
+    return this.apiService.post(route,reqModel).toPromise().then(
       (response) => {
         return response as Pagination
       })

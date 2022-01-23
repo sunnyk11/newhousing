@@ -59,7 +59,6 @@ export class WishlistComponent implements OnInit {
     this.showLoadingIndicator = true;
     this.CommonService.getwishlit_property({ param: null }).subscribe(
       response => {
-        console.log(response);
         this.property=response;
         this.wishlist_length=this.property.data.length;
         if(this.wishlist_length>0){

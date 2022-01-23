@@ -40,16 +40,13 @@ export class PropertyCreditModalComponent implements OnInit {
   ngOnInit(): void {
     this.showLoadingIndicator = true;
     this.response = this.data;
-    console.log(this.response);
     this.step = this.response.dialog_step;
     this.PlansServiceService.getLetOutFeatures({ param: null }).subscribe(
       response => {
-        console.log(response);
         this.letout_feat_res = response;
         this.showLoadingIndicator = false;
       },
       err => {
-        console.log(err);
         this.showLoadingIndicator = false;
       }
     );
@@ -66,7 +63,6 @@ export class PropertyCreditModalComponent implements OnInit {
       response => {
         this.user_phone_data = response;
         if (this.user_phone_data !== 1) {
-          console.log("Mobile number not verified");
           this.showLoadingIndicator = false;
           this.dialogRef.close();
           this.openModal(plan_name, plan_id, payment_type, plan_type, expected_rent, actual_price_days, discount_price_days, plan_features);
@@ -103,7 +99,6 @@ export class PropertyCreditModalComponent implements OnInit {
               this.router.navigate(['/agent/payment-summary'], { queryParams: { 'orderID': res.data.order_id } });
             },
             err => {
-              console.log(err);
               this.showLoadingIndicator = false;
             }
           );
@@ -112,6 +107,7 @@ export class PropertyCreditModalComponent implements OnInit {
     );
   }
   openModal(plan_name: any, plan_id: any, payment_type: any, plan_type: any, expected_rent: any, price_duration_actual: any, price_duration_discount: any, plan_features: any) {
+    // console.log(plan_features);
     const modalDialog = this.matDialog.open(ModalComponent, { 
       data: {
       plan_name: plan_name,
