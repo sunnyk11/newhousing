@@ -3,21 +3,21 @@
         <div class="row">
             <div class="col-lg-5 col-12 create_column">
                 <div class="my_dashboard_review">
-                    <form role="form" action="" method="post" class="f"  [formGroup]="Service_form" novalidate>
-                    <div class="row">
-                        <div class="col-lg-12 service_heading">
-                          <h2>Create New Service</h2>
-                          </div>                        
-                        <div class="col-lg-12 mtb10 col-sm-12">
-                            <div class="form-group">
-                                <!-- <label for="service" class="form-label">Enter Service Name:</label> -->
-                                <input type="text" class="form-control" id="service" formControlName="service" placeholder="Enter Service Name:" [ngClass]="{ 'is-invalid': submitted && f.service.errors }" >
+                    <form role="form" action="" method="post" class="f" [formGroup]="Service_form" novalidate>
+                        <div class="row">
+                            <div class="col-lg-12 service_heading">
+                                <h2>Create New Service</h2>
                             </div>
-                        </div>                
-                      <div class="col-lg-4 offset-lg-8 col-12 mt20 search-column">
-                            <button type="submit" class="btn btn-submit" (click)="onSubmit()">Create</button>
-                      </div>
-                    </div>
+                            <div class="col-lg-12 mtb10 col-sm-12">
+                                <div class="form-group">
+                                    <!-- <label for="service" class="form-label">Enter Service Name:</label> -->
+                                    <input type="text" class="form-control" id="service" formControlName="service" placeholder="Enter Service Name:" [ngClass]="{ 'is-invalid': submitted && f.service.errors }">
+                                </div>
+                            </div>
+                            <div class="col-lg-4 offset-lg-8 col-12 mt20 search-column">
+                                <button type="submit" class="btn btn-submit" (click)="onSubmit()">Create</button>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -35,13 +35,13 @@
                                     </tr>
                                 </thead>
                                 <tbody *ngIf="showLoadingIndicator == false">
-                                    <tr  *ngFor="let data of service_data?.data?.data">
+                                    <tr *ngFor="let data of service_data?.data?.data">
                                         <td>{{data?.service_id}}</td>
                                         <td>{{data?.service_name}} </td>
                                         <td>
                                             <ul class="view_edit_delete_list mb0">
                                                 <li class="list-inline-item " data-toggle="tooltip" data-placement="top" title="Edit">
-                                                    <a [routerLink]="['/update-services']" [queryParams]="{id:data?.id}"><span class="flaticon-edit"></span></a>
+                                                    <a [routerLink]="['/admin/update-services']" [queryParams]="{id:data?.id}"><span class="flaticon-edit"></span></a>
                                                 </li>
                                                 <li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="Delete">
                                                     <a (click)="delete_service(data?.service_id)"><span class="flaticon-garbage"></span></a>
@@ -51,12 +51,12 @@
                                     </tr>
                                 </tbody>
                                 <tbody>
-                                    <tr  class="preloader_row" *ngIf="showLoadingIndicator == true"> 
-                                         <div class="preloader"></div>
+                                    <tr class="preloader_row" *ngIf="showLoadingIndicator == true">
+                                        <div class="preloader"></div>
                                     </tr>
                                 </tbody>
                             </table>
-                            
+
                             <div class="mbp_pagination" *ngIf="service_length>0">
                                 <!-- {{user_bank_details.links | json}} -->
                                 <ul class="page_navigation">

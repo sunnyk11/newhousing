@@ -93,6 +93,10 @@ export class SidenavComponent implements OnInit {
     this.router.navigate(['/admin/user-bank-details']);
   }
 
+  service_list() {
+    this.router.navigate(['/admin/services-list']);
+  }
+
   /* update_service_user() {
     this.router.navigate(['/admin/update-services-user']);
   } */			   

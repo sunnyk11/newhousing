@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { LocalServiceProviderService } from '../../services/local-service-provider.service';
+import { LocalServiceProviderService } from 'src/app/user/backend/services/local-service-provider.service';
 import { ToastrService } from 'ngx-toastr';
 import { Pagination } from 'src/app/user/components/models/pagination.model';
 
@@ -22,15 +22,15 @@ export class ServiceListComponent implements OnInit {
     service: new FormControl('', Validators.required)
   });
 
-  constructor(
-    private LocalServiceProviderService:LocalServiceProviderService,
-    private toastr: ToastrService
-    ) {
-      this.Pagination_data = new Pagination(); }
+  constructor(private LocalServiceProviderService:LocalServiceProviderService,
+    private toastr: ToastrService) { 
+      this.Pagination_data = new Pagination();
+    }
 
   ngOnInit(): void {
     this.get_services();
   }
+
   onSubmit(){
     if(this.Service_form.invalid){
       this.submitted = true;
@@ -54,6 +54,7 @@ export class ServiceListComponent implements OnInit {
         );
       }
   }
+
   // fetch services  
   get_services(){
     this.showLoadingIndicator= true;
@@ -67,7 +68,7 @@ export class ServiceListComponent implements OnInit {
       }
     );
   }
-  
+
   gotoPage(link_url: any) {
     this.showLoadingIndicator = true;
     this.LocalServiceProviderService.getpagination(link_url).then(Pagination_data => {
@@ -76,10 +77,11 @@ export class ServiceListComponent implements OnInit {
       // this.user_list_length=this.user_list.data.data.length;
     });
   }
+
   get f() {
     return this.Service_form.controls;
   }
-  
+
   delete_service(service_id:any){
     console.log(service_id);
     this.showLoadingIndicator = true;
@@ -99,5 +101,4 @@ export class ServiceListComponent implements OnInit {
       }
     )
   }
-
 }

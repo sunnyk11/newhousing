@@ -40,11 +40,8 @@ import { GetAveragePipe } from './pipes/get-average.pipe';
 import { GetPercentagePipe } from './pipes/get-percentage.pipe';
 import { ProgressBarModule } from 'angular-progress-bar';
 import { NgxStarRatingModule } from 'ngx-star-rating';
-import { ServiceListComponent } from './components/service-list/service-list.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
-import { UpdateServicesComponent } from './components/update-services/update-services.component';
 import { ConfirmationmodalComponent } from './modals/confirmationmodal/confirmationmodal.component';
-
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -64,8 +61,6 @@ import { ConfirmationmodalComponent } from './modals/confirmationmodal/confirmat
     LocalServiceComponent,
     GetAveragePipe,
     GetPercentagePipe,
-    ServiceListComponent,
-    UpdateServicesComponent,
     ConfirmationmodalComponent
   ],
   imports: [

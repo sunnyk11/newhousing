@@ -144,6 +144,7 @@ export class ProductListingComponent implements OnInit {
   productcategory(){
     this.CommonService.getproductcategory({ param: null }).subscribe(
       response => {
+        //console.log(response);
         this.category=response;
       }, err => { 
       }
@@ -155,6 +156,8 @@ export class ProductListingComponent implements OnInit {
         response => {
           let data:any=response;
           this.dropdownList=[];
+          //console.log(this.dropdownList);
+          //console.log(data);
           if(data.data[0].length>0){
             for (let i = 0; i < data.data[0].length; i++) {
               this.dropdownList = this.dropdownList?.concat({ item_id: data.data[0][i].locality_id, item_text: data.data[0][i].locality});
@@ -335,13 +338,18 @@ export class ProductListingComponent implements OnInit {
     });
   } 
   selected_locality(data:any){
+    //console.log(data);
     this.searchForm.controls['locality'].setValue(data);  
+    //console.log(this.searchForm.value);
+    //console.log(this.dropdownList);
   }   
   navigate(): void{
+    //console.log(this.searchForm.value);
     if(this.searchForm.value.locality.length<3){
       this.searchForm.patchValue({locality:''});
     }
     let data:any=this.searchForm.value;
+    //console.log(this.searchForm.value);
     this.product_length=0;
     if(this.jwtService.getToken()){
       this.login_usertype = this.jwtService.getUserType();
