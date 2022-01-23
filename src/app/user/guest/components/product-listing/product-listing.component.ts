@@ -283,8 +283,8 @@ export class ProductListingComponent implements OnInit {
     this.searchForm.value.max_price=this.searchForm.value.sliderControl[1]; 
     if(this.jwtService.getToken().length>5){
       if(this.login_usertype == 11){
-        let param={data:this.searchForm.value,amenities:this.amenityArray}
-        this.ProductListingPageService.login_product_details(param).then(
+        // let param={data:this.searchForm.value,amenities:this.amenityArray}
+        this.ProductListingPageService.login_product_details(this.searchForm.value).then(
           Pagination_data => {
             this.property=Pagination_data;
             this.product_length=this.property.data.total;
@@ -296,8 +296,8 @@ export class ProductListingComponent implements OnInit {
         );
 
       }else{
-        let param={data:this.searchForm.value}
-        this.ProductListingPageService.login_product_details(param).then(
+        // let param={data:this.searchForm.value}
+        this.ProductListingPageService.login_product_details(this.searchForm.value).then(
           Pagination_data => {
             this.property=Pagination_data;
             this.product_length=this.property.data.total;
@@ -311,9 +311,8 @@ export class ProductListingComponent implements OnInit {
       this.wishlist_refresh();
       this.pro_comp_refresh();
     }else{
-      
-      let param={data:this.searchForm.value}
-      this.ProductListingPageService.product_details(param).then(
+       // let param={data:this.searchForm.value}
+      this.ProductListingPageService.product_details(this.searchForm.value).then(
         Pagination_data => {
           this.property=Pagination_data;
           this.product_length=this.property.data.total;
@@ -331,17 +330,14 @@ export class ProductListingComponent implements OnInit {
     this.searchForm.value.min_price= this.searchForm.value.sliderControl[0];
     this.searchForm.value.max_price=this.searchForm.value.sliderControl[1]; 
     this.showLoadingIndicator = true;
-    this.ProductListingPageService.getpagination(link_url,this.searchForm.value).then(Pagination_data => {
+    this.ProductListingPageService.post_pagination(link_url,this.searchForm.value).then(Pagination_data => {
       this.showLoadingIndicator= false;
       this.property=Pagination_data;
       // this.user_list_length=this.user_list.data.data.length;
     });
   } 
   selected_locality(data:any){
-    //console.log(data);
     this.searchForm.controls['locality'].setValue(data);  
-    //console.log(this.searchForm.value);
-    //console.log(this.dropdownList);
   }   
   navigate(): void{
     //console.log(this.searchForm.value);
@@ -349,13 +345,12 @@ export class ProductListingComponent implements OnInit {
       this.searchForm.patchValue({locality:''});
     }
     let data:any=this.searchForm.value;
-    //console.log(this.searchForm.value);
     this.product_length=0;
     if(this.jwtService.getToken()){
       this.login_usertype = this.jwtService.getUserType();
        if(this.login_usertype == 11){
-        // this.router.navigate(['/product-listing'],{queryParams:{'name':data.build_name,'city':data.city,'type':data.type,'locality':data.locality,'search_type':data.search_type,'area_unit':data.area_unit,'years':data.years,'bedrooms':data.bedrooms,'bathrooms':data.bathrooms,'minimum':data.sliderControl[0],'maximum':data.sliderControl[1]}});
-        this.router.navigate(['/product-listing'],{queryParams:{'name':data.build_name,'city':data.city,'type':data.type,'locality':data.locality,'search_type':data.search_type,'area_unit':data.area_unit,'years':data.years,'bedrooms':data.bedrooms,'bathrooms':data.bathrooms,'minimum':data.sliderControl[0],'maximum':data.sliderControl[1],amenties:this.amenityArray}});
+        this.router.navigate(['/product-listing'],{queryParams:{'name':data.build_name,'city':data.city,'type':data.type,'locality':data.locality,'search_type':data.search_type,'area_unit':data.area_unit,'years':data.years,'bedrooms':data.bedrooms,'bathrooms':data.bathrooms,'minimum':data.sliderControl[0],'maximum':data.sliderControl[1]}});
+        // this.router.navigate(['/product-listing'],{queryParams:{'name':data.build_name,'city':data.city,'type':data.type,'locality':data.locality,'search_type':data.search_type,'area_unit':data.area_unit,'years':data.years,'bedrooms':data.bedrooms,'bathrooms':data.bathrooms,'minimum':data.sliderControl[0],'maximum':data.sliderControl[1],amenties:this.amenityArray}});
        }else{
         this.router.navigate(['/product-listing'],{queryParams:{'city':data.city,'locality':data.locality,'type':data.type,'minimum':data.sliderControl[0],'maximum':data.sliderControl[1]}});
        }
@@ -429,8 +424,8 @@ export class ProductListingComponent implements OnInit {
       bedrooms: '',
       years: '',
       area_unit:'',
-      search_type: 'all',
-      build_name: 'rent',
+      search_type: 'rent',
+      build_name: '',
       type: '',
       // location: '',
       city:'',

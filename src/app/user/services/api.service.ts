@@ -127,14 +127,12 @@ export class ApiService {
       params: searchParams
     }).pipe(catchError(this.formatErrors))
   }
-  post_pagination<ResultModel>(
-    path: string,
-    searchParams: HttpParams = new HttpParams()
-  ): Observable<ResultModel> {
-    return this.http.get<ResultModel>(`${path}`, {
-      headers: this.setAdminHeaders(),
-      params: searchParams
-    }).pipe(catchError(this.formatErrors))
+  post_pagination<ResultModel>(path: string, body: Object = {}): Observable<ResultModel> {
+    return this.http
+      .post<ResultModel>(`${path}`, body, {
+        headers: this.setHeaders()
+      })
+      .pipe(catchError(this.formatErrors));
   }
 
   put<ResultModel>(path: string, body: object = {}): Observable<ResultModel> {
