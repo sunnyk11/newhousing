@@ -6,8 +6,10 @@ import { Router } from '@angular/router';
 import { PlansServiceService } from '../../services/plans-service.service';
 import { JwtService } from 'src/app/user/services/jwt.service';
 import { MatDialog } from '@angular/material/dialog';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PropertyCreditModalComponent } from './../property-credit-modal/property-credit-modal.component';
 import { Pagination } from 'src/app/user/components/models/pagination.model';
+import { ConfirmationmodalComponent } from '../../modals/confirmationmodal/confirmationmodal.component';
 
 @Component({
   selector: 'app-my-properties',
@@ -36,9 +38,23 @@ export class MyPropertiesComponent implements OnInit {
     private PlansServiceService:PlansServiceService,
     private jwtService: JwtService,
     private dialog: MatDialog,
+    private modalService: NgbModal,
     private router:Router
     ) {
-      this.Pagination_data = new Pagination(); }
+      this.Pagination_data = new Pagination(); 
+      this.MypropertiesService.myproperty_on().subscribe(
+        message => {
+          if (message == 'true') {
+            this.agent_properties();
+          }
+        });
+        this.MypropertiesService.draftproperty_on().subscribe(
+          message => {
+            if (message == 'true') {
+              this.draft_properties();
+            }
+          });
+      }
 
   ngOnInit(): void {
     this.agent_properties();
@@ -51,7 +67,6 @@ export class MyPropertiesComponent implements OnInit {
     this.MypropertiesService.agent_properties().then(
       Pagination_data => {
         this.agentproperty=Pagination_data;
-        console.log(this.agentproperty);
         this.product_length=this.agentproperty.data.total;
         this.showLoadingIndicator=false;
       }, err => {
@@ -64,7 +79,6 @@ export class MyPropertiesComponent implements OnInit {
     this.MypropertiesService.draft_properties().then(
       Pagination_data => {
         this.draftproperty=Pagination_data;
-        console.log(this.agentproperty);
         this.draft_pro_length=this.draftproperty.data.total;
         this.showLoadingIndicator=false;
       }, err => {
@@ -97,33 +111,34 @@ export class MyPropertiesComponent implements OnInit {
   }
   delete_property(id:number){
     this.showLoadingIndicator = true;
-    let param = { product_id: id}
-    this.MypropertiesService.property_delete(param).subscribe(
-      response => {
-        this.showLoadingIndicator =false;
-        let data:any=response;
-        let Message =data.message;
-        this.toastr.error(Message, 'Property', {
-          timeOut: 3000,
-        });
-        this.agent_properties();
+    const modalRef = this.modalService.open(ConfirmationmodalComponent,
+      {
+        scrollable: true,
+        windowClass: 'myCustomModalClass',
+        // keyboard: false,
+        backdrop: 'static'
+      });
+      let data = {
+        property_id:id,
+        data_mode:'Property'
       }
-    );
+      modalRef.componentInstance.data = data;
   }
   delete_draft(id:number){
+   
     this.showLoadingIndicator = true;
-    let param = { product_id: id}
-    this.MypropertiesService.property_delete(param).subscribe(
-      response => {
-        this.showLoadingIndicator =false;;
-        let data:any=response;
-        let Message =data.message;
-        this.toastr.error(Message, 'Draft Property', {
-          timeOut: 3000,
-        });
-        this.draft_properties();
+    const modalRef = this.modalService.open(ConfirmationmodalComponent,
+      {
+        scrollable: true,
+        windowClass: 'myCustomModalClass',
+        // keyboard: false,
+        backdrop: 'static'
+      });
+      let data = {
+        property_id:id,
+        data_mode:'Property-draft'
       }
-    );
+      modalRef.componentInstance.data = data;
   }
   checkCredits(product_id:any, product_price:any){
      this.showLoadingIndicator = true;

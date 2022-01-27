@@ -13,7 +13,8 @@
                                         <span class="flaticon-close"></span>
                                     </a>
                                 </h4>
-                                <ul class="sasw_list mb0">
+                                
+                                <ul class="sasw_list mb0" *ngIf="login_usertype != 11">
                                     <form [formGroup]="searchForm" class="home1-advnc-search" action="#" name="searchHome" id="searchhome" #searchhome="ngForm">
                                         
                                         <li>
@@ -36,7 +37,7 @@
                                                 </div>
                                             </div>
                                         </li>
-                                        <li>
+                                        <li class="search_area">
                                             <div class="form-group mb20">
                                                 <!-- <input type="text" class="form-control input-text" name="name" formControlName="build_name" id="build_name" (ngModelChange)="get_locality($event)" placeholder="Enter keywords..."> -->
                                                 <input class="w100 form-control" type="text" placeholder="Search locality/Sub-locality" matInput aria-label="Number" formControlName="locality_data" [matAutocomplete]="auto" (ngModelChange)="get_locality($event)">
@@ -47,16 +48,6 @@
                                                 </mat-autocomplete>
                                             </div>
                                         </li>
-                                        <!-- <li>
-                                            <div class="search_option_two">
-                                                <div class="candidate_revew_select">
-                                                    <select class="form-select w100 show-tick" name="search_type" formControlName="search_type" id="search_type" (change)="property_type()">
-                                                        <option value="all">Select Availability</option>
-                                                        <option value="rent">Rental Property</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </li> -->
                                         <li *ngIf="range_slider== true">
                                             <div class="pricing_acontent pro_list mb20 mt40">
                                                 <ngx-slider [options]="options" formControlName="sliderControl">
@@ -67,6 +58,216 @@
                                             <div class="pricing_acontent pro_list mb20 mt40">
                                                 <ngx-slider [options]="options_rent" formControlName="sliderControl">
                                                 </ngx-slider>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="search_option_button">
+                                                <button type="submit" class="btn btn-thm" (click)="searchhome.form.valid && navigate()">Search</button>
+                                                <button type="button" class="btn btn-primary" (click)="reset_Search()">Reset</button>
+                                            </div>
+                                        </li>
+                                    </form>
+                                </ul>
+                                
+                                <ul class="sasw_list mb0" *ngIf="login_usertype == 11 && isLoggedIn == true">
+                                    <form [formGroup]="searchForm" class="home1-advnc-search" action="#" name="searchHome" id="searchhome" #searchhome="ngForm">
+                                        
+                                        <li class="search_area">
+                                            <div class="form-group mb20">
+                                                <input type="text" class="form-control input-text" name="build_name" formControlName="build_name" id="build_name" placeholder="Enter keywords...">
+                                                <label for="exampleInputEmail"><span
+                                                        class="flaticon-magnifying-glass"></span></label>
+                                            </div>
+                                        </li>
+                                        <li class="search_area">
+                                            <div class="form-group mb20">
+                                                <input class="w100 form-control" type="text" placeholder="Search locality/Sub-locality" matInput aria-label="Number" formControlName="locality_data" [matAutocomplete]="auto" (ngModelChange)="get_locality($event)">
+                                                <mat-autocomplete #auto="matAutocomplete" > 
+                                                    <mat-option *ngFor="let area of filteredOptions | async" [value]="area.item_text" (onSelectionChange)="selected_locality(area.item_text)">
+                                                        {{area.item_text}}
+                                                    </mat-option>
+                                                </mat-autocomplete>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="search_option_two">
+                                                <div class="candidate_revew_select">
+                                                    <select class="form-select w100 show-tick" name="area_unit" formControlName="area_unit" id="area_unit">
+                                                        <option value="">Select Area Unit</option>
+                                                        <option  *ngFor="let area_unit of area_unit?.data" [value]="area_unit?.unit" >{{area_unit?.unit}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="search_option_two">
+                                                <div class="candidate_revew_select">
+                                                    <select class="form-select w100 show-tick" name="city" formControlName="city" id="city">
+                                                        <option value ="" selected>Select City</option>
+                                                        <option value ="Delhi">Delhi</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="search_option_two">
+                                                <div class="candidate_revew_select">
+                                                    <select class="form-select w100 show-tick" name="type" formControlName="type" id="type">
+                                                        <option value ="" selected>Select Property Type</option>
+                                                        <option  *ngFor="let properrt_category of category?.data" [value]="properrt_category.category" >{{properrt_category.category}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        
+                                        <li>
+                                            <div class="search_option_two">
+                                                <div class="candidate_revew_select">
+                                                    <select class="form-select w100 show-tick" name="bathrooms" formControlName="bathrooms" id="bathrooms">
+                                                        <option value="">Select Bathrooms</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
+                                                        <option value="6">6 </option>
+                                                        <option value="7">7</option>
+                                                        <option value="8">8 </option>
+                                                        <option value="9">9</option>
+                                                        <option value="10">10 </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="search_option_two">
+                                                <div class="candidate_revew_select">
+                                                    <select class="form-select w100 show-tick" name="bedrooms" formControlName="bedrooms" id="bedrooms">
+                                                        <option value="">Select Bedrooms</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
+                                                        <option value="6">6 </option>
+                                                        <option value="7">7</option>
+                                                        <option value="8">8 </option>
+                                                        <option value="9">9</option>
+                                                        <option value="10">10 </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="search_option_two">
+                                                <div class="candidate_revew_select">
+                                                    <select class="form-select w100 show-tick" name="years" formControlName="years" id="years">
+                                                        <option value="">Select Built year</option>
+                                                        <option value="2022">2022</option>
+                                                        <option value="2021">2021</option>
+                                                        <option value="2020">2020</option>
+                                                        <option value="2019">2019</option>
+                                                        <option value="2018">2018</option>
+                                                        <option value="2017">2017</option>
+                                                        <option value="2016">2016</option>
+                                                        <option value="2015">2015</option>
+                                                        <option value="2014">2014</option>
+                                                        <option value="2013">2013</option>
+                                                        <option value="2012">2012</option>
+                                                        <option value="2011">2011</option>
+                                                        <option value="2010">2010</option>
+                                                        <option value="2009">2009</option>
+                                                        <option value="2008">2008</option>
+                                                        <option value="2007">2007</option>
+                                                        <option value="2006">2006</option>
+                                                        <option value="2005">2005</option>
+                                                        <option value="2004">2004</option>
+                                                        <option value="2003">2003</option>
+                                                        <option value="2002">2002</option>
+                                                        <option value="2001">2001</option>
+                                                        <option value="2000">2000</option>
+                                                        <option value="1999">1999</option>
+                                                        <option value="1998">1998</option>
+                                                        <option value="1997">1997</option>
+                                                        <option value="1996">1996</option>
+                                                        <option value="1995">1995</option>
+                                                        <option value="1994">1994</option>
+                                                        <option value="1993">1993</option>
+                                                        <option value="1992">1992</option>
+                                                        <option value="1991">1991</option>
+                                                        <option value="1990">1990</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li *ngIf="range_slider== true">
+                                            <div class="pricing_acontent pro_list mb20 mt40">
+                                                <ngx-slider [options]="options" formControlName="sliderControl">
+                                                </ngx-slider>
+                                            </div>
+                                        </li>
+                                        <li *ngIf="rent_range_slider== true">
+                                            <div class="pricing_acontent pro_list mb20 mt40">
+                                                <ngx-slider [options]="options_rent" formControlName="sliderControl">
+                                                </ngx-slider>
+                                            </div>
+                                        </li>
+                                        
+                                        <li>
+                                            <div id="accordion" class="panel-group">
+                                                <div class="panel">
+                                                    <!-- <div class="panel-heading">
+                                                        <h4 class="panel-title">
+                                                            <a href="#panelBodyRating" class="accordion-toggle link advanced" data-bs-toggle="collapse" data-parent="#accordion"><i
+                                                                    class="flaticon-more"></i> Advanced features</a>
+                                                           
+                                                        </h4>
+                                                    </div> -->
+                                                    <div id="panelBodyRating" class="panel-collapse collapse">
+                                                        <div class="panel-body row">
+                                                            <div class="col-lg-12">
+                                                                <ul class="ui_kit_checkbox selectable-list float-left fn-400">
+                                                                    <div class="row" *ngIf="this.search_amenties?.length>0,else amenties_row">
+                                                                        <div class="col-lg-6 col-6" *ngFor="let amenties of amenties?.data">
+                                                                            <li *ngIf="(amenties.id | amenitiesactive :this.search_amenties) as result,else OtherAmenties">
+                                                                                <div class="form-check">
+                                                                                    <input class="form-check-input" type="checkbox" value="{{amenties.id}}" id="{{amenties.id}}" (change)="onchangeAmenties($event,amenties.id)" checked>
+                                                                                    <label class="form-check-label" for="{{amenties.id}}">
+                                                                                        {{amenties.name}}
+                                                                                    </label>
+                                                                                </div>
+                                                                            </li>
+                                                                            <ng-template #OtherAmenties>
+                                                                                <li>
+                                                                                    <div class="form-check">
+                                                                                        <input class="form-check-input" type="checkbox" value="{{amenties.id}}" id="{{amenties.id}}" (change)="onchangeAmenties($event,amenties.id)">
+                                                                                        <label class="form-check-label" for="{{amenties.id}}">
+                                                                                            {{amenties.name}}
+                                                                                        </label>
+                                                                                    </div>
+                                                                                </li>
+                                                                            </ng-template>
+                                                                        </div>
+                                                                    </div>
+                                                                    <ng-template #amenties_row>
+                                                                        <div class="row">
+                                                                            <div class="col-lg-6 col-6" *ngFor="let amenties of amenties?.data">
+                                                                                <li>
+                                                                                    <div class="form-check">
+                                                                                        <input type="checkbox" class="form-check-input"  value="{{amenties.id}}" id="{{amenties.id}}"  (change)="onchangeAmenties($event,amenties.id)">
+                                                                                        <label class="form-check-label" for="{{amenties.id}}">
+                                                                                            {{amenties.name}}
+                                                                                        </label>
+                                                                                    </div>
+                                                                                </li>
+                                                                            </div>
+                                                                        </div>
+                                                                    </ng-template>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </li>
                                         <li>
@@ -105,50 +306,97 @@
         <div class="row">
             <div class="col-lg-4 col-xl-4">
                 <div class="sidebar_listing_grid1 dn-991">
-                    <div class="sidebar_listing_list">
+                    <div class="sidebar_listing_list"  *ngIf="login_usertype != 11">
                         <div class="sidebar_advanced_search_widget">
                             <ul class="sasw_list mb0">
                                 <form [formGroup]="searchForm" class="home1-advnc-search" action="#" name="searchHome" id="searchhome" #searchhome="ngForm">
-                                    <!-- <li class="search_area">
+                                    <li>
+                                        <div class="search_option_two">
+                                            <div class="candidate_revew_select">
+                                                <select class="form-select w100 show-tick" name="city" formControlName="city" id="city">
+                                                    <option value ="" selected>Select City</option>
+                                                    <option value ="Delhi">Delhi</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="search_option_two">
+                                            <div class="candidate_revew_select">
+                                                <select class="form-select w100 show-tick" name="type" formControlName="type" id="type">
+                                                    <option value ="" selected>Select Property Type</option>
+                                                    <option  *ngFor="let properrt_category of category?.data" [value]="properrt_category?.category?.property__type?.name" >{{properrt_category?.category?.property__type?.name}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="search_area">
                                         <div class="form-group mb20">
-                                            <input type="text" class="form-control input-text" name="build_name" formControlName="build_name" id="build_name" placeholder="Enter keywords...">
+                                            <!-- <input type="text" class="form-control input-text" name="name" formControlName="build_name" id="build_name" (ngModelChange)="get_locality($event)" placeholder="Enter keywords..."> -->
+                                            <input class="w100 form-control" type="text" placeholder="Search locality/Sub-locality" matInput aria-label="Number" formControlName="locality_data" [matAutocomplete]="auto" (ngModelChange)="get_locality($event)">
+                                            <mat-autocomplete #auto="matAutocomplete" > 
+                                                <mat-option *ngFor="let area of filteredOptions | async" [value]="area.item_text" (onSelectionChange)="selected_locality(area.item_text)">
+                                                    {{area.item_text}}
+                                                </mat-option>
+                                            </mat-autocomplete>
+                                        </div>
+                                    </li>
+                                    <li *ngIf="range_slider== true">
+                                        <div class="pricing_acontent pro_list mb20 mt40">
+                                            <ngx-slider [options]="options" formControlName="sliderControl">
+                                            </ngx-slider>
+                                        </div>
+                                    </li>
+                                    <li *ngIf="rent_range_slider== true">
+                                        <div class="pricing_acontent pro_list mb20 mt40">
+                                            <ngx-slider [options]="options_rent" formControlName="sliderControl">
+                                            </ngx-slider>
+                                        </div>
+                                    </li>
+                                    
+                                    <li>
+                                        <div class="search_option_button">
+                                            <button type="submit" class="btn btn-thm" (click)="searchhome.form.valid && navigate()">Search</button>
+                                            <button type="button" class="btn btn-primary" (click)="reset_Search()">Reset</button>
+                                        </div>
+                                    </li>
+                                </form>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="sidebar_listing_list" *ngIf="login_usertype == 11 && isLoggedIn == true">
+                        <div class="sidebar_advanced_search_widget">
+                            <ul class="sasw_list mb0">
+                                <form [formGroup]="searchForm" class="home1-advnc-search" action="#" name="searchHome" id="searchhome" #searchhome="ngForm">
+                                    <li class="search_area">
+                                        <div class="form-group mb20">
+                                            <input type="text" class="form-control input-text" name="build_name" formControlName="build_name" id="build_name" placeholder="Enter Property Name">
                                             <label for="exampleInputEmail"><span
                                                     class="flaticon-magnifying-glass"></span></label>
                                         </div>
-                                    </li> -->
-                                    <!-- <li class="search_area">
+                                    </li>
+                                    <li class="search_area">
                                         <div class="form-group mb20">
-                                            <input #searching autocorrect="off" autocapitalize="off" spellcheck="off" formControlName="location" type="search" class="form-control input-text" placeholder="Enter Location..." />
-                                            <label for="exampleInputEmail"><span
-                                                    class="flaticon-maps-and-flags"></span></label>
+                                            <!-- <input type="text" class="form-control input-text" name="name" formControlName="build_name" id="build_name" (ngModelChange)="get_locality($event)" placeholder="Enter keywords..."> -->
+                                            <input class="w100 form-control" type="text" placeholder="Search locality/Sub-locality" matInput aria-label="Number" formControlName="locality_data" [matAutocomplete]="auto" (ngModelChange)="get_locality($event)">
+                                              <!-- <span  class="flaticon-magnifying-glass" id="searchable_icon"></span> -->
+                                            <mat-autocomplete #auto="matAutocomplete" > 
+                                                <mat-option *ngFor="let area of filteredOptions | async" [value]="area.item_text" (onSelectionChange)="selected_locality(area.item_text)">
+                                                    {{area.item_text}}
+                                                </mat-option>
+                                            </mat-autocomplete>
                                         </div>
-                                    </li> -->
-                                    <!-- <li>
+                                    </li>
+                                    <li>
                                         <div class="search_option_two">
                                             <div class="candidate_revew_select">
                                                 <select class="form-select w100 show-tick" name="area_unit" formControlName="area_unit" id="area_unit">
                                                     <option value="">Select Area Unit</option>
-                                                    <option value="sq.ft.">sq.ft.</option>
-                                                    <option value="sq.yards">sq.yards</option>
-                                                    <option value="sq.m.">sq.m.</option>
-                                                    <option value="acres">acres</option>
-                                                    <option value="marla">marla</option>
-                                                    <option value="cents"> cents</option>
-                                                    <option value="bigha">bigha</option>
-                                                    <option value="kottah">kottah</option>
-                                                    <option value="kanal"> kanal</option>
-                                                    <option value="grounds">grounds</option>
-                                                    <option value="biswa">biswa</option>
-                                                    <option value="guntha"> guntha</option>
-                                                    <option value="aankadam">aankadam</option>
-                                                    <option value="hectares"> hectares</option>
-                                                    <option value="rood">rood</option>
-                                                    <option value="chataks">chataks</option>
-                                                    <option value="perch"> perch</option>
+                                                    <option  *ngFor="let area_unit of area_unit?.data" [value]="area_unit?.unit" >{{area_unit?.unit}}</option>
                                                 </select>
                                             </div>
                                         </div>
-                                    </li> -->
+                                    </li>
                                     <li>
                                         <div class="search_option_two">
                                             <div class="candidate_revew_select">
@@ -170,17 +418,6 @@
                                         </div>
                                     </li>
                                     <li>
-                                        <div class="form-group mb20">
-                                            <!-- <input type="text" class="form-control input-text" name="name" formControlName="build_name" id="build_name" (ngModelChange)="get_locality($event)" placeholder="Enter keywords..."> -->
-                                            <input class="w100 form-control" type="text" placeholder="Search locality/Sub-locality" matInput aria-label="Number" formControlName="locality_data" [matAutocomplete]="auto" (ngModelChange)="get_locality($event)">
-                                            <mat-autocomplete #auto="matAutocomplete" > 
-                                                <mat-option *ngFor="let area of filteredOptions | async" [value]="area.item_text" (onSelectionChange)="selected_locality(area.item_text)">
-                                                    {{area.item_text}}
-                                                </mat-option>
-                                            </mat-autocomplete>
-                                        </div>
-                                    </li>
-                                    <!-- <li>
                                         <div class="search_option_two">
                                             <div class="candidate_revew_select">
                                                 <select class="form-select w100 show-tick" name="bathrooms" formControlName="bathrooms" id="bathrooms">
@@ -198,8 +435,8 @@
                                                 </select>
                                             </div>
                                         </div>
-                                    </li> -->
-                                    <!-- <li>
+                                    </li>
+                                    <li>
                                         <div class="search_option_two">
                                             <div class="candidate_revew_select">
                                                 <select class="form-select w100 show-tick" name="bedrooms" formControlName="bedrooms" id="bedrooms">
@@ -217,49 +454,60 @@
                                                 </select>
                                             </div>
                                         </div>
-                                    </li> -->
-                                    <!-- <li>
+                                    </li>
+                                    <li>
                                         <div class="search_option_two">
                                             <div class="candidate_revew_select">
                                                 <select class="form-select w100 show-tick" name="years" formControlName="years" id="years">
                                                     <option value="">Select Built year</option>
-                                                    <option value="2000">2000</option>
-                                                    <option value="2001">2001</option>
-                                                    <option value="2002">2002</option>
-                                                    <option value="2003">2003</option>
-                                                    <option value="2004">2004</option>
-                                                    <option value="2005">2005</option>
-                                                    <option value="2006">2006</option>
-                                                    <option value="2007">2007</option>
-                                                    <option value="2008">2008</option>
-                                                    <option value="2009">2009</option>
-                                                    <option value="2010">2010</option>
-                                                    <option value="2011">2011</option>
-                                                    <option value="2012">2012</option>
-                                                    <option value="2013">2013</option>
-                                                    <option value="2014">2014</option>
-                                                    <option value="2015">2015</option>
-                                                    <option value="2016">2016</option>
-                                                    <option value="2017">2017</option>
-                                                    <option value="2018">2018</option>
-                                                    <option value="2019">2019</option>
-                                                    <option value="2020">2020</option>
+                                                    <option value="2022">2022</option>
                                                     <option value="2021">2021</option>
+                                                    <option value="2020">2020</option>
+                                                    <option value="2019">2019</option>
+                                                    <option value="2018">2018</option>
+                                                    <option value="2017">2017</option>
+                                                    <option value="2016">2016</option>
+                                                    <option value="2015">2015</option>
+                                                    <option value="2014">2014</option>
+                                                    <option value="2013">2013</option>
+                                                    <option value="2012">2012</option>
+                                                    <option value="2011">2011</option>
+                                                    <option value="2010">2010</option>
+                                                    <option value="2009">2009</option>
+                                                    <option value="2008">2008</option>
+                                                    <option value="2007">2007</option>
+                                                    <option value="2006">2006</option>
+                                                    <option value="2005">2005</option>
+                                                    <option value="2004">2004</option>
+                                                    <option value="2003">2003</option>
+                                                    <option value="2002">2002</option>
+                                                    <option value="2001">2001</option>
+                                                    <option value="2000">2000</option>
+                                                    <option value="1999">1999</option>
+                                                    <option value="1998">1998</option>
+                                                    <option value="1997">1997</option>
+                                                    <option value="1996">1996</option>
+                                                    <option value="1995">1995</option>
+                                                    <option value="1994">1994</option>
+                                                    <option value="1993">1993</option>
+                                                    <option value="1992">1992</option>
+                                                    <option value="1991">1991</option>
+                                                    <option value="1990">1990</option>
                                                 </select>
                                             </div>
                                         </div>
-                                    </li> -->
-                                    <!-- <li>
+                                    </li>
+                                    <li>
                                         <div class="search_option_two">
                                             <div class="candidate_revew_select">
                                                 <select class="form-select w100 show-tick" name="search_type" formControlName="search_type" id="search_type" (change)="property_type()">
-                                                    <option value="all">Select Availability</option>
+                                                    <!-- <option value="all">Select Availability</option> -->
                                                     <option value="rent">Rental Property</option>
-                                                    <option value="sales">Sales Property</option>
+                                                    <!-- <option value="sales">Sales Property</option> -->
                                                 </select>
                                             </div>
                                         </div>
-                                    </li> -->
+                                    </li>
                                     <li *ngIf="range_slider== true">
                                         <div class="pricing_acontent pro_list mb20 mt40">
                                             <ngx-slider [options]="options" formControlName="sliderControl">
@@ -273,26 +521,22 @@
                                         </div>
                                     </li>
                                     <!-- Sale feature Commented -->
-                                    <!-- <li *ngIf="buyyer_range_slider== true">
+                                    <li *ngIf="buyyer_range_slider== true">
                                         <div class="pricing_acontent pro_list mb20 mt40">
                                             <ngx-slider [options]="options_sales" formControlName="sliderControl">
                                             </ngx-slider>
                                         </div>
-                                    </li> -->
+                                    </li>
                                     <!-- Sale feature Commented -->
-<!-- 
                                     <li>
                                         <div id="accordion" class="panel-group">
                                             <div class="panel">
-                                                <div class="panel-heading">
+                                                <!-- <div class="panel-heading">
                                                     <h4 class="panel-title">
                                                         <a href="#panelBodyRating" class="accordion-toggle link advanced" data-bs-toggle="collapse" data-parent="#accordion"><i
                                                                 class="flaticon-more"></i> Advanced features</a>
-                                                        <a class="accordion-toggle link share" (click)="navigate()">
-                                                            <i class="fa fa-share-alt-square" aria-hidden="true"></i> 
-                                                        </a>
                                                     </h4>
-                                                </div>
+                                                </div> -->
                                                 <div id="panelBodyRating" class="panel-collapse collapse">
                                                     <div class="panel-body row">
                                                         <div class="col-lg-12">
@@ -339,7 +583,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </li> -->
+                                    </li>
                                     <li>
                                         <div class="search_option_button">
                                             <button type="submit" class="btn btn-thm" (click)="searchhome.form.valid && navigate()">Search</button>
@@ -374,7 +618,8 @@
                                     <form [formGroup]="searchForm" class="home1-advnc-search" action="#" name="searchHome" id="searchhome" #searchhome="ngForm">
                                         <li class="list-inline-item"><span class="stts">Status:</span>
                                             <select class="form-select show-tick" formControlName="property_status" id="property_status" (change)="property_status()">
-                                                <option value="all">All Property</option>
+                                                <option value="">Select Status</option>
+                                                <!-- <option value="all">All Property</option> -->
                                                 <option value="viewed">Most Viewed</option>
                                                 <option value="recently">Recently Added</option>
                                             </select>
@@ -391,11 +636,11 @@
                     </div>
                 </div>
                 <!-- property listing page details -->
-                <div class="row propertyListingPage" *ngIf="showLoadingIndicator == false">
-                    <div class="col-md-6 col-lg-6" *ngFor="let number of property.data.data">
+                <div class="row propertyListingPage"  *ngIf="showLoadingIndicator == false">
+                    <div class="col-md-6 col-lg-6" *ngFor="let number of property?.data?.data">
                         <div class="feat_property home7 style4">
-                            <owl-carousel-o [options]="customOptions" *ngIf="number.product_img.length>0;else OtherImage">
-                                <ng-template carouselSlide *ngFor="let img of number?.product_img">
+                            <owl-carousel-o [options]="customOptions" *ngIf="number.product_img_listing.length>0;else OtherImage">
+                                <ng-template carouselSlide *ngFor="let img of number?.product_img_listing">
                                     <img class="img-whp" src="{{ftpstring}}{{img?.image}}" alt="img1.jpg">
                                     <div class="thumb">
                                         <div class="thmb_cntnt style2">
@@ -408,14 +653,14 @@
                                         </div>
                                         <div class="thmb_cntnt style3">
                                             <ul class="icon mb0">
-                                                <li class="list-inline-item" *ngIf="number?.single_wishlist != null;else wishlistcontent">
-                                                    <a (click)="wishlist_remove(number.id)">
+                                                <li class="list-inline-item" *ngIf="number?.listing_wishlist != null;else wishlistcontent">
+                                                    <a (click)="wishlist_remove(number.product_id)">
                                                         <i class="fa fa-heart" aria-hidden="true"></i>
                                                     </a>
                                                 </li>
                                                 <ng-template #wishlistcontent>
                                                     <li class="list-inline-item">
-                                                        <a (click)="wishlist_added(number.id)">
+                                                        <a (click)="wishlist_added(number.product_id)">
                                                             <i class="fa fa-heart-o" aria-hidden="true"></i>
                                                         </a>
                                                     </li>
@@ -442,14 +687,14 @@
                                     </div>
                                     <div class="thmb_cntnt style3">
                                         <ul class="icon mb0">
-                                            <li class="list-inline-item" *ngIf="number?.single_wishlist != null;else wishlistcontent">
-                                                <a (click)="wishlist_remove(number.id)">
+                                            <li class="list-inline-item" *ngIf="number?.listing_wishlist != null;else wishlistcontent">
+                                                <a (click)="wishlist_remove(number.product_id)">
                                                     <i class="fa fa-heart" aria-hidden="true"></i>
                                                 </a>
                                             </li>
                                             <ng-template #wishlistcontent>
                                                 <li class="list-inline-item">
-                                                    <a (click)="wishlist_added(number.id)">
+                                                    <a (click)="wishlist_added(number.product_id)">
                                                         <i class="fa fa-heart-o" aria-hidden="true"></i>
                                                     </a>
                                                 </li>
@@ -462,9 +707,8 @@
                                     </div>
                                 </div>
                             </ng-template>
-
                             <div class="details">
-                                <a (click)="sub_navigate(number.id,number.build_name,number.city)">
+                                <a (click)="sub_navigate(number.product_id,number.build_name,number.city)">
                                     <div class="tc_content">
                                         <p class="text-thm" *ngIf="number.type != null">{{ number?.property__type?.name | titlecase }}</p>
                                         <h4>{{number.build_name | titlecase}}</h4>
@@ -475,7 +719,7 @@
                                         <ul class="prop_details mb0">
                                             <li class="list-inline-item"><a>Beds: {{ number?.bedroom }}</a></li>
                                             <li class="list-inline-item"><a>Baths: {{ number?.bathroom }}</a></li>
-                                            <li class="list-inline-item"><a>Area unit: {{ number?.property_area_unit?.unit }}</a></li>
+                                            <li class="list-inline-item"><a>Area unit: {{number?.property_area_unit?.unit }}</a></li>
                                         </ul>
                                     </div>
                                 </a>
@@ -485,12 +729,12 @@
                                             <a href="#">
                                                 <img src="./../../assets/resources/images/property/img_avatar2-png-9.png" alt="img_avatar2-png-9.png"></a>
                                         </li>
-                                        <li class="list-inline-item"><a>{{number.user_detail.name | titlecase}}</a></li>
-                                        <div class="fp_pdate float-right" *ngIf="number.product_comparision==null">
-                                            <button type="button" (click)="product_comp(number.id)" class="btn btn-log btn-block btn-thm bg-white text-black-50">{{number.product_comparision}}Add
+                                        <li class="list-inline-item"><a>{{number.pro_user_details.name | titlecase}}</a></li>
+                                        <div class="fp_pdate float-right" *ngIf="number.listing_pro_comp==null">
+                                            <button type="button" (click)="product_comp(number.product_id)" class="btn btn-log btn-block btn-thm bg-white text-black-50">{{number.product_comparision}}Add
                                                 to compare</button>
                                         </div>
-                                        <div class="fp_pdate float-right" *ngIf="number.product_comparision !=null">
+                                        <div class="fp_pdate float-right" *ngIf="number.listing_pro_comp !=null">
                                             <button type="button" class="btn  text-black-50 bucket-btn">Added To
                                                 Compare</button>
                                         </div>
@@ -500,7 +744,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row" *ngIf="propertyresultlength == true">
+                <div class="row" *ngIf="product_length == 0 && showLoadingIndicator == false">
                     <div class="col-lg-12">
                         <h3>No Search property!!!... </h3>
                     </div>
