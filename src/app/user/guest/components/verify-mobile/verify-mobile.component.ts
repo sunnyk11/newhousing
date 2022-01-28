@@ -66,7 +66,7 @@ export class VerifyMobileComponent implements OnInit {
   ngOnInit(): void {
     this.currentUserId = this.jwtService.getUserId();
     this.previousUrl = this.jwtService.getReturnURL();
-    console.log(this.previousUrl);
+    //console.log(this.previousUrl);
     if (this.jwtService.getToken()) {
       this.user_id = this.jwtService.getUserId();
       // this.userEmail = JSON.parse(this.jwtService.getUserEmail());
@@ -153,7 +153,7 @@ export class VerifyMobileComponent implements OnInit {
         else if (this.previousUrl.includes('plans')) {
           //console.log(this.previousUrl);
           this.plansData = JSON.parse(this.jwtService.getPlansData());
-          console.log(this.plansData);
+          //console.log(this.plansData);
           this.plansData['user_id'] = this.user_id;
           this.plansData['user_email'] = this.userEmail;
           this.plansPageService.postSelectedPlan(this.plansData).subscribe(
@@ -196,7 +196,7 @@ export class VerifyMobileComponent implements OnInit {
           
           this.plansPageService.postSelectedPlan(this.plansData).subscribe(
             res => {
-              console.log(res);
+              //console.log(res);
               this.letOutPlanData = res;
               if (this.letOutPlanData.data.plan_type == 'Let Out') {
                 this.router.navigate(['/payment-summary'], { queryParams: { 'orderID': this.letOutPlanData.data.order_id } });

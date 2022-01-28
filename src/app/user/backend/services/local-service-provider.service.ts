@@ -34,7 +34,7 @@ export class LocalServiceProviderService {
     const route = "/api/product/local_service";
     return this.apiService.get(route,reqModel).toPromise().then(
       (response) => {
-        console.log(response);
+        //console.log(response);
         return response as Pagination
       })
       .catch(this.handleError);
@@ -78,7 +78,7 @@ export class LocalServiceProviderService {
     const route = "/api/product/getarea_service";
     return this.apiService.get(route).toPromise().then(
       (response) => {
-        console.log(response);
+        //console.log(response);
         return response as Pagination
       })
       .catch(this.handleError);
@@ -108,7 +108,7 @@ export class LocalServiceProviderService {
     const route = "/api/product/service_user_list";
     return this.apiService.get(route).toPromise().then(
       (response) => {
-        console.log(response);
+        //console.log(response);
         return response as Pagination
       })
       .catch(this.handleError);

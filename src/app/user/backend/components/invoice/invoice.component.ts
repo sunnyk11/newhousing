@@ -27,7 +27,7 @@ export class InvoiceComponent implements OnInit {
     this.invoice_id = this.route.snapshot.queryParams['invoice_no'];
     this.PlansServiceService.getInvoiceDetails(this.invoice_id).subscribe(
       response => {
-        console.log(response);
+        //console.log(response);
         this.response = response;
         this.inv_response = this.response[0];
         this.gst_amount = (18 * this.response[0].plan_price) / 100;

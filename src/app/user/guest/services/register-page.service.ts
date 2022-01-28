@@ -11,7 +11,7 @@ export class RegisterPageService {
   constructor(private apiService: ApiService) { }
 
   register_new(data: any): Observable<ResultModel> {
-    console.log(data);
+    //console.log(data);
     const route = "/api/auth/user_signup_new";
     return this.apiService.post<ResultModel>(route,
       {
@@ -28,10 +28,10 @@ export class RegisterPageService {
   }
 
   verify_otp(number: any, otp: string, email_id: string, first_name: string): Observable<any> {
-    console.log(number);
-    console.log(otp);
-    console.log(email_id);
-    console.log(first_name);
+    //console.log(number);
+    //console.log(otp);
+    //console.log(email_id);
+    //console.log(first_name);
     let name = "" + number;
     const route = "/api/auth/verify";
     return this.apiService.post<ResultModel>(route,

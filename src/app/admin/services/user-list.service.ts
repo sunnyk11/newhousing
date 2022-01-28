@@ -28,7 +28,7 @@ export class UserListService {
     const route = "/api/admin/get_all_user";
     return this.apiService.admin_get(route).toPromise().then(
       (response) => {
-        console.log(response);
+        //console.log(response);
         return response as Pagination
       })
       .catch(this.handleError);
@@ -36,7 +36,7 @@ export class UserListService {
   
   getpagination(url: string): Promise<Pagination> {
     const route = url;
-    console.log(route);
+    //console.log(route);
     return this.apiService.get_admin_pagination(route).toPromise().then(
       (response) => {
       return response as Pagination

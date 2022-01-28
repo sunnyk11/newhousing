@@ -31,7 +31,7 @@ export class MyPlansComponent implements OnInit {
         res => {
           this.showLoadingIndicator = false;
           this.response = res;
-          console.log(this.response);
+          //console.log(this.response);
         },
         err => {  
           this.showLoadingIndicator = false;
@@ -66,7 +66,7 @@ export class MyPlansComponent implements OnInit {
   }
 
   moreDetails(plan_details: any) {
-    console.log(plan_details);
+    //console.log(plan_details);
     this.plan_det = plan_details;
   }
 

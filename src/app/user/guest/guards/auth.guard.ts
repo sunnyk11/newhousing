@@ -23,7 +23,7 @@ export class AuthGuard implements CanActivate {
       }
       else {
         this.returnUrl = state.url;
-        console.log(this.returnUrl);
+        //console.log(this.returnUrl);
         this.jwtService.saveReturnURL(this.returnUrl);
         this.router.navigateByUrl('login');
         obs.next(false);

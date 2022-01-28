@@ -31,7 +31,7 @@ export class ServicesUserListComponent implements OnInit {
     this.LocalServiceProviderService.getservice_user().then(
       Pagination_data => {
         this.user_data=Pagination_data;
-        console.log(this.user_data);
+        //console.log(this.user_data);
         this.user_length=this.user_data.data.total;
         this.showLoadingIndicator=false;
       }, err => {

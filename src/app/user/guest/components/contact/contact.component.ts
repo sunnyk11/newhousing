@@ -38,7 +38,7 @@ export class ContactComponent implements OnInit {
       return;
     }
     this.showLoadingIndicator = true;
-    console.log(this.contactForm.value);
+    //console.log(this.contactForm.value);
     var formData: any = new FormData();
     formData.append('name', this.contactForm.value.name);
     formData.append('email', this.contactForm.value.email);

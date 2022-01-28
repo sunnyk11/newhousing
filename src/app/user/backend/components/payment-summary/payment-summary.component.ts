@@ -35,7 +35,7 @@ export class PaymentSummaryComponent implements OnInit {
     this.order_id = this.route.snapshot.queryParams['orderID'];
     this.PlansServiceService.getOrderDetails(this.order_id).subscribe(
       response => {
-        console.log(response);
+        //console.log(response);
         this.response_data = response;
         this.response=this.response_data[0];
         this.price_amount = this.response_data[0].plan_price;
@@ -44,7 +44,7 @@ export class PaymentSummaryComponent implements OnInit {
         this.payment_type = this.response_data[0].payment_type;
       },
       err => {
-        // console.log(err);
+         console.log(err);
       }
     );
   }

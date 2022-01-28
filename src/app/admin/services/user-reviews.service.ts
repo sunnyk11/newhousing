@@ -20,7 +20,7 @@ export class UserReviewsService {
     const route = "/api/admin/get_reviews";
     return this.apiService.admin_get(route,reqModel).toPromise().then(
       (response) => {
-        console.log(response);
+        //console.log(response);
         return response as Pagination
       })
       .catch(this.handleError);
@@ -41,7 +41,7 @@ export class UserReviewsService {
   
   getpagination(url: string): Promise<Pagination> {
     const route = url;
-    console.log(route);
+    //console.log(route);
     return this.apiService.get_admin_pagination(route).toPromise().then(
       (response) => {
       return response as Pagination

@@ -76,7 +76,7 @@ export class SubscriptionPlansComponent implements OnInit {
     this.plansPageService.getRentFeatures({ param: null }).subscribe(
       response => {
         this.rent_feat_res = response;
-        console.log(response);
+        //console.log(response);
         this.showLoadingIndicator = false;
       },
       err => {
@@ -92,7 +92,7 @@ export class SubscriptionPlansComponent implements OnInit {
     this.plansPageService.getLetOutFeatures({ param: null }).subscribe(
       res => {
         this.letout_feat_res = res;
-        console.log(this.letout_feat_res);
+        //console.log(this.letout_feat_res);
         this.showLoadingIndicator = false;
       },
       err => {
@@ -111,24 +111,24 @@ export class SubscriptionPlansComponent implements OnInit {
 
   plan_payment(plan_name: any, plan_id: any, payment_type: any, plan_type: any, expected_rent: any, price_duration_actual: any, price_duration_discount:any, plan_features: any) {
     this.showLoadingIndicator = true;
-    console.log(plan_name, plan_id, payment_type, plan_type, expected_rent, price_duration_actual, price_duration_discount);
+    //console.log(plan_name, plan_id, payment_type, plan_type, expected_rent, price_duration_actual, price_duration_discount);
     let val = this.jwtService.getToken();
     if (val) {
-      console.log("Logged In");
-      console.log(val);
+      //console.log("Logged In");
+      //console.log(val);
       this.loginPageService.getUserPhoneDetails({ param: null }).subscribe(
         data => {
           this.showLoadingIndicator = false;
           this.user_phone_data = data;
-          console.log(this.user_phone_data);
+          //console.log(this.user_phone_data);
           if (this.user_phone_data !== 1) {
-            console.log("Mobile number not verified");
+            //console.log("Mobile number not verified");
             this.returnUrl = this.router.url;
             this.jwtService.saveReturnURL(this.returnUrl);
             this.openMobModal(plan_name, plan_id, payment_type, plan_type, expected_rent, price_duration_actual, price_duration_discount, plan_features);
           }
           else {
-            console.log("Mobile number verified");
+            //console.log("Mobile number verified");
             this.user_id = this.jwtService.getUserId();
             this.userEmail = this.jwtService.getUserEmail();
             var formData: any = new FormData();
@@ -149,12 +149,12 @@ export class SubscriptionPlansComponent implements OnInit {
             
             formData.append('plan_price', this.plan_price);
             formData.append('plan_features_data', JSON.stringify(plan_features));
-            console.log(typeof(plan_features));
-            console.log(formData);
+            //console.log(typeof(plan_features));
+            //console.log(formData);
 
             this.plansPageService.postSelectedPlan(formData).subscribe(
               res => {
-                console.log(res);
+                //console.log(res);
                 this.selected_plan_data = res;
                 if (plan_type == 'Let Out') {
                   this.router.navigate(['/payment-summary'], { queryParams: { 'orderID': this.selected_plan_data.data.order_id } });
@@ -176,8 +176,8 @@ export class SubscriptionPlansComponent implements OnInit {
       );
     }
     else {
-      console.log("Not logged in");
-      console.log(this.router.url);
+      //console.log("Not logged in");
+      //console.log(this.router.url);
       this.showLoadingIndicator = false;
       this.openLoginModal(plan_name, plan_id, payment_type, plan_type, expected_rent, price_duration_actual, price_duration_discount, plan_features);
     }

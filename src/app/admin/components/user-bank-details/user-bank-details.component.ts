@@ -42,7 +42,7 @@ export class UserBankDetailsComponent implements OnInit {
     this.UserBankDetailsService.get_userbank_details().then(
       Pagination_data => {
         this.user_bank_details=Pagination_data;
-        console.log(this.user_bank_details);
+        //console.log(this.user_bank_details);
         this.user_bank_length=this.user_bank_details.data.total;
         this.showLoadingIndicator= false;
       }, err => {

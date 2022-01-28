@@ -28,13 +28,13 @@ export class ModalComponent implements OnInit {
 
   actionFunction() {
     this.returnUrl = this.router.url;
-    console.log(this.returnUrl);
+    //console.log(this.returnUrl);
     if (this.returnUrl == '/plans') {
       this.plan_price = this.response.expected_rent / (30 / this.response.price_duration);
       this.response.plan_price = this.plan_price;
-      console.log(this.response);
-      console.log(typeof(this.response));
-      console.log(this.response.plan_name, this.response.plan_id, this.response.payment_type, this.response.plan_type, this.response.expected_rent, this.response.price_duration, this.plan_price);      
+      //console.log(this.response);
+      //console.log(typeof(this.response));
+      //console.log(this.response.plan_name, this.response.plan_id, this.response.payment_type, this.response.plan_type, this.response.expected_rent, this.response.price_duration, this.plan_price);      
 
       this.jwtService.saveReturnURL(this.returnUrl);
       this.jwtService.savePlansData(JSON.stringify(this.response));

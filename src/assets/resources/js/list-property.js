@@ -2,13 +2,13 @@
 
     $(document).on('ready', function() {
         $(".next").click(function() {
-            console.log("Ready");
+            //console.log("Ready");
         });
 
     });
 
     $(document).ready(function() {
-        console.log("Ready");
+        //console.log("Ready");
         var current_fs, next_fs, previous_fs; //fieldsets
         var opacity;
         var current = 1;
@@ -17,7 +17,7 @@
         setProgressBar(current);
 
         $(".next").click(function() {
-            console.log("Next");
+            //console.log("Next");
 
             current_fs = $(this).parent();
             next_fs = $(this).parent().next();
