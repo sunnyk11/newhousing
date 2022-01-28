@@ -14,7 +14,7 @@
                                     </a>
                                 </h4>
                                 
-                                <ul class="sasw_list mb0" *ngIf="login_usertype != 11">
+                                <ul class="sasw_list mb0" *ngIf="access_search_bar == false">
                                     <form [formGroup]="searchForm" class="home1-advnc-search" action="#" name="searchHome" id="searchhome" #searchhome="ngForm">
                                         
                                         <li>
@@ -69,7 +69,7 @@
                                     </form>
                                 </ul>
                                 
-                                <ul class="sasw_list mb0" *ngIf="login_usertype == 11 && isLoggedIn == true">
+                                <ul class="sasw_list mb0" *ngIf="access_search_bar == true && isLoggedIn == true">
                                     <form [formGroup]="searchForm" class="home1-advnc-search" action="#" name="searchHome" id="searchhome" #searchhome="ngForm">
                                         
                                         <li class="search_area">
@@ -79,14 +79,33 @@
                                                         class="flaticon-magnifying-glass"></span></label>
                                             </div>
                                         </li>
+                                        <li>
+                                            <div class="search_option_two">
+                                                <div class="candidate_revew_select">
+                                                    <select class="form-select w100 show-tick" name="city" formControlName="city" id="city">
+                                                        <option value ="" selected>Select City</option>
+                                                        <option value ="Delhi">Delhi</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </li>
                                         <li class="search_area">
                                             <div class="form-group mb20">
-                                                <input class="w100 form-control" type="text" placeholder="Search locality/Sub-locality" matInput aria-label="Number" formControlName="locality_data" [matAutocomplete]="auto" (ngModelChange)="get_locality($event)">
+                                                <input class="w100 form-control" type="text" placeholder="Search locality" matInput aria-label="Number" formControlName="locality_data" [matAutocomplete]="auto" (ngModelChange)="get_internal_user_locality($event)">
                                                 <mat-autocomplete #auto="matAutocomplete" > 
-                                                    <mat-option *ngFor="let area of filteredOptions | async" [value]="area.item_text" (onSelectionChange)="selected_locality(area.item_text)">
+                                                    <mat-option *ngFor="let area of filteredOptions | async" [value]="area.item_text" (onSelectionChange)="selected_locality_inertnal(area.item_text,area.item_id)">
                                                         {{area.item_text}}
                                                     </mat-option>
                                                 </mat-autocomplete>
+                                            </div>
+                                        </li>
+                                        <li class="search_area mb20">
+                                            <div lass="form-group "  id="multiselect-dropdown">
+                                                <!-- <label for="pincode" class="form-label">Sub-Locality</label>  -->
+                                                <ng-multiselect-dropdown class="form-control sub_localty_dropdown" [placeholder]="'Select Sub-locality'"
+                                                [settings]="dropdownSettings1" [data]="dropdown_sublocality"
+                                                formControlName="sub_locality">
+                                                </ng-multiselect-dropdown>
                                             </div>
                                         </li>
                                         <li>
@@ -95,16 +114,6 @@
                                                     <select class="form-select w100 show-tick" name="area_unit" formControlName="area_unit" id="area_unit">
                                                         <option value="">Select Area Unit</option>
                                                         <option  *ngFor="let area_unit of area_unit?.data" [value]="area_unit?.unit" >{{area_unit?.unit}}</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="search_option_two">
-                                                <div class="candidate_revew_select">
-                                                    <select class="form-select w100 show-tick" name="city" formControlName="city" id="city">
-                                                        <option value ="" selected>Select City</option>
-                                                        <option value ="Delhi">Delhi</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -306,7 +315,7 @@
         <div class="row">
             <div class="col-lg-4 col-xl-4">
                 <div class="sidebar_listing_grid1 dn-991">
-                    <div class="sidebar_listing_list"  *ngIf="login_usertype != 11">
+                    <div class="sidebar_listing_list"  *ngIf="access_search_bar == false">
                         <div class="sidebar_advanced_search_widget">
                             <ul class="sasw_list mb0">
                                 <form [formGroup]="searchForm" class="home1-advnc-search" action="#" name="searchHome" id="searchhome" #searchhome="ngForm">
@@ -364,7 +373,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="sidebar_listing_list" *ngIf="login_usertype == 11 && isLoggedIn == true">
+                    <div class="sidebar_listing_list" *ngIf="access_search_bar == true && isLoggedIn == true">
                         <div class="sidebar_advanced_search_widget">
                             <ul class="sasw_list mb0">
                                 <form [formGroup]="searchForm" class="home1-advnc-search" action="#" name="searchHome" id="searchhome" #searchhome="ngForm">
@@ -375,16 +384,35 @@
                                                     class="flaticon-magnifying-glass"></span></label>
                                         </div>
                                     </li>
+                                    <li>
+                                        <div class="search_option_two">
+                                            <div class="candidate_revew_select">
+                                                <select class="form-select w100 show-tick" name="city" formControlName="city" id="city">
+                                                    <option value ="" selected>Select City</option>
+                                                    <option value ="Delhi">Delhi</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </li>
                                     <li class="search_area">
                                         <div class="form-group mb20">
                                             <!-- <input type="text" class="form-control input-text" name="name" formControlName="build_name" id="build_name" (ngModelChange)="get_locality($event)" placeholder="Enter keywords..."> -->
-                                            <input class="w100 form-control" type="text" placeholder="Search locality/Sub-locality" matInput aria-label="Number" formControlName="locality_data" [matAutocomplete]="auto" (ngModelChange)="get_locality($event)">
+                                            <input class="w100 form-control" type="text" placeholder="Search locality" matInput aria-label="Number" formControlName="locality_data" [matAutocomplete]="auto" (ngModelChange)="get_internal_user_locality($event)">
                                               <!-- <span  class="flaticon-magnifying-glass" id="searchable_icon"></span> -->
                                             <mat-autocomplete #auto="matAutocomplete" > 
-                                                <mat-option *ngFor="let area of filteredOptions | async" [value]="area.item_text" (onSelectionChange)="selected_locality(area.item_text)">
+                                                <mat-option *ngFor="let area of filteredOptions | async" [value]="area.item_text" (onSelectionChange)="selected_locality_inertnal(area.item_text,area.item_id)">
                                                     {{area.item_text}}
                                                 </mat-option>
                                             </mat-autocomplete>
+                                        </div>
+                                    </li>
+                                    <li class="search_area mb20">
+                                        <div lass="form-group "  id="multiselect-dropdown">
+                                            <!-- <label for="pincode" class="form-label">Sub-Locality</label>  -->
+                                            <ng-multiselect-dropdown class="form-control sub_localty_dropdown" [placeholder]="'Select Sub-locality'"
+                                            [settings]="dropdownSettings1" [data]="dropdown_sublocality"
+                                            formControlName="sub_locality">
+                                            </ng-multiselect-dropdown>
                                         </div>
                                     </li>
                                     <li>
@@ -393,16 +421,6 @@
                                                 <select class="form-select w100 show-tick" name="area_unit" formControlName="area_unit" id="area_unit">
                                                     <option value="">Select Area Unit</option>
                                                     <option  *ngFor="let area_unit of area_unit?.data" [value]="area_unit?.unit" >{{area_unit?.unit}}</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="search_option_two">
-                                            <div class="candidate_revew_select">
-                                                <select class="form-select w100 show-tick" name="city" formControlName="city" id="city">
-                                                    <option value ="" selected>Select City</option>
-                                                    <option value ="Delhi">Delhi</option>
                                                 </select>
                                             </div>
                                         </div>

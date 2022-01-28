@@ -44,6 +44,10 @@ export class ProductPageComponent implements OnInit {
   public total_amount_owner:number=0;
   public sectiondisplay:boolean=false;
   private e: any;
+  public permissions_response: any;
+  public access_property_location: boolean = false;
+  public access_other_details: boolean = false;
+  
   public locality_id:any;
   private product_id: any;
   public address_details:string = '';
@@ -82,9 +86,18 @@ export class ProductPageComponent implements OnInit {
       this.isLoggedIn= true;
       this.login_usertype = this.jwtService.getUserType();
       this.login_userid = this.jwtService.getUserId();
+      this.login_userid = this.jwtService.getUserId();
+      if(this.jwtService.get_Internal_User()== '"Yes"'){
+        this.CommonService.getUserPermissions(this.login_userid).subscribe(
+          response => {
+            let  response_data:any=response;
+            this.permissions_response = response_data.permissions;
+            this.access_property_location = this.permissions_response.includes('access_property_location');
+            this.access_other_details = this.permissions_response.includes('access_other_details');
+          });
+        }
       this.ProductPageService.login_single_product_details(param).subscribe(
         response => {
-          //console.log(response);
           this.product_details=response;
           this.product_data=this.product_details.data;
           if(this.product_details.data != null){

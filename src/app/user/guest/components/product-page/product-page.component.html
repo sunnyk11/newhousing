@@ -293,7 +293,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-12"  *ngIf="login_usertype == 11 && isLoggedIn == true">
+                        <div class="col-lg-12"  *ngIf="isLoggedIn == true && access_other_details == true">
                             <div class="additional_details">
                                 <div class="row">
                                     <div class="col-lg-12">
@@ -456,8 +456,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-12" *ngIf="isLoggedIn == true">
-                        <div class="col-lg-12" *ngIf="login_usertype == 11">
+                    <div class="col-lg-12" *ngIf="isLoggedIn == true && access_property_location == true">
+                        <div class="col-lg-12">
                             <div class="application_statics mt30">
                                 <div class="row">
                                     <div class="col-lg-3">
@@ -515,7 +515,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-12 single-page_inner_column" *ngIf="product_data?.video_link.length>0">
+                    <div class="col-lg-12 single-page_inner_column" *ngIf="product_data?.video_link?.length>0 && product_data?.video_link !=null ">
                        <div class="shop_single_tab_content style2 mt30 application_statics">
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
                                 <li class="nav-item">

@@ -81,9 +81,10 @@ export class JwtService {
 
   saveUser(data: any) {
     //window.localStorage.clear();
-    //console.log(data);
+    // console.log(data);
     window.localStorage["AUTH_TOKEN"] = JSON.stringify(data.access_token);
     window.localStorage["USER_EMAIL"] = JSON.stringify(data.email);
+    window.localStorage["USER_INTERNAL"] = JSON.stringify(data.internal_user);
     window.localStorage["USER_ID"] = JSON.stringify(data.id);
     window.localStorage["USER_NAME"] = data.username;
     window.localStorage["USER_TYPE"] = JSON.stringify(data.usertype);
@@ -182,6 +183,9 @@ export class JwtService {
 
   getUserRoles() {
     return window.localStorage["USER_ROLES"];
+  }
+  get_Internal_User() {
+    return window.localStorage["USER_INTERNAL"];
   }
 
   getUserPermissions() {
