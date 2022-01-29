@@ -53,6 +53,7 @@ import { BankDetailsModalComponent } from './modals/bank-details-modal/bank-deta
 import { UserReviewModalComponent } from './modals/user-review-modal/user-review-modal.component';
 import { NgxStarRatingModule } from 'ngx-star-rating';
 import { ClipboardModule } from 'ngx-clipboard';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 @NgModule({
   declarations: [
@@ -113,6 +114,7 @@ import { ClipboardModule } from 'ngx-clipboard';
     NgImageSliderModule,
     NgbModule,
     MatAutocompleteModule,
+    NgMultiSelectDropDownModule.forRoot(),
     NgxStarRatingModule
   ],
 })

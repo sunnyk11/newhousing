@@ -49,17 +49,17 @@ export class TopbarNotificationComponent implements OnInit {
         data => {
           let result:any=data;
           this.user_data = result.data;
-          if(this.user_data.bank_acount_no == null){
+          if(this.user_data.bank_acount_no == null && this.user_data.productdetails.length>0 ){
             this.show_topbar=true;
-          }else{
-            this.show_topbar=false;
-          }
           this.id = this.user_data.id;
           this.phn_no = this.user_data.other_mobile_number;
           this.bank_account_no=this.user_data.bank_acount_no;
           this.ifsc_code=this.user_data.ifsc_code;
           this.bank_account_holder=this.user_data.account_holder;
           this.account_status=this.user_data.account_status;
+          }else{
+            this.show_topbar=false;
+          }
         },err => {
             // this.showLoadingIndicator = false;
             console.log(err);

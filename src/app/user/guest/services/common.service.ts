@@ -65,8 +65,17 @@ export class CommonService {
     const route = "/api/auth/get_common_area_data/";
     return this.apiService.get<ResultModel>(route + reqModel);
   }
+  get_internal_user_locality(reqModel:any): Observable<ResultModel> {
+    const route = "/api/auth/get_internal_user_locality/";
+    return this.apiService.get<ResultModel>(route + reqModel);
+  }
   getFeaturedproduct(reqModel:any): Observable<ResultModel> {
     const route = "/api/product/feature_property";
+    return this.apiService.get<ResultModel>(route, reqModel);
+  }
+  
+  get_sub_locality(reqModel:any): Observable<ResultModel> {
+    const route = "/api/auth/get_sub_locality";
     return this.apiService.get<ResultModel>(route, reqModel);
   }
   
@@ -111,6 +120,10 @@ export class CommonService {
   user_reviews(reqModel:any): Observable<ResultModel> {
     const route = "/api/product/post_review";
     return this.apiService.post<ResultModel>(route, reqModel);
+  }
+  getUserPermissions(reqModel:any): Observable<ResultModel> {
+    const route = "/api/auth/get_user_permissions/";
+    return this.apiService.get<ResultModel>(route + reqModel);
   }
   
 }

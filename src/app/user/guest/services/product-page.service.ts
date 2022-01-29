@@ -24,6 +24,7 @@ export class ProductPageService {
     const route = "/api/product/similarproperty"; 
     return this.apiService.post<ResultModel>(route, reqModel);
   }
+  
   login_getsimilarproperty(reqModel:any): Observable<ResultModel> {
     const route = "/api/product/loginsimilarproperty"; 
     return this.apiService.post<ResultModel>(route, reqModel);
