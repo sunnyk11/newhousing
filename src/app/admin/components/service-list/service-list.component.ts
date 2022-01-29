@@ -61,7 +61,7 @@ export class ServiceListComponent implements OnInit {
     this.LocalServiceProviderService.getarea_service1().then(
       Pagination_data => {
         this.service_data=Pagination_data;
-        console.log(this.service_data);
+        //console.log(this.service_data);
         this.service_length=this.service_data.data.total;
         this.showLoadingIndicator=false;
       }, err => {
@@ -83,7 +83,7 @@ export class ServiceListComponent implements OnInit {
   }
 
   delete_service(service_id:any){
-    console.log(service_id);
+    //console.log(service_id);
     this.showLoadingIndicator = true;
     let param = { service_id: service_id}
     this.LocalServiceProviderService.delete_service(param).pipe().subscribe(

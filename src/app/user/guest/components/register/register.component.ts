@@ -56,8 +56,8 @@ export class RegisterComponent implements OnInit {
       this.device_info = this.UserLogsService.getDeviceInfo();
       this.browser_info = this.UserLogsService.getbrowserInfo();
       this.ip_address = this.UserLogsService.getIpAddress();
-      console.log(this.browser_info);
-      console.log(this.ip_address);
+      //console.log(this.browser_info);
+      //console.log(this.ip_address);
     }
 
   ngOnInit(): void {
@@ -102,11 +102,11 @@ export class RegisterComponent implements OnInit {
     this.registerService.register_new(this.form).subscribe(
       data => {
         this.showLoadingIndicator = false;
-        console.log(data);
+        //console.log(data);
         let user_data:any=data;
         this.isSignUpFailed = false;
         this.isSuccessful = true;
-        console.log(this.form);
+        //console.log(this.form);
 
          // user logs functionalty 
          this.type="Registration page";
@@ -140,10 +140,10 @@ export class RegisterComponent implements OnInit {
         return;
       }
       this.showLoadingIndicator = true;
-      console.log(this.number);
-      console.log(this.otp_form.otp_number);
-      console.log(this.email_id);
-      console.log(this.first_name);
+      //console.log(this.number);
+      //console.log(this.otp_form.otp_number);
+      //console.log(this.email_id);
+      //console.log(this.first_name);
       this.registerService.verify_otp(this.number, this.otp_form.value.otp_number, this.email_id, this.first_name).subscribe(
 
         data => {

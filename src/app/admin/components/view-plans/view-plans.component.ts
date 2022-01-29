@@ -156,7 +156,7 @@ export class ViewPlansComponent implements OnInit {
       //console.log(this.EditPlanDetails);
       return;
     }
-    console.log(this.EditPlanDetails);
+    //console.log(this.EditPlanDetails);
     this.plansService.update_property_plans(this.EditPlanDetails.value).subscribe(
       res => {
         //console.log(res);

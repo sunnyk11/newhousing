@@ -21,7 +21,7 @@ export class BlogService {
     const route = "/api/posts";
     return this.apiService.get(route).toPromise().then(
       (response) => {
-        console.log(response);
+        //console.log(response);
         return response as PaginatedPosts
       })
       .catch(this.handleError);
@@ -34,10 +34,10 @@ export class BlogService {
 
   getPostsAtUrl(url: string): Promise<PaginatedPosts> {
     const route = url;
-    console.log(route);
+    //console.log(route);
     return this.http.get(route).toPromise().then(
       (response) => {
-        console.log(response);
+        //console.log(response);
       return response as PaginatedPosts
     })
     .catch(this.handleError);

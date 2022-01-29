@@ -26,7 +26,7 @@ export class MobileCheckComponent implements OnInit {
   actionFunction() {
     this.closeModal("");
     this.returnUrl = this.router.url;
-    console.log(this.returnUrl);
+    //console.log(this.returnUrl);
     if (this.returnUrl == '/plans') {
       if(this.fromParent.price_duration_discount) {
         this.plan_price = this.fromParent.expected_rent / (30 / this.fromParent.price_duration_discount);
@@ -36,12 +36,12 @@ export class MobileCheckComponent implements OnInit {
       }
       
       this.fromParent.plan_price = this.plan_price;
-      console.log(this.plan_price);
-      console.log(this.fromParent);
+      //console.log(this.plan_price);
+      //console.log(this.fromParent);
     }
     else if (this.returnUrl == '/list-property') {
       this.returnUrl = this.jwtService.getReturnURL();
-      console.log(this.returnUrl);
+      //console.log(this.returnUrl);
     }
     this.jwtService.saveReturnURL(this.returnUrl);
     this.jwtService.savePlansData(this.fromParent);

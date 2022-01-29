@@ -72,8 +72,8 @@ export class LoginComponent implements OnInit {
       this.device_info = this.UserLogsService.getDeviceInfo();
       this.browser_info = this.UserLogsService.getbrowserInfo();
       this.ip_address = this.UserLogsService.getIpAddress();
-      console.log(this.browser_info);
-      console.log(this.ip_address);
+      //console.log(this.browser_info);
+      //console.log(this.ip_address);
      }
 
   ngOnInit(): void {
@@ -94,7 +94,7 @@ export class LoginComponent implements OnInit {
       this.user_id = this.jwtService.getUserId();
       this.userEmail = this.jwtService.getUserEmail();
       this.returnUrl = this.jwtService.getReturnURL();
-      console.log(this.returnUrl);
+      //console.log(this.returnUrl);
       if (this.returnUrl?.includes('/product_payment_summary')) {
         //console.log(this.returnUrl);
         this.proceedToPayment();
@@ -126,11 +126,11 @@ export class LoginComponent implements OnInit {
       this.loginPageService.login(loginData).subscribe(
         response => {
           this.showLoadingIndicator = false;
-          console.log(response);
+          //console.log(response);
           this.LoginFailed = false;
           this.LoggedIn = true;
           this.response_data = response;
-          console.log(this.response_data.data.user_data);
+          //console.log(this.response_data.data.user_data);
           this.jwtService.saveUser(this.response_data.data);
           this.token = this.jwtService.getToken();
           this.commonService.sendUpdate(this.LoggedIn, this.token);
@@ -181,7 +181,7 @@ export class LoginComponent implements OnInit {
     this.loginPageService.getUserPhoneDetails({ param: null }).subscribe(
       data => {
         this.showLoadingIndicator = false;
-        console.log(data);
+        //console.log(data);
         this.mobile_ver_status = data;
         if (this.mobile_ver_status !== 1) {
           //console.log("Mobile number not verified");
@@ -271,18 +271,18 @@ export class LoginComponent implements OnInit {
         this.showLoadingIndicator = false;
         this.mobile_ver_status = data;
         if (this.mobile_ver_status !== 1) {
-          console.log("Mobile number not verified");
+          //console.log("Mobile number not verified");
           this.router.navigate(['verify-mobile']);
         }
         else {
-          console.log("Mobile number verified");
+          //console.log("Mobile number verified");
           this.plansData = JSON.parse(this.jwtService.getPlansData());
-          console.log(this.plansData);
+          //console.log(this.plansData);
           this.plansData['user_id'] = this.user_id;
           this.plansData['user_email'] = this.userEmail;
           this.plansPageService.postSelectedPlan(this.plansData).subscribe(
             res => {
-              console.log(res);
+              //console.log(res);
               this.letOutPlanData = res;
               if (this.letOutPlanData.data.plan_type == 'Let Out') {
                 this.router.navigate(['/payment-summary'], { queryParams: { 'orderID': this.letOutPlanData.data.order_id } });
