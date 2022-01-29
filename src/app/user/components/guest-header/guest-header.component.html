@@ -99,12 +99,12 @@
                 </button>
                 <mat-menu #menu="matMenu">
                     <button mat-menu-item class="text-center pro_img">
-                        <span *ngIf="profile_pic && profile_pic.indexOf('https') != -1">
+                        <span *ngIf="profile_pic != 'null' && profile_pic.indexOf('https') != -1">
                             <img class="profile_image" src="{{profile_pic}}" alt="Profile Pic"></span>
-                        <span *ngIf="profile_pic && profile_pic.indexOf('https') == -1"><img class="profile_image"
+                        <span *ngIf="profile_pic != 'null' && profile_pic.indexOf('https') == -1"><img class="profile_image"
                                 src="{{ftpstring}}images/{{profile_pic}}" alt="Profile Pic"></span>
-                        <span *ngIf="!profile_pic"><img class="profile_image"
-                                src="./../../assets/images/no-image-icon.png" alt="Profile Pic"></span>
+                        <span *ngIf="profile_pic == 'null'"><img class="profile_image"
+                                src="./../../../../assets/resources/images/no-image-icon.png" alt="Profile Pic"></span>
                     </button>
                     <button mat-menu-item disabled class="text-center links">
                         <span><strong>{{ userName }}</strong></span>

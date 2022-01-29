@@ -25,7 +25,7 @@ export class VerifyMobileGuard implements CanActivate {
           this.user_phone_data = data;
           if (this.user_phone_data !== 1) {
             this.returnUrl = state.url;
-            console.log(this.returnUrl);
+            //console.log(this.returnUrl);
             this.jwtService.saveReturnURL(this.returnUrl);
             this.router.navigateByUrl('verify-mobile');
             obs.next(false);

@@ -49,7 +49,7 @@ export class UserPaytmVerifyComponent implements OnInit {
     if(this.bank_details.invalid){
       this.submitted = true;
       }else{
-        console.log(this.bank_details.value);
+        //console.log(this.bank_details.value);
         this.UserBankDetailsService.update_bank_paytm_id(this.bank_details.value).subscribe(
           response => {
             this.closeModal('');

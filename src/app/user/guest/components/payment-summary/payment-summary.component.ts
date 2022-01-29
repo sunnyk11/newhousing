@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PlansPageService } from '../../services/plans-page.service';
 import { environment } from 'src/environments/environment';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-payment-summary',
@@ -31,16 +32,17 @@ export class PaymentSummaryComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
     private plansPageService: PlansPageService,
-    private router: Router) { }
+    private router: Router,
+    private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.showLoadingIndicator = true;
     this.order_id = this.route.snapshot.queryParams['orderID'];
-    console.log(this.order_id);
+    //console.log(this.order_id);
     this.plansPageService.getOrderDetails(this.order_id).subscribe(
       res => {
         this.showLoadingIndicator = false;
-        console.log(res);
+        //console.log(res);
         this.response = res;
         this.order_response = this.response[0];
         this.price_amount = this.order_response.plan_price;
@@ -70,18 +72,18 @@ export class PaymentSummaryComponent implements OnInit {
 
   proceedToPayment(orderID:any) {
     this.showLoadingIndicator = true;
-    console.log("Proceed to Payment");
+    //console.log("Proceed to Payment");
     this.plansPageService.proceedToPayment(orderID).subscribe(
       res => {
         this.showLoadingIndicator = false;
-        console.log(res);
+        //console.log(res);
         this.payment_result = res;
         if (this.payment_result.status == 201) {
           this.paytm_data = this.payment_result.data;
           this.createPaytmForm();
         }
         else {
-
+          this.toastr.error(this.payment_result.message);
         }
       },
       err => {
@@ -120,7 +122,7 @@ export class PaymentSummaryComponent implements OnInit {
     this.plansPageService.generateInvoice(orderID).subscribe(
       res => {
         this.showLoadingIndicator = false;
-        console.log(res);
+        //console.log(res);
         this.invoice_data = res;
         this.router.navigate(['/invoice'], { queryParams: { 'invoice_no': this.invoice_data.data } });
       },

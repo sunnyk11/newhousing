@@ -33,7 +33,7 @@ export class MyPropertiesComponent implements OnInit {
     this.propertiesService.get_rent_properties(this.userEmail).subscribe(
       res => {
         this.showLoadingIndicator = false;
-        console.log(res);
+        //console.log(res);
         this.rent_property_data = res;
       },
       err => {
@@ -44,7 +44,7 @@ export class MyPropertiesComponent implements OnInit {
   }
 
   moreDetails(property_details: any) {
-    console.log(property_details);
+    //console.log(property_details);
     this.property_det = property_details;
   }
 

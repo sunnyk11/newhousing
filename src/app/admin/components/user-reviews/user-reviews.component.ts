@@ -40,7 +40,7 @@ export class UserReviewsComponent implements OnInit {
     this.UserReviewsService.get_reviews({ param: null }).then(
       Pagination_data => {
         this.user_reviews=Pagination_data;
-        console.log(this.user_reviews);
+        //console.log(this.user_reviews);
         this.review_length=this.user_reviews.data.total;
         this.showLoadingIndicator=false;
       }, err => {
@@ -77,7 +77,7 @@ export class UserReviewsComponent implements OnInit {
       this.UserReviewsService.get_reviews(param).then(
         Pagination_data => {
           this.user_reviews=Pagination_data;
-          console.log(this.user_reviews);
+          //console.log(this.user_reviews);
           this.review_length=this.user_reviews.data.data.length;
           this.showLoadingIndicator=false;
         }, err => {

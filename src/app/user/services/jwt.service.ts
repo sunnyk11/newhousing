@@ -83,8 +83,8 @@ export class JwtService {
     //window.localStorage.clear();
     // console.log(data);
     window.localStorage["AUTH_TOKEN"] = JSON.stringify(data.access_token);
-    window.localStorage["USER_EMAIL"] = JSON.stringify(data.email);
     window.localStorage["USER_INTERNAL"] = JSON.stringify(data.internal_user);
+    window.localStorage["USER_EMAIL"] = data.email;
     window.localStorage["USER_ID"] = JSON.stringify(data.id);
     window.localStorage["USER_NAME"] = data.username;
     window.localStorage["USER_TYPE"] = JSON.stringify(data.usertype);
@@ -113,7 +113,7 @@ export class JwtService {
     //console.log(this.user_data);
     //console.log(token);
     window.localStorage["AUTH_TOKEN"] = JSON.stringify(token);
-    window.localStorage["USER_EMAIL"] = JSON.stringify(this.user_data.email);
+    window.localStorage["USER_EMAIL"] = this.user_data.email;
     window.localStorage["USER_ID"] = JSON.stringify(this.user_data.id);
     window.localStorage["USER_NAME"] = this.user_data.name;
     window.localStorage["USER_TYPE"] = JSON.stringify(this.user_data.usertype);

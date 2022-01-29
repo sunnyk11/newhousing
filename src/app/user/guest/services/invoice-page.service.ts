@@ -20,7 +20,7 @@ export class InvoicePageService {
   }
 
   getUserName(email: any): Observable<ResultModel> {
-    console.log(email);
+    //console.log(email);
     const route = "/api/get_username/";
     return this.apiService.get1<ResultModel>(route + email);
   }

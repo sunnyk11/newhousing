@@ -38,7 +38,7 @@ export class MypropertiesService {
     const route = "/api/product/agent_properties";
     return this.apiService.get(route).toPromise().then(
       (response) => {
-        console.log(response);
+        //console.log(response);
         return response as Pagination
       })
       .catch(this.handleError);
@@ -47,7 +47,7 @@ export class MypropertiesService {
     const route = "/api/product/draft_properties";
     return this.apiService.get(route).toPromise().then(
       (response) => {
-        console.log(response);
+        //console.log(response);
         return response as Pagination
       })
       .catch(this.handleError);

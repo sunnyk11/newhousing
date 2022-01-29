@@ -31,7 +31,7 @@ export class ProductCategoryComponent implements OnInit {
     );
   } 
   on_search(type:string){
-    console.log(type);
+    //console.log(type);
     const url:any = this.router.createUrlTree(['/product-listing'],{queryParams:{'category':type}})
     window.open(url.toString(), '_blank')
   }

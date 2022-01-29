@@ -32,18 +32,18 @@ export class UserBankDetailsService {
     const route = "/api/admin/get_userbank_details";
     return this.apiService.admin_get(route).toPromise().then(
       (response) => {
-        console.log(response);
+        //console.log(response);
         return response as Pagination
       })
       .catch(this.handleError);
   }
   get_userbank_history_id(reqModel: any): Observable<ResultModel> {
     const route = "/api/admin/get_userbank_history_id";
-    return this.apiService.get<ResultModel>(route, reqModel);
+    return this.apiService.admin_get<ResultModel>(route, reqModel);
   } 
   delete_user_bank(reqModel: any): Observable<ResultModel> {
     const route = "/api/admin/bank_details_delete";
-    return this.apiService.post<ResultModel>(route, reqModel);
+    return this.apiService.admin_post<ResultModel>(route, reqModel);
   }
   update_bank_paytm_id(reqModel: any): Observable<ResultModel> {
     const route = "/api/admin/update_bank_paytm_id";
@@ -52,7 +52,7 @@ export class UserBankDetailsService {
   
   getpagination(url: string): Promise<Pagination> {
     const route = url;
-    console.log(route);
+    //console.log(route);
     return this.apiService.get_admin_pagination(route).toPromise().then(
       (response) => {
       return response as Pagination

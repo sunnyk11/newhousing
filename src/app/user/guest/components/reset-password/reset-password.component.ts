@@ -91,14 +91,14 @@ export class ResetPasswordComponent implements OnInit {
     this.resetPasswordService.verify_email(this.form.value.email).subscribe(
       data => {
         this.showLoadingIndicator = false;
-        console.log(data);
+        //console.log(data);
         this.email_response_data = data;
         if (this.email_response_data) {
           this.isEmailRegistered = true;
           this.response_data = data;
           this.email_form_display = false;
           this.mobile_number_display = true;
-          console.log(typeof (this.response_data));
+          //console.log(typeof (this.response_data));
           this.mobile_slice = this.response_data.toString().replace(/[0-9]{8}/, '********');
         }
         else {
@@ -126,7 +126,7 @@ export class ResetPasswordComponent implements OnInit {
     this.resetPasswordService.verify_mobile(this.response_data).subscribe(
       data => {
         this.showLoadingIndicator = false;
-        console.log(data);
+        //console.log(data);
         this.display_otp_form = true;
         this.mobile_number_display = false;
       },
@@ -147,7 +147,7 @@ export class ResetPasswordComponent implements OnInit {
     this.resetPasswordService.verify_otp(this.response_data, this.otpForm.value.otp_password).subscribe(
       data => {
         this.showLoadingIndicator = false;
-        console.log(data);
+        //console.log(data);
         this.showPasswordForm = true;
         this.display_otp_form = false;
       },
@@ -170,7 +170,7 @@ export class ResetPasswordComponent implements OnInit {
     this.resetPasswordService.reset_password(this.passwordForm.value.password, this.passwordForm.value.cpassword, this.form.value.email).subscribe(
       data => {
         this.showLoadingIndicator = false;
-        console.log(data);
+        //console.log(data);
         this.reset_success = true;
         this.showPasswordForm = false;
       },
@@ -187,7 +187,7 @@ export class ResetPasswordComponent implements OnInit {
       data => {
         this.showLoadingIndicator = false;
         this.data_otp = data;
-        console.log(this.data_otp);
+        //console.log(this.data_otp);
         this.display_otp_email_form = true;
         this.email_display = false;
       },
@@ -208,7 +208,7 @@ export class ResetPasswordComponent implements OnInit {
     this.resetPasswordService.verify_otp_email(this.form.value.email, this.otpEmailForm.value.otp_password).subscribe(
       data => {
         this.showLoadingIndicator = false;
-        console.log(data);
+        //console.log(data);
         this.showPasswordForm = true;
         this.display_otp_email_form = false;
       },
