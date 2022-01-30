@@ -85,7 +85,7 @@ export class JwtService {
     window.localStorage["AUTH_TOKEN"] = JSON.stringify(data.access_token);
     window.localStorage["USER_INTERNAL"] = JSON.stringify(data.internal_user);
     window.localStorage["USER_EMAIL"] = data.email;
-    window.localStorage["USER_ID"] = JSON.stringify(data.id);
+    window.localStorage["USER_ID"] = data.id;
     window.localStorage["USER_NAME"] = data.username;
     window.localStorage["USER_TYPE"] = JSON.stringify(data.usertype);
     window.localStorage["USER_PROFILE_PIC"] = data.misc.profile_pic;
@@ -130,7 +130,7 @@ export class JwtService {
   }
 
   saveUserID(userId: any) {
-    window.localStorage["USER_ID"] = JSON.stringify(userId);
+    window.localStorage["USER_ID"] = userId;
   }
 
   saveUserName(user_name: any) {
