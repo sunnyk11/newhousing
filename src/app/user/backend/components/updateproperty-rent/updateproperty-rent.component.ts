@@ -230,7 +230,7 @@ export class UpdatepropertyRentComponent implements OnInit {
         }
       },
       (err: any) => {
-        // console.log(err);
+         console.log(err);
       }
     );
   }

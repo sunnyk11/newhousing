@@ -36,6 +36,11 @@ import { UpdateServicesUserComponent } from './components/update-services-user/u
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ServiceListComponent } from './components/service-list/service-list.component';
 import { UpdateServicesComponent } from './components/update-services/update-services.component';
+import { CreateBlogPostComponent } from './components/create-blog-post/create-blog-post.component';
+import { EditorModule } from '@tinymce/tinymce-angular';
+import { ViewBlogPostsComponent } from './components/view-blog-posts/view-blog-posts.component';
+import { BlogSinglePostComponent } from './components/blog-single-post/blog-single-post.component';
+import { GuestModule } from '../user/guest/guest.module';
 
 @NgModule({
   declarations: [
@@ -58,7 +63,10 @@ import { UpdateServicesComponent } from './components/update-services/update-ser
     CreateServicesUserComponent,
     UpdateServicesUserComponent,
     ServiceListComponent,
-    UpdateServicesComponent
+    UpdateServicesComponent,
+    CreateBlogPostComponent,
+    ViewBlogPostsComponent,
+    BlogSinglePostComponent
   ],
   imports: [
     CommonModule,
@@ -77,7 +85,9 @@ import { UpdateServicesComponent } from './components/update-services/update-ser
     MatExpansionModule,
     NgxPaginationModule,
     NgbModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    EditorModule,
+    GuestModule
   ]
 })
 export class AdminModule { }

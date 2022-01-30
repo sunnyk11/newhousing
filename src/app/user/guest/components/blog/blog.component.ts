@@ -12,7 +12,7 @@ import { PaginatedPosts } from '../../models/paginated-posts.model';
 export class BlogComponent implements OnInit {
 
   errorMessage = '';
-  images_folder: string = environment.ftpURL;
+  public images_folder: string = environment.ftpURL;
   public paginated_posts: PaginatedPosts;
   public total_pages: any;
   public returnedPosts: any;

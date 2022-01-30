@@ -117,5 +117,8 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
     NgMultiSelectDropDownModule.forRoot(),
     NgxStarRatingModule
   ],
+  exports: [
+    RenderHtmlPipe
+  ]
 })
 export class GuestModule { }

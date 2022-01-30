@@ -1,0 +1,18 @@
+.feat_property .details .tc_content {
+    height: 100% !important;
+}
+
+.feat_property.list.favorite_page .thumb {
+    height: 90px !important;
+}
+
+.edit-button {
+    margin-left: 20px;
+}
+
+@media(max-width: 520px) {
+    .edit-button {
+        margin-left: 0;
+        margin-top: 20px;
+    }
+}

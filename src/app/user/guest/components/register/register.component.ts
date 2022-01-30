@@ -158,7 +158,7 @@ export class RegisterComponent implements OnInit {
           this.errorMessage = err.error.message;
           this.verify = true;
           this.isFailedVerify = true;
-          //console.log(err);
+          console.log(err);
         }
       );
     }

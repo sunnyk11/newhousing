@@ -106,7 +106,7 @@ export class JwtService {
     window.localStorage["USER_PERMISSIONS"] = JSON.stringify(data.permissions);
   }
 
-  saveGoogleUser(token: any, data: any) {
+ /*  saveGoogleUser(token: any, data: any) {
     //window.localStorage.clear();
     //console.log(data);
     this.user_data = JSON.parse(data);
@@ -119,6 +119,30 @@ export class JwtService {
     window.localStorage["USER_TYPE"] = JSON.stringify(this.user_data.usertype);
     window.localStorage["USER_PROFILE_PIC"] = this.user_data.profile_pic;
     //this.router.navigate([""]);
+  } */
+
+  saveGoogleToken(token: any) {
+    window.localStorage["AUTH_TOKEN"] = JSON.stringify(token);
+  }
+
+  saveUserEmail(email: any) {
+    window.localStorage["USER_EMAIL"] = email;
+  }
+
+  saveUserID(userId: any) {
+    window.localStorage["USER_ID"] = JSON.stringify(userId);
+  }
+
+  saveUserName(user_name: any) {
+    window.localStorage["USER_NAME"] = user_name;
+  }
+
+  saveUserType(user_type: any) {
+    window.localStorage["USER_TYPE"] = JSON.stringify(user_type);
+  }
+
+  saveUserProfilePic(profile_pic: any) {
+    window.localStorage["USER_PROFILE_PIC"] = profile_pic;
   }
 
   savePlansData(data: any) {

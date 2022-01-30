@@ -1,0 +1,70 @@
+<div class="container mt-5">
+    <div *ngIf="showLoadingIndicator">
+        <div class="preloader"></div>
+    </div>
+    <div class="card">
+        <div class="card-header text-center">
+            <h5 class="card-title">View Blog Posts</h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table text-center">
+                    <thead>
+                        <tr>
+                            <th scope="col">Sl. No</th>
+                            <th scope="col">Blog Title</th>
+                            <th scope="col">Updated On</th>
+                            <th scope="col">Views</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let post of paginated_posts.data; let i = index" class="align-middle">
+                        <tr>
+                            <th scope="row">
+                                {{i+1}}
+                            </th>
+                            <td>
+                                <div class="feat_property list favorite_page style2 align-items-center">
+                                    <div class="thumb h-100">
+                                        <a><img class="img-whp" src="{{ images_folder }}/images/{{ post.image_path }}" alt="post.image_path"></a>
+                                    </div>
+                                    <div class="details">
+                                        <div class="tc_content">
+                                            <h5>{{ post.title }}</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>{{ post.updated_at | date: 'MMMM dd, yyyy' }}</td>
+                            <td>{{ post.views }}</td>
+                            <td>
+                                <button type="button" class="btn btn-primary" [routerLink]="['/admin/admin-blog-single-post', post.slug]">View</button>
+                                <button type="button" class="btn btn-primary edit-button" [routerLink]="['/admin/edit-blog-post', post.slug]">Edit</button>
+                                <button type="button" class="btn btn-primary edit-button" data-bs-toggle="modal" data-bs-target="#DeletePostModal" (click)="deletePost(post)">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Post Modal -->
+    <div class="modal fade" id="DeletePostModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete Post - {{ delete_post_details?.title }}</h5>
+                    <button type="button" #closeDeleteModal class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h4>Are you sure you want to delete?</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" (click)="delete_post(delete_post_details?.slug)">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

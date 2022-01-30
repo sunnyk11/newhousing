@@ -201,4 +201,17 @@ export class ApiService {
       })
       .pipe(catchError(this.formatErrors));
   }
+
+  admin_delete<ResultModel>(
+    path: string,
+    params: HttpParams = new HttpParams()
+  ): Observable<ResultModel> {
+
+    return this.http
+      .delete<ResultModel>(`${environment.apiUrl}${path}`, {
+        headers: this.setAdminHeaders(),
+        params: params
+      })
+      .pipe(catchError(this.formatErrors));
+  }
 }

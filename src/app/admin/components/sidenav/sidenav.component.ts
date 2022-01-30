@@ -54,47 +54,68 @@ export class SidenavComponent implements OnInit {
   }
 
   view_plans() {
+    this.sidenavClose.emit();
     this.router.navigate(['/admin/view-plans']);
   }
 
   add_plan() {
+    this.sidenavClose.emit();
     this.router.navigate(['/admin/add-plan']);
   }
 
   create_user() {
+    this.sidenavClose.emit();
     this.router.navigate(['/admin/create-user']);
   }
 
   create_role() {
+    this.sidenavClose.emit();
     this.router.navigate(['/admin/create-role'])
   }
 
   view_role() {
+    this.sidenavClose.emit();
     this.router.navigate(['/admin/view-role']);
   }
 
    user_list() {
+    this.sidenavClose.emit();
     this.router.navigate(['/admin/services-user-list']);
   }
 
   create_service_user() {
+    this.sidenavClose.emit();
     this.router.navigate(['/admin/create-services-user']);
   }
 
   view_all_users() {
+    this.sidenavClose.emit();
     this.router.navigate(['/admin/user-list']);
   }
 
   view_all_reviews() {
+    this.sidenavClose.emit();
     this.router.navigate(['/admin/user-reviews']);
   }
 
   bank_details() {
+    this.sidenavClose.emit();
     this.router.navigate(['/admin/user-bank-details']);
   }
 
   service_list() {
+    this.sidenavClose.emit();
     this.router.navigate(['/admin/services-list']);
+  }
+
+  create_post() {
+    this.sidenavClose.emit();
+    this.router.navigate(['/admin/create-blog-post']);
+  }
+
+  view_posts() {
+    this.sidenavClose.emit();
+    this.router.navigate(['/admin/view-blog-posts']);
   }
 
   /* update_service_user() {
