@@ -115,5 +115,8 @@ import { ClipboardModule } from 'ngx-clipboard';
     MatAutocompleteModule,
     NgxStarRatingModule
   ],
+  exports: [
+    RenderHtmlPipe
+  ]
 })
 export class GuestModule { }

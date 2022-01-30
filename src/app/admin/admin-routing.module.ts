@@ -17,7 +17,10 @@ import { ServicesUserListComponent } from './components/services-user-list/servi
 import { CreateServicesUserComponent } from './components/create-services-user/create-services-user.component';
 import { UpdateServicesUserComponent } from './components/update-services-user/update-services-user.component';	
 import { ServiceListComponent } from './components/service-list/service-list.component';		
-import { UpdateServicesComponent } from './components/update-services/update-services.component';																							 
+import { UpdateServicesComponent } from './components/update-services/update-services.component';		
+import { CreateBlogPostComponent } from './components/create-blog-post/create-blog-post.component';
+import { ViewBlogPostsComponent } from './components/view-blog-posts/view-blog-posts.component';			
+import { BlogSinglePostComponent } from './components/blog-single-post/blog-single-post.component';																		 
 
 const routes: Routes = [
   {
@@ -63,6 +66,18 @@ const routes: Routes = [
       } },
       { path: 'update-services', component: UpdateServicesComponent, canActivate: [AuthGuard, PermissionGuard], data: {
         permission: ['access_local_area_service_provider']
+      } },
+      { path: 'create-blog-post', component: CreateBlogPostComponent, canActivate: [AuthGuard, PermissionGuard], data: {
+        permission: ['access_manage_blog']
+      } },
+      { path: 'view-blog-posts', component: ViewBlogPostsComponent, canActivate: [AuthGuard, PermissionGuard], data: {
+        permission: ['access_manage_blog']
+      } },
+      { path: 'admin-blog-single-post/:slug', component: BlogSinglePostComponent, canActivate: [AuthGuard, PermissionGuard], data: {
+        permission: ['access_manage_blog']
+      } },
+      { path: 'edit-blog-post/:slug', component: CreateBlogPostComponent, canActivate: [AuthGuard, PermissionGuard], data: {
+        permission: ['access_manage_blog']
       } }
     ]
   }

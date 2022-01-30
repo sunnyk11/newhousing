@@ -81,10 +81,22 @@ export class LoginComponent implements OnInit {
     this.route.queryParams.subscribe(
       params => {
         let google_token = params['token'];
-        let data = params['data'];
-        if (google_token && data) {
+        let email = params['email'];
+        let user_id = params['id'];
+        let user_name = params['name'];
+        let user_type = params['usertype'];
+        let user_profile_pic = params['profile_pic'];
+
+        if (google_token) {
           this.LoggedIn = true;
-          this.jwtService.saveGoogleUser(google_token, data);
+          this.jwtService.saveGoogleToken(google_token);
+          this.jwtService.saveUserEmail(email);
+          this.jwtService.saveUserID(user_id);
+          this.jwtService.saveUserName(user_name);
+          this.jwtService.saveUserType(user_type);
+          this.jwtService.saveUserProfilePic(user_profile_pic);
+
+          //this.jwtService.saveGoogleUser(google_token, data);
           this.commonService.sendUpdate(this.LoggedIn, google_token);
         }
       }
@@ -210,7 +222,7 @@ export class LoginComponent implements OnInit {
                     }
                   },
                   error => {
-                    //console.log(error);
+                    console.log(error);
                   }
                 );
               }
@@ -223,7 +235,7 @@ export class LoginComponent implements OnInit {
                     this.router.navigate(['/invoice'], { queryParams: { 'invoice_no': this.invoice_result.data } });
                   },
                   err => {
-                    //console.log(err);
+                    console.log(err);
                   }
                 );
               }
@@ -236,7 +248,7 @@ export class LoginComponent implements OnInit {
       },
       err => {
         this.showLoadingIndicator = false;
-        //console.log(err);
+        console.log(err);
       }
     );
   }

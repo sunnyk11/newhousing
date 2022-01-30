@@ -1,0 +1,63 @@
+<div class="container mt-5">
+    <div *ngIf="showLoadingIndicator">
+        <div class="preloader"></div>
+    </div>
+    <div class="card">
+        <div class="card-header text-center">
+            <h5 class="card-title" *ngIf="isAddMode">Create Blog Post</h5>
+            <h5 class="card-title" *ngIf="!isAddMode">Edit Blog Post</h5>
+        </div>
+        <div class="card-body">
+            <form [formGroup]="blogForm" (ngSubmit)="onSubmit()">
+                <div class="mb-3">
+                    <label for="title" class="form-label">Title</label>
+                    <input formControlName="title" type="text" class="form-control" id="title" [ngClass]="{ 'is-invalid': submitted && g.title.errors }">
+                </div>
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description</label>
+                    <editor formControlName="description" class="form-control" [ngClass]="{ 'is-invalid': submitted && g.description.errors }" [init]="{
+                        base_url: '../../assets/tinymce',
+                        suffix: '.min',
+                        height: 300,
+                        menubar: true,
+                        plugins: [
+                        'advlist autolink lists link image charmap print',
+                        'preview anchor searchreplace visualblocks code',
+                        'fullscreen insertdatetime media table paste',
+                        'help wordcount'
+                        ],
+                        toolbar:
+                        'undo redo | formatselect | bold italic | \
+                        alignleft aligncenter alignright alignjustify | \
+                        bullist numlist outdent indent | help'
+                    }">
+                    </editor>
+                </div>
+                <div class="mb-3">
+                    <div class="row">
+                        <div class="col-lg-12 text-center">
+                            <img [src]="imgURL ? imgURL : './../../assets/resources/images/noImageSelected.jpg'">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label for="formFile" class="form-label" *ngIf="isAddMode">Select Post Image</label>
+                        <label for="formFile" class="form-label" *ngIf="!isAddMode">Change Post Image</label>
+                    </div>
+                    <input class="form-control" type="file" id="formFile" *ngIf="isAddMode" formControlName="postImage" [ngClass]="{ 'is-invalid': submitted && g.postImage.errors }" (change)="onFileChange($event)">
+                    <input class="form-control" type="file" id="formFile" *ngIf="!isAddMode" formControlName="postImage" (change)="onFileChange($event)">
+                </div>
+                <div class="mb-3">
+                    <label for="category" class="form-label">Select Category</label>
+                    <select class="form-select w100" formControlName="category" [ngClass]="{ 'is-invalid': submitted && g.category.errors }">
+                        <option selected disabled [ngValue]="0">Select Category</option>
+                        <option *ngFor="let category of categories" [ngValue]="category.name">{{ category.name }}
+                        </option>
+                    </select>
+                </div>
+                <div class="mb-3 text-center">
+                    <button type="submit" class="btn btn-primary">Submit Post</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

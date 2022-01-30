@@ -72,6 +72,10 @@
                 Manage Blog
             </mat-panel-title>
         </mat-expansion-panel-header>
+        <mat-nav-list>
+            <a mat-list-item (click)="create_post()">Create Blog Post</a>
+            <a mat-list-item (click)="view_posts()">View/Edit Blog Posts</a>
+        </mat-nav-list>
     </mat-expansion-panel>
     <mat-expansion-panel *ngIf="LoggedIn && access_la_service_provider">
         <mat-expansion-panel-header>
