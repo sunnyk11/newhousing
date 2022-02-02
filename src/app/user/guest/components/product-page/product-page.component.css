@@ -16,6 +16,9 @@
     color: #fff!important;
     cursor: no-drop!important;
 }
+.main-banner-wrapper {
+    height: 80vh!important;
+}
 .our-agent-single .btn-primary{
     width: 100%!important;
     font-size: 16px!important;
@@ -74,6 +77,28 @@
     border-radius: 0px;
     cursor: pointer;
 }
+
+
+
+
+.product_id1{
+    background: rgb(247, 247, 247);
+    color: #000;
+    border-radius: 0px;
+    cursor: pointer;
+    padding:5px 7px!important;
+    /* width: 36%!important; */
+}
+.product_id1 span{
+    color: #000!important;
+    padding-left: 8px!important;
+}
+.product_id1:hover{
+    background: #ff5a5f;
+    color: #000;
+    border-radius: 0px;
+    cursor: pointer;
+}
 .lsd_list li{
     cursor: pointer!important;
 }
@@ -102,6 +127,15 @@
     .hidden-lg{
         display: none!important;
     }
+    .ul_mobile{
+        display: none!important;
+    }
+    .listing_single_description .ul_details{
+        display: flex!important;
+        justify-content: space-between!important;
+        align-items: center!important;
+    }
+
 }
 @media(max-width: 768px) {      
     .listing_single_description .ul_details{
@@ -114,8 +148,19 @@
         width: 45%;
         padding: 5px 2px!important;
         margin:8px!important;
-    }  
+    } 
+    .listing_single_description .ul_details .ul_mobile {
+        display: flex!important;
+    }
+    .deshtop_li{
+        display: none!important;
+    }
     .product_id{
+        width: 100%!important;
+        letter-spacing: 1.0px!important;
+    }
+    
+    .product_id1{
         width: 100%!important;
         letter-spacing: 1.0px!important;
     }

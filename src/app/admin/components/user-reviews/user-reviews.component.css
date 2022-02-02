@@ -75,7 +75,7 @@
   }
   .search-column{
     display: flex;
-    align-items: end;
+    align-items: flex-end;
     justify-content: center!important;
   }
   .search-column button{

@@ -44,6 +44,7 @@ export class ProductListingComponent implements OnInit {
   public ftpstring=environment.ftpURL;
   public product_copm:any={};
   public product_length:number=0;
+  public property_availablty:boolean=true;
   public propertyresultlength:boolean=false;
   public category:any={};
   public dropdownList: any = []; 
@@ -122,6 +123,7 @@ export class ProductListingComponent implements OnInit {
      }
 
   ngOnInit(): void {  
+    this.showLoadingIndicator = true;
     this.productcategory();
      this.getAmenities();
      this.getarea_unit();
@@ -365,7 +367,7 @@ export class ProductListingComponent implements OnInit {
     });
   }
   onsearch(): void{  
-    this.showLoadingIndicator =true;
+    // this.showLoadingIndicator =true;
     this.propertyresultlength=false;
     this.product_length=0;
     this.searchForm.value.min_price= this.searchForm.value.sliderControl[0];
@@ -380,6 +382,9 @@ export class ProductListingComponent implements OnInit {
           Pagination_data => {
             this.property=Pagination_data;
             this.product_length=this.property.data.total;
+            if(this.product_length<1){
+              this.property_availablty=false;
+            }
             this.showLoadingIndicator = false;
           },
           err => {
@@ -394,6 +399,9 @@ export class ProductListingComponent implements OnInit {
           Pagination_data => {
             this.property=Pagination_data;
             this.product_length=this.property.data.total;
+            if(this.product_length<1){
+              this.property_availablty=false;
+            }
             this.showLoadingIndicator = false;
           },
           err => {
@@ -410,6 +418,9 @@ export class ProductListingComponent implements OnInit {
         Pagination_data => {
           this.property=Pagination_data;
           this.product_length=this.property.data.total;
+          if(this.product_length<1){
+            this.property_availablty=false;
+          }
           this.showLoadingIndicator = false;
         },
         err => {
@@ -452,6 +463,7 @@ export class ProductListingComponent implements OnInit {
     );
   }
   navigate(): void{
+    this.showLoadingIndicator = true;
     if(this.searchForm.value.locality.length<3){
       this.searchForm.patchValue({locality:'',sub_locality:''});
     }
@@ -658,6 +670,7 @@ export class ProductListingComponent implements OnInit {
   
   sub_navigate(id:number,name:string,city:string){
     this.product_length=0;
+    this.property_availablty=true;
     this.router.navigate(['/product-details'],{queryParams:{'id':id,'name':name,'city':city}})
   }
   

@@ -27,14 +27,17 @@ export class HomepagefeatureComponent implements OnInit {
     private jwtService: JwtService,
     public CommonService:CommonService,
     private toastr: ToastrService
-    ) { }
+    ) { 
+      this.showLoadingIndicator= true;
+    }
 
   ngOnInit(): void {
+    this.showLoadingIndicator= true;
     this.feature_property(); 
   }
   // fetch feature property 
   feature_property(){
-    this.showLoadingIndicator= true;
+    // this.showLoadingIndicator= true;
     if(this.jwtService.getToken().length>5){
       this.indexPageService.login_Feature_Property({ param: null }).subscribe(
       response => {

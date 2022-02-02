@@ -50,7 +50,7 @@
                                             </li> -->
                                             <li class="list-inline-item locality_list">
                                                 <div class="search_option_two form-group">
-                                                    <input class="w100 form-control" type="text" placeholder="Search locality/Sub-locality" matInput aria-label="Number" formControlName="locality_data" [matAutocomplete]="auto" (ngModelChange)="get_locality($event)">
+                                                    <input class="w100 form-control" type="text" placeholder="Search locality/Sub-locality" matInput aria-label="Number" formControlName="locality_data" [matAutocomplete]="auto" (ngModelChange)="get_locality($event)" (keypress)="alphaNumberOnly($event)" (paste)="onPaste($event)">
                                                     <mat-autocomplete #auto="matAutocomplete"> 
                                                         <mat-option *ngFor="let area of filteredOptions | async" [value]="area.item_text" (onSelectionChange)="selected_locality(area.item_text)">
                                                             {{area.item_text}}
