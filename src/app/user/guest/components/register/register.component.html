@@ -91,6 +91,9 @@
                                         required>
                                     <div *ngIf="submitted && f.phone_number.errors" class="invalid-feedback">
                                         <div *ngIf="f.phone_number.errors.required">Phone number is required</div>
+                                        <div *ngIf="f.phone_number.errors.pattern">
+                                            Phone number must be 10 digits
+                                        </div>
                                     </div>
                                 </div>
                             </div>

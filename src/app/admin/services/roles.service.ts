@@ -49,4 +49,14 @@ export class RolesService {
     const route = "/api/auth/get_user_permissions/";
     return this.apiService.get<ResultModel>(route + reqModel);
   }
+
+  getUserRoles(reqModel:any): Observable<ResultModel> {
+    const route = "/api/auth/get_user_roles/";
+    return this.apiService.admin_get<ResultModel>(route + reqModel);
+  }
+
+  editUserRoles(user_id:any, rolesArray: any) {
+    const route = "/api/auth/edit_user_roles";
+    return this.apiService.admin_post<ResultModel>(route, {user_id: user_id, rolesArray: rolesArray});
+  }
  }
