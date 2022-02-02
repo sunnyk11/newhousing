@@ -20,7 +20,8 @@ import { ServiceListComponent } from './components/service-list/service-list.com
 import { UpdateServicesComponent } from './components/update-services/update-services.component';		
 import { CreateBlogPostComponent } from './components/create-blog-post/create-blog-post.component';
 import { ViewBlogPostsComponent } from './components/view-blog-posts/view-blog-posts.component';			
-import { BlogSinglePostComponent } from './components/blog-single-post/blog-single-post.component';																		 
+import { BlogSinglePostComponent } from './components/blog-single-post/blog-single-post.component';	
+import { ViewInternalUsersComponent } from './components/view-internal-users/view-internal-users.component';																	 
 
 const routes: Routes = [
   {
@@ -78,7 +79,10 @@ const routes: Routes = [
       } },
       { path: 'edit-blog-post/:slug', component: CreateBlogPostComponent, canActivate: [AuthGuard, PermissionGuard], data: {
         permission: ['access_manage_blog']
-      } }
+      } },
+      { path: 'view-internal-user', component: ViewInternalUsersComponent, canActivate: [AuthGuard, PermissionGuard], data: {
+        permission: ['access_user_creator']
+      } },
     ]
   }
 ];

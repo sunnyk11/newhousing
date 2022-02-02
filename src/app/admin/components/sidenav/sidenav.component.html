@@ -39,11 +39,12 @@
     <mat-expansion-panel *ngIf="LoggedIn && access_user_creator">
         <mat-expansion-panel-header>
             <mat-panel-title>
-                User Creator
+                Internal Users
             </mat-panel-title>
         </mat-expansion-panel-header>
         <mat-nav-list>
             <a mat-list-item (click)="create_user()">Create User</a>
+            <a mat-list-item (click)="view_edit_user()">View/Edit User</a>
         </mat-nav-list>
     </mat-expansion-panel>
     <mat-expansion-panel *ngIf="LoggedIn && access_all_users">

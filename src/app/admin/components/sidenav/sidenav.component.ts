@@ -68,6 +68,11 @@ export class SidenavComponent implements OnInit {
     this.router.navigate(['/admin/create-user']);
   }
 
+  view_edit_user() {
+    this.sidenavClose.emit();
+    this.router.navigate(['/admin/view-internal-user']);
+  }
+
   create_role() {
     this.sidenavClose.emit();
     this.router.navigate(['/admin/create-role'])
@@ -147,7 +152,7 @@ export class SidenavComponent implements OnInit {
       this.access_bank_details = true;
 
     }
-    if(this.user_id) {
+    else if(this.user_id) {
       this.rolesService.getUserPermissions(this.user_id).subscribe(
         response => {
           //console.log(response);

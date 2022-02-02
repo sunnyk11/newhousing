@@ -41,6 +41,7 @@ import { EditorModule } from '@tinymce/tinymce-angular';
 import { ViewBlogPostsComponent } from './components/view-blog-posts/view-blog-posts.component';
 import { BlogSinglePostComponent } from './components/blog-single-post/blog-single-post.component';
 import { GuestModule } from '../user/guest/guest.module';
+import { ViewInternalUsersComponent } from './components/view-internal-users/view-internal-users.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import { GuestModule } from '../user/guest/guest.module';
     UpdateServicesComponent,
     CreateBlogPostComponent,
     ViewBlogPostsComponent,
-    BlogSinglePostComponent
+    BlogSinglePostComponent,
+    ViewInternalUsersComponent
   ],
   imports: [
     CommonModule,

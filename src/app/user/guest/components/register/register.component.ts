@@ -68,7 +68,7 @@ export class RegisterComponent implements OnInit {
         email: ['', [Validators.required, Validators.email]],
         password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(40)]],
         cpassword: ['', [Validators.required]],
-        phone_number: ['', [Validators.required]],
+        phone_number: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
         gender: ['', Validators.required],
         select_type: ['', Validators.required],
         tnc_check: [false, Validators.required]
@@ -96,6 +96,7 @@ export class RegisterComponent implements OnInit {
     this.submitted = true;
     this.showLoadingIndicator = true;
     if (this.form.invalid) {
+      //console.log(this.form);
       this.showLoadingIndicator = false;
       return;
     }
