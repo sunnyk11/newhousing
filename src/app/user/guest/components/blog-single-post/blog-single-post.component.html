@@ -1,5 +1,5 @@
 <!--Breadcrumb-->
-<div class="bg-secondary mt100">
+<div class="bg-secondary">
     <div class="container-fluid py-4">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
@@ -32,6 +32,7 @@
                             <!--<div class="blog_sp_tag float-right"><a href="#">Edit</a></div>-->
                             <h3 class="blog_sp_title">{{ post_detail[0]?.title }}</h3>
                             <ul class="blog_sp_post_meta">
+
                                 <li class="list-inline-item creater_img" >
                                     <img *ngIf="post_detail[0]?.profile_pic != null; else OtherImage" class="profile-img" src="{{ images_folder }}/images/{{ post_detail[0]?.profile_pic }}" alt="Profile Pic">
                                             <ng-template #OtherImage>

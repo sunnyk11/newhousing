@@ -1,5 +1,5 @@
 <div class="wrapper">
-    <div class="p-5 bg-secondary rounded-3 mt100">
+    <div class="p-5 bg-secondary rounded-3">
         <div class="container-fluid py-5">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
@@ -97,7 +97,7 @@
                                 
                                 <h4>{{data?.productdetails?.build_name | titlecase}}</h4>
                                 <p>
-                                    <span  *ngIf="data?.productdetails?.product_locality != null">{{ data?.productdetails?.product_locality?.locality | titlecase }}</span>
+                                    <span *ngIf="data?.productdetails?.product_locality != null">{{ data?.productdetails?.product_locality?.locality | titlecase }}</span>
                                     <span *ngIf="data?.productdetails?.product_state != null">({{ data?.productdetails?.product_state?.state | titlecase }})</span>
                                 </p>
                                 <ul class="prop_details mb0">

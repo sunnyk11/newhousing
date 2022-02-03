@@ -30,6 +30,7 @@ mat-toolbar {
     font-weight: 300;
     font-size: 18px;
     line-height: 32px;
+    position: relative;
 }
 
 .material-icons {

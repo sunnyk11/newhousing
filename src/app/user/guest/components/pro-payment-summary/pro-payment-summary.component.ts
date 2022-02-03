@@ -210,7 +210,7 @@ export class ProPaymentSummaryComponent implements OnInit {
             
             this.plansPageService.postSelectedRentPlan(formData).subscribe(
               res => {
-                //console.log(res);
+                console.log(res);
                 this.selected_plan_data = res;
                 this.plansPageService.proceedToPaymentRent(this.selected_plan_data.data.order_id).subscribe(
                   result => {
@@ -287,7 +287,8 @@ export class ProPaymentSummaryComponent implements OnInit {
       security_deposit: this.security_dep_amount,
       total_amount: this.total_amount_hs + this.total_amount_owner,
       property_uid: this.product_data[0].product_uid,
-      payment_mode: this.mode_payment
+      payment_mode: this.mode_payment,
+      plan_features_data: JSON.stringify(this.plan_features_data)
     }
 
     modalRef.componentInstance.fromParent = data;
@@ -320,7 +321,8 @@ export class ProPaymentSummaryComponent implements OnInit {
       security_deposit: this.security_dep_amount,
       total_amount: this.total_amount_hs + this.total_amount_owner,
       property_uid: this.product_data[0].product_uid,
-      payment_mode: this.mode_payment
+      payment_mode: this.mode_payment,
+      plan_features_data: JSON.stringify(this.plan_features_data)
     }
 
     modalRef.componentInstance.fromParent = data;

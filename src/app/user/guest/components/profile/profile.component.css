@@ -13,19 +13,22 @@
     margin: auto;
     background-image: none !important;
 }
-.bank_details_section{
+
+.bank_details_section {
     padding: 0px 25px 25px 25px!important;
 }
-.bank_details_section .heading{
-    font-size:16px;
+
+.bank_details_section .heading {
+    font-size: 16px;
     font-weight: 600;
     padding: 13px 0px!important;
     margin: 0px 0px 20px!important;
     background-color: #0d6efd!important;
     color: #fff!important;
 }
-.bank_details_history .heading{
-    font-size:16px;
+
+.bank_details_history .heading {
+    font-size: 16px;
     font-weight: 600;
     padding: 13px!important;
     margin: 0px 0px 20px!important;
@@ -35,7 +38,8 @@
     align-items: center;
     justify-content: space-between!important;
 }
-.status_heading .text-success{
+
+.status_heading .text-success {
     text-align: center!important;
     color: #fff!important;
     font-size: 16px;
@@ -44,7 +48,8 @@
     background-color: #4caf50!important;
     letter-spacing: 1.5px!important;
 }
-.status_heading .text-danger{
+
+.status_heading .text-danger {
     text-align: center!important;
     color: #fff!important;
     font-size: 16px;
@@ -53,12 +58,18 @@
     padding: 5px 0px!important;
     letter-spacing: 1.5px!important;
 }
-#column_bank_histroy{
+
+#column_bank_histroy {
     border: 5px solid #fff!important;
     padding: 20px!important;
 }
+
 @media(max-width: 768px) {
     .profile-img {
         width: 40%;
     }
+}
+
+#breadcrumb {
+    position: relative;
 }

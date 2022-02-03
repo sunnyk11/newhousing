@@ -21,7 +21,7 @@
             </span>
         </button>
         <mat-menu #user_info="matMenu">
-            <button mat-menu-item disabled *ngIf="LoggedIn">
+            <button mat-menu-item class="text-center" disabled *ngIf="LoggedIn">
                 <span>{{ userName }}</span>
             </button>
             <button mat-menu-item class="text-center links" *ngIf="LoggedIn">
