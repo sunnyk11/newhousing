@@ -1,5 +1,5 @@
 <!--Breadcrumb-->
-<div class="bg-secondary mt100">
+<div class="bg-secondary" id="breadcrumb">
     <div class="container-fluid py-4">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
@@ -32,7 +32,7 @@
                         <div class="d-flex flex-column align-items-center text-center">
                             <img *ngIf="profile_pic !== null && profile_pic?.indexOf('https') == -1" class="profile-img" src="{{ ftpstring }}images/{{ profile_pic }}" alt="Profile Pic">
                             <img *ngIf="profile_pic !== null && profile_pic?.indexOf('https') != -1" class="profile-img" src="{{ profile_pic }}" alt="Profile Pic">
-                            <img *ngIf="profile_pic == null" class="profile-img" src="./../../assets/images/no_image_available.jpg" alt="Profile Pic">
+                            <img *ngIf="profile_pic == null" class="profile-img" src="./../../assets/resources/images/no_image_available.jpg" alt="Profile Pic">
                         </div>
                         <hr>
                         <div class="row">

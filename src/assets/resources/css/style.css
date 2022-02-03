@@ -1405,6 +1405,7 @@ section {
     -moz-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
     transition: all 0.3s ease;
+    height: 100%;
 }
 
 .why_chose_us:hover {
@@ -1456,6 +1457,7 @@ section {
     font-size: 14px;
     font-family: "Nunito";
     line-height: 1.714;
+    text-align: justify;
 }
 
 .our-testimonials {

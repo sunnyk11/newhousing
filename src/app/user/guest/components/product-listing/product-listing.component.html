@@ -1,4 +1,4 @@
-<section class="our-listing bgc-f7 pb30-991 mt100">
+<section class="our-listing bgc-f7 pb30-991">
     <div class="container">
         <div class="row" id="search_form_popup" [ngStyle]="{'display':displayStyle}">
             <div class="col-lg-12">
@@ -13,10 +13,10 @@
                                         <span class="flaticon-close"></span>
                                     </a>
                                 </h4>
-                                
+
                                 <ul class="sasw_list mb0" *ngIf="access_search_bar == false">
                                     <form [formGroup]="searchForm" class="home1-advnc-search" action="#" name="searchHome" id="searchhome" #searchhome="ngForm">
-                                        
+
                                         <li>
                                             <div class="search_option_two">
                                                 <div class="candidate_revew_select">
@@ -41,7 +41,7 @@
                                             <div class="form-group mb20">
                                                 <!-- <input type="text" class="form-control input-text" name="name" formControlName="build_name" id="build_name" (ngModelChange)="get_locality($event)" placeholder="Enter keywords..."> -->
                                                 <input class="w100 form-control" type="text" placeholder="Search locality/Sub-locality" matInput aria-label="Number" formControlName="locality_data" [matAutocomplete]="auto" (ngModelChange)="get_locality($event)">
-                                                <mat-autocomplete #auto="matAutocomplete" > 
+                                                <mat-autocomplete #auto="matAutocomplete">
                                                     <mat-option *ngFor="let area of filteredOptions | async" [value]="area.item_text" (onSelectionChange)="selected_locality(area.item_text)">
                                                         {{area.item_text}}
                                                     </mat-option>
@@ -68,10 +68,10 @@
                                         </li>
                                     </form>
                                 </ul>
-                                
+
                                 <ul class="sasw_list mb0" *ngIf="access_search_bar == true && isLoggedIn == true">
                                     <form [formGroup]="searchForm" class="home1-advnc-search" action="#" name="searchHome" id="searchhome" #searchhome="ngForm">
-                                        
+
                                         <li class="search_area">
                                             <div class="form-group mb20">
                                                 <input type="text" class="form-control input-text" name="build_name" formControlName="build_name" id="build_name" placeholder="Enter keywords...">
@@ -92,7 +92,7 @@
                                         <li class="search_area">
                                             <div class="form-group mb20">
                                                 <input class="w100 form-control" type="text" placeholder="Search locality" matInput aria-label="Number" formControlName="locality_data" [matAutocomplete]="auto" (ngModelChange)="get_internal_user_locality($event)">
-                                                <mat-autocomplete #auto="matAutocomplete" > 
+                                                <mat-autocomplete #auto="matAutocomplete">
                                                     <mat-option *ngFor="let area of filteredOptions | async" [value]="area.item_text" (onSelectionChange)="selected_locality_inertnal(area.item_text,area.item_id)">
                                                         {{area.item_text}}
                                                     </mat-option>
@@ -100,11 +100,9 @@
                                             </div>
                                         </li>
                                         <li class="search_area mb20">
-                                            <div lass="form-group "  id="multiselect-dropdown">
+                                            <div lass="form-group " id="multiselect-dropdown">
                                                 <!-- <label for="pincode" class="form-label">Sub-Locality</label>  -->
-                                                <ng-multiselect-dropdown class="form-control sub_localty_dropdown" [placeholder]="'Select Sub-locality'"
-                                                [settings]="dropdownSettings1" [data]="dropdown_sublocality"
-                                                formControlName="sub_locality">
+                                                <ng-multiselect-dropdown class="form-control sub_localty_dropdown" [placeholder]="'Select Sub-locality'" [settings]="dropdownSettings1" [data]="dropdown_sublocality" formControlName="sub_locality">
                                                 </ng-multiselect-dropdown>
                                             </div>
                                         </li>
@@ -128,7 +126,7 @@
                                                 </div>
                                             </div>
                                         </li>
-                                        
+
                                         <li>
                                             <div class="search_option_two">
                                                 <div class="candidate_revew_select">
@@ -221,7 +219,7 @@
                                                 </ngx-slider>
                                             </div>
                                         </li>
-                                        
+
                                         <li>
                                             <div id="accordion" class="panel-group">
                                                 <div class="panel">
@@ -263,7 +261,7 @@
                                                                             <div class="col-lg-6 col-6" *ngFor="let amenties of amenties?.data">
                                                                                 <li>
                                                                                     <div class="form-check">
-                                                                                        <input type="checkbox" class="form-check-input"  value="{{amenties.id}}" id="{{amenties.id}}"  (change)="onchangeAmenties($event,amenties.id)">
+                                                                                        <input type="checkbox" class="form-check-input" value="{{amenties.id}}" id="{{amenties.id}}" (change)="onchangeAmenties($event,amenties.id)">
                                                                                         <label class="form-check-label" for="{{amenties.id}}">
                                                                                             {{amenties.name}}
                                                                                         </label>
@@ -312,10 +310,13 @@
                 </div>
             </div>
         </div>
+        <div class="text-center" id="search-text">
+            <h5>Search for property listings based upon budget, type of property, etc. Let us help you find the perfect accommodation!</h5>
+        </div>
         <div class="row">
             <div class="col-lg-4 col-xl-4">
                 <div class="sidebar_listing_grid1 dn-991">
-                    <div class="sidebar_listing_list"  *ngIf="access_search_bar == false">
+                    <div class="sidebar_listing_list" *ngIf="access_search_bar == false">
                         <div class="sidebar_advanced_search_widget">
                             <ul class="sasw_list mb0">
                                 <form [formGroup]="searchForm" class="home1-advnc-search" action="#" name="searchHome" id="searchhome" #searchhome="ngForm">
@@ -343,7 +344,7 @@
                                         <div class="form-group mb20">
                                             <!-- <input type="text" class="form-control input-text" name="name" formControlName="build_name" id="build_name" (ngModelChange)="get_locality($event)" placeholder="Enter keywords..."> -->
                                             <input class="w100 form-control" type="text" placeholder="Search locality/Sub-locality" matInput aria-label="Number" formControlName="locality_data" [matAutocomplete]="auto" (ngModelChange)="get_locality($event)">
-                                            <mat-autocomplete #auto="matAutocomplete" > 
+                                            <mat-autocomplete #auto="matAutocomplete">
                                                 <mat-option *ngFor="let area of filteredOptions | async" [value]="area.item_text" (onSelectionChange)="selected_locality(area.item_text)">
                                                     {{area.item_text}}
                                                 </mat-option>
@@ -362,7 +363,7 @@
                                             </ngx-slider>
                                         </div>
                                     </li>
-                                    
+
                                     <li>
                                         <div class="search_option_button">
                                             <button type="submit" class="btn btn-thm" (click)="searchhome.form.valid && navigate()">Search</button>
@@ -398,8 +399,8 @@
                                         <div class="form-group mb20">
                                             <!-- <input type="text" class="form-control input-text" name="name" formControlName="build_name" id="build_name" (ngModelChange)="get_locality($event)" placeholder="Enter keywords..."> -->
                                             <input class="w100 form-control" type="text" placeholder="Search locality" matInput aria-label="Number" formControlName="locality_data" [matAutocomplete]="auto" (ngModelChange)="get_internal_user_locality($event)">
-                                              <!-- <span  class="flaticon-magnifying-glass" id="searchable_icon"></span> -->
-                                            <mat-autocomplete #auto="matAutocomplete" > 
+                                            <!-- <span  class="flaticon-magnifying-glass" id="searchable_icon"></span> -->
+                                            <mat-autocomplete #auto="matAutocomplete">
                                                 <mat-option *ngFor="let area of filteredOptions | async" [value]="area.item_text" (onSelectionChange)="selected_locality_inertnal(area.item_text,area.item_id)">
                                                     {{area.item_text}}
                                                 </mat-option>
@@ -407,11 +408,9 @@
                                         </div>
                                     </li>
                                     <li class="search_area mb20">
-                                        <div lass="form-group "  id="multiselect-dropdown">
+                                        <div lass="form-group " id="multiselect-dropdown">
                                             <!-- <label for="pincode" class="form-label">Sub-Locality</label>  -->
-                                            <ng-multiselect-dropdown class="form-control sub_localty_dropdown" [placeholder]="'Select Sub-locality'"
-                                            [settings]="dropdownSettings1" [data]="dropdown_sublocality"
-                                            formControlName="sub_locality">
+                                            <ng-multiselect-dropdown class="form-control sub_localty_dropdown" [placeholder]="'Select Sub-locality'" [settings]="dropdownSettings1" [data]="dropdown_sublocality" formControlName="sub_locality">
                                             </ng-multiselect-dropdown>
                                         </div>
                                     </li>
@@ -654,7 +653,7 @@
                     </div>
                 </div>
                 <!-- property listing page details -->
-                <div class="row propertyListingPage"  *ngIf="showLoadingIndicator == false">
+                <div class="row propertyListingPage" *ngIf="showLoadingIndicator == false">
                     <div class="col-md-6 col-lg-6" *ngFor="let number of property?.data?.data">
                         <div class="feat_property home7 style4">
                             <owl-carousel-o [options]="customOptions" *ngIf="number.product_img_listing.length>0;else OtherImage">
@@ -731,7 +730,7 @@
                                         <p class="text-thm" *ngIf="number.type != null">{{ number?.property__type?.name | titlecase }}</p>
                                         <h4>{{number.build_name | titlecase}}</h4>
                                         <p>
-                                            <span  *ngIf="number.product_locality != null">{{ number?.product_locality?.locality | titlecase }}</span>
+                                            <span *ngIf="number.product_locality != null">{{ number?.product_locality?.locality | titlecase }}</span>
                                             <span *ngIf="number.product_state != null">({{ number?.product_state?.state | titlecase }})</span>
                                         </p>
                                         <ul class="prop_details mb0">
@@ -767,7 +766,7 @@
                         <h3>No Search property!!!... </h3>
                     </div>
                 </div>
-   
+
                 <div class="mbp_pagination" *ngIf="product_length>0">
                     <!-- {{user_bank_details.links | json}} -->
                     <ul class="page_navigation">

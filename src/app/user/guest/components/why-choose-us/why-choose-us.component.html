@@ -1,0 +1,71 @@
+<!-- Why Choose Us -->
+
+<section id="why-chose" class="whychose_us bgc-f7 pb30">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3">
+                <div class="main-title text-center">
+                    <h2>Why Choose Us</h2>
+                    <p>We provide full service at every step.</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <owl-carousel-o [options]="customOptions">
+                <ng-template carouselSlide>
+                    <div class="why_chose_us mx-4">
+                        <div class="icon">
+                            <span class="flaticon-home-1"></span>
+                        </div>
+                        <div class="details" [ngClass]="{'limitTextHeight1': isReadMore}">
+                            <h4>For Customers</h4>
+                            <h5 class="text-thm">Property Renting Made Easy</h5>
+                            <p>You don't have to take time off from work to visit vacant properties. Based on your preferences, we find ideal listings, so the property can be finalized in a single visit. Once you give the go-ahead, the handover can be finished
+                                on the same day</p>
+                            <h5 class="text-thm">
+                                100% Verified Properties
+                            </h5>
+                            <p>Your time is valuable - we don't waste time showing properties that don't meet your specifications. Every listing is verified by officials of Housing Street to ensure there are no complaints from your end.</p>
+                        </div>
+                        <button type="button" class="btn btn-thm mt-3" (click)="showText()">
+                            {{ isReadMore ? 'Read More': 'Read Less' }}
+                        </button>
+                    </div>
+                </ng-template>
+                <ng-template carouselSlide>
+                    <div class="why_chose_us mx-4">
+                        <div class="icon">
+                            <span class="flaticon-profit"></span>
+                        </div>
+                        <div class="details" [ngClass]="{'limitTextHeight1': isReadMore}">
+                            <h4>For Owners</h4>
+                            <h5 class="text-thm">Property Let Out Made Easy</h5>
+                            <p>Don't worry - our team will ensure your property is let out in 30 days; you won't have to wait 3 months! If your property is prematurely vacated within 3 months, you don't have to pay commission again.</p>
+                            <h5 class="text-thm"></h5>
+                            <p>You don't have to meet prospective clients, show them vacant properties, and then follow up - our team will take care of it. </p>
+                        </div>
+                        <button type="button" class="btn btn-thm mt-3" (click)="showText()">
+                            {{ isReadMore ? 'Read More': 'Read Less' }}
+                        </button>
+                    </div>
+                </ng-template>
+                <ng-template carouselSlide>
+                    <div class="why_chose_us mx-4">
+                        <div class="icon">
+                            <span class="flaticon-high-five"></span>
+                        </div>
+                        <div class="details" [ngClass]="{'limitTextHeight1': isReadMore}">
+                            <h4>Trusted By Thousands</h4>
+                            <h5 class="text-thm">Housing Street Owned Branches</h5>
+                            <p>Our goal is to establish long-term rapport, so we have our own offices in or near your area - it lets us offer the very best service. Thus, renters don't have to visit multiple property owners to find a suitable property, while
+                                property owners are spared the hassle of following up with numerous property dealers to find proper renters.</p>
+                        </div>
+                        <button type="button" class="btn btn-thm mt-3" (click)="showText()">
+                            {{ isReadMore ? 'Read More': 'Read Less' }}
+                        </button>
+                    </div>
+                </ng-template>
+            </owl-carousel-o>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,12 @@
+:host ::ng-deep .owl-carousel .owl-stage {
+    display: flex;
+}
+
+:host ::ng-deep .owl-carousel .owl-item .why-chose-us {
+    height: 100%;
+}
+
+.limitTextHeight1 {
+    height: 250px;
+    overflow: hidden;
+}

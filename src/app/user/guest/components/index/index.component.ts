@@ -8,6 +8,8 @@ import { IndexPageService } from '../../services/index-page.service';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { OwlOptions } from 'ngx-owl-carousel-o';
+
 @Component({
   selector: 'app-index',
   templateUrl: './index.component.html',
@@ -233,4 +235,34 @@ export class IndexComponent implements OnInit {
   displayFn(value?: any) {
     return value ? this.dropdownList.find((option: any) => option.item_id === value.item_id).item_text : undefined;
   }
+
+  customOptions: OwlOptions = {
+    mouseDrag: true,
+    touchDrag: true,
+    pullDrag: true,
+    autoplay: true,
+    dots: true,
+    navSpeed: 700,
+    navText: ['&#8249', '&#8250;'],
+    responsive: {
+      0: {
+        items: 1,
+        loop: true 
+      },
+      480: {
+        items: 1,
+        loop: true
+      },
+      667: {
+        items: 1,
+        loop: true
+      },
+      1024: {
+        items: 1,
+        loop: true
+      }
+    },
+    nav: true
+  }
+
 }

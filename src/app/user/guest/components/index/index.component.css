@@ -1,14 +1,17 @@
-#feature-property .propertyListingPage .home_page_slider .owl-nav  .outer_slider{
+#feature-property .propertyListingPage .home_page_slider .owl-nav .outer_slider {
     background-color: transparent!important;
 }
-.home1-advnc-search ul .amentites_li{
+
+.home1-advnc-search ul .amentites_li {
     margin: 0px!important;
 }
-.ui_kit_checkbox .form-check-label{
+
+.ui_kit_checkbox .form-check-label {
     display: flex!important;
     align-items: flex-end!important;
     justify-content: space-between!important;
 }
+
 .form-select {
     font-size: 16px !important;
     height: 50px!important;
@@ -17,6 +20,7 @@
     letter-spacing: 0.8px;
     color: #212529!important;
 }
+
 .home1-advnc-search ul .locality_list {
     display: inline-block;
     line-height: 3;
@@ -24,13 +28,55 @@
     vertical-align: text-top;
     width: 60%!important;
 }
-.home1-advnc-search ul .locality_list  input{
+
+.home1-advnc-search ul .locality_list input {
     padding: 12px;
     font-size: 16px;
     font-weight: 600;
     letter-spacing: 0.8px;
 }
-@media(max-width: 768px) { 
+
+.home_post {
+    margin: 0px 10px 20px;
+    background-color: rgba(255, 255, 255, 0.149);
+    border-radius: 8px;
+    padding: 20px 20px 30px 30px;
+    box-shadow: 0px 0px 30px 0px rgb(19 19 28 / 12%);
+    position: relative;
+    text-align: center;
+    border-top: 8px solid #ff5a5f;
+    height: 100%;
+}
+
+:host ::ng-deep .owl-carousel .owl-item .home_post {
+    height: 100%;
+}
+
+:host ::ng-deep .owl-carousel .owl-stage {
+    display: flex;
+}
+
+.main-title {
+    background-color: #f7f7f7;
+    padding: 30px 20px;
+    border-radius: 8px;
+    position: relative;
+    z-index: 9;
+}
+
+.main-title::before {
+    background-color: rgba(255, 255, 255, .15);
+    border-radius: 8px;
+    bottom: -10px;
+    content: "";
+    left: -10px;
+    position: absolute;
+    right: -10px;
+    top: -10px;
+    z-index: -1;
+}
+
+@media(max-width: 768px) {
     .home1-advnc-search ul .locality_list {
         display: inline-block;
         line-height: 3;

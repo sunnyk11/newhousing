@@ -196,3 +196,9 @@ ul .list-inline-item {
         box-shadow: 5px 1px 5px #dc3545;
     }
 }
+
+@media(max-width: 498px) {
+     :host ::ng-deep .mat-step-label {
+        display: none;
+    }
+}

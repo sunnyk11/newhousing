@@ -1,7 +1,7 @@
 <div *ngIf="showLoadingIndicator">
     <div class="preloader"></div>
 </div>
-<div class="container mt120 mb20">
+<div class="container mb20">
     <div class="accordion" id="accordionExample">
         <div class="accordion-item">
             <h2 class="accordion-header" id="headingOne">
@@ -65,7 +65,7 @@
         </div>
         <div class="accordion-item">
             <h2 class="accordion-header" id="headingTwo">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapseTwo">
                     Payment Summary
                 </button>
             </h2>
@@ -89,7 +89,7 @@
 
                                                 <div class="col-lg-4 col-md-6">
                                                     <p class="text-muted row1">Property Size</p>
-                                                    <p class="row2">{{ pro_data?.area }} {{ pro_data?.property_area_unit.unit }}</p>
+                                                    <p class="row2">{{ pro_data?.area }} {{ pro_data?.property_area_unit?.unit }}</p>
                                                 </div>
 
                                                 <div class="col-lg-4 col-md-6">
@@ -133,7 +133,7 @@
                                         <h6>1 Month Rent: <strong>{{ expected_rent }}</strong></h6>
                                         <h6>Security Deposit ({{security_deposit}} Months): <strong>{{
                                                 security_dep_amount }}</strong></h6>
-                                        <h6 *ngIf="pro_data?.maintenance_charge_status == '1'">Maintenance Charge({{ pro_data?.maintenance_condition.name }}):
+                                        <h6 *ngIf="pro_data?.maintenance_charge_status == '1'">Maintenance Charge({{ pro_data?.maintenance_condition?.name }}):
                                             <strong>{{pro_data.maintenance_charge}}</strong>
                                         </h6>
                                         <hr>

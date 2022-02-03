@@ -54,6 +54,7 @@ import { UserReviewModalComponent } from './modals/user-review-modal/user-review
 import { NgxStarRatingModule } from 'ngx-star-rating';
 import { ClipboardModule } from 'ngx-clipboard';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { WhyChooseUsComponent } from './components/why-choose-us/why-choose-us.component';
 
 @NgModule({
   declarations: [
@@ -97,6 +98,7 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
     TruncateTextPipe,
     BankDetailsModalComponent,
     UserReviewModalComponent,
+    WhyChooseUsComponent,
   ],
   imports: [
     CommonModule,

@@ -110,7 +110,7 @@ export class LoginComponent implements OnInit {
       if (this.returnUrl?.includes('/product_payment_summary')) {
         //console.log(this.returnUrl);
         this.proceedToPayment();
-        this.jwtService.removeReturnURL();
+        //this.jwtService.removeReturnURL();
       }
       else if (this.returnUrl?.includes('/plans')) {
         this.getPhoneDetails();
@@ -200,12 +200,13 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['verify-mobile']);
         }
         else {
+          this.jwtService.removeReturnURL();
           //console.log("Mobile number verified");
           this.property_data = JSON.parse(this.jwtService.getPlansData());
           //console.log(this.property_data);
           this.property_data.user_id = this.user_id;
           this.property_data.user_email = this.userEmail;
-          //console.log(this.property_data);
+          console.log(this.property_data);
 
           this.plansPageService.postSelectedRentPlan(this.property_data).subscribe(
             res => {

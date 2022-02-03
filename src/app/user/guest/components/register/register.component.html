@@ -1,5 +1,5 @@
 <!--Breadcrumb-->
-<div class="bg-secondary mt100">
+<div class="bg-secondary">
     <div class="container-fluid py-4">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
@@ -158,7 +158,7 @@
                             </div>
                         </form>
 
-                        <div class="alert alert-success" *ngIf="isSuccessful">
+                        <div class="alert alert-success" *ngIf="isSuccessful && !isVerified">
                             Your registration is successful. Check your SMS for verification OTP.
                         </div>
                         <div class="alert alert-success" *ngIf="isVerified">

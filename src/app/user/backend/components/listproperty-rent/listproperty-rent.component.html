@@ -11,6 +11,7 @@
         </div>
         <mat-horizontal-stepper [linear]="true" #stepper="matHorizontalStepper">
             <mat-step label="Step 1" state="phone" [stepControl]="form_step1">
+                <h5 class="text-center my-3">Take the first step towards listing your property - make sure to fill in precise details so we can look up suitable renters accordingly.</h5>
                 <div class="h-100 p-3 bg-lightgray bg-gradient border rounded-3 mt-2">
                     <form [formGroup]="form_step1" class="g-3">
                         <div class="row mt-3">
@@ -60,7 +61,8 @@
                                 <label for="area_unit" class="form-label">Area Unit</label>
                                 <select id="area_unit" class="form-select form-select-lg w100" formControlName="area_unit" [ngClass]="{ 'is-invalid': submitted1 && step1.area_unit.errors }">
                                     <option value="">Select Area Unit</option>
-                                    <option  *ngFor="let area_unit of area_unit" [value]="area_unit?.id" >{{area_unit?.unit}}</option>
+                                    <option *ngFor="let area_unit of area_unit" [value]="area_unit?.id">
+                                        {{area_unit?.unit}}</option>
                                 </select>
                             </div>
                             <div class="col-md-6">
@@ -139,6 +141,7 @@
             </mat-step>
 
             <mat-step label="Step 2" state="chat" [stepControl]="form_step2">
+                <h5 class="text-center my-3">Let us narrow it down a bit - tell us about your neighborhood and area.</h5>
                 <form [formGroup]="form_step2" class="g-3">
                     <div class="h-100 p-3 bg-lightgray bg-gradient border rounded-3 mt-2">
                         <div class="row mt-3">
@@ -163,44 +166,46 @@
                                     <span *ngIf="step2.locality.errors.required">(Please Select Any Locality)</span>
                                 </span>
                                 <input class="w100 form-control" type="text" placeholder="Search locality" matInput aria-label="Number" formControlName="locality_data" [matAutocomplete]="auto" (ngModelChange)="get_locality($event)" [ngClass]="{ 'is-invalid': submitted2 && step2.locality.errors }">
-                                <mat-autocomplete #auto="matAutocomplete"> 
+                                <mat-autocomplete #auto="matAutocomplete">
                                     <mat-option *ngFor="let area of filteredOptions | async" [value]="area.item_text" (onSelectionChange)="selected_locality(area)">
                                         {{area.item_text}}
                                     </mat-option>
                                 </mat-autocomplete>
                             </div>
                             <div class="col-md-4" id="multiselect-dropdown">
-                                <label for="pincode" class="form-label">Sub-Locality</label>                              
-                                <ng-multiselect-dropdown class="form-control sub_localty_dropdown" [placeholder]="'Select Sub-locality'"
-                                [settings]="dropdownSettings1" [data]="dropdown_sublocality"
-                                formControlName="sub_locality"  [ngClass]="{ 'is-invalid': submitted2 && step2.sub_locality.errors }">
+                                <label for="pincode" class="form-label">Sub-Locality</label>
+                                <ng-multiselect-dropdown class="form-control sub_localty_dropdown" [placeholder]="'Select Sub-locality'" [settings]="dropdownSettings1" [data]="dropdown_sublocality" formControlName="sub_locality" [ngClass]="{ 'is-invalid': submitted2 && step2.sub_locality.errors }">
                                 </ng-multiselect-dropdown>
                             </div>
                         </div>
                         <div class="row mt-3" style="position: relative;">
                             <div class="col-md-12">
-                               <div class="row">
-                                   <div class="col-lg-12 col-12">
-                                       <label for="address" class="form-label">Enter Address</label>
-                                       <input type="hidden" class="form-control" id="map_latitude" formControlName="map_latitude">
-                                    <input type="hidden" class="form-control" id="map_longitude" formControlName="map_longitude" [ngClass]="{ 'is-invalid': submitted2 && step2.map_longitude.errors }">
-                                    <span *ngIf="submitted2 && step2.map_longitude.errors" id='deshtop_view'>
-                                        <span *ngIf="step2.map_longitude.errors.required">(Please Enter Google Map Current Location)</span>
-                                    </span>
-                                    <div *ngIf="submitted2 && step2.map_longitude.errors"  id='mobile_view'>
-                                        <span *ngIf="step2.map_longitude.errors.required">(Please Enter Current Location)</span>
+                                <div class="row">
+                                    <div class="col-lg-12 col-12">
+                                        <label for="address" class="form-label">Enter Address</label>
+                                        <input type="hidden" class="form-control" id="map_latitude" formControlName="map_latitude">
+                                        <input type="hidden" class="form-control" id="map_longitude" formControlName="map_longitude" [ngClass]="{ 'is-invalid': submitted2 && step2.map_longitude.errors }">
+                                        <span *ngIf="submitted2 && step2.map_longitude.errors" id='deshtop_view'>
+                                            <span *ngIf="step2.map_longitude.errors.required">(Please Enter Google Map
+                                                Current Location)</span>
+                                        </span>
+                                        <div *ngIf="submitted2 && step2.map_longitude.errors" id='mobile_view'>
+                                            <span *ngIf="step2.map_longitude.errors.required">(Please Enter Current
+                                                Location)</span>
+                                        </div>
                                     </div>
-                                    </div>
-                               </div> 
-                                <input #search autocorrect="off" autocapitalize="on" spellcheck="off" formControlName="address" [ngClass]="{ 'is-invalid': submitted2 && step2.map_longitude.errors }" (ngModelChange)="map_address($event)" class="form-control input-text" placeholder="Enter Address" />
-                                <button class="btn btn-primary mb10 btn_location_map" (click)="getLocation()">Show My Localion</button>
+                                </div>
+                                <input #search autocorrect="off" autocapitalize="on" spellcheck="off" formControlName="address" [ngClass]="{ 'is-invalid': submitted2 && step2.map_longitude.errors }" (ngModelChange)="map_address($event)" class="form-control input-text" placeholder="Enter Address"
+                                />
+                                <button class="btn btn-primary mb10 btn_location_map" (click)="getLocation()">Show My
+                                    Localion</button>
                                 <span class="flaticon-maps-and-flags" style="position: absolute;top: 40px; right: 80px"></span>
                                 <agm-map style="height: 300px;" [latitude]="latCus" [longitude]="longCus" [zoom]="15" class="main-card-agm-map" *ngIf="map_show == true">
                                     <agm-marker [latitude]="latCus" [longitude]="longCus" [markerDraggable]="true" (dragEnd)="markerDragEnd($event)">
                                         <agm-info-window> </agm-info-window>
                                     </agm-marker>
                                 </agm-map>
-                                                        
+
                                 <div class="row preloader_row1" *ngIf="map_show == false">
                                     <div class="col-lg-12">
                                         <div class="preloader"></div>
@@ -226,6 +231,7 @@
             </mat-step>
 
             <mat-step label="Step 3" [stepControl]="form_step3">
+                <h5 class="text-center my-3">Let us know about the facilities available and some more details about the type of renters you are looking for.</h5>
                 <form [formGroup]="form_step3" class="g-3">
                     <div class="h-100 p-3 bg-lightgray bg-gradient border rounded-3 mt-2">
                         <div class="row mt-3">
@@ -254,7 +260,7 @@
                                 <label for="year_built" class="form-label">Year Built</label>
                                 <select id="year_built" class="form-select form-select-lg w100" formControlName="year_built" [ngClass]="{ 'is-invalid': submitted3 && step3.year_built.errors }">
                                     <option value="">Select Built year</option>
-                                    
+
                                     <option value="2022">2022</option>
                                     <option value="2021">2021</option>
                                     <option value="2020">2020</option>
@@ -375,14 +381,16 @@
                                 <label for="willing_to_rent" class="form-label">Willing to Rent Out to</label>
                                 <select id="willing_to_rent" class="form-select form-select-lg w100" formControlName="willing_to_rent" [ngClass]="{ 'is-invalid': submitted3 && step3.willing_to_rent.errors }">
                                     <option value="">Please Select</option>
-                                    <option  *ngFor="let willing_to_rent of willing_to_rent" [value]="willing_to_rent?.id" >{{willing_to_rent?.name}}</option>
+                                    <option *ngFor="let willing_to_rent of willing_to_rent"
+                                        [value]="willing_to_rent?.id">{{willing_to_rent?.name}}</option>
                                 </select>
                             </div>
                             <div class="col-md-6">
                                 <label for="agreement_type" class="form-label">Agreement Type</label>
                                 <select id="agreement_type" class="form-select form-select-lg w100" formControlName="agreement_type" [ngClass]="{ 'is-invalid': submitted3 && step3.agreement_type.errors }">
                                     <option value="">Please Select</option>
-                                    <option  *ngFor="let agreement_type of agreement_type" [value]="agreement_type?.id" >{{agreement_type?.name}}</option>
+                                    <option *ngFor="let agreement_type of agreement_type" [value]="agreement_type?.id">
+                                        {{agreement_type?.name}}</option>
                                 </select>
                             </div>
                         </div>
@@ -403,7 +411,8 @@
                                 <label for="agreement_duration" class="form-label">Duration of Rent Agreement</label>
                                 <select id="agreement_duration" class="form-select form-select-lg w100" formControlName="agreement_duration" [ngClass]="{ 'is-invalid': submitted3 && step3.agreement_duration.errors }">
                                     <option value="">Please Select</option>
-                                    <option  *ngFor="let agreement_duration of agreement_duration" [value]="agreement_duration?.id" >{{agreement_duration?.name}}</option>
+                                    <option *ngFor="let agreement_duration of agreement_duration"
+                                        [value]="agreement_duration?.id">{{agreement_duration?.name}}</option>
                                 </select>
                             </div>
                             <!-- <div class="col-md-4">
@@ -469,6 +478,7 @@
             </mat-step>
 
             <mat-step label="Step 4">
+                <h5 class="text-center my-3">Time to talk about rent and associated expenses. Please upload pictures in HD format so renters have a clear idea about the property.</h5>
                 <form [formGroup]="form_step4" class="g-3">
                     <div class="h-100 p-3 bg-lightgray bg-gradient border rounded-3 mt-2">
                         <div class="row mt-3">
@@ -545,16 +555,19 @@
                         <div class="row mt-3" *ngIf="maintenance_row == true">
                             <div class="col-lg-6 col-12">
                                 <div class="form-group">
-                                    <label  class="form-label">Maintenance Charge Condition</label>
+                                    <label class="form-label">Maintenance Charge Condition</label>
                                     <select class="form-select form-select-lg w100" formControlName="maintenance_charge_condition" [ngClass]="{ 'is-invalid': submitted4 && step4.maintenance_charge_condition.errors }">
                                         <option value="">Please Select</option>
-                                        <option  *ngFor="let maintenance_charge_condition of maintenance_charge_condition" [value]="maintenance_charge_condition?.id" >{{maintenance_charge_condition?.name}}</option>    
+                                        <option
+                                            *ngFor="let maintenance_charge_condition of maintenance_charge_condition"
+                                            [value]="maintenance_charge_condition?.id">
+                                            {{maintenance_charge_condition?.name}}</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-12">
                                 <div class="form-group">
-                                    <label for="maintenance_charge"  class="form-label">Maintenance Charge Amount</label>
+                                    <label for="maintenance_charge" class="form-label">Maintenance Charge Amount</label>
                                     <input type="text" class="form-control" formControlName="maintenance_charge" [ngClass]="{ 'is-invalid': submitted4 && step4.maintenance_charge.errors }" placeholder="Enter Maintenance Charge" maxlength="8" (keypress)="keyPressNumbers($event)">
                                 </div>
                             </div>

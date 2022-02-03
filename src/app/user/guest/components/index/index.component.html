@@ -1,4 +1,4 @@
-<section class="home-one home1-overlay home1_bgi1 mt100">
+<section class="home-one home1-overlay home1_bgi1">
     <div class="container">
         <div class="row posr">
             <div class="col-lg-12">
@@ -32,8 +32,8 @@
                                                 <div class="search_option_two">
                                                     <div class="candidate_revew_select">
                                                         <select class="form-select h50" name="type" id="type" formControlName="city">
-                                                        <option value ="Delhi" selected>Delhi</option>
-                                                    </select>
+                                                            <option value="Delhi" selected>Delhi</option>
+                                                        </select>
                                                     </div>
                                                 </div>
                                             </li>
@@ -51,7 +51,7 @@
                                             <li class="list-inline-item locality_list">
                                                 <div class="search_option_two form-group">
                                                     <input class="w100 form-control" type="text" placeholder="Search locality/Sub-locality" matInput aria-label="Number" formControlName="locality_data" [matAutocomplete]="auto" (ngModelChange)="get_locality($event)">
-                                                    <mat-autocomplete #auto="matAutocomplete"> 
+                                                    <mat-autocomplete #auto="matAutocomplete">
                                                         <mat-option *ngFor="let area of filteredOptions | async" [value]="area.item_text" (onSelectionChange)="selected_locality(area.item_text)">
                                                             {{area.item_text}}
                                                         </mat-option>
@@ -120,108 +120,108 @@
                                                         <div class="col-lg-3 col-md-3 col-sm-6">
                                                             <div class="candidate_revew_select">
                                                                 <select class="form-select" aria-label="Default select example" name="bathrooms" formControlName="bathrooms" id="bathrooms">
-                                                                <option value="">Select Bathrooms
-                                                                </option>
-                                                                <option value="1">1</option>
-                                                                <option value="2">2</option>
-                                                                <option value="3">3</option>
-                                                                <option value="4">4</option>
-                                                                <option value="5">5</option>
-                                                                <option value="6">6 </option>
-                                                                <option value="7">7</option>
-                                                                <option value="8">8 </option>
-                                                                <option value="9">9</option>
-                                                                <option value="10">10 </option>
-                                                            </select>
+                                                                    <option value="">Select Bathrooms
+                                                                    </option>
+                                                                    <option value="1">1</option>
+                                                                    <option value="2">2</option>
+                                                                    <option value="3">3</option>
+                                                                    <option value="4">4</option>
+                                                                    <option value="5">5</option>
+                                                                    <option value="6">6 </option>
+                                                                    <option value="7">7</option>
+                                                                    <option value="8">8 </option>
+                                                                    <option value="9">9</option>
+                                                                    <option value="10">10 </option>
+                                                                </select>
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-3 col-md-3 col-sm-6">
                                                             <div class="candidate_revew_select">
                                                                 <select class="form-select" aria-label="Default select example" name="bedrooms" formControlName="bedrooms" id="bedrooms">
-                                                                <option value="">Select Bedrooms
-                                                                </option>
-                                                                <option value="1">1</option>
-                                                                <option value="2">2</option>
-                                                                <option value="3">3</option>
-                                                                <option value="4">4</option>
-                                                                <option value="5">5</option>
-                                                                <option value="6">6 </option>
-                                                                <option value="7">7</option>
-                                                                <option value="8">8 </option>
-                                                                <option value="9">9</option>
-                                                                <option value="10">10 </option>
-                                                            </select>
+                                                                    <option value="">Select Bedrooms
+                                                                    </option>
+                                                                    <option value="1">1</option>
+                                                                    <option value="2">2</option>
+                                                                    <option value="3">3</option>
+                                                                    <option value="4">4</option>
+                                                                    <option value="5">5</option>
+                                                                    <option value="6">6 </option>
+                                                                    <option value="7">7</option>
+                                                                    <option value="8">8 </option>
+                                                                    <option value="9">9</option>
+                                                                    <option value="10">10 </option>
+                                                                </select>
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-3 col-md-3 col-sm-6">
                                                             <div class="candidate_revew_select">
                                                                 <select class="form-select" aria-label="Default select example" name="years" formControlName="years" id="years">
-                                                                <option value="">Select Built year</option>
-                                                                <option value="2000">2000</option>
-                                                                <option value="2001">2001</option>
-                                                                <option value="2002">2002</option>
-                                                                <option value="2003">2003</option>
-                                                                <option value="2004">2004</option>
-                                                                <option value="2005">2005</option>
-                                                                <option value="2006">2006</option>
-                                                                <option value="2007">2007</option>
-                                                                <option value="2008">2008</option>
-                                                                <option value="2009">2009</option>
-                                                                <option value="2010">2010</option>
-                                                                <option value="2011">2011</option>
-                                                                <option value="2012">2012</option>
-                                                                <option value="2013">2013</option>
-                                                                <option value="2014">2014</option>
-                                                                <option value="2015">2015</option>
-                                                                <option value="2016">2016</option>
-                                                                <option value="2017">2017</option>
-                                                                <option value="2018">2018</option>
-                                                                <option value="2019">2019</option>
-                                                                <option value="2020">2020</option>
-                                                                <option value="2021">2021</option>
-                                                            </select>
+                                                                    <option value="">Select Built year</option>
+                                                                    <option value="2000">2000</option>
+                                                                    <option value="2001">2001</option>
+                                                                    <option value="2002">2002</option>
+                                                                    <option value="2003">2003</option>
+                                                                    <option value="2004">2004</option>
+                                                                    <option value="2005">2005</option>
+                                                                    <option value="2006">2006</option>
+                                                                    <option value="2007">2007</option>
+                                                                    <option value="2008">2008</option>
+                                                                    <option value="2009">2009</option>
+                                                                    <option value="2010">2010</option>
+                                                                    <option value="2011">2011</option>
+                                                                    <option value="2012">2012</option>
+                                                                    <option value="2013">2013</option>
+                                                                    <option value="2014">2014</option>
+                                                                    <option value="2015">2015</option>
+                                                                    <option value="2016">2016</option>
+                                                                    <option value="2017">2017</option>
+                                                                    <option value="2018">2018</option>
+                                                                    <option value="2019">2019</option>
+                                                                    <option value="2020">2020</option>
+                                                                    <option value="2021">2021</option>
+                                                                </select>
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-3 col-md-3 col-sm-6">
                                                             <div class="candidate_revew_select">
                                                                 <select class="form-select" aria-label="Default select example" name="area_unit" formControlName="area_unit" id="area_unit">
-                                                                <option value="">Select Area Unit
-                                                                </option>
-                                                                <option value="sq.ft.">sq.ft.
-                                                                </option>
-                                                                <option value="sq.yards">
-                                                                    sq.yards</option>
-                                                                <option value="sq.m.">sq.m.
-                                                                </option>
-                                                                <option value="acres">acres
-                                                                </option>
-                                                                <option value="marla">marla
-                                                                </option>
-                                                                <option value="cents"> cents
-                                                                </option>
-                                                                <option value="bigha">bigha
-                                                                </option>
-                                                                <option value="kottah">kottah
-                                                                </option>
-                                                                <option value="kanal"> kanal
-                                                                </option>
-                                                                <option value="grounds">grounds
-                                                                </option>
-                                                                <option value="biswa">biswa
-                                                                </option>
-                                                                <option value="guntha"> guntha
-                                                                </option>
-                                                                <option value="aankadam">
-                                                                    aankadam</option>
-                                                                <option value="hectares">
-                                                                    hectares</option>
-                                                                <option value="rood">rood
-                                                                </option>
-                                                                <option value="chataks">chataks
-                                                                </option>
-                                                                <option value="perch"> perch
-                                                                </option>
-                                                            </select>
+                                                                    <option value="">Select Area Unit
+                                                                    </option>
+                                                                    <option value="sq.ft.">sq.ft.
+                                                                    </option>
+                                                                    <option value="sq.yards">
+                                                                        sq.yards</option>
+                                                                    <option value="sq.m.">sq.m.
+                                                                    </option>
+                                                                    <option value="acres">acres
+                                                                    </option>
+                                                                    <option value="marla">marla
+                                                                    </option>
+                                                                    <option value="cents"> cents
+                                                                    </option>
+                                                                    <option value="bigha">bigha
+                                                                    </option>
+                                                                    <option value="kottah">kottah
+                                                                    </option>
+                                                                    <option value="kanal"> kanal
+                                                                    </option>
+                                                                    <option value="grounds">grounds
+                                                                    </option>
+                                                                    <option value="biswa">biswa
+                                                                    </option>
+                                                                    <option value="guntha"> guntha
+                                                                    </option>
+                                                                    <option value="aankadam">
+                                                                        aankadam</option>
+                                                                    <option value="hectares">
+                                                                        hectares</option>
+                                                                    <option value="rood">rood
+                                                                    </option>
+                                                                    <option value="chataks">chataks
+                                                                    </option>
+                                                                    <option value="perch"> perch
+                                                                    </option>
+                                                                </select>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -236,6 +236,53 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="main-title text-center">
+                    <h5>Let's face it - property rental is a tricky affair, whether you are a property owner, or someone looking for accommodation. However, it doesn't have to be that way - at Housing Street, we make it all the simpler.</h5>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <owl-carousel-o [options]="customOptions">
+                <ng-template carouselSlide>
+                    <div class="home_post">
+                        <div class="details">
+                            <h5>Renters</h5>
+                            <hr>
+                            <p>There are loads of hassles renters have to deal with, such as plumbing issues, electricity problems, etc. Sometimes the dealer doesn't disclose important details and also takes time with the process. Yet another problem is
+                                they often make you shell out money in the form of hidden charges. </p>
+                            <p>At Housing Street, we ensure you don't have to go through such trouble. Not only is each property listed on this website verified by officials, but you get end to end support, starting from property visit to the handover via
+                                a personal relationship officer. Every property is subjected to rigorous quality checks - whether it is clean, whitewashed, meets basic living requirements, has parking for cars and bikes, and so on. Only if it complies
+                                with certain criteria, is the property listed on the website.</p>
+                            <p>Once you decide to move in, the property handover is completed on the same day. For your convenience, we provide local services provider contact lists. Rest assured, your move will be seamless! Payment mode can be through credit
+                                card if that is preferable. The total breakup of charges such as rent, security deposit, and other fees, will be clearly mentioned, as we believe in total transparency. In case you don't find the property suitable, you
+                                can change the accommodation within 2 to 4 months without paying anything extra.</p>
+                        </div>
+                    </div>
+                </ng-template>
+                <ng-template carouselSlide>
+                    <div class="home_post">
+                        <div class="details">
+                            <h5>Property Owners</h5>
+                            <hr>
+                            <p>Have an apartment ready to be let out? No idea how to get good tenants who will pay rent on time? Let us help you out! Not only do you get an extra income, but we ensure you don't have to pay us unnecessary commission if the
+                                property is prematurely vacated!</p>
+                            <p>We offer complete backend support. You don't have to be bothered about tackling calls from clients - our team will handle it. In fact, you don't have to show the vacant property to customers as well - that is exactly what we
+                                are there for. The rental agreement is prepared free of charge. At the end of the month, the rent is deposited directly in your bank account.</p>
+                            <p>Don't worry - you have to pay only if the customer moves into the vacant property. Furthermore, if the property is vacated within 4 months, you don't have to pay any commission to let out the property once again. Contact details
+                                of local area service providers such as tiles, painter, carpenter, electricians, etc. will be provided too.</p>
+                            <p>So regardless of whether you are a property owner or renter, feel free to get in touch with us right away - just drop off an email or give us a call, and we will work towards finding the best solution for you.</p>
+                        </div>
+                    </div>
+                </ng-template>
+            </owl-carousel-o>
         </div>
     </div>
 </section>
@@ -308,53 +355,7 @@
 </section>
 
 <!-- Why Choose Us -->
-<section id="why-chose" class="whychose_us bgc-f7 pb30">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6 offset-lg-3">
-                <div class="main-title text-center">
-                    <h2>Why Choose Us</h2>
-                    <p>We provide full service at every step.</p>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6 col-lg-4 col-xl-4">
-                <div class="why_chose_us">
-                    <div class="icon">
-                        <span class="flaticon-high-five"></span>
-                    </div>
-                    <div class="details">
-                        <h4>Trusted By Thousands</h4>
-                        <p>Aliquam dictum elit vitae mauris facilisis at dictum urna dignissim donec vel lectus vel felis.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4 col-xl-4">
-                <div class="why_chose_us">
-                    <div class="icon">
-                        <span class="flaticon-home-1"></span>
-                    </div>
-                    <div class="details">
-                        <h4>Wide Renge Of Properties</h4>
-                        <p>Aliquam dictum elit vitae mauris facilisis at dictum urna dignissim donec vel lectus vel felis.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4 col-xl-4">
-                <div class="why_chose_us">
-                    <div class="icon">
-                        <span class="flaticon-profit"></span>
-                    </div>
-                    <div class="details">
-                        <h4>Financing Made Easy</h4>
-                        <p>Aliquam dictum elit vitae mauris facilisis at dictum urna dignissim donec vel lectus vel felis.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+<app-why-choose-us></app-why-choose-us>
 
 <!-- Our Testimonials -->
 <app-testimonial></app-testimonial>
