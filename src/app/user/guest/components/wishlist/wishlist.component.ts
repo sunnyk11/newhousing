@@ -44,6 +44,7 @@ export class WishlistComponent implements OnInit {
 
   ngOnInit(): void {
     if(this.jwtService.getToken()){
+      this.showLoadingIndicator = true;
       this.userEmail =  this.jwtService.getUserEmail();
       this.usertype = this.jwtService.getUserType();
       this.url_info= this.router.url;
@@ -56,7 +57,6 @@ export class WishlistComponent implements OnInit {
   }
    // fetch wishlist property 
   product_wishlist(){
-    this.showLoadingIndicator = true;
     this.CommonService.getwishlit_property({ param: null }).subscribe(
       response => {
         this.property=response;
@@ -102,9 +102,9 @@ export class WishlistComponent implements OnInit {
       }, err => { 
         this.showLoadingIndicator = false;
         let Message =err.error.message;
-        this.toastr.error(Message, 'Something Error', {
-          timeOut: 3000,
-        });
+        // this.toastr.error(Message, 'Something Error', {
+        //   timeOut: 3000,
+        // });
       }
     );
   }    
@@ -120,9 +120,9 @@ export class WishlistComponent implements OnInit {
       }, err => { 
         this.showLoadingIndicator = false;
         let Message =err.error.message;
-        this.toastr.error(Message, 'Something Error', {
-          timeOut: 3000,
-        });
+        // this.toastr.error(Message, 'Something Error', {
+        //   timeOut: 3000,
+        // });
       }
      );
     }else{
@@ -149,9 +149,9 @@ export class WishlistComponent implements OnInit {
       }, err => { 
         this.showLoadingIndicator = false;
         let Message =err.error.message;
-        this.toastr.error(Message, 'Something Error', {
-          timeOut: 3000,
-        });
+        // this.toastr.error(Message, 'Something Error', {
+        //   timeOut: 3000,
+        // });
       }
      );
     }else{

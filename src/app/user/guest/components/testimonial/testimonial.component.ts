@@ -11,6 +11,7 @@ import { environment } from 'src/environments/environment';
 export class TestimonialComponent implements OnInit {
 
   public testimonial_data:any={};
+  ftpstring: string = environment.ftpURL;
 
   constructor(
     private indexPageService: IndexPageService

@@ -509,6 +509,20 @@ export class ListpropertyRentComponent implements OnInit {
       );
     }
   }
+  alphaNumberOnly (e:any) {  // Accept only alpha numerics, not special characters 
+    var regex = new RegExp("^[a-zA-Z0-9 ]+$");
+    var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+    if (regex.test(str)) {
+        return true;
+    }
+    e.preventDefault();
+    return false;
+  }
+
+  onPaste(e:any) {
+    e.preventDefault();
+    return false;
+  }
 
   keyPressNumbers(event: { which: any; keyCode: any; preventDefault: () => void; }) {
     var charCode = (event.which) ? event.which : event.keyCode;

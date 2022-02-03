@@ -16,8 +16,11 @@
                             <ng-template carouselSlide [id]="testimonial.id">
                                 <div class="item">
                                     <div class="testimonial_grid">
-                                        <div class="thumb">
-                                            <img src="assets/resources/images/testimonial/1.jpg" alt="1.jpg">
+                                        <div class="thumb" >                
+                                            <img *ngIf="testimonial?.user_detail?.profile_pic != null; else OtherImage" class="profile-img" src="{{ ftpstring }}images/{{ testimonial?.user_detail?.profile_pic  }}" alt="Profile Pic">
+                                            <ng-template #OtherImage>
+                                                <img src="assets/resources/images/testimonial/img_avatar2-png-9.png" alt="img_avatar2-png-9.png">
+                                            </ng-template>
                                         </div>
                                         <div class="details">
                                             <h4 class="mt15 mb15">{{testimonial?.user_detail?.name}}</h4>

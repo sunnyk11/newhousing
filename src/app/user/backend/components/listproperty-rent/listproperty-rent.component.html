@@ -17,7 +17,7 @@
                         <div class="row mt-3">
                             <div class="col-md-6">
                                 <label for="property_name" class="form-label">Property Name</label>
-                                <input type="text" class="form-control" id="property_name" formControlName="property_name" [ngClass]="{ 'is-invalid': submitted1 && step1.property_name.errors }">
+                                <input type="text" class="form-control" id="property_name" formControlName="property_name" [ngClass]="{ 'is-invalid': submitted1 && step1.property_name.errors }" (keypress)="alphaNumberOnly($event)" (paste)="onPaste($event)">
                                 <!-- <input type="hidden" class="form-control" id="draft_form_id" formControlName="draft_form_id" required> -->
                             </div>
                             <div class="col-md-6">
@@ -127,7 +127,7 @@
                         <div class="row mt-3">
                             <div class="col-md-12">
                                 <label for="property_desc" class="form-label">Property Description</label>
-                                <textarea class="form-control" aria-label="With textarea" id="property_desc" formControlName="property_desc" [ngClass]="{ 'is-invalid': submitted1 && step1.property_desc.errors }"></textarea>
+                                <textarea class="form-control" aria-label="With textarea" id="property_desc" formControlName="property_desc" [ngClass]="{ 'is-invalid': submitted1 && step1.property_desc.errors }"  (keypress)="alphaNumberOnly($event)" (paste)="onPaste($event)"></textarea>
                             </div>
                         </div>
                     </form>
@@ -165,8 +165,9 @@
                                 <span *ngIf="submitted2 && step2.locality.errors" id='dropdownerror'>
                                     <span *ngIf="step2.locality.errors.required">(Please Select Any Locality)</span>
                                 </span>
-                                <input class="w100 form-control" type="text" placeholder="Search locality" matInput aria-label="Number" formControlName="locality_data" [matAutocomplete]="auto" (ngModelChange)="get_locality($event)" [ngClass]="{ 'is-invalid': submitted2 && step2.locality.errors }">
-                                <mat-autocomplete #auto="matAutocomplete">
+
+                                <input class="w100 form-control" type="text" placeholder="Search locality" matInput aria-label="Number" formControlName="locality_data" [matAutocomplete]="auto" (ngModelChange)="get_locality($event)" [ngClass]="{ 'is-invalid': submitted2 && step2.locality.errors }" (keypress)="alphaNumberOnly($event)" (paste)="onPaste($event)">
+                                <mat-autocomplete #auto="matAutocomplete"> 
                                     <mat-option *ngFor="let area of filteredOptions | async" [value]="area.item_text" (onSelectionChange)="selected_locality(area)">
                                         {{area.item_text}}
                                     </mat-option>
@@ -194,11 +195,10 @@
                                                 Location)</span>
                                         </div>
                                     </div>
-                                </div>
-                                <input #search autocorrect="off" autocapitalize="on" spellcheck="off" formControlName="address" [ngClass]="{ 'is-invalid': submitted2 && step2.map_longitude.errors }" (ngModelChange)="map_address($event)" class="form-control input-text" placeholder="Enter Address"
-                                />
-                                <button class="btn btn-primary mb10 btn_location_map" (click)="getLocation()">Show My
-                                    Localion</button>
+
+                               </div> 
+                                <input #search autocorrect="off" autocapitalize="on" spellcheck="off" formControlName="address" [ngClass]="{ 'is-invalid': submitted2 && step2.map_longitude.errors }" (ngModelChange)="map_address($event)" class="form-control input-text" (keypress)="alphaNumberOnly($event)" (paste)="onPaste($event)" placeholder="Enter Address" />
+                                <button class="btn btn-primary mb10 btn_location_map" (click)="getLocation()">Show My Localion</button>
                                 <span class="flaticon-maps-and-flags" style="position: absolute;top: 40px; right: 80px"></span>
                                 <agm-map style="height: 300px;" [latitude]="latCus" [longitude]="longCus" [zoom]="15" class="main-card-agm-map" *ngIf="map_show == true">
                                     <agm-marker [latitude]="latCus" [longitude]="longCus" [markerDraggable]="true" (dragEnd)="markerDragEnd($event)">
@@ -214,7 +214,7 @@
                             </div>
                             <div class="col-md-12  mt-3">
                                 <label for="property_desc" class="form-label">Full Address</label>
-                                <textarea class="form-control" aria-label="With textarea" id="property_desc" formControlName="address_details" [ngClass]="{ 'is-invalid': submitted2 && step2.address_details.errors }"></textarea>
+                                <textarea class="form-control" aria-label="With textarea" id="property_desc" formControlName="address_details" [ngClass]="{ 'is-invalid': submitted2 && step2.address_details.errors }" (keypress)="alphaNumberOnly($event)" (paste)="onPaste($event)"></textarea>
                             </div>
                         </div>
                         <div class="row mt-3">

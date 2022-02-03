@@ -115,11 +115,15 @@
                                         <li class="list-inline-item product_id" *ngIf=" product_data.sale_availability != null">
                                             Property id:<span *ngIf="product_data?.created_at | date: 'hhmmss' as created_at" (click)="copyText('SP',created_at,product_data?.id)"> SP{{created_at}}{{product_data?.id}}</span>
                                         </li>
-                                        <li class="list-inline-item">Beds: {{product_data?.bedroom}}</li>
-                                        <li class="list-inline-item">Baths: {{product_data?.bathroom}}</li>
-                                        <li class="list-inline-item">Sq Ft: {{product_data?.area}}</li>
-                                        <li class="list-inline-item" id="mobile_viewd_li">Apartment</li>
-
+                                        <li class="list-inline-item product_id1">Sq Ft: {{product_data?.area}}</li>
+                                        <li class="list-inline-item deshtop_li">Beds: {{product_data?.bedroom}}</li>
+                                        <li class="list-inline-item deshtop_li">Baths: {{product_data?.bathroom}}</li>
+                                        <ul class="ul_mobile">
+                                            <li class="list-inline-item">Beds: {{product_data?.bedroom}}</li>
+                                            <li class="list-inline-item">Baths: {{product_data?.bathroom}}</li>
+                                        </ul>
+                                        <!-- <li class="list-inline-item" id="mobile_viewd_li">Apartment</li> -->
+                                                                               
                                     </ul>
                                 </div>
                                 <h4 class="mb30">Description</h4>
@@ -264,7 +268,7 @@
                                                 <p>Total Floor :</p>
                                             </li>
                                             <li>
-                                                <p>Electricity_and_water_bill:</p>
+                                                <p>Electricity & Water bill:</p>
                                             </li>
                                         </ul>
                                         <ul class="list-inline-item">
@@ -534,14 +538,14 @@
                         </div>
                     </div>
                     <div class="col-lg-12">
-                        <h4 class="mt30 mb30" *ngIf="product_length>0">Similar Properties</h4>
+                        <h4 class="mt30 mb30">Similar Properties</h4>
                         <div class="row preloader_row" *ngIf="showLoadingIndicator">
                             <div class="col-lg-12">
                                 <div class="preloader"></div>
                             </div>
                         </div>
                     </div>
-                    <div class="row propertyListingPage" *ngIf="product_length>0">
+                    <div class="row propertyListingPage">
                         <div class="col-md-6 col-lg-6" *ngFor="let number of similar_property?.data">
                             <div class="feat_property home7 style4">
                                 <owl-carousel-o [options]="customOptions" *ngIf="number.product_img.length>0;else OtherImage">
@@ -558,13 +562,13 @@
                                                 <ul class="icon mb0">
                                                     <li class="list-inline-item" *ngIf="number?.single_wishlist != null;else wishlistcontent">
                                                         <a class="wishlist-icon" (click)="wishlist_remove(number.id)">
-                                                            <i class="fa fa-heart" aria-hidden="true"></i>
+                                                            <i class="fa fa-heart" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Remove to Wishlist"></i>
                                                         </a>
                                                     </li>
                                                     <ng-template #wishlistcontent>
                                                         <li class="list-inline-item">
                                                             <a class="wishlist-icon" (click)="wishlist_added(number.id)">
-                                                                <i class="fa fa-heart-o" aria-hidden="true"></i>
+                                                                <i class="fa fa-heart-o" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Add to Wishlist"></i>
                                                             </a>
                                                         </li>
                                                     </ng-template>
@@ -590,55 +594,57 @@
                                             <ul class="icon mb0">
                                                 <li class="list-inline-item" *ngIf="number?.single_wishlist != null;else wishlistcontent">
                                                     <a class="wishlist-icon" (click)="wishlist_remove_similar(number.id)">
-                                                        <i class="fa fa-heart" aria-hidden="true"></i>
+                                                        <i class="fa fa-heart" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Remove to Wishlist"></i>
                                                     </a>
                                                 </li>
                                                 <ng-template #wishlistcontent>
                                                     <li class="list-inline-item">
                                                         <a class="wishlist-icon" (click)="wishlist_added_similar(number.id)">
-                                                            <i class="fa fa-heart-o" aria-hidden="true"></i>
+                                                            <i class="fa fa-heart-o" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Add to Wishlist"></i>
                                                         </a>
                                                     </li>
                                                 </ng-template>
                                             </ul>
                                             <a *ngIf="number.expected_pricing != null" class="fp_price">₹
-                                    {{Price_convert(number.expected_pricing)}}<small></small></a>
+                                                {{Price_convert(number.expected_pricing)}}<small></small></a>
                                             <a *ngIf="number.expected_rent != null" class="fp_price">₹ {{
-                                    Price_convert(number.expected_rent)}}<small></small></a>
+                                                     Price_convert(number.expected_rent)}}<small></small></a>
                                         </div>
                                     </div>
-                                </ng-template>
-
+                                </ng-template>                                
                                 <div class="details">
-                                    <a (click)="navigate(number.id,number.build_name,number.city)">
-                                        <div class="tc_content">
-                                            <p class="text-thm" *ngIf="number.type != null">{{ number?.property__type?.name | titlecase }}</p>
-                                            <h4>{{number?.build_name | titlecase}}</h4>
-                                            <p>
-                                                <span *ngIf="number.product_locality != null">{{ number?.product_locality?.locality | titlecase }}</span>
-                                                <span *ngIf="number.product_state != null">({{ number?.product_state?.state | titlecase }})</span>
-                                            </p>
-                                            <ul class="prop_details mb0">
-                                                <li class="list-inline-item"><a>Beds: {{ number?.bedroom }}</a></li>
-                                                <li class="list-inline-item"><a>Baths: {{ number?.bathroom }}</a></li>
-                                                <li class="list-inline-item"><a>Area unit: {{ number?.property_area_unit?.unit }}</a></li>
-                                            </ul>
-                                        </div>
-                                    </a>
-                                    <div class="fp_footer" id="user_details">
-                                        <ul class="fp_meta float-left mb0">
-                                            <li class="list-inline-item">
-                                                <a href="#">
-                                                    <img src="./../../assets/resources/images/property/img_avatar2-png-9.png" alt="img_avatar2-png-9.png"></a>
+                                    <div class="tc_content">
+                                        <div class="row">
+                                            <div class="col-9">
+                                                <a (click)="navigate(number.id,number.build_name,number.city)">
+                                                   <p class="text-thm" *ngIf="number.type != null">{{ number?.property__type?.name | titlecase }}</p>
+                                                </a>
+                                            </div>
+                                            <div class="col-3">
+                                                <div class="compare" *ngIf="number.product_comparision==null">
+                                                    <span (click)="product_comp(number.id)">
+                                                        <i class="fa fa-balance-scale" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Add to compare"></i>
+                                                    </span>
+                                                </div>
+                                                <div class="compare_fillable" *ngIf="number.product_comparision !=null">
+                                                   <span > <i class="fa fa-balance-scale" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Added To Compare"></i></span>
+                                                </div>
+                                            </div>
+                                        </div> 
+                                        <a (click)="navigate(number.id,number.build_name,number.city)">
+                                        <h4>{{number?.build_name | titlecase}}</h4>
+                                        <p>
+                                            <span  *ngIf="number.product_locality != null">{{ number?.product_locality?.locality | titlecase }}</span>
+                                            <span *ngIf="number.product_state != null">({{ number?.product_state?.state | titlecase }})</span>
+                                        </p>
+                                        <ul class="prop_details mb0">
+                                            <li class="list-inline-item"><a>Beds: {{ number?.bedroom }}</a>
                                             </li>
-                                            <li class="list-inline-item"><a href="#">{{number?.user_detail?.name | titlecase}}</a></li>
-                                            <div class="fp_pdate float-right" *ngIf="number.product_comparision==null">
-                                                <button type="button" (click)="product_comp_similar(number.id)" class="btn btn-log btn-block btn-thm bg-white text-black-50">Add to compare</button>
-                                            </div>
-                                            <div class="fp_pdate float-right" *ngIf="number.product_comparision !=null">
-                                                <button type="button" class="btn  text-black-50 bucket-btn">Added To Compare</button>
-                                            </div>
+                                            <li class="list-inline-item"><a>Baths: {{ number?.bathroom }}</a>
+                                            </li>
+                                            <li class="list-inline-item"><a>Area unit: {{number?.property_area_unit?.unit}}</a></li>
                                         </ul>
+                                        </a>
                                     </div>
                                 </div>
                             </div>

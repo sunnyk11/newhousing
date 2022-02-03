@@ -19,7 +19,7 @@
                 <div class="preloader"></div>
             </div>
         </div>
-        <div class="row propertyListingPage" *ngIf="wishlist_length>0">
+        <div class="row propertyListingPage">
             <div class="col-12 col-lg-4" *ngFor="let data of property?.data">
                 <div class="feat_property home7 style4">
                     <owl-carousel-o [options]="customOptions" *ngIf="data?.productdetails?.product_img.length>0;else OtherImage">
@@ -36,7 +36,7 @@
                                     <ul class="icon mb0">
                                         <li class="list-inline-item">
                                             <a (click)="wishlist_remove(data.product_id)">
-                                                <i class="fa fa-heart" aria-hidden="true"></i>
+                                                <i class="fa fa-heart" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Remove to Wishlist"></i>
                                             </a>
                                         </li>
                                     </ul>
@@ -61,7 +61,7 @@
                                 <ul class="icon mb0">
                                     <li class="list-inline-item">
                                         <a (click)="wishlist_remove(data.product_id)">
-                                            <i class="fa fa-heart" aria-hidden="true"></i>
+                                            <i class="fa fa-heart" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Remove to Wishlist"></i>
                                         </a>
                                     </li>
                                 </ul>
@@ -73,11 +73,29 @@
                         </div>
                     </ng-template>
                     <div class="details">
-                        <a (click)="navigate(data?.productdetails?.id,data?.productdetails?.build_name,data?.productdetails?.city)">
+                        <!-- <a (click)="navigate(data?.productdetails?.id,data?.productdetails?.build_name,data?.productdetails?.city)"> -->
                             <div class="tc_content">
-                                <p class="text-thm">{{ data?.productdetails?.property__type?.name | titlecase }}</p>
+                                <div class="row">
+                                    <div class="col-9">
+                                        <a (click)="navigate(data?.productdetails?.id,data?.productdetails?.build_name,data?.productdetails?.city)">
+                                            <p class="text-thm">{{ data?.productdetails?.property__type?.name | titlecase }}</p>
+                              
+                                        </a>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="compare" *ngIf="data?.productdetails?.product_comparision==null">
+                                            <span (click)="product_comp(data.product_id)">
+                                                <i class="fa fa-balance-scale" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Add to compare"></i>
+                                            </span>
+                                        </div>
+                                        <div class="compare_fillable" *ngIf="data?.productdetails?.product_comparision !=null">
+                                           <span > <i class="fa fa-balance-scale" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Added To Compare"></i></span>
+                                        </div>
+                                    </div>
+                                </div> 
+                                <a (click)="navigate(data?.productdetails?.id,data?.productdetails?.build_name,data?.productdetails?.city)">
+                                
                                 <h4>{{data?.productdetails?.build_name | titlecase}}</h4>
-
                                 <p>
                                     <span *ngIf="data?.productdetails?.product_locality != null">{{ data?.productdetails?.product_locality?.locality | titlecase }}</span>
                                     <span *ngIf="data?.productdetails?.product_state != null">({{ data?.productdetails?.product_state?.state | titlecase }})</span>
@@ -87,23 +105,8 @@
                                     <li class="list-inline-item"><a>Baths: {{ data?.productdetails?.bathroom }}</a></li>
                                     <li class="list-inline-item"><a>Area unit: {{ data?.productdetails?.property_area_unit?.unit }}</a></li>
                                 </ul>
+                               </a>
                             </div>
-                        </a>
-                        <div class="fp_footer" id="user_details">
-                            <ul class="fp_meta float-left mb0">
-                                <li class="list-inline-item">
-                                    <a href="#">
-                                        <img src="./../../assets/resources/images/property/img_avatar2-png-9.png" alt="img_avatar2-png-9.png"></a>
-                                </li>
-                                <li class="list-inline-item"><a href="#">{{data?.productdetails?.user_detail.name | titlecase}}</a></li>
-                                <div class="fp_pdate float-right" *ngIf="data?.productdetails?.product_comparision==null">
-                                    <button type="button" (click)="product_comp(data.product_id)" class="btn btn-log btn-block btn-thm bg-white text-black-50">Add to compare</button>
-                                </div>
-                                <div class="fp_pdate float-right" *ngIf="data?.productdetails.product_comparision !=null">
-                                    <button type="button" class="btn  text-black-50 bucket-btn">Added To Compare</button>
-                                </div>
-                            </ul>
-                        </div>
                     </div>
                 </div>
             </div>

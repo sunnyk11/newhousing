@@ -11,6 +11,12 @@
 .main_blog_post_content .mbp_thumb_post .details {
     padding-top: 30px;
 }
+.creater_img img{
+    width: 85px!important;
+    border-radius: 25px;
+    height: 85px;
+    border: 2px solid #24324a;
+}
 
 .main_blog_post_content .mbp_thumb_post .details p {
     font-size: 14px;
