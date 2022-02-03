@@ -4652,7 +4652,9 @@ input[type="range"]::-ms-fill-upper {
     font-size: 20px!important;
     font-weight: 800;
 }
-
+.cdk-overlay-pane{
+    max-height: inherit!important;
+}
 .propertyListingPage .owl-next {
     margin-right: -90px!important;
     transition: .2s all;
