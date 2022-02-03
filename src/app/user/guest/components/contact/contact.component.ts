@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder,Validators } from '@angular/forms';
 import { ContactPageService } from '../../services/contact-page.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-contact',
@@ -23,6 +24,7 @@ export class ContactComponent implements OnInit {
   });
 
   constructor(private fb: FormBuilder,
+    private toastr: ToastrService,
     private contactService: ContactPageService) { }
 
   ngOnInit(): void {
@@ -50,6 +52,7 @@ export class ContactComponent implements OnInit {
         //console.log(res);
         this.response = res;
         this.showLoadingIndicator = false;
+        this.toastr.success('Contact Details Saved');
         this.contactForm.reset({});
       },
       err => {

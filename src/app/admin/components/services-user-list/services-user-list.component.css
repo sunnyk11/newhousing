@@ -62,7 +62,7 @@
 @media(max-width: 768px) {
     #user_create {
         align-items: center;
-        justify-content: end!important;
+        justify-content: flex-end!important;
         display: flex!important;
     }
 }

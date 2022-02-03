@@ -77,10 +77,10 @@ export class ProductPageComponent implements OnInit {
   }
   // fetch amenties advance tab
   single_product_details(id: number) {
-    this.sectiondisplay=false;
-   this.showLoadingIndicator1 = true;
+    // this.sectiondisplay=false;
+  //  this.showLoadingIndicator1 = true;
     let param = { id: id }
-    this.showLoadingIndicator = true;
+    // this.showLoadingIndicator = true;
     if(this.jwtService.getToken()){
       this.recently_product_count(this.product_id);
       this.isLoggedIn= true;
@@ -183,7 +183,7 @@ export class ProductPageComponent implements OnInit {
   }
   // fetch similar property 
   similarproperty(locality_id: any){
-    this.showLoadingIndicator=true;
+    this.showLoadingIndicator=false;
     let param={locality_id:locality_id}
     if(this.jwtService.getToken()){
       this.ProductPageService.login_getsimilarproperty(param).subscribe(

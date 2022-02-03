@@ -5,6 +5,6 @@
 }
 @media(max-width: 768px) {  
     .testimonial_grid .details .content{
-        text-align: justify!important;
+        text-align: center!important;
     }
 }

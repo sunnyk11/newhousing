@@ -4144,9 +4144,29 @@ input[type="range"]::-ms-fill-upper {
 .feat_property .details .fp_footer {
     border-top: 1px solid #eeeeee;
     display: inline-block;
-    padding: 20px!important;
+    padding: 8px!important;
     position: relative;
     width: 100%;
+}
+.feat_property .details .compare{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.feat_property .details .compare span i{
+    font-size: 28px!important;
+    font-weight: 600!important;
+    color: #ff5a5f!important;
+}
+.feat_property .details .compare_fillable{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.feat_property .details .compare_fillable span i{
+    font-size: 28px!important;
+    font-weight: 600!important;
+    color: #4caf50!important;
 }
 
 .feat_property .details .fp_footer .fp_meta {
@@ -4632,7 +4652,9 @@ input[type="range"]::-ms-fill-upper {
     font-size: 20px!important;
     font-weight: 800;
 }
-
+.cdk-overlay-pane{
+    max-height: inherit!important;
+}
 .propertyListingPage .owl-next {
     margin-right: -90px!important;
     transition: .2s all;
