@@ -32,7 +32,7 @@
                                                 <div class="candidate_revew_select">
                                                     <select class="form-select w100 show-tick" name="type" formControlName="type" id="type">
                                                         <option value ="" selected>Select Property Type</option>
-                                                        <option  *ngFor="let properrt_category of category?.data" [value]="properrt_category.category" >{{properrt_category.category}}</option>
+                                                        <option  *ngFor="let properrt_category of category?.data" [value]="properrt_category?.category?.property__type?.name" >{{properrt_category?.category?.property__type?.name}}</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -123,7 +123,7 @@
                                                 <div class="candidate_revew_select">
                                                     <select class="form-select w100 show-tick" name="type" formControlName="type" id="type">
                                                         <option value ="" selected>Select Property Type</option>
-                                                        <option  *ngFor="let properrt_category of category?.data" [value]="properrt_category.category" >{{properrt_category.category}}</option>
+                                                        <option  *ngFor="let properrt_category of category?.data" [value]="properrt_category?.category?.property__type?.name" >{{properrt_category?.category?.property__type?.name}}</option>
                                                     </select>
                                                 </div>
                                             </div>
