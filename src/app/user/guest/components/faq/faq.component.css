@@ -1,0 +1,12 @@
+#breadcrumb {
+    position: relative;
+}
+
+.accordion-button {
+    border: 1px solid #eee;
+}
+
+.accordion-button:not(.collapsed) {
+    color: #ff5a5f;
+    background-color: #f7f7f7;
+}
