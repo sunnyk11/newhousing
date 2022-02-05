@@ -29,6 +29,7 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
 import { BlogSinglePostComponent } from './components/blog-single-post/blog-single-post.component';
 import { BlogComponent } from './components/blog/blog.component';
 import { UserLogsGuard } from './guards/user-logs.guard';
+import { FaqComponent } from './components/faq/faq.component';
 //custom component imports
 
 const routes: Routes = [
@@ -59,7 +60,8 @@ const routes: Routes = [
         { path: "profile", component: ProfileComponent, canActivate: [AuthGuard]},
         { path: "reset-password", component: ResetPasswordComponent },
         { path: 'blog-single-post/:slug', component: BlogSinglePostComponent,canActivate:  [UserLogsGuard]},
-        { path: 'blog', component: BlogComponent,canActivate:  [UserLogsGuard] }
+        { path: 'blog', component: BlogComponent,canActivate:  [UserLogsGuard] },
+        { path: 'faq', component: FaqComponent }
       ]
     }
 ];

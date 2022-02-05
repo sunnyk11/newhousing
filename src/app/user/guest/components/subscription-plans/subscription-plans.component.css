@@ -103,6 +103,15 @@ hr {
     height: 19px;
 }
 
+.accordion-button {
+    border: 1px solid #eee;
+}
+
+.accordion-button:not(.collapsed) {
+    color: #ff5a5f;
+    background-color: #f7f7f7;
+}
+
 @media only screen and (max-width: 768px) {
     .discount_price {
         font-size: 20px;
