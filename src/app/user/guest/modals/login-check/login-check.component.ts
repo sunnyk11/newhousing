@@ -29,7 +29,8 @@ export class LoginCheckComponent implements OnInit {
 
     this.closeModal("");
     this.returnUrl = this.router.url;
-    //console.log(this.returnUrl);
+    console.log(this.returnUrl);
+    console.log(this.fromParent);    
     if (this.returnUrl == '/plans') {
       if(this.fromParent.price_duration_discount) {
         this.plan_price = this.fromParent.expected_rent / (30 / this.fromParent.price_duration_discount);

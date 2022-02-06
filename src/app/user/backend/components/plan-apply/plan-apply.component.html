@@ -19,20 +19,20 @@
                         </tr>
                         <tr>
                             <th scope="row">Expected Rent</th>
-                            <td>{{ response?.expected_rent }}</td>
+                            <td>{{ invoice_price }}</td>
                         </tr>
                         <tr>
                             <th scope="row">Property Rent</th>
-                            <td>{{ pro_response?.expected_rent }}</td>
+                            <td>{{product_price }}</td>
                         </tr>
                         <tr>
                             <th scope="row">Difference Amount</th>
-                            <td>{{ response?.expected_rent - pro_response?.expected_rent }}</td>
+                            <td>{{different_price }}</td>
                         </tr>
                     </tbody>
                 </table>
-                <p *ngIf="response?.expected_rent - pro_response?.expected_rent < 0">A total amount of {{ pro_response?.expected_rent - response?.expected_rent }} is pending.</p>
-                <p *ngIf="response?.expected_rent - pro_response?.expected_rent > 0">A total amount of {{ response?.expected_rent - pro_response?.expected_rent }} will be refunded.</p>
+                <p *ngIf="different_price < 0">A total amount of {{ different_price}} is pending.</p>
+                <p *ngIf="different_price > 0">A total amount of {{ different_price }} will be refunded.</p>
 
                 <button mat-raised-button color="primary" (click)="property_live(pro_response.expected_rent)">Make the property Live</button>
             </div>
