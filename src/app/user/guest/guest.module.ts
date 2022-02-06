@@ -55,6 +55,7 @@ import { NgxStarRatingModule } from 'ngx-star-rating';
 import { ClipboardModule } from 'ngx-clipboard';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { WhyChooseUsComponent } from './components/why-choose-us/why-choose-us.component';
+import { FaqComponent } from './components/faq/faq.component';
 
 @NgModule({
   declarations: [
@@ -99,6 +100,7 @@ import { WhyChooseUsComponent } from './components/why-choose-us/why-choose-us.c
     BankDetailsModalComponent,
     UserReviewModalComponent,
     WhyChooseUsComponent,
+    FaqComponent,
   ],
   imports: [
     CommonModule,
