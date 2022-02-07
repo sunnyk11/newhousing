@@ -135,35 +135,12 @@
         justify-content: space-between!important;
         align-items: center!important;
     }
-    
-    .no_property{
-        font-size: 40px;
-        font-weight: 600;
-        margin: 0px!important;
-        text-align: center;
-        padding: 15px 0px;
-        letter-spacing: 1.4px;
-    }
-    .no_property_row{
-        margin: 30px 0px!important;
-    }
 
 }
 @media(max-width: 768px) {      
     .listing_single_description .ul_details{
         display: contents!important;
-    }
-    .no_property{
-        font-size: 16px;
-        font-weight: 600;
-        margin: 0pximportrant;
-        text-align: center;
-        padding: 10px 0px;
-        letter-spacing: 1px;
-    }
-    .no_property_row{
-        margin: 20px 0px!important;
-    }
+    } 
     .lsd_list{
         margin-bottom: 15px!important;
     }       

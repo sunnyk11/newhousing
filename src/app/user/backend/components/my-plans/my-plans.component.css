@@ -3,3 +3,11 @@
         margin-top: 15px;
     }
 }
+a{
+    cursor: pointer!important;
+}
+p{
+    margin: 0px;
+    font-size: 18px;
+    font-weight: 600;
+}
