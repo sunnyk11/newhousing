@@ -164,7 +164,7 @@ export class VerifyMobileComponent implements OnInit {
                 this.router.navigate(['/payment-summary'], { queryParams: { 'orderID': this.letOutPlanData.data.order_id } });
               }
               else if (this.letOutPlanData.data.plan_type == 'Rent') {
-                this.plansPageService.crm_call(this.user_id).subscribe();
+                this.plansPageService.crm_call_appionment(this.user_id).subscribe();
                 this.router.navigate(['plans']);
                 this.openConfirmationModal();
               }
@@ -202,7 +202,7 @@ export class VerifyMobileComponent implements OnInit {
                 this.router.navigate(['/payment-summary'], { queryParams: { 'orderID': this.letOutPlanData.data.order_id } });
               }
               else if (this.letOutPlanData.data.plan_type == 'Rent') {
-                this.plansPageService.crm_call(this.user_id).subscribe();
+                this.plansPageService.crm_call_appionment(this.user_id).subscribe();
                 this.router.navigate(['plans']);
                 this.openConfirmationModal();
               }

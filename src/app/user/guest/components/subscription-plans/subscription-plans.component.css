@@ -9,6 +9,9 @@ hr {
 .strike_duration {
     text-decoration: line-through;
 }
+#Mymodal .modal-header{
+    flex-direction: row-reverse!important;
+}
 
 .discount_price {
     color: #00D100;

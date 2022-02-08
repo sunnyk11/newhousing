@@ -26,7 +26,9 @@
                         <tr>
                             <th></th>
                             <th class="text-center">
-                                <h4>{{ inv_response?.payment_status }}</h4>
+                                <h4>{{ inv_response?.payment_status }}
+                                    <span *ngIf="inv_response?.property_status != null"><strong>({{ inv_response?.property_status?.property_status}})</strong></span>
+                                </h4>
                             </th>
                         </tr>
                         <tr>

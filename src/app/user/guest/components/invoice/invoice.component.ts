@@ -54,14 +54,13 @@ export class InvoiceComponent implements OnInit {
 
     this.invoicePageService.getInvoiceData().subscribe(
       data => {
-        //console.log(data);
+        console.log(data);
         this.invoice_data = data;
         this.address = this.invoice_data.address.split(",");
         this.address1 = this.address[0];
         this.address2 = this.address[1];
         this.address3 = this.address[2];
         this.address4 = this.address[3];
-        //console.log(this.address);
         this.showLoadingIndicator = false;
       },
       err => {
@@ -72,32 +71,26 @@ export class InvoiceComponent implements OnInit {
     this.showLoadingIndicator = true;
     this.plansPageService.getInvoiceDetails(this.invoice_id).subscribe(
       res => {
-        //console.log(res);
-        this.response = res;
-        this.inv_response = this.response[0];
-        this.invoicePageService.getUserName(this.inv_response?.user_email).subscribe(
-          u_data => {
-            //console.log(u_data);
-            this.user_name = u_data;
-            this.user_name = this.user_name.data;
-          },
-          u_err => {
-            console.log(u_err);
-          }
-        );
-        this.sgst_amount = Math.round((this.invoice_data?.sgst * this.response[0].plan_price) / 100);
-        this.cgst_amount = Math.round((this.invoice_data?.cgst * this.response[0].plan_price) / 100);
+        console.log(res);
+        let data:any=res;
+        this.user_name = data.data.user_detail.name;
+        console.log(this.user_name);
+        this.response =  data.data;
+        this.inv_response = this.response;
+        console.log(this.inv_response);
+        this.sgst_amount = Math.round((this.invoice_data?.sgst * this.response.plan_price) / 100);
+        this.cgst_amount = Math.round((this.invoice_data?.cgst * this.response.plan_price) / 100);
 
         if (this.inv_response.plan_type == 'Rent') {
           this.plansPageService.getRentOrderDetails(this.inv_response.order_id).subscribe(
             res => {
               this.order_details = res;
               this.ord_details = this.order_details[0];
-              //console.log(this.order_details);
+              console.log(this.order_details);
 
               this.productService.get_product_details(this.ord_details?.property_id).subscribe(
                 data => {
-                  //console.log(data);
+                  console.log(data);
                   this.product_data = data;
                   this.product_data = this.product_data[0];
                 },

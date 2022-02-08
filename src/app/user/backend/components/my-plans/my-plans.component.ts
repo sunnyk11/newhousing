@@ -30,8 +30,9 @@ export class MyPlansComponent implements OnInit {
       this.myPlansService.getAllUserInvoices(this.userEmail).subscribe(
         res => {
           this.showLoadingIndicator = false;
-          this.response = res;
-          //console.log(this.response);
+          let data:any=res;
+          this.response = data.data;
+          console.log(this.response);
         },
         err => {  
           this.showLoadingIndicator = false;
@@ -66,8 +67,13 @@ export class MyPlansComponent implements OnInit {
   }
 
   moreDetails(plan_details: any) {
-    //console.log(plan_details);
+    console.log(plan_details);
     this.plan_det = plan_details;
+  }
+  
+  navigate(id:number,name:string){
+    const url:any = this.router.createUrlTree(['/product-preview'],{queryParams:{'id':id,'name':name}})
+      window.open(url.toString(), '_blank')
   }
 
 }

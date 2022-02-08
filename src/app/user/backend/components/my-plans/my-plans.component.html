@@ -35,6 +35,7 @@
                                 <th scope="col">Plan Amount</th>
                                 <th scope="col">Payment Status</th>
                                 <th scope="col">Date</th>
+                                <th scope="col">Available</th>
                                 <th>Details</th>
                             </tr>
                         </thead>
@@ -45,6 +46,12 @@
                                 <td>{{ credit.plan_price }}</td>
                                 <td>{{ credit.payment_status }}</td>
                                 <td>{{ credit.created_at | date: 'MMMM dd, yyyy' }}</td>
+                                <td>
+                                    <!-- <button type="button" class="btn btn-danger" *ngIf="credit.plan_status == 'used'">Used </button> -->
+                                    <p class="text-danger" *ngIf="credit.plan_status == 'used'">Used</p>
+                                    <!-- <button type="button" class="btn btn-success"  *ngIf="credit.plan_status == 'available'">Available</button> -->
+                                    <p class="text-success" *ngIf="credit.plan_status == 'available'">Available</p>
+                                </td>
                                 <td>
                                     <button type="button" class="btn btn-success" (click)="viewInvoice(credit.invoice_no)" *ngIf="credit.payment_status == 'PAID'">View Invoice</button>
                                     <button type="button" class="btn btn-danger" (click)="viewInvoice(credit.invoice_no)" *ngIf="credit.payment_status != 'PAID'">View
@@ -122,6 +129,14 @@
             <div class="modal-body">
                 <table class="table">
                     <tbody>
+                        <tr *ngIf="plan_det?.product_details != null" style="background-color: #bcbebf;">
+                            <th>Property </th>
+                            <td>
+                                <a (click)="navigate(plan_det?.product_details?.id,plan_det?.product_details?.build_name)">
+                                    {{plan_det?.product_details?.build_name}}
+                                </a>
+                            </td>
+                        </tr>
                         <tr>
                             <th>User Email: </th>
                             <td>{{ plan_det?.user_email }}</td>
@@ -137,6 +152,10 @@
                         <tr>
                             <th>Plan Name:</th>
                             <td>{{ plan_det?.plan_name }}</td>
+                        </tr>
+                        <tr>
+                            <th>Plan Availablty:</th>
+                            <td>{{ plan_det?.plan_status }}</td>
                         </tr>
                         <tr>
                             <th>Payment Type:</th>

@@ -271,8 +271,11 @@
                                     <hr>
                                 </li>
                             </ul>
-                            <a class="btn btn-block btn-success" (click)="plan_payment(letout_plan.plan_name, letout_plan.id, letout_plan.payment_type, letout_plan.plan_type, expected_rent_value, letout_plan.actual_price_days, letout_plan.discounted_price_days, letout_plan)">Select
+                            <!-- <a class="btn btn-block btn-success" (click)="plan_payment1(letout_plan.plan_name, letout_plan.id, letout_plan.payment_type, letout_plan.plan_type, expected_rent_value, letout_plan.actual_price_days, letout_plan.discounted_price_days, letout_plan)">Select
                                 Plan</a>
+                                 -->
+                                <a class="btn btn-block btn-success"  data-bs-toggle="modal" data-bs-target="#Mymodal" (click)="plan_payment_model(letout_plan.plan_name, letout_plan.id, letout_plan.payment_type, letout_plan.plan_type, expected_rent_value, letout_plan.actual_price_days, letout_plan.discounted_price_days, letout_plan)">Select
+                                    Plan</a>
                         </div>
                     </div>
                 </div>
@@ -325,7 +328,7 @@
                                         <hr>
                                     </li>
                                 </ul>
-                                <a class="btn btn-block btn-success" (click)="plan_payment(letout_plan.plan_name, letout_plan.id, letout_plan.payment_type, letout_plan.plan_type, expected_rent_value, letout_plan.actual_price_days, letout_plan.discounted_price_days, letout_plan)">Select
+                                <a class="btn btn-block btn-success" (click)="plan_payment_model(letout_plan.plan_name, letout_plan.id, letout_plan.payment_type, letout_plan.plan_type, expected_rent_value, letout_plan.actual_price_days, letout_plan.discounted_price_days, letout_plan)">Select
                                     Plan</a>
                             </div>
                         </div>
@@ -398,3 +401,41 @@
 
 <!-- Real Estate Agent -->
 <app-real-estate-agent></app-real-estate-agent>
+
+<!-- .modal -->
+<div class="modal fade" id="Mymodal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">
+                    &times;
+                </button> 
+                <h4 class="modal-title">
+                    Are you  statisfied this price for Property Live
+                </h4>                                                             
+            </div> 
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <label for="exp_rent" class="form-label">Select Expected Rent</label>
+                        <ngx-slider [(value)]="expected_rent_value" [options]="exp_rent_options"></ngx-slider>
+                    </div>
+                    <div class="col-lg-4 pt-4">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">&#8377;</span>
+                            <input type="text" class="form-control" [(ngModel)]="expected_rent_value">
+                        </div>
+                    </div>
+                </div>
+            </div>   
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-bs-dismiss="modal">
+                    Cancle
+                </button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="plan_payment(plan_name_model, plan_id_model, payment_type_model, plan_type_model, expected_rent_model, price_duration_actual_model, price_duration_discount_model, plan_features_model)" >
+                    Confirm
+                </button>                                 
+            </div>
+        </div>                                                                       
+    </div>                                      
+</div>

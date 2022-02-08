@@ -56,6 +56,7 @@ import { ClipboardModule } from 'ngx-clipboard';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { WhyChooseUsComponent } from './components/why-choose-us/why-choose-us.component';
 import { FaqComponent } from './components/faq/faq.component';
+import { ProductPreviewComponent } from './components/product-preview/product-preview.component';
 
 @NgModule({
   declarations: [
@@ -101,6 +102,7 @@ import { FaqComponent } from './components/faq/faq.component';
     UserReviewModalComponent,
     WhyChooseUsComponent,
     FaqComponent,
+    ProductPreviewComponent,
   ],
   imports: [
     CommonModule,

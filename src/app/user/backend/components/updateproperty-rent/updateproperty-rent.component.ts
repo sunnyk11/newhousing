@@ -172,7 +172,7 @@ export class UpdatepropertyRentComponent implements OnInit {
     this.form_step2 = this._formBuilder.group({
       address: ['', Validators.required],
       address_details: ['', Validators.required],
-      city: ['Delhi', Validators.required],
+      city: ['1', Validators.required],
       district_id: ['', Validators.required],
       locality: ['', Validators.required],
       locality_data: ['', Validators.required],

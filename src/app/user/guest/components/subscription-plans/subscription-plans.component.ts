@@ -55,6 +55,14 @@ export class SubscriptionPlansComponent implements OnInit {
   private userEmail: any;
   private plan_price: number = 0;
   public selected_plan_data: any;
+  public  plan_name_model:any;
+  public  plan_id_model:any;
+  public  payment_type_model:any;
+  public  expected_rent_model:any;
+  public  plan_type_model:any;
+  public  price_duration_discount_model:any;
+  public  price_duration_actual_model:any;
+  public  plan_features_model:any;
 
   public displayAlert: boolean = false;
 
@@ -108,19 +116,27 @@ export class SubscriptionPlansComponent implements OnInit {
     return "" !== n && (t = "," + t),
       n.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + t
   }
-
+  plan_payment_model(plan_name: any, plan_id: any, payment_type: any, plan_type: any, expected_rent: any, price_duration_actual: any, price_duration_discount:any, plan_features: any) {
+    this.plan_name_model=plan_name;
+    this.plan_id_model=plan_id;
+    this.payment_type_model=payment_type;
+    this.expected_rent_model=expected_rent;
+    this. plan_type_model=plan_type;
+    this.price_duration_actual_model=price_duration_actual;
+    this.price_duration_discount_model=price_duration_discount;
+    this.plan_features_model=plan_features;
+  }
   plan_payment(plan_name: any, plan_id: any, payment_type: any, plan_type: any, expected_rent: any, price_duration_actual: any, price_duration_discount:any, plan_features: any) {
     this.showLoadingIndicator = true;
     //console.log(plan_name, plan_id, payment_type, plan_type, expected_rent, price_duration_actual, price_duration_discount);
     let val = this.jwtService.getToken();
     if (val) {
-      //console.log("Logged In");
       //console.log(val);
       this.loginPageService.getUserPhoneDetails({ param: null }).subscribe(
         data => {
           this.showLoadingIndicator = false;
           this.user_phone_data = data;
-          //console.log(this.user_phone_data);
+          console.log(this.user_phone_data);
           if (this.user_phone_data !== 1) {
             //console.log("Mobile number not verified");
             this.returnUrl = this.router.url;
@@ -150,7 +166,7 @@ export class SubscriptionPlansComponent implements OnInit {
             formData.append('plan_price', this.plan_price);
             formData.append('plan_features_data', JSON.stringify(plan_features));
             //console.log(typeof(plan_features));
-            //console.log(formData);
+            console.log(plan_type);
 
             this.plansPageService.postSelectedPlan(formData).subscribe(
               res => {
@@ -160,7 +176,7 @@ export class SubscriptionPlansComponent implements OnInit {
                   this.router.navigate(['/payment-summary'], { queryParams: { 'orderID': this.selected_plan_data.data.order_id } });
                 }
                 else if (plan_type == 'Rent') {
-                  this.plansPageService.crm_call(this.user_id).subscribe();
+                  this.plansPageService.crm_call_appionment(this.user_id).subscribe();
                   this.openConfirmationModal();
                 }
               },

@@ -82,4 +82,8 @@ export class PlansPageService {
     const route = "/api/auth/crm_api_call";
     return this.apiService.post<ResultModel>(route, { id: reqModel });
   }
+  crm_call_appionment(reqModel: any): Observable<ResultModel> {
+    const route = "/api/auth/crm_call_appionment";
+    return this.apiService.post<ResultModel>(route, { id: reqModel });
+  }
 }

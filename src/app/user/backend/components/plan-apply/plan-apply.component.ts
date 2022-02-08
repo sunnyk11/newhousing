@@ -18,6 +18,9 @@ export class PlanApplyComponent implements OnInit {
   public diff_amount: any;
   public success_property: boolean=false;
   public success_invoice: boolean=false;
+  public invoice_price:any;
+  public product_price:any;
+  public different_price:any;
 
   constructor(
     private route: ActivatedRoute,
@@ -35,6 +38,9 @@ export class PlanApplyComponent implements OnInit {
         let res:any=response;
         this.response = res.order_details;
         this.pro_response = res.property_details;
+         this.product_price=this.pro_response?.expected_rent;
+        this.invoice_price=this.response?.expected_rent;
+        this.different_price=this.invoice_price - this.product_price;
       },
       err => {
       }

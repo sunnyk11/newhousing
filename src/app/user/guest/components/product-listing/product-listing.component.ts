@@ -668,10 +668,10 @@ export class ProductListingComponent implements OnInit {
     return num;
   }
   
-  sub_navigate(id:number,name:string,city:string){
+  sub_navigate(id:number,name:string){
     this.product_length=0;
     this.property_availablty=true;
-    this.router.navigate(['/product-details'],{queryParams:{'id':id,'name':name,'city':city}})
+    this.router.navigate(['/product-details'],{queryParams:{'id':id,'name':name}})
   }
   
   redirect_to_login(): void {
