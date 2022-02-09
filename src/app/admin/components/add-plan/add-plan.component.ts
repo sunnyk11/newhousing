@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormControl } from '@angular/forms';
 import { PlansService } from '../../services/plans.service';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-plan',
@@ -16,6 +17,7 @@ export class AddPlanComponent implements OnInit {
   public PlanForm: any;
 
   constructor(private fb: FormBuilder,
+    private router: Router,
     private plansService: PlansService,
     private toastr: ToastrService) {
       this.PlanForm = this.fb.group({
@@ -66,6 +68,7 @@ export class AddPlanComponent implements OnInit {
         //console.log(res);
         this.PlanForm.reset();
         this.toastr.success('Successfully created Plan');
+        this.router.navigate(['/admin/view-plans']);
       },
       err => {
         console.log(err);

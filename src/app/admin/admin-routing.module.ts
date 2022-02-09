@@ -27,6 +27,7 @@ const routes: Routes = [
   {
     path: '', component: MasterComponent,
     children: [
+      { path: "", component: LoginComponent },
       { path: "login", component: LoginComponent },
       { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
       { path: 'view-plans', component: ViewPlansComponent, canActivate: [AuthGuard, PermissionGuard], data: {
