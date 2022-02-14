@@ -36,7 +36,10 @@
                 <div class="mb-3">
                     <div class="row">
                         <div class="col-lg-12 text-center">
-                            <img [src]="imgURL ? imgURL : './../../assets/resources/images/noImageSelected.jpg'">
+                            <img class="blog_preview_img" [src]="imgURL" *ngIf="imgURL != null;else OtherImage">
+                            <ng-template #OtherImage>
+                            <img [src]="'./../../assets/resources/images/noImageSelected.jpg'">
+                            </ng-template>
                         </div>
                     </div>
                     <div class="row">
@@ -49,7 +52,7 @@
                 <div class="mb-3">
                     <label for="category" class="form-label">Select Category</label>
                     <select class="form-select w100" formControlName="category" [ngClass]="{ 'is-invalid': submitted && g.category.errors }">
-                        <option selected disabled [ngValue]="0">Select Category</option>
+                        <option selected disabled value="">Select Category</option>
                         <option *ngFor="let category of categories" [ngValue]="category.name">{{ category.name }}
                         </option>
                     </select>
