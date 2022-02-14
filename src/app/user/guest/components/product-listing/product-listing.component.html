@@ -767,7 +767,7 @@
                     </div>
                 </div>
 
-                <div class="mbp_pagination" *ngIf="product_length>0">
+                <div class="mbp_pagination" *ngIf="product_length>8">
                     <!-- {{user_bank_details.links | json}} -->
                     <ul class="page_navigation">
                         <li class="page-item" *ngFor="let link of property.data.links; index as i" [ngClass]="{'active' : link.active == true, 'disabled' : link.url == null}">

@@ -80,8 +80,8 @@
                 <div class="modal-body">
                     <form [formGroup]="EditUserForm" class="mt-4">
                         <div class="form-check col-lg-6 ps-4" formArrayName="EditRolesArray" *ngFor="let role of roles_response; let i = index">
-                            <input class="form-check-input" type="checkbox" [formControlName]="role.role_name">
-                            <label class="form-check-label">
+                            <input class="form-check-input" id="{{role.id}}" type="checkbox" [formControlName]="role.role_name">
+                            <label class="form-check-label" for="{{role.id}}">
                                 {{role.role_name}}
                             </label>
                         </div>

@@ -43,6 +43,6 @@ export class BlogService {
 
   deletePost(reqModel: any): Observable<ResultModel> {
     const route = "/api/posts/delete/";
-    return this.apiService.admin_delete<ResultModel>(route + reqModel);
+    return this.apiService.admin_post<ResultModel>(route + reqModel);
   }
 }

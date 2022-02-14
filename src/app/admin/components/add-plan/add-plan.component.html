@@ -10,6 +10,7 @@
                         <div class="input-group mb-3">
                             <label class="input-group-text" for="plan_type">Plan Type</label>
                             <select class="form-select" id="plan_type" formControlName="plan_type" [ngClass]="{ 'is-invalid': submitted && g.plan_type.errors }" name="plan_type" required>
+                                <option selected value="">Please Select Plan Type</option>
                                 <option value="Let Out">Let Out</option>
                                 <option value="Rent">Rent</option>
                             </select>
@@ -21,7 +22,7 @@
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon1">Plan Name</span>
-                            <input type="text" formControlName="planName" class="form-control" [ngClass]="{ 'is-invalid': submitted && g.planName.errors }" name="planName" id="planName" aria-describedby="basic-addon1" required>
+                            <input type="text" formControlName="planName" class="form-control" [ngClass]="{ 'is-invalid': submitted && g.planName.errors }" placeholder="Pleae Enter Plan Name" name="planName" id="planName" aria-describedby="basic-addon1" required>
                             <div *ngIf="submitted && g.planName.errors" class="invalid-feedback">
                                 <div *ngIf="g.planName.errors.required">Plan Name is required</div>
                             </div>
@@ -33,6 +34,7 @@
                         <div class="input-group mb-3">
                             <label class="input-group-text" for="payment_type">Payment Type</label>
                             <select class="form-select" id="payment_type" formControlName="payment_type" [ngClass]="{ 'is-invalid': submitted && g.payment_type.errors }" name="payment_type" required>
+                                <option selected value="">Please Select Payment Type</option>
                                 <option value="Advance">Advance</option>
                                 <option value="Post">Post</option>
                             </select>
@@ -44,7 +46,7 @@
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon1">Actual Price (Days)</span>
-                            <input type="number" class="form-control" formControlName="actualPrice" [ngClass]="{ 'is-invalid': submitted && g.actualPrice.errors }" name="actualPrice" id="actualPrice" required>
+                            <input type="number" class="form-control" formControlName="actualPrice" [ngClass]="{ 'is-invalid': submitted && g.actualPrice.errors }" placeholder=" Please Enter Actual Price" name="actualPrice" id="actualPrice" required>
                             <div *ngIf="submitted && g.actualPrice.errors" class="invalid-feedback">
                                 <div *ngIf="g.actualPrice.errors.required">Actual price is required</div>
                             </div>
@@ -56,6 +58,7 @@
                         <div class="input-group mb-3">
                             <label class="input-group-text" for="plan_status">Status</label>
                             <select class="form-select" id="plan_status" formControlName="plan_status" [ngClass]="{ 'is-invalid': submitted && g.plan_status.errors }" name="plan_status" required>
+                                <option selected value="">Please Select Plan Status</option>
                                 <option value="enabled">Enabled</option>
                                 <option value="disabled">Disabled</option>
                             </select>
@@ -68,6 +71,7 @@
                         <div class="input-group mb-3">
                             <label class="input-group-text" for="special_tag">Special Tag</label>
                             <select class="form-select" id="special_tag" formControlName="special_tag" [ngClass]="{ 'is-invalid': submitted && g.special_tag.errors }" name="special_tag" required>
+                                <option selected value="">Please Select </option>
                                 <option value="yes">Enabled</option>
                                 <option value="no">Disabled</option>
                             </select>
@@ -82,6 +86,7 @@
                         <div class="input-group mb-3">
                             <label class="input-group-text" for="discount_status">Discount</label>
                             <select class="form-select" id="discount_status" formControlName="discount_status" [ngClass]="{ 'is-invalid': submitted && g.discount_status.errors }" name="discount_status" (change)="changeDiscStatus($event)" required>
+                               <option selected value="">Please Select Discount</option>
                                 <option value="1">Yes</option>
                                 <option value="0">No</option>
                             </select>
@@ -93,7 +98,7 @@
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12" *ngIf="discount_stat">
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon1">Discounted Price (Days)</span>
-                            <input type="number" class="form-control" formControlName="discountPrice" [ngClass]="{ 'is-invalid': submitted && g.discountPrice.errors }" name="discountPrice" id="discountPrice">
+                            <input type="number" class="form-control" formControlName="discountPrice" placeholder="Please Enter Discounted Price (Days)" [ngClass]="{ 'is-invalid': submitted && g.discountPrice.errors }" name="discountPrice" id="discountPrice">
                             <div *ngIf="submitted && g.discountPrice.errors" class="invalid-feedback">
                                 <div *ngIf="g.discountPrice.errors.required">Discounted price is required</div>
                             </div>
@@ -104,7 +109,7 @@
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12" *ngIf="discount_stat">
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon1">Discount Percentage</span>
-                            <input type="number" class="form-control" formControlName="discount_per" [ngClass]="{ 'is-invalid': submitted && g.discount_per.errors }" name="discount_per" id="discount_per">
+                            <input type="number" class="form-control" formControlName="discount_per" placeholder="Please Enter Discount Percentage" [ngClass]="{ 'is-invalid': submitted && g.discount_per.errors }" name="discount_per" id="discount_per">
                             <div *ngIf="submitted && g.discount_per.errors" class="invalid-feedback">
                                 <div *ngIf="g.discount_per.errors.required">Please enter the percentage</div>
                             </div>
@@ -124,7 +129,7 @@
                         <tbody>
                             <tr *ngFor="let feature of feature_response?.features; let i = index">
                                 <th scope="row">{{ i+1 }}</th>
-                                <td>{{ feature.feature_name }} : {{ feature.feature_details }}</td>
+                                <td ><label for="{{ feature.id }}">{{ feature.feature_name }} : {{ feature.feature_details }}</label></td>
                                 <td formArrayName="features">
                                     <input class="form-check-input" type="checkbox" id="{{ feature.id }}" [formControlName]="feature.id">
                                 </td>

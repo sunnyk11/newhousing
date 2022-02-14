@@ -4,6 +4,7 @@ import { ConfirmedValidator } from 'src/app/user/guest/utils/validation';
 import { RolesService } from '../../services/roles.service';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-user',
@@ -24,6 +25,7 @@ export class CreateUserComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
     private rolesService: RolesService,
+    private router: Router,
     private toastr: ToastrService) { 
     this.UserForm = this.fb.group({
       userName: ['', Validators.required],
@@ -95,9 +97,19 @@ export class CreateUserComponent implements OnInit {
         //console.log(response);
         this.UserForm.reset();
         this.toastr.success('Successfully created User');
+        this.router.navigate(['/admin/view-internal-user']);
       },
       err => {
-        console.log(err);
+        if(err.error.errors.email){
+          this.toastr.error(err.error.errors.email, 'Something Error', {
+            timeOut: 3000,
+          });
+        }
+        else if(err.error.errors.other_mobile_number){
+          this.toastr.error(err.error.errors.other_mobile_number, 'Something Error', {
+            timeOut: 3000,
+          });
+        }
       }
     );
   }

@@ -118,6 +118,17 @@
     </div>
 </div>
 
+
+<div class="col-lg-12" *ngIf="getLetOutInvoicesLength() == 0 && getRentInvoicesLength() == 0">
+    <div class="my_dashboard_review mb40"> 
+        <div class="property_table">
+            <div class="table-responsive mt50 mb50">
+                <h3 style="text-align: center;">No Plan Available</h3>
+            </div>
+       </div>
+    </div>
+</div>
+
 <!-- Modal -->
 <div class="modal fade" id="MoreDetailsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
