@@ -29,7 +29,6 @@ export class CreateRoleComponent implements OnInit {
      }
 
   ngOnInit(): void {
-    
     this.get_permissions();
     this.selected_permision = new Array<string>();
   }
