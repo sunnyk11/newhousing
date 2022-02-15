@@ -9,9 +9,9 @@
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon1">Role Name</span>
-                            <input type="text" formControlName="roleName" class="form-control" [ngClass]="{ 'is-invalid': submitted && g.roleName.errors }" name="roleName" id="roleName" aria-describedby="basic-addon1" placeholder="Please Enter Role Name" required>
-                            <div *ngIf="submitted && g.roleName.errors" class="invalid-feedback">
-                                <div *ngIf="g.roleName.errors.required">Role Name is required</div>
+                            <input type="text" formControlName="role_name" class="form-control" [ngClass]="{ 'is-invalid': submitted && g.role_name.errors }" name="role_name" id="role_name" aria-describedby="basic-addon1" placeholder="Please Enter Role Name" required>
+                            <div *ngIf="submitted && g.role_name.errors" class="invalid-feedback">
+                                <div *ngIf="g.role_name.errors.required">Role Name is required</div>
                             </div>
                         </div>
                     </div>

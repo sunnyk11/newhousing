@@ -28,14 +28,14 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-6 col-sm-12">
+                    <div class="col-lg-6 col-sm-12" id="multiselect-dropdown1">
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon1">Sub-Locality</span>
                             <ng-multiselect-dropdown class="form-control sub_localty_dropdown" [placeholder]="'Select Sub-locality'" [settings]="dropdownSettings_sub_locality" [data]="dropdown_sublocality" formControlName="sub_locality">
                             </ng-multiselect-dropdown>
                         </div>
                     </div>
-                    <div class="col-lg-6 col-sm-12">
+                    <div class="col-lg-6 col-sm-12" id="multiselect-dropdown1">
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon1">Select Services</span>
                             <ng-multiselect-dropdown class="form-control sub_localty_dropdown" [placeholder]="'Select Services'" [settings]="dropdownSettings" [data]="dropdown_service" formControlName="service">
@@ -75,53 +75,53 @@
                             <td id="review_row">
                                 <div *ngIf="data?.user_review?.length>0; else Otherreview">
                                     <span *ngIf="(data.user_review | getAverage)  as result">
-                    {{result | number:'1.0-0'}}
-                    <a data-bs-toggle="modal" data-bs-target=".bd-example-modal-lg"
-                      (click)="user_details(data?.service_user?.user_id)">
-                      <span *ngIf="result >= 5">
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                      </span>
+                                        {{result | number:'1.0-0'}}
+                                        <a data-bs-toggle="modal" data-bs-target=".bd-example-modal-lg"
+                                        (click)="user_details(data?.service_user?.user_id)">
+                                        <span *ngIf="result >= 5">
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                        </span>
                                     </a>
                                     <a data-bs-toggle="modal" data-bs-target=".bd-example-modal-lg" (click)="user_details(data?.service_user?.user_id)">
-                      <span *ngIf="result<5 && result>=4">
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star-o" aria-hidden="true"></i>
-                      </span>
-                    </a>
+                                        <span *ngIf="result<5 && result>=4">
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                                        </span>
+                                        </a>
                                     <a data-bs-toggle="modal" data-bs-target=".bd-example-modal-lg" (click)="user_details(data?.service_user?.user_id)">
-                      <span *ngIf="result<4 && result>=3">
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star-o" aria-hidden="true"></i>
-                        <i class="fa fa-star-o" aria-hidden="true"></i>
-                      </span>
-                    </a>
+                                        <span *ngIf="result<4 && result>=3">
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                                        </span>
+                                        </a>
                                     <a data-bs-toggle="modal" data-bs-target=".bd-example-modal-lg" (click)="user_details(data?.service_user?.user_id)">
-                      <span *ngIf="result<3 && result>=2">
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star-o" aria-hidden="true"></i>
-                        <i class="fa fa-star-o" aria-hidden="true"></i>
-                        <i class="fa fa-star-o" aria-hidden="true"></i>
-                      </span>
-                    </a>
+                                        <span *ngIf="result<3 && result>=2">
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                                        </span>
+                                        </a>
                                     <a data-bs-toggle="modal" data-bs-target=".bd-example-modal-lg" (click)="user_details(data?.service_user?.user_id)">
-                      <span *ngIf="result<2 && result>=1">
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star-o" aria-hidden="true"></i>
-                        <i class="fa fa-star-o" aria-hidden="true"></i>
-                        <i class="fa fa-star-o" aria-hidden="true"></i>
-                        <i class="fa fa-star-o" aria-hidden="true"></i>
-                      </span>
-                    </a>
+                                        <span *ngIf="result<2 && result>=1">
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                                        </span>
+                                        </a>
                                     </span>
                                 </div>
                                 <ng-template #Otherreview>
@@ -145,11 +145,11 @@
                     <ul class="page_navigation">
                         <li class="page-item" *ngFor="let link of search_data.data.links; index as i" [ngClass]="{'active' : link.active == true, 'disabled' : link.url == null}">
                             <button type="button" (click)="gotoPage(link.url)" class="page-link">
-                <span *ngIf="link.label.indexOf('Previous') == -1 && link.label.indexOf('Next') == -1"
-                  [innerHTML]="link.label"></span>
-                <span *ngIf="link.label.indexOf('Previous') > -1" class="flaticon-left-arrow"></span>
-                <span *ngIf="link.label.indexOf('Next') > -1" class="flaticon-right-arrow"></span>
-              </button>
+                                    <span *ngIf="link.label.indexOf('Previous') == -1 && link.label.indexOf('Next') == -1"
+                                    [innerHTML]="link.label"></span>
+                                    <span *ngIf="link.label.indexOf('Previous') > -1" class="flaticon-left-arrow"></span>
+                                    <span *ngIf="link.label.indexOf('Next') > -1" class="flaticon-right-arrow"></span>
+                                </button>
                         </li>
                     </ul>
                 </div>
@@ -228,7 +228,7 @@
                                         <div class="col-lg-4" id="percentage_heading">
                                             <h5>{{percentage | number : '1.0-0'}}%
                                                 <span style="color:#ff5a5f;padding-left: 15px;"><i class="fa fa-user"
-                            aria-hidden="true"></i>({{number.users}})</span>
+                                               aria-hidden="true"></i>({{number.users}})</span>
                                             </h5>
                                         </div>
                                     </div>
@@ -332,9 +332,9 @@
                             </div>
                         </div>
 
-                        <!-- <ng-template #other_section>
-            <h3 style="font-size: 20px;margin:20px;">This Service Reviews Are not Available</h3>
-          </ng-template> -->
+                                    <!-- <ng-template #other_section>
+                        <h3 style="font-size: 20px;margin:20px;">This Service Reviews Are not Available</h3>
+                    </ng-template> -->
                     </div>
                 </div>
             </div>

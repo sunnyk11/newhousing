@@ -31,6 +31,7 @@ import { BlogComponent } from './components/blog/blog.component';
 import { UserLogsGuard } from './guards/user-logs.guard';
 import { FaqComponent } from './components/faq/faq.component';
 import { ProductPreviewComponent } from './components/product-preview/product-preview.component';
+import { NotfoundComponentComponent } from '../components/notfound-component/notfound-component.component';
 //custom component imports
 
 const routes: Routes = [
@@ -63,7 +64,8 @@ const routes: Routes = [
         { path: 'blog-single-post/:slug', component: BlogSinglePostComponent,canActivate:  [UserLogsGuard]},
         { path: 'blog', component: BlogComponent,canActivate:  [UserLogsGuard] },
         { path: 'product-preview', component: ProductPreviewComponent,canActivate:  [UserLogsGuard] },
-        { path: 'faq', component: FaqComponent }
+        { path: 'faq', component: FaqComponent },
+        // {path: '**', component: NotfoundComponentComponent}
       ]
     }
 ];

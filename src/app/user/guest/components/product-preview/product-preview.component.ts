@@ -112,6 +112,15 @@ export class ProductPreviewComponent implements OnInit {
             // slider functionalty
             this.product_images = this.product_data.product_img;
             this.product_img_length = this.product_data.product_img.length;
+            if(this.product_img_length>0){
+              for(let i=0;i<this.product_img_length; i++){
+                this.imageObject.push({
+                  image:this.ftpstring+this.product_images[i]["image"],
+                  thumbImage:this.ftpstring+this.product_images[i]["image"],
+                  title: this.product_data.build_name
+              });
+              }               
+            }
             if(this.product_details.data.rent_availability ==1){
               this.security_dep_amount = Number(this.product_details.data.expected_rent) * Number(this.product_details.data.security_deposit);
               this.total_amount_owner =  Number(this.product_details.data.expected_rent) + Number(this.security_dep_amount) + Number(this.product_data.maintenance_charge);

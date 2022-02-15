@@ -89,7 +89,13 @@ export class CreateBlogPostComponent implements OnInit {
   }
 
   onFileChange(event:any) {
-
+    let files:any = event.target.files;
+    const mimeType = files[0].type;
+    if (mimeType.match(/image\/*/) == null) {
+      this.toastr.error("Only Image (jpg,jpeg,png) Supported");
+      this.blogForm.patchValue({ postImage:''});
+      return;
+    }
     this.selectedFile = event.target.files[0];
     //console.log(this.selectedFile);
     this.files = event.target.files;
@@ -140,6 +146,7 @@ export class CreateBlogPostComponent implements OnInit {
         this.blogForm.reset({});
         this.imgURL = null;
         this.selectedFile = null;
+        this.router.navigate(['/admin/view-blog-posts']);
       },
       err => {
         console.log(err);

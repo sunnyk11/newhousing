@@ -1,0 +1,28 @@
+
+@media(min-width: 768px) {  
+    .no_property{
+         font-size: 40px;
+         font-weight: 600;
+         margin: 0px!important;
+         text-align: center;
+         padding: 15px 0px;
+         letter-spacing: 1.4px;
+     }
+     .no_property_row{
+         margin: 20px 0px!important;
+     }
+ 
+ }
+ @media(max-width: 768px) {      
+     .no_property{
+         font-size: 16px;
+         font-weight: 600;
+         margin: 0pximportrant;
+         text-align: center;
+         padding: 10px 0px;
+         letter-spacing: 1px;
+     }
+     .no_property_row{
+         margin: 20px 0px!important;
+     }
+ }

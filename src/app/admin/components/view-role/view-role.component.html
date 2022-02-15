@@ -62,8 +62,8 @@
                 <div class="modal-body">
                     <form [formGroup]="EditRoleForm" class="mt-4">
                         <div class="form-check col-lg-6 ps-4" formArrayName="EditPermissionsArray" *ngFor="let permission of edit_role_permissions_response; let i = index">
-                            <input class="form-check-input" type="checkbox" [formControlName]="permission.permission_name">
-                            <label class="form-check-label">
+                            <input class="form-check-input" type="checkbox" id="{{permission.id}}" [formControlName]="permission.permission_name">
+                            <label class="form-check-label" for="{{permission.id}}">
                                 {{permission.description}}
                             </label>
                         </div>

@@ -22,7 +22,7 @@ export class CreateRoleComponent implements OnInit {
     private rolesService: RolesService,
     private toastr: ToastrService) {
       this.RoleForm = this.fb.group({
-        roleName: ['', Validators.required],
+        role_name: ['', Validators.required],
         roleDesc: [''],
         permissionsArray: this.fb.group([])
       });
@@ -69,15 +69,27 @@ export class CreateRoleComponent implements OnInit {
     //console.log(this.f);
     this.rolesService.createRole(this.RoleForm.value).subscribe(
       response => {
-        //console.log(response);
-        this.toastr.success('Successfully created Role');
-        this.router.navigate(['/admin/view-role']);
+        // console.log(response.);
+        let data:any=response;
+        console.log(data);
+        if(data.message == 'FAIL'){
+          this.toastr.error('Atleast One Selected Permission', 'Something Error', {
+            timeOut: 3000,
+          });
+        }
+        if(data.message == 'SUCCESS'){
+          this.toastr.success('Successfully created Role');
+          this.router.navigate(['/admin/view-role']);
+          this.RoleForm.reset();
+        }
       },
       err => {
-        console.log(err);
+        // console.log(err.error.errors.role_name);
+        this.toastr.error(err.error.errors.role_name, 'Something Error', {
+          timeOut: 3000,
+        });
       }
     );
-    this.RoleForm.reset();
   }
 
 }

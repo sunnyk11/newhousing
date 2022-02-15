@@ -46,8 +46,8 @@
                         <label for="formFile" class="form-label" *ngIf="isAddMode">Select Post Image</label>
                         <label for="formFile" class="form-label" *ngIf="!isAddMode">Change Post Image</label>
                     </div>
-                    <input class="form-control" type="file" id="formFile" *ngIf="isAddMode" formControlName="postImage" [ngClass]="{ 'is-invalid': submitted && g.postImage.errors }" (change)="onFileChange($event)">
-                    <input class="form-control" type="file" id="formFile" *ngIf="!isAddMode" formControlName="postImage" (change)="onFileChange($event)">
+                    <input class="form-control" type="file" id="formFile" *ngIf="isAddMode" formControlName="postImage" accept=".jpg,.png,.jpeg" [ngClass]="{ 'is-invalid': submitted && g.postImage.errors }" (change)="onFileChange($event)">
+                    <input class="form-control" type="file" id="formFile" *ngIf="!isAddMode" formControlName="postImage" accept=".jpg,.png,.jpeg" (change)="onFileChange($event)">
                 </div>
                 <div class="mb-3">
                     <label for="category" class="form-label">Select Category</label>

@@ -30,7 +30,7 @@
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon1">+91</span>
-                            <input type="number" class="form-control" formControlName="other_mobile_number" [ngClass]="{ 'is-invalid': submitted && f.other_mobile_number.errors }" placeholder="Mobile Number" name="other_mobile_number" minlength="10" maxlength="10" id="other_mobile_number"
+                            <input type="text" class="form-control" formControlName="other_mobile_number" [ngClass]="{ 'is-invalid': submitted && f.other_mobile_number.errors }" placeholder="Mobile Number" name="other_mobile_number" minlength="10" maxlength="10" id="other_mobile_number"
                                 pattern="[0-9]{10}" required>
                             <div *ngIf="submitted && f.other_mobile_number.errors" class="invalid-feedback">
                                 <div *ngIf="f.other_mobile_number.errors.required">Phone number is required</div>
@@ -95,7 +95,7 @@
                                 <option *ngFor="let role of roles_response" value="{{ role.id }}">{{ role.role_name }}</option>
                             </select> -->
                             <div class="col-lg-9 col-md-12 col-sm-8 col-8">
-                                <ng-multiselect-dropdown class="form-control" [settings]="dropdownSettings" [data]="dropdownList" formControlName="userRole" [ngClass]="{ 'is-invalid': submitted && f.userRole.errors }" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)"
+                                <ng-multiselect-dropdown class="form-control" [settings]="dropdownSettings" [data]="dropdownList" formControlName="userRole" [ngClass]="{ 'is-invalid': submitted && f.userRole.errors }"  [placeholder]="'Please Select Roles'" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)"
                                     required>
                                 </ng-multiselect-dropdown>
                             </div>
