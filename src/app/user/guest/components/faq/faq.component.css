@@ -10,3 +10,36 @@
     color: #ff5a5f;
     background-color: #f7f7f7;
 }
+li{
+    margin: 10px 0px;
+    text-transform: capitalize;
+    letter-spacing: 1px;
+    line-height: 24px;
+    font-weight: 600;
+}
+.accordion-body{
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0.8px;
+    text-transform: capitalize;
+    line-height: 30px;
+}
+
+
+@media(max-width: 768px) {
+    .p-5 {
+        padding: 30px 20px!important;
+    }
+    #nav-owner-tab{
+        font-size: 14px!important;
+    }
+    #nav-renter-tab{
+        font-size: 14px!important;
+    }
+    #nav-tab{
+        display: -webkit-box!important;
+    }
+    .nav-pills .nav-link{
+        width: 50%!important;
+    }
+}

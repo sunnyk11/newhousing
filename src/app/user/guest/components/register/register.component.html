@@ -101,6 +101,7 @@
                                 <div class="input-group mb-3">
                                     <label class="input-group-text" for="inputGroupSelect01">Gender</label>
                                     <select class="form-select" id="inputGroupSelect01" formControlName="gender" [ngClass]="{ 'is-invalid': submitted && f.gender.errors }" name="gender" required>
+                                       <option value="" selected>Please Select Gender</option>
                                         <option value="male">Male</option>
                                         <option value="female">Female</option>
                                     </select>
