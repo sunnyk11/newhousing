@@ -3016,6 +3016,7 @@ input[type="range"]::-ms-fill-upper {
 
 .single_page_listing_tab {
     position: relative;
+    padding-top: 6rem!important;
 }
 
 .home10-mainslider {
@@ -4860,6 +4861,9 @@ agm-map {
 
 .modal-backdrop {
     display: none;
+}
+.bg-secondary{
+    padding: 5rem 3rem 3rem 3rem!important;
 }
 
 #ProfileImageModal::before,

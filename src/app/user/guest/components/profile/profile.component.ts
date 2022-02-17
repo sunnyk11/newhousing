@@ -139,11 +139,11 @@ export class ProfileComponent implements OnInit {
             break;
           }
           case 4: {
-            this.user_cat = "Builder";
+            this.user_cat = "Property Owner";
             break;
           }
           case 5: {
-            this.user_cat = "Individual";
+            this.user_cat = "Renter";
             break;
           }
           case 8: {
