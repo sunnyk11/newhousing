@@ -23,14 +23,30 @@ a:active {
     align-items: center;
 }
 
-mat-toolbar {
-    border-radius: 3px;
-    border-bottom: 1px solid darkgrey;
-    background: #fff;
-    font-weight: 300;
-    font-size: 18px;
-    line-height: 32px;
-    position: relative;
+@media(max-width: 768px) {
+    mat-toolbar {
+        border-radius: 3px;
+        border-bottom: 1px solid darkgrey;
+        background: #fff;
+        font-weight: 300;
+        font-size: 18px;
+        line-height: 32px;
+        position: fixed;
+        width: 100%!important;
+    }
+}
+
+@media(min-width: 769px) {
+    mat-toolbar {
+        border-radius: 3px;
+        border-bottom: 1px solid darkgrey;
+        background: #fff;
+        font-weight: 300;
+        font-size: 18px;
+        line-height: 32px;
+        position: fixed;
+        width: 99%!important;
+    }
 }
 
 .material-icons {
