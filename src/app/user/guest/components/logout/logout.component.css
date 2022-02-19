@@ -1,0 +1,10 @@
+@media(min-width: 768px) {
+    .wrapper_container{
+        padding: 8rem 3rem 3rem!important;
+    }
+}
+@media(max-width: 768px) {
+    .wrapper_container{
+        padding: 8rem 2rem 2rem!important;
+    }
+}

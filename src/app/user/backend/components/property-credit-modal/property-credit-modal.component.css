@@ -12,6 +12,10 @@
       margin-left: 8px;
   }
   
+#Mymodal .modal-header{
+    flex-direction: row-reverse!important;
+}
+  
   .checkmark {
       color: #00D100;
   }

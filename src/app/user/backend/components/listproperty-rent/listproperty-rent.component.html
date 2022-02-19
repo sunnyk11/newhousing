@@ -127,7 +127,7 @@
                         <div class="row mt-3">
                             <div class="col-md-12">
                                 <label for="property_desc" class="form-label">Property Description</label>
-                                <textarea class="form-control" aria-label="With textarea" id="property_desc" formControlName="property_desc" [ngClass]="{ 'is-invalid': submitted1 && step1.property_desc.errors }"  (keypress)="alphaNumberOnly($event)" (paste)="onPaste($event)"></textarea>
+                                <textarea class="form-control" aria-label="With textarea" id="property_desc" formControlName="property_desc" [ngClass]="{ 'is-invalid': submitted1 && step1.property_desc.errors }" ></textarea>
                             </div>
                         </div>
                     </form>
@@ -197,7 +197,7 @@
                                     </div>
 
                                </div> 
-                                <input #search autocorrect="off" autocapitalize="on" spellcheck="off" formControlName="address" [ngClass]="{ 'is-invalid': submitted2 && step2.map_longitude.errors }" (ngModelChange)="map_address($event)" class="form-control input-text" (keypress)="alphaNumberOnly($event)" (paste)="onPaste($event)" placeholder="Enter Address" />
+                                <input #search autocorrect="off" autocapitalize="on" spellcheck="off" formControlName="address" [ngClass]="{ 'is-invalid': submitted2 && step2.map_longitude.errors }" (ngModelChange)="map_address($event)" class="form-control input-text" placeholder="Enter Address" />
                                 <button class="btn btn-primary mb10 btn_location_map" (click)="getLocation()">Show My Localion</button>
                                 <span class="flaticon-maps-and-flags" style="position: absolute;top: 40px; right: 80px"></span>
                                 <agm-map style="height: 300px;" [latitude]="latCus" [longitude]="longCus" [zoom]="15" class="main-card-agm-map" *ngIf="map_show == true">
@@ -214,7 +214,7 @@
                             </div>
                             <div class="col-md-12  mt-3">
                                 <label for="property_desc" class="form-label">Full Address</label>
-                                <textarea class="form-control" aria-label="With textarea" id="property_desc" formControlName="address_details" [ngClass]="{ 'is-invalid': submitted2 && step2.address_details.errors }" (keypress)="alphaNumberOnly($event)" (paste)="onPaste($event)"></textarea>
+                                <textarea class="form-control" aria-label="With textarea" id="property_desc" formControlName="address_details" [ngClass]="{ 'is-invalid': submitted2 && step2.address_details.errors }"></textarea>
                             </div>
                         </div>
                         <div class="row mt-3">
@@ -547,10 +547,10 @@
                                     <option value="1">Yes</option>
                                 </select>
                             </div>
-                            <div class="col-md-6">
+                            <!-- <div class="col-md-6">
                                 <label for="video_link" class="form-label">Property Video Link (You Tube)</label>
                                 <input type="text" class="form-control" id="video_link" formControlName="video_link">
-                            </div>
+                            </div> -->
                         </div>
                         <div class="row mt-3" *ngIf="maintenance_row == true">
                             <div class="col-lg-6 col-12">

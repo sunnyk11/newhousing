@@ -27,6 +27,7 @@ export class PropertyCreditModalComponent implements OnInit {
   public usertype: any;
   public plan_price: any;
   public step: number = 0;
+  public current_invoice_no:any;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
     private PlansServiceService: PlansServiceService,
@@ -50,6 +51,10 @@ export class PropertyCreditModalComponent implements OnInit {
         this.showLoadingIndicator = false;
       }
     );
+  }
+  confirmation_modal(invoice_no: any){
+    this.current_invoice_no=invoice_no;
+
   }
 
   apply_plan(invoice_no: any) {

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder,Validators } from '@angular/forms';
 import { ContactPageService } from '../../services/contact-page.service';
 import { ToastrService } from 'ngx-toastr';
-
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-contact',
   templateUrl: './contact.component.html',
@@ -14,6 +14,7 @@ export class ContactComponent implements OnInit {
   public showLoadingIndicator: boolean =false;
   public errorMessage: any;
   public submitted: boolean = false;
+  public toll_free=environment.toll_free;
 
   contactForm = this.fb.group({
     name: ['', Validators.required],

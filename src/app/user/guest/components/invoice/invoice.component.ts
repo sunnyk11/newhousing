@@ -6,6 +6,7 @@ import { ProductPageService } from '../../services/product-page.service';
 import { ToWords } from 'to-words';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import { environment } from 'src/environments/environment';
 
 const toWords = new ToWords();
 
@@ -22,6 +23,7 @@ export class InvoiceComponent implements OnInit {
 
   public invoice_id: any;
   private response: any;
+  public toll_free=environment.toll_free;
   public inv_response: any;
   public sgst_amount: any;
   public cgst_amount: any;
