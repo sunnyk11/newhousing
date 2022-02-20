@@ -35,7 +35,10 @@
                             <td>{{ data.plan_price }}</td>
                             <td>{{ data.expected_rent }}</td>
                             <td>
-                                <button type="button" class="btn btn-success" *ngIf="data.payment_received != 'Pending'" (click)="apply_plan(data.invoice_no)">Use Plan</button>
+                                <button type="button" class="btn btn-success" *ngIf="data.payment_received != 'Pending'" data-bs-toggle="modal" data-bs-target="#Mymodal" (click)="confirmation_modal(data.invoice_no)" >
+                                
+                                    Use Plan
+                                </button>
                                 <button type="button" disabled class="btn btn-danger" *ngIf="data.payment_received == 'Pending'">Use
                                     Plan</button>
                             </td>
@@ -114,3 +117,31 @@
     <button mat-button mat-dialog-close>Close</button>
     <!--<button mat-button [mat-dialog-close]="true" cdkFocusInitial>Make Live</button>-->
 </mat-dialog-actions>
+
+
+<!-- .modal -->
+<div class="modal fade" id="Mymodal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">
+                    &times;
+                </button> 
+                <h4 class="modal-title">
+                    Are you  statisfied this price for Property Live
+                </h4>                                                             
+            </div> 
+            <div class="modal-body">
+              <p>This Plan used Only Single Current Property</p>
+            </div>   
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-bs-dismiss="modal">
+                    Cancle
+                </button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="apply_plan(current_invoice_no)">
+                    Confirm
+                </button>                                 
+            </div>
+        </div>                                                                       
+    </div>                                      
+</div>

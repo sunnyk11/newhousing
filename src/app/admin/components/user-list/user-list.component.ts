@@ -53,7 +53,7 @@ export class UserListComponent implements OnInit {
       response => {
         let data:any=response;
         this.get_userlist();
-        this.toastr.error('Delete Successfully', 'User Bank details', {
+        this.toastr.error('Delete Successfully', 'User details', {
           timeOut: 3000,
         });
         this.showLoadingIndicator =false;

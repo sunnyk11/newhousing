@@ -1,7 +1,9 @@
 .strike_duration {
     text-decoration: line-through;
 }
-
+.container{
+    padding-top: 140px!important;
+}
 .discount_price {
     color: #00D100;
     background: beige;

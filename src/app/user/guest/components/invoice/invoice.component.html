@@ -25,9 +25,15 @@
                         </tr>
                         <tr>
                             <th></th>
-                            <th class="text-center">
-                                <h4>{{ inv_response?.payment_status }}
+                            <th class="text-center" *ngIf="inv_response?.property_status?.property_status != null">
+                                <h4>{{ inv_response?.property_status?.payment_status }}
                                     <span *ngIf="inv_response?.property_status?.property_status != null"><strong>({{ inv_response?.property_status?.property_status}})</strong></span>
+                                </h4>
+                            </th>
+                            
+                            <th class="text-center" *ngIf="inv_response?.property_status?.property_status == null">
+                                <h4>{{ inv_response?.payment_status }}
+                                    <!-- <span *ngIf="inv_response?.property_status?.property_status != null"><strong>({{ inv_response?.property_status?.property_status}})</strong></span> -->
                                 </h4>
                             </th>
                         </tr>
@@ -43,7 +49,7 @@
                         </tr>
                         <tr>
                             <th>
-                                <h4><strong>GSTIN No:</strong> {{ invoice_data?.gstin }}<br><strong>PAN No:</strong> {{ invoice_data?.pan_no }}</h4>
+                                <h4><strong>GSTIN No:</strong> {{ invoice_data?.gstin }}<br><strong>PAN No:</strong> {{ invoice_data?.pan_no }}<br><strong>Toll Free No:</strong> <a href="tel:toll_free" >{{toll_free}} </a></h4>
                             </th>
                             <th></th>
                         </tr>

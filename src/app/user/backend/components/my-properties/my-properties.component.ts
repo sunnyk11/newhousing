@@ -21,7 +21,7 @@ export class MyPropertiesComponent implements OnInit {
   public p:number=0;
   public d:number=0;
   public agentproperty:any=[];
-  public product_length:number=0;
+  public product_length:any;
   public draftproperty:any=[];
   public draft_pro_length:number=0;
   public showLoadingIndicator:boolean=false;
