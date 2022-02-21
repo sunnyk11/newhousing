@@ -164,7 +164,7 @@
                             <th>Plan Name:</th>
                             <td>{{ plan_det?.plan_name }}</td>
                         </tr>
-                        <tr>
+                        <tr *ngIf="plan_det?.plan_type == 'Let Out'">
                             <th>Plan Availablty:</th>
                             <td>{{ plan_det?.plan_status }}</td>
                         </tr>

@@ -33,7 +33,14 @@ export class PaymentSummaryComponent implements OnInit {
   constructor(private route: ActivatedRoute,
     private plansPageService: PlansPageService,
     private router: Router,
-    private toastr: ToastrService) { }
+    private toastr: ToastrService) { 
+      
+      if(this.route.snapshot.queryParams['orderID'].length>3){
+        this.order_id = this.route.snapshot.queryParams['orderID'];      
+      } else {
+        this.redirect_to_previous_page();
+      }
+    }
 
   ngOnInit(): void {
     this.showLoadingIndicator = true;
@@ -44,11 +51,15 @@ export class PaymentSummaryComponent implements OnInit {
         this.showLoadingIndicator = false;
         //console.log(res);
         this.response = res;
-        this.order_response = this.response[0];
-        this.price_amount = this.order_response.plan_price;
-        this.gst_amount = Math.round((18 * this.price_amount) / 100);
-        this.total_amount = this.price_amount + this.gst_amount;
-        this.payment_type = this.order_response.payment_type;
+        if( this.response[0]  != null){  
+            this.order_response = this.response[0];
+            this.price_amount = this.order_response.plan_price;
+            this.gst_amount = Math.round((18 * this.price_amount) / 100);
+            this.total_amount = this.price_amount + this.gst_amount;
+            this.payment_type = this.order_response.payment_type;
+        }else{
+          this.redirect_to_previous_page();
+        }
       },
       err => {
         this.showLoadingIndicator = false;
@@ -133,4 +144,7 @@ export class PaymentSummaryComponent implements OnInit {
     );
   }
 
+  redirect_to_previous_page(): void {
+    this.router.navigate(['/plans'])
+  }
 }

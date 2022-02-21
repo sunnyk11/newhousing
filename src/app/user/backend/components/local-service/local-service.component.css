@@ -3,6 +3,9 @@
     align-items: flex-end;
     justify-content: center!important;
 }
+.container{
+    padding-top: 30px!important;
+}
 
 .search-column button {
     width: 100%;

@@ -66,12 +66,12 @@
                                 </label>
                             </div>
 
-                            <div class="form-check form-check-inline">
+                            <!-- <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="payment" id="cash_payment" value="Cash" (change)="changePayment($event)">
                                 <label class="form-check-label" for="cash_payment">
                                     Payment By Cash
                                 </label>
-                            </div>
+                            </div> -->  
                             <button class="btn btn-success" *ngIf="online_pay_btn" (click)="proceedToPayment(response.order_id)">Proceed to Payment</button>
                             <button class="btn btn-info" *ngIf="cash_pay_btn" (click)="generateInvoice(response.order_id)">Generate Invoice</button>
                         </div>
