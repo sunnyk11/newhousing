@@ -1,7 +1,7 @@
 <div *ngIf="showLoadingIndicator">
     <div class="preloader"></div>
 </div>
-<div class="container">
+<div class="container1 container ">
     <div class="row">
         <div class="col-lg-8">
             <div class="card text-center mb20">
@@ -69,12 +69,12 @@
                                 </label>
                             </div>
 
-                            <div class="form-check form-check-inline">
+                            <!-- <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="payment" id="cash_payment" value="Cash" (change)="changePayment($event)">
                                 <label class="form-check-label" for="cash_payment">
                                     Payment By Cash
                                 </label>
-                            </div>
+                            </div> -->
                             <button class="btn btn-success" *ngIf="online_pay_btn" (click)="proceedToPayment(order_response.order_id)">Proceed to Payment</button>
                             <button class="btn btn-info" *ngIf="cash_pay_btn" (click)="generateInvoice(order_response.order_id)">Generate Invoice</button>
                         </div>

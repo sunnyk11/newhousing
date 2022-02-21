@@ -29,19 +29,27 @@ export class PaymentSummaryComponent implements OnInit {
     private PlansServiceService:PlansServiceService,
     private route: ActivatedRoute,
     private router: Router
-    ) { }
+    ) {
+      if(this.route.snapshot.queryParams['orderID'].length>3){
+        this.order_id = this.route.snapshot.queryParams['orderID'];      
+      } else {
+        this.redirect_to_previous_page();
+      }
+     }
 
   ngOnInit(): void{
-    this.order_id = this.route.snapshot.queryParams['orderID'];
     this.PlansServiceService.getOrderDetails(this.order_id).subscribe(
       response => {
-        //console.log(response);
         this.response_data = response;
         this.response=this.response_data[0];
-        this.price_amount = this.response_data[0].plan_price;
-        this.gst_amount = Math.round((18 * this.price_amount) / 100);
-        this.total_amount = this.price_amount + this.gst_amount;
-        this.payment_type = this.response_data[0].payment_type;
+        if( this.response_data[0]  != null){  
+            this.price_amount = this.response_data[0].plan_price;
+            this.gst_amount = Math.round((18 * this.price_amount) / 100);
+            this.total_amount = this.price_amount + this.gst_amount;
+            this.payment_type = this.response_data[0].payment_type;
+        }else{
+          this.redirect_to_previous_page();
+        }
       },
       err => {
          console.log(err);
@@ -113,6 +121,10 @@ export class PaymentSummaryComponent implements OnInit {
       }
     );
  }
+ 
+ redirect_to_previous_page(): void {
+  this.router.navigate(['/plans'])
+}
 
 
 }

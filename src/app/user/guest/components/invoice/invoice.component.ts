@@ -47,6 +47,11 @@ export class InvoiceComponent implements OnInit {
     private router: Router,
     private invoicePageService: InvoicePageService,
     private productService: ProductPageService) {
+      if(this.route.snapshot.queryParams['invoice_no'].length>3){
+        this.invoice_id = this.route.snapshot.queryParams['invoice_no'];     
+      } else {
+        this.redirect_to_previous_page();
+      }
   }
 
   ngOnInit(): void {
@@ -56,7 +61,6 @@ export class InvoiceComponent implements OnInit {
 
     this.invoicePageService.getInvoiceData().subscribe(
       data => {
-        console.log(data);
         this.invoice_data = data;
         this.address = this.invoice_data.address.split(",");
         this.address1 = this.address[0];
@@ -73,55 +77,55 @@ export class InvoiceComponent implements OnInit {
     this.showLoadingIndicator = true;
     this.plansPageService.getInvoiceDetails(this.invoice_id).subscribe(
       res => {
-        console.log(res);
         let data:any=res;
-        this.user_name = data.data.user_detail.name;
-        console.log(this.user_name);
         this.response =  data.data;
-        this.inv_response = this.response;
-        console.log(this.inv_response);
-        this.sgst_amount = Math.round((this.invoice_data?.sgst * this.response.plan_price) / 100);
-        this.cgst_amount = Math.round((this.invoice_data?.cgst * this.response.plan_price) / 100);
+        
+        if(this.response  != null){
+          this.user_name = data.data.user_detail.name;  
+          this.inv_response = this.response;
+          this.sgst_amount = Math.round((this.invoice_data?.sgst * this.response.plan_price) / 100);
+          this.cgst_amount = Math.round((this.invoice_data?.cgst * this.response.plan_price) / 100);
 
-        if (this.inv_response.plan_type == 'Rent') {
-          this.plansPageService.getRentOrderDetails(this.inv_response.order_id).subscribe(
-            res => {
-              this.order_details = res;
-              this.ord_details = this.order_details[0];
-              console.log(this.order_details);
+          if (this.inv_response.plan_type == 'Rent') {
+            this.plansPageService.getRentOrderDetails(this.inv_response.order_id).subscribe(
+              res => {
+                this.order_details = res;
+                this.ord_details = this.order_details[0];
 
-              this.productService.get_product_details(this.ord_details?.property_id).subscribe(
-                data => {
-                  console.log(data);
-                  this.product_data = data;
-                  this.product_data = this.product_data[0];
-                },
-                err => {
-                  console.log(err);
+                this.productService.get_product_details(this.ord_details?.property_id).subscribe(
+                  data => {
+                    this.product_data = data;
+                    this.product_data = this.product_data[0];
+                  },
+                  err => {
+                    console.log(err);
+                  }
+                );
+
+                if (this.ord_details.maintenance_charge) {
+                  this.total_amount_owner = this.ord_details.expected_rent + this.ord_details.security_deposit + this.ord_details.maintenance_charge;
+                  this.total_amount = this.inv_response.plan_price + this.sgst_amount + this.cgst_amount + this.ord_details.expected_rent + this.ord_details.security_deposit + this.ord_details.maintenance_charge;
+                  this.amount_words = toWords.convert(this.total_amount);
                 }
-              );
-
-              if (this.ord_details.maintenance_charge) {
-                this.total_amount_owner = this.ord_details.expected_rent + this.ord_details.security_deposit + this.ord_details.maintenance_charge;
-                this.total_amount = this.inv_response.plan_price + this.sgst_amount + this.cgst_amount + this.ord_details.expected_rent + this.ord_details.security_deposit + this.ord_details.maintenance_charge;
-                this.amount_words = toWords.convert(this.total_amount);
+                else {
+                  this.total_amount_owner = this.ord_details.expected_rent + this.ord_details.security_deposit;
+                  this.total_amount = this.inv_response.plan_price + this.sgst_amount + this.cgst_amount + this.ord_details.expected_rent + this.ord_details.security_deposit;
+                  this.amount_words = toWords.convert(this.total_amount);
+                }
+              },
+              err => {
+                console.log(err);
               }
-              else {
-                this.total_amount_owner = this.ord_details.expected_rent + this.ord_details.security_deposit;
-                this.total_amount = this.inv_response.plan_price + this.sgst_amount + this.cgst_amount + this.ord_details.expected_rent + this.ord_details.security_deposit;
-                this.amount_words = toWords.convert(this.total_amount);
-              }
-            },
-            err => {
-              console.log(err);
-            }
-          );
+            );
+          }
+          else if (this.inv_response.plan_type == 'Let Out') {
+            this.total_amount = this.inv_response.plan_price + this.sgst_amount + this.cgst_amount;
+            this.amount_words = toWords.convert(this.total_amount);
+          }
+          this.showLoadingIndicator = false;
+        }else{
+          this.redirect_to_previous_page();
         }
-        else if (this.inv_response.plan_type == 'Let Out') {
-          this.total_amount = this.inv_response.plan_price + this.sgst_amount + this.cgst_amount;
-          this.amount_words = toWords.convert(this.total_amount);
-        }
-        this.showLoadingIndicator = false;
       },
       err => {
         this.showLoadingIndicator = false;
@@ -189,6 +193,9 @@ export class InvoiceComponent implements OnInit {
 
   navigate_plans() {
     this.router.navigate(['my-plans'])
+  }
+  redirect_to_previous_page(): void {
+    this.router.navigate(['/plans'])
   }
 
 }
