@@ -24,6 +24,7 @@ export class ProductListingComponent implements OnInit {
   public displayStyle = "none";
   public amenties:any={};
   public area_unit:any={};
+  public toll_free=environment.toll_free;
   public property:any={};
   public showLoadingIndicator:boolean= false;
   public  year:any='';
@@ -672,6 +673,10 @@ export class ProductListingComponent implements OnInit {
     this.product_length=0;
     this.property_availablty=true;
     this.router.navigate(['/product-details'],{queryParams:{'id':id,'name':name}})
+  }
+  // searching city name property 
+  property_search(){
+    this.router.navigate(['/product-listing'],{queryParams:{'cities':'Delhi'}})
   }
   
   redirect_to_login(): void {

@@ -20,7 +20,7 @@
             <div class="card shadow text-dark login-card">
                 <div class="card-body py-3 px-5 text-center">
 
-                    <div class="mb-md-3 mt-md-3 pb-2">
+                    <div class="mb-md-0 mt-md-3 pb-2">
                         <form [formGroup]="loginForm" #ngForm="ngForm" (ngSubmit)="onSubmit()">
                             <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
                             <p class="text-secondary-50 mb-3">Please enter your email and password</p>
@@ -60,8 +60,8 @@
                         </div>
                         <button class="btn btn-lg google-btn" type="button" (click)="redirect_login_google()"><i class="fa fa-google me-2"></i>
                             Sign in with Google</button>
-                        <button class="btn btn-lg my-2 facebook-btn" type="submit"><i
-                                class="fa fa-facebook-f me-2"></i>Sign in with Facebook</button>
+                        <!-- <button class="btn btn-lg my-2 facebook-btn" type="submit"><i
+                                class="fa fa-facebook-f me-2"></i>Sign in with Facebook</button> -->
                     </div>
 
                     <div>

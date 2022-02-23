@@ -67,7 +67,7 @@ ol {
     -webkit-background-size: cover;
     background-size: cover;
     background-position: center center;
-    height: 960px;
+    height: 660px;
 }
 
 .home1-overlay {
@@ -313,7 +313,7 @@ a img {
 /*== Home Css ==*/
 
 .home_content {
-    padding: 240px 0 400px;
+    padding: 130px 0px;
 }
 
 .home_content .home-text p {
@@ -387,7 +387,7 @@ h4 .h1,
 }
 
 .home_adv_srch_opt {
-    margin-top: 145px;
+    margin-top: 90px;
     position: relative;
 }
 

@@ -18,6 +18,7 @@ export class SidenavListComponent implements OnInit {
   public LoggedIn: boolean = false;
   public userEmail: string = '';
   public userId: string = '';
+  public toll_free=environment.toll_free;
   public profile_pic: string = '';
   public google_profile_pic: any;
   public userName: string = '';

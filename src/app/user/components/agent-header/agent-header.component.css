@@ -6,7 +6,10 @@
     width: 60px;
     height: 60px;
 }
-
+.navbar-expand-lg{
+    position: fixed!important;
+    width: 100%;
+}
 .user-info li {
     margin-right: 0;
 }

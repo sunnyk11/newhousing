@@ -5,7 +5,9 @@ mat-slider {
 .bg-lightgray {
     background-color: lightgray;
 }
-
+.container1{
+    padding-top: 120px!important;
+}
 ul .list-inline-item {
     width: 100%!important;
 }

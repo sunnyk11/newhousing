@@ -5,7 +5,9 @@
 .details .tc_content {
     text-align: left!important;
 }
-
+.container1{
+    padding-top: 120px!important;
+}
 .thead-light tr .heading {
     text-align: left!important;
 }

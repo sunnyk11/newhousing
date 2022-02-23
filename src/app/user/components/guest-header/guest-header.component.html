@@ -72,15 +72,15 @@
             <li>
                 <a routerLink="/">Home</a>
             </li>
-            <li>
+            <!-- <li>
                 <a [routerLink]="['about']">About</a>
-            </li>
+            </li> -->
             <li>
                 <a [routerLink]="['product-listing']">Listing</a>
             </li>
-            <li>
+            <!-- <li>
                 <a [routerLink]="['contact']">Contact</a>
-            </li>
+            </li> -->
             <li>
                 <a [routerLink]="['plans']">Plans</a>
             </li>
@@ -178,6 +178,15 @@
                     <a [routerLink]="['/list-property']">
                         <mat-icon>add_circle_outline</mat-icon>
                         <span> List Property</span>
+                </a>
+                </span>
+            </li>
+            
+            <li class="toll_free">
+                <span>
+                    <a id="number">
+                        <mat-icon>phone</mat-icon>
+                        <span><a href="tel:{{toll_free}}" >{{toll_free}}</a></span>
                 </a>
                 </span>
             </li>

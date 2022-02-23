@@ -5,15 +5,15 @@
     <a mat-list-item routerLink="/product-listing" (click)="onSidenavClose()">
         <mat-icon>view_list</mat-icon> <span class="nav-caption">Listing</span>
     </a>
-    <a mat-list-item routerLink="/contact" (click)="onSidenavClose()">
+    <!-- <a mat-list-item routerLink="/contact" (click)="onSidenavClose()">
         <mat-icon>contact_page</mat-icon><span class="nav-caption">Contact</span>
-    </a>
+    </a> -->
     <a mat-list-item routerLink="/plans" (click)="onSidenavClose()">
         <mat-icon>collections</mat-icon><span class="nav-caption">Plans</span>
     </a>
-    <a mat-list-item routerLink="/about" (click)="onSidenavClose()">
+    <!-- <a mat-list-item routerLink="/about" (click)="onSidenavClose()">
         <mat-icon>description</mat-icon><span class="nav-caption">About Us</span>
-    </a>
+    </a> -->
     <a mat-list-item routerLink="/faq" (click)="onSidenavClose()">
         <mat-icon>description</mat-icon><span class="nav-caption">FAQs</span>
     </a>
@@ -29,4 +29,9 @@
     <a mat-list-item routerLink="/list-property" (click)="onSidenavClose()">
         <mat-icon>add_circle</mat-icon><span class="nav-caption">List Property</span>
     </a>
+        <a mat-list-item  (click)="onSidenavClose()">
+            <mat-icon id="phone">phone</mat-icon><span class="nav-caption"><a href="tel:{{toll_free}}" >{{toll_free}}</a></span>
+        </a>
+    
+    
 </mat-nav-list>

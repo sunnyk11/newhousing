@@ -24,14 +24,14 @@ import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-poli
 import { RegisterComponent } from './components/register/register.component';
 import { PaymentSummaryComponent } from './components/payment-summary/payment-summary.component';
 import { ProfileComponent } from './components/profile/profile.component';
-import { LoginGuard } from './guards/login.guard';
+// import { LoginGuard } from './guards/login.guard';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { BlogSinglePostComponent } from './components/blog-single-post/blog-single-post.component';
 import { BlogComponent } from './components/blog/blog.component';
 import { UserLogsGuard } from './guards/user-logs.guard';
 import { FaqComponent } from './components/faq/faq.component';
 import { ProductPreviewComponent } from './components/product-preview/product-preview.component';
-import { NotfoundComponentComponent } from '../components/notfound-component/notfound-component.component';
+// import { NotfoundComponentComponent } from '../components/notfound-component/notfound-component.component';
 //custom component imports
 
 const routes: Routes = [

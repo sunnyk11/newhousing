@@ -17,6 +17,7 @@ export class GuestHeaderComponent implements OnInit {
 
   public LoggedIn: boolean = false;
   public userEmail: string = '';
+  public toll_free=environment.toll_free;
   public userId: string = '';
   public profile_pic: string = '';
   public google_profile_pic: any;
