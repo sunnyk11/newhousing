@@ -3,7 +3,16 @@
     justify-content: space-around!important;
     display: flex!important;
 }
-
+#no_proeprty_link{
+    cursor: pointer!important;
+    color:blue!important;
+    padding: 0px 5px!important;
+}
+#no_proeprty_link a{
+    cursor: pointer!important;
+    color:blue!important;
+    padding: 0px 5px!important;
+}
 .ui_kit_checkbox {
     width: 100%!important;
 }

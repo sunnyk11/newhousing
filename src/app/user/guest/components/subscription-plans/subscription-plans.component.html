@@ -210,7 +210,9 @@
         <div class="tab-pane fade" id="nav-let-out" role="tabpanel" aria-labelledby="nav-let-out-tab">
             <div class="row mt-4 mb-4">
                 <div class="col-lg-8">
-                    <label for="exp_rent" class="form-label">Select Expected Rent</label>
+                    <label for="exp_rent" class="form-label">Please select Monthly Rent you want to
+                        charge against your Property and Plans Price
+                        will be changed accordingly</label>
                     <ngx-slider [(value)]="expected_rent_value" [options]="exp_rent_options"></ngx-slider>
                 </div>
                 <div class="col-lg-4 pt-4">
@@ -274,8 +276,8 @@
                             <!-- <a class="btn btn-block btn-success" (click)="plan_payment1(letout_plan.plan_name, letout_plan.id, letout_plan.payment_type, letout_plan.plan_type, expected_rent_value, letout_plan.actual_price_days, letout_plan.discounted_price_days, letout_plan)">Select
                                 Plan</a>
                                  -->
-                                <a class="btn btn-block btn-success"  data-bs-toggle="modal" data-bs-target="#Mymodal" (click)="plan_payment_model(letout_plan.plan_name, letout_plan.id, letout_plan.payment_type, letout_plan.plan_type, expected_rent_value, letout_plan.actual_price_days, letout_plan.discounted_price_days, letout_plan)">Select
-                                    Plan</a>
+                                <a class="btn btn-block btn-success"  data-bs-toggle="modal" data-bs-target="#Mymodal" (click)="plan_payment_model(letout_plan.plan_name, letout_plan.id, letout_plan.payment_type, letout_plan.plan_type, expected_rent_value, letout_plan.actual_price_days, letout_plan.discounted_price_days, letout_plan)">Buy Now
+                                    </a>
                         </div>
                     </div>
                 </div>
@@ -416,16 +418,21 @@
             </div> 
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-lg-8">
-                        <label for="exp_rent" class="form-label">Select Expected Rent</label>
-                        <ngx-slider [(value)]="expected_rent_value" [options]="exp_rent_options"></ngx-slider>
+                    <div class="col-lg-12">
+                        <label for="exp_rent" class="form-label">Have you selected Expected rent price equal
+                            to the monthly rent of the property you want
+                            to let out?</label>
                     </div>
-                    <div class="col-lg-4 pt-4">
+                    <!-- <div class="col-lg-8">
+                        
+                        <ngx-slider [(value)]="expected_rent_value" [options]="exp_rent_options"></ngx-slider>
+                    </div> -->
+                    <!-- <div class="col-lg-4 pt-4">
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon1">&#8377;</span>
                             <input type="text" class="form-control" [(ngModel)]="expected_rent_value">
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>   
             <div class="modal-footer">
@@ -433,7 +440,7 @@
                     Cancle
                 </button>
                 <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="plan_payment(plan_name_model, plan_id_model, payment_type_model, plan_type_model, expected_rent_model, price_duration_actual_model, price_duration_discount_model, plan_features_model)" >
-                    Confirm
+                    Yes
                 </button>                                 
             </div>
         </div>                                                                       

@@ -4,6 +4,10 @@ mat-slider {
 .bg-lightgray {
     background-color: lightgray;
 }
+
+.container1{
+  padding-top: 120px!important;
+}
 .application_statics{
   padding:  20px 0px 0px!important;
 }

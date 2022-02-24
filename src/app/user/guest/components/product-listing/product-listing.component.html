@@ -763,7 +763,11 @@
                 </div>
                 <div class="row" *ngIf="product_length == 0 && property_availablty == false">
                     <div class="col-lg-12">
-                        <h3>No Property Found!!!... </h3>
+                        <h3>Oops! Currently we are not working in this
+                            Area. </h3>
+                            <h5> <span (click)="property_search()" id="no_proeprty_link">Click Here</span> to have look on other properties.</h5>
+                            <h6>or Call US at <span id="no_proeprty_link"><a href="tel:toll_free" >{{toll_free}} </a></span> and Let us help
+                                you find best suitable Property</h6>
                     </div>
                 </div>
 

@@ -49,16 +49,16 @@
                         </tr>
                         <tr>
                             <th>
-                                <h4><strong>GSTIN No:</strong> {{ invoice_data?.gstin }}<br><strong>PAN No:</strong> {{ invoice_data?.pan_no }}<br><strong>Toll Free No:</strong> <a href="tel:toll_free" >{{toll_free}} </a></h4>
+                                <h4><strong>GSTIN No:</strong> {{ invoice_data?.gstin }}<br><strong>PAN No:</strong> {{ invoice_data?.pan_no }}<br><strong>Toll Free No:</strong> <a href="tel:{{toll_free}}" >{{toll_free}} </a></h4>
                             </th>
                             <th></th>
                         </tr>
                         <tr>
                             <th>
                                 <h4>
-                                    <span class="material-icons">
+                                    <!-- <span class="material-icons">
                                         phone_android
-                                    </span> <span class="ms-2">{{ invoice_data?.mobile_no }}</span><br>
+                                    </span> <span class="ms-2">{{ invoice_data?.mobile_no }}</span><br> -->
                                     <span class="material-icons">
                                         email
                                     </span> <span class="ms-2">{{ invoice_data?.email }}</span><br>
