@@ -9,6 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { OwlOptions } from 'ngx-owl-carousel-o';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-index',
@@ -22,6 +23,7 @@ export class IndexComponent implements OnInit {
   public buyyer_range_slider:boolean= false;
   public property:any={};
   public product_length:number=0;
+  public toll_free=environment.toll_free;
   public city_name:any='';
   public category:any={};
   public chattarpur:any;

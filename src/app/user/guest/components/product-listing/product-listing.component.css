@@ -3,6 +3,9 @@
     justify-content: space-around!important;
     display: flex!important;
 }
+.container1{
+    padding-top: 90px!important;
+}
 #no_proeprty_link{
     cursor: pointer!important;
     color:blue!important;

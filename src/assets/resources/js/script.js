@@ -356,7 +356,7 @@
 
         //Click event to scroll to top
         $('.scrollToHome').on('click', function() {
-            $('html, body').animate({ scrollTop: 0 }, 800);
+            $('html, body').animate({ scrollTop: 0 }, 10);
             return false;
         });
     }

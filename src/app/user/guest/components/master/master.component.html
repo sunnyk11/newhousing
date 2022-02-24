@@ -2,7 +2,7 @@
 <router-outlet></router-outlet>
 <app-guest-footer></app-guest-footer> -->
 
-<mat-sidenav-container>
+<!-- <mat-sidenav-container id="deshtop_viewed">
     <mat-sidenav #sidenav role="navigation">
         <app-sidenav-list (sidenavClose)="sidenav.close()"></app-sidenav-list>
     </mat-sidenav>
@@ -11,4 +11,16 @@
         <router-outlet></router-outlet>
         <app-guest-footer></app-guest-footer>
     </mat-sidenav-content>
-</mat-sidenav-container>
+</mat-sidenav-container> -->
+
+<!-- <span id="mobile_viewed"> -->
+    <!-- <mat-sidenav-container> -->
+        <mat-sidenav #sidenav role="navigation" (sidenavClose)="sidenav.close()" id="main_sidebar">
+            <app-sidenav-list (sidenavClose)="sidenav.close()"></app-sidenav-list>
+        </mat-sidenav>
+        <!-- </mat-sidenav-container> -->
+        <!-- </span> -->
+<app-guest-header (sidenavToggle)="sidenav.toggle()"></app-guest-header>
+        <router-outlet (sidenavClose)="sidenav.close()"></router-outlet>
+<app-guest-footer></app-guest-footer>
+<!-- </span> -->

@@ -86,6 +86,9 @@
     #deshtop_viewed{
         display: none!important;
     }
+    .main-title{
+        text-align: justify!important;
+    }
         
     .home_post h5{
         text-align: center!important;
