@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MasterComponent } from './components/master/master.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
+// import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AuthGuard } from './guards/auth.guard';
 import { ListpropertyComponent } from './components/listproperty/listproperty.component';
 import { ListpropertyRentComponent } from './components/listproperty-rent/listproperty-rent.component';

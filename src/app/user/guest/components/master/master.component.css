@@ -6,3 +6,33 @@ mat-sidenav {
     background-color: #f8f9fa;
     width: 200px;
 }
+#main_sidebar{
+    transform: none;
+    visibility: visible;
+    z-index: 10000;
+    position: fixed;
+    top: 67px;
+    height: 420px;
+    /* box-shadow: 24px 58px 77px -5px rgb(0 0 0 / 30%), 0px 78px 77px 49px rgb(0 0 0 / 0%), 25px 125px 62px 302px rgb(0 0 0 / 60%)!important; */
+}
+#mobile_viewed1{
+    width: 100%!important;
+    background-color: #0009;
+}
+/* #main .mat-drawer:not(.mat-drawer-side) {
+    box-shadow: 24px 58px 77px -5px rgb(0 0 0 / 30%), 0px 78px 77px 49px rgb(0 0 0 / 0%), 25px 125px 62px 302px rgb(0 0 0 / 60%)!important;
+} */
+
+@media(max-width: 768px) {
+    
+    #deshtop_viewed{
+        display: none!important;
+    }
+}
+
+@media(min-width: 768px) {
+    
+    #main_sidebar{
+        display: none!important;
+    }
+}
