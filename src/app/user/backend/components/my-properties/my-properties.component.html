@@ -7,7 +7,12 @@
                 </div>
             </div>
         </div>
-        <div class="row" *ngIf="product_length1==0 && showLoadingIndicator_draft == false" >
+       <div class="row" *ngIf="product_length1==0 && showLoadingIndicator == true" >
+        <div class="col-lg-12">
+            <div class="preloader"></div>
+        </div>
+    </div>
+        <div class="row" *ngIf="product_length1==0 && showLoadingIndicator == false && showLoadingIndicator_draft == false" >
             <div class="col-lg-12">
                 <h3>No Property this Account</h3>
             </div>
@@ -31,7 +36,7 @@
                                     <tr>
                                     <td>
                                         <div class="feat_property list favorite_page style2">
-                                        <div class="thumb" *ngIf="property?.enabled == 'yes'"  (click)="sub_navigate(property.id,property.build_name,property.city)">
+                                        <div class="thumb" *ngIf="property?.enabled == 'yes' && property?.order_status == '0'"  (click)="sub_navigate(property.id,property.build_name)">
                                             <img class="img-whp" *ngIf="property.product_img.length>0;else OtherImage"
                                             src="{{ftpstring}}{{property.product_img[0].image}}" alt="fp1.jpg">
                                             <ng-template #OtherImage>
@@ -48,7 +53,24 @@
                                             </ul>
                                             </div>
                                         </div>
-                                        <div class="thumb" *ngIf="property?.enabled == 'no'"  (click)="live_navigate()">
+                                        <div class="thumb" *ngIf="property?.enabled == 'yes' && property?.order_status == '1'"  (click)="product_preview(property.id,property.build_name)">
+                                            <img class="img-whp" *ngIf="property.product_img.length>0;else OtherImage"
+                                            src="{{ftpstring}}{{property.product_img[0].image}}" alt="fp1.jpg">
+                                            <ng-template #OtherImage>
+                                            <img class="img-whp" src="./../../assets/resources/images/no_image_available.jpg"
+                                                alt="No Product Image">
+                                            </ng-template>
+                                            <div class="thmb_cntnt">
+                                            <ul class="tag mb0">
+                                                <li class="list-inline-item dn"></li>
+                                                <li class="list-inline-item" *ngIf=" property.rent_availability  != null"><a>For
+                                                    Rent</a></li>
+                                                <li class="list-inline-item" *ngIf=" property.sale_availability  != null"><a>For
+                                                    Sale</a></li>
+                                            </ul>
+                                            </div>
+                                        </div>
+                                        <div class="thumb" *ngIf="property?.enabled == 'no' && property?.order_status == '0'"  (click)="live_navigate()">
                                             <img class="img-whp" *ngIf="property.product_img.length>0;else OtherImage"
                                             src="{{ftpstring}}{{property.product_img[0].image}}" alt="fp1.jpg">
                                             <ng-template #OtherImage>
@@ -81,15 +103,20 @@
                                         <td>{{ property.view_counter }}</td>
                                         <td>
                                             <ul class="view_edit_delete_list mb0">
-                                            <li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="Edit"
+                                            <!-- <li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="Edit"
                                                 *ngIf=" property.sale_availability  != null">
                                                 <a (click)="navigate_sales(property.id)"><span class="flaticon-edit"></span></a>
-                                            </li>
+                                            </li> -->
                                             <li class="list-inline-item " data-toggle="tooltip" data-placement="top" title="Edit"
-                                                *ngIf=" property.rent_availability  != null">
+                                                *ngIf=" property.rent_availability  != null && property?.order_status == '0'">
                                                 <a (click)="navigate_rent(property.id)"><span class="flaticon-edit"></span></a>
                                             </li>
-                                            <li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="Delete">
+                                            
+                                            <li class="list-inline-item " data-toggle="tooltip" data-placement="top" title="View Property"
+                                                *ngIf=" property.rent_availability  != null && property?.order_status == '1'">
+                                                <a (click)="product_preview(property?.id,property?.build_name)"><span class="flaticon-view"></span></a>
+                                            </li>
+                                            <li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="Delete" *ngIf="property?.enabled != 'yes'">
                                                 <a (click)="delete_property(property.id)"><span class="flaticon-garbage"></span></a>
                                             </li>
                                             </ul>
@@ -106,9 +133,17 @@
                                       </td>
                                     </tr>
                                     <tr *ngIf="property?.enabled == 'yes'">
-                                      <td class="enabled_text" colspan="4">
-                                        <h4><span
-                                          class="checkmark"><strong>&#10004;</strong></span> Your property is live</h4>
+                                      <td class="enabled_text" colspan="2">
+                                        <h4  *ngIf="property?.order_status == '0'"><span class="checkmark"><strong>&#10004;</strong></span> Your property is live</h4>
+                                        <h4  *ngIf="property?.order_status == '1'"><span class="checkmark"><strong>&#10004;</strong></span> Your property is Rentout</h4>
+                                      </td>
+                                      <td class="enabled_text" colspan="2">
+                                       
+                                        <button class="btn btn-success"  data-bs-toggle="modal" data-bs-target="#Mymodal" (click)="property_rent_slip(property.id)">
+                                           Property Rent Slip
+                                          </button>
+                                           <!-- <button type="button" class="btn btn-success" *ngIf="data.payment_received != 'Pending'" data-bs-toggle="modal" data-bs-target="#Mymodal" (click)="confirmation_modal(data.invoice_no)" > </button>-->
+                               
                                       </td>
                                     </tr>
                                 </tbody>
@@ -154,8 +189,8 @@
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
-                                <tbody *ngIf="showLoadingIndicator_draft == false">
-                                    <tr *ngFor="let property of draftproperty?.data?.data">
+                                <tbody  *ngFor="let property of draftproperty?.data?.data">
+                                    <tr *ngIf="showLoadingIndicator_draft == false" >
                                     <td>
                                         <div class="feat_property list favorite_page style2">
                                         <div class="thumb">
@@ -205,6 +240,12 @@
                                             </ul>
                                         </td>
                                     </tr>
+                                    
+                                    <tr *ngIf="property?.enabled == 'no' && showLoadingIndicator_draft == false" >
+                                        <td class="disabled_text" colspan="4">
+                                          <h4 class="text-warning">Your property is not Draft Mode</h4>
+                                        </td>
+                                      </tr>
                                 </tbody>
                                 <tbody >
                                     <tr  class="preloader_row" *ngIf="showLoadingIndicator_draft == true"> 
@@ -234,4 +275,69 @@
             </div>
         </div>
     </div>
+</div>
+
+<!-- .modal -->
+<div class="modal fade" id="Mymodal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">
+                    &times;
+                </button> 
+                <h4 class="modal-title">
+                  {{property_name}} (Rent Slip)
+                </h4>                                                             
+            </div> 
+            <div class="modal-body" id="htmlData">
+                <div class="row showLoadingIndicator_popup" *ngIf="showLoadingIndicator_popup == true">
+                    |<div class="col-12">
+                        <div class="preloader"></div>
+                    </div>
+                </div>
+                <div class="row" *ngIf="showLoadingIndicator_popup == false">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <th scope="row">Invoice No:</th>
+                                    <td>{{invoice_no}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Plan Name:</th>
+                                    <td>{{plan_name}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Plan Type:</th>
+                                    <td>{{plan_type}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Plan Price:</th>
+                                    <td>{{plan_price}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Property Price:</th>
+                                    <td>{{product_price}}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Difference Amount:</th>
+                                    <td>{{different_price}}</td>
+                                </tr>
+                            </tbody>
+                        </table> 
+                    </div>
+                </div>
+            </div>   
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                    Cancle
+                </button>
+                <!-- <button type="button" class="btn btn-primary" data-bs-dismiss="modal" >
+                    Confirm
+                </button>                                  -->
+                
+            <button class="btn btn-primary" (click)="generatePDF()">Generate PDF</button>
+            </div>
+        </div>                                                                       
+    </div>                                      
 </div>

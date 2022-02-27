@@ -10,6 +10,9 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PropertyCreditModalComponent } from './../property-credit-modal/property-credit-modal.component';
 import { Pagination } from 'src/app/user/components/models/pagination.model';
 import { ConfirmationmodalComponent } from '../../modals/confirmationmodal/confirmationmodal.component';
+import { ToWords } from 'to-words';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-my-properties',
@@ -27,9 +30,17 @@ export class MyPropertiesComponent implements OnInit {
   public draft_pro_length:number=0;
   public showLoadingIndicator:boolean=false;
   public showLoadingIndicator_draft:boolean=false;
+  public showLoadingIndicator_popup:boolean=false;
   public userEmail:any= null;
   public response_data: any;
   public Pagination_data: Pagination;
+  public invoice_no:any;
+  public property_name:any;
+  public product_price:any;
+  public different_price:any;
+  public plan_price:any;
+  public plan_name:any;
+  public plan_type:any;
 
   private e:any;
 
@@ -67,6 +78,7 @@ export class MyPropertiesComponent implements OnInit {
     this.showLoadingIndicator= true;
     this.MypropertiesService.agent_properties().then(
       Pagination_data => {
+        console.log(Pagination_data);
         this.agentproperty=Pagination_data;
         this.product_length=this.agentproperty.data.total;
         this.product_length1=this.agentproperty.data.total;
@@ -104,6 +116,7 @@ export class MyPropertiesComponent implements OnInit {
       // this.user_list_length=this.user_list.data.data.length;
     });
   } 
+  
   price_comma(value:number):void{
     this.e=value;
     var t = (this.e = this.e ? this.e.toString() : "").substring(this.e.length - 3)
@@ -168,15 +181,98 @@ export class MyPropertiesComponent implements OnInit {
     this.router.navigate(['/update-property-rent'],{queryParams:{id:id}})
   }
   
-  sub_navigate(id:number,name:string,city:string){
-    const url:any = this.router.createUrlTree(['/product-details'],{queryParams:{'id':id,'name':name,'city':city}})
+  sub_navigate(id:number,name:string){
+    const url:any = this.router.createUrlTree(['/product-details'],{queryParams:{'id':id,'name':name}})
     window.open(url.toString(), '_blank')
+  }
+  
+  product_preview(id:number,name:string){
+    const url:any = this.router.createUrlTree(['/product-preview'],{queryParams:{'id':id,'name':name}})
+      window.open(url.toString(), '_blank')
   }
   live_navigate(){
     this.toastr.warning('Your Property is not live', 'Property', {
       timeOut: 3000,
     });
 
+  }
+property_rent_slip(property_id:any){
+  // console.log(property_id)
+  this.showLoadingIndicator_popup=true;
+  let param={property_id: property_id}
+  this.PlansServiceService.property_rent_slip(param).subscribe(
+    response => {
+      let data:any=response;
+       this.product_price=data.data.expected_rent;
+      this.invoice_no=data.data.property_invoice.invoice_no;
+      this.property_name=data.data.build_name;
+     this.plan_price=data.data.property_invoice.plan_price;
+      this.plan_name=data.data.property_invoice.plan_name;
+      this.plan_type=data.data.property_invoice.plan_type;
+      this.different_price=this.plan_price - this.product_price;  
+      this.showLoadingIndicator_popup=false;
+ 
+    },
+    err => {
+    }
+  );
+}
+  
+  generatePDF() {
+    if (screen.width < 1024) {
+      document.getElementById("viewport")?.setAttribute("content", "width=1200px");
+    }
+    // let DATA = this.htmlData?.nativeElement;
+    const data = document.getElementById('htmlData')!;
+    let html2canvasOptions = {
+      allowTaint: true,
+      removeContainer: true,
+      backgroundColor: null,
+      imageTimeout: 15000,
+      logging: true,
+      scale: 2,
+      useCORS: true
+    };
+
+    html2canvas(data).then(canvas => {
+
+      const contentDataURL = canvas.toDataURL('image/png');
+      const imgWidth = 210;
+      const pageHeight = 295;
+      const imgHeight = canvas.height * imgWidth / canvas.width;
+      let heightLeft = imgHeight;
+      let pdf = new jsPDF('p', 'mm', 'a4', true); // A4 size page of PDF
+      let position = 0;
+
+      pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight, undefined,'FAST');
+      heightLeft -= pageHeight;
+
+      while (heightLeft >= 0) {
+        position = heightLeft - imgHeight;
+        pdf.addPage();
+        pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight, undefined,'FAST')
+        heightLeft -= pageHeight;
+      }
+      pdf.save('rentslip.pdf'); // Generated PDF
+
+      if(screen.width < 1024) {
+        document.getElementById('viewport')?.setAttribute("content", "width=device-width, initial-scale=1");
+      }
+
+    });
+
+    /*  html2canvas(data).then(canvas => {
+ 
+       let fileWidth = 208;
+       let fileHeight = canvas.height * fileWidth / canvas.width;
+ 
+       const FILEURI = canvas.toDataURL('image/png')
+       let PDF = new jsPDF('p', 'mm', 'a4');
+       let position = 0;
+       PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight)
+ 
+       PDF.save('invoice.pdf');
+     }); */
   }
 
 }

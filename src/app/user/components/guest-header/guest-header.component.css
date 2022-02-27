@@ -63,8 +63,29 @@ a:active {
         font-size: 18px;
         line-height: 32px;
         position: fixed;
+        top: 0px!important;
         width: 100%!important;
     }
+}
+.active{
+    color: #ff5a5f!important;
+}
+.active:focus {
+    color: #ff5a5f!important;
+    background: #fff;
+}
+
+.active:focus{
+    color: #ff5a5f!important;
+}
+.active_sub{
+    background-color: #ff5a5f!important;
+    color: #fff!important;
+}
+
+.active_sub:focus{
+    background-color: #ff5a5f!important;
+    color: #fff!important;
 }
 
 @media(min-width: 769px) {
@@ -76,6 +97,7 @@ a:active {
         font-size: 18px;
         line-height: 32px;
         position: fixed;
+        top: 0px!important;
         width: 100%!important;
     }
 }

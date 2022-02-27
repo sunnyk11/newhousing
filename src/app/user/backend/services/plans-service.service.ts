@@ -16,6 +16,10 @@ export class PlansServiceService {
     const route = "/api/auth/get_user_invoices/"; 
     return this.apiService.get<ResultModel>(route + reqModel);
   }
+  property_rent_slip(reqModel: any): Observable<ResultModel> {
+    const route = "/api/product/property_rent_slip";
+    return this.apiService.get<ResultModel>(route, reqModel);
+  }
   getLetOutPlans(reqModel: any): Observable<ResultModel> {
     const route = "/api/get_enabled_letout_plans";
     return this.apiService.get<ResultModel>(route, reqModel);

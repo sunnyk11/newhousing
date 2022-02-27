@@ -467,7 +467,7 @@
 
             <mat-step label="Step 4">
                 <form [formGroup]="form_step4" class="g-3">
-                    <div class="h-100 p-3 bg-lightgray bg-gradient border rounded-3 mt-2">
+                    <div class="h-100 p-3 bg-lightgray bg-gradient border rounded-3 mt-2" *ngIf="property_price_edit == false">
                         <div class="row mt-3">
                             <div class="col-md-6">
                                 <label for="security_deposit" class="form-label">Security Deposit</label>
@@ -552,6 +552,91 @@
                                 <div class="form-group">
                                     <label for="maintenance_charge"  class="form-label">Maintenance Charge Amount</label>
                                     <input type="text" class="form-control" formControlName="maintenance_charge" [ngClass]="{ 'is-invalid': submitted4 && step4.maintenance_charge.errors }" placeholder="Enter Maintenance Charge" maxlength="8" (keypress)="keyPressNumbers($event)">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="h-100 p-3 bg-lightgray bg-gradient border rounded-3 mt-2" *ngIf="property_price_edit == true">
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <label for="security_deposit" class="form-label">Security Deposit</label>
+                                <select id="security_deposit" class="form-select form-select-lg w100" formControlName="security_deposit" [attr.disabled]="!editable"  [ngClass]="{ 'is-invalid': submitted4 && step4.security_deposit.errors }">
+                                    <option value="">Select Option</option>
+                                    <option value="1">1 Month Rent</option>
+                                    <option value="2">2 Month Rent</option>
+                                    <option value="3">3 Month Rent</option>
+                                    <option value="4">4 Month Rent</option>
+                                    <option value="5">5 Month Rent</option>
+                                    <option value="6">6 Month Rent</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="expected_rent" class="form-label">Expected Rent</label>
+                                <div class="row">
+                                    <div class="col-12 col-lg-12">
+                                        <input type="text" class="form-control" formControlName="expected_rent" id="expected_rent" name="expected_rent" [attr.disabled]="!editable" >
+                                    </div>
+                                </div>
+                                <span class="alert-danger" *ngIf="Expected_PriceEroor == true">Expected Price Between 5k to 5 lakhs</span>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <label for="electricity_water" class="form-label">Inclusive Electricity and Water
+                                    Bill</label>
+                                <select id="electricity_water" class="form-select form-select-lg w100" formControlName="electricity_water" [ngClass]="{ 'is-invalid': submitted4 && step4.electricity_water.errors }" [attr.disabled]="!editable" >
+                                    <!-- <option value="">Select Option</option> -->
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="price_negotiable" class="form-label">Is Price Negotiable?</label>
+                                <select id="price_negotiable" class="form-select form-select-lg w100" formControlName="price_negotiable_status" (ngModelChange)="price_negotiable_status($event)" [attr.disabled]="!editable" >
+                                    <option value="1">Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row  mt-3" *ngIf="price_negotiable_row == true">
+                            <div class="col-lg-10 col-md-10 col-sm-12">
+                                <div class="form-group">
+                                    <label for="locality">Price Negotiable</label>
+                                    <input type="text" class="form-control" formControlName="price_negotiable" [ngClass]="{ 'is-invalid': submitted4 && step4.price_negotiable.errors }" placeholder="Enter the Price Negotiable" [attr.disabled]="!editable" maxlength="8" (keypress)="keyPressNumbers($event)">
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-sm-12" id="Negotiable_info_btn">
+                                <i class="fa fa-info-circle" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="This Price will not shown visiable to cumtomers. this for us to negotiate with customer on your behalf"></i>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <label for="maintenance_charge_status" class="form-label">Any Maintenance
+                                    Charge?</label>
+                                <select id="maintenance_charge_status" class="form-select form-select-lg w100" formControlName="maintenance_charge_status" (ngModelChange)="maintenanceStatus($event)" [attr.disabled]="!editable" >
+                                    <option value="0">No</option>
+                                    <option value="1">Yes</option>
+                                </select>
+                            </div>
+                            <!-- <div class="col-md-6">
+                                <label for="video_link" class="form-label">Property Video Link (You Tube)</label>
+                                <input type="text" class="form-control" id="video_link" formControlName="video_link">
+                            </div> -->
+                        </div>
+                        <div class="row mt-3" *ngIf="maintenance_row == true">
+                            <div class="col-lg-6 col-12">
+                                <div class="form-group">
+                                    <label  class="form-label">Maintenance Charge Condition</label>
+                                    <select class="form-select form-select-lg w100" formControlName="maintenance_charge_condition" [ngClass]="{ 'is-invalid': submitted4 && step4.maintenance_charge_condition.errors }" [attr.disabled]="!editable">
+                                        <option value="">Please Select</option>
+                                        <option  *ngFor="let maintenance_charge_condition of maintenance_charge_condition" [value]="maintenance_charge_condition?.id" >{{maintenance_charge_condition?.name}}</option>    
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-12">
+                                <div class="form-group">
+                                    <label for="maintenance_charge"  class="form-label">Maintenance Charge Amount</label>
+                                    <input type="text" class="form-control" formControlName="maintenance_charge" [ngClass]="{ 'is-invalid': submitted4 && step4.maintenance_charge.errors }" placeholder="Enter Maintenance Charge" maxlength="8" (keypress)="keyPressNumbers($event)" [attr.disabled]="!editable">
                                 </div>
                             </div>
                         </div>

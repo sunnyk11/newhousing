@@ -8,5 +8,5 @@ export const environment = {
   Paytm_formURL: 'https://securegw-stage.paytm.in/order/process',
   you_tube_url:'https://www.youtube-nocookie.com/embed/',
   google_map_url:'https://maps.google.co.in/maps?q=',
-  toll_free: '1800 547 5450'
+  toll_free: '18005475450'
 };

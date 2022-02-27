@@ -13,6 +13,17 @@ hr {
     flex-direction: row-reverse!important;
 }
 
+.preloader_row{
+    position: relative;
+    width: 100%!important;
+    height: 100vh!important;
+    margin-top: 120px!important;
+}
+
+.preloader_row1{
+    width: 100%!important;
+    height: 100vh!important;
+}
 .discount_price {
     color: #00D100;
     background: beige;
