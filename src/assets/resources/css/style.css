@@ -858,7 +858,7 @@ h4 .h1,
 }
 
 .navbar-light .navbar-nav .nav-link {
-    color: #666 !important;
+    color: #666;
 }
 
 .bgc-f7 {
@@ -1658,6 +1658,11 @@ section {
 .scrollToHome:hover {
     color: #ffffff;
 }
+.dropdown-item.active, .dropdown-item:active{
+    background-color: #ff5a5f!important;
+    color: #fff!important;
+}
+
 
 .scrollToHome {
     border-radius: 50%;
@@ -4845,7 +4850,7 @@ agm-map {
     position: absolute;
     top: 0px;
     width: 100%;
-    z-index: 10000;
+    z-index: 100!important;
 }
 
 .mt100 {

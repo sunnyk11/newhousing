@@ -47,6 +47,7 @@ export class ProductPageComponent implements OnInit {
   public permissions_response: any;
   public access_property_location: boolean = false;
   public access_other_details: boolean = false;
+  public order_status:any;
   
   public locality_id:any;
   private product_id: any;
@@ -86,7 +87,10 @@ export class ProductPageComponent implements OnInit {
       this.isLoggedIn= true;
       this.login_usertype = this.jwtService.getUserType();
       this.login_userid = this.jwtService.getUserId();
-      this.login_userid = this.jwtService.getUserId();
+      if(this.login_usertype == 11){
+        this.access_property_location=true;
+        this.access_other_details=true;
+      }
       if(this.jwtService.get_Internal_User()== '"Yes"'){
         this.CommonService.getUserPermissions(this.login_userid).subscribe(
           response => {
@@ -100,9 +104,10 @@ export class ProductPageComponent implements OnInit {
         response => {
           this.product_details=response;
           this.product_data=this.product_details.data;
+          this.order_status=this.product_data?.order_status;
           if(this.product_details.data != null){
-            this.youtube_url = environment.you_tube_url + this.product_data.video_link+"?playlist="+this.product_data.video_link+"&loop=1&mute=1";          
-            this.safeURL = this._sanitizer.bypassSecurityTrustResourceUrl(this.youtube_url);
+            // this.youtube_url = environment.you_tube_url + this.product_data.video_link+"?playlist="+this.product_data.video_link+"&loop=1&mute=1";          
+            // this.safeURL = this._sanitizer.bypassSecurityTrustResourceUrl(this.youtube_url);
             this.locality_id=this.product_data.locality_id;
             this.similarproperty(this.product_data.locality_id);
             this.address=this.product_data.address;
@@ -137,18 +142,21 @@ export class ProductPageComponent implements OnInit {
         }, err => { 
         }
       );
+      this.wishlist_refresh();
+      this.pro_comp_refresh();
     }else{
       this.ProductPageService.single_product_details(param).subscribe(
         response => {
           this.product_details=response;
           this.product_data=this.product_details.data;
+          this.order_status=this.product_data?.order_status;
           if(this.product_details.data != null){
-            this.youtube_url = environment.you_tube_url + this.product_data.video_link+"?playlist="+this.product_data.video_link+"&loop=1&mute=1";          
-            this.safeURL = this._sanitizer.bypassSecurityTrustResourceUrl(this.youtube_url);
+            // this.youtube_url = environment.you_tube_url + this.product_data.video_link+"?playlist="+this.product_data.video_link+"&loop=1&mute=1";          
+            // this.safeURL = this._sanitizer.bypassSecurityTrustResourceUrl(this.youtube_url);
             this.similarproperty(this.product_data.locality_id);
             this.address=this.product_data.address;
-            this.latCus=parseFloat(this.product_data.map_latitude);
-            this.longCus=parseFloat(this.product_data.map_longitude);
+            // this.latCus=parseFloat(this.product_data.map_latitude);
+            // this.longCus=parseFloat(this.product_data.map_longitude);
             
             // slider functionalty
             this.product_images = this.product_data.product_img;
@@ -178,8 +186,6 @@ export class ProductPageComponent implements OnInit {
         }
       );
     }
-    this.wishlist_refresh();
-    this.pro_comp_refresh();
   }
   // fetch similar property 
   similarproperty(locality_id: any){
@@ -194,7 +200,9 @@ export class ProductPageComponent implements OnInit {
           this.showLoadingIndicator=false;
         }, err => { 
         }
-      );      
+      );
+      this.wishlist_refresh();
+      this.pro_comp_refresh();        
     }else{
       this.ProductPageService.getsimilarproperty(param).subscribe(
         response => {
@@ -205,9 +213,7 @@ export class ProductPageComponent implements OnInit {
         }, err => { 
         }
       );
-    }
-    this.wishlist_refresh();
-    this.pro_comp_refresh();    
+    }  
   }
   
   recently_product_count(id: any){

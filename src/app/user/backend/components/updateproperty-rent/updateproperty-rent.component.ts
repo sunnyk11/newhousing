@@ -69,6 +69,10 @@ export class UpdatepropertyRentComponent implements OnInit {
   public submitted3: boolean = false;
   public submitted4: boolean = false;
   public map_show:boolean=true;
+  public expected_rent:any;
+  public maintenance_charge:any;
+  public price_negotiable:any;
+  public video_link:any
 
 
   private update_room_array: any = [];
@@ -76,6 +80,7 @@ export class UpdatepropertyRentComponent implements OnInit {
   private add_room_string: any = [];
   private product_img: any = [];
   private selected_room:any=[];
+  public editable: boolean=false;
   private product_amenties:any=[];
   private unique_amentites:any=[];
   private search_amenties_convert:any=[];
@@ -94,6 +99,7 @@ export class UpdatepropertyRentComponent implements OnInit {
   public agreement_type:any;
   public agreement_duration:any;
   public maintenance_charge_condition:any;
+  public property_price_edit:boolean=false;
   
   
   image1: string | ArrayBuffer | null | undefined;
@@ -349,90 +355,6 @@ export class UpdatepropertyRentComponent implements OnInit {
       return this.dropdownList?.filter((option: any) => option.locality_text.toLowerCase().includes(filterValue));
     }
   }
-  // get_locality1() {
-  //   this.CommonService.get_locality({ param: null }).subscribe(
-  //     response => {
-  //       let data:any=response;
-  //       console.log(data);
-  //       console.log(this.form_step2.value.locality);
-  //       console.log(this.form_step2.value);
-  //       if(data.data.length<1){
-  //         this.dropdown_sublocality=[];
-  //         this.form_step2.patchValue({sub_locality:''});
-  //       }else{
-  //         for (let i = 1; i < data.data.length; i++) {
-  //           this.dropdown_locality = this.dropdown_locality.concat({locality_id: data.data[i].locality_id, locality_text:  data.data[i].locality}); 
-  //         }
-  //         if(this.form_step2.value.locality[0] != null){
-  //           this.onchange_locality1(this.form_step2.value.locality[0]);
-  //         }
-  //       }
-  //     },
-  //     (err: any) => {
-  //     }
-  //   );
-  // }
-  
-  // onchange_sub_locality(id:any){
-  //   this.address_concated= this.form_step2.value.locality[0].locality_text  + ', Delhi' ;
-  //   this.form_step2.patchValue({
-  //     address:this.address_concated
-  //   });
-  // }
-  // onchange_locality(id: any) {
-  //   this.address_concated= id.locality_text + ', Delhi' ;
-  //   this.form_step2.patchValue({
-  //         address:this.address_concated
-  //     });
-  //   let param = { Locality_id:id.locality_id}
-  //   this.CommonService.get_sub_locality(param).subscribe(
-  //     response => {
-  //       let data:any=response;
-  //       console.log(data);
-  //       this.dropdown_sublocality=[];
-  //       this.form_step2.patchValue({sub_locality:''});
-  //       if(data.data.length<1){
-  //         this.dropdown_sublocality=[];
-  //         this.form_step2.patchValue({
-  //           sub_locality:'',
-  //           district_id:''
-  //         });
-  //       }else{
-  //         this.form_step2.patchValue({
-  //           district_id:data.district.district.district_id
-  //         });
-  //         for (let i = 1; i < data.data.length; i++) {
-  //           this.dropdown_sublocality = this.dropdown_sublocality?.concat({ sub_locality_id: data.data[i].sub_locality_id, sub_locality_text: data.data[i].sub_locality});
-  //         }
-  //       }
-  //     }
-  //   );
-  // }
-  // onchange_locality1(id: any) {
-  //   this.address_concated= id.locality_text;
-  //   let param = { Locality_id:id.locality_id}
-  //   this.CommonService.get_sub_locality(param).subscribe(
-  //     response => {
-  //       let data:any=response;
-  //       console.log(data);
-  //       this.dropdown_sublocality=[];
-  //       if(data.data.length<1){
-  //         this.dropdown_sublocality=[];
-  //         this.form_step2.patchValue({
-  //           sub_locality:'',
-  //           district_id:''
-  //         });
-  //       }else{
-  //         this.form_step2.patchValue({
-  //           district_id:data.district.district.district_id
-  //         });
-  //         for (let i = 1; i < data.data.length; i++) {
-  //           this.dropdown_sublocality = this.dropdown_sublocality?.concat({ sub_locality_id: data.data[i].sub_locality_id, sub_locality_text: data.data[i].sub_locality});
-  //         }
-  //       }
-  //     }
-  //   );
-  // }
   map_address(value:any){
     if(value.length<4){
       this.form_step2.patchValue({
@@ -535,6 +457,7 @@ export class UpdatepropertyRentComponent implements OnInit {
     let param = { id: prod_id }
     this.RentPropertyService.property_get_id(param).subscribe(
       response => {
+        console.log(response);
         let data:any =response;
         if(data.data == null){
           this.redirect_to_myproperty();
@@ -576,6 +499,39 @@ export class UpdatepropertyRentComponent implements OnInit {
           }); 
           if (data.data.draft == 1) {
             this.show_draft_btn = true;
+          }
+          if(data.data.enabled == 'yes'){
+            this.property_price_edit=true;
+            
+            this.form_step4 = this._formBuilder.group({
+              security_deposit: [
+                { value: data.data.security_deposit, disabled: !this.editable }
+              ],
+               expected_rent: [
+                { value: data.data.expected_rent, disabled: !this.editable }
+              ],
+               electricity_water: [
+                  { value: data.data.electricity_water, disabled: !this.editable }
+                ],
+                maintenance_charge_status: [
+                { value: data.data.maintenance_charge_status, disabled: !this.editable }
+                ],
+                maintenance_charge_condition: [
+                  { value: data.data.maintenance_charge_condition, disabled: !this.editable }
+                  ],
+                  maintenance_charge: [
+                    { value: data.data.maintenance_charge, disabled: !this.editable }
+                    ],
+                price_negotiable_status: [
+                 { value: data.data.negotiable_status, disabled: !this.editable }
+                ],
+                price_negotiable: [
+                  { value: data.data.price_negotiable, disabled: !this.editable }
+                 ],
+                 video_link: [
+                   { value: data.data.video_link, disabled: !this.editable }
+                  ]
+            });
           }
           if(data.data.build_name != null){
             this.form_step1.patchValue({
@@ -732,7 +688,8 @@ export class UpdatepropertyRentComponent implements OnInit {
           }
           if(data.data.expected_rent != null){
             this.form_step4.patchValue({
-              sliderControl:  data.data.expected_rent
+              sliderControl:  data.data.expected_rent,
+              expected_rent:  data.data.expected_rent
             });
           }
           if(data.data.inc_electricity_and_water_bill != null){
@@ -782,14 +739,18 @@ export class UpdatepropertyRentComponent implements OnInit {
               maintenance_charge_condition:  data.data.maintenance_charge_condition
             });
           }
-          if(data.data.video_link.length>1){
-            this.form_step4.patchValue({
-              video_link:  "https://www.youtube.com/watch?v=" +data.data.video_link
-            });     
-            this.youtube_url = "https://www.youtube-nocookie.com/embed/" +data.data.video_link+"?playlist="+data.data.video_link+"&loop=1&mute=1";          
-            this.safeURL = this._sanitizer.bypassSecurityTrustResourceUrl(this.youtube_url);
-            this.videolink=data.data.video_link.length;       
-          }
+          // if(data.data.video_link.length>1){
+          //   this.form_step4.patchValue({
+          //     video_link:  "https://www.youtube.com/watch?v=" +data.data.video_link
+          //   });     
+          //   this.youtube_url = "https://www.youtube-nocookie.com/embed/" +data.data.video_link+"?playlist="+data.data.video_link+"&loop=1&mute=1";          
+          //   this.safeURL = this._sanitizer.bypassSecurityTrustResourceUrl(this.youtube_url);
+          //   this.videolink=data.data.video_link.length;       
+          // }
+          this.expected_rent=data.data.expected_rent;
+          this.maintenance_charge=data.data.maintenance_charge;
+          this.price_negotiable=data.data.price_negotiable;
+          this.video_link=data.data.video_link;
         }
       });
   }
@@ -825,6 +786,16 @@ export class UpdatepropertyRentComponent implements OnInit {
       if(this.form_step2.value.sub_locality.length>0){
         this.form_step2.value.sub_locality=this.form_step2.value.sub_locality[0].sub_locality_id;
       }
+      
+    if(this.property_price_edit=true){
+      console.log('this.property_price_edit=true');
+      this.form_step1.patchValue({
+        expected_rent:this.expected_rent,
+        maintenance_charge:this.maintenance_charge,
+        price_negotiable:this.price_negotiable,
+        video_link:this.video_link,
+      }); 
+    }
       let param={id:this.prod_id,form_step1:this.form_step1.value,form_step2:this.form_step2.value,form_step3:this.form_step3.value,form_step4:this.form_step4.value,rooms:this.additional_room_array,amenties:this.amenityArray,images:this.product_img}
       if(this.form_step4.value.expected_rent >=5000 && this.form_step4.value.expected_rent <=500000){
         this.RentPropertyService.product_rent_update(param).subscribe(

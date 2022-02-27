@@ -40,6 +40,7 @@ export class ProductListingComponent implements OnInit {
   public minimum:any;
   public maximum:any;
   public e:any;
+  public login_usertype:number = 0;
   public dropdown_sublocality:any=[];
   public p:any;
   public ftpstring=environment.ftpURL;
@@ -143,6 +144,10 @@ export class ProductListingComponent implements OnInit {
      
     if(this.jwtService.getToken()){
       this.login_userid = this.jwtService.getUserId();
+      this.login_usertype = this.jwtService.getUserType();
+      if(this.login_usertype == 11){
+        this.access_search_bar=true;
+      }
       if(this.jwtService.get_Internal_User() == '"Yes"'){
       this.CommonService.getUserPermissions(this.login_userid).subscribe(
         response => {
@@ -347,6 +352,16 @@ export class ProductListingComponent implements OnInit {
         this.searchForm.value.sliderControl[1] = 50000000;  
         this.onsearch();
        }else if(params.cities != null){
+        this.searchForm.patchValue({
+          bathrooms:'',
+          bedrooms:'',
+          area_unit:'',
+          build_name:'',
+          years:'',
+          type:'',
+          locality:'',
+          locality_data:'',
+        });
         this.searchForm.controls['city'].setValue(params.cities); 
         this.get_locality(params.cities);        
         this.searchForm.value.sliderControl[0] = 5000;
@@ -472,6 +487,10 @@ export class ProductListingComponent implements OnInit {
     this.product_length=0;
     if(this.jwtService.getToken()){
       this.login_userid = this.jwtService.getUserId();
+      this.login_usertype = this.jwtService.getUserType();
+      if(this.login_usertype == 11){
+        this.access_search_bar=true;
+      }
       if(this.jwtService.get_Internal_User()== 'Yes'){
         this.CommonService.getUserPermissions(this.login_userid).subscribe(
           response => {

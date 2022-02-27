@@ -1,5 +1,14 @@
+
+<div class="wrapper">
+    <div class="container">
+        <div class="row preloader_row" *ngIf="showLoadingIndicator1 != false">
+            <div class="col-lg-12">
+                <div class="preloader"></div>
+            </div>
+        </div>
+    </div>
 <!--Breadcrumb-->
-<div class="p-5 mb-4 bg-secondary rounded-3">
+<div class="p-5 mb-4 bg-secondary rounded-3"  *ngIf="showLoadingIndicator1 == false">
     <div class="container-fluid py-5">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
@@ -10,10 +19,7 @@
         <h2 class="col-custom">Subscription Plans</h2>
     </div>
 </div>
-<div *ngIf="showLoadingIndicator">
-    <div class="preloader"></div>
-</div>
-<div class="p-4 rounded shadow mb-5">
+<div class="p-4 rounded shadow mb-5" *ngIf="showLoadingIndicator1 == false">
     <nav>
         <div class="nav nav-tabs nav-pills with-arrow flex-column flex-sm-row text-center" id="nav-tab" role="tablist">
             <button class="nav-link active" id="nav-rent-tab" data-bs-toggle="tab" data-bs-target="#nav-rent" type="button" role="tab" aria-controls="nav-rent" aria-selected="true">I want to rent
@@ -445,4 +451,5 @@
             </div>
         </div>                                                                       
     </div>                                      
+</div>
 </div>

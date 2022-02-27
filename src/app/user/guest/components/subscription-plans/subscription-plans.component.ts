@@ -18,6 +18,7 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
 export class SubscriptionPlansComponent implements OnInit {
 
   public showLoadingIndicator: boolean = false;
+  public showLoadingIndicator1: boolean = false;
   public returnUrl: string = '';
 
   value: number = 10000;
@@ -81,11 +82,13 @@ export class SubscriptionPlansComponent implements OnInit {
 
   getRentFeatures() {
     this.showLoadingIndicator = true;
+    this.showLoadingIndicator1 = true;
     this.plansPageService.getRentFeatures({ param: null }).subscribe(
       response => {
         this.rent_feat_res = response;
         //console.log(response);
         this.showLoadingIndicator = false;
+        this.showLoadingIndicator1 = false;
       },
       err => {
         console.log(err);
@@ -102,6 +105,7 @@ export class SubscriptionPlansComponent implements OnInit {
         this.letout_feat_res = res;
         //console.log(this.letout_feat_res);
         this.showLoadingIndicator = false;
+        this.showLoadingIndicator1 = false;
       },
       err => {
         this.showLoadingIndicator = false;

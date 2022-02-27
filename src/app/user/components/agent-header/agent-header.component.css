@@ -31,6 +31,21 @@
     font-weight: 500;
 }
 
+.active{
+    color: #ff5a5f!important;
+}
+
+.active_sub{
+    background-color: #ff5a5f!important;
+    color: #fff!important;
+}
+
+.active_sub:focus{
+    background-color: #ff5a5f!important;
+    color: #fff!important;
+}
+
+
 .compare {
     cursor: pointer!important;
 }
