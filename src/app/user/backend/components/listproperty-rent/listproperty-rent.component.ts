@@ -356,7 +356,9 @@ export class ListpropertyRentComponent implements OnInit {
   }
   getLocation() {
     this.map_show=false;
-    this.CommonService.getLocationService().then(resp => {
+    this.getLocationService().then(resp => {
+      console.log(resp);
+      
       setTimeout(()=>{ 
         this.longCus = parseFloat(resp.lng);
         this.latCus = parseFloat(resp.lat);
@@ -366,9 +368,31 @@ export class ListpropertyRentComponent implements OnInit {
         });
         this.getCurrentLocation();
         this.map_show=true;
-      }, 2500)
+      }, 1500)
       
-    })
+    }).catch(this.handleError);
+  }
+  
+  getLocationService(): Promise<any>
+  {
+    return new Promise((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition(resp => {
+          resolve({lng:resp.coords.longitude, lat: resp.coords.latitude,accuracy: resp.coords.accuracy});
+        },
+        err => {
+        this.map_show=true;
+        this.form_step2.patchValue({
+          map_latitude:'',
+          map_longitude:'',
+          address:''
+        });
+        });
+    });
+  }
+  
+  private handleError(error: any): Promise<any> {
+    console.error('An error occurred', error); 
+    return Promise.reject(error.message || error);
   }
   getCurrentLocation() {
     this.mapsAPILoader.load().then(() => {

@@ -125,5 +125,9 @@ export class CommonService {
     const route = "/api/auth/get_user_permissions/";
     return this.apiService.get<ResultModel>(route + reqModel);
   }
+  user_plan_availability(reqModel:any): Observable<ResultModel> {
+    const route = "/api/auth/user_plan_availability";
+    return this.apiService.get1<ResultModel>(route, reqModel);
+  } 
   
 }

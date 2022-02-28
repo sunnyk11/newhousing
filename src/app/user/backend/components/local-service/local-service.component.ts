@@ -5,9 +5,11 @@ import { ToastrService } from 'ngx-toastr';
 import { environment } from 'src/environments/environment';
 import { CommonService } from '../../services/common.service';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
+import { ActivatedRoute,Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { Pagination } from 'src/app/user/components/models/pagination.model';
+import { JwtService } from 'src/app/user/services/jwt.service';
 
 @Component({
   selector: 'app-local-service',
@@ -40,6 +42,8 @@ export class LocalServiceComponent implements OnInit {
   dropdownSettings!: IDropdownSettings;
   public filteredOptions!: Observable<any[]>;
   public Pagination_data: Pagination;
+  public service_provider:boolean=false;
+  public login_usertype:number=0;
   
   
   Service_form = new FormGroup({
@@ -59,11 +63,16 @@ export class LocalServiceComponent implements OnInit {
   constructor(
     private LocalServiceProviderService:LocalServiceProviderService,
     private toastr: ToastrService,
-    private CommonService:CommonService
+    private jwtService: JwtService,
+    private CommonService:CommonService,
+    private router:Router
   ) {
-    this.Pagination_data = new Pagination(); }
+    this.Pagination_data = new Pagination();
+    this.user_plan_availability();
+   }
 
   ngOnInit(): void {
+    this.login_usertype = this.jwtService.getUserType();
     this.dropdownSettings = {
       singleSelection: true,
       idField: 'service_id',
@@ -104,6 +113,23 @@ export class LocalServiceComponent implements OnInit {
     this.filteredOptions = this.Service_form.controls.locality_data.valueChanges.pipe(
       startWith(''),
       map((value) => this._filter(value))
+    );
+  }
+  
+  // user_plan_availability
+  user_plan_availability(){
+    this.CommonService.user_plan_availability({ param: null }).subscribe(
+      response => {
+        let data:any=response;
+        console.log(response);
+        console.log(this.login_usertype );
+        if(data.data.length > 0 || this.login_usertype ==  8 || this.login_usertype ==  11){
+          // this.router.navigate(['/plans']);
+          console.log('page exiting');
+        }else{
+          this.router.navigate(['/plans']);
+        }
+      }
     );
   }
   
@@ -380,6 +406,7 @@ export class LocalServiceComponent implements OnInit {
   }
 
 }
+
 function id(id: any) {
   throw new Error('Function not implemented.');
 }

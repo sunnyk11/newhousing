@@ -46,7 +46,7 @@
                     <li><a class="dropdown-item" [routerLink]="['/my-properties']" routerLinkActive="active_sub">My Properties</a></li>
                     <li><a class="dropdown-item" [routerLink]="['my-plans']" routerLinkActive="active_sub">My Plans</a></li>
                     <li><a class="dropdown-item" [routerLink]="['my-properties']" routerLinkActive="active_sub">Listed Properties</a></li>
-                    <li><a class="dropdown-item" [routerLink]="['local-services']" routerLinkActive="active_sub">Local Service Providers</a></li>
+                    <li><a class="dropdown-item" [routerLink]="['local-services']" routerLinkActive="active_sub"  *ngIf="service_provider == true">Local Service Providers</a></li>
                     <!--  <li><a class="dropdown-item" [routerLink]="['services-user-list']">Services User</a></li>
                     <li><a class="dropdown-item" [routerLink]="['services-list']">Services list</a></li> -->
                     <li><a class="dropdown-item" [routerLink]="['/logout']" routerLinkActive="active_sub">Logout</a></li>
