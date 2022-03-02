@@ -57,4 +57,9 @@ export class CommonService {
     const route = "/api/auth/get_locality_byid";
     return this.apiService.get<ResultModel>(route, reqModel);
   }
+  
+  user_plan_availability(reqModel:any): Observable<ResultModel> {
+    const route = "/api/auth/user_plan_availability";
+    return this.apiService.get1<ResultModel>(route, reqModel);
+  } 
 }

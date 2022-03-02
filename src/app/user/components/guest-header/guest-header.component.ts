@@ -19,6 +19,7 @@ export class GuestHeaderComponent implements OnInit {
   public userEmail: string = '';
   public toll_free=environment.toll_free;
   public userId: string = '';
+  public login_usertype:number=0;
   public profile_pic: string = '';
   public google_profile_pic: any;
   public userName: string = '';
@@ -30,6 +31,7 @@ export class GuestHeaderComponent implements OnInit {
   public property_comp_length: number = 0;
   public token: string = '';
   private google_token: string = '';
+  public service_provider:boolean=false;
 
 
   constructor(
@@ -55,16 +57,17 @@ export class GuestHeaderComponent implements OnInit {
   user_details() {
     if (this.jwtService.getToken()) {
       this.LoggedIn = true;
+      this.login_usertype = this.jwtService.getUserType();
       this.userEmail = this.jwtService.getUserEmail();
       this.userId = this.jwtService.getUserId();
       this.profile_pic = this.jwtService.getProfilePic();
-      //console.log(this.profile_pic);
       if (this.profile_pic?.indexOf('https') != -1) {
         this.google_profile_pic = this.sanitize(this.profile_pic)
       }
       this.userName = this.jwtService.getUserName();
       this.product_wishlist();
       this.product_comapre();
+      this.user_plan_availability();
       // wishlist refresh function 
       this.wishlist_refresh();
       // product conpare function   
@@ -92,6 +95,18 @@ export class GuestHeaderComponent implements OnInit {
       }
     );
   }
+  // user_plan_availability
+  user_plan_availability(){
+    this.commonService.user_plan_availability({ param: null }).subscribe(
+      response => {
+        this.service_provider=false;
+        let data:any=response;
+        if(data.data.length>0 || this.login_usertype ==8 || this.login_usertype ==11){
+          this.service_provider=true;
+        }
+      }
+    );
+  }
   compare_notification(): void {
     this.toastr.info('Minimun Two Property required', 'Comparison', {
       timeOut: 2000,
@@ -103,6 +118,7 @@ export class GuestHeaderComponent implements OnInit {
       (message: any) => {
         if (message == 'true') {
           this.product_wishlist();
+          this.user_plan_availability();
         }
       }
     );
@@ -112,6 +128,7 @@ export class GuestHeaderComponent implements OnInit {
       (message: any) => {
         if (message == 'true') {
           this.product_comapre();
+          this.user_plan_availability();
         }
       }
     );

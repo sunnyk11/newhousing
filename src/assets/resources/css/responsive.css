@@ -11,6 +11,9 @@
 }
 
 @media(max-width: 768px) {
+    .flaticon-maps-and-flags{
+        display: none!important;
+    }
     #accordion .panel-heading,
     .panel-title {
         width: 100%!important;
@@ -1002,7 +1005,7 @@
         height: 70px;
     }
     .form-select {
-        width: 100% !important;
+        width: 100%;
     }
 }
 

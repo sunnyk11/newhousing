@@ -44,9 +44,9 @@
                     <a class="dropdown-item text-secondary" [routerLink]="['/agent/my-properties']" routerLinkActive="active_sub">Listed Properties</a>
                 </span>
             </button>
-            <button mat-menu-item class="text-center links" *ngIf="LoggedIn">
+            <button mat-menu-item class="text-center links" *ngIf="LoggedIn && service_provider == true">
                 <span>
-                    <a class="dropdown-item text-secondary" [routerLink]="['/agent/local-services']" routerLinkActive="active_sub">Local Services</a>
+                    <a class="dropdown-item text-secondary" [routerLink]="['/agent/local-services']" routerLinkActive="active_sub">Local Services Provider</a>
                 </span>
             </button>
             <!-- <button mat-menu-item class="text-center links" *ngIf="LoggedIn">
@@ -131,7 +131,7 @@
                             <a class="dropdown-item text-secondary" [routerLink]="['/agent/my-properties']" routerLinkActive="active_sub">Listed Properties</a>
                         </span>
                     </button>
-                    <button mat-menu-item class="text-center links">
+                    <button mat-menu-item class="text-center links" *ngIf="service_provider == true">
                         <span>
                             <a class="dropdown-item text-secondary" [routerLink]="['/agent/local-services']" routerLinkActive="active_sub">Local Service Providers</a>
                         </span>

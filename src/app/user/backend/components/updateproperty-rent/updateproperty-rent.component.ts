@@ -406,7 +406,7 @@ export class UpdatepropertyRentComponent implements OnInit {
   
   getLocation() {
     this.map_show=false;
-    this.CommonService.getLocationService().then(resp => {
+    this.getLocationService().then(resp => {
       setTimeout(()=>{ 
         this.longCus = parseFloat(resp.lng);
         this.latCus = parseFloat(resp.lat);
@@ -419,6 +419,23 @@ export class UpdatepropertyRentComponent implements OnInit {
       }, 2500)
       
     })
+  }
+  
+  getLocationService(): Promise<any>
+  {
+    return new Promise((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition(resp => {
+          resolve({lng:resp.coords.longitude, lat: resp.coords.latitude,accuracy: resp.coords.accuracy});
+        },
+        err => {
+        this.map_show=true;
+        this.form_step2.patchValue({
+          map_latitude:'',
+          map_longitude:'',
+          address:''
+        });
+        });
+    });
   }
   getCurrentLocation() {
     this.mapsAPILoader.load().then(() => {
