@@ -474,7 +474,7 @@ export class UpdatepropertyRentComponent implements OnInit {
     let param = { id: prod_id }
     this.RentPropertyService.property_get_id(param).subscribe(
       response => {
-        console.log(response);
+        // console.log(response);
         let data:any =response;
         if(data.data == null){
           this.redirect_to_myproperty();

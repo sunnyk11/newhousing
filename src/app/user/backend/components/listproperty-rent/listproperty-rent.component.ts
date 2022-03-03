@@ -357,7 +357,7 @@ export class ListpropertyRentComponent implements OnInit {
   getLocation() {
     this.map_show=false;
     this.getLocationService().then(resp => {
-      console.log(resp);
+      // console.log(resp);
       
       setTimeout(()=>{ 
         this.longCus = parseFloat(resp.lng);

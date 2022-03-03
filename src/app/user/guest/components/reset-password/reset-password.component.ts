@@ -115,7 +115,7 @@ export class ResetPasswordComponent implements OnInit {
       },
       err => {
         this.showLoadingIndicator = false;
-        console.log(err);
+        // console.log(err);
       }
     );
 
@@ -132,7 +132,7 @@ export class ResetPasswordComponent implements OnInit {
       },
       err => {
         this.showLoadingIndicator = false;
-        console.log(err);
+        // console.log(err);
       }
     );
   }
@@ -153,7 +153,7 @@ export class ResetPasswordComponent implements OnInit {
       },
       err => {
         this.showLoadingIndicator = false;
-        console.log(err);
+        // console.log(err);
         this.isFailedVerify_otp = true;
         this.errorMessage = err.error.message;
       }
@@ -176,7 +176,7 @@ export class ResetPasswordComponent implements OnInit {
       },
       err => {
         this.showLoadingIndicator = false;
-        console.log(err);
+        // console.log(err);
       }
     );
   }
@@ -193,7 +193,7 @@ export class ResetPasswordComponent implements OnInit {
       },
       err => {
         this.showLoadingIndicator = false;
-        console.log(err);
+        // console.log(err);
       }
     );
   }
@@ -214,7 +214,7 @@ export class ResetPasswordComponent implements OnInit {
       },
       err => {
         this.showLoadingIndicator = false;
-        console.log(err);
+        // console.log(err);
         this.isFailedVerify_otp_email = true;
         this.errorMessage = err.error.message;
       }

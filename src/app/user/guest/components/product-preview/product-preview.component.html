@@ -115,13 +115,16 @@
                                         <li class="list-inline-item product_id" *ngIf=" product_data.sale_availability != null">
                                             Property id:<span *ngIf="product_data?.created_at | date: 'hhmmss' as created_at" (click)="copyText('SP',created_at,product_data?.id)"> SP{{created_at}}{{product_data?.id}}</span>
                                         </li>
-                                        <li class="list-inline-item product_id1">Sq Ft: {{product_data?.area}}</li>
+                                        <li class="list-inline-item product_id" >
+                                            Property Price:<span >₹ {{Price_convert(product_data?.expected_rent)}}</span>
+                                        </li>
+                                        <!-- <li class="list-inline-item product_id1">Sq Ft: {{product_data?.area}}</li>
                                         <li class="list-inline-item deshtop_li">Beds: {{product_data?.bedroom}}</li>
                                         <li class="list-inline-item deshtop_li">Baths: {{product_data?.bathroom}}</li>
                                         <ul class="ul_mobile">
                                             <li class="list-inline-item">Beds: {{product_data?.bedroom}}</li>
                                             <li class="list-inline-item">Baths: {{product_data?.bathroom}}</li>
-                                        </ul>
+                                        </ul> -->
                                         <!-- <li class="list-inline-item" id="mobile_viewd_li">Apartment</li> -->
                                                                                
                                     </ul>
@@ -136,6 +139,7 @@
                                 </p>
                             </div>
                         </div>
+                        
                         <div class="col-lg-12">
                             <div class="additional_details">
                                 <div class="row">
@@ -148,7 +152,7 @@
                                                 <p>Property views:</p>
                                             </li>
                                             <li>
-                                                <p>Price :</p>
+                                                <p>Available For</p>
                                             </li>
                                             <li>
                                                 <p>Property Size :</p>
@@ -161,14 +165,9 @@
                                             <li>
                                                 <p><span>{{product_data?.view_counter}}</span></p>
                                             </li>
+                                            
                                             <li>
-                                                <p><span *ngIf="product_data?.expected_rent != null">₹
-                                                    {{Price_convert(product_data?.expected_rent) }}/<small>month</small>
-                                                </span>
-                                                    <span *ngIf="product_data?.expected_pricing != null">₹
-                                                    {{Price_convert(product_data?.expected_pricing)}}
-                                                </span>
-                                                </p>
+                                                <p><span>{{product_data?.available_for | date: ' d MMM y'}}</span></p>
                                             </li>
                                             <li>
                                                 <p><span>{{product_data?.area}}({{product_data?.property_area_unit?.unit}})</span></p>
@@ -217,6 +216,7 @@
                                 </div>
                             </div>
                         </div>
+                        
                         <div class="col-lg-12">
                             <div class="additional_details">
                                 <div class="row">
@@ -228,12 +228,13 @@
                                             <li *ngIf='product_data?.security_deposit'>
                                                 <p>Security Deposit:</p>
                                             </li>
+                                            
                                             <li>
-                                                <p>Available For</p>
+                                                <p>Price :</p>
                                             </li>
-                                            <li>
+                                            <!-- <li>
                                                 <p>Area Unit :</p>
-                                            </li>
+                                            </li> -->
                                             <li>
                                                 <p>Agreement :</p>
                                             </li>
@@ -243,11 +244,17 @@
                                                 <p><span>{{product_data?.security_deposit}} Month Rent</span></p>
                                             </li>
                                             <li>
-                                                <p><span>{{product_data?.available_for}}</span></p>
+                                                <p><span *ngIf="product_data?.expected_rent != null">₹
+                                                    {{Price_convert(product_data?.expected_rent) }}/<small>month</small>
+                                                </span>
+                                                    <span *ngIf="product_data?.expected_pricing != null">₹
+                                                    {{Price_convert(product_data?.expected_pricing)}}
+                                                </span>
+                                                </p>
                                             </li>
-                                            <li>
+                                            <!-- <li>
                                                 <p><span>{{product_data?.property_area_unit?.unit}}</span></p>
-                                            </li>
+                                            </li> -->
                                             <li>
                                                 <p><span>{{product_data?.ageement_duration?.name}}</span></p>
                                             </li>
@@ -265,10 +272,7 @@
                                                 <p>Property Floor :</p>
                                             </li>
                                             <li *ngIf="product_data?.total_floors">
-                                                <p>Total Floor :</p>
-                                            </li>
-                                            <li>
-                                                <p>Electricity & Water bill:</p>
+                                                <p>Total Floor in Property:</p>
                                             </li>
                                         </ul>
                                         <ul class="list-inline-item">
@@ -276,7 +280,7 @@
                                                 <p><span>{{product_data?.maintenance_charge}}({{product_data?.maintenance_condition?.name}})</span></p>
                                             </li>
                                             <li>
-                                                <p><span *ngIf="product_data?.additional_parking_status == 1">Yes({{product_data?.parking_covered_count}},{{product_data?.parking_open_count}}) </span>
+                                                <p><span *ngIf="product_data?.additional_parking_status == 1">Yes </span>
                                                     <span *ngIf="product_data?.additional_parking_status == 0">No </span>
                                                 </p>
                                             </li>
@@ -286,10 +290,15 @@
                                             <li *ngIf="product_data?.total_floors">
                                                 <p><span>{{product_data?.total_floors}}</span></p>
                                             </li>
+                                        </ul>
+                                    </div>
+                                    <div clas="col-lg-12">
+                                        <ul>
+                                        
                                             <li>
-                                                <p>
-                                                    <span *ngIf="product_data?.inc_electricity_and_water_bill == 1">Yes</span>
-                                                    <span *ngIf="product_data?.inc_electricity_and_water_bill == 0">No</span>
+                                                <p>Electricity & Water bill include in Rent:
+                                                    <span *ngIf="product_data?.inc_electricity_and_water_bill == 1"><strong>Yes</strong></span>
+                                                    <span *ngIf="product_data?.inc_electricity_and_water_bill == 0"><strong>No</strong></span>
                                                 </p>
                                             </li>
                                         </ul>
@@ -322,6 +331,12 @@
                                                     <li>
                                                         <p>Price Negotiable:</p>
                                                     </li>
+                                                    <li>
+                                                        <p>Plan Name:</p>
+                                                    </li>
+                                                    <li>
+                                                        <p>Plan Days:</p>
+                                                    </li>
                                                 </ul>
                                             </div>
                                             <div class="col-lg-8 col-6">
@@ -343,6 +358,15 @@
                                                             <span *ngIf="product_data?.negotiable_status == 1">Yes{{product_data?.price_negotiable}}</span>
                                                             <span *ngIf="product_data?.negotiable_status == 0">No</span>
                                                         </p>
+                                                    </li>
+                                                    <li>
+                                                        <p><span>{{product_data?.plan_name}}</span></p>
+                                                    </li>
+                                                    <li>
+                                                        <p><span>{{product_data?.plans_day_left}}</span>
+                                                            <span *ngIf="product_data?.plans_day_left<0"> Days Over </span>
+                                                    <span *ngIf="product_data?.plans_day_left>0">Days left</span>
+                                                         </p>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -375,7 +399,7 @@
                         </div> -->
                     </div>
                     <div class="col-lg-12" *ngIf="isLoggedIn == true">
-                        <div class="col-lg-12" *ngIf="login_userid == product_data?.user_id">
+                        <div class="col-lg-12" *ngIf="login_userid == product_data?.user_id  && access_property_location == false">
                             <div class="application_statics mt30">
                                 <div class="row">
                                     <div class="col-lg-3">

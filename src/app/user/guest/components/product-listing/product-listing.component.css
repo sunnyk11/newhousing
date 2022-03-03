@@ -11,6 +11,16 @@
     color:blue!important;
     padding: 0px 5px!important;
 }
+#planaccess{
+    margin: 7px 0px 0px 0px!important;
+ width: 100% !important;
+ background-color: #ff5a5f;
+ text-align: center!important;
+}
+
+#planaccess a{
+ color: #fff!important;
+}
 #no_proeprty_link a{
     cursor: pointer!important;
     color:blue!important;

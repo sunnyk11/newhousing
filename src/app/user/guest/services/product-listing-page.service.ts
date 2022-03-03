@@ -16,6 +16,9 @@ export class ProductListingPageService {
   private handleError(error: any): Promise<any> {
     return Promise.reject(error.message || error);
   }
+  private handleError1(error: any): Promise<any> {
+    return Promise.reject(error.error.errors || error);
+  }
   post_pagination(url: string,reqModel:any): Promise<Pagination> {
     const route = url;
     return this.apiService.post_pagination(route,reqModel).toPromise().then(
@@ -34,7 +37,7 @@ export class ProductListingPageService {
       (response) => {
         return response as Pagination
       })
-      .catch(this.handleError);
+      .catch(this.handleError1);
   }
   product_details(reqModel: any): Promise<Pagination> {
     const route = "/api/product/productsearching";

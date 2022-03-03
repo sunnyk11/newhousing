@@ -32,11 +32,9 @@ export class MyPlansComponent implements OnInit {
           this.showLoadingIndicator = false;
           let data:any=res;
           this.response = data.data;
-          console.log(this.response);
         },
         err => {  
           this.showLoadingIndicator = false;
-          console.log(err);
         }
       );
     }
@@ -67,7 +65,6 @@ export class MyPlansComponent implements OnInit {
   }
 
   moreDetails(plan_details: any) {
-    console.log(plan_details);
     this.plan_det = plan_details;
   }
   

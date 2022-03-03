@@ -121,11 +121,8 @@ export class LocalServiceComponent implements OnInit {
     this.CommonService.user_plan_availability({ param: null }).subscribe(
       response => {
         let data:any=response;
-        console.log(response);
-        console.log(this.login_usertype );
         if(data.data.length > 0 || this.login_usertype ==  8 || this.login_usertype ==  11){
           // this.router.navigate(['/plans']);
-          console.log('page exiting');
         }else{
           this.router.navigate(['/plans']);
         }

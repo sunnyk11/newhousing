@@ -103,6 +103,7 @@ export class ProductPageComponent implements OnInit {
       this.ProductPageService.login_single_product_details(param).subscribe(
         response => {
           this.product_details=response;
+          // console.log(response);
           this.product_data=this.product_details.data;
           this.order_status=this.product_data?.order_status;
           if(this.product_details.data != null){
@@ -194,6 +195,7 @@ export class ProductPageComponent implements OnInit {
     if(this.jwtService.getToken()){
       this.ProductPageService.login_getsimilarproperty(param).subscribe(
         response => {
+          // console.log(response);
           this.similar_property=response;
           this.showLoadingIndicator = false;
           this.product_length=this.similar_property.data.length;

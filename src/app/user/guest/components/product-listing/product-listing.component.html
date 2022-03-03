@@ -385,6 +385,13 @@
                                                     class="flaticon-magnifying-glass"></span></label>
                                         </div>
                                     </li>
+                                    <li class="search_area">
+                                        <div class="form-group mb20">
+                                            <input type="text" class="form-control input-text" name="product_id" formControlName="product_id" id="product_id" placeholder="Enter Property Id">
+                                            <label for="exampleInputEmail"><span
+                                                    class="flaticon-magnifying-glass"></span></label>
+                                        </div>
+                                    </li>
                                     <li>
                                         <div class="search_option_two">
                                             <div class="candidate_revew_select">
@@ -729,7 +736,12 @@
                                         <div class="row">
                                             <div class="col-9">
                                                 <a (click)="sub_navigate(number.product_id,number.build_name)">
-                                                   <p class="text-thm" *ngIf="number.type != null">{{ number?.property__type?.name | titlecase }}</p>
+                                                   <p class="text-thm" *ngIf="number.type != null" style="line-height:0!important">{{ number?.property__type?.name | titlecase }} 
+                                                    </p>
+                                                    <p>
+                                                        <span *ngIf="number?.furnishing_status == 1" style="color: #000;">(Furnished)</span>
+                                                        <span *ngIf="number?.furnishing_status == 0" style="color: #000;">(Not Furnished)</span> 
+                                                    </p>
                                                 </a>
                                             </div>
                                             <div class="col-3">
@@ -750,9 +762,22 @@
                                             <span *ngIf="number.product_state != null">({{ number?.product_state?.state | titlecase }})</span>
                                         </p>
                                         <ul class="prop_details mb0">
-                                            <li class="list-inline-item"><a>Beds: {{ number?.bedroom }}</a></li>
-                                            <li class="list-inline-item"><a>Baths: {{ number?.bathroom }}</a></li>
-                                            <li class="list-inline-item"><a>Area unit: {{number?.property_area_unit?.unit }}</a></li>
+                                            <li class="list-inline-item first"><a>Bedrooms: {{ number?.bedroom }}</a></li>
+                                            <li class="list-inline-item second"><a>Area: {{number?.area }}({{number?.property_area_unit?.unit}})</a></li>
+                                        </ul>
+                                        <ul class="prop_details mb0">
+                                            <li class="list-inline-item first"><a>Bathrooms: {{ number?.bedroom }}</a></li>
+                                            <li class="list-inline-item second"><a>Available From: {{number?.available_for | date: ' d MMM y' }}</a></li>
+                                        
+                                        </ul>                                       
+                                
+                                        <ul class="prop_details mb0"   *ngIf="access_search_bar == true" >
+                                            <li class="list-inline-item" id="planaccess">
+                                                <a>{{number?.plan_name}} Plan: {{number?.plans_day_left}} 
+                                                    <span *ngIf="number?.plans_day_left<0"> Days Over</span>
+                                                    <span *ngIf="number?.plans_day_left>=0">Days left</span>
+                                                </a>
+                                            </li>
                                         </ul>
                                     </a>
                                     </div>
@@ -761,7 +786,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row" *ngIf="product_length == 0 && property_availablty == false">
+                <div class="row" *ngIf="product_length == 0 && property_availablty == false && showLoadingIndicator == false">
                     <div class="col-lg-12">
                         <h3>Oops! Currently we are not working in this
                             Area. </h3>

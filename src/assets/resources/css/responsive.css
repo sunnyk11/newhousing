@@ -385,7 +385,7 @@
         height: 440px!important;
     }
     #feature-property .feat_property .details .tc_content {
-        height: 160px!important;
+        height: auto!important;
     }
     .similar_property .feat_property .details .tc_content {
         height: 170px!important;
