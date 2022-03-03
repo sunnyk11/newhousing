@@ -210,11 +210,9 @@ export class ProPaymentSummaryComponent implements OnInit {
             
             this.plansPageService.postSelectedRentPlan(formData).subscribe(
               res => {
-                console.log(res);
                 this.selected_plan_data = res;
                 this.plansPageService.proceedToPaymentRent(this.selected_plan_data.data.order_id).subscribe(
                   result => {
-                    //console.log(result);
                     this.payment_result = result;
                     if ( this.payment_result.status == 201) {
                       this.paytm_data =  this.payment_result.data;

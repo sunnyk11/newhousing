@@ -12,6 +12,17 @@
     cursor: no-drop!important;
 }
 
+#planaccess{
+    margin: 7px 0px 0px 0px!important;
+ width: 100% !important;
+ background-color: #ff5a5f;
+ text-align: center!important;
+}
+
+#planaccess a{
+ color: #fff!important;
+}
+
 .property-active-btn a i{
     color: #fff!important;
     cursor: no-drop!important;
@@ -212,7 +223,8 @@
     .share-tab{
         display: flex;
         align-items: center;
-        justify-content: flex-start;
+        justify-content: end;
+        margin-top: -60px!important;
     }
     section{
         padding: 20px 0px!important;

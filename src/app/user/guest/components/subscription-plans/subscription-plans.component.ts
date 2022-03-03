@@ -91,7 +91,7 @@ export class SubscriptionPlansComponent implements OnInit {
         this.showLoadingIndicator1 = false;
       },
       err => {
-        console.log(err);
+        // console.log(err);
         this.showLoadingIndicator = false;
       }
     );
@@ -109,7 +109,7 @@ export class SubscriptionPlansComponent implements OnInit {
       },
       err => {
         this.showLoadingIndicator = false;
-        console.log(err);
+        // console.log(err);
       }
     );
   }
@@ -140,7 +140,7 @@ export class SubscriptionPlansComponent implements OnInit {
         data => {
           this.showLoadingIndicator = false;
           this.user_phone_data = data;
-          console.log(this.user_phone_data);
+          // console.log(this.user_phone_data);
           if (this.user_phone_data !== 1) {
             //console.log("Mobile number not verified");
             this.returnUrl = this.router.url;
@@ -170,7 +170,7 @@ export class SubscriptionPlansComponent implements OnInit {
             formData.append('plan_price', this.plan_price);
             formData.append('plan_features_data', JSON.stringify(plan_features));
             //console.log(typeof(plan_features));
-            console.log(plan_type);
+            // console.log(plan_type);
 
             this.plansPageService.postSelectedPlan(formData).subscribe(
               res => {

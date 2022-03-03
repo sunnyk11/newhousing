@@ -78,7 +78,7 @@ export class MyPropertiesComponent implements OnInit {
     this.showLoadingIndicator= true;
     this.MypropertiesService.agent_properties().then(
       Pagination_data => {
-        console.log(Pagination_data);
+        // console.log(Pagination_data);
         this.agentproperty=Pagination_data;
         this.product_length=this.agentproperty.data.total;
         this.product_length1=this.agentproperty.data.total;
