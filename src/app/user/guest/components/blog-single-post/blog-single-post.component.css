@@ -7,7 +7,9 @@
     border-radius: 8px;
     padding: 30px;
 }
-
+.bg-secondary {
+    padding: 8rem 3rem 3rem 3rem!important;
+}
 .main_blog_post_content .mbp_thumb_post .details {
     padding-top: 30px;
 }
@@ -16,6 +18,9 @@
     border-radius: 25px;
     height: 85px;
     border: 2px solid #24324a;
+}
+.details ul li{
+    margin-right: 6px!important;
 }
 
 .main_blog_post_content .mbp_thumb_post .details p {

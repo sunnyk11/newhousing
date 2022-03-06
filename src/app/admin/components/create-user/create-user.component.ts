@@ -22,6 +22,7 @@ export class CreateUserComponent implements OnInit {
   public dropdownSettings: IDropdownSettings;
   public item_id: number = 0;
   public item_text: string = '';
+  public showLoadingIndicator: boolean = false;
 
   constructor(private fb: FormBuilder,
     private rolesService: RolesService,
@@ -54,6 +55,7 @@ export class CreateUserComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    this.showLoadingIndicator = true;
     this.getRoles();
   }
 
@@ -71,6 +73,7 @@ export class CreateUserComponent implements OnInit {
         for (let i = 0; i < this.roles_response.length; i++) {
           this.dropdownList = this.dropdownList.concat({ item_id: this.roles_response[i].id, item_text: this.roles_response[i].role_name});
         }
+        this.showLoadingIndicator = false;
         //console.log(this.dropdownList);
       },
       err => {
@@ -87,6 +90,7 @@ export class CreateUserComponent implements OnInit {
   }
 
   onSubmit() {
+    this.showLoadingIndicator = true;
     this.submitted = true;
     //console.log(this.UserForm);
     if (this.UserForm.invalid) {
@@ -94,12 +98,14 @@ export class CreateUserComponent implements OnInit {
     }
     this.rolesService.createUser(this.UserForm.value).subscribe(
       response => {
+        this.showLoadingIndicator = false;
         //console.log(response);
         this.UserForm.reset();
         this.toastr.success('Successfully created User');
         this.router.navigate(['/admin/view-internal-user']);
       },
       err => {
+        this.showLoadingIndicator = false;
         if(err.error.errors.email){
           this.toastr.error(err.error.errors.email, 'Something Error', {
             timeOut: 3000,

@@ -50,6 +50,7 @@ export class UpdatepropertyRentComponent implements OnInit {
   public furnish_row:boolean=false;
   public showLoadingIndicator:boolean=false;
   public show_draft_btn: boolean = false;
+  public testing:any;
   public amenties:any=[];
   public videolink:number=0;
   public youtube_url: any;
@@ -474,7 +475,8 @@ export class UpdatepropertyRentComponent implements OnInit {
     let param = { id: prod_id }
     this.RentPropertyService.property_get_id(param).subscribe(
       response => {
-        // console.log(response);
+        console.log(response);
+        this.testing=response;
         let data:any =response;
         if(data.data == null){
           this.redirect_to_myproperty();

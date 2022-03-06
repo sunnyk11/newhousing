@@ -12,8 +12,8 @@
                                         <th scope="col heading">User</th>
                                         <th scope="col">Email</th>
                                         <th scope="col">Mobile No</th>
-                                        <th scope="col">Account No</th>
                                         <th scope="col">Account verification</th>
+                                        <th scope="col">Status</th>
                                         <th scope="col">Action On</th>
                                     </tr>
                                 </thead>
@@ -22,9 +22,9 @@
                                         <td>{{data?.name}}</td>
                                         <td>{{data?.email }}</td>
                                         <td>{{data?.other_mobile_number}}</td>
-                                        <td><span *ngIf="data?.bank_acount_no !=null">{{data?.bank_acount_no}}</span>
+                                        <!-- <td><span *ngIf="data?.bank_acount_no !=null">{{data?.bank_acount_no}}</span>
                                             <span *ngIf="data?.bank_acount_no ==null">NA</span>                                        
-                                        </td>
+                                        </td> -->
                                         <td>
                                             <span *ngIf="data?.paytm_verify_status==0">
                                                 <p class="text-danger">bank Deatils Not Verify</p></span>
@@ -32,6 +32,16 @@
                                                 <p class="text-success">bank Deatils Verify</p>
                                             </span>
                                             
+                                        </td>
+                                        <td>
+                                            <label class="switch" *ngIf="data?.blocked == 0">
+                                                <input type="checkbox"  (click)="user_status_changes(data?.id)" checked>
+                                                <span class="slider round"></span>
+                                              </label>
+                                              <label class="switch" *ngIf="data?.blocked == 1">
+                                                  <input type="checkbox"  (click)="user_status_changes(data?.id)">
+                                                  <span class="slider round"></span>
+                                                </label>
                                         </td>
                                         <td>
                                             <ul class="view_edit_delete_list mb0">

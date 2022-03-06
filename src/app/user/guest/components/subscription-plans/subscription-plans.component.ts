@@ -169,8 +169,8 @@ export class SubscriptionPlansComponent implements OnInit {
             
             formData.append('plan_price', this.plan_price);
             formData.append('plan_features_data', JSON.stringify(plan_features));
-            //console.log(typeof(plan_features));
-            // console.log(plan_type);
+            // console.log(typeof(plan_features));
+            console.log(plan_features);
 
             this.plansPageService.postSelectedPlan(formData).subscribe(
               res => {

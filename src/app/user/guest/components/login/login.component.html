@@ -15,13 +15,13 @@
     <div *ngIf="showLoadingIndicator">
         <div class="preloader"></div>
     </div>
-    <div class="row d-flex justify-content-center align-items-center">
+    <div class="row d-flex justify-content-center align-items-center" >
         <div class="col-12 col-md-8 col-lg-6 col-xl-5">
             <div class="card shadow text-dark login-card">
                 <div class="card-body py-3 px-5 text-center">
 
                     <div class="mb-md-0 mt-md-3 pb-2">
-                        <form [formGroup]="loginForm" #ngForm="ngForm" (ngSubmit)="onSubmit()">
+                        <form [formGroup]="loginForm" #ngForm="ngForm" (ngSubmit)="onSubmit()" >
                             <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
                             <p class="text-secondary-50 mb-3">Please enter your email and password</p>
 

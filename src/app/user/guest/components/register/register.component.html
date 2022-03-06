@@ -87,7 +87,7 @@
                             <div class="row">
                                 <div class="input-group mb-3">
                                     <span class="input-group-text" id="basic-addon1">+91</span>
-                                    <input type="number" class="form-control" formControlName="phone_number" [ngClass]="{ 'is-invalid': submitted && f.phone_number.errors }" placeholder="Mobile Number" name="phone_number" minlength="10" maxlength="10" id="phone_number" pattern="[0-9]{10}"
+                                    <input type="test" class="form-control" formControlName="phone_number" [ngClass]="{ 'is-invalid': submitted && f.phone_number.errors }" placeholder="Mobile Number" (keypress)="keyPressNumbers($event)"  name="phone_number" minlength="10" maxlength="10" id="phone_number" 
                                         required>
                                     <div *ngIf="submitted && f.phone_number.errors" class="invalid-feedback">
                                         <div *ngIf="f.phone_number.errors.required">Phone number is required</div>

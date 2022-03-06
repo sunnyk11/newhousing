@@ -34,6 +34,11 @@ export class UserListService {
       .catch(this.handleError);
   }
   
+  user_status_changes(reqModel: any): Observable<ResultModel> {
+    const route = "/api/admin/user_status_changes";
+    return this.apiService.admin_post<ResultModel>(route, reqModel);
+  }
+  
   getpagination(url: string): Promise<Pagination> {
     const route = url;
     //console.log(route);
