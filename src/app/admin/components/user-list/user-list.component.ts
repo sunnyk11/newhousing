@@ -45,6 +45,19 @@ export class UserListComponent implements OnInit {
       // this.user_list_length=this.user_list.data.data.length;
     });
   } 
+    user_status_changes(id:any){
+    let param = { user_id: id}
+    this.UserListService.user_status_changes(param).subscribe(
+      response => {
+        this.showLoadingIndicator =false;
+        let data:any=response;
+        this.toastr.success('Status Updated', 'User', {
+          timeOut: 3000,
+        });
+        this.get_userlist();
+      }
+    );
+  }
   
   delete_user_bank(id:any){
     this.showLoadingIndicator =true;

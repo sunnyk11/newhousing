@@ -60,4 +60,12 @@
     .discount_price {
         font-size: 20px;
     }
+    #deshtop_views{
+        display: none;
+    }
+}
+@media only screen and (min-width: 768px) {
+        #mobile_views{
+            display: none;;
+        }
 }

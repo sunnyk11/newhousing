@@ -6,3 +6,10 @@
 :host ::ng-deep .multiselect-dropdown .dropdown-btn .dropdown-multiselect__caret {
     height: 30px !important;
 }
+
+.preloader_row {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    z-index: 100!important;
+}

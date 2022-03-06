@@ -11,8 +11,60 @@
             </h2>
             <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
-                    <div class="row mb-3 mt-5 text-center justify-content-center">
-                        <div *ngFor="let rent_plan of rent_feat_res" class="col-md-4 mb-5">
+                    <div class="row  text-center justify-content-center">
+                        <div class="row text-center justify-content-center visible-md" id="mobile_views">
+                            <mat-tab-group mat-align-tabs="center">
+                                <mat-tab *ngFor="let rent_plan of rent_feat_res; let index = index" [label]="rent_plan.plan_name">
+                                    <div class="card mb-4 mt-5 rounded-3 shadow-sm border-secondary h-100">
+                                        <span class="banner" *ngIf="rent_plan.special_tag == 'yes'">Popular</span>
+                                        <div class="card-header py-3">
+                                            <h4>{{ rent_plan.plan_name }}</h4>
+                                            <hr>
+                                            <div *ngIf="rent_plan.discount == 1">
+                                                <h4 class="strike_duration">{{ rent_plan.actual_price_days }} Days Rent</h4>
+                                                <h4 class="discount_price">{{ rent_plan.discount_percentage }} % Off</h4>
+                                                <h4>{{ rent_plan.discounted_price_days }} Days Rent</h4>
+                                                <h4>Rs. {{ expected_rent / (30 / rent_plan.discounted_price_days) | number: '4.0-0'}}</h4>
+                                            </div>
+                                            <div *ngIf="rent_plan.discount == 0">
+                                                <h4>&nbsp;</h4>
+                                                <h4>&nbsp;</h4>
+                                                <h4>{{ rent_plan.actual_price_days }} Days Rent</h4>
+                                                <h4>Rs. {{ expected_rent / (30 / rent_plan.discounted_price_days) | number: '4.0-0'}}</h4>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <h1 class="card-title pricing-card-title"></h1>
+                                            <ul class="list-unstyled mt-3 mb-4">
+                                                <li *ngFor="let rent_plan_feature of rent_plan.features">
+                                                    <p class="text-muted row1">{{ rent_plan_feature.feature_name }}
+                                                        <span *ngIf="rent_plan_feature.more_info_status == '1'">
+                                                            <mat-icon placement="bottom" [ngbPopover]="popoverContent">info
+                                                            </mat-icon>
+                                                        </span>
+                                                    </p>
+                                                    <ng-template #popoverContent>
+                                                        <div [innerHTML]="rent_plan_feature.more_info.more_info"></div>
+                                                    </ng-template>
+                                                    <p class="row2" *ngIf="rent_plan_feature.feature_details === 'yes'">
+                                                        <span class="checkmark">&#10003;</span>
+                                                    </p>
+                                                    <p class="row2" *ngIf="rent_plan_feature.feature_details === 'no'">
+                                                        <span class="wrong-sym">&#215;</span>
+                                                    </p>
+                                                    <p class="row2" *ngIf="rent_plan_feature.feature_details != 'no' && rent_plan_feature.feature_details != 'yes'">
+                                                        {{ rent_plan_feature.feature_details }}</p>
+                                                    <hr>
+                                                </li>
+                                            </ul>
+                                            <button class="btn btn-success" data-bs-toggle="collapse" data-bs-target="#collapseTwo" (click)="plan_payment(rent_plan.plan_name, rent_plan.id, rent_plan.payment_type, rent_plan.plan_type, expected_rent, rent_plan.actual_price_days, rent_plan.discounted_price_days, rent_plan)"
+                                                id="select_plan">Select Plan</button>
+                                        </div>
+                                    </div>
+                                </mat-tab>
+                            </mat-tab-group>
+                        </div>
+                        <div *ngFor="let rent_plan of rent_feat_res" class="col-md-4 mb-5 mb-3 mt-5" id="deshtop_views">
                             <div class="card mb-4 rounded-3 shadow-sm border-secondary h-100">
                                 <span class="banner" *ngIf="rent_plan.special_tag == 'yes'">Popular</span>
                                 <div class="card-header py-3">
