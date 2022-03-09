@@ -42,6 +42,7 @@ import { ProgressBarModule } from 'angular-progress-bar';
 import { NgxStarRatingModule } from 'ngx-star-rating';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { ConfirmationmodalComponent } from './modals/confirmationmodal/confirmationmodal.component';
+import { RentSlipComponent } from './components/rent-slip/rent-slip.component';
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -61,7 +62,8 @@ import { ConfirmationmodalComponent } from './modals/confirmationmodal/confirmat
     LocalServiceComponent,
     GetAveragePipe,
     GetPercentagePipe,
-    ConfirmationmodalComponent
+    ConfirmationmodalComponent,
+    RentSlipComponent
   ],
   imports: [
     ProgressBarModule,

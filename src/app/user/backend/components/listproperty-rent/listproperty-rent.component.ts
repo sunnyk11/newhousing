@@ -75,6 +75,12 @@ export class ListpropertyRentComponent implements OnInit {
   image3: string | ArrayBuffer | null | undefined;
   image4: string | ArrayBuffer | null | undefined;
   image5: string | ArrayBuffer | null | undefined;
+  
+  image6: string | ArrayBuffer | null | undefined;
+  image7: string | ArrayBuffer | null | undefined;
+  image8: string | ArrayBuffer | null | undefined;
+  image9: string | ArrayBuffer | null | undefined;
+  image10: string | ArrayBuffer | null | undefined;
 
   form_step1: FormGroup = new FormGroup({});
   form_step2: FormGroup = new FormGroup({});
@@ -658,7 +664,7 @@ export class ListpropertyRentComponent implements OnInit {
       return;
     }
     this.product_img = [];
-    if (event.target.files.length <= 5) {
+    if (event.target.files.length <= 10) {
       for (let i = 0; i < event.target.files.length; i++) {
         if (i == 0) {
           this.readThis1(event.target.files[0]);
@@ -675,9 +681,24 @@ export class ListpropertyRentComponent implements OnInit {
         if (i == 4) {
           this.readThis5(event.target.files[4]);
         }
+        if (i == 5) {
+          this.readThis6(event.target.files[5]);
+        }
+        if (i == 6) {
+          this.readThis7(event.target.files[6]);
+        }
+        if (i == 7) {
+          this.readThis8(event.target.files[7]);
+        }
+        if (i == 8) {
+          this.readThis9(event.target.files[8]);
+        }
+        if (i == 9) {
+          this.readThis10(event.target.files[9]);
+        }
       }
     } else {
-      this.toastr.error("Maximum 5 Images Selected", 'Image Upload Error!!!...', {
+      this.toastr.error("Maximum 10 Images Selected", 'Image Upload Error!!!...', {
         timeOut: 1500,
       });
     }
@@ -764,6 +785,95 @@ export class ListpropertyRentComponent implements OnInit {
     myReader.readAsDataURL(file);
   }
 
+
+
+  insert_image6(event: any) {
+    this.readThis6(event.target)
+  }
+
+  readThis6(inputValue: any): void {
+    var file: File = inputValue;
+    var myReader: FileReader = new FileReader();
+
+    myReader.onloadend = (e) => {
+      this.image6 = myReader.result;
+      if (this.image6 != null) {
+        this.product_img.push(this.image6);
+      }
+    }
+    myReader.readAsDataURL(file);
+  }
+  
+  insert_image7(event: any) {
+    this.readThis7(event.target)
+  }
+
+  readThis7(inputValue: any): void {
+    var file: File = inputValue;
+    var myReader: FileReader = new FileReader();
+
+    myReader.onloadend = (e) => {
+      this.image7 = myReader.result;
+      if (this.image7 != null) {
+        this.product_img.push(this.image7);
+      }
+    }
+    myReader.readAsDataURL(file);
+  }
+
+  
+  insert_image8(event: any) {
+    this.readThis8(event.target)
+  }
+
+  readThis8(inputValue: any): void {
+    var file: File = inputValue;
+    var myReader: FileReader = new FileReader();
+
+    myReader.onloadend = (e) => {
+      this.image8 = myReader.result;
+      if (this.image8 != null) {
+        this.product_img.push(this.image8);
+      }
+    }
+    myReader.readAsDataURL(file);
+  }
+
+  insert_image9(event: any) {
+    this.readThis9(event.target)
+  }
+
+  readThis9(inputValue: any): void {
+    var file: File = inputValue;
+    var myReader: FileReader = new FileReader();
+
+    myReader.onloadend = (e) => {
+      this.image9 = myReader.result;
+      if (this.image9 != null) {
+        this.product_img.push(this.image9);
+      }
+    }
+    myReader.readAsDataURL(file);
+  }
+  
+  insert_image10(event: any) {
+    this.readThis10(event.target)
+  }
+
+  readThis10(inputValue: any): void {
+    var file: File = inputValue;
+    var myReader: FileReader = new FileReader();
+
+    myReader.onloadend = (e) => {
+      this.image10 = myReader.result;
+      if (this.image10 != null) {
+        this.product_img.push(this.image10);
+      }
+    }
+    myReader.readAsDataURL(file);
+  }
+
+
   delete_pic1(id: any) {
     this.image1 = null;
     this.product_img = this.product_img.filter((m: any) => m != id);
@@ -782,6 +892,27 @@ export class ListpropertyRentComponent implements OnInit {
   }
   delete_pic5(id: any) {
     this.image5 = null;
+    this.product_img = this.product_img.filter((m: any) => m != id);
+  }
+  
+  delete_pic6(id: any) {
+    this.image6 = null;
+    this.product_img = this.product_img.filter((m: any) => m != id);
+  }
+  delete_pic7(id: any) {
+    this.image7 = null;
+    this.product_img = this.product_img.filter((m: any) => m != id);
+  }
+  delete_pic8(id: any) {
+    this.image8 = null;
+    this.product_img = this.product_img.filter((m: any) => m != id);
+  }
+  delete_pic9(id: any) {
+    this.image9 = null;
+    this.product_img = this.product_img.filter((m: any) => m != id);
+  }
+  delete_pic10(id: any) {
+    this.image10 = null;
     this.product_img = this.product_img.filter((m: any) => m != id);
   }
 }

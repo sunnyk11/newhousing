@@ -19,6 +19,7 @@ import { LocalServiceComponent } from './components/local-service/local-service.
 import { VerifyMobileComponent } from '../guest/components/verify-mobile/verify-mobile.component';
 // import { NotfoundComponentComponent } from '../components/notfound-component/notfound-component.component';
 import { ProfileComponent } from '../guest/components/profile/profile.component';
+import { RentSlipComponent } from './components/rent-slip/rent-slip.component';
 
 const routes: Routes = [
   {
@@ -38,8 +39,8 @@ const routes: Routes = [
       { path: "invoice", component: InvoiceComponent,canActivate: [AuthGuard]},
       { path: "plan-apply", component: PlanApplyComponent,canActivate: [AuthGuard]},
       { path: "update-property-sales", component: UpdatepropertySalesComponent,canActivate: [AuthGuard]},
-      /* { path: "services-list", component: ServiceListComponent,canActivate: [AuthGuard]},
-      { path: "update-services", component: UpdateServicesComponent,canActivate: [AuthGuard]}, */
+      /* { path: "services-list", component: ServiceListComponent,canActivate: [AuthGuard]},*/
+      { path: "property-rent-slip", component: RentSlipComponent,canActivate: [AuthGuard]},
       { path: "local-services", component: LocalServiceComponent,canActivate: [AuthGuard]},
       { path: "verify-details", component: VerifyMobileComponent, canActivate: [AuthGuard] },
       // {path: '**', component: NotfoundComponentComponent}

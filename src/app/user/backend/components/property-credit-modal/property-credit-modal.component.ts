@@ -8,6 +8,9 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { LoginPageService } from '../../services/login-page.service';
 import { JwtService } from 'src/app/user/services/jwt.service';
+import { ToastrService } from 'ngx-toastr';
+// import { MypropertiesPageService } from 'src/app/user/guest/services/myproperties-page.service';
+import { MypropertiesService } from '../../services/myproperties.service';
 
 @Component({
   selector: 'app-property-credit-modal',
@@ -35,6 +38,8 @@ export class PropertyCreditModalComponent implements OnInit {
     private router: Router,
     private loginPageService: LoginPageService,
     private jwtService: JwtService,
+    private toastr: ToastrService,
+    private MypropertiesService:MypropertiesService,
     public matDialog: MatDialog
   ) { }
 
@@ -57,9 +62,24 @@ export class PropertyCreditModalComponent implements OnInit {
 
   }
 
-  apply_plan(invoice_no: any) {
-    this.dialogRef.close();
-    this.router.navigate(['agent/plan-apply'], { queryParams: { 'invoice_no': invoice_no, 'product_id': this.response.product_id } });
+  // apply_plan(invoice_no: any) {
+  //   this.dialogRef.close();
+  //   this.router.navigate(['agent/plan-apply'], { queryParams: { 'invoice_no': invoice_no, 'product_id': this.response.product_id } });
+  // }
+  
+  apply_plan(invoice_no:any) {
+    let param={invoice_id:invoice_no,product_id: this.response.product_id,property_price:this.response.product_price}
+    this.PlansServiceService.updateInvoiceDetails(param).subscribe(
+      response => {
+        // this.success_invoice = true;
+        this.toastr.info("CONGRATS!!! Your property is now Live");
+        this.dialogRef.close();
+        this.router.navigate(['agent/my-properties']);
+        this.properties_refresh();
+      },
+      err => {
+      }
+    );
   }
   plan_payment(plan_name: any, plan_id: any, payment_type: any, plan_type: any, expected_rent: any, actual_price_days: any, discount_price_days: any, plan_features: any) {
     this.showLoadingIndicator = true;
@@ -126,5 +146,8 @@ export class PropertyCreditModalComponent implements OnInit {
       }
     });
   }
+  properties_refresh(){
+    this.MypropertiesService.myproperty_emit<string>('true');
+  } 
 
 }

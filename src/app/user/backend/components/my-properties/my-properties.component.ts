@@ -186,6 +186,11 @@ export class MyPropertiesComponent implements OnInit {
     window.open(url.toString(), '_blank')
   }
   
+  rentslip(product_id:number){
+    const url:any = this.router.createUrlTree(['/agent/property-rent-slip'],{queryParams:{'product_id':product_id}})
+    window.open(url.toString(), '_blank')
+  }
+  
   product_preview(id:number,name:string){
     const url:any = this.router.createUrlTree(['/product-preview'],{queryParams:{'id':id,'name':name}})
       window.open(url.toString(), '_blank')
