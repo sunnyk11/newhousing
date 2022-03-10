@@ -41,7 +41,7 @@
                                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#plan_use_property" (click)="confirmation_modal(data.invoice_no)" >Use Plan </button>
                                     </span>
                                     <span *ngIf="(data.expected_rent - response.product_price)!=0">
-                                        <button type="button" class="btn btn-danger"  data-bs-toggle="modal" data-bs-target="#plan_not_use">
+                                        <button type="button" class="btn btn-danger"  data-bs-toggle="modal" data-bs-target="#plan_not_use" (click)="plan_not_use(data.expected_rent, response.product_price)">
                                            Use Plan
                                         </button>
                                    </span>
@@ -138,11 +138,12 @@
                     &times;
                 </button> 
                 <h4 class="modal-title">
-                    Plan Status 
+                    This Plan can't be use to live this Property.
                 </h4>                                                             
             </div> 
             <div class="modal-body">
-              <p>Please Select other plan for this proeprty Live</p>
+              <p>Property Expected Rent "₹ {{property_price}}" is not Equal to Expected Rent "₹ {{plan_expected_price}}" under Plan. </p>
+              <p>Use Another Plan to make your property live.</p>
             </div>   
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
@@ -162,11 +163,11 @@
                     &times;
                 </button> 
                 <h4 class="modal-title">
-                    Are you  statisfied this Plan for this Property Live ?
+                    Are you sure to live this property with this Plan?
                 </h4>                                                             
             </div> 
             <div class="modal-body">
-              <p>This Plan used Only Single Current Property</p>
+              <p>Once This Plan is Utilised, You won't be able to reverse it.</p>
             </div>   
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-bs-dismiss="modal">

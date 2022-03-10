@@ -15,6 +15,9 @@
 #Mymodal .modal-header{
     flex-direction: row-reverse!important;
 } 
+.btn-default{
+    border: 1px solid #000;
+}
 #plan_not_use .modal-header{
     flex-direction: row-reverse!important;
 }

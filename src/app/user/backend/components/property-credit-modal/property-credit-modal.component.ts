@@ -31,6 +31,8 @@ export class PropertyCreditModalComponent implements OnInit {
   public plan_price: any;
   public step: number = 0;
   public current_invoice_no:any;
+  public plan_expected_price:any;
+  public property_price:any;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
     private PlansServiceService: PlansServiceService,
@@ -149,5 +151,9 @@ export class PropertyCreditModalComponent implements OnInit {
   properties_refresh(){
     this.MypropertiesService.myproperty_emit<string>('true');
   } 
+  plan_not_use(plan_expected_price:any,property_price:any){
+     this.plan_expected_price=plan_expected_price;
+     this.property_price=property_price;
+  }
 
 }
