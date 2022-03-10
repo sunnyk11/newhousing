@@ -41,7 +41,7 @@
                                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#plan_use_property" (click)="confirmation_modal(data.invoice_no)" >Use Plan </button>
                                     </span>
                                     <span *ngIf="(data.expected_rent - response.product_price)!=0">
-                                        <button type="button" class="btn btn-success"  data-bs-toggle="modal" data-bs-target="#plan_not_use">
+                                        <button type="button" class="btn btn-danger"  data-bs-toggle="modal" data-bs-target="#plan_not_use">
                                            Use Plan
                                         </button>
                                    </span>
