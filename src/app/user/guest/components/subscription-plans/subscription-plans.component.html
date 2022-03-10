@@ -336,8 +336,11 @@
                                         <hr>
                                     </li>
                                 </ul>
-                                <a class="btn btn-block btn-success" (click)="plan_payment_model(letout_plan.plan_name, letout_plan.id, letout_plan.payment_type, letout_plan.plan_type, expected_rent_value, letout_plan.actual_price_days, letout_plan.discounted_price_days, letout_plan)">Select
-                                    Plan</a>
+                                <!-- <a class="btn btn-block btn-success" (click)="plan_payment_model(letout_plan.plan_name, letout_plan.id, letout_plan.payment_type, letout_plan.plan_type, expected_rent_value, letout_plan.actual_price_days, letout_plan.discounted_price_days, letout_plan)">Select
+                                    Plan</a> -->
+                                    
+                                <a class="btn btn-block btn-success"  data-bs-toggle="modal" data-bs-target="#Mymodal" (click)="plan_payment_model(letout_plan.plan_name, letout_plan.id, letout_plan.payment_type, letout_plan.plan_type, expected_rent_value, letout_plan.actual_price_days, letout_plan.discounted_price_days, letout_plan)">Buy Now
+                                </a>
                             </div>
                         </div>
                     </mat-tab>

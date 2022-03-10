@@ -34,7 +34,7 @@
                                 </thead>
                                 <tbody *ngFor="let property of agentproperty?.data?.data">
                                     <tr>
-                                    <td>
+                                    <td id="wrapper_class">
                                         <div class="feat_property list favorite_page style2">
                                         <div class="thumb" *ngIf="property?.enabled == 'yes' && property?.order_status == '0'"  (click)="sub_navigate(property.id,property.build_name)">
                                             <img class="img-whp" *ngIf="property.product_img.length>0;else OtherImage"
@@ -87,7 +87,7 @@
                                             </ul>
                                             </div>
                                         </div>
-                                        <div class="details">
+                                        <div class="details" >
                                             <div class="tc_content">
                                             <h4>{{ property.build_name | titlecase}}</h4>
                                             <p class="hidden-xs hidden-sm"  *ngIf="property.address"><span class="flaticon-placeholder"></span>{{ property.address | titlecase }}</p>
@@ -142,7 +142,8 @@
                                         <!-- <button class="btn btn-success"  data-bs-toggle="modal" data-bs-target="#Mymodal" (click)="property_rent_slip(property.id)">
                                            Property Rent Slip
                                           </button> -->
-                                          <button class="btn btn-success"> Property Rent Slip </button>
+                                          <button class="btn btn-success" *ngIf="property?.order_status == 1" (click)="rentslip(property.id)"> Property Rent Slip </button>
+                                          <button class="btn btn-warning" *ngIf="property?.order_status == 0" (click)="rentslip(property.id)"> Property Rent Slip </button>
                                            <!-- <button type="button" class="btn btn-success" *ngIf="data.payment_received != 'Pending'" data-bs-toggle="modal" data-bs-target="#Mymodal" (click)="confirmation_modal(data.invoice_no)" > </button>-->
                                
                                       </td>
@@ -192,7 +193,7 @@
                                 </thead>
                                 <tbody  *ngFor="let property of draftproperty?.data?.data">
                                     <tr *ngIf="showLoadingIndicator_draft == false" >
-                                    <td>
+                                    <td id="wrapper_class">
                                         <div class="feat_property list favorite_page style2">
                                         <div class="thumb">
                                             <img class="img-whp" *ngIf="property.product_img.length>0;else OtherImage"
