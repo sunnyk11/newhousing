@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { UserListService } from '../../services/user-list.service';
 import { Pagination } from 'src/app/user/components/models/pagination.model';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-user-list',
@@ -13,9 +14,17 @@ export class UserListComponent implements OnInit {
   public user_list_length:any;
   
   public Pagination_data: Pagination;
+  public submitted:boolean=false;
+  public mobile_search:boolean=false;
+  public email_search:boolean=true;
 
   public p:number=0;
   public showLoadingIndicator:boolean=false;
+  searching_form = new FormGroup({
+    searchtype: new FormControl('email', Validators.required),
+    email: new FormControl('',[Validators.required, Validators.email]),
+    mobile: new FormControl('1234567890', Validators.required)
+  });
 
   constructor(private toastr: ToastrService,
     private UserListService:UserListService) {
@@ -24,6 +33,54 @@ export class UserListComponent implements OnInit {
   ngOnInit(): void {
     this.get_userlist();
   }
+  
+  get f() {
+    return this.searching_form.controls;
+  }
+  refresh_data(){
+    this.email_search = true;
+    this.mobile_search=false;
+    this.searching_form.patchValue({
+      email:'',
+      mobile:'1234567890'
+    });
+    this.get_userlist();
+  }
+  onchage_mehtod(event:any){
+    if (event == 'email') {
+      this.email_search = true;
+      this.mobile_search=false;
+      this.searching_form.patchValue({
+        email:'',
+        mobile:'1234567890'
+      });
+    } else {
+      this.email_search = false;
+      this.mobile_search=true;
+      this.searching_form.patchValue({
+        email:'xyz@gmail.com',
+        mobile:''
+      });
+    }
+
+  }
+  
+  on_search(){
+    if(this.searching_form.invalid){
+      this.submitted = true;
+      }else{
+        this.showLoadingIndicator= true;
+        this.UserListService.get_search_user(this.searching_form.value).then(
+        Pagination_data => {
+          this.user_list=Pagination_data;
+          //console.log(this.user_reviews);
+          this.user_list_length=this.user_list.data.data.length;
+          this.showLoadingIndicator=false;
+        }, err => {
+        }
+      );
+      }
+    }
   // fetch user details 
   get_userlist(){
     this.showLoadingIndicator= true;

@@ -27,6 +27,7 @@ export class ViewInternalUsersComponent implements OnInit {
   private user_id: any;
   public delete_user_details: any;
   public showLoadingIndicator: boolean = false;
+  public user_list_length:any;
 
   constructor(private internalUserService: InternalUsersService,
     private rolesService: RolesService,
@@ -51,11 +52,16 @@ export class ViewInternalUsersComponent implements OnInit {
 
   ngOnInit(): void {
     this.showLoadingIndicator = true;
+    this.get_userlist();
+    
+  }
+  
+  get_userlist(){
     this.internalUserService.getAllInternalUsers({ param: null }).subscribe(
       res => {
-        //console.log(res);
-        this.showLoadingIndicator = false;
         this.user_response = res;
+        this.user_list_length=this.user_response.total;
+        this.showLoadingIndicator = false;
       },
       err => {
         console.log(err);
@@ -63,6 +69,14 @@ export class ViewInternalUsersComponent implements OnInit {
       }
     );
   }
+  gotoPage(link_url: any) {
+    this.showLoadingIndicator = true;
+    this.internalUserService.getpagination(link_url).then(Pagination_data => {
+      this.showLoadingIndicator= false;
+      this.user_response=Pagination_data;
+      // this.user_list_length=this.user_list.data.data.length;
+    });
+  } 
 
   get g() {
     return this.EditUserForm.controls.EditRolesArray;
@@ -131,6 +145,20 @@ export class ViewInternalUsersComponent implements OnInit {
   deleteUser(user_details: any) {
     this.delete_user_details = user_details;
     //console.log(this.delete_user_details);
+  }
+  
+  user_status_changes(id:any){
+    let param = { user_id: id}
+    this.internalUserService.user_status_changes(param).subscribe(
+      response => {
+        this.showLoadingIndicator =false;
+        let data:any=response;
+        this.toastr.success('Status Updated', 'User', {
+          timeOut: 3000,
+        });
+        this.get_userlist();
+      }
+    );
   }
 
   delete_role(user_id: any) {

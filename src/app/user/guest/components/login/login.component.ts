@@ -27,6 +27,7 @@ export class LoginComponent implements OnInit {
 
   public submitted: boolean = false;
   public errorMessage: string = "";
+  public status_code:number=200;
   public LoginFailed: boolean = false;
   public response_data: any;
   public LoggedIn: boolean = false;
@@ -172,6 +173,8 @@ export class LoginComponent implements OnInit {
         err => {
           this.showLoadingIndicator = false;
           this.errorMessage = err.error.message;
+          this.status_code=err.error.status;
+          console.log(err.error);
           this.LoginFailed = true;
           //console.log(err);
         }

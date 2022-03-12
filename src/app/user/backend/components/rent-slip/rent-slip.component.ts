@@ -19,6 +19,11 @@ export class RentSlipComponent implements OnInit {
   public property_details:any;
   public security_dep_amount:any;
   public total_amount_owner:any;
+  public invoice_data:any;
+  public cgst_amount:any;
+  public sgst_amount: any;
+  public plan_price_taxable:any
+  public section_display:boolean=false;
 
   @ViewChild('htmlData') htmlData!: ElementRef;
 
@@ -43,6 +48,7 @@ export class RentSlipComponent implements OnInit {
     this.showLoadingIndicator=true;
   }
   
+  
 property_rent_slip(property_id:any){
   // console.log(property_id)
   let param={property_id: property_id}
@@ -53,8 +59,28 @@ property_rent_slip(property_id:any){
         this.router.navigate(['/agent/my-properties']);
       }else{
         this.property_details=data.data;
-        this.security_dep_amount = Number(this.property_details.expected_rent) * Number(this.property_details.security_deposit);
-        this.total_amount_owner =  Number(this.security_dep_amount) + Number(this.property_details.maintenance_charge);
+        if(this.property_details?.property_invoice?.plan_name == 'Standard'){
+          this.PlansServiceService.getInvoiceData({ param: null }).subscribe(
+            data => {
+              this.invoice_data = data;
+              this.security_dep_amount = Number(this.property_details.expected_rent) * Number(this.property_details.security_deposit);
+              this.total_amount_owner =   Number(this.property_details.expected_rent)+Number(this.security_dep_amount) + Number(this.property_details.maintenance_charge);
+              this.sgst_amount = Math.round((this.invoice_data?.sgst * this.property_details?.property_invoice?.plan_price) / 100);
+              this.cgst_amount = Math.round((this.invoice_data?.cgst * this.property_details?.property_invoice?.plan_price) / 100);
+              this.plan_price_taxable= Number(this. property_details?.property_invoice?.plan_price) + Number(this.sgst_amount) + Number(this.cgst_amount); 
+              this.section_display=true;
+              this.showLoadingIndicator = false;
+            },
+            err => {
+              this.showLoadingIndicator = false;
+              console.log(err);
+            }
+          );
+        }else{
+          this.security_dep_amount = Number(this.property_details.expected_rent) * Number(this.property_details.security_deposit);
+          this.total_amount_owner =   Number(this.property_details.expected_rent)+Number(this.security_dep_amount) + Number(this.property_details.maintenance_charge);
+        }
+
         this.showLoadingIndicator=false;
       }
  

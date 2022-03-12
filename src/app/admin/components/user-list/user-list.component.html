@@ -1,4 +1,49 @@
 <div class="wrapper">
+    <div class="container  mb20">
+        <div class="row">
+            <div class="col-lg-12 ">
+                <div class="my_dashboard_review">
+                    <form role="form" action="" method="post" class="f1"  [formGroup]="searching_form">
+                    <div class="row">
+                        <!-- <div class="col-lg-12  col-12">
+                          <h2 class="mb10"> Searching User</h2>
+                        </div>                 -->
+                        <div class="col-lg-3 col-sm-12 mt15">
+                            <div class="form-group">
+                                <!-- <label for="end_date" class="form-label">Method</label> -->
+                                <select id="searchtype" class="form-select form-select-lg w100" formControlName="searchtype" (ngModelChange)="onchage_mehtod($event)" >
+                                    <option value="email">Email address</option>
+                                    <option value="mobile">Mobile No</option>
+                                </select>
+                            </div>
+                        </div>      
+                        <div class="col-lg-5 col-sm-12 mt15"  *ngIf="email_search==true">
+                            <div class="form-group">
+                                <!-- <label for="end_date" class="form-label">Email address</label> -->
+                                <input type="email" class="form-control" id="email"  formControlName="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }"  placeholder="Please Enter Email Address">
+                            </div>
+                        </div>      
+                        <div class="col-lg-5 col-sm-12 mt15" *ngIf="mobile_search==true">
+                            <div class="form-group">
+                                <!-- <label for="end_date" class="form-label">Email address</label> -->
+                                <input type="text" class="form-control" id="mobile"  formControlName="mobile" [ngClass]="{ 'is-invalid': submitted && f.mobile.errors }" minlength="10" maxlength="10" pattern="[0-9]{10}"   placeholder="Please Enter Mobile Number">
+                            </div>
+                        </div>  
+                      <div class="col-lg-2 col-12 search-column mt15">
+                          <!-- <div class="f1-buttons m-auto"> -->
+                              <button type="submit" class="btn btn-submit" (click)="on_search()">Search</button>
+                          <!-- </div> -->
+                      </div> 
+                      
+                      <div class="col-lg-2 search-column mt15 col-12 refresh">
+                        <button type="submit" class="btn btn-submit" (click)="refresh_data()">Refresh Form</button>
+                    </div> 
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="container mt20">
         <div class="row">
             <div class="col-lg-12  col-12">
@@ -12,27 +57,30 @@
                                         <th scope="col heading">User</th>
                                         <th scope="col">Email</th>
                                         <th scope="col">Mobile No</th>
-                                        <th scope="col">Account verification</th>
+                                        <!-- <th scope="col">Account verification</th> -->
                                         <th scope="col">Status</th>
-                                        <th scope="col">Action On</th>
+                                        <!-- <th scope="col">Action On</th> -->
                                     </tr>
                                 </thead>
                                 <tbody *ngIf="showLoadingIndicator == false">
                                     <tr  *ngFor="let data of user_list?.data?.data">
                                         <td>{{data?.name}}</td>
                                         <td>{{data?.email }}</td>
-                                        <td>{{data?.other_mobile_number}}</td>
+                                        <td>
+                                            <span *ngIf="data?.other_mobile_number.length>5">{{data?.other_mobile_number}}</span>
+                                            <span *ngIf="data?.other_mobile_number.length<5">NA</span>
+                                        </td>
                                         <!-- <td><span *ngIf="data?.bank_acount_no !=null">{{data?.bank_acount_no}}</span>
                                             <span *ngIf="data?.bank_acount_no ==null">NA</span>                                        
                                         </td> -->
-                                        <td>
+                                        <!-- <td>
                                             <span *ngIf="data?.paytm_verify_status==0">
                                                 <p class="text-danger">bank Deatils Not Verify</p></span>
                                             <span *ngIf="data?.paytm_verify_status == 1">
                                                 <p class="text-success">bank Deatils Verify</p>
                                             </span>
                                             
-                                        </td>
+                                        </td> -->
                                         <td>
                                             <label class="switch" *ngIf="data?.blocked == 0">
                                                 <input type="checkbox"  (click)="user_status_changes(data?.id)" checked>
@@ -43,19 +91,19 @@
                                                   <span class="slider round"></span>
                                                 </label>
                                         </td>
-                                        <td>
-                                            <ul class="view_edit_delete_list mb0">
+                                        <!-- <td>
+                                            <ul class="view_edit_delete_list mb0"> -->
                                                 <!-- <li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="View">
                                                     <a (click)="user_bank_history(data?.id)"><span class="flaticon-view"></span></a>
                                                 </li> -->
                                                 <!-- <li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="Edit">
                                                     <a ><span class="flaticon-edit"></span></a>
                                                 </li> -->
-                                                <li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="Delete">
+                                                <!-- <li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="Delete">
                                                     <a (click)="delete_user_bank(data?.id)"><span class="flaticon-garbage"></span></a>
                                                 </li>
                                             </ul>
-                                        </td>
+                                        </td> -->
                                     </tr>
                                 </tbody>
                                 <tbody >

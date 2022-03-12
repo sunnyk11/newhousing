@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MypropertiesPageService } from '../../services/myproperties-page.service';
 import { JwtService } from 'src/app/user/services/jwt.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-my-properties',
@@ -17,7 +18,8 @@ export class MyPropertiesComponent implements OnInit {
 
   constructor(
     private propertiesService: MypropertiesPageService,
-    private jwtService: JwtService
+    private jwtService: JwtService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -41,6 +43,10 @@ export class MyPropertiesComponent implements OnInit {
         console.log(err);
       }
     );
+  }
+  
+  viewInvoice(invoice_no: any) {
+    this.router.navigate(['/invoice'], { queryParams: { 'invoice_no': invoice_no } });
   }
 
   moreDetails(property_details: any) {

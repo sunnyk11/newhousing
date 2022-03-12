@@ -20,7 +20,7 @@
                         <tr>
                             <th class="text-center"><img src="../../../../../assets/resources/images/logo/logo.png" alt=""></th>
                             <th class="text-center">
-                                <h2>INVOICE</h2>
+                                <h2>TAX INVOICE</h2>
                             </th>
                         </tr>
                         <tr>
@@ -43,7 +43,7 @@
                                         <br>CONSULTING PRIVATE LIMITED</strong></h4>
                             </th>
                             <th class="text-center align-top">
-                                <h4><strong>Invoice No:</strong> {{ invoice_id }}<br> <strong>Date:</strong> {{ inv_response?.created_at | date: 'dd MMMM yyyy' }}
+                                <h4><strong>Invoice No:</strong> {{ invoice_id }}<span *ngIf="inv_response?.id">-{{inv_response?.id}}</span><br> <strong>Date:</strong> {{ inv_response?.created_at | date: 'dd MMMM yyyy' }}
                                 </h4>
                             </th>
                         </tr>
@@ -157,7 +157,7 @@
                         </tr>
                         <tr>
                             <th></th>
-                            <td><strong>Taxable Value/Payout Value <span
+                            <td><strong>Total Tax <span
                                         *ngIf="inv_response?.plan_type == 'Rent'">(C)</span>
                                     <span *ngIf="inv_response?.plan_type == 'Let Out'">(B)</span></strong></td>
                             <td></td>
@@ -166,7 +166,7 @@
                         <tr>
                             <td>Invoice Value (In words)</td>
                             <td>{{ amount_words }}</td>
-                            <td><strong>Total Invoice Amount <br>
+                            <td><strong>Grand Total <br>
                                     <span *ngIf="inv_response?.plan_type == 'Rent'">(A+B+C)</span>
                                     <span *ngIf="inv_response?.plan_type == 'Let Out'">(A+B)</span>
                                 </strong>
@@ -175,6 +175,7 @@
                         </tr>
                     </tbody>
                 </table>
+                <h3 style="text-align: center;">System Generated Invoice</h3>
             </div>
         </div>
     </div>

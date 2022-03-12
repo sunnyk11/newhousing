@@ -51,7 +51,7 @@
                         <div class="alert alert-danger mt20" role="alert" *ngIf="ngForm.submitted && LoginFailed">
                             Login failed: {{ errorMessage }}
                         </div>
-                        <div class="alert alert-danger" role="alert" *ngIf="ngForm.submitted && LoginFailed">
+                        <div class="alert alert-danger" role="alert" *ngIf="ngForm.submitted && LoginFailed && status_code==200">
                             Either you have Entered Wrong credentials or you have No Account on this site.
                         </div>
 
