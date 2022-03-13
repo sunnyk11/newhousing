@@ -70,7 +70,8 @@ export class PropertyCreditModalComponent implements OnInit {
   // }
   
   apply_plan(invoice_no:any) {
-    let param={invoice_id:invoice_no,product_id: this.response.product_id,property_price:this.response.product_price}
+    let param={invoice_id:invoice_no,product_id: this.response.product_id,product_price:this.response.product_price}
+    console.log(param);
     this.PlansServiceService.updateInvoiceDetails(param).subscribe(
       response => {
         // this.success_invoice = true;

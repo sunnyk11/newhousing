@@ -5,10 +5,25 @@ body {
     margin: 0;
     height: 100%;
 }
+.fa-heart-o{
+    font-size: 24px;
+    font-weight: bold;
+}
+.fa-plus-circle,.fa-phone{
+    font-size: 20px;
+}
+#mat-badge-content-2{
+  top :-18px!important;
+}
 
 a {
     text-decoration: none;
     /*color: white;*/
+}
+#icon i{
+    font-size: 24px!important;
+    font-weight: 400!important;
+    padding: 0px 2px!important;
 }
 
 a:hover,

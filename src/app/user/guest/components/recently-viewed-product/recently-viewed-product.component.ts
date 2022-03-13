@@ -34,6 +34,7 @@ export class RecentlyViewedProductComponent implements OnInit {
     this.CommonService.getrecently_product({ param: null }).subscribe(
       response => {
         this.product=response;
+        console.log(this.product);
         this.Recent_user_length=this.product.data.length;
       }, err => { 
       }

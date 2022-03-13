@@ -93,6 +93,17 @@ export class UserListComponent implements OnInit {
       }
     );
   }
+  get_userlist1(){
+    // this.showLoadingIndicator= true;
+    this.UserListService.get_all_user().then(
+      Pagination_data => {
+        this.user_list=Pagination_data;
+        this.user_list_length=this.user_list.data.total;
+        this.showLoadingIndicator= false;
+      }, err => {
+      }
+    );
+  }
   
   gotoPage(link_url: any) {
     this.showLoadingIndicator = true;
@@ -111,7 +122,7 @@ export class UserListComponent implements OnInit {
         this.toastr.success('Status Updated', 'User', {
           timeOut: 3000,
         });
-        this.get_userlist();
+        this.get_userlist1();
       }
     );
   }
