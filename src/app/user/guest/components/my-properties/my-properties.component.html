@@ -34,7 +34,7 @@
                                 <th scope="col">Property Name</th>
                                 <th scope="col">Amount Paid</th>
                                 <th scope="col">Order ID</th>
-                                <th scope="col"></th>
+                                <th scope="col">Details</th>
                             </tr>
                         </thead>
                         <tbody *ngFor="let property of rent_property_data; index as i">
@@ -44,6 +44,9 @@
                                 <td>{{ property.amount_paid }}</td>
                                 <td>{{ property.order_id }}</td>
                                 <td>
+                                    <button type="button" class="btn btn-success" (click)="viewInvoice(property.invoice_no)" *ngIf="property.payment_status == 'PAID'">View Invoice</button>
+                                    <button type="button" class="btn btn-danger" (click)="viewInvoice(property.invoice_no)" *ngIf="property.payment_status != 'PAID'">View
+                                        Invoice</button>
                                     <button type="button" class="btn btn-primary ml10" data-bs-toggle="modal" data-bs-target="#MoreDetailsModal" (click)="moreDetails(property)">More Details</button>
                                 </td>
                             </tr>

@@ -24,6 +24,10 @@ export class PlansServiceService {
     const route = "/api/get_enabled_letout_plans";
     return this.apiService.get<ResultModel>(route, reqModel);
   }
+  getInvoiceData(reqModel: any): Observable<ResultModel> {
+    const route = "/api/get_invoice_data";
+    return this.apiService.get<ResultModel>(route, reqModel);
+  }
   
   getLetOutFeatures(reqModel: any): Observable<ResultModel> {
     const route = "/api/get_letout_features";

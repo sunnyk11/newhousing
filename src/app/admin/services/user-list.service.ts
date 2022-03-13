@@ -34,6 +34,16 @@ export class UserListService {
       .catch(this.handleError);
   }
   
+  get_search_user(reqModel: any): Promise<Pagination> {
+    const route = "/api/admin/get_search_user";
+    return this.apiService.admin_get(route,reqModel).toPromise().then(
+      (response) => {
+        //console.log(response);
+        return response as Pagination
+      })
+      .catch(this.handleError);
+  }
+  
   user_status_changes(reqModel: any): Observable<ResultModel> {
     const route = "/api/admin/user_status_changes";
     return this.apiService.admin_post<ResultModel>(route, reqModel);

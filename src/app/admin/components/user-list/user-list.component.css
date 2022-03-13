@@ -84,3 +84,59 @@
   .slider.round:before {
     border-radius: 50%;
   }
+   /* Rounded sliders */
+   .slider.round {
+    border-radius: 34px;
+  }
+  .slider.round:before {
+    border-radius: 50%;
+  }
+  .search-column{
+    display: flex;
+    align-items: flex-end;
+    justify-content: center!important;
+  }
+  .search-column button{
+      width: 100%;
+      color:#fff!important;
+      background-color: #f35b3f!important;
+      opacity: 1!important;
+  }
+  .search-column button:hover{
+    background-color: #f35b3f!important;
+    color: #fff!important;
+    opacity: 1!important;
+  }
+  .refresh{
+    display: flex;
+    align-items: center!important;
+    justify-content: center!important;
+  }
+  .refresh button{
+    width: 100%;
+    color:#fff!important;
+    background-color: #198754!important;
+    opacity: 1!important;
+  }
+  .refresh button:hover{
+  background-color: #198754!important;
+  color: #fff!important;
+  opacity: 1!important;
+  }
+form h2{
+  background: #0d6efd;
+    color: #fff;
+    padding: 10px;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 1.2px;
+}
+ form{
+  border: 5px solid rgb(36, 50, 74);
+  padding: 20px 40px 40px!important;
+}
+.preloader_row{
+  position: relative;
+  width: 100%;
+  height: 150px;
+}

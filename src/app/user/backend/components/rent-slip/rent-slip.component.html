@@ -41,7 +41,7 @@
                     <thead >
                         <tr>
                             <th>Sl No</th>
-                            <th>Expected Payment For Renter related to property owner</th>
+                            <th>Rent Demand on Property</th>
                             <th>Duration</th>
                             <th>Amount</th>
                         </tr>
@@ -72,15 +72,15 @@
                             <td><strong>&#8377; {{ total_amount_owner }}</strong></td>
                         </tr>
                     </tbody>
-                    <thead *ngIf="property_details?.property_invoice?.plan_name == 'Standard'">
+                    <thead *ngIf="section_display==true">
                         <tr>
                             <th>Sl No</th>
                             <th>Description & Specification of Service</th>
-                            <th>Duration</th>
+                            <th></th>
                             <th>Amount</th>
                         </tr>
                     </thead>
-                    <tbody *ngIf="property_details?.property_invoice?.plan_name == 'Standard'">
+                    <tbody *ngIf="section_display==true">
                         <tr>
                             <th>1</th>
                             <td> {{ property_details?.property_invoice?.plan_name }} Plan
@@ -90,8 +90,8 @@
                                     <span id="invoice_tag" (click)="viewInvoice(property_details?.property_invoice?.invoice_no)"> {{property_details?.property_invoice?.invoice_no}}</span>
                                 </span>
                             </td>
-                            <td>{{ property_details?.property_invoice?.sac }}</td>
-                            <td>&#8377; {{ property_details?.property_invoice?.plan_price }}</td>
+                            <td><strong>Included tax</strong></td>
+                            <td>&#8377; {{ plan_price_taxable }}</td>
                         </tr>
                         <tr>
                             <th></th>
@@ -100,7 +100,7 @@
                                 <span >(B)</span>
                             </strong></td>
                             <td></td>
-                            <td><strong>&#8377;  {{ property_details?.property_invoice?.plan_price }}</strong></td>
+                            <td><strong>&#8377;  {{ plan_price_taxable}}</strong></td>
                         </tr>
                     </tbody>
                     <tbody id="bottom_text">
@@ -108,15 +108,15 @@
                             <td></td>
                             <td>
                                 <strong>
-                                  You Receive Final Payment
+                                    Final Payment
                                  </strong>
                             </td>
                             <td>
-                                <strong *ngIf="property_details?.property_invoice?.plan_name != 'Standard'">(A) </strong>
-                                <strong *ngIf="property_details?.property_invoice?.plan_name == 'Standard'">(A-B) </strong>
+                                <strong *ngIf="section_display==false">(A) </strong>
+                                <strong *ngIf="section_display==true">(A-B) </strong>
                             </td>
-                            <td><strong *ngIf="property_details?.property_invoice?.plan_name != 'Standard'">&#8377; {{total_amount_owner}} </strong>
-                                <strong *ngIf="property_details?.property_invoice?.plan_name == 'Standard'">&#8377; {{total_amount_owner -  property_details?.property_invoice?.plan_price }}</strong>
+                            <td><strong *ngIf="section_display==false">&#8377; {{total_amount_owner}} </strong>
+                                <strong *ngIf="section_display==true">&#8377; {{total_amount_owner -  plan_price_taxable }}</strong>
                             </td>
                         </tr>
                     </tbody>
