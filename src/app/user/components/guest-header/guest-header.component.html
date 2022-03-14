@@ -2,7 +2,7 @@
 <mat-toolbar class="navbar-scrolltofixed stricky">
     <div fxHide.gt-sm>
         <button mat-icon-button (click)="onToggleSidenav()">
-            <mat-icon>menu</mat-icon>
+            <mat-icon > menu</mat-icon>
         </button>
     </div>
     <div class="m-auto">
@@ -12,13 +12,13 @@
         </a>
     </div>
     <div fxHide.gt-sm>
-        <button mat-icon-button [matMenuTriggerFor]="user_info" aria-label="" >
-            <span class="material-icons">
-                person
-            </span>
-            <span class="material-icons">
-                expand_more
-            </span>
+        <button mat-icon-button [matMenuTriggerFor]="user_info" aria-label="" style="margin-top: 5px;">
+            
+           <span id="icon">
+                <i class="fa fa-user"></i>
+                <i class="fa fa-sort-down"></i>
+            </span> 
+            
         </button>
         <mat-menu #user_info="matMenu">
             <button mat-menu-item class="text-center" disabled *ngIf="LoggedIn">
@@ -91,13 +91,12 @@
                 <a [routerLink]="['/login']" routerLinkActive="active">Login/Register</a>
             </li>
             <li *ngIf="LoggedIn" class="user_acc">
-                <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" routerLinkActive="active">
-                    <span class="material-icons">
-                        person
-                    </span>
-                    <span class="material-icons">
-                        expand_more
-                    </span>
+                <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" routerLinkActive="active" style="margin-top: 5px;">
+                    
+                <span id="icon">
+                    <i class="fa fa-user"></i>
+                    <i class="fa fa-sort-down"></i>
+                </span> 
                 </button>
                 <mat-menu #menu="matMenu">
                     <button mat-menu-item class="text-center pro_img">
@@ -155,20 +154,20 @@
             <li *ngIf="LoggedIn">
                 <a [routerLink]="['/wishlist']" routerLinkActive="active">
                     <span matBadge={{wishlist_length}} matBadgeOverlap="false" matBadgeColor="warn">
-                        <mat-icon>favorite_border</mat-icon>
+                        <i class="fa fa-heart-o"></i>
                     </span>
                 </a>
             </li>
             <li *ngIf="LoggedIn">
                 <a [routerLink]="['/product-compare']" routerLinkActive="active" *ngIf="property_comp_length>1;else otherPro_menu">
                     <span matBadge={{property_comp_length}} matBadgeOverlap="false" matBadgeColor="warn">
-                        <mat-icon>compare_arrows</mat-icon>
+                        <i class="fa fa-exchange"></i>
                     </span>
                 </a>
                 <ng-template #otherPro_menu>
                     <a (click)="compare_notification()">
                         <span matBadge={{property_comp_length}} matBadgeOverlap="false" matBadgeColor="warn">
-                            <mat-icon>compare_arrows</mat-icon>
+                            <i class="fa fa-exchange"></i> 
                         </span>
                     </a>
                 </ng-template>
@@ -176,7 +175,8 @@
             <li class="add_listing">
                 <span>
                     <a [routerLink]="['/list-property']" routerLinkActive="active">
-                        <mat-icon>add_circle_outline</mat-icon>
+                        <!-- <mat-icon *ngIf="icon_show == true"> add_circle_outline</mat-icon> -->
+                        <i class="fa fa-plus-circle"></i>
                         <span> List Property</span>
                 </a>
                 </span>
@@ -185,7 +185,8 @@
             <li class="toll_free">
                 <span>
                     <a id="number">
-                        <mat-icon>phone</mat-icon>
+                        <!-- <mat-icon *ngIf="icon_show == true">phone</mat-icon> -->
+                        <i class="fa fa-phone"></i>
                         <span><a href="tel:{{toll_free}}" >{{toll_free}}</a></span>
                 </a>
                 </span>
