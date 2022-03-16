@@ -40,10 +40,10 @@ export class LoginCheckComponent implements OnInit {
           this.plan_price = this.fromParent.expected_rent / (30 / this.fromParent.price_duration_actual);
         }
         this.fromParent.plan_price = this.plan_price;
-        this.jwtService.saveReturnURL(this.returnUrl);
+        this.jwtService.savePlansData(this.fromParent);
       }
     }
-    this.jwtService.savePlansData(this.fromParent);
+    this.jwtService.saveReturnURL(this.returnUrl);
     this.router.navigate(['login']);
   }
 
