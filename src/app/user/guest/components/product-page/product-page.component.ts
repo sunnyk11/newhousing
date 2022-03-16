@@ -10,6 +10,8 @@ import { ToastrService } from 'ngx-toastr';
 import { UserReviewModalComponent } from '../../modals/user-review-modal/user-review-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ClipboardService } from 'ngx-clipboard';
+import { LoginCheckComponent } from '../../modals/login-check/login-check.component';
+import { MobileCheckComponent } from '../../modals/mobile-check/mobile-check.component';
 
 @Component({
   selector: 'app-product-page',
@@ -48,7 +50,9 @@ export class ProductPageComponent implements OnInit {
   public access_property_location: boolean = false;
   public access_other_details: boolean = false;
   public order_status:any;
+  private user_phone_data: any;
   
+  public returnUrl: string = '';
   public locality_id:any;
   private product_id: any;
   public address_details:string = '';
@@ -419,8 +423,70 @@ export class ProductPageComponent implements OnInit {
   } 
 
   proceedToPayment(productId:any) {
-    this.router.navigate(['/product_payment_summary'], { queryParams: {'productID': productId } });
+    
+    let val = this.jwtService.getToken();
+    if (val) {
+      this.CommonService.getUserPhoneDetails({ param: null }).subscribe(
+        data => {
+          this.showLoadingIndicator = false;
+          this.user_phone_data = data;
+          if(this.user_phone_data !== 1) {
+            this.returnUrl = this.router.url;
+            this.jwtService.saveReturnURL(this.returnUrl);
+            this.openMobModal();
+          }
+          else {
+            this.router.navigate(['/product_payment_summary'], { queryParams: {'productID': productId } });}
+        }
+      );
+      }
+      else {
+        this.showLoadingIndicator = false;
+        this.openModal();
+      }
+    
   }
+  
+  openModal() {
+    const modalRef = this.modalService.open(LoginCheckComponent,
+      {
+        scrollable: true,
+        windowClass: 'myCustomModalClass',
+        // keyboard: false,
+         backdrop: 'static'
+      });
+
+    let data = {
+      product_id: this.product_id,
+      login_userid: this.login_userid,
+    }
+
+    modalRef.componentInstance.fromParent = data;
+    modalRef.result.then((result) => {
+      //console.log(result);
+    }, (reason) => {
+    });
+  }
+  
+  openMobModal() {
+    const modalRef = this.modalService.open(MobileCheckComponent,
+      {
+        scrollable: true,
+        windowClass: 'myCustomModalClass',
+        // keyboard: false,
+         backdrop: 'static'
+      });
+      let data = {
+        product_id: this.product_id,
+        login_userid: this.login_userid,
+      }
+  
+      modalRef.componentInstance.fromParent = data;
+      modalRef.result.then((result) => {
+        //console.log(result);
+      }, (reason) => {
+      });
+    }
   user_reviews(){
   const modalRef = this.modalService.open(UserReviewModalComponent,
     {

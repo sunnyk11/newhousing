@@ -32,16 +32,18 @@ export class LoginCheckComponent implements OnInit {
     console.log(this.returnUrl);
     console.log(this.fromParent);    
     if (this.returnUrl == '/plans') {
-      if(this.fromParent.price_duration_discount) {
-        this.plan_price = this.fromParent.expected_rent / (30 / this.fromParent.price_duration_discount);
+      if(this.fromParent.expected_rent){
+        if(this.fromParent.price_duration_discount) {
+          this.plan_price = this.fromParent.expected_rent / (30 / this.fromParent.price_duration_discount);
+        }
+        else {
+          this.plan_price = this.fromParent.expected_rent / (30 / this.fromParent.price_duration_actual);
+        }
+        this.fromParent.plan_price = this.plan_price;
+        this.jwtService.savePlansData(this.fromParent);
       }
-      else {
-        this.plan_price = this.fromParent.expected_rent / (30 / this.fromParent.price_duration_actual);
-      }
-      this.fromParent.plan_price = this.plan_price;
     }
     this.jwtService.saveReturnURL(this.returnUrl);
-    this.jwtService.savePlansData(this.fromParent);
     this.router.navigate(['login']);
   }
 

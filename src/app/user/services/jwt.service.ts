@@ -90,6 +90,7 @@ export class JwtService {
     window.localStorage["USER_TYPE"] = JSON.stringify(data.usertype);
     window.localStorage["USER_PROFILE_PIC"] = data.misc.profile_pic;
     window.localStorage["USER_ROLE"] = data.misc.user_role;
+    window.localStorage["user_phone_data"] = data.misc.phone_number_verification_status;
     //this.router.navigate([""]);
   }
 
@@ -184,7 +185,10 @@ export class JwtService {
   getUserEmail() {
     return window.localStorage["USER_EMAIL"];
   }
-
+  getuser_phone_data() {
+    return window.localStorage["user_phone_data"];
+  }
+  
   getUserId() {
     return window.localStorage["USER_ID"];
   }

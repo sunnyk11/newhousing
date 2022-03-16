@@ -76,6 +76,7 @@
                                 <select id="bedrooms" class="form-select form-select-lg w100" formControlName="bedrooms" [ngClass]="{ 'is-invalid': submitted1 && step1.bedrooms.errors }">
                                     <option value="">Select Bedrooms
                                     </option>
+                                    <option value="0">0</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
@@ -93,6 +94,7 @@
                                 <select id="bathrooms" class="form-select form-select-lg w100" formControlName="bathrooms" [ngClass]="{ 'is-invalid': submitted1 && step1.bathrooms.errors }">
                                     <option value="">Select Bathrooms
                                     </option>
+                                    <option value="0">0</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
@@ -399,6 +401,7 @@
                                 <label for="notice_month" class="form-label">Month of Notice</label>
                                 <select id="notice_month" class="form-select form-select-lg w100" formControlName="notice_month" [ngClass]="{ 'is-invalid': submitted3 && step3.notice_month.errors }">
                                     <option value="">Select</option>
+                                    <option value="0">0</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
@@ -451,6 +454,7 @@
                                 <label for="total_floors" class="form-label">Number of floors in the property?</label>
                                 <select id="total_floors" class="form-select form-select-lg w100" formControlName="total_floors" [ngClass]="{ 'is-invalid': submitted3 && step3.total_floors.errors }">
                                     <option value="">Select Number of Floors </option>
+                                    <option value="0">0</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
