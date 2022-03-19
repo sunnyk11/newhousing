@@ -79,8 +79,6 @@
                                     <div class="col-9">
                                         <a (click)="navigate(data?.productdetails?.id,data?.productdetails?.build_name,data?.productdetails?.city)">
                                             <p class="text-thm">{{ data?.productdetails?.property__type?.name | titlecase }}</p>
-                                            <p class="text-thm" *ngIf="data?.productdetails?.type != null" style="line-height:0!important">{{ data?.productdetails?.property__type?.name | titlecase }} 
-                                                    </p>
                                                     <p>
                                                         <span *ngIf="data?.productdetails?.furnishing_status == 1" style="color: #000;">(Furnished)</span>
                                                         <span *ngIf="data?.productdetails?.furnishing_status == 0" style="color: #000;">(Not Furnished)</span> 

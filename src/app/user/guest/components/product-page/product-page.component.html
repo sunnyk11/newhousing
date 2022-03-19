@@ -452,7 +452,7 @@
                                         <h6><strong>{{commaSeperated(total_amount_owner)}}</strong></h6>
                                     </div>
                                 </div>
-                                <button class="chekout_btn w100 h50" (click)="proceedToPayment(product_data.id)">
+                                <button class="chekout_btn w100 h50" (click)="proceedToPayment(product_data.id)" *ngIf="login_userid != product_data?.user_id">
                                     Check Final Cost
                         </button>
                             </div>
@@ -640,6 +640,11 @@
                                             <div class="col-9">
                                                 <a (click)="navigate(number.id,number.build_name,number.city)">
                                                    <p class="text-thm" *ngIf="number.type != null">{{ number?.property__type?.name | titlecase }}</p>
+                                                   
+                                                   <p>
+                                                    <span *ngIf="number?.furnishing_status == 1" style="color: #000;">(Furnished)</span>
+                                                    <span *ngIf="number?.furnishing_status == 0" style="color: #000;">(Not Furnished)</span> 
+                                                    </p>
                                                 </a>
                                             </div>
                                             <div class="col-3">
@@ -742,7 +747,7 @@
                                 <h6><strong>{{commaSeperated(total_amount_owner)}}</strong></h6>
                             </div>
                         </div>
-                        <button class="chekout_btn w100 h50" (click)="proceedToPayment(product_data.id)">
+                        <button class="chekout_btn w100 h50" (click)="proceedToPayment(product_data.id)" *ngIf="login_userid != product_data?.user_id">
                             Check Final Cost
                     </button>
                     </div>
@@ -816,7 +821,7 @@
                                 <h6><strong>{{commaSeperated(total_amount_owner)}}</strong></h6>
                             </div>
                         </div>
-                        <button class="chekout_btn w100 h50" (click)="proceedToPayment(product_data.id)">
+                        <button class="chekout_btn w100 h50" (click)="proceedToPayment(product_data.id)" *ngIf="login_userid != product_data?.user_id">
                             Check Final Cost
                     </button>
                     </div>
