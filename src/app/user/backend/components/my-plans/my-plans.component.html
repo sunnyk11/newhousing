@@ -195,7 +195,7 @@
                         </tr>
                         <tr>
                             <th>Date: </th>
-                            <td>{{ plan_det?.created_at | date: 'MMMM dd, yyyy hh:mm:ss a' }}</td>
+                            <td>{{ plan_det?.invoice_generated_date | date: 'MMMM dd, yyyy hh:mm:ss a' }}</td>
                         </tr>
                         <tr *ngIf="plan_det?.payment_mode">
                             <th>Payment Mode:</th>
