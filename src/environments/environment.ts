@@ -14,7 +14,8 @@ export const environment = {
   Paytm_formURL: 'https://securegw-stage.paytm.in/order/process',
   you_tube_url:'https://www.youtube-nocookie.com/embed/',
   google_map_url:'https://maps.google.co.in/maps?q=',
-  toll_free: '18005475450'
+  toll_free: '18005475450',
+  App_version:'v2.0.0'
 };
 
 /*
