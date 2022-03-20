@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment';
 export class GuestFooterComponent implements OnInit {
 
   public toll_free=environment.toll_free;
+  public App_version=environment.App_version;
   constructor() { }
 
   ngOnInit(): void {
