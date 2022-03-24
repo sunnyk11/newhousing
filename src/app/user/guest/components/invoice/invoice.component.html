@@ -30,6 +30,7 @@
                                     <span *ngIf="inv_response?.property_status != null"><strong>({{ inv_response?.property_status}})</strong></span>
                                     <!-- <span *ngIf="inv_response?.property_status?.property_status != null"><strong>({{ inv_response?.property_status?.property_status}})</strong></span> -->
                                 </h4>
+                                <h5 *ngIf="inv_response?.service_delivered_status != null"><strong>{{ inv_response?.service_delivered_status}}</strong>({{inv_response?.service_delivered_date | date: 'dd MMMM yyyy' }})</h5>
                             </th>
                         </tr>
                         <tr>
@@ -38,7 +39,7 @@
                                         <br>CONSULTING PRIVATE LIMITED</strong></h4>
                             </th>
                             <th class="text-center align-top">
-                                <h4><strong>Invoice No:</strong> {{ invoice_id }}<span *ngIf="inv_response?.id">-{{inv_response?.id}}</span><br> <strong>Date:</strong> {{ inv_response?.created_at | date: 'dd MMMM yyyy' }}
+                                <h4><strong>Invoice No:</strong> {{ invoice_id }}<span *ngIf="inv_response?.id">-{{inv_response?.id}}</span><br> <strong>Date:</strong><span *ngIf="inv_response?.invoice_generated_date != null">{{ inv_response?.invoice_generated_date | date: 'dd MMMM yyyy'  }}</span> 
                                 </h4>
                             </th>
                         </tr>

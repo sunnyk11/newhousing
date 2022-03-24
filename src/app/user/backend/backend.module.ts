@@ -43,6 +43,7 @@ import { NgxStarRatingModule } from 'ngx-star-rating';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { ConfirmationmodalComponent } from './modals/confirmationmodal/confirmationmodal.component';
 import { RentSlipComponent } from './components/rent-slip/rent-slip.component';
+import { TimezonePipe } from './pipes/timezone.pipe';
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -63,7 +64,8 @@ import { RentSlipComponent } from './components/rent-slip/rent-slip.component';
     GetAveragePipe,
     GetPercentagePipe,
     ConfirmationmodalComponent,
-    RentSlipComponent
+    RentSlipComponent,
+    TimezonePipe
   ],
   imports: [
     ProgressBarModule,

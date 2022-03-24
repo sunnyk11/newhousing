@@ -7,12 +7,12 @@
                 </div>
             </div>
         </div>
-       <div class="row" *ngIf="product_length1==0 && showLoadingIndicator == true" >
+       <div class="row" *ngIf="product_length==0 && showLoadingIndicator == true" >
         <div class="col-lg-12">
             <div class="preloader"></div>
         </div>
     </div>
-        <div class="row" *ngIf="product_length1==0 && showLoadingIndicator == false && showLoadingIndicator_draft == false" >
+        <div class="row" *ngIf="product_length1 ==0 && (showLoadingIndicator == false || showLoadingIndicator_draft == false)" >
             <div class="col-lg-12">
                 <h3>No Property this Account</h3>
             </div>
@@ -99,7 +99,7 @@
                                         </div>
                                         </div>
                                     </td>
-                                        <td>{{ property.created_at | date: 'MMM d, y, h:mm:ss a' }}</td>
+                                        <td>{{ property.created_at |  timezone}}</td>
                                         <td>{{ property.view_counter }}</td>
                                         <td>
                                             <ul class="view_edit_delete_list mb0">
@@ -224,7 +224,7 @@
                                         </div>
                                         </div>
                                     </td>
-                                        <td>{{ property.created_at | date: 'MMM d, y, h:mm:ss a' }}</td>
+                                        <td>{{ property.created_at | timezone}}</td>
                                         <td>{{ property.view_counter }}</td>
                                         <td>
                                             <ul class="view_edit_delete_list mb0">
