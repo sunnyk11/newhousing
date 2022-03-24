@@ -57,7 +57,7 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { WhyChooseUsComponent } from './components/why-choose-us/why-choose-us.component';
 import { FaqComponent } from './components/faq/faq.component';
 import { ProductPreviewComponent } from './components/product-preview/product-preview.component';
-
+import { TimezonePipe } from './pipes/timezone.pipe';
 @NgModule({
   declarations: [
     MasterComponent,
@@ -103,6 +103,7 @@ import { ProductPreviewComponent } from './components/product-preview/product-pr
     WhyChooseUsComponent,
     FaqComponent,
     ProductPreviewComponent,
+    TimezonePipe,
   ],
   imports: [
     CommonModule,

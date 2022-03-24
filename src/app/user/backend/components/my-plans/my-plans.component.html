@@ -45,7 +45,7 @@
                                 <td>{{ credit.user_email }}</td>
                                 <td>{{ credit.plan_price }}</td>
                                 <td>{{ credit.payment_status }}</td>
-                                <td>{{ credit.created_at | date: 'MMMM dd, yyyy' }}</td>
+                                <td>{{ credit.created_at | timezone }}</td>
                                 <td>
                                     <!-- <button type="button" class="btn btn-danger" *ngIf="credit.plan_status == 'used'">Used </button> -->
                                     <p class="text-danger" *ngIf="credit.plan_status == 'used'">Used</p>
@@ -99,7 +99,7 @@
                                 <td>{{ credit.user_email }}</td>
                                 <td>{{ credit.plan_price }}</td>
                                 <td>{{ credit.payment_status }}</td>
-                                <td>{{ credit.created_at | date: 'MMMM dd, yyyy' }}</td>
+                                <td>{{ credit.created_at | timezone }}</td>
                                 <td>
                                     <button type="button" class="btn btn-success" (click)="viewInvoice(credit.invoice_no)" *ngIf="credit.payment_status == 'PAID'">View Invoice</button>
                                     <button type="button" class="btn btn-danger" (click)="viewInvoice(credit.invoice_no)" *ngIf="credit.payment_status != 'PAID'">View
@@ -195,7 +195,7 @@
                         </tr>
                         <tr>
                             <th>Date: </th>
-                            <td>{{ plan_det?.invoice_generated_date | date: 'MMMM dd, yyyy hh:mm:ss a' }}</td>
+                            <td>{{ plan_det?.invoice_generated_date | timezone }}</td>
                         </tr>
                         <tr *ngIf="plan_det?.payment_mode">
                             <th>Payment Mode:</th>

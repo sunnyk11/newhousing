@@ -73,7 +73,7 @@
                             <hr>
 
                             <dt class="col-sm-3">ID Created At</dt>
-                            <dd class="col-sm-9">{{ id_created_at | date: 'MMM d y hh:mm:ss a' }}</dd>
+                            <dd class="col-sm-9">{{ id_created_at | timezone}}</dd>
                             <hr>
                         </dl>
                     </div>
@@ -162,7 +162,7 @@
                         <div class="col-lg-12">
                             <div class="row bank_details_history">
                                 <div class="col-lg-6  col-12" id="column_bank_histroy" *ngFor="let bank_details of user_data?.bank_details_history">
-                                    <h4 class="text-center heading">Details Update At: <span> {{ bank_details?.created_at | date: 'MMM d y h:mm:ss a' }}</span></h4>
+                                    <h4 class="text-center heading">Details Update At: <span> {{ bank_details?.created_at | timezone}}</span></h4>
                                     <dl class="row">
                                         <dt class="col-sm-6">Accont Holder Name:</dt>
                                         <dd class="col-sm-6" *ngIf="bank_details?.account_holder !=null">{{bank_details?.account_holder}}</dd>
