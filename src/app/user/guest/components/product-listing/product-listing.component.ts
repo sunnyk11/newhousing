@@ -93,7 +93,7 @@ export class ProductListingComponent implements OnInit {
   options_rent: Options = {
     step:1000,
     floor: 5000,
-    ceil: 500000,
+    ceil: 50000,
     translate: (value: number, label: LabelType): string => {
       return '₹' + value.toLocaleString('en');
     },

@@ -5,7 +5,7 @@
         </div>
     </div>
     <div class="single_page_listing_tab" *ngIf="order_status == 0 && sectiondisplay == true">
-        <div class="container">
+        <!-- <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -22,7 +22,7 @@
                     </ul>
                 </div>
             </div>
-        </div>
+        </div> -->
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="slider_tabs" role="tabpanel" aria-labelledby="slider-tab">
                 <!-- 10th Home Slider -->
@@ -833,24 +833,6 @@
 
     <span *ngIf="login_usertype == 11 || login_usertype == 8 ">
     <div class="single_page_listing_tab" *ngIf= "order_status == 1 && sectiondisplay == true">
-        <div class="container" *ngIf="login_usertype == 11 || login_usertype == 8 ">
-            <div class="row">
-                <div class="col-lg-12">
-                    <ul class="nav nav-tabs" id="myTab" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link active" id="slider-tab" data-toggle="tab" href="#slider_tabs" role="tab" aria-controls="slider_tabs" aria-selected="true">
-                                <span class="flaticon-photo-camera color-white"></span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="share-tab" data-toggle="tab" href="#share_tab" role="tab" aria-controls="share_tab" aria-selected="false">
-                                <span class="flaticon-share color-white"></span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
         <div class="tab-content" id="myTabContent" *ngIf="login_usertype == 11 || login_usertype == 8 ">
             <div class="tab-pane fade show active" id="slider_tabs" role="tabpanel" aria-labelledby="slider-tab">
                 <!-- 10th Home Slider -->
@@ -907,21 +889,20 @@
                 <div class="col-lg-5 col-xl-4 share-tab">
                     <div class="spss mt20 text-right tal-400">
                         <ul class="mb0">
-                            <li class="list-inline-item" *ngIf="product_data?.product_comparision ==null">
-                                <a><span class="flaticon-transfer-1"
-                                        (click)="product_comp(product_data.id)"></span></a>
+                            <li class="list-inline-item" *ngIf="product_data?.product_comparision ==null"  (click)="product_comp(product_data.id)"> 
+                                <a><span class="flaticon-transfer-1"></span></a>
                             </li>
                             <li class="list-inline-item property-active-btn" *ngIf="product_data?.product_comparision !=null">
                                 <a><span class="flaticon-transfer-1"></span></a>
                             </li>
-                            <li class="list-inline-item btn_wishlist" *ngIf="product_data?.single_wishlist != null;else wishlistcontent">
-                                <a (click)="wishlist_remove(product_data.id)">
+                            <li class="list-inline-item btn_wishlist" *ngIf="product_data?.single_wishlist != null;else wishlistcontent"  (click)="wishlist_remove(product_data.id)">
+                                <a>
                                     <i class="fa fa-heart" aria-hidden="true"></i>
                                 </a>
                             </li>
                             <ng-template #wishlistcontent>
-                                <li class="list-inline-item">
-                                    <a (click)="wishlist_added(product_data.id)">
+                                <li class="list-inline-item" (click)="wishlist_added(product_data.id)">
+                                    <a >
                                         <i class="fa fa-heart-o" aria-hidden="true"></i>
                                     </a>
                                 </li>

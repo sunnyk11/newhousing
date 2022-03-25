@@ -1,3 +1,6 @@
-<app-agent-header></app-agent-header>
-<router-outlet></router-outlet>
-<app-agent-footer></app-agent-footer>
+<mat-sidenav #sidenav role="navigation" (sidenavClose)="sidenav.close()" id="main_sidebar">
+    <app-sidenav-list (sidenavClose)="sidenav.close()"></app-sidenav-list>
+</mat-sidenav>
+<app-guest-header (sidenavToggle)="sidenav.toggle()"></app-guest-header>
+<router-outlet (sidenavClose)="sidenav.close()"></router-outlet>
+<app-guest-footer></app-guest-footer>
