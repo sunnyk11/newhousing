@@ -43,7 +43,7 @@ export class TopbarNotificationComponent implements OnInit {
   
   user_details(){
     this.show_topbar=false;
-    if (this.jwtService.getToken()) {
+    if (this.jwtService.isTokenAvailable()) {
       this.LoggedIn = true;
       this.commonService.getUserDetails().pipe().subscribe(
         data => {

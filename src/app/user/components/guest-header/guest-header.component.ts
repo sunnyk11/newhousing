@@ -55,7 +55,7 @@ export class GuestHeaderComponent implements OnInit {
     this.user_details();
   }
   user_details() {
-    if (this.jwtService.getToken()) {
+    if (this.jwtService.isTokenAvailable()) {
       this.LoggedIn = true;
       this.login_usertype = this.jwtService.getUserType();
       this.userEmail = this.jwtService.getUserEmail();

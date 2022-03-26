@@ -50,7 +50,7 @@ export class CompareComponent implements OnInit {
     ) {   }
 
   ngOnInit(): void {
-    if(this.jwtService.getToken()){
+    if(this.jwtService.isTokenAvailable()){
       this.userEmail =  this.jwtService.getUserEmail();
       this.usertype = this.jwtService.getUserType();
       this.url_info= this.router.url;
