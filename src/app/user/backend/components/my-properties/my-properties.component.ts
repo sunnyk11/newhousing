@@ -175,10 +175,10 @@ export class MyPropertiesComponent implements OnInit {
      );
   }
   navigate_sales(id:any){
-    this.router.navigate(['/update-property-sales'],{queryParams:{id:id}})
+    this.router.navigate(['/agent/update-property-sales'],{queryParams:{id:id}})
   }
   navigate_rent(id:any){
-    this.router.navigate(['/update-property-rent'],{queryParams:{id:id}})
+    this.router.navigate(['/agent/update-property-rent'],{queryParams:{id:id}})
   }
   
   sub_navigate(id:number,name:string){

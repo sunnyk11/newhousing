@@ -136,4 +136,18 @@ hr {
     .visible-gt-md {
         display: none;
     }
+    
+    .bg-secondary {
+        padding: 8rem 3rem 1rem 3rem!important;
+    }
+    .nav-pills .nav-link{
+        padding: 12px 0px!important;
+    }
+}
+
+@media only screen and (min-width: 769px) {
+    
+    .bg-secondary {
+        padding: 5rem 3rem 0rem 3rem!important;
+    }
 }
