@@ -12,4 +12,15 @@
     .preloader{
         height: 650px!important;
     }
+    
+    .bg-secondary {
+        padding: 5rem 3rem 0rem 3rem!important;
+    }
+    
+}
+
+@media only screen and (max-width: 768px) {
+    .bg-secondary {
+        padding: 8rem 3rem 1rem 3rem!important;
+    }
 }

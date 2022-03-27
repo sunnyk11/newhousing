@@ -13,7 +13,8 @@ body {
     font-size: 20px;
 }
 #mat-badge-content-2{
-  top :-18px!important;
+  top :-20px!important;
+  right:-22px!important;
 }
 
 a {
