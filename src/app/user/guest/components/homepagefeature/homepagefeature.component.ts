@@ -38,7 +38,7 @@ export class HomepagefeatureComponent implements OnInit {
   // fetch feature property 
   feature_property(){
     // this.showLoadingIndicator= true;
-    if(this.jwtService.getToken().length>5){
+    if(this.jwtService.isTokenAvailable()){
       this.indexPageService.login_Feature_Property({ param: null }).subscribe(
       response => {
         //console.log(response);
@@ -68,7 +68,7 @@ export class HomepagefeatureComponent implements OnInit {
   // property compare
   product_comp(id:number){
     let param={id:id}
-    if(this.jwtService.getToken()){
+    if(this.jwtService.isTokenAvailable()){
       this.CommonService.product_comp({param}).subscribe(
       response => {
         this.product_copm=response;
@@ -96,7 +96,7 @@ export class HomepagefeatureComponent implements OnInit {
   // wishlist add 
   wishlist_added(id: number){
     let param={id:id}
-    if(this.jwtService.getToken()){
+    if(this.jwtService.isTokenAvailable()){
       this.CommonService.wishlist_addd({param}).subscribe(
       response => {
         this.product_length=0;
@@ -114,7 +114,7 @@ export class HomepagefeatureComponent implements OnInit {
   // wishlist delete
   wishlist_remove(id: number){
     let param={id:id}
-    if(this.jwtService.getToken()){
+    if(this.jwtService.isTokenAvailable()){
       this.CommonService.wishlist_remove({param}).subscribe(
       response => {
         this.product_length=0;

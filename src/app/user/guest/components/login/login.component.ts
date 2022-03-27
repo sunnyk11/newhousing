@@ -24,11 +24,24 @@ export class LoginComponent implements OnInit {
     email_address: ['', Validators.required],
     password: ['', Validators.required]
   });
+  mobile_loginForm = this.fb.group({
+    mobile_no: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]]
+  });
+
+  otpForm = this.fb.group({
+    otp_password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]]
+  });
 
   public submitted: boolean = false;
+  public mobile_submitted:boolean=false;
+  public display_otp_form: boolean = false;
+  public isFailedVerify_otp: boolean = false;
+  public otp_submitted: boolean = false;
+  public mobile_slice: any;
   public errorMessage: string = "";
   public status_code:number=200;
   public LoginFailed: boolean = false;
+  public LoginFailed1: boolean = false;
   public response_data: any;
   public LoggedIn: boolean = false;
   public token: string = '';
@@ -44,6 +57,7 @@ export class LoginComponent implements OnInit {
   private paytm_data: any;
   private paytm_form_url: string = environment.Paytm_formURL;
   public letOutPlanData: any;
+  public mobile_no:any;
 
   private usertype: any;
   public userDetails: any;
@@ -126,10 +140,20 @@ export class LoginComponent implements OnInit {
   get LoginFormControl() {
     return this.loginForm.controls;
   }
+  
+  get g() {
+    return this.otpForm.controls;
+  }
+  get mobile_LoginFormControl() {
+    return this.mobile_loginForm.controls;
+  }
+  
 
   onSubmit() {
     this.showLoadingIndicator = true;
     this.submitted = true;
+    this.LoginFailed1=false;
+    this.mobile_loginForm.reset();
     if (this.loginForm.valid) {
       let loginData = {
         email: this.loginForm.value.email_address,
@@ -186,7 +210,94 @@ export class LoginComponent implements OnInit {
     }
 
   }
+  onSubmit_mobile() {
+    this.LoginFailed=false;
+    this.loginForm.reset();
+    this.mobile_submitted = true;
+    if (this.mobile_loginForm.valid) {
+      let loginmobile_data = {
+        mobile_no: this.mobile_loginForm.value.mobile_no,
+        rememberme: 1
+      }
+      this.LoginFailed1 = false;
+      this.showLoadingIndicator = true;
+      this.loginPageService.mobile_otp_send(loginmobile_data).subscribe(
+        response => {
+          this.showLoadingIndicator = false;
+          this.LoginFailed1 = false;
+          let data:any =response;
+          this.mobile_no=data.mobile_no;
+          this.mobile_slice = data.mobile_no.toString().replace(/[0-9]{6}/, '********');
+          this.display_otp_form = true;
+        },
+        err => {
+          this.showLoadingIndicator = false;
+          this.errorMessage = err.error.message;
+          this.status_code=err.error.status;
+          console.log(err.error);
+          this.LoginFailed1 = true;
+          //console.log(err);
+        }
+      );
+    }
+  }
+  
+  onSubmitotp() {
+    this.otp_submitted = true;
+    if (this.otpForm.invalid) {
+      return;
+    }else{
+      this.LoginFailed=false;      
+    this.showLoadingIndicator = true;
+    this.loginPageService.mobile_login_verify_otp(this.mobile_no, this.otpForm.value.otp_password).subscribe(
+      response => {
+        this.showLoadingIndicator = false;
+        //console.log(data);
+        this.display_otp_form = false;
+        this.showLoadingIndicator = false;
+          console.log(response);
+          this.LoginFailed1 = false;
+          this.LoggedIn = true;
+          this.response_data = response;
+          //console.log(this.response_data.data.user_data);
+          this.jwtService.saveUser(this.response_data.data);
+          this.token = this.jwtService.getToken();
+          this.commonService.sendUpdate(this.LoggedIn, this.token);
+          this.user_id = this.jwtService.getUserId();
+          this.userEmail = this.jwtService.getUserEmail();
+          this.returnUrl = this.jwtService.getReturnURL();
+          // user logs functionalty 
+          this.type="login page";
+          this.input_info=this.response_data.data.user_data;
+          let param={'userEmail':this.userEmail,'user_type':this.usertype,'device_info':this.device_info,'browser_info':this.browser_info,'ip_address':this.ip_address,'url_info':this.url_info,'type':this.type,'user_cart':this.user_cart,'input_info':this.input_info}
+          this.UserLogsService.user_logs(param).subscribe(
+            reponse => {
+              // console.log(data.status);
+            });
+          if (this.returnUrl?.includes('/product_payment_summary')) {
+            //console.log(this.returnUrl);
+            this.proceedToPayment();
+          }
+          else if (this.returnUrl?.includes('/plans')) {
+            this.getPhoneDetails();
+          }
 
+          else {
+            this.router.navigateByUrl(this.returnUrl || '');
+          }
+      },
+      err => {
+        this.showLoadingIndicator = false;
+        // console.log(err);
+        this.isFailedVerify_otp = true;
+        this.errorMessage = err.error.message;
+      }
+    );
+    
+   }
+  }
+
+ 
   redirect_login_google() {
     window.location.href = environment.googleURL;
   }
@@ -321,6 +432,16 @@ export class LoginComponent implements OnInit {
     );
   }
 
+  keyPressNumbers(event: { which: any; keyCode: any; preventDefault: () => void; }) {
+    var charCode = (event.which) ? event.which : event.keyCode;
+    // Only Numbers 0-9
+    if ((charCode < 48 || charCode > 57)) {
+      event.preventDefault();
+      return false;
+    } else {
+      return true;
+    }
+  }
   openConfirmationModal() {
     const modalRef = this.modalService.open(FixAppointmentComponent,
       {
