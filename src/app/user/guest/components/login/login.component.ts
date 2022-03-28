@@ -18,7 +18,6 @@ import { UserLogsService } from '../../services/user-logs.service';
 })
 export class LoginComponent implements OnInit {
 
-  public showLoadingIndicator: boolean = false;
 
   loginForm = this.fb.group({
     email_address: ['', Validators.required],
@@ -35,6 +34,7 @@ export class LoginComponent implements OnInit {
   public submitted: boolean = false;
   public mobile_submitted:boolean=false;
   public display_otp_form: boolean = false;
+  public showLoadingIndicator: boolean = false;
   public isFailedVerify_otp: boolean = false;
   public otp_submitted: boolean = false;
   public mobile_slice: any;
@@ -198,7 +198,6 @@ export class LoginComponent implements OnInit {
           this.showLoadingIndicator = false;
           this.errorMessage = err.error.message;
           this.status_code=err.error.status;
-          console.log(err.error);
           this.LoginFailed = true;
           //console.log(err);
         }
@@ -224,11 +223,18 @@ export class LoginComponent implements OnInit {
       this.loginPageService.mobile_otp_send(loginmobile_data).subscribe(
         response => {
           this.showLoadingIndicator = false;
-          this.LoginFailed1 = false;
-          let data:any =response;
-          this.mobile_no=data.mobile_no;
-          this.mobile_slice = data.mobile_no.toString().replace(/[0-9]{6}/, '********');
-          this.display_otp_form = true;
+          let data:any=response;
+          if(data.status==404){
+            this.LoginFailed1 = true;
+            this.errorMessage = data.message;
+            this.status_code=data.status;
+
+          }else{
+            this.LoginFailed1 = false;
+            this.mobile_no=data.mobile_no;
+            this.mobile_slice = data.mobile_no.toString().replace(/[0-9]{6}/, '********');
+            this.display_otp_form = true;
+          }
         },
         err => {
           this.showLoadingIndicator = false;
@@ -259,7 +265,6 @@ export class LoginComponent implements OnInit {
           this.LoginFailed1 = false;
           this.LoggedIn = true;
           this.response_data = response;
-          //console.log(this.response_data.data.user_data);
           this.jwtService.saveUser(this.response_data.data);
           this.token = this.jwtService.getToken();
           this.commonService.sendUpdate(this.LoggedIn, this.token);
@@ -269,10 +274,9 @@ export class LoginComponent implements OnInit {
           // user logs functionalty 
           this.type="login page";
           this.input_info=this.response_data.data.user_data;
-          let param={'userEmail':this.userEmail,'user_type':this.usertype,'device_info':this.device_info,'browser_info':this.browser_info,'ip_address':this.ip_address,'url_info':this.url_info,'type':this.type,'user_cart':this.user_cart,'input_info':this.input_info}
+          let param={'user_mobile':this.mobile_no,'user_type':this.usertype,'device_info':this.device_info,'browser_info':this.browser_info,'ip_address':this.ip_address,'url_info':this.url_info,'type':this.type,'user_cart':this.user_cart,'input_info':this.input_info}
           this.UserLogsService.user_logs(param).subscribe(
             reponse => {
-              // console.log(data.status);
             });
           if (this.returnUrl?.includes('/product_payment_summary')) {
             //console.log(this.returnUrl);
@@ -300,6 +304,13 @@ export class LoginComponent implements OnInit {
  
   redirect_login_google() {
     window.location.href = environment.googleURL;
+  }
+  
+  navigate() {
+    this.returnUrl = this.router.url;
+    this.jwtService.removeReturnURL();
+    this.jwtService.saveReturnURL(this.returnUrl);
+    this.router.navigate(['/sign-up'])
   }
 
   proceedToPayment() {

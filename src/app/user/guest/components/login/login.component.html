@@ -27,7 +27,7 @@
                                     <p>{{ mobile_slice }}</p>
                                     <div class="input-group mb-3">
                                         <span class="input-group-text" id="mobile_number">OTP</span>
-                                        <input type="text" class="form-control" autocomplete="off" formControlName="otp_password" minlength="6" [ngClass]="{ 'is-invalid': otp_submitted && g.otp_password.errors }" placeholder="Please Enter OTP" (keypress)="keyPressNumbers($event)" required>
+                                        <input type="text" class="form-control" autocomplete="off" formControlName="otp_password" minlength="6"  maxlength="6"  [ngClass]="{ 'is-invalid': otp_submitted && g.otp_password.errors }" placeholder="Please Enter OTP" (keypress)="keyPressNumbers($event)" required>
                                     </div>
                                     <div class="alert alert-danger" role="alert" *ngIf="otp_submitted && g.otp_password.invalid">
                                         <div *ngIf="g.otp_password.errors?.required">OTP is required
@@ -119,7 +119,7 @@
                     </div>
 
                     <div>
-                        <p class="mb-0" *ngIf="display_otp_form== false && showLoadingIndicator== false">Don't have an account? <a [routerLink]="['/register']" class="text-thm fw-bold">Sign
+                        <p class="mb-0" *ngIf="display_otp_form== false && showLoadingIndicator== false">Don't have an account? <a  (click)="navigate()" class="text-thm fw-bold sign_up">Sign
                                 Up</a></p>
                     </div>
 
