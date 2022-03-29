@@ -28,11 +28,7 @@ export class RegisterPageService {
   }
 
   verify_otp(number: any, otp: string, email_id: string, first_name: string): Observable<any> {
-    //console.log(number);
-    //console.log(otp);
-    //console.log(email_id);
-    //console.log(first_name);
-    let name = "" + number;
+     let name = "" + number;
     const route = "/api/auth/verify";
     return this.apiService.post<ResultModel>(route,
       {
@@ -41,5 +37,18 @@ export class RegisterPageService {
         email_address: email_id,
         name_first: first_name
       });
+  }
+  
+  sign_up_otp_send(reqModel: any): Observable<ResultModel> {
+    const route = "/api/auth/sign_up_otp_send";
+    return this.apiService.post<ResultModel>(route, reqModel);
+  }
+  mobile_login_verify_otp(mobile_no: any,form_data:any, otp: string): Observable<ResultModel> {
+    const route = "/api/auth/sign_up_verify_otp";
+    return this.apiService.post<ResultModel>(route , {form_data:form_data,verification_code: otp, mobile_no: mobile_no});
+  }
+  sign_up_user_details(reqModel:any): Observable<ResultModel> {
+    const route = "/api/auth/sign_up_user_details"; 
+    return this.apiService.get<ResultModel>(route, reqModel);
   }
 }

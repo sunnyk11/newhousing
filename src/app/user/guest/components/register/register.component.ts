@@ -42,6 +42,7 @@ export class RegisterComponent implements OnInit {
   public url: any;
   public input_info: any = null;
   public user_cart: any = null;
+  public verify_token:any;
 
   constructor(
     private registerService: RegisterPageService,
@@ -49,15 +50,27 @@ export class RegisterComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private jwtService: JwtService,
+
     private UserLogsService:UserLogsService
   ) { 
-    this.usertype = this.jwtService.getUserType();
+    
+    this.route.queryParams.subscribe((params) => {
+      if(params.verify_token != null){
+        if(this.route.snapshot.queryParams['verify_token'].length==10){
+           this.verify_token = this.route.snapshot.queryParams['verify_token'];  
+           this.user_details(this.verify_token);   
+         } else {
+           this.router.navigate(['/sign-up']);
+         }
+      } else {
+        this.router.navigate(['/sign-up']);
+      }
+    });
+     this.usertype = this.jwtService.getUserType();
       this.url_info= this.router.url;
       this.device_info = this.UserLogsService.getDeviceInfo();
       this.browser_info = this.UserLogsService.getbrowserInfo();
       this.ip_address = this.UserLogsService.getIpAddress();
-      //console.log(this.browser_info);
-      //console.log(this.ip_address);
     }
 
   ngOnInit(): void {
@@ -76,63 +89,87 @@ export class RegisterComponent implements OnInit {
       validators: ConfirmedValidator('password', 'cpassword')
     }
     );
-
-    this.otp_form = this.formBuilder.group(
-      {
-        otp_number: ['', [Validators.required, Validators.minLength(6)]]
-      }
-    );
+    
+     this.isVerified= false;
   }
 
   get f() {
     return this.form.controls;
   }
 
-  get g() {
-    return this.otp_form.controls;
+  
+  user_details(token:any){
+    let param = { verify_code: token }
+    this.registerService.sign_up_user_details(param).subscribe(
+      response => {
+        let data:any= response;
+        if(data.data != null){          
+          this.form.patchValue({
+            tnc_check:data.data.user_aggree
+          });
+          if(data.user_name[0]){
+            this.form.patchValue({
+              firstName:data.user_name[0]
+            });
+          }
+          if(data.user_name[1]){
+            this.form.patchValue({
+              lastName:data.user_name[1]
+            });
+          }
+          this.form.patchValue({
+            phone_number:data.data.mobile_no
+          });
+        }else{
+          this.router.navigate(['/sign-up']);
+        }
+      }
+      );
+
   }
 
   onSubmit() {
     this.submitted = true;
-    this.showLoadingIndicator = true;
     if (this.form.invalid) {
-      //console.log(this.form);
       this.showLoadingIndicator = false;
       return;
     }
+     this.isVerified= false;
+    this.showLoadingIndicator = true;
     this.registerService.register_new(this.form).subscribe(
       data => {
         this.showLoadingIndicator = false;
-        //console.log(data);
         let user_data:any=data;
         this.isSignUpFailed = false;
-        this.isSuccessful = true;
-        //console.log(this.form);
-
+        this.isVerified = true;
          // user logs functionalty 
          this.type="Registration page";
          this.input_info=user_data.data;
          let param={'userEmail':user_data.data.email,'user_type':this.usertype,'device_info':this.device_info,'browser_info':this.browser_info,'ip_address':this.ip_address,'url_info':this.url_info,'type':this.type,'user_cart':this.user_cart,'input_info':this.input_info}
          this.UserLogsService.user_logs(param).subscribe(
            reponse => {
-            // console.log(data.status);
           });
              //
 
-        this.number = this.form.value.phone_number;
-        this.email_id = this.form.value.email;
-        this.first_name = this.form.value.firstName;
-        this.verify = true;
       },
       err => {
         this.showLoadingIndicator = false;
-        console.log(err);
         this.errorMessage = err.error;
         this.isSignUpFailed = true;
       }
     );
   }
-
+  keyPressNumbers1(event: { which: any; keyCode: any; preventDefault: () => void; }) {
+    var charCode = (event.which) ? event.which : event.keyCode;
+    event.preventDefault();
+      return false;
+    
+  }
+  
+  onPaste(e:any) {
+    e.preventDefault();
+    return false;
+  }
   keyPressNumbers(event: { which: any; keyCode: any; preventDefault: () => void; }) {
     var charCode = (event.which) ? event.which : event.keyCode;
     // Only Numbers 0-9
@@ -143,36 +180,4 @@ export class RegisterComponent implements OnInit {
       return true;
     }
   }
-  onSubmitotp(): void {
-    {
-      
-      this.otp_submitted = true;
-      if (this.otp_form.invalid) {
-        return;
-      }
-      this.showLoadingIndicator = true;
-      //console.log(this.number);
-      //console.log(this.otp_form.otp_number);
-      //console.log(this.email_id);
-      //console.log(this.first_name);
-      this.registerService.verify_otp(this.number, this.otp_form.value.otp_number, this.email_id, this.first_name).subscribe(
-
-        data => {
-          this.showLoadingIndicator = false;
-          //console.log(data);
-          this.isVerified = true;
-          this.verify = false;
-
-        },
-        err => {
-          this.showLoadingIndicator = false;
-          this.errorMessage = err.error.message;
-          this.verify = true;
-          this.isFailedVerify = true;
-          console.log(err);
-        }
-      );
-    }
-  }
-
 }

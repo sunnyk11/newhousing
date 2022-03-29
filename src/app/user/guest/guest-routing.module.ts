@@ -30,6 +30,7 @@ import { BlogSinglePostComponent } from './components/blog-single-post/blog-sing
 import { BlogComponent } from './components/blog/blog.component';
 import { UserLogsGuard } from './guards/user-logs.guard';
 import { FaqComponent } from './components/faq/faq.component';
+import { SignupComponent } from './components/signup/signup.component';
 import { ProductPreviewComponent } from './components/product-preview/product-preview.component';
 // import { NotfoundComponentComponent } from '../components/notfound-component/notfound-component.component';
 //custom component imports
@@ -57,6 +58,7 @@ const routes: Routes = [
         { path: "invoice", component: InvoiceComponent, canActivate: [AuthGuard]},
         { path: "my-properties", component: MyPropertiesComponent, canActivate: [AuthGuard]},
         { path: "register", component: RegisterComponent,canActivate:  [UserLogsGuard]},
+        { path: "sign-up", component: SignupComponent,canActivate:  [UserLogsGuard]},
         { path: 'agentregister', component: RegisterComponent,canActivate:  [UserLogsGuard]},
         { path: "payment-summary", component: PaymentSummaryComponent},
         { path: "profile", component: ProfileComponent, canActivate: [AuthGuard]},
