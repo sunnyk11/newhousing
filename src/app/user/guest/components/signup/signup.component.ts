@@ -68,6 +68,10 @@ export class SignupComponent implements OnInit {
        }
 
   ngOnInit(): void {
+    this.returnUrl = this.jwtService.getReturnURL();
+    if (this.jwtService.getToken()) {
+        this.router.navigateByUrl('');
+      }
     
   }
   
