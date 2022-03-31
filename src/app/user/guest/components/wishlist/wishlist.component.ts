@@ -47,6 +47,7 @@ export class WishlistComponent implements OnInit {
       this.showLoadingIndicator = true;
       this.userEmail =  this.jwtService.getUserEmail();
       this.usertype = this.jwtService.getUserType();
+      this.jwtService.saveReturnURL(this.router.url);
       this.url_info= this.router.url;
       this.device_info = this.UserLogsService.getDeviceInfo();
       this.browser_info = this.UserLogsService.getbrowserInfo();

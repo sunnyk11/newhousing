@@ -422,6 +422,47 @@ export class ProductPageComponent implements OnInit {
     this.CommonService.pro_comp_emit<string>('true');
   } 
 
+  fixed_appointment(product_id:any){
+    let val = this.jwtService.getToken();
+    if (val) {
+      this.returnUrl = this.router.url;
+      let user_id:any= this.jwtService.getUserId();
+      this.jwtService.saveReturnURL(this.returnUrl);
+      let formData={product_id:product_id,page_name:this.returnUrl}
+          this.CommonService.store_fixed_appointment(formData).subscribe(
+            res => {
+                this.CommonService.crm_call_appionment(user_id).subscribe();
+                this.router.navigate(['/fix-appointment']);
+                // this.openConfirmationModal();
+            },
+            err => {
+              console.log(err);
+            }
+          );
+    }
+    else {
+      this.returnUrl = this.router.url;
+      this.openLoginModal(product_id,this.returnUrl);
+    }
+
+  }
+  
+  openLoginModal(product_id: any,url:any) {
+    const modalRef = this.modalService.open(LoginCheckComponent,
+      {
+        scrollable: true,
+        windowClass: 'myCustomModalClass',
+        // keyboard: false,
+        backdrop: 'static'
+      });
+
+    let data = {
+      product_id: product_id,
+      page_name:url
+    }
+
+    modalRef.componentInstance.fromParent = data;
+  }
   proceedToPayment(productId:any) {
     
     let val = this.jwtService.getToken();

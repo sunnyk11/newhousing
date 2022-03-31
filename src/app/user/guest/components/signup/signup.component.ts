@@ -5,6 +5,7 @@ import { RegisterPageService } from '../../services/register-page.service';
 import { UserLogsService } from '../../services/user-logs.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { JwtService } from 'src/app/user/services/jwt.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-signup',
@@ -56,6 +57,7 @@ export class SignupComponent implements OnInit {
     private registerService: RegisterPageService,
     private route: ActivatedRoute,
     private router: Router,
+    private toastr: ToastrService,
     private jwtService: JwtService,
     private UserLogsService:UserLogsService
     ) {
@@ -92,8 +94,7 @@ export class SignupComponent implements OnInit {
       if(this.returnUrl){
         this.loginForm.patchValue({
           sign_up_page:this.returnUrl
-        });
-        this.jwtService.removeReturnURL();      
+        });     
       }else{
         this.loginForm.patchValue({
           sign_up_page:'sign-up'
@@ -133,7 +134,18 @@ export class SignupComponent implements OnInit {
       );
     }
   }
-  
+  user_otp_resend(){
+    this.registerService.user_otp_resend(this.loginForm.value).subscribe(
+      response => {
+        let data:any= response;
+        if(data.status==200){
+          this.toastr.success('Resend Successfully', 'OTP', {
+            timeOut: 1000,
+          });
+        }
+      }
+      );
+  }
   onSubmitotp() {
     this.otp_submitted = true;
     if (this.otpForm.invalid) {

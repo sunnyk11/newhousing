@@ -25,12 +25,12 @@ export class LoginCheckComponent implements OnInit {
     //console.log(this.fromParent);
   }
 
-  actionFunction() {
+  actionFunction(url:any) {
 
     this.closeModal("");
-    this.returnUrl = this.router.url;
+    this.returnUrl = this.router.url; 
     console.log(this.returnUrl);
-    console.log(this.fromParent);    
+    console.log(this.fromParent);
     if (this.returnUrl == '/plans') {
       if(this.fromParent.expected_rent){
         if(this.fromParent.price_duration_discount) {
@@ -40,13 +40,27 @@ export class LoginCheckComponent implements OnInit {
           this.plan_price = this.fromParent.expected_rent / (30 / this.fromParent.price_duration_actual);
         }
         this.fromParent.plan_price = this.plan_price;
+        console.log(this.fromParent);
         this.jwtService.savePlansData(this.fromParent);
       }
     }
     this.jwtService.saveReturnURL(this.returnUrl);
-    this.router.navigate(['login']);
+    if(this.returnUrl){
+      let modified_url:any=this.returnUrl.split('?')[0];
+      if (modified_url == '/product-details') {
+        this.fromParent.page_name = this.returnUrl;
+        this.jwtService.savePlansData(this.fromParent);
+  
+      }
+    }
+    
+      if(url=='login'){
+        this.router.navigate(['/login']);
+      }
+      if(url=='signup'){
+        this.router.navigate(['/sign-up']);
+      }
   }
-
   closeModal(sendData:any) {
     this.activeModal.close(sendData);
   }

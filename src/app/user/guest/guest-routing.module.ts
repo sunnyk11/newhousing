@@ -31,8 +31,9 @@ import { BlogComponent } from './components/blog/blog.component';
 import { UserLogsGuard } from './guards/user-logs.guard';
 import { FaqComponent } from './components/faq/faq.component';
 import { SignupComponent } from './components/signup/signup.component';
+import { FixedAppointmentComponent } from './components/fixed-appointment/fixed-appointment.component';
 import { ProductPreviewComponent } from './components/product-preview/product-preview.component';
-// import { NotfoundComponentComponent } from '../components/notfound-component/notfound-component.component';
+import { NotfoundComponentComponent } from '../components/notfound-component/notfound-component.component';
 //custom component imports
 
 const routes: Routes = [
@@ -55,6 +56,7 @@ const routes: Routes = [
         { path: "logout", component:LogoutComponent,canActivate:  [UserLogsGuard]},
         { path: "product_payment_summary", component: ProPaymentSummaryComponent,canActivate: [AuthGuard]},
         { path: "verify-mobile", component: VerifyMobileComponent, canActivate: [AuthGuard,UserLogsGuard]},
+        { path: "fix-appointment", component: FixedAppointmentComponent, canActivate: [AuthGuard,UserLogsGuard]},
         { path: "invoice", component: InvoiceComponent, canActivate: [AuthGuard]},
         { path: "my-properties", component: MyPropertiesComponent, canActivate: [AuthGuard]},
         { path: "register", component: RegisterComponent,canActivate:  [UserLogsGuard]},
@@ -67,7 +69,7 @@ const routes: Routes = [
         { path: 'blog', component: BlogComponent,canActivate:  [UserLogsGuard] },
         { path: 'product-preview', component: ProductPreviewComponent,canActivate:  [UserLogsGuard] },
         { path: 'faq', component: FaqComponent },
-        // {path: '**', component: NotfoundComponentComponent}
+        {path: '**', component: NotfoundComponentComponent}
       ]
     }
 ];

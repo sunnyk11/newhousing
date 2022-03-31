@@ -134,13 +134,13 @@
                                             <li>
                                                 <p>Property views:</p>
                                             </li>
-                                            <li>
+                                            <li *ngIf="product_data?.available_for">
                                                 <p>Available For</p>
                                             </li>
                                             <li>
                                                 <p>Property Size :</p>
                                             </li>
-                                            <li>
+                                            <li *ngIf="product_data?.buildyear">
                                                 <p>Year Built :</p>
                                             </li>
                                         </ul>
@@ -149,13 +149,13 @@
                                                 <p><span>{{product_data?.view_counter}}</span></p>
                                             </li>
                                             
-                                            <li>
+                                            <li *ngIf="product_data?.available_for">
                                                 <p><span>{{product_data?.available_for | date: ' d MMM y'}}</span></p>
                                             </li>
                                             <li>
                                                 <p><span>{{product_data?.area}}({{product_data?.property_area_unit?.unit}})</span></p>
                                             </li>
-                                            <li>
+                                            <li *ngIf="product_data?.buildyear">
                                                 <p><span>{{product_data?.buildyear}}</span></p>
                                             </li>
                                         </ul>

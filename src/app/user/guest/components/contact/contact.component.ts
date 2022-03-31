@@ -3,6 +3,8 @@ import { FormBuilder,Validators } from '@angular/forms';
 import { ContactPageService } from '../../services/contact-page.service';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from 'src/environments/environment';
+import { JwtService } from 'src/app/user/services/jwt.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-contact',
   templateUrl: './contact.component.html',
@@ -15,6 +17,7 @@ export class ContactComponent implements OnInit {
   public errorMessage: any;
   public submitted: boolean = false;
   public toll_free=environment.toll_free;
+  public returnUrl:any;
 
   contactForm = this.fb.group({
     name: ['', Validators.required],
@@ -26,9 +29,15 @@ export class ContactComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
     private toastr: ToastrService,
+    private jwtService: JwtService,
+    private router: Router,
     private contactService: ContactPageService) { }
 
   ngOnInit(): void {
+    if(this.jwtService.getToken()){
+      this.returnUrl = this.router.url;
+      this.jwtService.saveReturnURL(this.returnUrl);
+    }
   }
 
   get f() {

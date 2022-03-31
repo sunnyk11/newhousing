@@ -109,6 +109,11 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.showLoadingIndicator = true;
+    
+    if(this.jwtService.getToken()){
+      this.returnUrl = this.router.url;
+      this.jwtService.saveReturnURL(this.returnUrl);
+    }
     this.user_details();
   }
   user_details(){

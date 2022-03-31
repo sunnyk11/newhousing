@@ -9,6 +9,7 @@
     <!-- <p>{{ fromParent | json }}</p> -->
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="actionFunction()">Login</button>
+    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="actionFunction('login')">Login</button>
+    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="actionFunction('signup')">Sign-up</button>
     <button type="button" class="btn btn-primary" (click)="closeModal('changes saved!')">Go Back</button>
 </div>
