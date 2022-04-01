@@ -1,6 +1,4 @@
-<div *ngIf="showLoadingIndicator">
-    <div class="preloader"></div>
-</div>
+
 <div class="wrapper">
     <div class="p-5 bg-secondary rounded-3">
         <div class="container-fluid py-5">
@@ -13,8 +11,10 @@
             <h2 class="col-custom">Contact Us</h2>
         </div>
     </div>
-
-    <section class="our-contact pb0 bgc-f7">
+    <div *ngIf="showLoadingIndicator">
+        <div class="preloader"></div>
+    </div>
+    <section class="our-contact pb0 bgc-f7" *ngIf="showLoadingIndicator == false">
         <div class="container">
             <div class="row pb20">
                 <div class="col-lg-7 col-xl-8">
@@ -41,7 +41,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <input id="form_phone" formControlName="phone" name="form_phone" class="form-control required phone" required="required" type="phone" placeholder="Phone" [ngClass]="{ 'is-invalid': submitted && f.phone.errors }">
+                                        <input id="form_phone" formControlName="phone" name="form_phone" class="form-control required phone" required="required" (keypress)="keyPressNumbers($event)" type="text" maxlength="10" minlength="10" placeholder="Phone" [ngClass]="{ 'is-invalid': submitted && f.phone.errors }">
                                         <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
                                             <div *ngIf="f.phone.errors.required">Phone Number is required</div>
                                         </div>

@@ -442,6 +442,7 @@ export class ProductPageComponent implements OnInit {
     }
     else {
       this.returnUrl = this.router.url;
+      this.jwtService.saveReturnURL(this.returnUrl);
       this.openLoginModal(product_id,this.returnUrl);
     }
 
@@ -483,6 +484,8 @@ export class ProductPageComponent implements OnInit {
       }
       else {
         this.showLoadingIndicator = false;
+        let  url:any= '/product_payment_summary?productID='+productId;
+        this.jwtService.saveReturnURL(url);
         this.openModal();
       }
     

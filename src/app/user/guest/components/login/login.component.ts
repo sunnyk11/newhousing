@@ -129,16 +129,20 @@ export class LoginComponent implements OnInit {
       if(this.returnUrl){
         this.modified_url=this.returnUrl.split('?')[0];
       }
-      if (this.returnUrl?.includes('/product_payment_summary')) {
-        //console.log(this.returnUrl);
-        this.proceedToPayment();
-        //this.jwtService.removeReturnURL();
+      if (this.modified_url?.includes('/product_payment_summary')) {
+        let x:any=this.returnUrl.split('?')[1];
+        let y:any=x.split('=')[1];
+        this.router.navigate([this.modified_url],{queryParams:{'productID':y}})
       }
       else if (this.returnUrl?.includes('/plans')) {
         this.getPhoneDetails();
       }else if (this.modified_url?.includes('/product-details')) {
         this.fixed_appointment();
-     }
+      }else if (this.returnUrl?.includes('/product_payment_summary')) {
+        //console.log(this.returnUrl);
+        this.proceedToPayment();
+        //this.jwtService.removeReturnURL();
+      } 
       else {
         this.router.navigateByUrl(this.returnUrl || '');
       }
@@ -183,6 +187,7 @@ export class LoginComponent implements OnInit {
           this.userEmail = this.jwtService.getUserEmail();
           this.returnUrl = this.jwtService.getReturnURL();
           if(this.returnUrl){
+            console.log(this.returnUrl);
             this.modified_url=this.returnUrl.split('?')[0];
           }
           // user logs functionalty 
@@ -193,15 +198,19 @@ export class LoginComponent implements OnInit {
             reponse => {
               // console.log(data.status);
             });
-          if (this.returnUrl?.includes('/product_payment_summary')) {
-            //console.log(this.returnUrl);
-            this.proceedToPayment();
+          if (this.modified_url?.includes('/product_payment_summary')) {
+            let x:any=this.returnUrl.split('?')[1];
+            let y:any=x.split('=')[1];
+            this.router.navigate([this.modified_url],{queryParams:{'productID':y}})
           }
           else if (this.returnUrl?.includes('/plans')) {
             this.getPhoneDetails();
           }
           else if (this.modified_url?.includes('/product-details')) {
              this.fixed_appointment();
+          }else if (this.returnUrl?.includes('/product_payment_summary')) {
+            //console.log(this.returnUrl);
+            this.proceedToPayment();
           }
 
           else {
@@ -302,6 +311,7 @@ export class LoginComponent implements OnInit {
           this.userEmail = this.jwtService.getUserEmail();
           this.returnUrl = this.jwtService.getReturnURL();
           if(this.returnUrl){
+            console.log(this.returnUrl);
             this.modified_url=this.returnUrl.split('?')[0];
           }
           // user logs functionalty 
@@ -311,15 +321,19 @@ export class LoginComponent implements OnInit {
           this.UserLogsService.user_logs(param).subscribe(
             reponse => {
             });
-          if (this.returnUrl?.includes('/product_payment_summary')) {
-            //console.log(this.returnUrl);
-            this.proceedToPayment();
-          }
+            if (this.modified_url?.includes('/product_payment_summary')) {
+              let x:any=this.returnUrl.split('?')[1];
+              let y:any=x.split('=')[1];
+              this.router.navigate([this.modified_url],{queryParams:{'productID':y}})
+            }
           else if (this.returnUrl?.includes('/plans')) {
             this.getPhoneDetails();
           }
           else if (this.modified_url?.includes('/product-details')) {
              this.fixed_appointment();
+          }else if (this.returnUrl?.includes('/product_payment_summary')) {
+            //console.log(this.returnUrl);
+            this.proceedToPayment();
           }
 
           else {
@@ -442,6 +456,7 @@ export class LoginComponent implements OnInit {
           this.plansData = JSON.parse(this.jwtService.getPlansData());
           this.loginPageService.store_fixed_appointment(this.plansData).subscribe(
             res => {
+              this.showLoadingIndicator=true;
                 this.plansPageService.crm_call_appionment(this.user_id).subscribe();
                 this.router.navigate(['/fix-appointment']);
                 // this.openConfirmationModal();
@@ -472,10 +487,11 @@ export class LoginComponent implements OnInit {
             res => {
               //console.log(res);
               this.letOutPlanData = res;
+
               if (this.letOutPlanData.data.plan_type == 'Let Out') {
                 this.router.navigate(['/payment-summary'], { queryParams: { 'orderID': this.letOutPlanData.data.order_id } });
               }
-              else if (this.letOutPlanData.data.plan_type == 'Rent') {
+              else if (this.letOutPlanData.appointment == 'fixed_appointment') {
                 this.plansPageService.crm_call_appionment(this.user_id).subscribe();
                 this.router.navigate(['/fix-appointment']);
                 // this.openConfirmationModal();

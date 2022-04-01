@@ -27,10 +27,10 @@ export class ListpropertyComponent implements OnInit {
   mob_verify_check(page: string) {
     this.showLoadingIndicator = true;
     if (page == 'rent') {
-      this.jwtService.saveReturnURL('/list-property-rent');
+      this.jwtService.saveReturnURL('/agent/list-property-rent');
     }
     else if (page == 'sale') {
-      this.jwtService.saveReturnURL('/list-property-sales');
+      this.jwtService.saveReturnURL('/agent/list-property-sales');
     }
     this.loginPageService.getUserPhoneDetails({ param: null }).subscribe(
       data => {
