@@ -10,6 +10,7 @@ import { PlansPageService } from '../../services/plans-page.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FixAppointmentComponent } from '../../modals/fix-appointment/fix-appointment.component';
 import { UserLogsService } from '../../services/user-logs.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -58,6 +59,7 @@ export class LoginComponent implements OnInit {
   private paytm_form_url: string = environment.Paytm_formURL;
   public letOutPlanData: any;
   public mobile_no:any;
+  public modified_url:any;
 
   private usertype: any;
   public userDetails: any;
@@ -80,6 +82,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private plansPageService: PlansPageService,
     private modalService: NgbModal,
+    private toastr: ToastrService,
     private UserLogsService:UserLogsService
   ) {
     this.usertype = this.jwtService.getUserType();
@@ -104,6 +107,7 @@ export class LoginComponent implements OnInit {
 
         if (google_token) {
           this.LoggedIn = true;
+          this.showLoadingIndicator=true;
           this.jwtService.saveGoogleToken(google_token);
           this.jwtService.saveUserEmail(email);
           this.jwtService.saveUserID(user_id);
@@ -118,10 +122,13 @@ export class LoginComponent implements OnInit {
     );
 
     if (this.jwtService.getToken()) {
+      this.showLoadingIndicator=true;
       this.user_id = this.jwtService.getUserId();
       this.userEmail = this.jwtService.getUserEmail();
       this.returnUrl = this.jwtService.getReturnURL();
-      //console.log(this.returnUrl);
+      if(this.returnUrl){
+        this.modified_url=this.returnUrl.split('?')[0];
+      }
       if (this.returnUrl?.includes('/product_payment_summary')) {
         //console.log(this.returnUrl);
         this.proceedToPayment();
@@ -129,8 +136,9 @@ export class LoginComponent implements OnInit {
       }
       else if (this.returnUrl?.includes('/plans')) {
         this.getPhoneDetails();
-        this.jwtService.removeReturnURL();
-      }
+      }else if (this.modified_url?.includes('/product-details')) {
+        this.fixed_appointment();
+     }
       else {
         this.router.navigateByUrl(this.returnUrl || '');
       }
@@ -174,6 +182,9 @@ export class LoginComponent implements OnInit {
           this.user_id = this.jwtService.getUserId();
           this.userEmail = this.jwtService.getUserEmail();
           this.returnUrl = this.jwtService.getReturnURL();
+          if(this.returnUrl){
+            this.modified_url=this.returnUrl.split('?')[0];
+          }
           // user logs functionalty 
           this.type="login page";
           this.input_info=this.response_data.data.user_data;
@@ -188,6 +199,9 @@ export class LoginComponent implements OnInit {
           }
           else if (this.returnUrl?.includes('/plans')) {
             this.getPhoneDetails();
+          }
+          else if (this.modified_url?.includes('/product-details')) {
+             this.fixed_appointment();
           }
 
           else {
@@ -248,6 +262,22 @@ export class LoginComponent implements OnInit {
     }
   }
   
+  user_otp_resend(){
+    let loginmobile_data = {
+      mobile_no: this.mobile_loginForm.value.mobile_no,
+      rememberme: 1
+    }
+    this.loginPageService.user_otp_resend_login(loginmobile_data).subscribe(
+      response => {
+        let data:any= response;
+        if(data.status==200){
+          this.toastr.success('Resend Successfully', 'OTP', {
+            timeOut: 1000,
+          });
+        }
+      }
+      );
+  }
   onSubmitotp() {
     this.otp_submitted = true;
     if (this.otpForm.invalid) {
@@ -271,6 +301,9 @@ export class LoginComponent implements OnInit {
           this.user_id = this.jwtService.getUserId();
           this.userEmail = this.jwtService.getUserEmail();
           this.returnUrl = this.jwtService.getReturnURL();
+          if(this.returnUrl){
+            this.modified_url=this.returnUrl.split('?')[0];
+          }
           // user logs functionalty 
           this.type="login page";
           this.input_info=this.response_data.data.user_data;
@@ -284,6 +317,9 @@ export class LoginComponent implements OnInit {
           }
           else if (this.returnUrl?.includes('/plans')) {
             this.getPhoneDetails();
+          }
+          else if (this.modified_url?.includes('/product-details')) {
+             this.fixed_appointment();
           }
 
           else {
@@ -374,7 +410,7 @@ export class LoginComponent implements OnInit {
       },
       err => {
         this.showLoadingIndicator = false;
-        console.log(err);
+        // console.log(err);
       }
     );
   }
@@ -401,12 +437,26 @@ export class LoginComponent implements OnInit {
     // after click will fire you will redirect to paytm payment page.
     // after complete or fail transaction you will redirect to your CALLBACK URL
   }
+  fixed_appointment(){
+    this.showLoadingIndicator = true;
+          this.plansData = JSON.parse(this.jwtService.getPlansData());
+          this.loginPageService.store_fixed_appointment(this.plansData).subscribe(
+            res => {
+                this.plansPageService.crm_call_appionment(this.user_id).subscribe();
+                this.router.navigate(['/fix-appointment']);
+                // this.openConfirmationModal();
+            },
+            err => {
+              console.log(err);
+            }
+          );
+  }
 
   getPhoneDetails() {
     this.showLoadingIndicator = true;
     this.loginPageService.getUserPhoneDetails({ param: null }).subscribe(
       data => {
-        this.showLoadingIndicator = false;
+        // this.showLoadingIndicator = false;
         this.mobile_ver_status = data;
         if (this.mobile_ver_status !== 1) {
           //console.log("Mobile number not verified");
@@ -427,8 +477,8 @@ export class LoginComponent implements OnInit {
               }
               else if (this.letOutPlanData.data.plan_type == 'Rent') {
                 this.plansPageService.crm_call_appionment(this.user_id).subscribe();
-                this.router.navigate(['plans']);
-                this.openConfirmationModal();
+                this.router.navigate(['/fix-appointment']);
+                // this.openConfirmationModal();
               }
             },
             err => {
@@ -453,6 +503,7 @@ export class LoginComponent implements OnInit {
       return true;
     }
   }
+  
   openConfirmationModal() {
     const modalRef = this.modalService.open(FixAppointmentComponent,
       {

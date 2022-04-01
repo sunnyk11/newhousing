@@ -671,7 +671,7 @@
                                              </ul>
                                         <ul class="prop_details mb0">
                                             <li class="list-inline-item first"><a>Bathrooms: {{number?.bathroom }}</a></li>
-                                            <li class="list-inline-item second"><a>Available From: {{number?.available_for | date: ' d MMM y' }}</a></li>
+                                            <li class="list-inline-item second" *ngIf="number?.available_for"><a>Available From: {{number?.available_for | date: ' d MMM y' }}</a></li>
                                       
                                         </ul>
                                         
@@ -754,6 +754,12 @@
                     <div class="sidebar_listing_list" *ngIf="isLoggedIn == true">
                         <div class="row">
                             <h4 class="post_review" (click)="user_reviews()">Post Review <span>click here</span></h4>
+                        </div>
+                    </div>
+                    <div class="sidebar_listing_list">
+                        <div class="row">
+                           
+                        <button class="chekout_btn w100 h50" (click)="fixed_appointment(product_data.id)">Fix Appointment</button>
                         </div>
                     </div>
 
@@ -959,13 +965,13 @@
                                             <li>
                                                 <p>Property views:</p>
                                             </li>
-                                            <li>
+                                            <li *ngIf="product_data?.available_for">
                                                 <p>Available For</p>
                                             </li>
-                                            <li>
+                                            <li *ngIf="product_data?.area">
                                                 <p>Property Size :</p>
                                             </li>
-                                            <li>
+                                            <li *ngIf="product_data?.buildyear">
                                                 <p>Year Built :</p>
                                             </li>
                                         </ul>
@@ -974,13 +980,13 @@
                                                 <p><span>{{product_data?.view_counter}}</span></p>
                                             </li>
 
-                                            <li>
+                                            <li *ngIf="product_data?.available_for">
                                                 <p><span>{{product_data?.available_for | date: ' d MMM y'}}</span></p>
                                             </li>
-                                            <li>
+                                            <li *ngIf="product_data?.area">
                                                 <p><span>{{product_data?.area}}({{product_data?.property_area_unit?.unit}})</span></p>
                                             </li>
-                                            <li>
+                                            <li *ngIf="product_data?.buildyear">
                                                 <p><span>{{product_data?.buildyear}}</span></p>
                                             </li>
                                         </ul>
@@ -1427,6 +1433,12 @@
                     <div class="sidebar_listing_list" *ngIf="isLoggedIn == true">
                         <div class="row">
                             <h4 class="post_review" (click)="user_reviews()">Post Review <span>click here</span></h4>
+                        </div>
+                    </div>
+                    <div class="sidebar_listing_list" >
+                        <div class="row">
+                           
+                        <button class="chekout_btn w100 h50" (click)="fixed_appointment(product_data.id)">Fix Appointment</button>
                         </div>
                     </div>
 

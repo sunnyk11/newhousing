@@ -43,6 +43,10 @@ export class RegisterPageService {
     const route = "/api/auth/sign_up_otp_send";
     return this.apiService.post<ResultModel>(route, reqModel);
   }
+  user_otp_resend(reqModel: any): Observable<ResultModel> {
+    const route = "/api/auth/user_otp_resend";
+    return this.apiService.post<ResultModel>(route, reqModel);
+  }
   mobile_login_verify_otp(mobile_no: any,form_data:any, otp: string): Observable<ResultModel> {
     const route = "/api/auth/sign_up_verify_otp";
     return this.apiService.post<ResultModel>(route , {form_data:form_data,verification_code: otp, mobile_no: mobile_no});

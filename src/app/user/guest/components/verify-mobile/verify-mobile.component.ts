@@ -165,8 +165,10 @@ export class VerifyMobileComponent implements OnInit {
               }
               else if (this.letOutPlanData.data.plan_type == 'Rent') {
                 this.plansPageService.crm_call_appionment(this.user_id).subscribe();
-                this.router.navigate(['plans']);
-                this.openConfirmationModal();
+                
+                this.router.navigate(['/fix-appointment']);
+                // this.router.navigate(['plans']);
+                // this.openConfirmationModal();
               }
             },
             err => {
@@ -203,8 +205,9 @@ export class VerifyMobileComponent implements OnInit {
               }
               else if (this.letOutPlanData.data.plan_type == 'Rent') {
                 this.plansPageService.crm_call_appionment(this.user_id).subscribe();
-                this.router.navigate(['plans']);
-                this.openConfirmationModal();
+                // this.router.navigate(['plans']);
+                // this.openConfirmationModal();
+                this.router.navigate(['/fix-appointment']);
               }
             },
             err => {

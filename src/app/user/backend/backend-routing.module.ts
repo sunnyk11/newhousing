@@ -17,9 +17,9 @@ import { PlanApplyComponent } from './components/plan-apply/plan-apply.component
 import { VerifyMobileGuard } from './guards/verify-mobile.guard';
 import { LocalServiceComponent } from './components/local-service/local-service.component';
 import { VerifyMobileComponent } from '../guest/components/verify-mobile/verify-mobile.component';
-// import { NotfoundComponentComponent } from '../components/notfound-component/notfound-component.component';
 import { ProfileComponent } from '../guest/components/profile/profile.component';
 import { RentSlipComponent } from './components/rent-slip/rent-slip.component';
+import { NotfoundComponentComponent } from '../components/notfound-component/notfound-component.component';
 
 const routes: Routes = [
   {
@@ -43,7 +43,7 @@ const routes: Routes = [
       { path: "property-rent-slip", component: RentSlipComponent,canActivate: [AuthGuard]},
       { path: "local-services", component: LocalServiceComponent,canActivate: [AuthGuard]},
       { path: "verify-details", component: VerifyMobileComponent, canActivate: [AuthGuard] },
-      // {path: '**', component: NotfoundComponentComponent}
+      {path: '**', component: NotfoundComponentComponent}
     ]
   }
 ];

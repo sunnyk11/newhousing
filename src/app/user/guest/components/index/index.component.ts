@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { environment } from 'src/environments/environment';
+import { JwtService } from 'src/app/user/services/jwt.service';
 
 @Component({
   selector: 'app-index',
@@ -32,6 +33,7 @@ export class IndexComponent implements OnInit {
   private selectedItems:any=[];
   private amenityArray:any = [];
   public filteredOptions!: Observable<any[]>;
+  public returnUrl:any;
 
   searchForm = this.formBuilder.group({
     bathrooms: [''],
@@ -74,6 +76,7 @@ export class IndexComponent implements OnInit {
     private formBuilder: FormBuilder,
     private indexPageService: IndexPageService,
     private toastr: ToastrService,
+    private jwtService: JwtService,
     private router:Router
   ) { }
 
@@ -88,6 +91,11 @@ export class IndexComponent implements OnInit {
       startWith(''),
       map((value) => this._filter(value))
     );
+    
+    if(this.jwtService.getToken()){
+      this.returnUrl = this.router.url;
+      this.jwtService.saveReturnURL(this.returnUrl);
+    }
   }
   // fetch amenties advance tab
   getAmenities(){

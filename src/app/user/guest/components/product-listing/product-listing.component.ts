@@ -57,6 +57,7 @@ export class ProductListingComponent implements OnInit {
   public permissions_response: any;
   public access_search_bar: boolean = false;
   public  selected_sub_locality:any=[];
+  public returnUrl:any;
   
   private amenityArray:any = [];
   private search_amenties_convert: any=[];
@@ -146,6 +147,8 @@ export class ProductListingComponent implements OnInit {
     if(this.jwtService.getToken()){
       this.login_userid = this.jwtService.getUserId();
       this.login_usertype = this.jwtService.getUserType();
+      this.returnUrl = this.router.url;
+      this.jwtService.saveReturnURL(this.returnUrl);
       if(this.login_usertype == 11){
         this.access_search_bar=true;
       }

@@ -23,8 +23,17 @@ export class LoginPageService {
     const route = "/api/auth/mobile_login_verify_otp";
     return this.apiService.post<ResultModel>(route , {verification_code: otp, mobile_no: mobile_no});
   }
+  
+  user_otp_resend_login(reqModel: any): Observable<ResultModel> {
+    const route = "/api/auth/user_otp_resend_login";
+    return this.apiService.post<ResultModel>(route, reqModel);
+  }
   getUserPhoneDetails(reqModel: any): Observable<ResultModel> {
     const route = "/api/auth/verify_user_mobile";
     return this.apiService.get1<ResultModel>(route, reqModel);
+  }
+  store_fixed_appointment(reqModel: any): Observable<ResultModel> {
+    const route = "/api/auth/store_fixed_appointment";
+    return this.apiService.post1<ResultModel>(route, reqModel);
   }
 }

@@ -162,7 +162,7 @@ export class JwtService {
 
   saveReturnURL(url: any) {
     //console.log(url);
-   // window.localStorage.removeItem("RETURN_URL");
+   window.localStorage.removeItem("RETURN_URL");
     window.localStorage["RETURN_URL"] = url;
   }
 

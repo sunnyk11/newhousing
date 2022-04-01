@@ -134,5 +134,13 @@ export class CommonService {
     const route = "/api/auth/user_plan_availability";
     return this.apiService.get1<ResultModel>(route, reqModel);
   } 
+  store_fixed_appointment(reqModel: any): Observable<ResultModel> {
+    const route = "/api/auth/store_fixed_appointment";
+    return this.apiService.post1<ResultModel>(route, reqModel);
+  }
+  crm_call_appionment(reqModel: any): Observable<ResultModel> {
+    const route = "/api/auth/crm_call_appionment";
+    return this.apiService.post<ResultModel>(route, { id: reqModel });
+  }
   
 }
