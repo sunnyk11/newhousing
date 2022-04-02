@@ -16,7 +16,7 @@ export const environment = {
   host:'https://admindevelopment.housingstreet.com',
   apiUrl: 'https://admindevelopment.housingstreet.com',
   ftpURL:  'https://admindevelopment.housingstreet.com/storage/',
-  siteURL: 'https://development.housingstreet.com',
+  siteURL: 'https://staging.housingstreet.com',
   googleURL: 'https://admindevelopment.housingstreet.com/api/auth/redirect/',
   Paytm_formURL: 'https://securegw-stage.paytm.in/order/process',
   you_tube_url:'https://www.youtube-nocookie.com/embed/',
