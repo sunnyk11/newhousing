@@ -35,11 +35,12 @@ export class PaymentSummaryComponent implements OnInit {
     private router: Router,
     private toastr: ToastrService) { 
       
-      if(this.route.snapshot.queryParams['orderID'].length>3){
-        this.order_id = this.route.snapshot.queryParams['orderID'];      
-      } else {
-        this.redirect_to_previous_page();
-      }
+      // if(this.route.snapshot.queryParams['orderID'].length>3){
+        this.order_id = this.route.snapshot.queryParams['orderID'];  
+        console.log(this.order_id);    
+      // } else {
+      //   this.redirect_to_previous_page();
+      // }
     }
 
   ngOnInit(): void {

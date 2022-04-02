@@ -132,7 +132,88 @@ export class SubscriptionPlansComponent implements OnInit {
   }
   plan_payment(plan_name: any, plan_id: any, payment_type: any, plan_type: any, expected_rent: any, price_duration_actual: any, price_duration_discount:any, plan_features: any) {
     this.showLoadingIndicator = true;
-    //console.log(plan_name, plan_id, payment_type, plan_type, expected_rent, price_duration_actual, price_duration_discount);
+    console.log(plan_name, plan_id, payment_type, plan_type, expected_rent, price_duration_actual, price_duration_discount);
+    let val = this.jwtService.getToken();
+    if (val) {
+      //console.log(val);
+      this.loginPageService.getUserPhoneDetails({ param: null }).subscribe(
+        data => {
+          this.showLoadingIndicator = false;
+          this.user_phone_data = data;
+          // console.log(this.user_phone_data);
+          if (this.user_phone_data !== 1) {
+            //console.log("Mobile number not verified");
+            this.returnUrl = this.router.url;
+            this.jwtService.saveReturnURL(this.returnUrl);
+            this.openMobModal(plan_name, plan_id, payment_type, plan_type, expected_rent, price_duration_actual, price_duration_discount, plan_features);
+          }
+          else {
+            this.returnUrl = this.router.url;
+            //console.log("Mobile number verified");
+            this.user_id = this.jwtService.getUserId();
+            this.userEmail = this.jwtService.getUserEmail();
+            var formData: any = new FormData();
+            formData.append('user_id', this.user_id);
+            formData.append('user_email', this.userEmail);
+            formData.append('plan_type', plan_type);
+            formData.append('plan_name', plan_name);
+            formData.append('expected_rent', expected_rent);
+            formData.append('plan_id', plan_id);
+            formData.append('payment_type', payment_type);
+
+            if(price_duration_discount) {
+              this.plan_price = expected_rent / (30 / price_duration_discount);
+            }
+            else {
+              this.plan_price = expected_rent / (30 / price_duration_actual);
+            }
+            
+            formData.append('plan_price', this.plan_price);
+            formData.append('plan_features_data', JSON.stringify(plan_features));
+            // console.log(typeof(plan_features));
+            // console.log(plan_features);
+            console.log(formData);
+
+            this.plansPageService.postSelectedPlan(formData).subscribe(
+              res => {
+                console.log(res);
+                    
+                this.returnUrl = this.router.url;
+                this.jwtService.saveReturnURL(this.returnUrl);
+                this.selected_plan_data = res;
+                if (plan_type == 'Let Out') {
+                  this.router.navigate(['/payment-summary'], { queryParams: { 'orderID': this.selected_plan_data.data.order_id } });
+                }
+                else if (plan_type == 'Rent') {
+                  this.plansPageService.crm_call_appionment(this.user_id).subscribe();
+                  // this.openConfirmationModal();
+                this.router.navigate(['/fix-appointment']);
+                }
+              },
+              err => {
+
+              }
+            );
+          }
+        },
+        err => {
+          this.showLoadingIndicator = false;
+        }
+      );
+    }
+    else {
+      //console.log("Not logged in");
+      //console.log(this.router.url);
+      this.showLoadingIndicator = false;
+       this.returnUrl = this.router.url;
+      this.openLoginModal(plan_name, plan_id, payment_type, plan_type, expected_rent, price_duration_actual, price_duration_discount, plan_features);
+    }
+  }
+
+  
+  fixed_appointment(plan_name: any, plan_id: any, payment_type: any, plan_type: any, expected_rent: any, price_duration_actual: any, price_duration_discount:any, plan_features: any) {
+    this.showLoadingIndicator = true;
+    console.log(plan_name, plan_id, payment_type, plan_type, expected_rent, price_duration_actual, price_duration_discount);
     let val = this.jwtService.getToken();
     if (val) {
       //console.log(val);
@@ -177,20 +258,15 @@ export class SubscriptionPlansComponent implements OnInit {
 
             this.plansPageService.postSelectedPlan(formData).subscribe(
               res => {
-                //console.log(res);
+                console.log(res);
                     
                 this.returnUrl = this.router.url;
                 this.jwtService.saveReturnURL(this.returnUrl);
                 this.selected_plan_data = res;
-                if (plan_type == 'Let Out') {
-                  this.router.navigate(['/payment-summary'], { queryParams: { 'orderID': this.selected_plan_data.data.order_id } });
-                }
-                else if (plan_type == 'Rent') {
-                  this.plansPageService.crm_call_appionment(this.user_id).subscribe();
+                   this.plansPageService.crm_call_appionment(this.user_id).subscribe();
                   // this.openConfirmationModal();
-                this.router.navigate(['/fix-appointment']);
-                }
-              },
+                    this.router.navigate(['/fix-appointment']);
+                },
               err => {
 
               }
@@ -207,11 +283,34 @@ export class SubscriptionPlansComponent implements OnInit {
       //console.log(this.router.url);
       this.showLoadingIndicator = false;
        this.returnUrl = this.router.url;
-      this.openLoginModal(plan_name, plan_id, payment_type, plan_type, expected_rent, price_duration_actual, price_duration_discount, plan_features,this.returnUrl);
+      this.openLoginModal_appointment(plan_name, plan_id, payment_type, plan_type, expected_rent, price_duration_actual, price_duration_discount, plan_features,this.returnUrl);
     }
   }
 
-  openLoginModal(plan_name: any, plan_id: any, payment_type: any, plan_type: any, expected_rent: any, price_duration_actual: any, price_duration_discount: any, plan_features: any,url:any) {
+  openLoginModal(plan_name: any, plan_id: any, payment_type: any, plan_type: any, expected_rent: any, price_duration_actual: any, price_duration_discount: any, plan_features: any) {
+    const modalRef = this.modalService.open(LoginCheckComponent,
+      {
+        scrollable: true,
+        windowClass: 'myCustomModalClass',
+        // keyboard: false,
+        backdrop: 'static'
+      });
+
+    let data = {
+      plan_name: plan_name,
+      plan_id: plan_id,
+      payment_type: payment_type,
+      plan_type: plan_type,
+      expected_rent: expected_rent,
+      price_duration_actual: price_duration_actual,
+      price_duration_discount: price_duration_discount,
+      plan_features_data: JSON.stringify(plan_features)
+    }
+
+    modalRef.componentInstance.fromParent = data;
+  }
+  
+  openLoginModal_appointment(plan_name: any, plan_id: any, payment_type: any, plan_type: any, expected_rent: any, price_duration_actual: any, price_duration_discount: any, plan_features: any,url:any) {
     const modalRef = this.modalService.open(LoginCheckComponent,
       {
         scrollable: true,

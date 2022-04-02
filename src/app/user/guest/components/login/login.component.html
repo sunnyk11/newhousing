@@ -12,10 +12,10 @@
 </div>
 
 <div class="container py-5">
-    <div *ngIf="showLoadingIndicator">
+    <div *ngIf="showLoadingIndicator == true">
         <div class="preloader"></div>
     </div>
-    <div class="row d-flex justify-content-center align-items-center"  >
+    <div class="row d-flex justify-content-center align-items-center" *ngIf="showLoadingIndicator == false" >
         <div class="col-12 col-md-8 col-lg-6 col-xl-5">
             <div class="card shadow text-dark login-card">
                 <div class="card-body py-3 px-5 text-center">

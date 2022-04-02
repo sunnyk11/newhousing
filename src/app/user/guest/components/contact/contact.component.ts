@@ -22,10 +22,10 @@ export class ContactComponent implements OnInit {
   contactForm = this.fb.group({
     name: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
-    phone: ['', Validators.required],
+    phone: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
     subject: ['', Validators.required],
     message: ['', Validators.required]
-  });
+  }); 
 
   constructor(private fb: FormBuilder,
     private toastr: ToastrService,
@@ -34,6 +34,7 @@ export class ContactComponent implements OnInit {
     private contactService: ContactPageService) { }
 
   ngOnInit(): void {
+    this.showLoadingIndicator = false;
     if(this.jwtService.getToken()){
       this.returnUrl = this.router.url;
       this.jwtService.saveReturnURL(this.returnUrl);
@@ -62,8 +63,14 @@ export class ContactComponent implements OnInit {
         //console.log(res);
         this.response = res;
         this.showLoadingIndicator = false;
-        this.toastr.success('Contact Details Saved');
-        this.contactForm.reset({});
+        this.toastr.success('Your Query Succesfully Mail');
+        this.contactForm.patchValue({
+          name:'',
+          email:'',
+          phone:'',
+          subject:'',
+          message:''
+        });       
       },
       err => {
         this.errorMessage = err.error.message;
@@ -71,6 +78,17 @@ export class ContactComponent implements OnInit {
         //console.log(err);
       }
     );
+  }
+  
+  keyPressNumbers(event: { which: any; keyCode: any; preventDefault: () => void; }) {
+    var charCode = (event.which) ? event.which : event.keyCode;
+    // Only Numbers 0-9
+    if ((charCode < 48 || charCode > 57)) {
+      event.preventDefault();
+      return false;
+    } else {
+      return true;
+    }
   }
 
 }

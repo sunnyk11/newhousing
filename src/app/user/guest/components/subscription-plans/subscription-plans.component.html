@@ -94,7 +94,7 @@
                                     <hr>
                                 </li>
                             </ul>
-                            <button class="btn btn-success" (click)="plan_payment(rent_plan.plan_name, rent_plan.id, rent_plan.payment_type, rent_plan.plan_type, value, rent_plan.actual_price_days, rent_plan.discounted_price_days, rent_plan)">Fix
+                            <button class="btn btn-success" (click)="fixed_appointment(rent_plan.plan_name, rent_plan.id, rent_plan.payment_type, rent_plan.plan_type, value, rent_plan.actual_price_days, rent_plan.discounted_price_days, rent_plan)">Fix
                                 Appointment</button>
                         </div>
                     </div>
@@ -145,7 +145,7 @@
                                         <hr>
                                     </li>
                                 </ul>
-                                <button class="btn btn-success" (click)="plan_payment(rent_plan.plan_name, rent_plan.id, rent_plan.payment_type, rent_plan.plan_type, value, rent_plan.actual_price_days, rent_plan.discounted_price_days, rent_plan)">Fix
+                                <button class="btn btn-success" (click)="fixed_appointment(rent_plan.plan_name, rent_plan.id, rent_plan.payment_type, rent_plan.plan_type, value, rent_plan.actual_price_days, rent_plan.discounted_price_days, rent_plan)">Fix
                                     Appointment</button>
                             </div>
                         </div>
@@ -284,6 +284,10 @@
                                  -->
                                 <a class="btn btn-block btn-success"  data-bs-toggle="modal" data-bs-target="#Mymodal" (click)="plan_payment_model(letout_plan.plan_name, letout_plan.id, letout_plan.payment_type, letout_plan.plan_type, expected_rent_value, letout_plan.actual_price_days, letout_plan.discounted_price_days, letout_plan)">Buy Now
                                     </a>
+                                    
+                                <a class="btn btn-block btn-success mt-3"  (click)="fixed_appointment(letout_plan.plan_name, letout_plan.id, letout_plan.payment_type, letout_plan.plan_type, value, letout_plan.actual_price_days, letout_plan.discounted_price_days, letout_plan)">Fix
+                                    Appointment
+                                </a>
                         </div>
                     </div>
                 </div>
@@ -340,6 +344,10 @@
                                     Plan</a> -->
                                     
                                 <a class="btn btn-block btn-success"  data-bs-toggle="modal" data-bs-target="#Mymodal" (click)="plan_payment_model(letout_plan.plan_name, letout_plan.id, letout_plan.payment_type, letout_plan.plan_type, expected_rent_value, letout_plan.actual_price_days, letout_plan.discounted_price_days, letout_plan)">Buy Now
+                                </a>
+                                
+                                <a class="btn btn-block btn-success mt-3"  (click)="fixed_appointment(letout_plan.plan_name, letout_plan.id, letout_plan.payment_type, letout_plan.plan_type, value, letout_plan.actual_price_days, letout_plan.discounted_price_days, letout_plan)">Fix
+                                    Appointment
                                 </a>
                             </div>
                         </div>
