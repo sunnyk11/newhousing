@@ -93,6 +93,27 @@ export class HomepagefeatureComponent implements OnInit {
     }
   }
   
+  delete_comp(id:number):void{
+    let param={id:id}
+    if(this.jwtService.isTokenAvailable()){
+    this.CommonService.pro_comp_delete(param).subscribe(
+      response => {
+        this.product_length=0;
+        this.toastr.error('Remove Compare Property','Property', {
+          timeOut: 4000,
+        });
+        this.feature_property();
+        }, err => { 
+          this.showLoadingIndicator = false;
+          let Message =err.error.message;
+         
+        }
+      );
+    }else{
+      this.redirect_to_login();
+    }
+  }
+  
   // wishlist add 
   wishlist_added(id: number){
     let param={id:id}

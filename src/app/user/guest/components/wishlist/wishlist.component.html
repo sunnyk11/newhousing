@@ -27,7 +27,7 @@
                             <img class="img-whp" src="{{ftpstring}}{{img?.image}}" alt="img1.jpg">
                             <div class="thumb">
                                 <div class="thmb_cntnt style2">
-                                    <ul class="tag mb0">
+                                    <ul class="tag mb0" (click)="navigate(data?.productdetails?.id,data?.productdetails?.build_name,data?.productdetails?.city)">
                                         <li class="list-inline-item" *ngIf="data?.productdetails?.rent_availability != null"><a>For Rent</a></li>
                                         <li class="list-inline-item" *ngIf="data?.productdetails?.sale_availability != null"><a>For Sale</a></li>
                                     </ul>
@@ -40,9 +40,9 @@
                                             </a>
                                         </li>
                                     </ul>
-                                    <a *ngIf="data?.productdetails?.expected_pricing != null" class="fp_price">₹
+                                    <a *ngIf="data?.productdetails?.expected_pricing != null" class="fp_price" (click)="navigate(data?.productdetails?.id,data?.productdetails?.build_name,data?.productdetails?.city)">₹
                                 {{Price_convert(data?.productdetails?.expected_pricing)}}<small></small></a>
-                                    <a *ngIf="data?.productdetails?.expected_rent != null" class="fp_price">₹ {{
+                                    <a *ngIf="data?.productdetails?.expected_rent != null" class="fp_price" (click)="navigate(data?.productdetails?.id,data?.productdetails?.build_name,data?.productdetails?.city)">₹ {{
                                 Price_convert(data?.productdetails?.expected_rent)}}<small></small></a>
                                 </div>
                             </div>
@@ -52,7 +52,7 @@
                         <img class="img-whp lazy" alt="No Product Image" style="height: 250px;" src="./../../assets/resources/images/no_image_available.jpg">
                         <div class="thumb">
                             <div class="thmb_cntnt style2">
-                                <ul class="tag mb0">
+                                <ul class="tag mb0" (click)="navigate(data?.productdetails?.id,data?.productdetails?.build_name,data?.productdetails?.city)">
                                     <li class="list-inline-item" *ngIf="data?.productdetails?.rent_availability != null"><a>For Rent</a></li>
                                     <li class="list-inline-item" *ngIf="data?.productdetails?.sale_availability != null"><a>For Sale</a></li>
                                 </ul>
@@ -65,9 +65,9 @@
                                         </a>
                                     </li>
                                 </ul>
-                                <a *ngIf="data?.productdetails?.expected_pricing != null" class="fp_price">₹
+                                <a *ngIf="data?.productdetails?.expected_pricing != null" class="fp_price" (click)="navigate(data?.productdetails?.id,data?.productdetails?.build_name,data?.productdetails?.city)">₹
                             {{Price_convert(data?.productdetails?.expected_pricing)}}<small></small></a>
-                                <a *ngIf="data?.productdetails?.expected_rent != null" class="fp_price">₹ {{
+                                <a *ngIf="data?.productdetails?.expected_rent != null" class="fp_price" (click)="navigate(data?.productdetails?.id,data?.productdetails?.build_name,data?.productdetails?.city)">₹ {{
                             Price_convert(data?.productdetails?.expected_rent)}}<small></small></a>
                             </div>
                         </div>
@@ -93,7 +93,7 @@
                                             </span>
                                         </div>
                                         <div class="compare_fillable" *ngIf="data?.productdetails?.product_comparision !=null">
-                                           <span > <i class="fa fa-balance-scale" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Added To Compare"></i></span>
+                                           <span (click)="delete_comp(data.product_id)"> <i class="fa fa-balance-scale" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Added To Compare"></i></span>
                                         </div>
                                     </div>
                                 </div> 

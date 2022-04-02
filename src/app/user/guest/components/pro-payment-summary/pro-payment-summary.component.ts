@@ -8,6 +8,7 @@ import { LoginCheckComponent } from '../../modals/login-check/login-check.compon
 import { MobileCheckComponent } from '../../modals/mobile-check/mobile-check.component';
 import { LoginPageService } from '../../services/login-page.service';
 import { environment } from 'src/environments/environment';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-pro-payment-summary',
@@ -67,19 +68,41 @@ export class ProPaymentSummaryComponent implements OnInit {
     private productService: ProductPageService,
     private jwtService: JwtService,
     private modalService: NgbModal,
+    private toastr: ToastrService,
     private loginPageService: LoginPageService,
     private router: Router
-    ) { }
+    ) { 
+      this.route.queryParams.subscribe((params) => {
+        if(params.productID.length >0){
+          this.product_id=params.productID;
+          this.product_details(this.product_id);
+        } else {
+          this.router.navigate(['/product-listing'])
+        }
+      });}
 
   ngOnInit(): void {
-    this.showLoadingIndicator = true;
-    this.product_id = this.route.snapshot.queryParams['productID'];
-    this.productService.get_product_details(this.product_id).subscribe(
+    this.showLoadingIndicator = true;   
+    this.getRentFeatures();
+  }
+
+  product_details(product_id:any){
+    this.productService.get_product_details(product_id).subscribe(
       prod_data => {
         this.showLoadingIndicator = false;
         this.product_data = prod_data;
+        if(this.product_data.length>0){
+          // if(this.product_data )
         this.pro_data = this.product_data[0];
-        //console.log(this.product_data[0]);
+        let user_id:any= this.jwtService.getUserId();
+        if(user_id ==this.product_data[0].user_id){
+          this.toastr.info('Property Owner', 'user', {
+            timeOut: 1200,
+          });
+          this.router.navigate(['/product-details'],{queryParams:{'id':product_id,'name':this.product_data[0].build_name}})
+
+        }else{
+          
         this.expected_rent = this.product_data[0].expected_rent;
         this.sgst_amount = Math.round((9 * this.plan_price) / 100); 
         this.cgst_amount = Math.round((9 * this.plan_price) / 100);
@@ -98,15 +121,21 @@ export class ProPaymentSummaryComponent implements OnInit {
           this.maintenance_charge = 0;
           //console.log(this.maintenance_charge);
         }
+
+        }
+
+        }else {
+          this.router.navigate(['/product-listing'])
+        }
+        
       },
       err => {
         this.showLoadingIndicator = false;
         console.log(err);
       }
     );
-    this.getRentFeatures();
   }
-
+  
   getRentFeatures() {
     this.showLoadingIndicator = true;
     this.plansPageService.getRentFeatures({ param: null }).subscribe(

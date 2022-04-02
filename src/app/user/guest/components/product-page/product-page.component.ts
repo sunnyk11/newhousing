@@ -303,6 +303,27 @@ export class ProductPageComponent implements OnInit {
       this.redirect_to_login();
     }
   }
+  
+  product_comp_delete(id:number):void{
+    let param={id:id}
+    if(this.jwtService.isTokenAvailable()){
+    this.CommonService.pro_comp_delete(param).subscribe(
+      response => {
+        this.toastr.error('Remove Compare Property','Property', {
+          timeOut: 4000,
+        });
+        this.product_length=0;
+        this.single_product_details(this.product_id);
+        }, err => { 
+          this.showLoadingIndicator = false;
+          let Message =err.error.message;
+         
+        }
+      );
+    }else{
+      this.redirect_to_login();
+    }
+  }
   // wishlist delete
   wishlist_remove_similar(id: number){
     let param={id:id}
@@ -319,6 +340,7 @@ export class ProductPageComponent implements OnInit {
       this.redirect_to_login();
     }
   }
+  
   // wishlist add 
   wishlist_added_similar(id: number){
     let param={id:id}
@@ -331,6 +353,26 @@ export class ProductPageComponent implements OnInit {
        
       }
      );
+    }else{
+      this.redirect_to_login();
+    }
+  }
+  product_comp_similar_delete(id:number):void{
+    let param={id:id}
+    if(this.jwtService.isTokenAvailable()){
+    this.CommonService.pro_comp_delete(param).subscribe(
+      response => {
+        this.toastr.error('Remove Compare Property','Property', {
+          timeOut: 4000,
+        });
+        this.product_length=0;
+        this.similarproperty(this.locality_id);
+        }, err => { 
+          this.showLoadingIndicator = false;
+          let Message =err.error.message;
+         
+        }
+      );
     }else{
       this.redirect_to_login();
     }
