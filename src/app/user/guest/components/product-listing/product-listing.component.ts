@@ -680,6 +680,26 @@ export class ProductListingComponent implements OnInit {
     }
   }
   
+  delete_comp(id:number):void{
+    let param={id:id}
+    if(this.jwtService.isTokenAvailable()){
+    this.CommonService.pro_comp_delete(param).subscribe(
+      response => {
+        this.toastr.error('Remove Compare Property','Property', {
+          timeOut: 4000,
+        });
+        this.product_length=0;
+        this.onsearch();
+        }, err => { 
+          this.showLoadingIndicator = false;
+          let Message =err.error.message;
+         
+        }
+      );
+    }else{
+      this.redirect_to_login();
+    }
+  }
    // pricre convert functionalty
    Price_convert(num: number) {
     if (num >= 1000000000) {

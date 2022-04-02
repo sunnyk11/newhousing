@@ -1,16 +1,16 @@
 .property-active-btn{
     background-color: #4caf50;
     color: #fff!important;
-    cursor: no-drop!important;
+    /* cursor: no-drop!important; */
 }
 .property-active-btn:hover{
     background-color: #4caf50;
     color: #fff!important;
-    cursor: no-drop!important;
+    /* cursor: no-drop!important; */
 }
-.property-active-btn a{
+/* .property-active-btn a{
     cursor: no-drop!important;
-}
+} */
 
 #planaccess{
     margin: 7px 0px 0px 0px!important;
@@ -25,7 +25,6 @@
 
 .property-active-btn a i{
     color: #fff!important;
-    cursor: no-drop!important;
 }
 .main-banner-wrapper {
     height: 80vh!important;
@@ -126,6 +125,10 @@
     margin-left: 10px!important;
 }
 @media(min-width: 768px) {  
+    
+#mobile_view{
+    display: none!important;
+}
     .single_page_address h6{
         justify-content: flex-end!important;
         align-items: flex-end!important;
@@ -161,6 +164,9 @@
 
 }
 @media(max-width: 768px) {      
+#deshtop{
+    display: none!important;
+}
     .listing_single_description .ul_details{
         display: contents!important;
     }

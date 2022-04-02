@@ -25,7 +25,7 @@
                                         <img class="img-whp lazy" data-src="{{ftpstring}}{{img.image}}" alt="img1.jpg">
                                         <div class="thumb">
                                             <div class="thmb_cntnt style2">
-                                                <ul class="tag mb0">
+                                                <ul class="tag mb0" (click)="navigate(number.id,number.build_name,number.city)">
                                                     <li class="list-inline-item" *ngIf=" number.rent_availability != null"><a>For
                                                             Rent</a>
                                                     </li>
@@ -50,9 +50,9 @@
                                                         </li>
                                                     </ng-template>
                                                 </ul>
-                                                <a *ngIf="number.expected_pricing != null" class="fp_price">₹
+                                                <a *ngIf="number.expected_pricing != null" class="fp_price" (click)="navigate(number.id,number.build_name,number.city)">₹
                                                     {{Price_convert(number.expected_pricing)}}</a>
-                                                <a *ngIf="number.expected_rent != null" class="fp_price">₹ {{
+                                                <a *ngIf="number.expected_rent != null" class="fp_price" (click)="navigate(number.id,number.build_name,number.city)">₹ {{
                                                     Price_convert(number.expected_rent)}}</a>
                                             </div>
                                         </div>
@@ -86,9 +86,9 @@
                                                     </li>
                                                 </ng-template>
                                             </ul>
-                                            <a *ngIf="number.expected_pricing != null" class="fp_price">₹
+                                            <a *ngIf="number.expected_pricing != null" class="fp_price" (click)="navigate(number.id,number.build_name,number.city)">₹
                                                 {{Price_convert(number.expected_pricing)}}<small></small></a>
-                                            <a *ngIf="number.expected_rent != null" class="fp_price">₹ {{
+                                            <a *ngIf="number.expected_rent != null" class="fp_price" (click)="navigate(number.id,number.build_name,number.city)">₹ {{
                                                 Price_convert(number.expected_rent)}}<small></small></a>
                                         </div>
                                     </div>
@@ -98,12 +98,14 @@
                                         <div class="tc_content">
                                             <div class="row">
                                                 <div class="col-9">
+                                                    <a (click)="navigate(number.id,number.build_name,number.city)">
                                                     <p class="text-thm" *ngIf="number.type != null" style="line-height:0!important">{{ number?.property__type?.name | titlecase }} 
                                                     </p>
                                                     <p>
                                                         <span *ngIf="number?.furnishing_status == 1" style="color: #000;">(Furnished)</span>
                                                         <span *ngIf="number?.furnishing_status == 0" style="color: #000;">(Not Furnished)</span> 
                                                     </p>
+                                                   </a>
                                                 </div>
                                                 <div class="col-3">
                                                     <div class="compare" *ngIf="number.product_comparision==null">
@@ -112,7 +114,7 @@
                                                         </span>
                                                     </div>
                                                     <div class="compare_fillable" *ngIf="number.product_comparision !=null">
-                                                       <span > <i class="fa fa-balance-scale" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Added To Compare"></i></span>
+                                                       <span (click)="delete_comp(number.id)"> <i class="fa fa-balance-scale" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Added To Compare"></i></span>
                                                     </div>
                                                 </div>
                                             </div> 

@@ -27,7 +27,7 @@
     <a *ngIf="LoggedIn && property_comp_length < 2" mat-list-item (click)="compare_notification()">
         <span matBadge={{property_comp_length}} matBadgeOverlap="false" matBadgeColor="warn"><mat-icon>compare_arrows</mat-icon></span>
     </a>
-    <a mat-list-item routerLink="/list-property"  routerLinkActive="active" (click)="onSidenavClose()">
+    <a mat-list-item routerLink="/agent/list-property"  routerLinkActive="active" (click)="onSidenavClose()">
         <mat-icon>add_circle</mat-icon><span class="nav-caption">List Property</span>
     </a>
         <a mat-list-item  (click)="onSidenavClose()">

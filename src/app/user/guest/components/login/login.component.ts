@@ -187,7 +187,6 @@ export class LoginComponent implements OnInit {
           this.userEmail = this.jwtService.getUserEmail();
           this.returnUrl = this.jwtService.getReturnURL();
           if(this.returnUrl){
-            console.log(this.returnUrl);
             this.modified_url=this.returnUrl.split('?')[0];
           }
           // user logs functionalty 
@@ -300,7 +299,6 @@ export class LoginComponent implements OnInit {
         //console.log(data);
         this.display_otp_form = false;
         this.showLoadingIndicator = false;
-          console.log(response);
           this.LoginFailed1 = false;
           this.LoggedIn = true;
           this.response_data = response;
@@ -311,7 +309,6 @@ export class LoginComponent implements OnInit {
           this.userEmail = this.jwtService.getUserEmail();
           this.returnUrl = this.jwtService.getReturnURL();
           if(this.returnUrl){
-            console.log(this.returnUrl);
             this.modified_url=this.returnUrl.split('?')[0];
           }
           // user logs functionalty 
@@ -381,8 +378,6 @@ export class LoginComponent implements OnInit {
           //console.log(this.property_data);
           this.property_data.user_id = this.user_id;
           this.property_data.user_email = this.userEmail;
-          console.log(this.property_data);
-
           this.plansPageService.postSelectedRentPlan(this.property_data).subscribe(
             res => {
               //console.log(res);

@@ -159,6 +159,26 @@ export class WishlistComponent implements OnInit {
       this.redirect_to_login();
     }
   }
+  delete_comp(id:number):void{
+    let param={id:id}
+    if(this.jwtService.isTokenAvailable()){
+    this.CommonService.pro_comp_delete(param).subscribe(
+      response => {
+        this.toastr.error('Remove Compare Property','Property', {
+          timeOut: 4000,
+        });
+        this.wishlist_length=0;
+        this.product_wishlist();
+        }, err => { 
+          this.showLoadingIndicator = false;
+          let Message =err.error.message;
+         
+        }
+      );
+    }else{
+      this.redirect_to_login();
+    }
+  }
   
   // wishlist refreh functionalty 
   wishlist_refresh(){
