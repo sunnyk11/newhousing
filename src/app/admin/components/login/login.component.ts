@@ -33,6 +33,9 @@ export class LoginComponent implements OnInit {
     private authService: AuthService) { }
 
   ngOnInit(): void {
+    if (this.jwtService.getAdminToken()) {
+        this.router.navigateByUrl('admin/dashboard');
+      }
   }
 
   get LoginFormControl() {

@@ -78,3 +78,14 @@
     border-top: 1px solid #ff5a5f;
     border-bottom: 1px solid #ff5a5f;
 }
+
+@media(max-width: 768px) { 
+    #deshtop_view{
+        display: none!important;
+    }
+}
+@media(min-width: 768px) { 
+    #mobile_view{
+        display: none!important;
+    }
+}

@@ -117,6 +117,7 @@ export class WishlistComponent implements OnInit {
       response => {
         this.wishlist_length=0;
         this.property_data=[];
+         this.toastr.error('Property has removed from favorite');
         this.product_wishlist();
       }, err => { 
         this.showLoadingIndicator = false;
@@ -129,7 +130,33 @@ export class WishlistComponent implements OnInit {
     }else{
       this.redirect_to_login();
     }
-  } // property compare
+  }
+   // property compare
+   product_comp_mobile(id:number){
+    let param={id:id}
+    if(this.jwtService.getToken()){
+      this.CommonService.product_comp({param}).subscribe(
+      response => {
+        this.wishlist_length=0;
+        this.product_copm=response;
+        this.product_wishlist();
+        if(this.product_copm.data.length>1){
+           this.toastr.info("Oops you can't add more than 2 property in comparing list");
+        }else{
+            this.toastr.success('Property has added for comparison');
+        }
+      }, err => { 
+        this.showLoadingIndicator = false;
+        let Message =err.error.message;
+        // this.toastr.error(Message, 'Something Error', {
+        //   timeOut: 3000,
+        // });
+      }
+     );
+    }else{
+      this.redirect_to_login();
+    }
+  }
   product_comp(id:number){
     let param={id:id}
     if(this.jwtService.getToken()){
@@ -138,14 +165,10 @@ export class WishlistComponent implements OnInit {
         this.wishlist_length=0;
         this.product_copm=response;
         this.product_wishlist();
-        if(this.product_copm.data.length>4){
-          this.toastr.info('Compare are the Full...!!!', 'Property', {
-            timeOut: 3000,
-          });
+        if(this.product_copm.data.length>3){
+           this.toastr.info("Oops you can't add more than 4 property in comparing list");
         }else{
-          this.toastr.success('Added To compare Successfully', 'Property', {
-            timeOut: 3000,
-          });
+            this.toastr.success('Property has added for comparison');
         }
       }, err => { 
         this.showLoadingIndicator = false;
@@ -164,9 +187,7 @@ export class WishlistComponent implements OnInit {
     if(this.jwtService.isTokenAvailable()){
     this.CommonService.pro_comp_delete(param).subscribe(
       response => {
-        this.toastr.error('Remove Compare Property','Property', {
-          timeOut: 4000,
-        });
+        this.toastr.error('Property has removed from comparison');
         this.wishlist_length=0;
         this.product_wishlist();
         }, err => { 
