@@ -191,9 +191,7 @@ export class CompareComponent implements OnInit {
       response => {
         this.property_comp_length=0;
         this.property_data=[];
-        this.toastr.error('Remove Compare Property','Property', {
-          timeOut: 4000,
-        });
+        this.toastr.error('Property has removed from comparison');
         this.product_comapre();
         }, err => { 
           this.showLoadingIndicator = false;

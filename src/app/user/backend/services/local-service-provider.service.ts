@@ -67,7 +67,7 @@ export class LocalServiceProviderService {
   // service page 
   service_create(reqModel: any): Observable<ResultModel> {
     const route = "/api/product/service_created";
-    return this.apiService.post<ResultModel>(route, reqModel);
+    return this.apiService.admin_post<ResultModel>(route, reqModel);
   }
   getarea_service(reqModel: any): Observable<ResultModel> {
     const route = "/api/product/getarea_service_userpage";

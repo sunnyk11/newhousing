@@ -72,7 +72,7 @@ export class UpdateServicesComponent implements OnInit {
           let data: any = response;
           this.showLoadingIndicator = false;
           this.toastr.success('Services Updated');
-          this.router.navigate(['/agent/services-list']);
+          this.router.navigate(['/admin/services-list']);
         },
         err => {
           this.showLoadingIndicator = false;

@@ -109,12 +109,15 @@
                                                 </div>
                                                 <div class="col-3">
                                                     <div class="compare" *ngIf="number.product_comparision==null">
-                                                        <span (click)="product_comp(number.id)">
+                                                        <span (click)="product_comp(number.id)" id="deshtop_view">
+                                                            <i class="fa fa-balance-scale" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Add to compare"></i>
+                                                        </span>
+                                                         <span (click)="product_comp_mobile(number.id)" id="mobile_view">
                                                             <i class="fa fa-balance-scale" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Add to compare"></i>
                                                         </span>
                                                     </div>
                                                     <div class="compare_fillable" *ngIf="number.product_comparision !=null">
-                                                       <span (click)="delete_comp(number.id)"> <i class="fa fa-balance-scale" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Added To Compare"></i></span>
+                                                       <span (click)="delete_comp(number.id)"> <i class="fa fa-balance-scale" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Remove from Compare"></i></span>
                                                     </div>
                                                 </div>
                                             </div> 

@@ -237,6 +237,28 @@ export class ProductPageComponent implements OnInit {
       n.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + t
   }
   // property compare
+  product_comp_mobile(id:number){
+    let param={id:id}
+    if(this.jwtService.getToken()){
+      this.CommonService.product_comp({param}).subscribe(
+      response => {
+        this.product_copm=response;
+        this.product_length=0;
+        this.single_product_details(this.product_id);
+        if(this.product_copm.data.length>1){
+          this.toastr.info("Oops you can't add more than 2 property in comparing list");
+        }else{
+          this.toastr.success('Property has added for comparison');
+        }
+      }, err => { 
+        this.showLoadingIndicator = false;
+        let Message =err.error.message;
+      }
+     );
+    }else{
+      this.redirect_to_login();
+    }
+  }
   product_comp(id:number){
     let param={id:id}
     if(this.jwtService.getToken()){
@@ -245,14 +267,10 @@ export class ProductPageComponent implements OnInit {
         this.product_copm=response;
         this.product_length=0;
         this.single_product_details(this.product_id);
-        if(this.product_copm.data.length>4){
-          this.toastr.info('Compare are the Full...!!!', 'Property', {
-            timeOut: 3000,
-          });
+        if(this.product_copm.data.length>3){
+          this.toastr.info("Oops you can't add more than 4 property in comparing list");
         }else{
-          this.toastr.success('Added To compare Successfully', 'Property', {
-            timeOut: 3000,
-          });
+          this.toastr.success('Property has added for comparison');
         }
       }, err => { 
         this.showLoadingIndicator = false;
@@ -270,9 +288,7 @@ export class ProductPageComponent implements OnInit {
       this.CommonService.wishlist_addd({param}).subscribe(
       response => {
         this.product_length=0;
-        this.toastr.success('Wishlist Successfully', 'Property', {
-          timeOut: 3000,
-        });
+        this.toastr.success('Property has added to favorite');
         this.single_product_details(this.product_id);
       }, err => { 
         this.showLoadingIndicator = false;
@@ -290,9 +306,7 @@ export class ProductPageComponent implements OnInit {
       this.CommonService.wishlist_remove({param}).subscribe(
       response => {
         this.product_length=0;
-        this.toastr.error('Wishlist Removed', 'Property', {
-          timeOut: 3000,
-        });
+        this.toastr.error('Property has removed from favorite');
         this.single_product_details(this.product_id);
       }, err => { 
         this.showLoadingIndicator = false;
@@ -309,9 +323,7 @@ export class ProductPageComponent implements OnInit {
     if(this.jwtService.isTokenAvailable()){
     this.CommonService.pro_comp_delete(param).subscribe(
       response => {
-        this.toastr.error('Remove Compare Property','Property', {
-          timeOut: 4000,
-        });
+        this.toastr.error('Property has removed from comparison');
         this.product_length=0;
         this.single_product_details(this.product_id);
         }, err => { 
@@ -331,6 +343,7 @@ export class ProductPageComponent implements OnInit {
       this.CommonService.wishlist_remove({param}).subscribe(
       response => {
         this.product_length=0;
+         this.toastr.error('Property has removed from favorite');
         this.similarproperty(this.locality_id);
       }, err => { 
         
@@ -348,6 +361,7 @@ export class ProductPageComponent implements OnInit {
       this.CommonService.wishlist_addd({param}).subscribe(
       response => {
         this.product_length=0;
+        this.toastr.success('Property has added to favorite');
         this.similarproperty(this.locality_id);
       }, err => { 
        
@@ -362,9 +376,8 @@ export class ProductPageComponent implements OnInit {
     if(this.jwtService.isTokenAvailable()){
     this.CommonService.pro_comp_delete(param).subscribe(
       response => {
-        this.toastr.error('Remove Compare Property','Property', {
-          timeOut: 4000,
-        });
+        
+        this.toastr.error('Property has removed from comparison');
         this.product_length=0;
         this.similarproperty(this.locality_id);
         }, err => { 
@@ -386,14 +399,11 @@ export class ProductPageComponent implements OnInit {
         this.product_copm=response;
         this.product_length=0;
         this.similarproperty(this.locality_id);
-        if(this.product_copm.data.length>4){
-          this.toastr.info('Compare are the Full...!!!', 'Property', {
-            timeOut: 3000,
-          });
+        if(this.product_copm.data.length>3){
+          this.toastr.info("Oops you can't add more than 4 property in comparing list");
         }else{
-          this.toastr.success('Added To compare Successfully', 'Property', {
-            timeOut: 3000,
-          });
+          
+          this.toastr.success('Property has added for comparison');
         }
       }, err => { 
         

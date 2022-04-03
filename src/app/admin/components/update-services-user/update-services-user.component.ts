@@ -286,7 +286,7 @@ export class UpdateServicesUserComponent implements OnInit {
             let data:any=response;
             this.showLoadingIndicator = false;
             this.toastr.success('User Successfully Updated');
-            this.router.navigate(['/agent/services-user-list']);   
+            this.router.navigate(['/admin/services-user-list']);   
           },
           err => {
             this.showLoadingIndicator = false;

@@ -15,3 +15,13 @@
 .inner_carosule .outer_slider{
     background-color: transparent!important;
 }
+@media(max-width: 768px) { 
+    #deshtop_view{
+        display: none!important;
+    }
+}
+@media(min-width: 768px) { 
+    #mobile_view{
+        display: none!important;
+    }
+}

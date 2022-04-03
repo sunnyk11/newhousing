@@ -76,9 +76,13 @@
                 <div class="col-lg-5 col-xl-4 share-tab">
                     <div class="spss mt20 text-right tal-400">
                         <ul class="mb0">
-                            <li class="list-inline-item" *ngIf="product_data?.product_comparision ==null">
-                                <a><span class="flaticon-transfer-1"
-                                        (click)="product_comp(product_data.id)"></span></a>
+                            <li class="list-inline-item" *ngIf="product_data?.product_comparision ==null" >
+                                <a>
+                                    <span class="flaticon-transfer-1"
+                                        (click)="product_comp(product_data.id)" id="deshtop_view"></span>
+                                    <span class="flaticon-transfer-1"
+                                        (click)="product_comp_mobile(product_data.id)" id="mobile_view"></span>
+                                </a>
                             </li>
                             <li class="list-inline-item property-active-btn" *ngIf="product_data?.product_comparision !=null">
                                 <a (click)="product_comp_delete(product_data.id)"><span class="flaticon-transfer-1"></span></a>
@@ -656,12 +660,15 @@
                                             </div>
                                             <div class="col-3">
                                                 <div class="compare" *ngIf="number.product_comparision==null">
-                                                    <span (click)="product_comp(number.id)">
+                                                    <span (click)="product_comp(number.id)" id="deshtop_view">
+                                                        <i class="fa fa-balance-scale" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Add to compare"></i>
+                                                    </span>
+                                                      <span (click)="product_comp_mobile(number.id)" id="mobile_view">
                                                         <i class="fa fa-balance-scale" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Add to compare"></i>
                                                     </span>
                                                 </div>
                                                 <div class="compare_fillable" *ngIf="number.product_comparision !=null">
-                                                   <span (click)="product_comp_similar_delete(number.id)"> <i class="fa fa-balance-scale" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Added To Compare"></i></span>
+                                                   <span (click)="product_comp_similar_delete(number.id)"> <i class="fa fa-balance-scale" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Remove from Compare"></i></span>
                                                 </div>
                                             </div>
                                         </div> 
@@ -902,7 +909,10 @@
                 <div class="col-lg-5 col-xl-4 share-tab">
                     <div class="spss mt20 text-right tal-400">
                         <ul class="mb0">
-                            <li class="list-inline-item" *ngIf="product_data?.product_comparision ==null"  (click)="product_comp(product_data.id)"> 
+                            <li class="list-inline-item" *ngIf="product_data?.product_comparision ==null"  (click)="product_comp(product_data.id)" id="deshtop_view"> 
+                                <a><span class="flaticon-transfer-1"></span></a>
+                            </li>
+                            <li class="list-inline-item" *ngIf="product_data?.product_comparision ==null"  (click)="product_comp_mobile(product_data.id)" id="mobile_view"> 
                                 <a><span class="flaticon-transfer-1"></span></a>
                             </li>
                             <li class="list-inline-item property-active-btn" *ngIf="product_data?.product_comparision !=null">

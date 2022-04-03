@@ -65,6 +65,29 @@ export class HomepagefeatureComponent implements OnInit {
      );
     }
   }
+  product_comp_mobile(id:number){
+    let param={id:id}
+    if(this.jwtService.isTokenAvailable()){
+      this.CommonService.product_comp({param}).subscribe(
+      response => {
+        this.product_copm=response;
+        this.product_length=0;
+        this.feature_property();
+        if(this.product_copm.data.length>1){
+          this.toastr.info("Oops you can't add more than 2 property in comparing list");
+        }else{
+          this.toastr.success('Property has added for comparison');
+        }
+      }, err => { 
+        this.showLoadingIndicator = false;
+        let Message =err.error.message;
+      }
+     );
+    }else{
+      this.redirect_to_login();
+    }
+  }
+  
   // property compare
   product_comp(id:number){
     let param={id:id}
@@ -74,14 +97,10 @@ export class HomepagefeatureComponent implements OnInit {
         this.product_copm=response;
         this.product_length=0;
         this.feature_property();
-        if(this.product_copm.data.length>4){
-          this.toastr.info('Compare are the Full...!!!', 'Property', {
-            timeOut: 3000,
-          });
+        if(this.product_copm.data.length>3){
+          this.toastr.info("Oops you can't add more than 4 property in comparing list");
         }else{
-          this.toastr.success('Added To compare Successfully', 'Property', {
-            timeOut: 3000,
-          });
+          this.toastr.success('Property has added for comparison');
         }
       }, err => { 
         this.showLoadingIndicator = false;
@@ -99,9 +118,7 @@ export class HomepagefeatureComponent implements OnInit {
     this.CommonService.pro_comp_delete(param).subscribe(
       response => {
         this.product_length=0;
-        this.toastr.error('Remove Compare Property','Property', {
-          timeOut: 4000,
-        });
+        this.toastr.error('Property has removed from comparison');
         this.feature_property();
         }, err => { 
           this.showLoadingIndicator = false;
@@ -121,6 +138,7 @@ export class HomepagefeatureComponent implements OnInit {
       this.CommonService.wishlist_addd({param}).subscribe(
       response => {
         this.product_length=0;
+         this.toastr.success('Property has added to favorite');
         this.feature_property();
       }, err => { 
         this.showLoadingIndicator = false;
@@ -139,6 +157,7 @@ export class HomepagefeatureComponent implements OnInit {
       this.CommonService.wishlist_remove({param}).subscribe(
       response => {
         this.product_length=0;
+        this.toastr.error('Property has removed from favorite');
         this.feature_property();
       }, err => { 
         this.showLoadingIndicator = false;
