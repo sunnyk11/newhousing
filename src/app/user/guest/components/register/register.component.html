@@ -38,7 +38,7 @@
                                 <div class="col-xl-6 col-lg-12 col-md-6 col-sm-12">
                                     <div class="input-group mb-3">
                                         <span class="input-group-text" id="basic-addon1">Last Name</span>
-                                        <input type="text" class="form-control" formControlName="lastName" name="lastName" id="lastName">
+                                        <input type="text" class="form-control" formControlName="lastName" name="lastName" id="lastName" (paste)="onPaste($event)" readonly>
                                     </div>
                                 </div>
 
