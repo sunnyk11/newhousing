@@ -32,6 +32,7 @@ export class GuestHeaderComponent implements OnInit {
   public token: string = '';
   private google_token: string = '';
   public service_provider:boolean=false;
+  public screenWidth: number=0;
 
 
   constructor(
@@ -46,13 +47,20 @@ export class GuestHeaderComponent implements OnInit {
         this.LoggedIn = message.text;
         this.token = message.token;
         if (this.token.length>5) {
-          this.user_details();
+          this.getScreenSize();
         }
       });
   }
 
   ngOnInit(): void {
-    this.user_details();
+    this.getScreenSize();
+  }
+  
+  getScreenSize(){
+    this.screenWidth = window.innerWidth;
+    if(this.screenWidth >768){
+      this.user_details();
+    }
   }
   user_details() {
     if (this.jwtService.isTokenAvailable()) {
@@ -108,7 +116,7 @@ export class GuestHeaderComponent implements OnInit {
     );
   }
   compare_notification(): void {
-    this.toastr.info('Minimun Two Property required', 'Comparison', {
+    this.toastr.info('Minimun Two Property required', 'Comparision', {
       timeOut: 2000,
       positionClass: 'toast-bottom-right',
     });

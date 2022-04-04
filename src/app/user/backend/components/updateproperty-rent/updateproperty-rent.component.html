@@ -496,7 +496,7 @@
                                             [ngClass]="{ 'is-invalid': submitted4 && step4.expected_rent.errors }">
                                     </div>
                                 </div>
-                                <span class="alert-danger" *ngIf="Expected_PriceEroor == true">Expected Price Between 5k to 5 lakhs</span>
+                                <span class="alert-danger" *ngIf="Expected_PriceEroor == true">Expected Price Between 5k to 50k</span>
                             </div>
                         </div>
                         <div class="row mt-3">
@@ -581,7 +581,7 @@
                                         <input type="text" class="form-control" formControlName="expected_rent" id="expected_rent" name="expected_rent" [attr.disabled]="!editable" >
                                     </div>
                                 </div>
-                                <span class="alert-danger" *ngIf="Expected_PriceEroor == true">Expected Price Between 5k to 5 lakhs</span>
+                                <span class="alert-danger" *ngIf="Expected_PriceEroor == true">Expected Price Between 5k to 50k</span>
                             </div>
                         </div>
                         <div class="row mt-3">

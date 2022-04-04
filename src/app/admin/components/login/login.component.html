@@ -11,14 +11,18 @@
     </div>
 </div>
 
-<div class="container py-5 h-100">
-    <div *ngIf="showLoadingIndicator">
-        <div class="preloader"></div>
-    </div>
-    <div class="row d-flex justify-content-center align-items-center h-100">
+<div class="container py-5 ">
+    <div class="row d-flex justify-content-center h-100">
         <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+            <div class="loader_class" *ngIf="showLoadingIndicator == true">
+                <div *ngIf="showLoadingIndicator == true">
+                    <div class="preloader"></div>
+             </div>
+            </div>
+            
             <div class="card shadow text-dark login-card">
-                <div class="card-body py-3 px-5 text-center">
+                
+                <div class="card-body py-3 px-5 text-center" *ngIf="showLoadingIndicator ==false">
 
                     <div class="mb-md-3 mt-md-3 pb-2">
                         <form [formGroup]="loginForm" #ngForm="ngForm" (ngSubmit)="onSubmit()">

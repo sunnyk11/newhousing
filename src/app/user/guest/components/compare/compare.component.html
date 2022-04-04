@@ -49,9 +49,9 @@
                                         <li class="list_heading">Year of build</li>
                                         <li class="list_heading" *ngFor="let amenties of amenitiesresult">
                                             {{amenties.name}}</li>
-                                        <li class="compare_page">
+                                        <!-- <li class="compare_page">
                                             <div class="membership_header dn"></div>
-                                        </li>
+                                        </li> -->
                                     </ul>
                                 </li>
                             </div>
@@ -61,7 +61,7 @@
                                         <div *ngIf="i+1<=devicetype">
                                             <ul class="mc_child_list three text-center property_compare">
                                                 <div class="membership_header text-center">
-                                                    <div class="row">
+                                                    <div class="row1">
                                                         <div class="col-lg-12 col-md-12 position-relative">
                                                             <a (click)="navigate(data?.productdetails?.id, data?.productdetails?.build_name, data?.productdetails?.city)">
 

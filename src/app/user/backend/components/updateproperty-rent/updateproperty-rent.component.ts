@@ -24,9 +24,9 @@ export class UpdatepropertyRentComponent implements OnInit {
   private option: any;
 
   options: Options = {
-    step:500,
+    step:100,
     floor: 5000,
-    ceil: 500000,
+    ceil: 50000,
     translate: (value: number, label: LabelType): string => {
       return '₹' + value.toLocaleString('en');
     },

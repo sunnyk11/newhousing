@@ -8,6 +8,7 @@
 }
 
 .membership_container {
+    background-color: transparent!important;
     overflow: hidden!important;
 }
 
@@ -131,7 +132,7 @@ ul.mc_parent_list .membership_header .details {
 }
 
 .membership_header .thumb {
-    width: 95%!important;
+    width: 94%!important;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -178,4 +179,11 @@ ul.mc_parent_list ul.mc_child_list .membership_header h4 {
 
 .start-90 {
     left: 90%;
+}
+
+@media(max-width: 768px) { 
+    
+    .start-90 {
+        left: 88%;
+    }
 }

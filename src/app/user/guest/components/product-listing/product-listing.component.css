@@ -83,6 +83,24 @@
     #deshtop_view{
         display: none!important;
     }
+    .sidebar_advanced_search_widget h4{
+        margin-bottom: 25px!important;
+    }
+    .status_change_form{
+        display: flex!important;
+        align-items: center!important;
+        justify-content: center!important;
+    }
+    .grid_list_search_result .right_area ul li:first-child {
+        margin-right: 0px!important;
+        position: relative;
+    }
+    #search-text{
+        padding:14px 5px!important
+    }
+    #search-text h5{
+        font-size: 16px!important;
+    }
 }
 @media(min-width: 768px) { 
     #mobile_view{

@@ -1,6 +1,6 @@
 <mat-toolbar class="navbar-scrolltofixed stricky">
     <div>
-        <button mat-icon-button (click)="onToggleSidenav()">
+        <button mat-icon-button (click)="onToggleSidenav()" *ngIf="LoggedIn==true">
             <mat-icon>menu</mat-icon>
         </button>
     </div>

@@ -135,15 +135,15 @@ export class WishlistComponent implements OnInit {
    product_comp_mobile(id:number){
     let param={id:id}
     if(this.jwtService.getToken()){
-      this.CommonService.product_comp({param}).subscribe(
+      this.CommonService.product_comp_mobile({param}).subscribe(
       response => {
         this.wishlist_length=0;
         this.product_copm=response;
         this.product_wishlist();
-        if(this.product_copm.data.length>1){
-           this.toastr.info("Oops you can't add more than 2 property in comparing list");
+        if(this.product_copm.status==201){
+          this.toastr.success('Property has added for comparison');
         }else{
-            this.toastr.success('Property has added for comparison');
+          this.toastr.info("Oops you can't add more than 2 property in comparing list");
         }
       }, err => { 
         this.showLoadingIndicator = false;
@@ -165,10 +165,10 @@ export class WishlistComponent implements OnInit {
         this.wishlist_length=0;
         this.product_copm=response;
         this.product_wishlist();
-        if(this.product_copm.data.length>3){
-           this.toastr.info("Oops you can't add more than 4 property in comparing list");
+        if(this.product_copm.status==201){
+          this.toastr.success('Property has added for comparison');
         }else{
-            this.toastr.success('Property has added for comparison');
+          this.toastr.info("Oops you can't add more than 4 property in comparing list");
         }
       }, err => { 
         this.showLoadingIndicator = false;
@@ -192,8 +192,7 @@ export class WishlistComponent implements OnInit {
         this.product_wishlist();
         }, err => { 
           this.showLoadingIndicator = false;
-          let Message =err.error.message;
-         
+          // let Message =err.error.message;         
         }
       );
     }else{
