@@ -29,6 +29,7 @@ export class SidenavListComponent implements OnInit {
   public property_comp:any={};
   public property_comp_length:number=0;
   public token: string='';
+  public screenWidth: number=0;
 
   constructor(private jwtService: JwtService, 
     private commonService: CommonService, 
@@ -39,13 +40,20 @@ export class SidenavListComponent implements OnInit {
         this.LoggedIn = message.text;
         this.token = message.token;
         if(this.token){
-          this.user_details();
+          this.getScreenSize();
         }
       });
   }
 
   ngOnInit(): void {
-    this.user_details();
+    this.getScreenSize();
+  }
+  
+  getScreenSize(){
+    this.screenWidth = window.innerWidth;
+    if(this.screenWidth <950){
+      this.user_details();
+    }
   }
 
   user_details(){
@@ -88,7 +96,7 @@ export class SidenavListComponent implements OnInit {
   }  
 
   product_comapre(){
-    this.commonService.getproduct_comp({ param: null }).subscribe(
+    this.commonService.getproduct_comp_mobile({ param: null }).subscribe(
       response => {
         this.property_comp=response;
         this.property_comp_length=this.property_comp.data.length;
@@ -97,7 +105,7 @@ export class SidenavListComponent implements OnInit {
   }
 
   compare_notification():void{
-    this.toastr.info('Minimun Two Property required','Comparison', {
+    this.toastr.info('Minimun Two Property required','Comparision', {
       timeOut: 2000,
       positionClass: 'toast-bottom-right',
     });

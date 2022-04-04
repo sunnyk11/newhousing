@@ -65,7 +65,7 @@ export class CompareComponent implements OnInit {
   }
   getScreenSize(){
     this.screenWidth = window.innerWidth;
-    if(this.screenWidth <768){
+    if(this.screenWidth <950){
       this.devicetype=2;
     }else{
       this.devicetype=4;

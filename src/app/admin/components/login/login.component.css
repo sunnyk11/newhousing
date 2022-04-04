@@ -1,0 +1,9 @@
+@media(max-width: 768px) { 
+    .bg-secondary {
+        padding: 2rem 3rem 2rem 3rem!important;
+    }
+}
+.loader_class{
+    position: relative;
+    height:50vh!important;
+}

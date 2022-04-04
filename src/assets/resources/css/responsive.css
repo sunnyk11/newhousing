@@ -386,9 +386,6 @@
         align-items: center;
         justify-content: flex-end;
     }
-    #search_form_popup {
-        display: none!important;
-    }
     .main-title {
         position: relative;
         margin-bottom: 20px!important;
@@ -521,7 +518,11 @@
         right: 80px;
     }
 }
-
+@media(min-width: 999px) {
+#search_form_popup {
+    display: none!important;
+}
+}
 
 /* Medium devices (min-width:768px) (max-width: 991.98px) // (tablets, less than 992px) */
 

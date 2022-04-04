@@ -125,7 +125,12 @@
     margin-left: 10px!important;
 }
 @media(min-width: 768px) {  
-    
+ #fixed_appointment_heading{
+    font-size: 16px;
+    line-height: 24px;
+    margin-bottom: 10px;
+    text-align: justify;
+ }   
 #mobile_view{
     display: none!important;
 }
@@ -163,7 +168,14 @@
     }
 
 }
-@media(max-width: 768px) {      
+@media(max-width: 768px) {    
+    #fixed_appointment_heading{
+        font-size: 15px;
+        line-height: 24px;
+        margin-bottom: 10px;
+        text-align: justify;
+     }   
+      
 #deshtop{
     display: none!important;
 }
@@ -250,13 +262,14 @@
     font-size: 14px;
     margin:5px 0px;
 }
-@media(max-width: 768px) { 
+@media(max-width: 950px) { 
     #deshtop_view{
         display: none!important;
     }
 }
-@media(min-width: 768px) { 
+@media(min-width: 950px) { 
     #mobile_view{
         display: none!important;
     }
+
 }

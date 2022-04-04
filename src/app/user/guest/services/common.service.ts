@@ -105,6 +105,10 @@ export class CommonService {
     const route = "/api/product/product_comp";
     return this.apiService.post<ResultModel>(route, reqModel);
   }
+  product_comp_mobile(reqModel:any): Observable<ResultModel> {
+    const route = "/api/product/product_comp_mobile";
+    return this.apiService.post<ResultModel>(route, reqModel);
+  }
   
   getUserPhoneDetails(reqModel: any): Observable<ResultModel> {
     const route = "/api/auth/verify_user_mobile";
@@ -112,6 +116,11 @@ export class CommonService {
   }
   getproduct_comp(reqModel:any): Observable<ResultModel> {
     const route = "/api/product/product_comp";
+    return this.apiService.get1<ResultModel>(route, reqModel);
+  }
+  
+  getproduct_comp_mobile(reqModel:any): Observable<ResultModel> {
+    const route = "/api/product/get_mobile_comp";
     return this.apiService.get1<ResultModel>(route, reqModel);
   }
   pro_comp_delete(reqModel:any): Observable<ResultModel> {

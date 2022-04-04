@@ -624,10 +624,10 @@ export class ProductListingComponent implements OnInit {
         console.log(response);
         this.product_length=0;
         this.onsearch();
-        if(this.product_copm.data.length>3){
-          this.toastr.info("Oops you can't add more than 4 property in comparing list");
-        }else{
+        if(this.product_copm.status==201){
           this.toastr.success('Property has added for comparison');
+        }else{
+          this.toastr.info("Oops you can't add more than 4 property in comparing list");
         }
       }, err => { 
         this.showLoadingIndicator = false;
@@ -643,15 +643,15 @@ export class ProductListingComponent implements OnInit {
   product_comp_mobile(id:number){
     let param={id:id}
     if(this.jwtService.getToken()){
-      this.CommonService.product_comp({param}).subscribe(
+      this.CommonService.product_comp_mobile({param}).subscribe(
       response => {
         this.product_copm=response;
         this.product_length=0;
         this.onsearch();
-        if(this.product_copm.data.length>1){
-          this.toastr.info("Oops you can't add more than 2 property in comparing list");
-        }else{
+        if(this.product_copm.status==201){
           this.toastr.success('Property has added for comparison');
+        }else{
+          this.toastr.info("Oops you can't add more than 2 property in comparing list");
         }
       }, err => { 
         this.showLoadingIndicator = false;

@@ -55,6 +55,11 @@
 .ml-custom {
     margin-left: 2.5rem !important;
 }
+#signup_heading{
+    font-size: 18px;
+    line-height: 30px;
+    margin-bottom: 30px;
+}
 
 @media(min-width: 768px) {
 
@@ -70,7 +75,13 @@
 
 @media only screen and (max-width: 768px) {
     .bg-secondary {
-        padding: 5rem 3rem 0rem 3rem!important;
+        padding: 8rem 3rem 0rem 3rem!important;
+    }
+    #signup_heading{
+        font-size: 15px;
+        line-height: 28px;
+        margin-bottom: 30px;
+        text-align: justify;
     }
    
 }
