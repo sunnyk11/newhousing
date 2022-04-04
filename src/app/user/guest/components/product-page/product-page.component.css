@@ -125,7 +125,12 @@
     margin-left: 10px!important;
 }
 @media(min-width: 768px) {  
-    
+ #fixed_appointment_heading{
+    font-size: 16px;
+    line-height: 24px;
+    margin-bottom: 10px;
+    text-align: justify;
+ }   
 #mobile_view{
     display: none!important;
 }
@@ -163,7 +168,14 @@
     }
 
 }
-@media(max-width: 768px) {      
+@media(max-width: 768px) {    
+    #fixed_appointment_heading{
+        font-size: 15px;
+        line-height: 24px;
+        margin-bottom: 10px;
+        text-align: justify;
+     }   
+      
 #deshtop{
     display: none!important;
 }
@@ -259,4 +271,5 @@
     #mobile_view{
         display: none!important;
     }
+
 }
