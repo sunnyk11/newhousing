@@ -80,9 +80,6 @@
 }
 
 @media(max-width: 768px) { 
-    #deshtop_view{
-        display: none!important;
-    }
     .sidebar_advanced_search_widget h4{
         margin-bottom: 25px!important;
     }
@@ -102,8 +99,13 @@
         font-size: 16px!important;
     }
 }
-@media(min-width: 768px) { 
+@media(min-width: 950px) { 
     #mobile_view{
+        display: none!important;
+    }
+}
+@media(max-width: 950px) { 
+    #deshtop_view{
         display: none!important;
     }
 }

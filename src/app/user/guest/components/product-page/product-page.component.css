@@ -250,12 +250,12 @@
     font-size: 14px;
     margin:5px 0px;
 }
-@media(max-width: 768px) { 
+@media(max-width: 950px) { 
     #deshtop_view{
         display: none!important;
     }
 }
-@media(min-width: 768px) { 
+@media(min-width: 950px) { 
     #mobile_view{
         display: none!important;
     }

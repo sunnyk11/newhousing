@@ -51,7 +51,7 @@ export class SidenavListComponent implements OnInit {
   
   getScreenSize(){
     this.screenWidth = window.innerWidth;
-    if(this.screenWidth <768){
+    if(this.screenWidth <950){
       this.user_details();
     }
   }
