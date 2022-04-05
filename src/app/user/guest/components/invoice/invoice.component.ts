@@ -192,7 +192,7 @@ export class InvoiceComponent implements OnInit {
   }
 
   navigate_plans() {
-    this.router.navigate(['my-plans'])
+    this.router.navigate(['/agent/my-plans'])
   }
   redirect_to_previous_page(): void {
     this.router.navigate(['/plans'])
