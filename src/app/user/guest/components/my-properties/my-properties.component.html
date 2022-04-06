@@ -40,7 +40,7 @@
                         <tbody *ngFor="let property of rent_property_data; index as i">
                             <tr>
                                 <th scope="row">{{ i+1 }}</th>
-                                <td>{{ property?.product_details?.build_name }}</td>
+                                <td>{{ property?.property_rent_table?.property_name }}</td>
                                 <td>{{ property.amount_paid }}</td>
                                 <td>{{ property.order_id }}</td>
                                 <td>
@@ -92,23 +92,23 @@
                             </tr>
                             <tr>
                                 <th>GST Amount:</th>
-                                <td>{{ property_det?.gst_amount }}</td>
+                                <td>{{ property_det?.property_rent_table?.gst_amount }}</td>
                             </tr>
                             <tr>
                                 <th>Security Deposit:</th>
-                                <td>{{ property_det?.security_deposit }}</td>
+                                <td>{{ property_det?.property_rent_table?.security_deposit }}</td>
                             </tr>
                             <tr>
                                 <th>Maintenance Charge:</th>
-                                <td>{{ property_det?.maintenance_charge }}</td>
+                                <td>{{ property_det?.property_rent_table?.maintenance_charge }}</td>
                             </tr>
                             <tr>
                                 <th>1 Month Rent:</th>
-                                <td>{{ property_det?.expected_rent }}</td>
+                                <td>{{ property_det?.property_rent_table?.expected_rent }}</td>
                             </tr>
                             <tr>
                                 <th>Total Amount:</th>
-                                <td>{{ property_det?.total_amount }}</td>
+                                <td>{{ property_det?.property_rent_table?.total_amount }}</td>
                             </tr>
                         </tbody>
                     </table>
