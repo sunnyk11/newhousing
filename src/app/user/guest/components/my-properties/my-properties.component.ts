@@ -35,7 +35,7 @@ export class MyPropertiesComponent implements OnInit {
     this.propertiesService.get_rent_properties(this.userEmail).subscribe(
       res => {
         this.showLoadingIndicator = false;
-        //console.log(res);
+        console.log(res);
         this.rent_property_data = res;
       },
       err => {

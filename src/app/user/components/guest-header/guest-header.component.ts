@@ -47,21 +47,15 @@ export class GuestHeaderComponent implements OnInit {
         this.LoggedIn = message.text;
         this.token = message.token;
         if (this.token.length>5) {
-          this.getScreenSize();
+          this.user_details();
         }
       });
   }
 
-  ngOnInit(): void {
-    this.getScreenSize();
+  ngOnInit(): void { 
+    this.user_details();
   }
   
-  getScreenSize(){
-    this.screenWidth = window.innerWidth;
-    if(this.screenWidth >950){
-      this.user_details();
-    }
-  }
   user_details() {
     if (this.jwtService.isTokenAvailable()) {
       this.LoggedIn = true;
