@@ -101,7 +101,7 @@
                         <tr *ngIf="ord_details?.maintenance_charge">
                             <th>3</th>
                             <td>Maintenance Charge</td>
-                            <td>{{ product_data?.maintenance_charge_condition }}</td>
+                            <td>{{ product_data?.maintenance_condition?.name }}</td>
                             <td>&#8377; {{ ord_details?.maintenance_charge }}</td>
                         </tr>
                         <tr>
