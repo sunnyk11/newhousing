@@ -60,6 +60,7 @@ import { ProductPreviewComponent } from './components/product-preview/product-pr
 import { TimezonePipe } from './pipes/timezone.pipe';
 import { SignupComponent } from './components/signup/signup.component';
 import { FixedAppointmentComponent } from './components/fixed-appointment/fixed-appointment.component';
+import { ThankYouComponent } from './components/thank-you/thank-you.component';
 // import { NotfoundComponentComponent } from '../components/notfound-component/notfound-component.component';
 @NgModule({
   declarations: [
@@ -109,6 +110,7 @@ import { FixedAppointmentComponent } from './components/fixed-appointment/fixed-
     TimezonePipe,
     SignupComponent,
     FixedAppointmentComponent,
+    ThankYouComponent,
   ],
   imports: [
     CommonModule,
