@@ -29,7 +29,6 @@ export class RegisterComponent implements OnInit {
   public first_name: any;
   public number: any;
   public otp_submitted: boolean = false;
-
   
   private usertype: any;
   public userDetails: any;
@@ -121,7 +120,7 @@ export class RegisterComponent implements OnInit {
             phone_number:data.data.mobile_no
           });
         }else{
-          this.router.navigate(['/sign-up']);
+          this.router.navigate(['/sign-up']); 
         }
       }
       );
@@ -138,10 +137,7 @@ export class RegisterComponent implements OnInit {
     this.showLoadingIndicator = true;
     this.registerService.register_new(this.form).subscribe(
       data => {
-        this.showLoadingIndicator = false;
         let user_data:any=data;
-        this.isSignUpFailed = false;
-        this.isVerified = true;
          // user logs functionalty 
          this.type="Registration page";
          this.input_info=user_data.data;
@@ -149,7 +145,7 @@ export class RegisterComponent implements OnInit {
          this.UserLogsService.user_logs(param).subscribe(
            reponse => {
           });
-             //
+          this.router.navigate(['/sign-up/thank-you']); 
 
       },
       err => {
