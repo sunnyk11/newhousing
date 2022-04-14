@@ -32,6 +32,7 @@ import { UserLogsGuard } from './guards/user-logs.guard';
 import { FaqComponent } from './components/faq/faq.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { ThankYouComponent } from './components/thank-you/thank-you.component';
+import { UserReviewsComponent } from './components/user-reviews/user-reviews.component';
 import { FixedAppointmentComponent } from './components/fixed-appointment/fixed-appointment.component';
 import { ProductPreviewComponent } from './components/product-preview/product-preview.component';
 import { NotfoundComponentComponent } from '../components/notfound-component/notfound-component.component';
@@ -58,6 +59,7 @@ const routes: Routes = [
         { path: "product_payment_summary", component: ProPaymentSummaryComponent,canActivate: [AuthGuard]},
         { path: "verify-mobile", component: VerifyMobileComponent, canActivate: [AuthGuard,UserLogsGuard]},
         { path: "fix-appointment", component: FixedAppointmentComponent, canActivate: [AuthGuard,UserLogsGuard]},
+        { path: "user-reviews", component: UserReviewsComponent, canActivate: [AuthGuard,UserLogsGuard]},
         { path: "sign-up/thank-you", component: ThankYouComponent, canActivate: [UserLogsGuard]},
         { path: "invoice", component: InvoiceComponent, canActivate: [AuthGuard]},
         { path: "my-properties", component: MyPropertiesComponent, canActivate: [AuthGuard]},
