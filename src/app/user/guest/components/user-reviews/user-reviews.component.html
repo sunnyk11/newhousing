@@ -1,0 +1,52 @@
+<div class="wrapper">
+    <div class="bg-secondary">
+        <div class="container-fluid py-4">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">User-Review </li>
+                </ol>
+            </nav>
+            <h2 class="col-custom">User-Review</h2>
+        </div>
+    </div>
+    
+<div class="container py-5">
+    <div *ngIf="showLoadingIndicator">
+        <div class="preloader"></div>
+    </div>
+    <div class="row d-flex justify-content-center align-items-center"  >
+        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+            <div class="card shadow text-dark login-card">
+                <div class="card-body py-3 px-5 text-center">
+                    <div class="mb-md-0 mt-md-3 pb-2" id="sign_up_form" *ngIf="showLoadingIndicator== false">
+                       <h4>User Review</h4> 
+                        <form [formGroup]="reviews_form" >
+                            <div class="input-group mb-3">
+                                <!-- <span class="input-group-text" id="basic-addon1">User Name*:</span> -->
+                                <ngx-star-rating name="stars" id="stars" formControlName="stars"
+                                [id]="'rating'" [ngClass]="{ 'is-invalid': submitted && f.stars.errors }"></ngx-star-rating>
+                                <input type="hidden" class="form-control" placeholder="" formControlName="stars"  [ngClass]="{ 'is-invalid': submitted && f.stars.errors }">
+                                <span *ngIf="submitted && f.stars.errors" id='dropdownerror'>
+                                    <span *ngIf="f.stars.errors.required">(Please Select any Stars Reviews)</span>
+                                </span>
+                            </div>
+                            <div class="input-group mb-3">
+                                <!-- <span class="input-group-text" id="basic-addon1">Subject:</span> -->
+                                <input type="text" class="form-control" placeholder="Review Subject" formControlName="subject"  [ngClass]="{ 'is-invalid': submitted && f.subject.errors }">
+                            </div>
+                            <div class="input-group mb-3">
+                                <!-- <span class="input-group-text" id="basic-addon1">Content:</span> -->
+                                <textarea class="form-control" id="review_content" rows="2" formControlName="content" placeholder="Review Content" [ngClass]="{ 'is-invalid': submitted && f.content.errors }"></textarea>
+                            </div>
+                            <div class="input-group mb-3">
+                                <button type="button" class="btn btn-primary" (click)="onsubmit()">Submit </button>
+                            </div>                    
+                        </form>  
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>

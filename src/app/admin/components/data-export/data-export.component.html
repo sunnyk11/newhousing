@@ -5,15 +5,15 @@
                 <div class="my_dashboard_review">
                     <form role="form" action="" method="post" class="f1"  [formGroup]="searching_form">
                     <div class="row">
-                        <div class="col-lg-8  col-12">
+                        <div class="col-lg-8  col-7">
                           <h2 class="mb10"> Searching data</h2>
                         </div>
-                        <div class="col-lg-3 offset-lg-1 col-12 refresh">
+                        <div class="col-lg-3 offset-lg-1 col-5 refresh">
                             <button type="submit" class="btn btn-submit" (click)="refresh_data()">Refresh Form</button>
                         </div>                        
-                        <div class="col-lg-4 col-sm-12 mt15">
+                        <div class="col-lg-4 col-6 mt15">
                             <div class="form-group">
-                                <label for="plan_type" class="form-label">Select Plan type</label>
+                                <label for="plan_type" class="form-label">Plan type</label>
                                 <select id="plan_type" class="form-select form-select-lg w100" formControlName="plan_type">
                                     <option value="">Select type</option>
                                     <option value="Let Out">Let out</option>
@@ -21,9 +21,9 @@
                                 </select>
                             </div>
                         </div>                        
-                        <div class="col-lg-4 col-sm-12 mt15">
+                        <div class="col-lg-4 col-6 mt15">
                             <div class="form-group">
-                                <label for="invoice_type" class="form-label">Select Invoice Type</label>
+                                <label for="invoice_type" class="form-label">Invoice Type</label>
                                 <select id="invoice_type" class="form-select form-select-lg w100" formControlName="invoice_type" >
                                     <option value="">Select type</option>
                                     <option value="PAID">PAID </option>
@@ -33,29 +33,29 @@
                                 </select>
                             </div>
                         </div>                        
-                        <div class="col-lg-4 col-sm-12 mt15">
+                        <div class="col-lg-4 col-6 mt15">
                             <div class="form-group">
-                                <label for="delivery_status" class="form-label">Select Delivery status</label>
+                                <label for="delivery_status" class="form-label">Delivery status</label>
                                 <select id="delivery_status" class="form-select form-select-lg w100" formControlName="delivery_status">
-                                    <option value="">Select Delivery status</option>
+                                    <option value="">Select Status</option>
                                     <option value="Service Delivered">Delivered</option>
                                     <option value="not_Delivered">Not Delivered</option>
                                 </select>
                             </div>
                         </div>                        
-                        <div class="col-lg-4 col-sm-12 mt15">
+                        <div class="col-lg-4 col-6 mt15">
                             <div class="form-group">
                                 <label for="start_date" class="form-label">Select Sart Date</label>
                                 <input type="date" class="form-control" id="start_date" formControlName="start_date" [ngClass]="{ 'is-invalid': submitted && f.start_date.errors }" (ngModelChange)="onchange_date()">
                             </div>
                         </div>                  
-                        <div class="col-lg-4 col-sm-12 mt15">
+                        <div class="col-lg-4 col-6 mt15">
                             <div class="form-group">
                                 <label for="end_date" class="form-label">Select End Date</label>
                                 <input type="date" class="form-control" id="end_date"  formControlName="end_date" [ngClass]="{ 'is-invalid': submitted && f.end_date.errors }" (ngModelChange)="onchange_date()">
                             </div>
                         </div>  
-                      <div class="col-lg-4 col-12 search-column mt15">
+                      <div class="col-lg-4 col-6 search-column mt15">
                           <!-- <div class="f1-buttons m-auto"> -->
                               <button type="submit" class="btn btn-submit" *ngIf="disabled==true" (click)="on_search_notify()">No Search data</button>
                               <button type="submit" class="btn btn-submit" *ngIf="disabled==false" (click)="on_search()">Search</button>
@@ -69,10 +69,10 @@
     </div>
     <div class="container mt20">
         <div class="row">
-            <div class="col-lg-9">
+            <div class="col-lg-9 col-7">
                 <span class="status_tag badge">Invoice data ({{invoice_data_length}})</span>
             </div>
-            <div class="col-lg-3">
+            <div class="col-lg-3 col-3">
                 <span class="status_tag badge" (click)="excel_emport()">Data Excel Export</span>
             </div>
             <div class="col-lg-12  col-12">
@@ -92,7 +92,7 @@
                                     </tr>
                                 </thead>
                                 <tbody *ngIf="showLoadingIndicator == false" >
-                                    <tr  *ngFor="let data of invoice_data?.data">
+                                    <tr  *ngFor="let data of invoice_data?.data?.data">
                                         <td>{{data?.invoice_no}}</td>
                                         <td>{{data?.user_email}}</td>
                                         <td>{{data?.order_id}}</td>
@@ -121,7 +121,7 @@
                             </table>
                             <div class="mbp_pagination" *ngIf="invoice_data_length>0">
                                 <ul class="page_navigation">
-                                    <li class="page-item" *ngFor="let link of invoice_data?.meta?.links; index as i" [ngClass]="{'active' : link.active == true, 'disabled' : link.url == null}">
+                                    <li class="page-item" *ngFor="let link of invoice_data?.data?.links; index as i" [ngClass]="{'active' : link.active == true, 'disabled' : link.url == null}">
                                         <button type="button" (click)="gotoPage(link.url)" class="page-link">
                                             <span
                                                 *ngIf="link.label.indexOf('Previous') == -1 && link.label.indexOf('Next') == -1"
@@ -157,6 +157,14 @@
             <div class="modal-body">
                 <table class="table">
                     <tbody>
+                        <tr *ngIf="plan_det?.property_id != null" style="background-color: #bcbebf;">
+                            <th>Property </th>
+                            <td>
+                                <a (click)="navigate(plan_det?.property_id,plan_det?.property_name)">
+                                    {{plan_det?.property_name}}
+                                </a>
+                            </td>
+                        </tr>
                         <tr>
                             <th>User Email: </th>
                             <td>{{ plan_det?.user_email }}</td>
@@ -183,7 +191,7 @@
                         </tr>
                         <tr>
                             <th>Expected Rent:</th>
-                            <td>{{ plan_det?.product_price }}</td>
+                            <td>{{ plan_det?.property_price }}</td>
                         </tr>
                         <tr>
                             <th>Plan Price:</th>

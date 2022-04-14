@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DataExportService } from '../../services/data-export.service'; 
 import { ToastrService } from 'ngx-toastr';
 import { ngxCsv } from 'ngx-csv/ngx-csv';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-data-export',
@@ -29,6 +30,7 @@ export class DataExportComponent implements OnInit {
 
   constructor(
     private toastr: ToastrService,
+    private router:Router,
     private DataExportService:DataExportService
   ) { }
 
@@ -68,7 +70,7 @@ export class DataExportComponent implements OnInit {
       this.DataExportService.get_invoice_data(this.searching_form.value).then(
         Pagination_data => {
           this.invoice_data=Pagination_data;
-          this.invoice_data_length=this.invoice_data.meta.total;
+          this.invoice_data_length=this.invoice_data.data.total;
           this.showLoadingIndicator=false;
         }, err => {
         }
@@ -95,15 +97,19 @@ export class DataExportComponent implements OnInit {
         decimalseparator: '.',
         showLabels: true, 
         showTitle: true,
-        title: 'Invoice data ',
+        title: 'Invoice data',
         useBom: true,
         noDownload: false,
-        headers: ["User Email", "Order ID", "Invoice No","Plan Type","Plan Name","Plan Availablty","Payment Type","Plan Price","Payment Status","payment_mode","payment_received","Product price","gst_amount","sgst_amount","total amount","service status","service deliver date","Invoice_Generate_date","Invoice_Paid_Date","created_at"]
+        headers: ["User Email","User id","Order ID", "Invoice No","Invoice ID","Plan Type","Plan Name","Plan Availablty","Payment Type","Plan Price","Payment Status","Payment Mode","Payment Received","Property ID","Property Name","Property Price","Porperty url","GST Amount","SGST Amount","Total Amount","Service Status","Service Deliver Date","Invoice Generate Date","Invoice Paid Date","Created At"]
       };
-       new  ngxCsv(this.invoice_data.data, "Invoice data", options);
+       new  ngxCsv(this.invoice_data.excel_data, "Invoice data", options);
     }else{
         this.toastr.error('Please Applied  Search form fillter');
     }
+  }
+  navigate(id:number,name:string){
+    const url:any = this.router.createUrlTree(['/product-preview'],{queryParams:{'id':id,'name':name}})
+      window.open(url.toString(), '_blank')
   }
   refresh_data(){
     this.searching_form.patchValue({

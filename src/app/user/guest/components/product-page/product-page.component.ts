@@ -458,6 +458,10 @@ export class ProductPageComponent implements OnInit {
     const url:any = this.router.createUrlTree(['/product-details'],{queryParams:{'id':id,'name':name,'city':city}})
     window.open(url.toString(), '_blank')
   }
+  user_reviews(product_id:number){
+    const url:any = this.router.createUrlTree(['/user-reviews'],{queryParams:{'product_id':product_id}})
+    window.open(url.toString(), '_blank')
+  }
   redirect_to_home_page(): void {
     this.router.navigate(['/'])
   }
@@ -582,21 +586,7 @@ export class ProductPageComponent implements OnInit {
       }, (reason) => {
       });
     }
-  user_reviews(){
-  const modalRef = this.modalService.open(UserReviewModalComponent,
-    {
-      scrollable: true,
-      windowClass: 'myCustomModalClass',
-      // keyboard: false,
-      backdrop: 'static'
-    });
-    
-    let data = {
-      product_id: this.product_id,
-      userid:this.login_userid
-    }
-    modalRef.componentInstance.data = data;
-}
+ 
   // carosule image
   customOptions: OwlOptions = {
     loop: true,
