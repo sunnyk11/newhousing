@@ -50,8 +50,7 @@ export class PermissionGuard implements CanActivate {
             }
             else {
               this.toastr.error('Access Denied');
-              //console.log("does not exist");
-              this.router.navigate(['/']);
+              this.router.navigate(['/admin/']);
               obs.next(false);
             }
           },
