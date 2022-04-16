@@ -86,7 +86,9 @@ const routes: Routes = [
       { path: 'view-internal-user', component: ViewInternalUsersComponent, canActivate: [AuthGuard, PermissionGuard], data: {
         permission: ['access_user_creator']
       } },
-      { path: 'data-export', component: DataExportComponent, canActivate: [AuthGuard, PermissionGuard]},
+      { path: 'data-export', component: DataExportComponent, canActivate: [AuthGuard, PermissionGuard],data: {
+        permission: ['data_export']
+      }},
       
       {path: '**', component: NotfoundComponentComponent}
     ]

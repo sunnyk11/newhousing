@@ -141,6 +141,7 @@ export class SidenavComponent implements OnInit {
       this.access_la_service_provider = false;
       this.access_manage_blog = false;
       this.access_bank_details = false;
+      this.data_export=false;
 
     this.user_id = this.jwtService.getAdminId();
     //console.log(this.user_id);

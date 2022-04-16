@@ -12,14 +12,17 @@
         </a>
     </div>
     <div fxHide.gt-sm>
-        <button mat-icon-button [matMenuTriggerFor]="user_info" aria-label="" style="margin-top: 5px;">
+        <button mat-icon-button [matMenuTriggerFor]="user_info" *ngIf="LoggedIn" aria-label="" style="margin-top: 5px;">
             
            <span id="icon">
-                <i class="fa fa-user"></i>
+                <i class="fa fa-user" ></i>
                 <i class="fa fa-sort-down"></i>
             </span> 
             
-        </button>
+        </button>  
+            <span id="icon" *ngIf="!LoggedIn">
+                 <a  class="text-secondary" [routerLink]="['/login']" routerLinkActive="active" style="font-weight: 700">Login</a>
+             </span> 
         <mat-menu #user_info="matMenu">
             <button mat-menu-item class="text-center" disabled *ngIf="LoggedIn">
                 <span>{{ userName }}</span>
@@ -49,21 +52,8 @@
                     <a class="dropdown-item text-secondary" [routerLink]="['/agent/local-services']" routerLinkActive="active_sub">Local Services Provider</a>
                 </span>
             </button>
-            <!-- <button mat-menu-item class="text-center links" *ngIf="LoggedIn">
-                <span>
-                    <a class="dropdown-item text-secondary" [routerLink]="['/agent/services-list']">Services List</a>
-                </span>
-            </button>
-            <button mat-menu-item class="text-center links" *ngIf="LoggedIn">
-                <span>
-                    <a class="dropdown-item text-secondary" [routerLink]="['/agent/services-user-list']">Service User list</a>
-                </span>
-            </button> -->
             <button mat-menu-item class="text-center links" *ngIf="LoggedIn">
                 <span><a class="dropdown-item text-secondary" [routerLink]="['/logout']" routerLinkActive="active">Log out</a></span>
-            </button>
-            <button mat-menu-item class="text-center links" *ngIf="!LoggedIn">
-                <span><a class="dropdown-item text-secondary" [routerLink]="['/login']" routerLinkActive="active">Login</a></span>
             </button>
         </mat-menu>
     </div>
@@ -72,15 +62,9 @@
             <li>
                 <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]={exact:true}>Home</a>
             </li>
-            <!-- <li>
-                <a [routerLink]="['about']">About</a>
-            </li> -->
             <li>
                 <a [routerLink]="['/product-listing']" routerLinkActive="active">Listing</a>
             </li>
-            <!-- <li>
-                <a [routerLink]="['contact']">Contact</a>
-            </li> -->
             <li>
                 <a [routerLink]="['/plans']" routerLinkActive="active">Plans</a>
             </li>
