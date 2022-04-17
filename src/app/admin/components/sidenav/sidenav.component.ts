@@ -23,6 +23,7 @@ export class SidenavComponent implements OnInit {
   public access_manage_roles: boolean = false;
   public access_user_creator: boolean = false;
   public access_bank_details: boolean = false;
+  public data_export:boolean=false;
 
   private user_id: any;
   public permissions_response: any;
@@ -82,7 +83,11 @@ export class SidenavComponent implements OnInit {
     this.sidenavClose.emit();
     this.router.navigate(['/admin/view-role']);
   }
+  data_export_url(){
+    this.sidenavClose.emit();
+    this.router.navigate(['/admin/data-export']);
 
+  }
    user_list() {
     this.sidenavClose.emit();
     this.router.navigate(['/admin/services-user-list']);
@@ -136,6 +141,7 @@ export class SidenavComponent implements OnInit {
       this.access_la_service_provider = false;
       this.access_manage_blog = false;
       this.access_bank_details = false;
+      this.data_export=false;
 
     this.user_id = this.jwtService.getAdminId();
     //console.log(this.user_id);
@@ -150,6 +156,7 @@ export class SidenavComponent implements OnInit {
       this.access_la_service_provider = true;
       this.access_manage_blog = true;
       this.access_bank_details = true;
+      this.data_export=true;
 
     }
     else if(this.user_id) {

@@ -101,6 +101,16 @@
             <a mat-list-item (click)="bank_details()">Bank Details</a>
         </mat-nav-list>
     </mat-expansion-panel>
+    <mat-expansion-panel *ngIf="LoggedIn && data_export">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Data Export
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-nav-list>
+            <a mat-list-item (click)="data_export_url()">Data Export</a>
+        </mat-nav-list>
+    </mat-expansion-panel>
     <mat-expansion-panel *ngIf="LoggedIn">
         <mat-expansion-panel-header>
             <mat-panel-title>

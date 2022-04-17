@@ -22,7 +22,9 @@ import { CreateBlogPostComponent } from './components/create-blog-post/create-bl
 import { ViewBlogPostsComponent } from './components/view-blog-posts/view-blog-posts.component';			
 import { BlogSinglePostComponent } from './components/blog-single-post/blog-single-post.component';	
 import { ViewInternalUsersComponent } from './components/view-internal-users/view-internal-users.component';															
+import { DataExportComponent } from './components/data-export/data-export.component';
 import { NotfoundComponentComponent } from '../user/components/notfound-component/notfound-component.component';
+
 const routes: Routes = [
   {
     path: '', component: MasterComponent,
@@ -84,6 +86,10 @@ const routes: Routes = [
       { path: 'view-internal-user', component: ViewInternalUsersComponent, canActivate: [AuthGuard, PermissionGuard], data: {
         permission: ['access_user_creator']
       } },
+      { path: 'data-export', component: DataExportComponent, canActivate: [AuthGuard, PermissionGuard],data: {
+        permission: ['data_export']
+      }},
+      
       {path: '**', component: NotfoundComponentComponent}
     ]
   }

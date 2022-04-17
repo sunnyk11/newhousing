@@ -42,6 +42,7 @@ import { ViewBlogPostsComponent } from './components/view-blog-posts/view-blog-p
 import { BlogSinglePostComponent } from './components/blog-single-post/blog-single-post.component';
 import { GuestModule } from '../user/guest/guest.module';
 import { ViewInternalUsersComponent } from './components/view-internal-users/view-internal-users.component';
+import { DataExportComponent } from './components/data-export/data-export.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import { ViewInternalUsersComponent } from './components/view-internal-users/vie
     CreateBlogPostComponent,
     ViewBlogPostsComponent,
     BlogSinglePostComponent,
-    ViewInternalUsersComponent
+    ViewInternalUsersComponent,
+    DataExportComponent
   ],
   imports: [
     CommonModule,
