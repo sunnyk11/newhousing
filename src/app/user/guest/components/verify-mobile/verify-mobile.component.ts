@@ -6,6 +6,7 @@ import { PlansPageService } from '../../services/plans-page.service';
 import { environment } from 'src/environments/environment';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { LoginPageService } from '../../services/login-page.service';
 import { FixAppointmentComponent } from '../../modals/fix-appointment/fix-appointment.component';
 
 @Component({
@@ -21,6 +22,7 @@ export class VerifyMobileComponent implements OnInit {
     private jwtService: JwtService,
     private verifyMobileService: VerifyMobileService,
     private plansPageService: PlansPageService,
+    private loginPageService: LoginPageService,
     private router: Router,
     private modalService: NgbModal) { }
 
@@ -46,6 +48,7 @@ export class VerifyMobileComponent implements OnInit {
   private invoice_result: any;
   public plansData: any;
   public letOutPlanData: any;
+  public modified_url:any;
 
   verifyForm = this.fb.group({
     form_phone: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]]
@@ -65,8 +68,9 @@ export class VerifyMobileComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentUserId = this.jwtService.getUserId();
+    console.log(this.currentUserId);
     this.previousUrl = this.jwtService.getReturnURL();
-    //console.log(this.previousUrl);
+    this.modified_url=this.previousUrl.split('?')[0];
     if (this.jwtService.getToken()) {
       this.user_id = this.jwtService.getUserId();
       // this.userEmail = JSON.parse(this.jwtService.getUserEmail());
@@ -216,6 +220,9 @@ export class VerifyMobileComponent implements OnInit {
           );
           this.jwtService.removeReturnURL();
         }
+        else if (this.modified_url?.includes('/product-details')) {
+           this.fixed_appointment();
+        }
         else {
           this.router.navigateByUrl(this.previousUrl || '');
           this.jwtService.removeReturnURL();
@@ -262,5 +269,33 @@ export class VerifyMobileComponent implements OnInit {
         backdrop: 'static'
       });
   }
+  
+  fixed_appointment(){
+    this.showLoadingIndicator = true;
+    this.plansData = JSON.parse(this.jwtService.getPlansData());
+          this.loginPageService.store_fixed_appointment(this.plansData).subscribe(
+            res => {
+              this.showLoadingIndicator=true;
+                this.plansPageService.crm_call_appionment(this.user_id).subscribe();
+                this.router.navigate(['/fix-appointment']);
+                // this.openConfirmationModal();
+            },
+            err => {
+              console.log(err);
+            }
+          );  
+  }
+  
+  keyPressNumbers(event: { which: any; keyCode: any; preventDefault: () => void; }) {
+    var charCode = (event.which) ? event.which : event.keyCode;
+    // Only Numbers 0-9
+    if ((charCode < 48 || charCode > 57)) {
+      event.preventDefault();
+      return false;
+    } else {
+      return true;
+    }
+  }
+
 
 }

@@ -41,11 +41,11 @@ export class ListpropertyComponent implements OnInit {
         }
         else {
           if (page == 'rent') {
-            this.router.navigate(['/list-property-rent']);
+            this.router.navigate(['/agent/list-property-rent']);
             // this.showLoadingIndicator = false;
           }
           else if (page == 'sale') {
-            this.router.navigate(['/list-property-sales']);
+            this.router.navigate(['/agent/list-property-sales']);
             this.showLoadingIndicator = false;
           }
         }
