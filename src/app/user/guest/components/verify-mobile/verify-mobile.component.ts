@@ -68,7 +68,6 @@ export class VerifyMobileComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentUserId = this.jwtService.getUserId();
-    console.log(this.currentUserId);
     this.previousUrl = this.jwtService.getReturnURL();
     this.modified_url=this.previousUrl.split('?')[0];
     if (this.jwtService.getToken()) {
