@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { GuestRoutingModule } from './guest-routing.module';
 import { MasterComponent } from './components/master/master.component';
 import { IndexComponent } from './components/index/index.component';
@@ -58,10 +57,13 @@ import { WhyChooseUsComponent } from './components/why-choose-us/why-choose-us.c
 import { FaqComponent } from './components/faq/faq.component';
 import { ProductPreviewComponent } from './components/product-preview/product-preview.component';
 import { TimezonePipe } from './pipes/timezone.pipe';
+import { CountdownModule } from 'ngx-countdown';
 import { SignupComponent } from './components/signup/signup.component';
 import { FixedAppointmentComponent } from './components/fixed-appointment/fixed-appointment.component';
 import { ThankYouComponent } from './components/thank-you/thank-you.component';
 import { UserReviewsComponent } from './components/user-reviews/user-reviews.component';
+import { VerifyMobileSuccessComponent } from './components/verify-mobile-success/verify-mobile-success.component';
+import { ContactSubmitComponent } from './components/contact-submit/contact-submit.component';
 // import { NotfoundComponentComponent } from '../components/notfound-component/notfound-component.component';
 @NgModule({
   declarations: [
@@ -113,6 +115,8 @@ import { UserReviewsComponent } from './components/user-reviews/user-reviews.com
     FixedAppointmentComponent,
     ThankYouComponent,
     UserReviewsComponent,
+    VerifyMobileSuccessComponent,
+    ContactSubmitComponent,
   ],
   imports: [
     CommonModule,
@@ -130,6 +134,7 @@ import { UserReviewsComponent } from './components/user-reviews/user-reviews.com
     NgImageSliderModule,
     NgbModule,
     MatAutocompleteModule,
+    CountdownModule,
     NgMultiSelectDropDownModule.forRoot(),
     NgxStarRatingModule
   ],
