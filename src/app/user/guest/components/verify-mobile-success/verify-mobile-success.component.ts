@@ -5,7 +5,7 @@ import { VerifyMobileService } from '../../services/verify-mobile.service';
 import { PlansPageService } from '../../services/plans-page.service';
 import { environment } from 'src/environments/environment';
 import { LoginPageService } from '../../services/login-page.service';
-import { CountdownConfig } from 'ngx-countdown';
+import { interval } from 'rxjs';
 
 @Component({
   selector: 'app-verify-mobile-success',
@@ -13,10 +13,6 @@ import { CountdownConfig } from 'ngx-countdown';
   styleUrls: ['./verify-mobile-success.component.css']
 })
 export class VerifyMobileSuccessComponent implements OnInit {
-  config: CountdownConfig = {
-    leftTime: 4,
-    formatDate: ({ date }) => `${date / 1000}`,
-  };
   public previousUrl:any;  
   private plan_price: number = 0;
   public showLoadingIndicator: boolean = false;
@@ -31,6 +27,7 @@ export class VerifyMobileSuccessComponent implements OnInit {
   public plansData: any;
   public letOutPlanData: any;
   public modified_url:any;
+  public count_number:any;
 
 
   constructor(
@@ -40,6 +37,15 @@ export class VerifyMobileSuccessComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
+    
+    const obs$=interval(1000);
+    obs$.subscribe((d)=>{
+      let data_check:number=1;
+      if(data_check>0){
+        this.count_number=3-d;
+        data_check =this.count_number;
+      }
+    });
     this.previousUrl = this.jwtService.getReturnURL();
     setTimeout(()=>{ 
       this. redirection();

@@ -57,7 +57,6 @@ import { WhyChooseUsComponent } from './components/why-choose-us/why-choose-us.c
 import { FaqComponent } from './components/faq/faq.component';
 import { ProductPreviewComponent } from './components/product-preview/product-preview.component';
 import { TimezonePipe } from './pipes/timezone.pipe';
-import { CountdownModule } from 'ngx-countdown';
 import { SignupComponent } from './components/signup/signup.component';
 import { FixedAppointmentComponent } from './components/fixed-appointment/fixed-appointment.component';
 import { ThankYouComponent } from './components/thank-you/thank-you.component';
@@ -134,7 +133,6 @@ import { ContactSubmitComponent } from './components/contact-submit/contact-subm
     NgImageSliderModule,
     NgbModule,
     MatAutocompleteModule,
-    CountdownModule,
     NgMultiSelectDropDownModule.forRoot(),
     NgxStarRatingModule
   ],

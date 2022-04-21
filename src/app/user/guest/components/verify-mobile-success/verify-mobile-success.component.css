@@ -18,6 +18,9 @@
 #heading_redirect{
     color:#ff5a5f!important;
 }
+#count_number_text{
+    color: #000!important;
+}
 
 @media only screen and (max-width: 768px) {
     .bg-secondary {
