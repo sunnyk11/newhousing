@@ -480,20 +480,34 @@ export class ProductPageComponent implements OnInit {
   fixed_appointment(product_id:any){
     let val = this.jwtService.getToken();
     if (val) {
-      this.returnUrl = this.router.url;
-      let user_id:any= this.jwtService.getUserId();
-      this.jwtService.saveReturnURL(this.returnUrl);
-      let formData={product_id:product_id,page_name:this.returnUrl}
-          this.CommonService.store_fixed_appointment(formData).subscribe(
-            res => {
-                this.CommonService.crm_call_appionment(user_id).subscribe();
-                this.router.navigate(['/fix-appointment']);
-                // this.openConfirmationModal();
-            },
-            err => {
-              console.log(err);
-            }
-          );
+      this.CommonService.getUserPhoneDetails({ param: null }).subscribe(
+        data => {
+          this.showLoadingIndicator = false;
+          this.user_phone_data = data;
+          if(this.user_phone_data !== 1) {
+            this.returnUrl = this.router.url;
+            this.jwtService.saveReturnURL(this.returnUrl);
+            this.openMobModal();
+          }
+          else {
+           
+          this.returnUrl = this.router.url;
+          let user_id:any= this.jwtService.getUserId();
+          this.jwtService.saveReturnURL(this.returnUrl);
+          let formData={product_id:product_id,page_name:this.returnUrl}
+              this.CommonService.store_fixed_appointment(formData).subscribe(
+                res => {
+                    this.CommonService.crm_call_appionment(user_id).subscribe();
+                    this.router.navigate(['/fix-appointment']);
+                    // this.openConfirmationModal();
+                },
+                err => {
+                  console.log(err);
+                }
+              );
+        }
+      }
+      );
     }
     else {
       this.returnUrl = this.router.url;
