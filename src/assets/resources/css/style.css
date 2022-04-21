@@ -3465,11 +3465,6 @@ input[type="range"]::-ms-fill-upper {
 
 .form_grid .contact_form button {
     border-radius: 8px;
-    background-color: #ff5a5f;
-    -webkit-box-shadow: 0px 1px 4px 0px rgba(255, 90, 95, 0.3);
-    -moz-box-shadow: 0px 1px 4px 0px rgba(255, 90, 95, 0.3);
-    -o-box-shadow: 0px 1px 4px 0px rgba(255, 90, 95, 0.3);
-    box-shadow: 0px 1px 4px 0px rgba(255, 90, 95, 0.3);
     font-size: 16px;
     font-family: "Nunito";
     color: #ffffff;
@@ -4874,7 +4869,9 @@ agm-map {
 .mt140 {
     margin-top: 140px !important;
 }
-
+.count-down .ng-star-inserted{
+    color:#000!important;
+}
 .modal-backdrop {
     display: none;
 }

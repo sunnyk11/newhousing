@@ -20,4 +20,9 @@ export class VerifyMobileService {
     const route = "/api/auth/verify_mob";
     return this.apiService.post<ResultModel>(route, {other_mobile_number: name, verification_code: otp, user_id: id});
   }
+  
+  user_otp_resend(reqModel: any): Observable<ResultModel> {
+    const route = "/api/auth/user_otp_resend";
+    return this.apiService.post<ResultModel>(route, reqModel);
+  }
 }

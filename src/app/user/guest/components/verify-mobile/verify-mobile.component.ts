@@ -2,13 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { JwtService } from 'src/app/user/services/jwt.service';
 import { VerifyMobileService } from '../../services/verify-mobile.service';
-import { PlansPageService } from '../../services/plans-page.service';
-import { environment } from 'src/environments/environment';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { LoginPageService } from '../../services/login-page.service';
-import { FixAppointmentComponent } from '../../modals/fix-appointment/fix-appointment.component';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-verify-mobile',
   templateUrl: './verify-mobile.component.html',
@@ -16,15 +11,14 @@ import { FixAppointmentComponent } from '../../modals/fix-appointment/fix-appoin
 })
 export class VerifyMobileComponent implements OnInit {
 
+ 
   public showLoadingIndicator: boolean = false;
 
   constructor(private fb: FormBuilder,
     private jwtService: JwtService,
     private verifyMobileService: VerifyMobileService,
-    private plansPageService: PlansPageService,
-    private loginPageService: LoginPageService,
-    private router: Router,
-    private modalService: NgbModal) { }
+    private toastr: ToastrService,
+    private router: Router) { }
 
   public verify: boolean = false;
   public submitted: boolean = false;
@@ -36,16 +30,12 @@ export class VerifyMobileComponent implements OnInit {
   public isFailedVerify_otp: boolean = false;
   public isVerified: boolean = false;
   private previousUrl: any;
-  private plan_price: number = 0;
+  public mobile_slice: any;
 
   public property_data: any;
   private user_id: any;
   private userEmail: any;
   public selectedPlanData: any;
-  private payment_result: any;
-  private paytm_data: any;
-  private paytm_form_url: string = environment.Paytm_formURL;
-  private invoice_result: any;
   public plansData: any;
   public letOutPlanData: any;
   public modified_url:any;
@@ -87,6 +77,8 @@ export class VerifyMobileComponent implements OnInit {
       data => {
         this.showLoadingIndicator = false;
         //console.log(data);
+        
+        this.mobile_slice = this.verifyForm.value.form_phone.toString().replace(/[0-9]{6}/, '********');
         this.verify = true;
         this.number = this.verifyForm.value.form_phone;
       },
@@ -109,123 +101,8 @@ export class VerifyMobileComponent implements OnInit {
         this.showLoadingIndicator = false;
         this.isVerified = true;
         this.verify = false;
+            this.router.navigate(['/verify-mobile/success']);
 
-        if (this.previousUrl.includes('product_payment_summary')) {
-          //console.log(this.previousUrl);
-          this.property_data = JSON.parse(this.jwtService.getPlansData());
-          //console.log(this.property_data);
-          this.property_data.user_id = this.user_id;
-          this.property_data.user_email = this.userEmail;
-          //console.log(this.property_data);
-
-          this.plansPageService.postSelectedRentPlan(this.property_data).subscribe(
-            res => {
-              //console.log(res);
-              this.selectedPlanData = res;
-              if (this.property_data.payment_mode == 'Online') {
-                this.plansPageService.proceedToPaymentRent(this.selectedPlanData.data.order_id).subscribe(
-                  result => {
-                    //console.log(result);
-                    this.payment_result = result;
-                    if (this.payment_result.status == 201) {
-                      this.paytm_data = this.payment_result.data;
-                      this.createPaytmForm();
-                    }
-                  },
-                  error => {
-                    console.log(error);
-                  }
-                );
-              }
-              else if (this.property_data.payment_mode == 'Cash') {
-                this.plansPageService.generateRentInvoice(this.selectedPlanData.data.order_id).subscribe(
-                  result => {
-                    //console.log(result);
-                    this.invoice_result = result;
-                    this.router.navigate(['/invoice'], { queryParams: { 'invoice_no': this.invoice_result.data } });
-                  },
-                  err => {
-                    console.log(err);
-                  }
-                );
-              }
-            }
-          );
-          this.jwtService.removeReturnURL();
-        }
-        else if (this.previousUrl.includes('plans')) {
-          //console.log(this.previousUrl);
-          this.plansData = JSON.parse(this.jwtService.getPlansData());
-          //console.log(this.plansData);
-          this.plansData['user_id'] = this.user_id;
-          this.plansData['user_email'] = this.userEmail;
-          this.plansPageService.postSelectedPlan(this.plansData).subscribe(
-            res => {
-              //console.log(res);
-              this.letOutPlanData = res;
-              if (this.letOutPlanData.data.plan_type == 'Let Out') {
-                this.router.navigate(['/payment-summary'], { queryParams: { 'orderID': this.letOutPlanData.data.order_id } });
-              }
-              else if (this.letOutPlanData.data.plan_type == 'Rent') {
-                this.plansPageService.crm_call_appionment(this.user_id).subscribe();
-                
-                this.router.navigate(['/fix-appointment']);
-                // this.router.navigate(['plans']);
-                // this.openConfirmationModal();
-              }
-            },
-            err => {
-              console.log(err);
-            }
-          );
-          this.jwtService.removeReturnURL();
-        }
-        else if (this.previousUrl.includes('profile')) {
-          this.jwtService.removeReturnURL();
-          this.router.navigate(['profile']);
-        }
-        else if (this.previousUrl.includes('my-properties')) {
-          this.plansData = JSON.parse(this.jwtService.getPlansData());
-          //console.log(this.plansData);
-          this.plansData.user_id = this.user_id;
-          this.plansData.user_email = this.userEmail;
-
-          if(this.plansData.price_duration_discount) {
-            this.plan_price = this.plansData.expected_rent / (30 / this.plansData.price_duration_discount);
-          }
-          else {
-            this.plan_price = this.plansData.expected_rent / (30 / this.plansData.price_duration_actual);
-          }
-
-          this.plansData.plan_price = this.plan_price;
-          
-          this.plansPageService.postSelectedPlan(this.plansData).subscribe(
-            res => {
-              //console.log(res);
-              this.letOutPlanData = res;
-              if (this.letOutPlanData.data.plan_type == 'Let Out') {
-                this.router.navigate(['/payment-summary'], { queryParams: { 'orderID': this.letOutPlanData.data.order_id } });
-              }
-              else if (this.letOutPlanData.data.plan_type == 'Rent') {
-                this.plansPageService.crm_call_appionment(this.user_id).subscribe();
-                // this.router.navigate(['plans']);
-                // this.openConfirmationModal();
-                this.router.navigate(['/fix-appointment']);
-              }
-            },
-            err => {
-              console.log(err);
-            }
-          );
-          this.jwtService.removeReturnURL();
-        }
-        else if (this.modified_url?.includes('/product-details')) {
-           this.fixed_appointment();
-        }
-        else {
-          this.router.navigateByUrl(this.previousUrl || '');
-          this.jwtService.removeReturnURL();
-        }
       },
       err => {
         this.showLoadingIndicator = false;
@@ -235,54 +112,20 @@ export class VerifyMobileComponent implements OnInit {
       }
     );
   }
-
-  createPaytmForm() {
-    const my_form: any = document.createElement('form');
-    my_form.name = 'paytm_form';
-    my_form.method = 'post';
-    my_form.action = this.paytm_form_url;
-
-    const myParams = Object.keys(this.paytm_data);
-    for (let i = 0; i < myParams.length; i++) {
-      const key = myParams[i];
-      let my_tb: any = document.createElement('input');
-      my_tb.type = 'hidden';
-      my_tb.id = key;
-      my_tb.name = key;
-      my_tb.value = this.paytm_data[key];
-      my_form.appendChild(my_tb);
-    };
-    // console.log(my_form);
-    document.body.appendChild(my_form);
-    my_form.submit();
-    // after click will fire you will redirect to paytm payment page.
-    // after complete or fail transaction you will redirect to your CALLBACK URL
-  }
-
-  openConfirmationModal() {
-    const modalRef = this.modalService.open(FixAppointmentComponent,
-      {
-        scrollable: true,
-        windowClass: 'myCustomModalClass',
-        // keyboard: false,
-        backdrop: 'static'
-      });
-  }
   
-  fixed_appointment(){
-    this.showLoadingIndicator = true;
-    this.plansData = JSON.parse(this.jwtService.getPlansData());
-          this.loginPageService.store_fixed_appointment(this.plansData).subscribe(
-            res => {
-              this.showLoadingIndicator=true;
-                this.plansPageService.crm_call_appionment(this.user_id).subscribe();
-                this.router.navigate(['/fix-appointment']);
-                // this.openConfirmationModal();
-            },
-            err => {
-              console.log(err);
-            }
-          );  
+  user_otp_resend(){
+    
+    let param = { mobile_no: this.number}
+    this.verifyMobileService.user_otp_resend(param).subscribe(
+      response => {
+        let data:any= response;
+        if(data.status==200){
+          this.toastr.success('Resend Successfully', 'OTP', {
+            timeOut: 1000,
+          });
+        }
+      }
+      );
   }
   
   keyPressNumbers(event: { which: any; keyCode: any; preventDefault: () => void; }) {
