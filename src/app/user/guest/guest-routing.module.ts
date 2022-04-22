@@ -6,6 +6,7 @@ import { MasterComponent } from './components/master/master.component';
 import { IndexComponent } from './components/index/index.component';
 import { AboutComponent } from './components/about/about.component';
 import { ContactComponent } from './components/contact/contact.component';
+import { ContactSubmitComponent } from './components/contact-submit/contact-submit.component';
 import{ ProductListingComponent} from './components/product-listing/product-listing.component';
 import { ProductPageComponent } from './components/product-page/product-page.component';
 import { SubscriptionPlansComponent } from './components/subscription-plans/subscription-plans.component';
@@ -33,6 +34,7 @@ import { FaqComponent } from './components/faq/faq.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { ThankYouComponent } from './components/thank-you/thank-you.component';
 import { UserReviewsComponent } from './components/user-reviews/user-reviews.component';
+import { VerifyMobileSuccessComponent } from './components/verify-mobile-success/verify-mobile-success.component';
 import { FixedAppointmentComponent } from './components/fixed-appointment/fixed-appointment.component';
 import { ProductPreviewComponent } from './components/product-preview/product-preview.component';
 import { NotfoundComponentComponent } from '../components/notfound-component/notfound-component.component';
@@ -46,6 +48,7 @@ const routes: Routes = [
         { path: "", component:IndexComponent,canActivate:  [UserLogsGuard]},
         { path: "about", component:AboutComponent,canActivate: [UserLogsGuard]},
         { path: "contact", component:ContactComponent,canActivate: [UserLogsGuard]},
+        { path: "contact/form-submitted", component:ContactSubmitComponent,canActivate: [UserLogsGuard]},
         { path: "product-listing", component:ProductListingComponent,canActivate:[UserLogsGuard]},
         { path: "product-details", component:ProductPageComponent,canActivate:  [UserLogsGuard]},
         { path: "plans", component:SubscriptionPlansComponent,canActivate:  [UserLogsGuard]},
@@ -58,6 +61,7 @@ const routes: Routes = [
         { path: "logout", component:LogoutComponent,canActivate:  [UserLogsGuard]},
         { path: "product_payment_summary", component: ProPaymentSummaryComponent,canActivate: [AuthGuard]},
         { path: "verify-mobile", component: VerifyMobileComponent, canActivate: [AuthGuard,UserLogsGuard]},
+        { path: "verify-mobile/success", component: VerifyMobileSuccessComponent, canActivate: [AuthGuard,UserLogsGuard]},
         { path: "fix-appointment", component: FixedAppointmentComponent, canActivate: [AuthGuard,UserLogsGuard]},
         { path: "user-reviews", component: UserReviewsComponent, canActivate: [AuthGuard,UserLogsGuard]},
         { path: "sign-up/thank-you", component: ThankYouComponent, canActivate: [UserLogsGuard]},

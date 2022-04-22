@@ -60,7 +60,7 @@ export class ContactComponent implements OnInit {
     formData.append('message', this.contactForm.value.message);
     this.contactService.saveContact(formData).subscribe(
       res => {
-        //console.log(res);
+        console.log(res);
         this.response = res;
         this.showLoadingIndicator = false;
         this.toastr.success('Your Query Succesfully Mail');
@@ -70,7 +70,11 @@ export class ContactComponent implements OnInit {
           phone:'',
           subject:'',
           message:''
-        });       
+        });    
+        let data:any=res;
+        if(data.status==201){
+          this.router.navigate(['/contact/form-submitted']);   
+        }
       },
       err => {
         this.errorMessage = err.error.message;

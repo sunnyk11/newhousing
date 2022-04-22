@@ -13,19 +13,19 @@
 <div *ngIf="showLoadingIndicator">
     <div class="preloader"></div>
 </div>
-<div class="container py-5 h-100">
+<div class="container py-2" >
     <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-12 col-md-8 col-lg-6 col-xl-5">
             <div class="card shadow text-dark login-card">
                 <div class="card-body p-5 text-center">
 
-                    <div class="mb-md-5 mt-md-4 pb-5">
-                        <form [formGroup]="verifyForm" *ngIf="!verify" (ngSubmit)="onSubmit()" novalidate>
-                            <p class="text-secondary-50 mb-5">Please enter your mobile number</p>
+                    <div class="mb-md-5" *ngIf="showLoadingIndicator==false" >
+                        <form [formGroup]="verifyForm" *ngIf="!verify && showLoadingIndicator==false" (ngSubmit)="onSubmit()" novalidate>
+                            <p class="text-secondary-50 mb-4">Please enter your mobile number</p>
 
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="mobile_number">Mobile</span>
-                                <input type="text" class="form-control" autocomplete="off" aria-label="Mobile Number" aria-describedby="mobile_number" formControlName="form_phone" minlength="10" maxlength="10" [ngClass]="{ 'is-invalid': submitted && f.form_phone.errors }" required>
+                                <input type="text" class="form-control" autocomplete="off" aria-label="Mobile Number" aria-describedby="mobile_number" formControlName="form_phone" minlength="10" maxlength="10" [ngClass]="{ 'is-invalid': submitted && f.form_phone.errors }" (keypress)="keyPressNumbers($event)" placeholder="Enter Mobile Number" required>
                             </div>
                             <div class="alert alert-danger" role="alert" *ngIf="submitted && f.form_phone.invalid">
                                 <div *ngIf="f.form_phone.errors?.required">Mobile Number is required
@@ -41,13 +41,12 @@
                                 </div>
                             </div>
                         </form>
-
-                        <form [formGroup]="otpForm" *ngIf="verify" (ngSubmit)="onSubmitotp()" novalidate>
-                            <p class="text-secondary-50 mb-5">Enter OTP</p>
-
+                     <span *ngIf="verify && showLoadingIndicator==false">
+                        <form [formGroup]="otpForm"  (ngSubmit)="onSubmitotp()" novalidate>
+                            <p class="text-secondary-50">OTP Sent ({{ mobile_slice }}) </p>
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="mobile_number">OTP</span>
-                                <input type="text" class="form-control" autocomplete="off" formControlName="otp_password" minlength="6" [ngClass]="{ 'is-invalid': otp_submitted && g.otp_password.errors }" required>
+                                <input type="text" class="form-control" autocomplete="off" formControlName="otp_password" minlength="6" maxlength="6" [ngClass]="{ 'is-invalid': otp_submitted && g.otp_password.errors }" (keypress)="keyPressNumbers($event)" placeholder="Enter Otp Number" required>
                             </div>
                             <div class="alert alert-danger" role="alert" *ngIf="otp_submitted && g.otp_password.invalid">
                                 <div *ngIf="g.otp_password.errors?.required">OTP is required
@@ -63,6 +62,8 @@
                                 </div>
                             </div>
                         </form>
+                        <p class="mb-1 mt-3">Are You sure? <a (click)="user_otp_resend()" class="text-thm fw-bold sign_up" style="cursor: pointer;">Resend OTP</a></p>
+                        </span>
                     </div>
                 </div>
             </div>

@@ -448,6 +448,16 @@ export class LoginComponent implements OnInit {
   }
   fixed_appointment(){
     this.showLoadingIndicator = true;
+    this.loginPageService.getUserPhoneDetails({ param: null }).subscribe(
+      data => {
+        // this.showLoadingIndicator = false;aaaa
+        this.mobile_ver_status = data;
+        if (this.mobile_ver_status !== 1) {
+          //console.log("Mobile number not verified");
+          this.toastr.info('Phone Number not Verified');
+          this.router.navigate(['verify-mobile']);
+        }
+        else {
           this.plansData = JSON.parse(this.jwtService.getPlansData());
           this.loginPageService.store_fixed_appointment(this.plansData).subscribe(
             res => {
@@ -460,6 +470,13 @@ export class LoginComponent implements OnInit {
               console.log(err);
             }
           );
+        }
+      },
+      err => {
+        this.showLoadingIndicator = false;
+      }
+    );
+         
   }
 
   getPhoneDetails() {
