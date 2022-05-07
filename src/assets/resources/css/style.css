@@ -3473,7 +3473,18 @@ input[type="range"]::-ms-fill-upper {
     height: 50px;
     width: 200px;
 }
-
+.modal-content{
+    border: none!important;
+}
+.modal-content1{
+    position:fixed;
+    transition: .3s all;
+   top:auto;
+   right:auto;
+   left:auto;
+   bottom:5px;
+   box-shadow: 4px 1px 28px rgb(0 0 0 / 72%)!important;
+}
 .mb5 {
     margin-bottom: 5px;
 }

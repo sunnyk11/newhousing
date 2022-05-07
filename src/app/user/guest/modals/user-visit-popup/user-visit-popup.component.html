@@ -1,0 +1,89 @@
+  <span class="modal-content1">
+    <div class="modal-body">
+		<div class="row">
+			<div class="col-11">
+				
+		<h5 class="modal-title" *ngIf="show_feedback_form == false">How likely are you to recommend
+            HousingStreet to your friends?</h5>
+            
+        <h5 class="modal-title" *ngIf="show_feedback_form == true">You've rated us (<span id="star_rating">{{user_star_rating}} star</span>)</h5>
+        
+			</div>
+			<div class="col-1">
+				<button type="button" id="close_btn" class="close" data-bs-dismiss="modal" (click)="closeModal('dismiss')" >
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		</div>
+            <div class="npsRatingBox" *ngIf="show_feedback_form == false">
+				<div class="npsMCenter">
+					<div class="npsRatingColm1">
+						<div class="npsRateBox">
+							<input type="radio" name="npsRating" id="rating0" value="0" (click)="jqNpsContinue(0)"> <label for="rating0">0</label>
+						</div>
+						<div class="npsRateBox">
+							<input type="radio" name="npsRating" id="rating1" value="1" (click)="jqNpsContinue(1)"> <label for="rating1">1</label>
+						</div>
+						<div class="npsRateBox">
+							<input type="radio" name="npsRating" id="rating2" value="2" (click)="jqNpsContinue(2)"> <label for="rating2">2</label>
+						</div>
+						<div class="npsRateBox">
+							<input type="radio" name="npsRating" id="rating3" value="3" (click)="jqNpsContinue(3)"> <label for="rating3">3</label>
+						</div>
+						<div class="npsRateBox">
+							<input type="radio" name="npsRating" id="rating4" value="4" (click)="jqNpsContinue(4)"> <label for="rating4">4</label>
+						</div>
+						<div class="npsRateBox">
+							<input type="radio" name="npsRating" id="rating5" value="5" (click)="jqNpsContinue(5)"> <label for="rating5">5</label>
+						</div>
+						<div class="npsRateBox">
+							<input type="radio" name="npsRating" id="rating6" value="6" (click)="jqNpsContinue(6)"> <label for="rating6">6</label>
+						</div>
+						<div class="npsRatingText notLikelyRow">Not Likely</div>
+					</div>
+					<div class="npsRatingColm2">
+						<div class="npsRateBox">
+							<input type="radio" name="npsRating" id="rating7" value="7" (click)="jqNpsContinue(7)"> <label for="rating7">7</label>
+						</div>
+						<div class="npsRateBox">
+							<input type="radio" name="npsRating" id="rating8" value="8" (click)="jqNpsContinue(8)"> <label for="rating8">8</label>
+						</div>
+						<div class="npsRatingText mayBeRow">May Be</div>
+					</div>
+					<div class="npsRatingColm3">
+						<div class="npsRateBox">
+							<input type="radio" name="npsRating" id="rating9" value="9" (click)="jqNpsContinue(9)"> <label for="rating9">9</label>
+						</div>
+						<div class="npsRateBox">
+							<input type="radio" name="npsRating" id="rating10" value="10" (click)="jqNpsContinue(10)"> <label for="rating10">10</label>
+						</div>
+						<div class="npsRatingText veryLikelyRow">Very Likely</div>
+					</div>
+				</div>
+				<div class="clr"></div>
+				<!--  <div class="npsBtnContinue"><a href="javascript:void(0)" onClick="jqNpsContinue();ga_track_event('Screen1','Shown');">Continue >></a></div> -->
+			</div>
+			<div class="row preloader_row1" *ngIf="showLoadingIndicator && show_feedback_form == true">
+				<div class="col-lg-12">
+					<div class="preloader"></div>
+				</div>
+			</div>
+			<div class="row" *ngIf="show_feedback_form == true && showLoadingIndicator== false" [ngClass]="{'active': toggle}">
+				<div class="col-12">					
+					<p>Please tell us how can we make your experience better.</p>
+				</div>
+				<div class="col-9">
+					<form [formGroup]="feedbackform" >
+						<div class="input-group mb-3">
+							<textarea id="form_message" formControlName="message" name="form_message" class="form-control required" rows="2" required="required" placeholder="Your Message"  [ngClass]="{ 'is-invalid': otp_submitted && g.message.errors }"></textarea>
+						</div>
+		
+					</form>
+				</div>
+				<div class="col-3">
+					<button type="button" class="btn btn-secondary" *ngIf="show_feedback_form == true" (click)="previous()">Back</button>
+					<button type="button" class="btn btn-primary" *ngIf="show_feedback_form == true" (click)="onsubmit()">Submit</button>
+				</div>
+			</div>
+		</div>
+    </span>
