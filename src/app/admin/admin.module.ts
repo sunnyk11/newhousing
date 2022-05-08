@@ -43,6 +43,7 @@ import { BlogSinglePostComponent } from './components/blog-single-post/blog-sing
 import { GuestModule } from '../user/guest/guest.module';
 import { ViewInternalUsersComponent } from './components/view-internal-users/view-internal-users.component';
 import { DataExportComponent } from './components/data-export/data-export.component';
+import { VisitUserFeedbackComponent } from './components/visit-user-feedback/visit-user-feedback.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import { DataExportComponent } from './components/data-export/data-export.compon
     ViewBlogPostsComponent,
     BlogSinglePostComponent,
     ViewInternalUsersComponent,
-    DataExportComponent
+    DataExportComponent,
+    VisitUserFeedbackComponent
   ],
   imports: [
     CommonModule,

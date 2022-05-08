@@ -1,0 +1,230 @@
+<div class="wrapper">
+    <div class="container  mb20">
+        <div class="row">
+            <div class="col-lg-12 ">
+                <div class="my_dashboard_review">
+                    <form role="form" action="" method="post" class="f1"  [formGroup]="searching_form">
+                    <div class="row">
+                        <div class="col-lg-8  col-12">
+                          <h2 class="mb10"> Searching Feedback</h2>
+                        </div>
+                        <div class="col-lg-3 offset-lg-1 col-12 refresh">
+                            <button type="submit" class="btn btn-submit" (click)="refresh_data()">Refresh Form</button>
+                        </div>                        
+                        <div class="col-lg-4 col-sm-12 mt15">
+                            <div class="form-group">
+                                <label for="star_date" class="form-label">Select Sart Date</label>
+                                <input type="date" class="form-control" id="star_date" formControlName="star_date" [ngClass]="{ 'is-invalid': submitted && f.star_date.errors }" (ngModelChange)="onchange_date()">
+                            </div>
+                        </div>                  
+                        <div class="col-lg-4 col-sm-12 mt15">
+                            <div class="form-group">
+                                <label for="end_date" class="form-label">Select End Date</label>
+                                <input type="date" class="form-control" id="end_date"  formControlName="end_date" [ngClass]="{ 'is-invalid': submitted && f.end_date.errors }" (ngModelChange)="onchange_date()">
+                            </div>
+                        </div>  
+                      <div class="col-lg-4 col-12 search-column mt15">
+                          <!-- <div class="f1-buttons m-auto"> -->
+                              <button type="submit" class="btn btn-submit" [disabled]="disabled" (click)="on_search()"><span *ngIf="disabled==false">Search</span><span *ngIf="disabled== true">No Search data</span></button>
+                          <!-- </div> -->
+                      </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container mt20">
+        <div class="row">
+            <div class="col-12">
+                <div class="row" id="searching_header">
+                    <div class="col-lg-9 col-sm-6 col-xs-12">
+                        <span class="status_tag badge">User Feedback ({{review_length}})</span>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 col-xs-12">
+                        <span class="status_tag badge" (click)="excel_emport()">Data Excel Export</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12  col-12">
+                <div class="my_dashboard_review">
+                    <div class="property_table">
+                        <div class="table-responsive mt0">
+                            <table class="table table-striped  text-center">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th scope="col heading">Device</th>
+                                        <th scope="col">System Ip</th>
+                                        <th scope="col">Stars</th>
+                                        <th scope="col">Reviews</th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngIf="showLoadingIndicator == false">
+                                    <tr  *ngFor="let data of user_reviews?.data?.data">
+                                        <td style="width: 10%;">{{data?.device_info}}</td>
+                                        <td style="width: 10%;">{{data?.system_ip}}</td>
+                                        <td class="star_rating" style="width: 30%;">
+                                            <span *ngIf="data?.star_rating == 10">
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                            
+                                            </span>
+
+                                            <span *ngIf="data?.star_rating == 9">
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                            </span>
+                                            <span *ngIf="data?.star_rating == 8">
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                            </span>
+                                            <span *ngIf="data?.star_rating == 7">
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+
+                                            </span>
+                                            <span *ngIf="data?.star_rating == 6">
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                            </span>
+                                            <span *ngIf="data?.star_rating == 5">
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                            </span>
+                                            <span *ngIf="data?.star_rating == 4">
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                            </span>
+                                            <span *ngIf="data?.star_rating == 3">
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                            </span>
+                                            <span *ngIf="data?.star_rating == 2">
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                            </span>
+                                            <span *ngIf="data?.star_rating == 1">
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                            </span>
+                                        </td>
+                                        <td style="width: 50%;">
+                                            <h6 style="line-break: anywhere">
+                                                {{data?.message}}</h6>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tbody >
+                                    <tr  class="preloader_row" *ngIf="showLoadingIndicator == true"> 
+                                         <div class="preloader"></div>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="mbp_pagination" *ngIf="review_length>0">
+                                <!-- {{user_bank_details.links | json}} -->
+                                <ul class="page_navigation">
+                                    <li class="page-item" *ngFor="let link of user_reviews.data.links; index as i" [ngClass]="{'active' : link.active == true, 'disabled' : link.url == null}">
+                                        <button type="button" (click)="gotoPage(link.url)" class="page-link">
+                                            <span
+                                                *ngIf="link.label.indexOf('Previous') == -1 && link.label.indexOf('Next') == -1"
+                                                [innerHTML]="link.label"></span>
+                                            <span *ngIf="link.label.indexOf('Previous') > -1"
+                                                class="flaticon-left-arrow"></span>
+                                            <span *ngIf="link.label.indexOf('Next') > -1"
+                                                class="flaticon-right-arrow"></span>
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-lg-12"  *ngIf="review_length==0 && showLoadingIndicator==false">
+                                <h3>No Data Availabe</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

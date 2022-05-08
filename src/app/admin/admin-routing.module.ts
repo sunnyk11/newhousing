@@ -23,6 +23,7 @@ import { ViewBlogPostsComponent } from './components/view-blog-posts/view-blog-p
 import { BlogSinglePostComponent } from './components/blog-single-post/blog-single-post.component';	
 import { ViewInternalUsersComponent } from './components/view-internal-users/view-internal-users.component';															
 import { DataExportComponent } from './components/data-export/data-export.component';
+import { VisitUserFeedbackComponent } from './components/visit-user-feedback/visit-user-feedback.component';
 import { NotfoundComponentComponent } from '../user/components/notfound-component/notfound-component.component';
 
 const routes: Routes = [
@@ -88,6 +89,10 @@ const routes: Routes = [
       } },
       { path: 'data-export', component: DataExportComponent, canActivate: [AuthGuard, PermissionGuard],data: {
         permission: ['data_export']
+      }},
+      
+      { path: 'visit-user-feedback', component: VisitUserFeedbackComponent, canActivate: [AuthGuard, PermissionGuard],data: {
+        permission: ['visit_user_feedback']
       }},
       
       {path: '**', component: NotfoundComponentComponent}
