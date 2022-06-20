@@ -113,6 +113,9 @@
                                                 <li class="list_data bg-secondary text-white">
                                                     {{ data?.productdetails?.expected_rent }}
                                                 </li>
+                                                <li class="list_data bg-secondary text-white" *ngIf="data?.productdetails?.security_deposit == 0">
+                                                      (NA)
+                                                </li>
                                                 <li class="list_data bg-secondary text-white" *ngIf="data?.productdetails?.security_deposit == 1">
                                                     {{ data?.productdetails?.expected_rent * data?.productdetails?.security_deposit }} <br> ({{data?.productdetails?.security_deposit}} month)
                                                 </li>
@@ -123,9 +126,13 @@
                                                     {{ data?.productdetails?.maintenance_charge }}
                                                 </li>
                                                 <li *ngIf="!data?.productdetails?.maintenance_charge" class="list_data bg-secondary text-white">
-                                                    {{0}}
+                                                    NA
                                                 </li>
-                                                <li class="list_data bg-secondary text-white">
+                                                <li class="list_data bg-secondary text-white" *ngIf="data?.productdetails?.security_deposit == 0">
+                                                    <strong>{{ (+data?.productdetails?.expected_rent) +
+                                                        (+data?.productdetails?.maintenance_charge) }}</strong>
+                                                </li>
+                                                <li class="list_data bg-secondary text-white" *ngIf="data?.productdetails?.security_deposit > 0">
                                                     <strong>{{ (+data?.productdetails?.expected_rent) +
                                                         (+data?.productdetails?.expected_rent *
                                                         +data?.productdetails?.security_deposit) +

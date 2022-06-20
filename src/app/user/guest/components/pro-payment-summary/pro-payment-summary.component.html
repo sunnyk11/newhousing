@@ -183,8 +183,8 @@
                                         <h6><strong>Payable to Owner</strong></h6>
                                         <hr>
                                         <h6>1 Month Rent: <strong>{{ expected_rent }}</strong></h6>
-                                        <h6>Security Deposit ({{security_deposit}} Months): <strong>{{
-                                                security_dep_amount }}</strong></h6>
+                                        <h6>Security Deposit (<span *ngIf="security_deposit == 0">NA</span><span *ngIf="security_deposit > 0">{{security_deposit}} Months):</span> <strong *ngIf="security_deposit > 0">{{
+                                                security_dep_amount }}</strong>)</h6>
                                         <h6 *ngIf="pro_data?.maintenance_charge_status == '1'">Maintenance Charge({{ pro_data?.maintenance_condition?.name }}):
                                             <strong>{{pro_data.maintenance_charge}}</strong>
                                         </h6>

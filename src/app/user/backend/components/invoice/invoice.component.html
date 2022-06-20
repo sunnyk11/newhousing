@@ -48,7 +48,10 @@
                             </tr>
                             <tr *ngIf="inv_response?.plan_type == 'rent' && ord_details?.security_deposit">
                                 <th scope="row">Security Deposit:</th>
-                                <td>{{ ord_details.security_deposit }}</td>
+                                <td>
+                                    <span *ngIf="ord_details?.security_deposit == 0">NA</span>
+                                    <span *ngIf="ord_details?.security_deposit > 0">{{ ord_details.security_deposit }}</span>
+                                </td>
                             </tr>
                             <tr *ngIf="inv_response?.plan_type == 'rent' && ord_details?.maintenance_charge">
                                 <th scope="row">Maintenance Charge:</th>

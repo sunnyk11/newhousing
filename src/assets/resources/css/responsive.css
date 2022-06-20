@@ -14,6 +14,9 @@
     .flaticon-maps-and-flags{
         display: none!important;
     }
+    .main-banner-wrapper .ng-image-slider .ng-image-slider-container .main .main-inner .img-div img{
+        height: 60%!important;
+    }
     #accordion .panel-heading,
     .panel-title {
         width: 100%!important;
