@@ -120,7 +120,7 @@
                             <th>Amount</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody *ngIf="rent_aggrement_price == 0">
                         <tr>
                             <th>1</th>
                             <td> {{ inv_response?.plan_name }} Plan
@@ -158,6 +158,63 @@
                                     <span *ngIf="inv_response?.plan_type == 'Let Out'">(B)</span></strong></td>
                             <td></td>
                             <td><strong>&#8377; {{ sgst_amount + cgst_amount }}</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Invoice Value (In words)</td>
+                            <td>{{ amount_words }}</td>
+                            <td><strong>Grand Total <br>
+                                    <span *ngIf="inv_response?.plan_type == 'Rent'">(A+B+C)</span>
+                                    <span *ngIf="inv_response?.plan_type == 'Let Out'">(A+B)</span>
+                                </strong>
+                            </td>
+                            <td><strong>&#8377; {{ total_amount }}</strong></td>
+                        </tr>
+                    </tbody>
+                    
+                    <tbody *ngIf="rent_aggrement_price > 0 && inv_response?.plan_type == 'Rent'">
+                        <tr>
+                            <th>1</th>
+                            <td> {{ inv_response?.plan_name }} Plan
+                                <span *ngIf="inv_response?.plan_type == 'Rent'">(Property Renting Plan)</span>
+                                <span *ngIf="inv_response?.plan_type == 'Let Out'">(Property Let Out Plan)</span>
+                            </td>
+                            <td>{{ invoice_data?.sac }}</td>
+                            <td>&#8377; {{ inv_response?.plan_price }}</td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td><strong>Taxable Value/Payout Value
+                                <span *ngIf="inv_response?.plan_type == 'Rent'">(B)</span>
+                                <span *ngIf="inv_response?.plan_type == 'Let Out'">(A)</span>
+                            </strong></td>
+                            <td></td>
+                            <td><strong>&#8377; {{ inv_response?.plan_price }}</strong></td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td>Rent Aggrement </td>
+                            <td></td>
+                            <td>&#8377; {{ rent_aggrement_price }}</td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td>SGST : {{ invoice_data?.sgst }}%</td>
+                            <td></td>
+                            <td>&#8377; {{ sgst_amount_aggrement }}</td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td>CGST : {{ invoice_data?.cgst }}%</td>
+                            <td></td>
+                            <td>&#8377; {{ cgst_amount_aggrement }}</td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td><strong>Total Tax <span
+                                        *ngIf="inv_response?.plan_type == 'Rent'">(C)</span>
+                                    <span *ngIf="inv_response?.plan_type == 'Let Out'">(B)</span></strong></td>
+                            <td></td>
+                            <td><strong>&#8377; {{rent_aggrement_price + sgst_amount_aggrement + cgst_amount_aggrement }}</strong></td>
                         </tr>
                         <tr>
                             <td>Invoice Value (In words)</td>

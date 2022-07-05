@@ -80,7 +80,7 @@
                                         <h4>&nbsp;</h4>
                                         <h4>&nbsp;</h4>
                                         <h4>{{ rent_plan.actual_price_days }} Days Rent</h4>
-                                        <h4>Rs. {{ expected_rent / (30 / rent_plan.actual_price_days) | number: '4.0-0'}}</h4>
+                                        <h4>&#8377; {{ expected_rent / (30 / rent_plan.actual_price_days) | number: '4.0-0'}}</h4>
                                     </div>
                                 </div>
                                 <div class="card-body">
@@ -102,7 +102,8 @@
                                                 <span class="wrong-sym">&#215;</span>
                                             </p>
                                             <p class="row2" *ngIf="rent_plan_feature.feature_details != 'no' && rent_plan_feature.feature_details != 'yes'">
-                                                {{ rent_plan_feature.feature_details }}</p>
+                                                <span  *ngIf="rent_plan_feature.feature_name == 'Rent Agreement' && rent_plan_feature.feature_details > 0">&#8377; </span>{{ rent_plan_feature.feature_details }}</p>
+                                                
                                             <hr>
                                         </li>
                                     </ul>
@@ -179,7 +180,7 @@
                                     <div class="card-header">
                                         <h4>Payment Details</h4>
                                     </div>
-                                    <div class="card-body">
+                                    <div class="card-body" *ngIf="rent_aggrement_price == 0">
                                         <h6><strong>Payable to Owner</strong></h6>
                                         <hr>
                                         <h6>1 Month Rent: <strong>{{ expected_rent }}</strong></h6>
@@ -222,6 +223,54 @@
                                                 </div>
                                                 <button class="btn btn-success" *ngIf="online_pay_btn" (click)="proceedToPayment()">Proceed to Payment</button>
                                                 <button class="btn btn-info" *ngIf="cash_pay_btn" (click)="generateInvoice()">Generate Invoice</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="card-body" *ngIf="rent_aggrement_price > 0">
+                                        <h6><strong>Payable to Owner</strong></h6>
+                                        <hr>
+                                        <h6>1 Month Rent: <strong>{{ expected_rent }}</strong></h6>
+                                        <h6>Security Deposit (<span *ngIf="security_deposit == 0">NA</span><span *ngIf="security_deposit > 0">{{security_deposit}} Months):</span> <strong *ngIf="security_deposit > 0">{{
+                                                security_dep_amount }}</strong>)</h6>
+                                        <h6 *ngIf="pro_data?.maintenance_charge_status == '1'">Maintenance Charge({{ pro_data?.maintenance_condition?.name }}):
+                                            <strong>{{pro_data.maintenance_charge}}</strong>
+                                        </h6>
+                                        <hr>
+                                        <h6><strong>Total Amount: <strong>{{ total_amount_owner }}</strong></strong>
+                                        </h6>
+                                        <hr>
+
+                                        <h6><strong>Payable to HousingStreet</strong></h6>
+                                        <hr>
+                                        <h6>Plan Price: <strong>{{ plan_price }}</strong></h6>
+                                        <h6>Rent Aggrement: <strong>{{ rent_aggrement_price }}</strong></h6>
+                                        <h6>SGST@9%: <strong>{{ sgst_amount_aggrement }}</strong></h6>
+                                        <h6>CGST@9%: <strong>{{ cgst_amount_aggrement }}</strong></h6>
+                                        <hr>
+                                        <h6><strong>Total Amount: <strong>{{ total_amount_hs_aggrement }}</strong></strong>
+                                        </h6>
+                                        <hr>
+                                        <h4><strong>Total Payable Amount: {{ total_amount_hs_aggrement + total_amount_owner
+                                                }}</strong></h4>
+                                        <div class="d-grid gap-3">
+                                            <label>Mode of Payment</label>
+                                            <div class="p-2 bg-light border">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="payment" id="online_payment" value="Online" (change)="changePayment($event)" checked>
+                                                    <label class="form-check-label" for="online_payment">
+                                                        Online Payment
+                                                    </label>
+                                                </div>
+
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="payment" id="cash_payment" value="Cash" (change)="changePayment($event)">
+                                                    <label class="form-check-label" for="cash_payment">
+                                                        Payment By Cash
+                                                    </label>
+                                                </div>
+                                                <button class="btn btn-success" *ngIf="online_pay_btn" (click)="proceedToPayment_aggrement()">Proceed to Payment</button>
+                                                <button class="btn btn-info" *ngIf="cash_pay_btn" (click)="generateInvoice_aggrement()">Generate Invoice</button>
                                             </div>
                                         </div>
                                     </div>
