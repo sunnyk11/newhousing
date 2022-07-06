@@ -120,7 +120,7 @@
                             <th>Amount</th>
                         </tr>
                     </thead>
-                    <tbody *ngIf="rent_aggrement_price == 0">
+                    <tbody>
                         <tr>
                             <th>1</th>
                             <td> {{ inv_response?.plan_name }} Plan
@@ -130,6 +130,14 @@
                             <td>{{ invoice_data?.sac }}</td>
                             <td>&#8377; {{ inv_response?.plan_price }}</td>
                         </tr>
+                        <tr >
+                            <th>2</th>
+                            <td>  Rent Aggrement
+                               
+                            </td>
+                            <td></td>
+                            <td>&#8377; {{rent_aggrement_price}}</td>
+                        </tr>
                         <tr>
                             <th></th>
                             <td><strong>Taxable Value/Payout Value
@@ -137,7 +145,7 @@
                                 <span *ngIf="inv_response?.plan_type == 'Let Out'">(A)</span>
                             </strong></td>
                             <td></td>
-                            <td><strong>&#8377; {{ inv_response?.plan_price }}</strong></td>
+                            <td><strong>&#8377; {{ plan_aggrement_price }}</strong></td>
                         </tr>
                         <tr>
                             <th></th>
@@ -170,7 +178,7 @@
                             <td><strong>&#8377; {{ total_amount }}</strong></td>
                         </tr>
                     </tbody>
-                    
+<!--                     
                     <tbody *ngIf="rent_aggrement_price > 0 && inv_response?.plan_type == 'Rent'">
                         <tr>
                             <th>1</th>
@@ -226,7 +234,7 @@
                             </td>
                             <td><strong>&#8377; {{ total_amount }}</strong></td>
                         </tr>
-                    </tbody>
+                    </tbody> -->
                 </table>
                 <h3 style="text-align: center;">System Generated Invoice</h3>
             </div>

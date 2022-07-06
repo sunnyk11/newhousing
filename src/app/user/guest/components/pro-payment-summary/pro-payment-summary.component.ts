@@ -28,9 +28,6 @@ export class ProPaymentSummaryComponent implements OnInit {
   public expected_rent: any;
   public sgst_amount: any;
   public cgst_amount: any;
-  public sgst_amount_aggrement: any;
-  public cgst_amount_aggrement:any;
-  public total_amount_hs_aggrement: any;
   public total_amount_hs: any;
   public plan_price: any;
   public security_deposit: any;
@@ -50,6 +47,7 @@ export class ProPaymentSummaryComponent implements OnInit {
   public cash_pay_btn: boolean = false;
   public mode_payment: any = 'Online';
   public rent_aggrement_price:number=0;
+  public plan_aggrement_price:any;
 
   private user_phone_data: any;
   public returnUrl: string = '';
@@ -160,13 +158,9 @@ export class ProPaymentSummaryComponent implements OnInit {
     this.rent_aggrement_price=0;
     for(let i=0; i< plan_features?.features.length; i++){
       if(plan_features?.features[i].feature_name=='Rent Agreement'){
-        if(plan_features?.features[i].feature_value>0){
+        if(plan_features?.features[i].feature_value>=0){
           this.rent_aggrement_price=plan_features?.features[i].feature_value;            
-          this.sgst_amount_aggrement = Math.round((9 * this.rent_aggrement_price) / 100);
-          this.cgst_amount_aggrement = Math.round((9 * this.rent_aggrement_price) / 100);
-          this.total_amount_hs_aggrement = this.rent_aggrement_price + this.sgst_amount_aggrement + this.cgst_amount_aggrement;
-        
-        }
+         }
       }
 
     }
@@ -184,12 +178,13 @@ export class ProPaymentSummaryComponent implements OnInit {
     this.expected_rent = expected_rent;
     this.property_name = this.product_data[0].build_name;
     this.property_id = this.product_data[0].id;
-    this.sgst_amount = Math.round((9 * this.plan_price) / 100);
-    this.cgst_amount = Math.round((9 * this.plan_price) / 100);
+    this.plan_aggrement_price= this.plan_price + this.rent_aggrement_price;
+    this.sgst_amount = Math.round((9 * this.plan_aggrement_price) / 100);
+    this.cgst_amount = Math.round((9 * this.plan_aggrement_price) / 100);
     this.maintenance_charge = this.product_data[0].maintenance_charge;
     this.security_deposit = this.product_data[0].security_deposit;
     this.security_dep_amount = this.expected_rent * this.security_deposit;
-    this.total_amount_hs = this.plan_price + this.sgst_amount + this.cgst_amount;
+    this.total_amount_hs = this.plan_aggrement_price + this.sgst_amount + this.cgst_amount;
     this.maintenance_charge = this.product_data[0].maintenance_charge;
     //console.log(this.maintenance_charge);
     if (this.maintenance_charge) {
@@ -287,78 +282,6 @@ export class ProPaymentSummaryComponent implements OnInit {
     }
   }
   
-  proceedToPayment_aggrement() {
-
-    this.showLoadingIndicator = true;
-
-    const formData: any = new FormData();
-    formData.append('plan_name', this.plan_name);
-    formData.append('plan_price', this.plan_price);
-    formData.append('plan_type', this.plan_type);
-    formData.append('plan_id', this.plan_id);
-    formData.append('payment_type', this.payment_type);
-    formData.append('expected_rent', this.expected_rent);
-    formData.append('property_name', this.product_data[0].build_name);
-    formData.append('property_id', this.product_data[0].id);
-    formData.append('gst_amount', this.sgst_amount_aggrement  + this.cgst_amount_aggrement);
-    formData.append('maintenance_charge', this.maintenance_charge);
-    formData.append('security_deposit', this.security_dep_amount);
-    formData.append('total_amount', this.total_amount_hs_aggrement + this.total_amount_owner);
-    formData.append('property_uid', this.product_data[0].product_uid);
-    formData.append('payment_mode', this.mode_payment);
-
-    let val = this.jwtService.getToken();
-    if (val) {
-      this.user_id = this.jwtService.getUserId();
-      this.userEmail = this.jwtService.getUserEmail();
-      this.loginPageService.getUserPhoneDetails({ param: null }).subscribe(
-        data => {
-          this.showLoadingIndicator = false;
-          //console.log(data);
-          this.user_phone_data = data;
-          if(this.user_phone_data !== 1) {
-            //console.log("Mobile number not verified");
-            this.returnUrl = this.router.url;
-            this.jwtService.saveReturnURL(this.returnUrl);
-            this.openMobModal_aggrement();
-          }
-          else {
-            //console.log("Mobile number verified");
-            formData.append('user_id', this.user_id);
-            formData.append('user_email', this.userEmail);
-            formData.append('plan_features_data', JSON.stringify(this.plan_features_data));
-            
-            this.plansPageService.postSelectedRentPlan(formData).subscribe(
-              res => {
-                this.selected_plan_data = res;
-                this.plansPageService.proceedToPaymentRent(this.selected_plan_data.data.order_id).subscribe(
-                  result => {
-                    this.payment_result = result;
-                    if ( this.payment_result.status == 201) {
-                      this.paytm_data =  this.payment_result.data;
-                      this.createPaytmForm();
-                    }
-                  },
-                  error => {
-                    console.log(error);
-                  }
-                );
-              }
-            );
-          }
-        },
-        err => {
-          this.showLoadingIndicator = false;
-        }
-      );
-    } 
-    else {
-      this.showLoadingIndicator = false;
-      //console.log("Not logged in: " + val);
-      this.openModal_aggrement();
-    }
-  }
-  
 
   createPaytmForm() {
     const my_form: any = document.createElement('form');
@@ -418,40 +341,6 @@ export class ProPaymentSummaryComponent implements OnInit {
   }
 
   
-  openModal_aggrement() {
-    const modalRef = this.modalService.open(LoginCheckComponent,
-      {
-        scrollable: true,
-        windowClass: 'myCustomModalClass',
-        // keyboard: false,
-         backdrop: 'static'
-      });
-
-    let data = {
-      plan_name: this.plan_name,
-      plan_price: this.plan_price,
-      plan_type: this.plan_type,
-      plan_id: this.plan_id,
-      payment_type: this.payment_type,
-      expected_rent: this.expected_rent,
-      property_name: this.product_data[0].build_name,
-      property_id: this.product_data[0].id,
-      gst_amount: this.sgst_amount_aggrement + this.cgst_amount_aggrement,
-      maintenance_charge: this.maintenance_charge,
-      security_deposit: this.security_dep_amount,
-      total_amount: this.total_amount_hs_aggrement  + this.total_amount_owner,
-      property_uid: this.product_data[0].product_uid,
-      payment_mode: this.mode_payment,
-      plan_features_data: JSON.stringify(this.plan_features_data)
-    }
-
-    modalRef.componentInstance.fromParent = data;
-    modalRef.result.then((result) => {
-      //console.log(result);
-    }, (reason) => {
-    });
-  }
-
   openMobModal() {
     const modalRef = this.modalService.open(MobileCheckComponent,
       {
@@ -486,40 +375,6 @@ export class ProPaymentSummaryComponent implements OnInit {
     });
   }
   
-  openMobModal_aggrement() {
-    const modalRef = this.modalService.open(MobileCheckComponent,
-      {
-        scrollable: true,
-        windowClass: 'myCustomModalClass',
-        // keyboard: false,
-         backdrop: 'static'
-      });
-
-    let data = {
-      plan_name: this.plan_name,
-      plan_price: this.plan_price,
-      plan_type: this.plan_type,
-      plan_id: this.plan_id,
-      payment_type: this.payment_type,
-      expected_rent: this.expected_rent,
-      property_name: this.product_data[0].build_name,
-      property_id: this.product_data[0].id,
-      gst_amount: this.sgst_amount_aggrement + this.cgst_amount_aggrement,
-      maintenance_charge: this.maintenance_charge,
-      security_deposit: this.security_dep_amount,
-      total_amount: this.total_amount_hs_aggrement  + this.total_amount_owner,
-      property_uid: this.product_data[0].product_uid,
-      payment_mode: this.mode_payment,
-      plan_features_data: JSON.stringify(this.plan_features_data)
-    }
-
-    modalRef.componentInstance.fromParent = data;
-    modalRef.result.then((result) => {
-      //console.log(result);
-    }, (reason) => {
-    });
-  }
-
   generateInvoice() {
     this.showLoadingIndicator = true;
     //console.log("Generate Invoice");
@@ -590,72 +445,4 @@ export class ProPaymentSummaryComponent implements OnInit {
   }
 
   
-  generateInvoice_aggrement() {
-    this.showLoadingIndicator = true;
-    //console.log("Generate Invoice");
-    var formData: any = new FormData();
-    formData.append('plan_name', this.plan_name);
-    formData.append('plan_price', this.plan_price);
-    formData.append('plan_type', this.plan_type);
-    formData.append('plan_id', this.plan_id);
-    formData.append('payment_type', this.payment_type);
-    formData.append('expected_rent', this.expected_rent);
-    formData.append('property_name', this.product_data[0].build_name);
-    formData.append('property_id', this.product_data[0].id);
-    formData.append('gst_amount', this.sgst_amount_aggrement + this.cgst_amount_aggrement);
-    formData.append('maintenance_charge', this.maintenance_charge);
-    formData.append('security_deposit', this.security_dep_amount);
-    formData.append('total_amount', this.total_amount_hs_aggrement  + this.total_amount_owner);
-    formData.append('property_uid', this.product_data[0].product_uid);
-    formData.append('payment_mode', this.mode_payment);
-    let val = this.jwtService.getToken();
-    if (val) {
-      this.user_id = this.jwtService.getUserId();
-      this.userEmail = this.jwtService.getUserEmail();
-      this.loginPageService.getUserPhoneDetails({ param: null }).subscribe(
-        data => {
-          this.showLoadingIndicator = false;
-          //console.log(data);
-          this.user_phone_data = data;
-          if(this.user_phone_data !== 1) {
-            //console.log("Mobile number not verified");
-            this.returnUrl = this.router.url;
-            this.jwtService.saveReturnURL(this.returnUrl);
-            this.openMobModal();
-          }
-          else {
-            //console.log("Mobile number verified");
-            formData.append('user_id', this.user_id);
-            formData.append('user_email', this.userEmail);
-            formData.append('plan_features_data', JSON.stringify(this.plan_features_data));
-            //console.log(formData);
-            this.plansPageService.postSelectedRentPlan(formData).subscribe(
-              res => {
-                //console.log(res);
-                this.rent_plan_data = res;
-                this.plansPageService.generateRentInvoice(this.rent_plan_data.data.order_id).subscribe(
-                  res => {
-                    //console.log(res);
-                    this.invoice_data = res;
-                    this.router.navigate(['invoice'], { queryParams: { 'invoice_no': this.invoice_data.data } });
-                  },
-                  err => {
-                    console.log(err);
-                  }
-                );
-              }
-            );
-          }
-        },
-        err => {
-          this.showLoadingIndicator = false;
-        }
-      );
-    } 
-    else {
-      this.showLoadingIndicator = false;
-      //console.log("Not logged in: " + val);
-      this.openModal();
-    }
-  }
 }
