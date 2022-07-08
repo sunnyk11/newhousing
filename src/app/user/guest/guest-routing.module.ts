@@ -37,6 +37,7 @@ import { UserReviewsComponent } from './components/user-reviews/user-reviews.com
 import { VerifyMobileSuccessComponent } from './components/verify-mobile-success/verify-mobile-success.component';
 import { FixedAppointmentComponent } from './components/fixed-appointment/fixed-appointment.component';
 import { ProductPreviewComponent } from './components/product-preview/product-preview.component';
+import { VisitUserThankComponent } from './components/visit-user-thank/visit-user-thank.component';
 import { NotfoundComponentComponent } from '../components/notfound-component/notfound-component.component';
 //custom component imports
 
@@ -69,6 +70,7 @@ const routes: Routes = [
         { path: "my-properties", component: MyPropertiesComponent, canActivate: [AuthGuard]},
         { path: "register", component: RegisterComponent,canActivate:  [UserLogsGuard]},
         { path: "sign-up", component: SignupComponent,canActivate:  [UserLogsGuard]},
+        { path: "visit-user-thank-you", component: VisitUserThankComponent,canActivate:  [UserLogsGuard]},
         { path: 'agentregister', component: RegisterComponent,canActivate:  [UserLogsGuard]},
         { path: "payment-summary", component: PaymentSummaryComponent},
         { path: "profile", component: ProfileComponent, canActivate: [AuthGuard]},

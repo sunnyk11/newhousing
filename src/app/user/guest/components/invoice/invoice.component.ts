@@ -27,6 +27,8 @@ export class InvoiceComponent implements OnInit {
   public inv_response: any;
   public sgst_amount: any;
   public cgst_amount: any;
+  public plan_aggrement_price: any;
+  public rent_aggrement_price:number=0;
   private order_details: any;
   public total_amount: any;
   public ord_details: any;
@@ -79,47 +81,43 @@ export class InvoiceComponent implements OnInit {
       res => {
         let data:any=res;
         this.response =  data.data;
-        
         if(this.response  != null){
           this.user_name = data.data.user_detail.name;  
           this.inv_response = this.response;
-          this.sgst_amount = Math.round((this.invoice_data?.sgst * this.response.plan_price) / 100);
-          this.cgst_amount = Math.round((this.invoice_data?.cgst * this.response.plan_price) / 100);
+                   
+         for(let i=0; i< this.response.plan_features?.features.length; i++){
+          if(this.response.plan_features?.features[i].feature_name=='Rent Agreement'){
+            if(this.response.plan_features?.features[i].feature_value>0){
+               this.rent_aggrement_price=this.response.plan_features?.features[i].feature_value;         
+            }
+          }
+        }
+          this.plan_aggrement_price= this.inv_response.plan_price + this.rent_aggrement_price;
+          this.sgst_amount = Math.round((this.invoice_data?.sgst * this.plan_aggrement_price) / 100);
+          this.cgst_amount = Math.round((this.invoice_data?.cgst * this.plan_aggrement_price) / 100);
 
           if (this.inv_response.plan_type == 'Rent') {
-            this.plansPageService.getRentOrderDetails(this.inv_response.order_id).subscribe(
-              res => {
-                this.order_details = res;
-                this.ord_details = this.order_details[0];
 
-                this.productService.get_product_details(this.ord_details?.property_id).subscribe(
-                  data => {
-                    this.product_data = data;
-                    this.product_data = this.product_data[0];
-                  },
-                  err => {
-                    console.log(err);
+                this.order_details = this.inv_response.order_details;
+                this.ord_details = this.order_details;
+
+                
+                this.product_data = this.inv_response?.order_details?.product_details;
+                this.product_data = this.product_data;
+
+                  if (this.ord_details.maintenance_charge) {
+                    this.total_amount_owner = this.ord_details.expected_rent + this.ord_details.security_deposit + this.ord_details.maintenance_charge;
+                    this.total_amount = this.plan_aggrement_price + this.sgst_amount + this.cgst_amount + this.ord_details.expected_rent + this.ord_details.security_deposit + this.ord_details.maintenance_charge;
+                    this.amount_words = toWords.convert(this.total_amount);
                   }
-                );
-
-                if (this.ord_details.maintenance_charge) {
-                  this.total_amount_owner = this.ord_details.expected_rent + this.ord_details.security_deposit + this.ord_details.maintenance_charge;
-                  this.total_amount = this.inv_response.plan_price + this.sgst_amount + this.cgst_amount + this.ord_details.expected_rent + this.ord_details.security_deposit + this.ord_details.maintenance_charge;
-                  this.amount_words = toWords.convert(this.total_amount);
-                }
-                else {
-                  this.total_amount_owner = this.ord_details.expected_rent + this.ord_details.security_deposit;
-                  this.total_amount = this.inv_response.plan_price + this.sgst_amount + this.cgst_amount + this.ord_details.expected_rent + this.ord_details.security_deposit;
-                  this.amount_words = toWords.convert(this.total_amount);
-                }
-              },
-              err => {
-                console.log(err);
-              }
-            );
+                  else {
+                    this.total_amount_owner = this.ord_details.expected_rent + this.ord_details.security_deposit;
+                    this.total_amount = this.plan_aggrement_price + this.sgst_amount + this.cgst_amount + this.ord_details.expected_rent + this.ord_details.security_deposit;
+                    this.amount_words = toWords.convert(this.total_amount);
+                  }
           }
           else if (this.inv_response.plan_type == 'Let Out') {
-            this.total_amount = this.inv_response.plan_price + this.sgst_amount + this.cgst_amount;
+            this.total_amount = this.plan_aggrement_price + this.sgst_amount + this.cgst_amount;
             this.amount_words = toWords.convert(this.total_amount);
           }
           this.showLoadingIndicator = false;

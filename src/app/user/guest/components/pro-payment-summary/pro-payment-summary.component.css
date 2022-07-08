@@ -10,7 +10,13 @@
     border-radius: 5px;
     font-size: 25px;
 }
+.heading_text{
+    text-align: left;
+}
 
+.heading_amount{
+    text-align: right;
+}
 .h-220 {
     min-height: 220px !important;
 }
@@ -55,7 +61,9 @@
     display: flex;
     justify-content: center;
 }
-
+.form-check-inline{
+    margin-right: 0px!important;
+}
 @media only screen and (max-width: 768px) {
     .discount_price {
         font-size: 20px;
@@ -63,9 +71,23 @@
     #deshtop_views{
         display: none;
     }
+    .form-check-inline label{
+        font-size: 13px;
+    }
+    
+    .heading_text{
+        font-size: 14px;
+    }
+
+    .heading_amount{
+        font-size: 14px;
+    }
 }
 @media only screen and (min-width: 768px) {
         #mobile_views{
             display: none;;
+        }
+        .card-body{
+            padding: 20px 30px;
         }
 }

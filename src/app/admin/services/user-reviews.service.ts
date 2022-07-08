@@ -26,6 +26,16 @@ export class UserReviewsService {
       .catch(this.handleError);
   }
   
+  get_visit_user_feedback(reqModel: any): Promise<Pagination> {
+    const route = "/api/admin/get_visit_user_feedback";
+    return this.apiService.admin_get(route,reqModel).toPromise().then(
+      (response) => {
+        //console.log(response);
+        return response as Pagination
+      })
+      .catch(this.handleError);
+  }
+  
   get_reviews1(reqModel: any): Observable<ResultModel> {
     const route = "/api/admin/get_reviews";
     return this.apiService.get<ResultModel>(route, reqModel);

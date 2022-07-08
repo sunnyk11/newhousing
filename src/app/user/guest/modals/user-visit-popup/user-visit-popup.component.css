@@ -1,0 +1,167 @@
+
+.modal-header{
+    background-color: #fff;
+}
+
+#form_message{
+    transition: .10s all;
+    transform: translateX(311px) translateY(-14px);
+}
+.active #form_message{
+    transition: .10s all;
+    transform: translateX(0px) translateY(0px)!important;
+}
+.btn-primary{
+    background-color: #ff5a5f!important;
+    border-color: #ff5a5f!important;
+}
+#star_rating{
+    color: #ff5a5f!important;
+    font-weight: 600;
+}
+.preloader_row1{
+    width: 100%!important;
+}
+.close{
+    border-color: #000!important;
+    background: transparent;
+    font-size: 22px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 0px 5px!important;
+}
+.btn{
+    font-size: 12px;
+    padding: 3px 27px!important;
+    width: 100%;
+    margin: 3px 0px;
+}
+.npsRatingBox {
+    width: 100%;
+    float: left;
+    margin: 18px 0px 14px;
+}
+@media (min-width: 768px) {
+    .modal-body{
+        background-color: #fff;
+        width: 530px!important;
+        height: 182px!important;
+    }
+    .modal-title{
+        font-size: 15px!important;
+    }
+}
+@media (min-width: 100px) and (max-width: 580px) {
+    .modal-body{
+        background-color: #fff;
+        width: 95vw!important;
+        height: 200px!important;
+    }   
+    .modal-title{
+        font-size: 13px!important;
+    } 
+    
+}
+@media (min-width: 580px) and (max-width: 768px) {
+    .modal-body{
+        background-color: #fff;
+        width: 77vw!important;
+        height: 190px!important;
+    }   
+    .modal-header{
+        width: 77vw!important;
+    }
+    .modal-title{
+        font-size: 12px!important;
+    }
+}
+.modal-footer{
+    background-color: #fff;
+}
+.npsRatingColm1 {
+    float: left;
+    width: 57%;
+}
+.npsRatingColm2 {
+    float: left;
+    width: 25%;
+    padding: 0 4%;
+}
+.npsRatingColm3 {
+    float: left;
+    width: 18%;
+}
+.npsRateBox {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    float: left;
+    cursor: pointer;
+    margin-bottom: 11px;
+}
+.npsRateBox input {
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+.npsRateBox label {
+    width: 24px;
+    height: 24px;
+    display: block;
+    text-align: center;
+    background: #fff;
+    border-radius: 50%;
+    border: 1px solid #d8232a;
+    color: #333;
+    font-size: 14px;
+    line-height: 23px;
+    cursor: pointer;
+}
+.npsRatingText {
+    clear: both;
+    color: #303030;
+    font-size: 12px;
+    text-align: center;
+    white-space: nowrap;
+    padding-top: 12px;
+    font-weight: 600;
+}
+.npsRatingText.notLikelyRow {
+    border-top: 1px solid #d8232a;
+}
+.npsRateBox {
+    position: relative;
+    width: 30px;
+    height: 24px;
+    float: left;
+    cursor: pointer;
+    margin-bottom: 11px;
+}
+.npsRatingText {
+    clear: both;
+    color: #303030;
+    font-size: 12px;
+    text-align: center;
+    white-space: nowrap;
+    padding-top: 12px;
+    font-weight: 600;
+}
+.npsRatingText.mayBeRow {
+    border-top: 1px solid #f4c505;
+}
+.npsRatingColm2 .npsRateBox label {
+    border: 1px solid #f4c505;
+}
+.npsRatingColm3 .npsRateBox label {
+    border: 1px solid #2bb700;
+}
+.npsRatingText.veryLikelyRow {
+    border-top: 1px solid #2bb700;
+}
+ #npsSidePopWrap {
+    -webkit-box-sizing: content-box;
+    box-sizing: border-box;
+}

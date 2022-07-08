@@ -224,7 +224,10 @@
                                         </ul>
                                         <ul class="list-inline-item">
                                             <li *ngIf='product_data?.security_deposit'>
-                                                <p><span>{{product_data?.security_deposit}} Month Rent</span></p>
+                                                <p>
+                                                    <span *ngIf='product_data?.security_deposit == 0'>NA</span>
+                                                    <span *ngIf='product_data?.security_deposit > 0'>{{product_data?.security_deposit}} Month Rent</span>
+                                                </p>
                                             </li>
                                             <li>
                                                 <p><span *ngIf="product_data?.expected_rent != null">₹

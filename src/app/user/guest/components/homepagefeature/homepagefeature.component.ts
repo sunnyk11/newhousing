@@ -219,6 +219,9 @@ export class HomepagefeatureComponent implements OnInit {
       400: {
         items: 1
       },
+      690: {
+        items: 2
+      },
       740: {
         items: 2
       },

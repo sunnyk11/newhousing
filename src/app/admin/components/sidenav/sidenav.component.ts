@@ -24,6 +24,7 @@ export class SidenavComponent implements OnInit {
   public access_user_creator: boolean = false;
   public access_bank_details: boolean = false;
   public data_export:boolean=false;
+  public visit_user_feedback:boolean=false;
 
   private user_id: any;
   public permissions_response: any;
@@ -88,6 +89,12 @@ export class SidenavComponent implements OnInit {
     this.router.navigate(['/admin/data-export']);
 
   }
+  visit_user_feedback_url(){
+    this.sidenavClose.emit();
+    this.router.navigate(['/admin/visit-user-feedback']);
+
+  }
+  
    user_list() {
     this.sidenavClose.emit();
     this.router.navigate(['/admin/services-user-list']);
@@ -142,6 +149,7 @@ export class SidenavComponent implements OnInit {
       this.access_manage_blog = false;
       this.access_bank_details = false;
       this.data_export=false;
+      this.visit_user_feedback=false;
 
     this.user_id = this.jwtService.getAdminId();
     //console.log(this.user_id);
@@ -157,6 +165,7 @@ export class SidenavComponent implements OnInit {
       this.access_manage_blog = true;
       this.access_bank_details = true;
       this.data_export=true;
+      this.visit_user_feedback=true;
 
     }
     else if(this.user_id) {

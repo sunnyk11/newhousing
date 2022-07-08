@@ -27,7 +27,8 @@
     color: #fff!important;
 }
 .main-banner-wrapper {
-    height: 80vh!important;
+    /* height: 80vh!important; */
+    padding: 5px 0px 0px!important;
 }
 .our-agent-single .btn-primary{
     width: 100%!important;
@@ -174,7 +175,13 @@
         line-height: 24px;
         margin-bottom: 10px;
         text-align: justify;
-     }   
+     }
+     
+.main-banner-wrapper {
+    height: 80vh!important;
+    margin: auto!important;
+    padding: 5px 0px 0px!important;
+}   
       
 #deshtop{
     display: none!important;

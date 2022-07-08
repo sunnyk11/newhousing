@@ -243,7 +243,10 @@
                                         </ul>
                                         <ul class="list-inline-item">
                                             <li *ngIf='product_data?.security_deposit'>
-                                                <p><span>{{product_data?.security_deposit}} Month Rent</span></p>
+                                                <p>
+                                                    <span *ngIf='product_data?.security_deposit == 0'>NA</span>
+                                                    <span *ngIf='product_data?.security_deposit > 0'>{{product_data?.security_deposit}} Month Rent</span>
+                                                </p>
                                             </li>
                                             <li>
                                                 <p><span *ngIf="product_data?.expected_rent != null">₹
@@ -437,10 +440,13 @@
                                         <h6><strong>{{commaSeperated(product_data?.expected_rent)}}</strong></h6>
                                     </div>
                                     <div class="col-lg-9 col-9">
-                                        <h6>Security Deposit ({{product_data?.security_deposit}} Month Rent): </h6>
+                                        <h6>Security Deposit (<span *ngIf="product_data?.security_deposit == 0">No Security</span><span *ngIf="product_data?.security_deposit > 0">{{product_data?.security_deposit}} Month Rent</span>): </h6>
                                     </div>
                                     <div class="col-lg-3 col-3">
-                                        <h6><strong>{{commaSeperated(security_dep_amount)}}</strong></h6>
+                                        <h6>
+                                            <strong *ngIf="product_data?.security_deposit == 0">NA</strong>
+                                            <strong *ngIf="product_data?.security_deposit > 0">{{commaSeperated(security_dep_amount)}}</strong>
+                                        </h6>
                                     </div>
                                     <div class="col-lg-9 col-9" *ngIf="product_data?.maintenance_charge_status == '1'">
                                         <!-- <hr> -->
@@ -742,10 +748,13 @@
                                 <h6><strong>{{commaSeperated(product_data?.expected_rent)}}</strong></h6>
                             </div>
                             <div class="col-lg-9 col-9">
-                                <h6>Security Deposit ({{product_data?.security_deposit}} Month Rent): </h6>
+                                <h6>Security Deposit (<span *ngIf="product_data?.security_deposit == 0">No Security</span><span *ngIf="product_data?.security_deposit > 0">{{product_data?.security_deposit}} Month Rent</span>): </h6>
                             </div>
                             <div class="col-lg-3 col-3">
-                                <h6><strong>{{commaSeperated(security_dep_amount)}}</strong></h6>
+                                <h6>
+                                    <strong *ngIf="product_data?.security_deposit == 0">NA</strong>
+                                    <strong *ngIf="product_data?.security_deposit > 0">{{commaSeperated(security_dep_amount)}}</strong>
+                                </h6>
                             </div>
                             <div class="col-lg-9 col-9" *ngIf="product_data?.maintenance_charge_status == '1'">
                                 <!-- <hr> -->
@@ -822,10 +831,13 @@
                                 <h6><strong>{{commaSeperated(product_data?.expected_rent)}}</strong></h6>
                             </div>
                             <div class="col-lg-9 col-9">
-                                <h6>Security Deposit ({{product_data?.security_deposit}} Month Rent): </h6>
+                                <h6>Security Deposit (<span *ngIf="product_data?.security_deposit == 0">No Security</span><span *ngIf="product_data?.security_deposit > 0">{{product_data?.security_deposit}} Month Rent</span>): </h6>
                             </div>
                             <div class="col-lg-3 col-3">
-                                <h6><strong>{{commaSeperated(security_dep_amount)}}</strong></h6>
+                                <h6>
+                                    <strong *ngIf="product_data?.security_deposit == 0">NA</strong>
+                                    <strong *ngIf="product_data?.security_deposit > 0">{{commaSeperated(security_dep_amount)}}</strong>
+                                </h6>
                             </div>
                             <div class="col-lg-9 col-9" *ngIf="product_data?.maintenance_charge_status == '1'">
                                 <!-- <hr> -->
@@ -1258,11 +1270,15 @@
                                     <div class="col-lg-3 col-3">
                                         <h6><strong>{{commaSeperated(product_data?.expected_rent)}}</strong></h6>
                                     </div>
+                                            
                                     <div class="col-lg-9 col-9">
-                                        <h6>Security Deposit ({{product_data?.security_deposit}} Month Rent): </h6>
+                                        <h6>Security Deposit (<span *ngIf="product_data?.security_deposit == 0">No Security</span><span *ngIf="product_data?.security_deposit > 0">{{product_data?.security_deposit}} Month Rent</span>): </h6>
                                     </div>
                                     <div class="col-lg-3 col-3">
-                                        <h6><strong>{{commaSeperated(security_dep_amount)}}</strong></h6>
+                                        <h6>
+                                            <strong *ngIf="product_data?.security_deposit == 0">NA</strong>
+                                            <strong *ngIf="product_data?.security_deposit > 0">{{commaSeperated(security_dep_amount)}}</strong>
+                                        </h6>
                                     </div>
                                     <div class="col-lg-9 col-9" *ngIf="product_data?.maintenance_charge_status == '1'">
                                         <!-- <hr> -->
@@ -1423,11 +1439,15 @@
                             <div class="col-lg-3 col-3">
                                 <h6><strong>{{commaSeperated(product_data?.expected_rent)}}</strong></h6>
                             </div>
+                            
                             <div class="col-lg-9 col-9">
-                                <h6>Security Deposit ({{product_data?.security_deposit}} Month Rent): </h6>
+                                <h6>Security Deposit (<span *ngIf="product_data?.security_deposit == 0">No Security</span><span *ngIf="product_data?.security_deposit > 0">{{product_data?.security_deposit}} Month Rent</span>): </h6>
                             </div>
                             <div class="col-lg-3 col-3">
-                                <h6><strong>{{commaSeperated(security_dep_amount)}}</strong></h6>
+                                <h6>
+                                    <strong *ngIf="product_data?.security_deposit == 0">NA</strong>
+                                    <strong *ngIf="product_data?.security_deposit > 0">{{commaSeperated(security_dep_amount)}}</strong>
+                                </h6>
                             </div>
                             <div class="col-lg-9 col-9" *ngIf="product_data?.maintenance_charge_status == '1'">
                                 <!-- <hr> -->
@@ -1504,10 +1524,13 @@
                                 <h6><strong>{{commaSeperated(product_data?.expected_rent)}}</strong></h6>
                             </div>
                             <div class="col-lg-9 col-9">
-                                <h6>Security Deposit ({{product_data?.security_deposit}} Month Rent): </h6>
+                                <h6>Security Deposit (<span *ngIf="product_data?.security_deposit == 0">No Security</span><span *ngIf="product_data?.security_deposit > 0">{{product_data?.security_deposit}} Month Rent</span>): </h6>
                             </div>
                             <div class="col-lg-3 col-3">
-                                <h6><strong>{{commaSeperated(security_dep_amount)}}</strong></h6>
+                                <h6>
+                                    <strong *ngIf="product_data?.security_deposit == 0">NA</strong>
+                                    <strong *ngIf="product_data?.security_deposit > 0">{{commaSeperated(security_dep_amount)}}</strong>
+                                </h6>
                             </div>
                             <div class="col-lg-9 col-9" *ngIf="product_data?.maintenance_charge_status == '1'">
                                 <!-- <hr> -->
