@@ -7,10 +7,13 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { JwtService } from 'src/app/user/services/jwt.service';
 import { CommonService } from '../../services/common.service';
 import { ToastrService } from 'ngx-toastr';
+import { UserLogsService } from '../../services/user-logs.service';
 import { UserReviewModalComponent } from '../../modals/user-review-modal/user-review-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ClipboardService } from 'ngx-clipboard';
 import { LoginCheckComponent } from '../../modals/login-check/login-check.component';
+import { UserVisitPopupComponent } from '../../modals/user-visit-popup/user-visit-popup.component';
+
 import { MobileCheckComponent } from '../../modals/mobile-check/mobile-check.component';
 
 @Component({
@@ -60,6 +63,7 @@ export class ProductPageComponent implements OnInit {
   constructor(
     private _sanitizer: DomSanitizer,
      private route:ActivatedRoute,
+     private UserLogsService:UserLogsService,
      private ProductPageService: ProductPageService,
      private jwtService: JwtService,
      public CommonService:CommonService,
@@ -79,6 +83,44 @@ export class ProductPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if(this.jwtService.getToken()){
+      this.returnUrl = this.router.url;
+      this.jwtService.saveReturnURL(this.returnUrl);
+    }else{
+      setTimeout(() => {
+        this.visit_user();
+      }, 15000);
+
+    }
+  }
+  
+  visit_user(){
+    let ip_address:any = this.UserLogsService.getIpAddress();
+    let param={ip_address:ip_address}
+    this.UserLogsService.user_feedback_details(param).subscribe(
+      response => {
+        let data:any=response;
+        if(data.data.length<1){
+          this.openModal_feedback();
+        }
+      }, err => { 
+        let Message =err.error.message;
+      }
+    );
+  }
+  
+  openModal_feedback() {
+    const modalRef = this.modalService.open(UserVisitPopupComponent,
+      {
+        scrollable: true,
+        windowClass: 'myCustomModalClass',
+        // keyboard: false,
+         backdrop: 'static'
+      });
+   modalRef.result.then((result) => {
+      //console.log(result);
+    }, (reason) => {
+    });
   }
   // fetch amenties advance tab
   single_product_details(id: number) {

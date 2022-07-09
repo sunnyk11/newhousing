@@ -46,6 +46,8 @@ export class ProPaymentSummaryComponent implements OnInit {
   public online_pay_btn: boolean = true;
   public cash_pay_btn: boolean = false;
   public mode_payment: any = 'Online';
+  public rent_aggrement_price:number=0;
+  public plan_aggrement_price:any;
 
   private user_phone_data: any;
   public returnUrl: string = '';
@@ -142,6 +144,7 @@ export class ProPaymentSummaryComponent implements OnInit {
       response => {
         this.showLoadingIndicator = false;
         this.rent_feat_res = response;
+        console.log(this.rent_feat_res);
       },
       err => {
         this.showLoadingIndicator = false;
@@ -150,9 +153,19 @@ export class ProPaymentSummaryComponent implements OnInit {
   }
 
   plan_payment(plan_name:any, plan_id:any, payment_type:any, plan_type:any, expected_rent:any, price_duration_actual: any, price_duration_discount:any, plan_features: any) {
-    //console.log(plan_name, plan_id, payment_type, plan_type, expected_rent, price_duration);
+    // console.log(plan_name, plan_id, payment_type, plan_type, expected_rent, price_duration_discount,plan_features);
+    // console.log(plan_features?.features.length);
+    this.rent_aggrement_price=0;
+    for(let i=0; i< plan_features?.features.length; i++){
+      if(plan_features?.features[i].feature_name=='Rent Agreement'){
+        if(plan_features?.features[i].feature_value>=0){
+          this.rent_aggrement_price=plan_features?.features[i].feature_value;            
+         }
+      }
+
+    }
     this.plan_name = plan_name;
-    if(price_duration_discount) {
+    if(price_duration_discount>=0) {
       this.plan_price = Math.round(expected_rent / (30 / price_duration_discount));
     }
     else {
@@ -165,12 +178,13 @@ export class ProPaymentSummaryComponent implements OnInit {
     this.expected_rent = expected_rent;
     this.property_name = this.product_data[0].build_name;
     this.property_id = this.product_data[0].id;
-    this.sgst_amount = Math.round((9 * this.plan_price) / 100);
-    this.cgst_amount = Math.round((9 * this.plan_price) / 100);
+    this.plan_aggrement_price= this.plan_price + this.rent_aggrement_price;
+    this.sgst_amount = Math.round((9 * this.plan_aggrement_price) / 100);
+    this.cgst_amount = Math.round((9 * this.plan_aggrement_price) / 100);
     this.maintenance_charge = this.product_data[0].maintenance_charge;
     this.security_deposit = this.product_data[0].security_deposit;
     this.security_dep_amount = this.expected_rent * this.security_deposit;
-    this.total_amount_hs = this.plan_price + this.sgst_amount + this.cgst_amount;
+    this.total_amount_hs = this.plan_aggrement_price + this.sgst_amount + this.cgst_amount;
     this.maintenance_charge = this.product_data[0].maintenance_charge;
     //console.log(this.maintenance_charge);
     if (this.maintenance_charge) {
@@ -267,6 +281,7 @@ export class ProPaymentSummaryComponent implements OnInit {
       this.openModal();
     }
   }
+  
 
   createPaytmForm() {
     const my_form: any = document.createElement('form');
@@ -325,6 +340,7 @@ export class ProPaymentSummaryComponent implements OnInit {
     });
   }
 
+  
   openMobModal() {
     const modalRef = this.modalService.open(MobileCheckComponent,
       {
@@ -358,7 +374,7 @@ export class ProPaymentSummaryComponent implements OnInit {
     }, (reason) => {
     });
   }
-
+  
   generateInvoice() {
     this.showLoadingIndicator = true;
     //console.log("Generate Invoice");
@@ -428,4 +444,5 @@ export class ProPaymentSummaryComponent implements OnInit {
     }
   }
 
+  
 }

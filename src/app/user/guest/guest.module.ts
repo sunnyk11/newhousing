@@ -63,6 +63,8 @@ import { ThankYouComponent } from './components/thank-you/thank-you.component';
 import { UserReviewsComponent } from './components/user-reviews/user-reviews.component';
 import { VerifyMobileSuccessComponent } from './components/verify-mobile-success/verify-mobile-success.component';
 import { ContactSubmitComponent } from './components/contact-submit/contact-submit.component';
+import { UserVisitPopupComponent } from './modals/user-visit-popup/user-visit-popup.component';
+import { VisitUserThankComponent } from './components/visit-user-thank/visit-user-thank.component';
 // import { NotfoundComponentComponent } from '../components/notfound-component/notfound-component.component';
 @NgModule({
   declarations: [
@@ -116,6 +118,8 @@ import { ContactSubmitComponent } from './components/contact-submit/contact-subm
     UserReviewsComponent,
     VerifyMobileSuccessComponent,
     ContactSubmitComponent,
+    UserVisitPopupComponent,
+    VisitUserThankComponent,
   ],
   imports: [
     CommonModule,

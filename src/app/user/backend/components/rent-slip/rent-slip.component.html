@@ -56,8 +56,13 @@
                         <tr>
                             <th>2</th>
                             <td>Security Deposit</td>
-                            <td>{{ property_details?.security_deposit }} Month</td>
-                            <td>&#8377; {{security_dep_amount}}</td>
+                            <td>
+                                <span  *ngIf="property_details?.security_deposit == 0">No Security</span>
+                                <span  *ngIf="property_details?.security_deposit > 0"> {{ property_details?.security_deposit }} Month</span>
+                            </td>
+                            <td>
+                                 <span  *ngIf="property_details?.security_deposit == 0">NA</span>
+                                 <span  *ngIf="property_details?.security_deposit > 0">&#8377; {{security_dep_amount}}</span> </td>
                         </tr>
                         <tr *ngIf="property_details?.maintenance_charge_status == '1'">
                             <th>3</th>

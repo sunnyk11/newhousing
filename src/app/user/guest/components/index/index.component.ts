@@ -8,9 +8,13 @@ import { IndexPageService } from '../../services/index-page.service';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { UserLogsService } from '../../services/user-logs.service';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { environment } from 'src/environments/environment';
 import { JwtService } from 'src/app/user/services/jwt.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { UserVisitPopupComponent } from '../../modals/user-visit-popup/user-visit-popup.component';
+// import { BankDetailsModalComponent } from '../../modals/bank-details-modal/bank-details-modal.component';
 
 @Component({
   selector: 'app-index',
@@ -74,9 +78,11 @@ export class IndexComponent implements OnInit {
   constructor(
     private CommonService:CommonService,
     private formBuilder: FormBuilder,
+    private modalService: NgbModal,
     private indexPageService: IndexPageService,
     private toastr: ToastrService,
     private jwtService: JwtService,
+    private UserLogsService:UserLogsService,
     private router:Router
   ) { }
 
@@ -95,7 +101,42 @@ export class IndexComponent implements OnInit {
     if(this.jwtService.getToken()){
       this.returnUrl = this.router.url;
       this.jwtService.saveReturnURL(this.returnUrl);
+    }else{
+      setTimeout(() => {
+        this.visit_user();
+      }, 15000);
+
     }
+    
+  }
+  visit_user(){
+    let ip_address:any = this.UserLogsService.getIpAddress();
+    let param={ip_address:ip_address}
+    this.UserLogsService.user_feedback_details(param).subscribe(
+      response => {
+        let data:any=response;
+        if(data.data.length<1){
+          this.openModal_feedback();
+        }
+      }, err => { 
+        let Message =err.error.message;
+      }
+    );
+
+  }
+  
+  openModal_feedback() {
+    const modalRef = this.modalService.open(UserVisitPopupComponent,
+      {
+        scrollable: true,
+        windowClass: 'myCustomModalClass',
+        // keyboard: false,
+         backdrop: 'static'
+      });
+   modalRef.result.then((result) => {
+      //console.log(result);
+    }, (reason) => {
+    });
   }
   // fetch amenties advance tab
   getAmenities(){

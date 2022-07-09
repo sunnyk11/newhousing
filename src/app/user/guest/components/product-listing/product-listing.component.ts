@@ -10,9 +10,13 @@ import { JwtService } from 'src/app/user/services/jwt.service';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { map, startWith } from 'rxjs/operators';
 import { Pagination } from 'src/app/user/components/models/pagination.model';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
+import { UserLogsService } from '../../services/user-logs.service';
+import { UserVisitPopupComponent } from '../../modals/user-visit-popup/user-visit-popup.component';
+
 
 @Component({
   selector: 'app-product-listing',
@@ -118,6 +122,8 @@ export class ProductListingComponent implements OnInit {
     private formBuilder: FormBuilder,
     // private mapsAPILoader: MapsAPILoader,
     // private ngZone:NgZone,
+     private modalService: NgbModal,
+     private UserLogsService:UserLogsService,
     private jwtService: JwtService,
     private toastr: ToastrService,
     private router:Router
@@ -163,8 +169,43 @@ export class ProductListingComponent implements OnInit {
       }
      
      this.isLoggedIn=true;
+    }else{
+      setTimeout(() => {
+        this.visit_user();
+      }, 15000);
+
     }
     this.selectedItems = new Array<string>();
+  }
+  
+  
+  visit_user(){
+    let ip_address:any = this.UserLogsService.getIpAddress();
+    let param={ip_address:ip_address}
+    this.UserLogsService.user_feedback_details(param).subscribe(
+      response => {
+        let data:any=response;
+        if(data.data.length<1){
+          this.openModal_feedback();
+        }
+      }, err => { 
+        let Message =err.error.message;
+      }
+    );
+  }
+  
+  openModal_feedback() {
+    const modalRef = this.modalService.open(UserVisitPopupComponent,
+      {
+        scrollable: true,
+        windowClass: 'myCustomModalClass',
+        // keyboard: false,
+         backdrop: 'static'
+      });
+   modalRef.result.then((result) => {
+      //console.log(result);
+    }, (reason) => {
+    });
   }
   // fetch amenties advance tab
   getAmenities(){

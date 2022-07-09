@@ -42,4 +42,12 @@ export class UserLogsService {
     const route = "/api/auth/user_logs";
     return this.apiService.post<ResultModel>(route, reqModel);
   }
+  visiter_user(reqModel: any): Observable<ResultModel> {
+    const route = "/api/user_feedback_store";
+    return this.apiService.post<ResultModel>(route, reqModel);
+  }
+  user_feedback_details(reqModel: any): Observable<ResultModel> {
+    const route = "/api/user_feedback_details";
+    return this.apiService.post<ResultModel>(route, reqModel);
+  }
 }
