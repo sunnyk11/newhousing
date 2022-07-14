@@ -37,6 +37,23 @@
                                                 </div>
                                             </div>
                                         </li>
+                                        <li>
+                                            <div class="search_option_two">
+                                                <div class="candidate_revew_select">
+                                                    <select class="form-select w100 show-tick" name="security_deposit" formControlName="security_deposit" id="security_deposit">
+                                                        <option value ="" selected>Select Security Deposit</option>
+                                                        <option value="0">No Security</option>
+                                                        <option value="0.5">15 Days</option>
+                                                        <option value="1">1 Month Rent</option>
+                                                        <option value="2">2 Month Rent</option>
+                                                        <option value="3">3 Month Rent</option>
+                                                        <option value="4">4 Month Rent</option>
+                                                        <option value="5">5 Month Rent</option>
+                                                        <option value="6">6 Month Rent</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </li>
                                         <li class="search_area">
                                             <div class="form-group mb20">
                                                 <!-- <input type="text" class="form-control input-text" name="name" formControlName="build_name" id="build_name" (ngModelChange)="get_locality($event)" placeholder="Enter keywords..."> -->
@@ -122,6 +139,23 @@
                                                     <select class="form-select w100 show-tick" name="type" formControlName="type" id="type">
                                                         <option value ="" selected>Select Property Type</option>
                                                         <option  *ngFor="let properrt_category of category?.data" [value]="properrt_category?.category?.property__type?.name" >{{properrt_category?.category?.property__type?.name}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="search_option_two">
+                                                <div class="candidate_revew_select">
+                                                    <select class="form-select w100 show-tick" name="security_deposit" formControlName="security_deposit" id="security_deposit">
+                                                        <option value ="" selected>Select Security Deposit</option>
+                                                        <option value="0">No Security</option>
+                                                        <option value="0.5">15 Days</option>
+                                                        <option value="1">1 Month Rent</option>
+                                                        <option value="2">2 Month Rent</option>
+                                                        <option value="3">3 Month Rent</option>
+                                                        <option value="4">4 Month Rent</option>
+                                                        <option value="5">5 Month Rent</option>
+                                                        <option value="6">6 Month Rent</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -340,6 +374,23 @@
                                             </div>
                                         </div>
                                     </li>
+                                    <li>
+                                        <div class="search_option_two">
+                                            <div class="candidate_revew_select">
+                                                <select class="form-select w100 show-tick" name="security_deposit" formControlName="security_deposit" id="security_deposit">
+                                                    <option value ="" selected>Select Security Deposit</option>
+                                                    <option value="0">No Security</option>
+                                                    <option value="0.5">15 Days</option>
+                                                    <option value="1">1 Month Rent</option>
+                                                    <option value="2">2 Month Rent</option>
+                                                    <option value="3">3 Month Rent</option>
+                                                    <option value="4">4 Month Rent</option>
+                                                    <option value="5">5 Month Rent</option>
+                                                    <option value="6">6 Month Rent</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </li>
                                     <li class="search_area">
                                         <div class="form-group mb20">
                                             <!-- <input type="text" class="form-control input-text" name="name" formControlName="build_name" id="build_name" (ngModelChange)="get_locality($event)" placeholder="Enter keywords..."> -->
@@ -437,6 +488,23 @@
                                                 <select class="form-select w100 show-tick" name="type" formControlName="type" id="type">
                                                     <option value ="" selected>Select Property Type</option>
                                                     <option  *ngFor="let properrt_category of category?.data" [value]="properrt_category?.category?.property__type?.name" >{{properrt_category?.category?.property__type?.name}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="search_option_two">
+                                            <div class="candidate_revew_select">
+                                                <select class="form-select w100 show-tick" name="security_deposit" formControlName="security_deposit" id="security_deposit">
+                                                    <option value ="" selected>Select Security Deposit</option>
+                                                    <option value="0">No Security</option>
+                                                    <option value="0.5">15 Days</option>
+                                                    <option value="1">1 Month Rent</option>
+                                                    <option value="2">2 Month Rent</option>
+                                                    <option value="3">3 Month Rent</option>
+                                                    <option value="4">4 Month Rent</option>
+                                                    <option value="5">5 Month Rent</option>
+                                                    <option value="6">6 Month Rent</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -764,15 +832,21 @@
                                             <span *ngIf="number.product_locality != null">{{ number?.product_locality?.locality | titlecase }}</span>
                                             <span *ngIf="number.product_state != null">({{ number?.product_state?.state | titlecase }})</span>
                                         </p>
+                                            <p style="margin-bottom:0px;">
+                                                <span *ngIf="number?.security_deposit >=1" style="color: #000;"><a>Security : {{number?.security_deposit}} Month Rent</a></span>
+                                                <span *ngIf="number?.security_deposit ==0.5" style="color: #000;"><a>Security: 15 Days  </a></span>
+                                                <span *ngIf="number?.security_deposit == 0" style="color: #000;"><a>Security: No Security </a></span> 
+                                            </p>
                                         <ul class="prop_details mb0">
                                             <li class="list-inline-item first"><a>Bedrooms: {{ number?.bedroom }}</a></li>
                                             <li class="list-inline-item second"><a>Area: {{number?.area }}({{number?.property_area_unit?.unit}})</a></li>
+                                            
                                         </ul>
                                         <ul class="prop_details mb0">
                                             <li class="list-inline-item first"><a>Bathrooms: {{ number?.bathroom }}</a></li>
-                                            <li class="list-inline-item second"><a>Available From: {{number?.available_for | date: ' d MMM y' }}</a></li>
+                                            <li class="list-inline-item second" *ngIf="number?.available_for"><a>Available From: {{number?.available_for | date: ' d MMM y' }}</a></li>
                                         
-                                        </ul>                                       
+                                        </ul>                                    
                                 
                                         <ul class="prop_details mb0"   *ngIf="access_search_bar == true" >
                                             <li class="list-inline-item" id="planaccess">

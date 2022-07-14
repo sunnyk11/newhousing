@@ -227,7 +227,7 @@
                                     </div>
                                     <div class="col-md-6 col-lg-6">
                                         <ul class="list-inline-item">
-                                            <li *ngIf='product_data?.security_deposit'>
+                                            <li >
                                                 <p>Security Deposit:</p>
                                             </li>
                                             
@@ -242,10 +242,11 @@
                                             </li>
                                         </ul>
                                         <ul class="list-inline-item">
-                                            <li *ngIf='product_data?.security_deposit'>
+                                            <li>
                                                 <p>
-                                                    <span *ngIf='product_data?.security_deposit == 0'>NA</span>
-                                                    <span *ngIf='product_data?.security_deposit > 0'>{{product_data?.security_deposit}} Month Rent</span>
+                                                    <span *ngIf="product_data?.security_deposit >=1" ><a> {{product_data?.security_deposit}} Month Rent</a></span>
+                                                    <span *ngIf="product_data?.security_deposit ==0.5"><a> 15 Days  </a></span>
+                                                    <span *ngIf="product_data?.security_deposit == 0"><a> No Security </a></span> 
                                                 </p>
                                             </li>
                                             <li>
@@ -1067,7 +1068,7 @@
                                     </div>
                                     <div class="col-md-6 col-lg-6">
                                         <ul class="list-inline-item">
-                                            <li *ngIf='product_data?.security_deposit'>
+                                            <li >
                                                 <p>Security Deposit:</p>
                                             </li>
                                             <li>
@@ -1078,8 +1079,12 @@
                                             </li>
                                         </ul>
                                         <ul class="list-inline-item">
-                                            <li *ngIf='product_data?.security_deposit'>
-                                                <p><span>{{product_data?.security_deposit}} Month Rent</span></p>
+                                            <li>
+                                                <p> 
+                                                    <span *ngIf="product_data?.security_deposit >=1"><a>{{product_data?.security_deposit}} Month Rent</a></span>
+                                                    <span *ngIf="product_data?.security_deposit ==0.5"><a>15 Days  </a></span>
+                                                    <span *ngIf="product_data?.security_deposit == 0"><a> No Security </a></span> 
+                                                </p>
                                             </li>
                                             <li>
                                                 <p><span *ngIf="product_data?.expected_rent != null">₹
