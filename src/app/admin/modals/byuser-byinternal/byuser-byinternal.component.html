@@ -1,0 +1,71 @@
+<div>    
+    <div class="modal-header">
+        <h5 class="modal-title">User Details: {{user_name}}</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" (click)="closeModal('dismiss')" >
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="UserForm" >
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">User Name:</span>
+                <input type="text" class="form-control" placeholder="" formControlName="userName" [ngClass]="{ 'is-invalid': submitted && f.userName.errors }">
+            </div>
+            <div class="input-group mb-3">
+                <div class="row">
+                    <div class="col-lg-10 col-12" style="display: flex;">    
+                        <span class="input-group-text" id="basic-addon1">Email Add:  </span>
+                        <input type="text" class="form-control" placeholder="" formControlName="email"  [ngClass]="{ 'is-invalid': submitted && f.email.errors }" (keypress)="keyPressNumbers1($event)" (paste)="onPaste($event)" readonly >
+                   </div>
+                    <div class="col-lg-2 col-12">
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="user_details_email()">
+                            Edit
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="input-group mb-3">
+                <div class="row">
+                    <div class="col-lg-10 col-12" style="display: flex;">
+                        <span class="input-group-text" id="basic-addon1">Mobile No:</span>
+                        <input type="text" class="form-control" placeholder="" formControlName="other_mobile_number" [ngClass]="{ 'is-invalid': submitted && f.other_mobile_number.errors }" (keypress)="keyPressNumbers1($event)" (paste)="onPaste($event)" readonly>
+                    </div>
+                    <div class="col-lg-2 col-12">
+                        <button type="button" class="btn btn-primary"  (click)="user_details_phone()">
+                            Edit
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group mb-3">
+                    <label class="input-group-text" for="inputGroupSelect01">Gender</label>
+                    <select class="form-select" id="inputGroupSelect01" formControlName="gender" [ngClass]="{ 'is-invalid': submitted && f.gender.errors }" name="gender" required>
+                        <option value="" selected>Please Select Gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                    <div *ngIf="submitted && f.gender.errors" class="invalid-feedback">
+                        <div *ngIf="f.gender.errors.required">Please select the Gender</div>
+                    </div>
+                </div>
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group mb-3">
+                    <label class="input-group-text" for="inputGroupSelect01">User Type</label>
+                    <select class="form-select" id="inputGroupSelect01" formControlName="UserType" [ngClass]="{ 'is-invalid': submitted && f.UserType.errors }" name="UserType" required>
+                        <option value="">Select User Type</option>
+                        <option value="5">Renter</option>
+                        <option value="4">Property Owner</option>
+                    </select>
+                    <div *ngIf="submitted && f.UserType.errors" class="invalid-feedback">
+                        <div *ngIf="f.UserType.errors.required">Please select the User Type</div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="onUpdateSubmit()" >Update Details</button>
+    </div>
+</div>

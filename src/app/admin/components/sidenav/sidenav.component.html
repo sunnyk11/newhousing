@@ -57,6 +57,20 @@
             <a mat-list-item (click)="view_all_users()">View Users</a>
         </mat-nav-list>
     </mat-expansion-panel>
+
+    <mat-expansion-panel *ngIf="LoggedIn && (access_create_userbyinternal || access_view_userByinternal || access_update_userByinternal || access_delete_userByinternal)">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                User List By Internal
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-nav-list>
+            <a mat-list-item (click)="create_useryByInternal()" *ngIf="access_create_userbyinternal">Create User</a>
+            <a mat-list-item (click)="user_list_byInternal()" *ngIf="access_view_userByinternal || access_update_userByinternal || access_delete_userByinternal">User List</a>
+            <!-- <a mat-list-item (click)="update_service_user()">Update User</a> -->
+        </mat-nav-list>
+    </mat-expansion-panel>
+
     <mat-expansion-panel *ngIf="LoggedIn && access_reviews">
         <mat-expansion-panel-header>
             <mat-panel-title>

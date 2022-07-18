@@ -25,6 +25,10 @@ export class SidenavComponent implements OnInit {
   public access_bank_details: boolean = false;
   public data_export:boolean=false;
   public visit_user_feedback:boolean=false;
+  public access_create_userbyinternal:boolean=false;
+  public access_view_userByinternal:boolean=false;
+  public access_update_userByinternal:boolean=false;
+  public access_delete_userByinternal:boolean=false;
 
   private user_id: any;
   public permissions_response: any;
@@ -104,6 +108,16 @@ export class SidenavComponent implements OnInit {
     this.sidenavClose.emit();
     this.router.navigate(['/admin/create-services-user']);
   }
+  
+  create_useryByInternal() {
+    this.sidenavClose.emit();
+    this.router.navigate(['/admin/create-user-internal']);
+  }
+  
+  user_list_byInternal() {
+    this.sidenavClose.emit();
+    this.router.navigate(['/admin/user-list-internal']);
+  }
 
   view_all_users() {
     this.sidenavClose.emit();
@@ -150,6 +164,11 @@ export class SidenavComponent implements OnInit {
       this.access_bank_details = false;
       this.data_export=false;
       this.visit_user_feedback=false;
+      
+      this.access_create_userbyinternal=false;
+      this.access_view_userByinternal=false;
+      this.access_update_userByinternal=false;
+      this.access_delete_userByinternal=false;
 
     this.user_id = this.jwtService.getAdminId();
     //console.log(this.user_id);
@@ -166,6 +185,10 @@ export class SidenavComponent implements OnInit {
       this.access_bank_details = true;
       this.data_export=true;
       this.visit_user_feedback=true;
+      this.access_create_userbyinternal=true;
+      this.access_view_userByinternal=true;
+      this.access_update_userByinternal=true;
+      this.access_delete_userByinternal=true;
 
     }
     else if(this.user_id) {
@@ -185,7 +208,16 @@ export class SidenavComponent implements OnInit {
           this.access_la_service_provider = this.permissions_response.includes('access_local_area_service_provider');
           this.access_manage_blog = this.permissions_response.includes('access_manage_blog');
           this.access_bank_details = this.permissions_response.includes('access_bank_details');
-  
+
+          
+          this.access_create_userbyinternal = this.permissions_response.includes('access_create_userbyinternal');
+          this.access_view_userByinternal = this.permissions_response.includes('access_view_userByinternal');
+          this.access_update_userByinternal = this.permissions_response.includes('access_update_userByinternal');
+          this.access_delete_userByinternal = this.permissions_response.includes('access_delete_userByinternal');
+          if(this.access_update_userByinternal || this.access_delete_userByinternal){
+            this.access_view_userByinternal=true;
+          }
+
         },
         err => {
           console.log(err);

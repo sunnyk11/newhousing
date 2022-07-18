@@ -24,6 +24,8 @@ import { BlogSinglePostComponent } from './components/blog-single-post/blog-sing
 import { ViewInternalUsersComponent } from './components/view-internal-users/view-internal-users.component';															
 import { DataExportComponent } from './components/data-export/data-export.component';
 import { VisitUserFeedbackComponent } from './components/visit-user-feedback/visit-user-feedback.component';
+import { CreateUserInternalComponent} from './components/create-user-internal/create-user-internal.component';
+import {UserListInternalComponent} from './components/user-list-internal/user-list-internal.component';
 import { NotfoundComponentComponent } from '../user/components/notfound-component/notfound-component.component';
 
 const routes: Routes = [
@@ -94,6 +96,15 @@ const routes: Routes = [
       { path: 'visit-user-feedback', component: VisitUserFeedbackComponent, canActivate: [AuthGuard, PermissionGuard],data: {
         permission: ['visit_user_feedback']
       }},
+      
+      { path: 'create-user-internal', component: CreateUserInternalComponent, canActivate: [AuthGuard, PermissionGuard],data: {
+        permission: ['access_create_userbyinternal']
+      }},
+      
+      { path: 'user-list-internal', component: UserListInternalComponent, canActivate: [AuthGuard, PermissionGuard],data: {
+        permission: ['access_view_userByinternal']
+      }},
+      
       
       {path: '**', component: NotfoundComponentComponent}
     ]
