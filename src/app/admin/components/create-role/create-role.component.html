@@ -27,7 +27,7 @@
                         Choose Permissions
                     </div>
 
-                    <div class="form-check col-lg-6 ps-4" formArrayName="permissionsArray" *ngFor="let permission of permissions_data?.data; let i = index">
+                    <div class="form-check col-lg-4 ps-4" formArrayName="permissionsArray" *ngFor="let permission of permissions_data?.data; let i = index">
                         <input class="form-check-input" type="checkbox" id="{{permission.id}}" [formControlName]="permission.permission_name" >
                         <label class="form-check-label" for="{{permission.id}}" >
                             {{permission.description}}

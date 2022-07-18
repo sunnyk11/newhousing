@@ -94,6 +94,7 @@ export class CreateUserComponent implements OnInit {
     this.submitted = true;
     //console.log(this.UserForm);
     if (this.UserForm.invalid) {
+      this.showLoadingIndicator = false;
       return;
     }
     this.rolesService.createUser(this.UserForm.value).subscribe(

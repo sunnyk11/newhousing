@@ -44,7 +44,11 @@ import { GuestModule } from '../user/guest/guest.module';
 import { ViewInternalUsersComponent } from './components/view-internal-users/view-internal-users.component';
 import { DataExportComponent } from './components/data-export/data-export.component';
 import { VisitUserFeedbackComponent } from './components/visit-user-feedback/visit-user-feedback.component';
-
+import { CreateUserInternalComponent } from './components/create-user-internal/create-user-internal.component';
+import { UserListInternalComponent } from './components/user-list-internal/user-list-internal.component';
+import { ByuserByinternalComponent } from './modals/byuser-byinternal/byuser-byinternal.component';
+import { UserMobileUpdateComponent } from './modals/user-mobile-update/user-mobile-update.component';
+import { UserEmailUpdateComponent } from './modals/user-email-update/user-email-update.component';
 @NgModule({
   declarations: [
     LoginComponent,
@@ -72,7 +76,12 @@ import { VisitUserFeedbackComponent } from './components/visit-user-feedback/vis
     BlogSinglePostComponent,
     ViewInternalUsersComponent,
     DataExportComponent,
-    VisitUserFeedbackComponent
+    VisitUserFeedbackComponent,
+    CreateUserInternalComponent,
+    UserListInternalComponent,
+    ByuserByinternalComponent,
+    UserMobileUpdateComponent,
+    UserEmailUpdateComponent
   ],
   imports: [
     CommonModule,
