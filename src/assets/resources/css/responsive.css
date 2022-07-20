@@ -14,6 +14,10 @@
     .flaticon-maps-and-flags{
         display: none!important;
     }
+    section {
+        padding: 60px 0px!important;
+        position: relative;
+    }
     .main-banner-wrapper .ng-image-slider .ng-image-slider-container .main .main-inner .img-div img{
         height: 60%!important;
     }

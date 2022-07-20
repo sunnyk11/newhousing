@@ -49,6 +49,7 @@ import { UserListInternalComponent } from './components/user-list-internal/user-
 import { ByuserByinternalComponent } from './modals/byuser-byinternal/byuser-byinternal.component';
 import { UserMobileUpdateComponent } from './modals/user-mobile-update/user-mobile-update.component';
 import { UserEmailUpdateComponent } from './modals/user-email-update/user-email-update.component';
+import { OfferBannerComponent } from './components/offer-banner/offer-banner.component';
 @NgModule({
   declarations: [
     LoginComponent,
@@ -81,7 +82,8 @@ import { UserEmailUpdateComponent } from './modals/user-email-update/user-email-
     UserListInternalComponent,
     ByuserByinternalComponent,
     UserMobileUpdateComponent,
-    UserEmailUpdateComponent
+    UserEmailUpdateComponent,
+    OfferBannerComponent,
   ],
   imports: [
     CommonModule,

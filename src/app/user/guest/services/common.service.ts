@@ -131,6 +131,10 @@ export class CommonService {
     const route = "/api/auth/user";
     return this.apiService.get<ResultModel>(route);
   }
+  getoffer_banner(): Observable<ResultModel> {
+    const route = "/api/getoffer_banner_web";
+    return this.apiService.get<ResultModel>(route);
+  }
   user_reviews(reqModel:any): Observable<ResultModel> {
     const route = "/api/product/post_review";
     return this.apiService.post<ResultModel>(route, reqModel);

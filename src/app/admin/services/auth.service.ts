@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { ResultModel } from 'src/app/user/models/response/base.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,7 @@ export class AuthService {
     this.login_check.next({ text:message, token: token });
   }
 
+  
   getUpdate(): Observable<any> {
     return this.login_check.asObservable();
   }

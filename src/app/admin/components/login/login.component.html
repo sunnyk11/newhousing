@@ -52,7 +52,7 @@
                             <button class="btn btn-thm btn-block btn-lg px-5" type="submit">Login</button>
                         </form>
 
-                        <div class="alert alert-danger mt20" role="alert" *ngIf="ngForm.submitted && LoginFailed">
+                        <div class="alert alert-danger mt20" role="alert" *ngIf="submitted && LoginFailed">
                             Login failed: {{ errorMessage }}
                         </div>
                         <div class="alert alert-danger" role="alert" *ngIf="ngForm.submitted && LoginFailed">

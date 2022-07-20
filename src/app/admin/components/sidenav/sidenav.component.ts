@@ -29,6 +29,7 @@ export class SidenavComponent implements OnInit {
   public access_view_userByinternal:boolean=false;
   public access_update_userByinternal:boolean=false;
   public access_delete_userByinternal:boolean=false;
+  public access_web_Banner:boolean=false;
 
   private user_id: any;
   public permissions_response: any;
@@ -128,6 +129,11 @@ export class SidenavComponent implements OnInit {
     this.sidenavClose.emit();
     this.router.navigate(['/admin/user-reviews']);
   }
+  
+  access_Banner() {
+    this.sidenavClose.emit();
+    this.router.navigate(['/admin/offer-banner']);
+  }
 
   bank_details() {
     this.sidenavClose.emit();
@@ -164,6 +170,7 @@ export class SidenavComponent implements OnInit {
       this.access_bank_details = false;
       this.data_export=false;
       this.visit_user_feedback=false;
+      this.access_web_Banner=false;
       
       this.access_create_userbyinternal=false;
       this.access_view_userByinternal=false;
@@ -179,6 +186,7 @@ export class SidenavComponent implements OnInit {
       this.access_user_creator = true;
 
       this.access_all_users = true;
+      this.access_web_Banner=true;
       this.access_reviews = true;
       this.access_la_service_provider = true;
       this.access_manage_blog = true;
@@ -208,6 +216,7 @@ export class SidenavComponent implements OnInit {
           this.access_la_service_provider = this.permissions_response.includes('access_local_area_service_provider');
           this.access_manage_blog = this.permissions_response.includes('access_manage_blog');
           this.access_bank_details = this.permissions_response.includes('access_bank_details');
+          this.access_web_Banner = this.permissions_response.includes('access_web_Banner');
 
           
           this.access_create_userbyinternal = this.permissions_response.includes('access_create_userbyinternal');
