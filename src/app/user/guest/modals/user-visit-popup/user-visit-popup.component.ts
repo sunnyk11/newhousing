@@ -68,11 +68,11 @@ export class UserVisitPopupComponent implements OnInit {
         this.UserLogsService.visiter_user(this.feedbackform.value).subscribe(
           response => {
             let data:any=response;
-            if(data.status==201){
+            // if(data.status==201){
               this.activeModal.close(' ');
               this.showLoadingIndicator=false;
              this.router.navigate(['/visit-user-thank-you']);
-            }
+            // }
           });
       }
 

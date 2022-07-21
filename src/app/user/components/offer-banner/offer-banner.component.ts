@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonService } from '../../guest/services/common.service';
-import { timer } from 'rxjs';
 
 @Component({
   selector: 'app-offer-banner',
