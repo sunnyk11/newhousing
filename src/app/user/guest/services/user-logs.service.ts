@@ -46,6 +46,10 @@ export class UserLogsService {
     const route = "/api/user_feedback_store";
     return this.apiService.post<ResultModel>(route, reqModel);
   }
+  user_block_status(): Observable<ResultModel> {
+    const route = "/api/auth/user_block_status";
+    return this.apiService.get<ResultModel>(route);
+  }
   user_feedback_details(reqModel: any): Observable<ResultModel> {
     const route = "/api/user_feedback_details";
     return this.apiService.post<ResultModel>(route, reqModel);

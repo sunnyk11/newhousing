@@ -11,6 +11,7 @@ export class LogoutComponent implements OnInit {
 
   public LoggedIn: boolean = false;
   public token: string=' ';
+  public user_blocked_status:boolean=false;
 
   constructor(
     private jwtService: JwtService,
@@ -19,6 +20,9 @@ export class LogoutComponent implements OnInit {
 
   ngOnInit(): void {
     //console.log("Log Out");
+    if(this.jwtService.getUserBlockStatus()==1){
+      this.user_blocked_status=true;
+    }
     this.jwtService.signOut();
     if(this.jwtService.isTokenAvailable()) {
       //console.log("Logout Page: Token Available");

@@ -45,6 +45,11 @@ export class MyPropertiesComponent implements OnInit {
     );
   }
   
+  product_preview(id:number,name:string){
+    const url:any = this.router.createUrlTree(['/product-preview'],{queryParams:{'id':id,'name':name}})
+      window.open(url.toString(), '_blank')
+  }
+  
   viewInvoice(invoice_no: any) {
     this.router.navigate(['/invoice'], { queryParams: { 'invoice_no': invoice_no } });
   }

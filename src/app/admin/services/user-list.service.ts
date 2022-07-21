@@ -23,6 +23,11 @@ export class UserListService {
     const route = "/api/admin/delete_user";
     return this.apiService.admin_post<ResultModel>(route, reqModel);
   }
+  user_block_status(): Observable<ResultModel> {
+    const route = "/api/admin/user_block_status";
+    return this.apiService.admin_get<ResultModel>(route);
+  }
+  
   
   get_all_user(): Promise<Pagination> {
     const route = "/api/admin/get_all_user";

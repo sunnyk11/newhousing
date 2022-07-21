@@ -43,12 +43,16 @@ export class PermissionGuard implements CanActivate {
             //console.log(response);
             this.response = response;
             this.user_permissions = this.response.permissions;
-            //console.log(this.user_permissions);
+            for(let i=0; i<this.user_permissions.length; i++){
+              if(this.user_permissions[i]=='access_update_userByinternal' ||this.user_permissions[i]=='access_delete_userByinternal'){
+                obs.next(true);
+                return;
+              }
+            }
             if(this.user_permissions.includes(this.permission[0])) {
               //console.log("exists");
               obs.next(true);
-            }
-            else {
+            }else {
               this.toastr.error('Access Denied');
               this.router.navigate(['/admin/']);
               obs.next(false);

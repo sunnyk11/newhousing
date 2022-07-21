@@ -1,0 +1,54 @@
+<div *ngFor="let data of offer_data?.data; index as i">
+    <div class="offer_banner" *ngIf="show_offer_banner1 == true && i==0" >
+        <div class="col-lg-12"> 
+        <div class="grid-container">
+            <div class="grid-item">
+                <h6>{{data?.tittle}}</h6> 
+                <p>{{data?.text}}</p>
+            </div>
+            <div class="grid-item closed">
+                <p (click)="closed1()">X</p>
+            </div>  
+        </div>
+        </div>
+    </div>
+    <div class="offer_banner2" [ngClass]="{'div_css': active2}" *ngIf="show_offer_banner2 == true && i==1" >
+        <div class="col-lg-12">  
+        <div class="grid-container">
+            <div class="grid-item">
+                <h6>{{data?.tittle}}</h6>
+                <p>{{data?.text}}</p>
+            </div>
+            <div class="grid-item closed">
+                <p (click)="closed2()">X</p>
+            </div>  
+        </div>
+        </div>
+    </div>
+    <div class="offer_banner3" [ngClass]="{'div_css': active3}"  *ngIf="show_offer_banner3 == true && i==2" >
+        <div class="col-lg-12">  
+        <div class="grid-container">
+            <div class="grid-item">
+                <h6>{{data?.tittle}}</h6>
+                <p>{{data?.text}}</p>
+            </div>
+            <div class="grid-item closed">
+                <p (click)="closed3()">X</p>
+            </div>  
+        </div>
+        </div>
+    </div>
+    <div class="offer_banner4" [ngClass]="{'div_css': active4}" *ngIf="show_offer_banner4 == true && i==3" >
+        <div class="col-lg-12">  
+        <div class="grid-container">
+            <div class="grid-item">
+                <h6>{{data?.tittle}}</h6>
+                <p>{{data?.text}}</p>
+            </div>
+            <div class="grid-item closed">
+                <p (click)="closed4()">X</p>
+            </div>  
+        </div>
+        </div>
+    </div>
+</div>

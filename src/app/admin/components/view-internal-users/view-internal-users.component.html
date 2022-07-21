@@ -24,8 +24,9 @@
                             <th scope="row">
                                 {{i+1}}
                             </th>
-                            <td>{{ user.name }}</td>
-                            <td>{{ user.email }}</td> <td>
+                            <td>{{ user.name }} {{ user.last_name }}</td>
+                            <td>{{ user.email }}</td> 
+                            <td>
                                 <label class="switch" *ngIf="user?.blocked == 0">
                                     <input type="checkbox"  (click)="user_status_changes(user?.id)" checked>
                                     <span class="slider round"></span>
@@ -74,7 +75,7 @@
                 <div class="modal-body">
                     <dl class="row">
                         <dt class="col-sm-4">User Name: </dt>
-                        <dd class="col-sm-8">{{ user_details?.name }}</dd>
+                        <dd class="col-sm-8">{{ user_name }}</dd>
                         <dt class="col-sm-4">Email: </dt>
                         <dd class="col-sm-8">{{ user_details?.email }}</dd>
                         <dt class="col-sm-4">Mobile: </dt>
@@ -100,24 +101,73 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit User Details - {{ edit_user_details?.name }}
+                    <h5 class="modal-title" id="exampleModalLabel">Edit User Details - {{ user_name | uppercase }}
                     </h5>
                     <button type="button" #closeEditModal class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form [formGroup]="EditUserForm" class="mt-4">
-                        <div class="form-check col-lg-6 ps-4" formArrayName="EditRolesArray" *ngFor="let role of roles_response; let i = index">
-                            <input class="form-check-input" id="{{role.id}}" type="checkbox" [formControlName]="role.role_name">
-                            <label class="form-check-label" for="{{role.id}}">
-                                {{role.role_name}}
-                            </label>
+                    <form [formGroup]="UserForm" style="border: 2px solid #0d6efd; padding:15px 15px">
+                        <h4 style="text-align: center; font-size:22px;border-bottom:1px solid #CCCCCC; margin-bottom: 20px;">{{ user_name | uppercase}} :Details</h4>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">User Name:</span>
+                            <input type="text" class="form-control" placeholder="" formControlName="userName" [ngClass]="{ 'is-invalid': submitted && f.userName.errors }">
                         </div>
+                        <div class="input-group mb-3">
+                               <div class="row">
+                                    <div class="col-lg-10 col-10" style="display: flex;">    
+                                        <span class="input-group-text" id="basic-addon1">Email Add:  </span>
+                                        <input type="text" class="form-control" placeholder="" formControlName="email"  [ngClass]="{ 'is-invalid': submitted && f.email.errors }" (keypress)="keyPressNumbers1($event)" (paste)="onPaste($event)" readonly >
+                                   </div>
+                                    <div class="col-lg-2 col-2">
+                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="user_details_email()">
+                                            Edit
+                                        </button>
+                                    </div>
+                                </div>  
+                             </div>
+                        <div class="input-group mb-3">
+                            <div class="row">
+                                <div class="col-lg-10 col-10" style="display: flex;">
+                                    <span class="input-group-text" id="basic-addon1">Mobile No:</span>
+                                    <input type="text" class="form-control" placeholder="" formControlName="other_mobile_number" [ngClass]="{ 'is-invalid': submitted && f.other_mobile_number.errors }" (keypress)="keyPressNumbers1($event)" (paste)="onPaste($event)" readonly>
+                                </div>
+                                <div class="col-lg-2 col-2">
+                                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="user_details_phone()">
+                                        Edit
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="border-top: 1px solid #CCCCCC ; padding: 20px 0px 0px;">
+                            
+                            <div class="col-lg-5 offset-lg-7 col-12">
+                                <button type="button" class="btn btn-primary" (click)="edit_user()">Update Details</button>
+                            </div>
+                        </div>
+                    </form>
+            
+                    <form [formGroup]="EditUserForm" class="mt-4" style="border: 2px solid #0d6efd; padding:30px">
+                        <div class="row">
+                            <h4 style="text-align: center; font-size:22px;border-bottom:1px solid #CCCCCC; margin-bottom: 20px;">{{ user_name | uppercase}} :Role</h4>
+                            <div class="form-check col-lg-6 ps-4" formArrayName="EditRolesArray" *ngFor="let role of roles_response; let i = index">
+                                <input class="form-check-input" id="{{role.id}}" type="checkbox" [formControlName]="role.role_name">
+                                <label class="form-check-label" for="{{role.id}}">
+                                    {{role.role_name }}
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row" style="border-top: 1px solid #CCCCCC ; padding: 20px 0px 0px;">
+                            
+                            <div class="col-lg-5 offset-lg-7 col-12">
+                                <button type="button" class="btn btn-primary" (click)="save_user(edit_user_details?.id)">Update Role</button>
+                            </div>
+                        </div>
+                        
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" (click)="save_user(edit_user_details?.id)">Save
-                        changes</button>
+                           
                 </div>
             </div>
         </div>

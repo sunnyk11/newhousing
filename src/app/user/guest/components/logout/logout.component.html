@@ -1,7 +1,12 @@
 <div class="wrapper_container">
-    <div class="container">
+    <div class="container" *ngIf="user_blocked_status==false">
         <div class="alert alert-success text-center mt20" role="alert">
             <h3>Logged out Successfully</h3>
+        </div>
+    </div>
+    <div class="container" *ngIf="user_blocked_status==true">
+        <div class="alert alert-success text-center mt20" role="alert">
+            <h3>Your Account is Blocked. Please Contact Admin.</h3>
         </div>
     </div>
   </div>  

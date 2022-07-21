@@ -1,0 +1,39 @@
+<div>    
+    <div class="modal-header">
+        <h5 class="modal-title">{{user_name}} -:({{email}})
+            </h5>
+        <button type="button" class="close" data-bs-dismiss="modal" (click)="closeModal('dismiss')" >
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body" >
+        <h3 style="text-align: center;">Update Email</h3>
+        <form [formGroup]="EmailForm" >
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">Email:</span>
+                <input type="text" class="form-control" placeholder="" formControlName="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }"  >
+            </div>
+            
+            <div class="alert alert-danger" *ngIf="phone_submitted && alert_phone">
+                <div>
+                    <p><strong>You cannot enter the same Email</strong></p>
+                </div>
+            </div>
+            <div class="alert alert-warning" *ngIf="phone_submitted && updateFailed">
+                <div *ngIf="errorMessage.errors && errorMessage.errors.email">
+                    <p><strong>The Email has already been taken.</strong></p>
+                </div>
+                <div *ngIf="errorMessage && errorMessage.message && !updateFailed">
+                    <p><strong>{{ errorMessage.message }}</strong></p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-12 offset-lg-4">
+                <button type="button" class="btn btn-success" (click)="onUpdateSubmit()" style="width: 150px;" >Update </button>
+            </div>
+        </form>
+    </div>
+<!--     
+    <div class="modal-footer">
+       
+    </div> -->
+</div>

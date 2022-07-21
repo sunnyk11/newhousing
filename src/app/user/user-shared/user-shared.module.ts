@@ -18,6 +18,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { MatBadgeModule } from '@angular/material/badge';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { OfferBannerComponent } from '../components/offer-banner/offer-banner.component';
 import { TopbarNotificationComponent } from '../components/topbar-notification/topbar-notification.component';
 import { MatTabsModule } from '@angular/material/tabs';
 
@@ -27,6 +28,7 @@ import { MatTabsModule } from '@angular/material/tabs';
     GuestFooterComponent,
     AgentHeaderComponent,
     AgentFooterComponent,
+    OfferBannerComponent,
     AgentSidenavComponent,
     TopbarNotificationComponent,
     SidenavListComponent
@@ -50,6 +52,7 @@ import { MatTabsModule } from '@angular/material/tabs';
     GuestFooterComponent,
     AgentHeaderComponent,
     AgentFooterComponent,
+    OfferBannerComponent,
     AgentSidenavComponent,
     SidenavListComponent,
     MatSidenavModule,

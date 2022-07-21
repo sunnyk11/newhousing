@@ -1,0 +1,217 @@
+<div class="wrapper">
+    <div class="container  mb20">
+        <div class="row">
+            <div class="col-lg-12 ">
+                <div class="my_dashboard_review">
+                    <form role="form" action="" method="post" class="f1"  [formGroup]="searching_form">
+                    <div class="row">
+                        <!-- <div class="col-lg-12  col-12">
+                          <h2 class="mb10"> Searching User</h2>
+                        </div>                 -->
+                        <div class="col-lg-3 col-sm-12 mt15">
+                            <div class="form-group">
+                                <!-- <label for="end_date" class="form-label">Method</label> -->
+                                <select id="searchtype" class="form-select form-select-lg w100" formControlName="searchtype" (ngModelChange)="onchage_mehtod($event)" >
+                                    <option value="email">Email address</option>
+                                    <option value="mobile">Mobile No</option>
+                                </select>
+                            </div>
+                        </div>      
+                        <div class="col-lg-5 col-sm-12 mt15"  *ngIf="email_search==true">
+                            <div class="form-group">
+                                <!-- <label for="end_date" class="form-label">Email address</label> -->
+                                <input type="email" class="form-control" id="email"  formControlName="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }"  placeholder="Please Enter Email Address">
+                            </div>
+                        </div>      
+                        <div class="col-lg-5 col-sm-12 mt15" *ngIf="mobile_search==true">
+                            <div class="form-group">
+                                <!-- <label for="end_date" class="form-label">Email address</label> -->
+                                <input type="text" class="form-control" id="mobile"  formControlName="mobile" [ngClass]="{ 'is-invalid': submitted && f.mobile.errors }" minlength="10" maxlength="10" pattern="[0-9]{10}"   placeholder="Please Enter Mobile Number">
+                            </div>
+                        </div>  
+                      <div class="col-lg-2 col-12 search-column mt15">
+                          <!-- <div class="f1-buttons m-auto"> -->
+                              <button type="submit" class="btn btn-submit" (click)="on_search()">Search</button>
+                          <!-- </div> -->
+                      </div> 
+                      
+                      <div class="col-lg-2 search-column mt15 col-12 refresh">
+                        <button type="submit" class="btn btn-submit" (click)="refresh_data()">Refresh Form</button>
+                    </div> 
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container mt20">
+        <div class="row">
+            <div class="col-lg-12  col-12">
+                <div class="my_dashboard_review" >
+                    <div class="property_table">
+                        <div class="table-responsive mt0">
+                            <span class="status_tag badge">All User ({{user_list_length}})</span>
+                            <table class="table table-striped  text-center">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th scope="col heading">Create_by</th>
+                                        <th scope="col heading">User</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Mobile No</th>
+                                        <!-- <th scope="col">Account verification</th> -->
+                                        <th scope="col" *ngIf=" access_delete_userByinternal == true ">Status</th>
+                                        <th scope="col" *ngIf="access_view_userByinternal == true || access_update_userByinternal == true" >Action On</th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngIf="showLoadingIndicator == false">
+                                    <tr  *ngFor="let data of user_list?.data?.data">
+                                        <td>{{data?.created_by?.name}}</td>
+                                        <td>{{data?.name}} {{data?.last_name}}</td>
+                                        <td>{{data?.email }}</td>
+                                        <td>
+                                            <span *ngIf="data?.other_mobile_number.length>5">{{data?.other_mobile_number}}</span>
+                                            <span *ngIf="data?.other_mobile_number.length<5">NA</span>
+                                        </td>
+                                        <td  *ngIf=" access_delete_userByinternal == true ">
+                                            <label class="switch" *ngIf="data?.blocked == 0">
+                                                <input type="checkbox"  (click)="user_status_changes(data?.id)" checked>
+                                                <span class="slider round"></span>
+                                              </label>
+                                              <label class="switch" *ngIf="data?.blocked == 1">
+                                                  <input type="checkbox"  (click)="user_status_changes(data?.id)">
+                                                  <span class="slider round"></span>
+                                                </label>
+                                        </td>
+                                        <td *ngIf="access_view_userByinternal == true || access_update_userByinternal == true">
+                                            <ul class="view_edit_delete_list mb0">
+                                                
+                                                <li class="list-inline-item" *ngIf="access_view_userByinternal == true" data-toggle="tooltip" data-placement="top" title="View"  data-bs-toggle="modal" data-bs-target="#ViewDetailsModal" (click)="viewDetails(data)">
+                                                    <a><span class="flaticon-view"></span></a>
+                                                </li>
+                                                <li class="list-inline-item" data-toggle="tooltip" *ngIf="access_update_userByinternal == true" data-placement="top"  title="Edit" (click)="editDetails(data)">
+                                                    <a ><span class="flaticon-edit"></span></a>
+                                                </li>
+                                             <!-- <li class="list-inline-item" data-toggle="tooltip" *ngIf="access_delete_userByinternal == true" data-placement="top" title="Delete" data-bs-toggle="modal" data-bs-target="#DeleteUserModal" (click)="deleteUser_popup(data)">
+                                                    <a ><span class="flaticon-garbage"></span></a>
+                                                </li> -->
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tbody >
+                                    <tr  class="preloader_row" *ngIf="showLoadingIndicator == true"> 
+                                         <div class="preloader"></div>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="mbp_pagination" *ngIf="user_list_length>0">
+                                <!-- {{user_bank_details.links | json}} -->
+                                <ul class="page_navigation">
+                                    <li class="page-item" *ngFor="let link of user_list.data.links; index as i" [ngClass]="{'active' : link.active == true, 'disabled' : link.url == null}">
+                                        <button type="button" (click)="gotoPage(link.url)" class="page-link">
+                                            <span
+                                                *ngIf="link.label.indexOf('Previous') == -1 && link.label.indexOf('Next') == -1"
+                                                [innerHTML]="link.label"></span>
+                                            <span *ngIf="link.label.indexOf('Previous') > -1"
+                                                class="flaticon-left-arrow"></span>
+                                            <span *ngIf="link.label.indexOf('Next') > -1"
+                                                class="flaticon-right-arrow"></span>
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- <div class="col-lg-12 agent_property " *ngIf="showLoadingIndicator==false">
+                            <pagination-controls ></pagination-controls>
+                            </div> -->
+                                    
+                            <div class="col-lg-12"  *ngIf="user_list_length==0 && showLoadingIndicator==false">
+                                <h3>No Data Availabe</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- More Details Modal -->
+    <div class="modal fade" id="ViewDetailsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Details: ({{user_name | uppercase}} )</h5>
+                    <button type="button" #closeModal class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form [formGroup]="UserForm" class="mt-4">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1">User Name</span>
+                                    <input type="text" formControlName="userName" class="form-control" name="userName" id="userName" aria-describedby="basic-addon1" readonly>
+                                   
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1">Email</span>
+                                    <input type="email" class="form-control" formControlName="email"  name="email" readonly>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1">+91</span>
+                                    <input type="text" class="form-control" formControlName="other_mobile_number"  id="other_mobile_number" readonly>
+                                    
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group mb-3">
+                                    <label class="input-group-text" for="inputGroupSelect01">Gender</label>
+                                    <select class="form-select" id="inputGroupSelect01" formControlName="gender"  name="gender" readonly>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="col-12">
+                                <div class="input-group mb-3">
+                                    <label class="input-group-text" for="inputGroupSelect01">User Type</label>
+                                    <select class="form-select" id="inputGroupSelect01" formControlName="UserType"  name="UserType" readonly>
+                                        <option value="5">Renter</option>
+                                        <option value="4">Property Owner</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                   </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Delete User Modal -->
+    <div class="modal fade" id="DeleteUserModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete User - {{ user_name}}
+                    </h5>
+                    <button type="button" #closeDeleteModal class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h4>Are you sure you want to delete?</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" (click)="delete_user(delete_user_details?.id)">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
