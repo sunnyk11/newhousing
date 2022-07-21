@@ -81,7 +81,6 @@ export class JwtService {
 
   saveUser(data: any) {
     //window.localStorage.clear();
-    // console.log(data);
     window.localStorage["AUTH_TOKEN"] = JSON.stringify(data.access_token);
     window.localStorage["USER_INTERNAL"] = JSON.stringify(data.internal_user);
     window.localStorage["USER_EMAIL"] = data.email;
@@ -91,6 +90,7 @@ export class JwtService {
     window.localStorage["USER_PROFILE_PIC"] = data.misc.profile_pic;
     window.localStorage["USER_ROLE"] = data.misc.user_role;
     window.localStorage["user_phone_data"] = data.misc.phone_number_verification_status;
+    window.localStorage["blocked_status"] = data.blocked_status;
     //this.router.navigate([""]);
   }
 
@@ -136,6 +136,11 @@ export class JwtService {
 
   saveUserName(user_name: any) {
     window.localStorage["USER_NAME"] = user_name;
+  }
+  saveUserStatus(Block_Status: any) {
+    console.log(Block_Status);
+    window.localStorage.removeItem("USER_STATUS");
+    window.localStorage["USER_STATUS"] = Block_Status;
   }
 
   saveUserType(user_type: any) {
@@ -185,6 +190,11 @@ export class JwtService {
   getUserEmail() {
     return window.localStorage["USER_EMAIL"];
   }
+  
+  getUserBlockStatus() {
+    return window.localStorage["USER_STATUS"];
+  }
+  
   getuser_phone_data() {
     return window.localStorage["user_phone_data"];
   }

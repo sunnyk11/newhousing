@@ -49,15 +49,25 @@ export class UserLogsGuard implements CanActivate {
   }
   checkLogin() {
     if (this.jwtService.getToken()) {
-      this.userEmail =  this.jwtService.getUserEmail();
-      this.usertype = this.jwtService.getUserType();
-      this.device_info = this.UserLogsService.getDeviceInfo();
-      this.browser_info = this.UserLogsService.getbrowserInfo();
-      this.ip_address = this.UserLogsService.getIpAddress();
-      let param={'userEmail':this.userEmail,'user_type':this.usertype,'device_info':this.device_info,'browser_info':this.browser_info,'ip_address':this.ip_address,'url_info':this.url_info,'type':this.type,'user_cart':this.user_cart,'input_info':this.input_info}
-      this.UserLogsService.user_logs(param).subscribe(
+      this.UserLogsService.user_block_status().subscribe(
         reponse => {
-          // console.log(data.status);
+          let data:any=reponse;
+          if(data.data.blocked==1){
+            let Block_Status:any=data.data.blocked;
+            this.jwtService.saveUserStatus(Block_Status);
+            this.router.navigate(['/logout']);
+          }else{      
+            this.userEmail =  this.jwtService.getUserEmail();
+            this.usertype = this.jwtService.getUserType();
+            this.device_info = this.UserLogsService.getDeviceInfo();
+            this.browser_info = this.UserLogsService.getbrowserInfo();
+            this.ip_address = this.UserLogsService.getIpAddress();
+            let param={'userEmail':this.userEmail,'user_type':this.usertype,'device_info':this.device_info,'browser_info':this.browser_info,'ip_address':this.ip_address,'url_info':this.url_info,'type':this.type,'user_cart':this.user_cart,'input_info':this.input_info}
+            this.UserLogsService.user_logs(param).subscribe(
+              reponse => {
+                // console.log(data.status);
+              });
+          }
         });
       return true;
     }

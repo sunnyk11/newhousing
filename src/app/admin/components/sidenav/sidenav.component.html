@@ -81,6 +81,16 @@
             <a mat-list-item (click)="view_all_reviews()">User Reviews</a>
         </mat-nav-list>
     </mat-expansion-panel>
+    <mat-expansion-panel *ngIf="LoggedIn && access_web_Banner">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Web Banner
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-nav-list>
+            <a mat-list-item (click)="access_Banner()">Web Banner</a>
+        </mat-nav-list>
+    </mat-expansion-panel>
     
     <mat-expansion-panel *ngIf="LoggedIn && visit_user_feedback">
         <mat-expansion-panel-header>

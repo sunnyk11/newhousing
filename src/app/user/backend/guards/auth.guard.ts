@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { JwtService } from '../../services/jwt.service';
+import { UserLogsService } from '../../guest/services/user-logs.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ export class AuthGuard implements CanActivate {
   public returnUrl: string = '';
 
   constructor(private jwtService: JwtService,
+    private UserLogsService:UserLogsService,
     private router: Router) { }
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -19,7 +21,17 @@ export class AuthGuard implements CanActivate {
     return new Observable<boolean>(obs => {
       this.token = this.jwtService.getToken();
       if (this.token) {
-        obs.next(true);
+        this.UserLogsService.user_block_status().subscribe(
+          reponse => {
+            let data:any=reponse;
+            if(data.data.blocked==1){
+              let Block_Status:any=data.data.blocked;
+              this.jwtService.saveUserStatus(Block_Status);
+              this.router.navigate(['/logout']);
+            }else{
+              obs.next(true);
+            }
+          });
       }
       else {
         this.returnUrl = state.url;

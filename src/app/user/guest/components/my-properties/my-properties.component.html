@@ -40,7 +40,7 @@
                         <tbody *ngFor="let property of rent_property_data; index as i">
                             <tr>
                                 <th scope="row">{{ i+1 }}</th>
-                                <td>{{ property?.property_rent_table?.property_name }}</td>
+                                <td (click)="product_preview(property?.property_rent_table?.property_id,property?.property_rent_table?.property_name)" id="property_name">{{ property?.property_rent_table?.property_name }}</td>
                                 <td>{{ property.amount_paid }}</td>
                                 <td>{{ property.order_id }}</td>
                                 <td>

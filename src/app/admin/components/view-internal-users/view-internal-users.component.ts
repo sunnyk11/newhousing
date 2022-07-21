@@ -30,6 +30,7 @@ export class ViewInternalUsersComponent implements OnInit {
   public dropdownList: any = [];
   public EditUserForm: any;
   private user_id: any;
+  public user_name:any;
   public delete_user_details: any;
   public submitted: boolean = false;
   public showLoadingIndicator: boolean = false;
@@ -189,6 +190,18 @@ UserForm = new FormGroup({
       email:this.edit_user_details.email,
       other_mobile_number:this.edit_user_details.other_mobile_number
     });
+    
+    if(this.edit_user_details.last_name !=null){
+      this.UserForm.patchValue({
+        userName:this.edit_user_details.name+ " "+ this.edit_user_details.last_name,
+      });
+      this.user_name=this.edit_user_details.name+ " "+ this.edit_user_details.last_name;
+    }else{
+      this.UserForm.patchValue({
+      userName:this.edit_user_details.name,
+    });
+    this.user_name=this.edit_user_details.name;
+    }
     this.getUserRoles(this.user_id);
   }
   
