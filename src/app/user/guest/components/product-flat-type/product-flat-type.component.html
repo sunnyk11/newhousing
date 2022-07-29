@@ -1,0 +1,13 @@
+<div class="terms_condition_widget" *ngIf="flat_type?.flat_type">
+    <h4 class="title">Flat Type</h4>
+    <div class="widget_list">
+        <ul class="list_details">
+            <li *ngFor="let flat_type of flat_type?.flat_type">
+                <a (click)="on_search(flat_type?.flat_type?.pro_flat__type?.name)">
+                    <i class="fa fa-caret-right mr10"></i>{{flat_type?.flat_type?.pro_flat__type?.name}} 
+                    <span  class="float-right">{{flat_type.flat_type_count}} properties</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

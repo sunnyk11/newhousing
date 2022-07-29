@@ -40,6 +40,57 @@
                                         <li>
                                             <div class="search_option_two">
                                                 <div class="candidate_revew_select">
+                                                    <select class="form-select w100 show-tick" name="flat_type" formControlName="flat_type" id="flat_type">
+                                                        <option value ="" selected>Select Flate Type</option>
+                                                        <option  *ngFor="let flat_type of category?.flat_type" [value]="flat_type?.flat_type?.pro_flat__type?.name" >{{flat_type?.flat_type?.pro_flat__type?.name}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        
+                                    <li>
+                                        <div class="search_option_two">
+                                            <div class="candidate_revew_select">
+                                                <select class="form-select w100 show-tick" name="bathrooms" formControlName="bathrooms" id="bathrooms">
+                                                    <option value="">Select Bathrooms</option>
+                                                    <option value="0">0</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                    <option value="6">6 </option>
+                                                    <option value="7">7</option>
+                                                    <option value="8">8 </option>
+                                                    <option value="9">9</option>
+                                                    <option value="10">10 </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="search_option_two">
+                                            <div class="candidate_revew_select">
+                                                <select class="form-select w100 show-tick" name="bedrooms" formControlName="bedrooms" id="bedrooms">
+                                                    <option value="">Select Bedrooms</option>
+                                                    <option value="0">0</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                    <option value="6">6 </option>
+                                                    <option value="7">7</option>
+                                                    <option value="8">8 </option>
+                                                    <option value="9">9</option>
+                                                    <option value="10">10 </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </li>
+                                        <li>
+                                            <div class="search_option_two">
+                                                <div class="candidate_revew_select">
                                                     <select class="form-select w100 show-tick" name="security_deposit" formControlName="security_deposit" id="security_deposit">
                                                         <option value ="" selected>Select Security Deposit</option>
                                                         <option value="0">No Security</option>
@@ -146,6 +197,16 @@
                                         <li>
                                             <div class="search_option_two">
                                                 <div class="candidate_revew_select">
+                                                    <select class="form-select w100 show-tick" name="flat_type" formControlName="flat_type" id="flat_type">
+                                                        <option value ="" selected>Select Flate Type</option>
+                                                        <option  *ngFor="let flat_type of category?.flat_type" [value]="flat_type?.flat_type?.pro_flat__type?.name" >{{flat_type?.flat_type?.pro_flat__type?.name}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="search_option_two">
+                                                <div class="candidate_revew_select">
                                                     <select class="form-select w100 show-tick" name="security_deposit" formControlName="security_deposit" id="security_deposit">
                                                         <option value ="" selected>Select Security Deposit</option>
                                                         <option value="0">No Security</option>
@@ -166,6 +227,7 @@
                                                 <div class="candidate_revew_select">
                                                     <select class="form-select w100 show-tick" name="bathrooms" formControlName="bathrooms" id="bathrooms">
                                                         <option value="">Select Bathrooms</option>
+                                                        <option value="0">0</option>
                                                         <option value="1">1</option>
                                                         <option value="2">2</option>
                                                         <option value="3">3</option>
@@ -185,6 +247,7 @@
                                                 <div class="candidate_revew_select">
                                                     <select class="form-select w100 show-tick" name="bedrooms" formControlName="bedrooms" id="bedrooms">
                                                         <option value="">Select Bedrooms</option>
+                                                        <option value="0">0</option>
                                                         <option value="1">1</option>
                                                         <option value="2">2</option>
                                                         <option value="3">3</option>
@@ -377,6 +440,57 @@
                                     <li>
                                         <div class="search_option_two">
                                             <div class="candidate_revew_select">
+                                                <select class="form-select w100 show-tick" name="flat_type" formControlName="flat_type" id="flat_type">
+                                                    <option value ="" selected>Select Flate Type</option>
+                                                    <option  *ngFor="let flat_type of category?.flat_type" [value]="flat_type?.flat_type?.pro_flat__type?.name" >{{flat_type?.flat_type?.pro_flat__type?.name}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    
+                                    <li>
+                                        <div class="search_option_two">
+                                            <div class="candidate_revew_select">
+                                                <select class="form-select w100 show-tick" name="bathrooms" formControlName="bathrooms" id="bathrooms">
+                                                    <option value="">Select Bathrooms</option>
+                                                    <option value="0">0</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                    <option value="6">6 </option>
+                                                    <option value="7">7</option>
+                                                    <option value="8">8 </option>
+                                                    <option value="9">9</option>
+                                                    <option value="10">10 </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="search_option_two">
+                                            <div class="candidate_revew_select">
+                                                <select class="form-select w100 show-tick" name="bedrooms" formControlName="bedrooms" id="bedrooms">
+                                                    <option value="">Select Bedrooms</option>
+                                                    <option value="0">0</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                    <option value="6">6 </option>
+                                                    <option value="7">7</option>
+                                                    <option value="8">8 </option>
+                                                    <option value="9">9</option>
+                                                    <option value="10">10 </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="search_option_two">
+                                            <div class="candidate_revew_select">
                                                 <select class="form-select w100 show-tick" name="security_deposit" formControlName="security_deposit" id="security_deposit">
                                                     <option value ="" selected>Select Security Deposit</option>
                                                     <option value="0">No Security</option>
@@ -495,6 +609,16 @@
                                     <li>
                                         <div class="search_option_two">
                                             <div class="candidate_revew_select">
+                                                <select class="form-select w100 show-tick" name="flat_type" formControlName="flat_type" id="flat_type">
+                                                    <option value ="" selected>Select Flate Type</option>
+                                                    <option  *ngFor="let flat_type of category?.flat_type" [value]="flat_type?.flat_type?.pro_flat__type?.name" >{{flat_type?.flat_type?.pro_flat__type?.name}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="search_option_two">
+                                            <div class="candidate_revew_select">
                                                 <select class="form-select w100 show-tick" name="security_deposit" formControlName="security_deposit" id="security_deposit">
                                                     <option value ="" selected>Select Security Deposit</option>
                                                     <option value="0">No Security</option>
@@ -514,6 +638,7 @@
                                             <div class="candidate_revew_select">
                                                 <select class="form-select w100 show-tick" name="bathrooms" formControlName="bathrooms" id="bathrooms">
                                                     <option value="">Select Bathrooms</option>
+                                                    <option value="0">0</option>
                                                     <option value="1">1</option>
                                                     <option value="2">2</option>
                                                     <option value="3">3</option>
@@ -533,6 +658,7 @@
                                             <div class="candidate_revew_select">
                                                 <select class="form-select w100 show-tick" name="bedrooms" formControlName="bedrooms" id="bedrooms">
                                                     <option value="">Select Bedrooms</option>
+                                                    <option value="0">0</option>
                                                     <option value="1">1</option>
                                                     <option value="2">2</option>
                                                     <option value="3">3</option>
@@ -686,6 +812,7 @@
                             </ul>
                         </div>
                     </div>
+                    <app-product-flat-type></app-product-flat-type>
                     <!-- featured property -->
                     <app-featured-property></app-featured-property>
 
@@ -736,7 +863,7 @@
                                     <img class="img-whp" src="{{ftpstring}}{{img?.image}}" alt="img1.jpg">
                                     <div class="thumb">
                                         <div class="thmb_cntnt style2">
-                                            <ul class="tag mb0" (click)="sub_navigate(number.product_id,number.build_name)">
+                                            <ul class="tag mb0"  [routerLink]="['/product-details']" target="_blank" [queryParams]="{'id':number.product_id,'name':number.build_name}">
                                                 <li class="list-inline-item" *ngIf=" number.rent_availability != null">
                                                     <a>For Rent</a></li>
                                                 <li class="list-inline-item" *ngIf=" number.sale_availability != null">
@@ -758,9 +885,9 @@
                                                     </li>
                                                 </ng-template>
                                             </ul>
-                                            <a *ngIf="number.expected_pricing != null" class="fp_price" (click)="sub_navigate(number.product_id,number.build_name)">₹
+                                            <a *ngIf="number.expected_pricing != null" class="fp_price"  [routerLink]="['/product-details']" target="_blank" [queryParams]="{'id':number.product_id,'name':number.build_name}">₹
                                                 {{Price_convert(number.expected_pricing)}}<small></small></a>
-                                            <a *ngIf="number.expected_rent != null" class="fp_price" (click)="sub_navigate(number.product_id,number.build_name)">₹ {{
+                                            <a *ngIf="number.expected_rent != null" class="fp_price"  [routerLink]="['/product-details']" target="_blank" [queryParams]="{'id':number.product_id,'name':number.build_name}">₹ {{
                                                 Price_convert(number.expected_rent)}}<small></small></a>
                                         </div>
                                     </div>
@@ -770,7 +897,7 @@
                                 <img class="img-whp lazy" alt="No Product Image" style="height: 250px;" src="./../../assets/resources/images/no_image_available.jpg">
                                 <div class="thumb">
                                     <div class="thmb_cntnt style2">
-                                        <ul class="tag mb0" (click)="sub_navigate(number.product_id,number.build_name)">
+                                        <ul class="tag mb0"  [routerLink]="['/product-details']" target="_blank" [queryParams]="{'id':number.product_id,'name':number.build_name}">
                                             <li class="list-inline-item" *ngIf=" number.rent_availability != null">
                                                 <a>For Rent</a></li>
                                             <li class="list-inline-item" *ngIf=" number.sale_availability != null">
@@ -792,9 +919,9 @@
                                                 </li>
                                             </ng-template>
                                         </ul>
-                                        <a *ngIf="number.expected_pricing != null" class="fp_price" (click)="sub_navigate(number.product_id,number.build_name)">₹
+                                        <a *ngIf="number.expected_pricing != null" class="fp_price" [routerLink]="['/product-details']" target="_blank" [queryParams]="{'id':number.product_id,'name':number.build_name}">₹
                                             {{Price_convert(number.expected_pricing)}}<small></small></a>
-                                        <a *ngIf="number.expected_rent != null" class="fp_price" (click)="sub_navigate(number.product_id,number.build_name)">₹ {{
+                                        <a *ngIf="number.expected_rent != null" class="fp_price"  [routerLink]="['/product-details']" target="_blank" [queryParams]="{'id':number.product_id,'name':number.build_name}">₹ {{
                                             Price_convert(number.expected_rent)}}<small></small></a>
                                     </div>
                                 </div>
@@ -803,7 +930,7 @@
                                     <div class="tc_content">
                                         <div class="row">
                                             <div class="col-9">
-                                                <a (click)="sub_navigate(number.product_id,number.build_name)">
+                                                <a  [routerLink]="['/product-details']" target="_blank" [queryParams]="{'id':number.product_id,'name':number.build_name}">
                                                    <p class="text-thm" *ngIf="number.type != null" style="line-height:0!important">{{ number?.property__type?.name | titlecase }} 
                                                     </p>
                                                     <p>
@@ -826,10 +953,14 @@
                                                 </div>
                                             </div>
                                         </div>  
-                                        <a (click)="sub_navigate(number.product_id,number.build_name)">                                      
-                                        <h4>{{number.build_name | titlecase}}</h4>
+                                        <a  [routerLink]="['/product-details']" target="_blank" [queryParams]="{'id':number.product_id,'name':number.build_name}">                                      
+                                        <h4>{{number.build_name | titlecase}}
+                                            <!-- <span *ngIf="number.flat_type != null"> ({{ number?.pro_flat__type?.name | titlecase }})</span> -->
+                                        </h4>
+                                        <h5 *ngIf="number.flat_type != null"> ({{ number?.pro_flat__type?.name | titlecase }})</h5>
                                         <p>
-                                            <span *ngIf="number.product_locality != null">{{ number?.product_locality?.locality | titlecase }}</span>
+                                            <span *ngIf="number.product_sub_locality != null">{{ number?.product_sub_locality?.sub_locality | titlecase }}</span>
+                                            <span *ngIf="number.product_locality != null"> ({{ number?.product_locality?.locality | titlecase }}) </span>
                                             <span *ngIf="number.product_state != null">({{ number?.product_state?.state | titlecase }})</span>
                                         </p>
                                             <p style="margin-bottom:0px;">

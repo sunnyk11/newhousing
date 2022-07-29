@@ -65,6 +65,7 @@ import { VerifyMobileSuccessComponent } from './components/verify-mobile-success
 import { ContactSubmitComponent } from './components/contact-submit/contact-submit.component';
 import { UserVisitPopupComponent } from './modals/user-visit-popup/user-visit-popup.component';
 import { VisitUserThankComponent } from './components/visit-user-thank/visit-user-thank.component';
+import { ProductFlatTypeComponent } from './components/product-flat-type/product-flat-type.component';
 // import { NotfoundComponentComponent } from '../components/notfound-component/notfound-component.component';
 @NgModule({
   declarations: [
@@ -120,6 +121,7 @@ import { VisitUserThankComponent } from './components/visit-user-thank/visit-use
     ContactSubmitComponent,
     UserVisitPopupComponent,
     VisitUserThankComponent,
+    ProductFlatTypeComponent,
   ],
   imports: [
     CommonModule,
