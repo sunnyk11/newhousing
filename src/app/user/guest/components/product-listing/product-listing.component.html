@@ -42,7 +42,7 @@
                                                 <div class="candidate_revew_select">
                                                     <select class="form-select w100 show-tick" name="flat_type" formControlName="flat_type" id="flat_type">
                                                         <option value ="" selected>Select Flate Type</option>
-                                                        <option  *ngFor="let flat_type of category?.flat_type" [value]="flat_type?.flat_type?.pro_flat__type?.name" >{{flat_type?.flat_type?.pro_flat__type?.name}}</option>
+                                                        <option  *ngFor="let flat_type of category?.get_flat_type" [value]="flat_type?.name" >{{flat_type?.name}}</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -199,7 +199,7 @@
                                                 <div class="candidate_revew_select">
                                                     <select class="form-select w100 show-tick" name="flat_type" formControlName="flat_type" id="flat_type">
                                                         <option value ="" selected>Select Flate Type</option>
-                                                        <option  *ngFor="let flat_type of category?.flat_type" [value]="flat_type?.flat_type?.pro_flat__type?.name" >{{flat_type?.flat_type?.pro_flat__type?.name}}</option>
+                                                        <option  *ngFor="let flat_type of category?.get_flat_type" [value]="flat_type?.name" >{{flat_type?.name}}</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -442,7 +442,7 @@
                                             <div class="candidate_revew_select">
                                                 <select class="form-select w100 show-tick" name="flat_type" formControlName="flat_type" id="flat_type">
                                                     <option value ="" selected>Select Flate Type</option>
-                                                    <option  *ngFor="let flat_type of category?.flat_type" [value]="flat_type?.flat_type?.pro_flat__type?.name" >{{flat_type?.flat_type?.pro_flat__type?.name}}</option>
+                                                    <option  *ngFor="let flat_type of category?.get_flat_type" [value]="flat_type?.name" >{{flat_type?.name}}</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -611,7 +611,7 @@
                                             <div class="candidate_revew_select">
                                                 <select class="form-select w100 show-tick" name="flat_type" formControlName="flat_type" id="flat_type">
                                                     <option value ="" selected>Select Flate Type</option>
-                                                    <option  *ngFor="let flat_type of category?.flat_type" [value]="flat_type?.flat_type?.pro_flat__type?.name" >{{flat_type?.flat_type?.pro_flat__type?.name}}</option>
+                                                    <option  *ngFor="let flat_type of category?.get_flat_type" [value]="flat_type?.name" >{{flat_type?.name}}</option>
                                                 </select>
                                             </div>
                                         </div>

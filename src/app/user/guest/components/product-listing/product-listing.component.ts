@@ -230,6 +230,7 @@ export class ProductListingComponent implements OnInit {
     this.CommonService.getproductcategory({ param: null }).subscribe(
       response => {
         let data:any=response;
+        console.log(data);
         this.category=response;
         this.flat_type_data=data.flat_type;
       }, err => { 
