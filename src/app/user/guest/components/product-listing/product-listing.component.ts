@@ -230,7 +230,6 @@ export class ProductListingComponent implements OnInit {
     this.CommonService.getproductcategory({ param: null }).subscribe(
       response => {
         let data:any=response;
-        console.log(data);
         this.category=response;
         this.flat_type_data=data.flat_type;
       }, err => { 
@@ -478,7 +477,6 @@ export class ProductListingComponent implements OnInit {
         this.ProductListingPageService.login_product_details(this.searchForm.value).then(
           Pagination_data => {
             this.property=Pagination_data;
-            console.log(this.property);
             this.product_length=this.property.data.total;
             if(this.product_length<1){
               this.property_availablty=false;
