@@ -254,6 +254,7 @@ export class ProductPageComponent implements OnInit {
     }else{
       this.ProductPageService.getsimilarproperty(param).subscribe(
         response => {
+          console.log(response);
           this.similar_property=response;
           this.showLoadingIndicator = false;
           this.product_length=this.similar_property.data.length;

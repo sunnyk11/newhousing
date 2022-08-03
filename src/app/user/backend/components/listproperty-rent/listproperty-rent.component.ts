@@ -65,6 +65,7 @@ export class ListpropertyRentComponent implements OnInit {
   public willing_to_rent:any;
   public agreement_type:any;
   public agreement_duration:any;
+  public flat_type:any;
   public maintenance_charge_condition:any;
 
   private product_img: any = [];
@@ -139,6 +140,7 @@ export class ListpropertyRentComponent implements OnInit {
       bedrooms: ['', Validators.required],
       bathrooms: ['', Validators.required],
       balconies: ['', Validators.required],
+      flat_type: ['', Validators.required],
       property_desc: ['', Validators.required]
     });
 
@@ -447,9 +449,11 @@ export class ListpropertyRentComponent implements OnInit {
     this.CommonService.get_dropdown_data({ param: null }).subscribe(
       response => {
         let data:any=response;
+        console.log(response);
         this.amenties = data.Amenitie;
         this.willing_to_rent = data.property_willing_rent_out; 
         this.agreement_duration = data.property_ageement_duration;
+        this.flat_type= data.flat_type;
         this.maintenance_charge_condition = data.property_maintenance_condition;
         this.agreement_type = data.property_ageement_type;
         this.addition_room = data.property_room;

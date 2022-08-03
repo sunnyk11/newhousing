@@ -74,6 +74,7 @@ export class UpdatepropertyRentComponent implements OnInit {
   public maintenance_charge:any;
   public price_negotiable:any;
   public video_link:any
+  public flat_type_data:any;
 
 
   private update_room_array: any = [];
@@ -179,6 +180,7 @@ export class UpdatepropertyRentComponent implements OnInit {
       bedrooms: ['', Validators.required],
       bathrooms: ['', Validators.required],
       balconies: ['', Validators.required],
+      flat_type: ['', Validators.required],
       property_desc: ['', Validators.required]
     });
 
@@ -260,6 +262,7 @@ export class UpdatepropertyRentComponent implements OnInit {
         this.agreement_type = data.property_ageement_type;
         this.addition_room = data.property_room;
         this.area_unit = data.area_unit;
+        this.flat_type_data=data.flat_type;
       }
     );
   }
@@ -599,6 +602,11 @@ export class UpdatepropertyRentComponent implements OnInit {
           if(data.data.property_detail != null){
             this.form_step1.patchValue({
               property_desc:  data.data.property_detail
+            });
+          }
+          if(data.data.flat_type != null){
+            this.form_step1.patchValue({
+              flat_type:  data.data.flat_type
             });
           }
           // step 2 
