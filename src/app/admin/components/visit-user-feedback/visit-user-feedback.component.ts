@@ -79,7 +79,7 @@ export class VisitUserFeedbackComponent implements OnInit {
   
   gotoPage(link_url: any) {
     this.showLoadingIndicator = true;
-    this.UserReviewsService.getpagination(link_url).then(Pagination_data => {
+    this.UserReviewsService.getpagination(link_url,this.searching_form.value).then(Pagination_data => {
       this.showLoadingIndicator= false;
       this.user_reviews=Pagination_data;
       // this.user_list_length=this.user_list.data.data.length;

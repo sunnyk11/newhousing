@@ -17,6 +17,11 @@
 .bank_details_section {
     padding: 0px 25px 25px 25px!important;
 }
+.lable_banktype{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 .bank_details_section .heading {
     font-size: 16px;
@@ -67,6 +72,9 @@
 @media(max-width: 768px) {
     .profile-img {
         width: 40%;
+    }
+    .lable_banktype{
+        margin: 15px 0px!important;
     }
 }
 

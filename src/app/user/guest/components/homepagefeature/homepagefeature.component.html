@@ -25,12 +25,15 @@
                                         <img class="img-whp lazy" data-src="{{ftpstring}}{{img.image}}" alt="img1.jpg">
                                         <div class="thumb">
                                             <div class="thmb_cntnt style2">
-                                                <ul class="tag mb0" (click)="navigate(number.id,number.build_name,number.city)">
+                                                <ul class="tag mb0"  id="ul_img_header"  (click)="navigate(number.id,number.build_name,number.city)">
                                                     <li class="list-inline-item" *ngIf=" number.rent_availability != null"><a>For
                                                             Rent</a>
                                                     </li>
                                                     <li class="list-inline-item" *ngIf=" number.sale_availability != null"><a>For
                                                             Sale</a>
+                                                    </li>
+                                                    <li>
+                                                        <img class="img-whp lazy" alt="No Product Image" src="./../../assets/resources/images/t5.png">
                                                     </li>
                                                 </ul>
                                             </div>
@@ -64,10 +67,13 @@
                                     <!-- </div> -->
                                     <div class="thumb">
                                         <div class="thmb_cntnt style2">
-                                            <ul class="tag mb0">
+                                            <ul class="tag mb0" id="ul_img_header" >
                                                 <li class="list-inline-item" *ngIf=" number.rent_availability != null"><a>For Rent</a>
                                                 </li>
                                                 <li class="list-inline-item" *ngIf=" number.sale_availability != null"><a>For Sale</a>
+                                                </li>
+                                                <li>
+                                                    <img class="img-whp lazy" alt="No Product Image" src="./../../assets/resources/images/t5.png">
                                                 </li>
                                             </ul>
                                         </div>

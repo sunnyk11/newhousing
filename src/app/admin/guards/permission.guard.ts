@@ -47,6 +47,9 @@ export class PermissionGuard implements CanActivate {
               if(this.user_permissions[i]=='access_update_userByinternal' ||this.user_permissions[i]=='access_delete_userByinternal'){
                 obs.next(true);
                 return;
+              } else if(this.user_permissions[i]=='access_bank_details' ||this.user_permissions[i]=='property_access'){
+                obs.next(true);
+                return;
               }
             }
             if(this.user_permissions.includes(this.permission[0])) {

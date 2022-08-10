@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute,Router } from '@angular/router';
 import { ProductPageService } from '../../services/product-page.service';
-import { OwlOptions } from 'ngx-owl-carousel-o';
 import { environment } from 'src/environments/environment';
 import { DomSanitizer } from '@angular/platform-browser';
 import { JwtService } from 'src/app/user/services/jwt.service';
 import { CommonService } from '../../services/common.service';
 import { ToastrService } from 'ngx-toastr';
-import { UserReviewModalComponent } from '../../modals/user-review-modal/user-review-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ClipboardService } from 'ngx-clipboard';
 
@@ -87,6 +85,7 @@ export class ProductPreviewComponent implements OnInit {
       this.login_usertype = this.jwtService.getUserType();
       this.login_userid = this.jwtService.getUserId();
       this.login_userid = this.jwtService.getUserId();
+      console.log('khjkj');
       if(this.jwtService.get_Internal_User()== '"Yes"'){
         this.CommonService.getUserPermissions(this.login_userid).subscribe(
           response => {
@@ -98,6 +97,7 @@ export class ProductPreviewComponent implements OnInit {
         }
       this.ProductPageService.login_single_product_details(param).subscribe(
         response => {
+          console.log(response);
           this.product_details=response;
           this.product_data=this.product_details.data;
           if(this.product_details.data != null){

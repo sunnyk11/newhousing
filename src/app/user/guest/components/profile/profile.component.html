@@ -79,49 +79,6 @@
                     </div>
                 </div>
             </div>
-            <!-- <div class="row mt-4" *ngIf="mobile_verify_status == 1 &&   user_data.productdetails.length>0">
-                <div class="col-lg-12">
-                    <div class="h-100  bg-light border rounded-3 bank_details_section">
-                        <h4 class="text-center heading">Bank Details:</h4>
-                        <div class="col-lg-8 offset-lg-2 col-12">
-                            <dl class="row">
-                                <dt class="col-sm-3">Accont Holder Name:</dt>
-                                <dd class="col-sm-9" *ngIf="user_data?.account_holder ==null">NA</dd>
-                                <dd class="col-sm-9" *ngIf="user_data?.account_holder !=null">{{user_data?.account_holder}}</dd>
-                                <hr>
-
-                                <dt class="col-sm-3">Bank Account No:</dt>
-                                <dd class="col-sm-9" *ngIf="user_data?.bank_acount_no ==null">NA</dd>
-                                <dd class="col-sm-9" *ngIf="user_data?.bank_acount_no !=null">{{user_data?.bank_acount_no }}</dd>
-                                <hr>
-
-                                <dt class="col-sm-3">Bank IFSC Code</dt>
-                                <dd class="col-sm-9" *ngIf="user_data?.ifsc_code !=null">{{ user_data?.ifsc_code}}</dd>
-                                <dd class="col-sm-9" *ngIf="user_data?.ifsc_code ==null">NA</dd>
-                                <hr>
-
-                                <dt class="col-sm-3">Bank Verify Status</dt>
-                                <dd class="col-sm-9 status_heading" *ngIf="user_data?.bank_acount_no ==null">
-                                    <p class="text-danger">NA</p>
-                                </dd>
-                                <dd class="col-sm-9 status_heading" *ngIf="user_data?.paytm_verify_status ==0 && user_data?.account_paytm_verify_id ==null">
-                                    <p class="text-danger">Account is not Verify</p>
-                                </dd>
-                                <dd class="col-sm-9 status_heading" *ngIf="user_data?.paytm_verify_status ==1 && user_data?.account_paytm_verify_id !=null">
-                                    <p class="text-success">Verify Account.</p>
-                                </dd>
-                                <hr>
-                                <dd class="col-lg-3 offset-lg-8 col-12">
-                                    <button type="button" class="btn btn-primary" *ngIf="bank_account_no != null" (click)="bank_details()">
-                                    Edit Bank Details
-                                </button>
-                                    <button type="submit" class="btn btn-primary" *ngIf="bank_account_no == null" (click)="bank_details()">Add Details</button>
-                                </dd>
-                            </dl>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
             <div class="row mt-4">
                 <div class="col-lg-12">
                     <div class="h-100 p-5 bg-light border rounded-3">
@@ -155,15 +112,82 @@
                     </div>
                 </div>
             </div>
+          
+            <div class="row mt-4">
+                <div class="col-lg-12">
+                    <div class="h-100  bg-light border rounded-3 bank_details_section">
+                        <h4 class="text-center heading">Bank Details:</h4>
+                        <div class="col-lg-8 offset-lg-2 col-12">
+                            <dl class="row" *ngIf="user_data?.bank_type =='bank_account'">
+                                <dt class="col-sm-3">Accont Holder Name:</dt>
+                                <dd class="col-sm-9" *ngIf="user_data?.account_holder ==null">NA</dd>
+                                <dd class="col-sm-9" *ngIf="user_data?.account_holder !=null">{{user_data?.account_holder}}</dd>
+                                <hr>
+    
+                                <dt class="col-sm-3">Bank Account No:</dt>
+                                <dd class="col-sm-9" *ngIf="user_data?.bank_acount_no ==null">NA</dd>
+                                <dd class="col-sm-9" *ngIf="user_data?.bank_acount_no !=null">{{user_data?.bank_acount_no }}</dd>
+                                <hr>
+    
+                                <dt class="col-sm-3">Bank IFSC Code</dt>
+                                <dd class="col-sm-9" *ngIf="user_data?.ifsc_code !=null">{{ user_data?.ifsc_code}}</dd>
+                                <dd class="col-sm-9" *ngIf="user_data?.ifsc_code ==null">NA</dd>
+                                <hr>
+    
+                                <dt class="col-sm-3" *ngIf="user_data?.bank_acount_no ==null">Bank Verify Status</dt>
+                                <dd class="col-sm-9 status_heading" *ngIf="user_data?.bank_acount_no ==null"><p class="text-danger">NA</p></dd>
+                                <!-- <dd class="col-sm-9 status_heading" *ngIf="user_data?.account_status ==0 && user_data?.bank_acount_no !=null"><p class="text-danger">Account is not Verify</p></dd>
+                                <dd class="col-sm-9 status_heading" *ngIf="user_data?.account_status ==1 && user_data?.bank_acount_no !=null"><p class="text-success">Verify Account.This Account not Edit . </p></dd> -->
+                                <hr>
+                                <dd class="col-lg-3 offset-lg-8 col-12">
+                                <button type="button" class="btn btn-primary" *ngIf="bank_account_no != null" (click)="bank_details()">
+                                    Edit Bank Details
+                                </button>
+                               <button type="submit" class="btn btn-primary" *ngIf="bank_account_no == null" (click)="bank_details()">Add Details</button>
+                                </dd>
+                            </dl>
+                            <dl class="row" *ngIf="user_data?.bank_type =='account_upi'">
+                                <dt class="col-sm-3">UPI Name:</dt>
+                                <dd class="col-sm-9" *ngIf="user_data?.upi_name !=null">{{user_data?.upi_name}}</dd>
+                                <hr>
+    
+                                <dt class="col-sm-3">UPI ID:</dt>
+                                <dd class="col-sm-9" *ngIf="user_data?.upi_id !=null">{{user_data?.upi_id }}</dd>
+                                <hr>
+                                <dd class="col-lg-3 offset-lg-8 col-12">
+                                <button type="button" class="btn btn-primary" *ngIf="user_data?.upi_id != null" (click)="bank_details()">
+                                    Edit UPI Details
+                                </button>
+                               <button type="submit" class="btn btn-primary" *ngIf="user_data?.upi_id == null" (click)="bank_details()">Add UPI Details</button>
+                                </dd>
+                            </dl>
+                            <dl class="row" *ngIf="user_data?.upi_id ==null && user_data?.bank_acount_no ==null">
+                                <dt class="col-sm-3 col-12 lable_banktype">Select Bank Type:</dt>
+                                <dd class="col-sm-6 col-12">
+                                    <select id="searchtype" class="form-select form-select-lg " (change)="change_banktype($event)" style="border-color:#0d6efd!important;width: 100%!important;">
+                                        <option value="">Select Bank Type</option>
+                                        <option value="bank_account">Bank Account</option>
+                                        <option value="account_upi">Account UPI</option>
+                                    </select>
+                                </dd>
+                                <dd class="col-sm-3 col-12 lable_banktype">
+                                    <button type="submit" class="btn btn-primary"  (click)="first_bank_details()">Add Details</button>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
             <div class="row  mt-4" *ngIf="user_data?.bank_details_history.length>0">
                 <div class="col-lg-12">
                     <div class="h-100  bg-light border rounded-3 bank_details_section">
                         <h4 class="text-center heading">Bank Details History</h4>
                         <div class="col-lg-12">
                             <div class="row bank_details_history">
-                                <div class="col-lg-6  col-12" id="column_bank_histroy" *ngFor="let bank_details of user_data?.bank_details_history">
-                                    <h4 class="text-center heading">Details Update At: <span> {{ bank_details?.created_at | timezone}}</span></h4>
-                                    <dl class="row">
+                                <div  class="col-lg-6  col-12" id="column_bank_histroy" *ngFor="let bank_details of user_data?.bank_details_history">
+                                    <h4 class="text-center heading">Details Update At: <span> {{ bank_details?.created_at | date: 'MMM d y h:mm:ss a' }}</span></h4>
+                                    <dl class="row" *ngIf="bank_details?.bank_type=='bank_account'">
                                         <dt class="col-sm-6">Accont Holder Name:</dt>
                                         <dd class="col-sm-6" *ngIf="bank_details?.account_holder !=null">{{bank_details?.account_holder}}</dd>
                                         <hr>
@@ -172,6 +196,16 @@
                                         <hr>
                                         <dt class="col-sm-6">Bank IFSC Code</dt>
                                         <dd class="col-sm-6" *ngIf="bank_details?.ifsc_code !=null">{{ bank_details?.ifsc_code}}</dd>
+                                        <!-- <hr> -->
+                                    </dl>
+
+                                    <dl class="row" *ngIf="bank_details?.bank_type=='account_upi'">
+                                        <dt class="col-sm-6">UPI Name:</dt>
+                                        <dd class="col-sm-6" *ngIf="bank_details?.upi_name !=null">{{bank_details?.upi_name}}</dd>
+                                        <hr>
+                                        <dt class="col-sm-6">UPI ID:</dt>
+                                        <dd class="col-sm-6" *ngIf="bank_details?.upi_id !=null">{{bank_details?.upi_id }}</dd>
+                                        <hr>
                                         <!-- <hr> -->
                                     </dl>
                                 </div>

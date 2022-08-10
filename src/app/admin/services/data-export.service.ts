@@ -24,6 +24,15 @@ export class DataExportService {
       })
       .catch(this.handleError);
   }
+  get_invoice_data_excel(reqModel: any): Promise<Pagination> {
+    const route = "/api/admin/get_invoice_searching_excel";
+    return this.apiService.admin_get(route,reqModel).toPromise().then(
+      (response) => {
+        //console.log(response);
+        return response as Pagination
+      })
+      .catch(this.handleError);
+  }
   
   getpagination(url: string,reqModel:any): Promise<Pagination> {
     const route = url;

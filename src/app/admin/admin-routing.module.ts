@@ -27,6 +27,12 @@ import { OfferBannerComponent } from './components/offer-banner/offer-banner.com
 import { VisitUserFeedbackComponent } from './components/visit-user-feedback/visit-user-feedback.component';
 import { CreateUserInternalComponent} from './components/create-user-internal/create-user-internal.component';
 import {UserListInternalComponent} from './components/user-list-internal/user-list-internal.component';
+import { PropertyListComponent } from './components/property-list/property-list.component';
+import { InvoiceDetailsComponent } from './components/invoice-details/invoice-details.component';
+import { PropertyRentSlipComponent } from './components/property-rent-slip/property-rent-slip.component';
+import { PaymentUserComponent } from './components/payment-user/payment-user.component';
+import { PaymentUserListComponent } from './components/payment-user-list/payment-user-list.component';
+import { ProductPreviewComponent } from './components/product-preview/product-preview.component';
 import { NotfoundComponentComponent } from '../user/components/notfound-component/notfound-component.component';
 
 
@@ -109,8 +115,26 @@ const routes: Routes = [
       { path: 'offer-banner', component: OfferBannerComponent, canActivate: [AuthGuard, PermissionGuard],data: {
         permission: ['access_web_Banner']
       }},
-      
-      
+      { path: 'property-list', component: PropertyListComponent, canActivate: [AuthGuard, PermissionGuard],data: {
+        permission: ['property_access']
+      }},
+      { path: 'product-preview', component: ProductPreviewComponent, canActivate: [AuthGuard, PermissionGuard],data: {
+        permission: ['property_preview']
+      }},
+
+      { path: 'invoice', component: InvoiceDetailsComponent, canActivate: [AuthGuard, PermissionGuard],data: {
+        permission: ['property_access']
+      }},
+      { path: 'rent-slip', component: PropertyRentSlipComponent, canActivate: [AuthGuard, PermissionGuard],data: {
+        permission: ['property_access']
+      }},
+      { path: 'payment-user', component: PaymentUserComponent, canActivate: [AuthGuard, PermissionGuard],data: {
+        permission: ['access_bank_details']
+      }},
+      { path: 'payment-user-list', component: PaymentUserListComponent, canActivate: [AuthGuard, PermissionGuard],data: {
+        permission: ['access_bank_details']
+      }},    
+
       {path: '**', component: NotfoundComponentComponent}
     ]
   }

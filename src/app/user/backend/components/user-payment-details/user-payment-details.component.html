@@ -1,0 +1,131 @@
+<!--Breadcrumb-->
+<div class="p-5 bg-secondary rounded-3">
+    <div class="container-fluid py-5">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">My Payment Summery</li>
+            </ol>
+        </nav>
+        <h2 class="col-custom">My Payment Summery</h2>
+    </div>
+</div>
+
+<div *ngIf="showLoadingIndicator">
+    <div class="preloader"></div>
+</div>
+
+<div class="container mt20">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="alert alert-dark" role="alert">
+                 Property Payment
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12" *ngIf="payment_data?.length > 0">
+        <div class="my_dashboard_review mb40">
+            <div class="property_table">
+                <div class="table-responsive mt0">
+                    <table class="table text-center">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col">Sl. No</th>
+                                <th scope="col">Property Name</th>
+                                <th scope="col">Transaction ID</th>
+                                <th scope="col">Amount</th>
+                                <th scope="col">Payment Status</th>
+                                <th scope="col">Details</th>
+                            </tr>
+                        </thead>
+                        <tbody *ngFor="let property of payment_data; index as i">
+                            <tr>
+                                <th scope="row">{{ i+1 }}</th>
+                                <td (click)="product_preview(property?.productdetails?.id,property?.productdetails?.build_name)" id="property_name">{{ property?.productdetails?.build_name }}</td>
+                               
+                                <td>{{ property.transaction_id }}</td>
+                                 <td>{{ property.amount }}</td>
+                                <td>
+                                    <p class="text text-warning" *ngIf="property.payment_status=='Pending'">{{ property.payment_status }}</p>
+                                    <p class="text text-success" *ngIf="property.payment_status=='Success'">{{ property.payment_status }}</p>
+                                    <p class="text text-danger" *ngIf="property.payment_status=='Fail'">{{ property.payment_status }}</p>
+                                    <p class="text text-primary" *ngIf="property.payment_status=='Under Process'">{{ property.payment_status }}</p>
+
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-success" (click)="viewInvoice(property?.productdetails?.letout_invoice?.invoice_no)" *ngIf="property?.productdetails?.letout_invoice?.payment_status == 'PAID'">View Invoice</button>
+                                    <button type="button" class="btn btn-danger" (click)="viewInvoice(property?.productdetails?.letout_invoice?.invoice_no)" *ngIf="property?.productdetails?.letout_invoice?.payment_status != 'PAID'">View
+                                        Invoice</button>
+                                    <!-- <button type="button" class="btn btn-primary ml10" data-bs-toggle="modal" data-bs-target="#MoreDetailsModal" (click)="moreDetails(property)">More Details</button> -->
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="MoreDetailsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th>Invoice No: </th>
+                                <td>{{ property_det?.invoice_no }}</td>
+                            </tr>
+                            <tr>
+                                <th>Payment Mode:</th>
+                                <td>{{ property_det?.payment_mode }}</td>
+                            </tr>
+                            <tr>
+                                <th>Payment Status:</th>
+                                <td>{{ property_det?.payment_status }}</td>
+                            </tr>
+                            <tr>
+                                <th>Plan Name:</th>
+                                <td>{{ property_det?.plan_name }}</td>
+                            </tr>
+                            <tr>
+                                <th>Plan Price:</th>
+                                <td>{{ property_det?.plan_price }}</td>
+                            </tr>
+                            <tr>
+                                <th>GST Amount:</th>
+                                <td>{{ property_det?.property_rent_table?.gst_amount }}</td>
+                            </tr>
+                            <tr>
+                                <th>Security Deposit:</th>
+                                <td>{{ property_det?.property_rent_table?.security_deposit }}</td>
+                            </tr>
+                            <tr>
+                                <th>Maintenance Charge:</th>
+                                <td>{{ property_det?.property_rent_table?.maintenance_charge }}</td>
+                            </tr>
+                            <tr>
+                                <th>1 Month Rent:</th>
+                                <td>{{ property_det?.property_rent_table?.expected_rent }}</td>
+                            </tr>
+                            <tr>
+                                <th>Total Amount:</th>
+                                <td>{{ property_det?.property_rent_table?.total_amount }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

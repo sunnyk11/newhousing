@@ -58,6 +58,9 @@ export class ProfileComponent implements OnInit {
   private password_message: any;
   public bank_account_no:any=null;
   public ifsc_code:any;
+  public bank_type:any;
+  public upi_name:any;
+  public upi_id:any;
   public bank_account_holder:any;
   public account_status:boolean=false;
 
@@ -137,6 +140,10 @@ export class ProfileComponent implements OnInit {
         this.ifsc_code=this.user_data.ifsc_code;
         this.bank_account_holder=this.user_data.account_holder;
         this.account_status=this.user_data.account_status;
+        this.bank_type=this.user_data.bank_type;
+        this.upi_name=this.user_data.upi_name;
+        this.upi_id=this.user_data.upi_id;
+        console.log(this.bank_type);
 
         switch (this.usertype) {
           case 3: {
@@ -209,6 +216,9 @@ export class ProfileComponent implements OnInit {
       }
     );
   }
+  change_banktype(event:any){
+    this.bank_type=event.target.value;
+  }
 bank_details(){
   const modalRef = this.modalService.open(BankDetailsModalComponent,
     {
@@ -218,13 +228,49 @@ bank_details(){
       backdrop: 'static'
     });
     let data = {
+      bank_type:this.bank_type,
       bank_account_no: this.bank_account_no,
       ifsc_code: this.ifsc_code,
       bank_account_holder: this.bank_account_holder,
       user_mobile_no: this.phn_no,
+      upi_name:this.upi_name,
+      upi_id:this.upi_id,
       user_id:this.id
     }
     modalRef.componentInstance.user_bank_details = data;
+}
+
+first_bank_details(){
+  if(this.bank_type != null){
+    if(this.bank_type.length){      
+    const modalRef = this.modalService.open(BankDetailsModalComponent,
+      {
+        scrollable: true,
+        windowClass: 'myCustomModalClass',
+        // keyboard: false,
+        backdrop: 'static'
+      });
+      let data = {
+        bank_type:this.bank_type,
+        bank_account_no: this.bank_account_no,
+        ifsc_code: this.ifsc_code,
+        bank_account_holder: this.bank_account_holder,
+        user_mobile_no: this.phn_no,
+        upi_name:this.upi_name,
+        upi_id:this.upi_id,
+        user_id:this.id
+      }
+      modalRef.componentInstance.user_bank_details = data;
+    }else{
+      this.toastr.warning('Please Select Bank Type', 'Bank', {
+        timeOut: 3000,
+      });
+    }
+  }else{
+    this.toastr.warning('Please Select Bank Type', 'Bank', {
+      timeOut: 3000,
+    });
+  }
 }
   user_details_name() {
     this.UserNameForm.patchValue({

@@ -12,4 +12,25 @@
     #cont1 {
         padding: 0 !important;
     }
+    .table>:not(caption)>*>*{
+        font-size: 10px!important;
+    }
+    .img img{
+        width: 50%!important;
+    }
+    h2{
+        font-size: 10px!important;
+    }
+    h3{
+        font-size: 10px!important;
+    }
+    h4{
+        font-size: 10px!important;
+    }
+    h4 strong{
+        font-size: 10px!important;
+    }
+    h4 span{
+        font-size: 10px!important;
+    }
 }

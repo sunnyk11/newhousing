@@ -2,7 +2,6 @@ import { Component, OnInit ,ViewChild, ElementRef } from '@angular/core';
 import { ToWords } from 'to-words';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
-import { environment } from 'src/environments/environment';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PlansServiceService } from '../../services/plans-service.service';
 
@@ -55,6 +54,7 @@ property_rent_slip(property_id:any){
   this.PlansServiceService.property_rent_slip(param).subscribe(
     response => {
       let data:any=response;
+      console.log(response);
       if(data.data ==null){
         this.router.navigate(['/agent/my-properties']);
       }else{
