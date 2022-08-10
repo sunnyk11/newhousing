@@ -37,6 +37,26 @@ export class UserBankDetailsService {
       })
       .catch(this.handleError);
   }
+  
+  get_payment_user(reqModel: any): Promise<Pagination> {
+    const route = "/api/admin/get_payment_user";
+    return this.apiService.admin_get(route,reqModel).toPromise().then(
+      (response) => {
+        //console.log(response);
+        return response as Pagination
+      })
+      .catch(this.handleError);
+  }
+  
+  get_payment_user_excel(reqModel: any): Promise<Pagination> {
+    const route = "/api/admin/get_payment_user_excel";
+    return this.apiService.admin_get(route,reqModel).toPromise().then(
+      (response) => {
+        //console.log(response);
+        return response as Pagination
+      })
+      .catch(this.handleError);
+  }
   get_userbank_history_id(reqModel: any): Observable<ResultModel> {
     const route = "/api/admin/get_userbank_history_id";
     return this.apiService.admin_get<ResultModel>(route, reqModel);
@@ -47,7 +67,7 @@ export class UserBankDetailsService {
   }
   update_bank_paytm_id(reqModel: any): Observable<ResultModel> {
     const route = "/api/admin/update_bank_paytm_id";
-    return this.apiService.post<ResultModel>(route, reqModel);
+    return this.apiService.admin_post<ResultModel>(route, reqModel);
   }
   
   getpagination(url: string): Promise<Pagination> {
@@ -58,6 +78,40 @@ export class UserBankDetailsService {
       return response as Pagination
     })
     .catch(this.handleError);
+  }
+  
+  getpagination1(url: string,reqModel:any): Promise<Pagination> {
+    const route = url;
+    //console.log(route);
+    return this.apiService.get_admin_pagination(route+reqModel).toPromise().then(
+      (response) => {
+      return response as Pagination
+    })
+    .catch(this.handleError);
+  }
+  
+  get_search_user(reqModel:any): Observable<ResultModel> {
+    const route = "/api/admin/admin_get_search_user/";
+    return this.apiService.admin_get<ResultModel>(route + reqModel);
+  }
+  mobile_get_search_user(reqModel:any): Observable<ResultModel> {
+    const route = "/api/admin/admin_mobile_search_user/";
+    return this.apiService.admin_get<ResultModel>(route + reqModel);
+  }
+  
+  payment_user_create(reqModel: any): Observable<ResultModel> {
+    const route = "/api/admin/admin_payment_user_create";
+    return this.apiService.admin_post<ResultModel>(route, reqModel);
+  }
+  
+  payment_user_update(reqModel: any): Observable<ResultModel> {
+    const route = "/api/admin/admin_payment_user_update";
+    return this.apiService.admin_post<ResultModel>(route, reqModel);
+  }
+  
+  get_property(reqModel:any): Observable<ResultModel> {
+    const route = "/api/admin/admin_get_property_id";
+    return this.apiService.admin_get<ResultModel>(route, reqModel);
   }
   
 }

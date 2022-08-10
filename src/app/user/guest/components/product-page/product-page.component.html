@@ -5,24 +5,17 @@
         </div>
     </div>
     <div class="single_page_listing_tab" *ngIf="order_status == 0 && sectiondisplay == true">
-        <!-- <div class="container">
+        <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <ul class="nav nav-tabs" id="myTab" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link active" id="slider-tab" data-toggle="tab" href="#slider_tabs" role="tab" aria-controls="slider_tabs" aria-selected="true">
-                                <span class="flaticon-photo-camera color-white"></span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="share-tab" data-toggle="tab" href="#share_tab" role="tab" aria-controls="share_tab" aria-selected="false">
-                                <span class="flaticon-share color-white"></span>
-                            </a>
+                    <ul id="img_header">
+                        <li>
+                            <img class="img-whp lazy" alt="No Product Image" src="./../../assets/resources/images/t5.png">
                         </li>
                     </ul>
                 </div>
             </div>
-        </div> -->
+        </div>
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="slider_tabs" role="tabpanel" aria-labelledby="slider-tab">
                 <!-- 10th Home Slider -->
@@ -67,7 +60,7 @@
             <div class="row">
                 <div class="col-lg-7 col-xl-8">
                     <div class="single_property_title mt30-767 mb30-767">
-                        <h2>{{ product_data?.build_name }}</h2>
+                        <h2>{{ product_data?.build_name }}<span *ngIf="product_data?.pro_flat__type != null">({{product_data?.pro_flat__type?.name | titlecase}})</span></h2>
                         <p>
                             <span *ngIf="product_data.product_sub_locality != null">{{ product_data?.product_sub_locality?.sub_locality | titlecase }}</span>
                             <span *ngIf="product_data?.product_locality?.locality"> ({{ product_data?.product_locality?.locality}}) </span>
@@ -490,7 +483,7 @@
                                         <h4 class="Map_heading mb20">Location</h4>
                                     </div>
                                     <div class="col-lg-9 single_page_address">
-                                        <h6 class="mb20">{{address}}</h6>
+                                        <h6 class="mb20">{{address_details}}</h6>
                                     </div>
                                 </div>
                                 <div class="property_video p0">
@@ -514,7 +507,7 @@
                                         <h4 class="Map_heading mb20">Location</h4>
                                     </div>
                                     <div class="col-lg-9 single_page_address">
-                                        <h6 class="mb20">{{address}}</h6>
+                                        <h6 class="mb20">{{address_details}}</h6>
                                     </div>
                                 </div>
                                 <div class="property_video p0">
@@ -599,9 +592,12 @@
                                         <img class="img-whp" src="{{ftpstring}}{{img?.image}}" alt="img1.jpg">
                                         <div class="thumb">
                                             <div class="thmb_cntnt style2">
-                                                <ul class="tag mb0" (click)="navigate(number.id,number.build_name,number.city)">
+                                                <ul class="tag mb0" id="ul_img_header" (click)="navigate(number.id,number.build_name,number.city)">
                                                     <li class="list-inline-item" *ngIf=" number.rent_availability != null"><a>For Rent</a></li>
                                                     <li class="list-inline-item" *ngIf=" number.sale_availability != null"><a>For Sale</a></li>
+                                                    <li>
+                                                        <img class="img-whp lazy" alt="No Product Image" src="./../../assets/resources/images/t5.png">
+                                                    </li>
                                                 </ul>
                                             </div>
                                             <div class="thmb_cntnt style3">
@@ -631,9 +627,12 @@
                                     <img class="img-whp lazy" alt="No Product Image" style="height: 250px;" src="./../../assets/resources/images/no_image_available.jpg">
                                     <div class="thumb">
                                         <div class="thmb_cntnt style2">
-                                            <ul class="tag mb0" (click)="navigate(number.id,number.build_name,number.city)">
+                                            <ul class="tag mb0" id="ul_img_header" (click)="navigate(number.id,number.build_name,number.city)">
                                                 <li class="list-inline-item" *ngIf=" number.rent_availability != null"><a>For Rent</a></li>
                                                 <li class="list-inline-item" *ngIf=" number.sale_availability != null"><a>For Sale</a></li>
+                                                <li>
+                                                    <img class="img-whp lazy" alt="No Product Image" src="./../../assets/resources/images/t5.png">
+                                                </li>
                                             </ul>
                                         </div>
                                         <div class="thmb_cntnt style3">
@@ -1324,7 +1323,7 @@
                                         <h4 class="Map_heading mb20">Location</h4>
                                     </div>
                                     <div class="col-lg-9 single_page_address">
-                                        <h6 class="mb20">{{address}}</h6>
+                                        <h6 class="mb20">{{address_details}}</h6>
                                     </div>
                                 </div>
                                 <div class="property_video p0">
@@ -1348,7 +1347,7 @@
                                         <h4 class="Map_heading mb20">Location</h4>
                                     </div>
                                     <div class="col-lg-9 single_page_address">
-                                        <h6 class="mb20">{{address}}</h6>
+                                        <h6 class="mb20">{{address_details}}</h6>
                                     </div>
                                 </div>
                                 <div class="property_video p0">

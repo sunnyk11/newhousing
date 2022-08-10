@@ -89,20 +89,33 @@ export class DataExportComponent implements OnInit {
       this.invoice_data=Pagination_data;
     });
   } 
+  
   excel_emport(){
     if(this.invoice_data_length>0){
-      var options = { 
-        fieldSeparator: ',',
-        quoteStrings: '"',
-        decimalseparator: '.',
-        showLabels: true, 
-        showTitle: true,
-        title: 'Invoice data',
-        useBom: true,
-        noDownload: false,
-        headers: ["User Email","User id","Order ID", "Invoice No","Invoice ID","Plan Type","Plan Name","Plan Availablty","Payment Type","Plan Price","Payment Status","Payment Mode","Payment Received","Property ID","Property Name","Property Price","Porperty url","GST Amount","SGST Amount","Total Amount","Service Status","Service Deliver Date","Invoice Generate Date","Invoice Paid Date","Created At"]
-      };
-       new  ngxCsv(this.invoice_data.excel_data, "Invoice data", options);
+      this.showLoadingIndicator=true;
+    this.DataExportService.get_invoice_data_excel(this.searching_form.value).then(
+      Pagination_data => {
+        let data:any=Pagination_data;
+        if(data.data.length>0){
+          var options = { 
+            fieldSeparator: ',',
+            quoteStrings: '"',
+            decimalseparator: '.',
+            showLabels: true, 
+            showTitle: true,
+            title: 'Invoice data',
+            useBom: true,
+            noDownload: false,
+            headers: ["User Email","User id","Order ID", "Invoice No","Invoice ID","Plan Type","Plan Name","Plan Availablty","Payment Type","Plan Price","Payment Status","Payment Mode","Payment Received","Property ID","Property Name","Property Price","Porperty url","GST Amount","SGST Amount","Total Amount","Service Status","Service Deliver Date","Invoice Generate Date","Invoice Paid Date","Created At"]
+          };
+           new  ngxCsv(data.data, "Invoice data", options);
+        }else{
+          this.toastr.error('Please Applied  Search form fillter');
+        }
+        this.showLoadingIndicator=false;
+      }, err => {
+      }
+    );
     }else{
         this.toastr.error('Please Applied  Search form fillter');
     }

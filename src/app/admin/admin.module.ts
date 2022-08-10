@@ -50,6 +50,16 @@ import { ByuserByinternalComponent } from './modals/byuser-byinternal/byuser-byi
 import { UserMobileUpdateComponent } from './modals/user-mobile-update/user-mobile-update.component';
 import { UserEmailUpdateComponent } from './modals/user-email-update/user-email-update.component';
 import { OfferBannerComponent } from './components/offer-banner/offer-banner.component';
+import { PropertyListComponent } from './components/property-list/property-list.component';
+import { InvoicePopupComponent } from './modals/invoice-popup/invoice-popup.component';
+import { InvoiceDetailsComponent } from './components/invoice-details/invoice-details.component';
+import { PropertyRentSlipComponent } from './components/property-rent-slip/property-rent-slip.component';
+import { PaymentUserComponent } from './components/payment-user/payment-user.component';
+import { PaymentUserListComponent } from './components/payment-user-list/payment-user-list.component';
+import { NgImageSliderModule } from 'ng-image-slider';
+import { AgmCoreModule } from '@agm/core';
+import { ProductPreviewComponent } from './components/product-preview/product-preview.component';
+import { TimezonePipe } from './pipes/timezone.pipe';
 @NgModule({
   declarations: [
     LoginComponent,
@@ -84,6 +94,14 @@ import { OfferBannerComponent } from './components/offer-banner/offer-banner.com
     UserMobileUpdateComponent,
     UserEmailUpdateComponent,
     OfferBannerComponent,
+    PropertyListComponent,
+    InvoicePopupComponent,
+    InvoiceDetailsComponent,
+    PropertyRentSlipComponent,
+    PaymentUserComponent,
+    PaymentUserListComponent,
+    ProductPreviewComponent,
+    TimezonePipe
   ],
   imports: [
     CommonModule,
@@ -104,6 +122,10 @@ import { OfferBannerComponent } from './components/offer-banner/offer-banner.com
     NgbModule,
     MatAutocompleteModule,
     EditorModule,
+    AgmCoreModule.forRoot({  
+      apiKey: 'AIzaSyC2S5kHeGYkW9cL4d7_uxfauTBfQEtN4HA', libraries: ['places','drawing', 'geometry']
+    }),  
+    NgImageSliderModule,
     GuestModule
   ]
 })

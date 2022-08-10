@@ -1028,8 +1028,8 @@ section {
     background-color: rgb(62, 76, 102);
 }
 
-.feat_property .thumb .thmb_cntnt ul.tag li:last-child,
-.feat_property.list .dtls_headr ul.tag li:last-child {
+.feat_property .thumb .thmb_cntnt ul.tag li:first-child,
+.feat_property.list .dtls_headr ul.tag li:first-child {
     background-color: #ff5a5f;
     margin-right: 0;
 }
@@ -1046,6 +1046,16 @@ section {
     bottom: 15px;
     position: absolute;
     right: 20px;
+}
+#ul_img_header{
+    width: 95%!important;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+#ul_img_header img{
+    opacity: 1!important;
+    height: 70px!important;
 }
 
 .feat_property .thumb .thmb_cntnt .icon li {

@@ -47,7 +47,17 @@
                                                 </div>
                                             </div>
                                         </li>
-                                        
+                                        <li>
+                                            <div class="search_option_two">
+                                                <div class="candidate_revew_select">
+                                                    <select class="form-select w100 show-tick" name="Furnished" formControlName="Furnished" id="Furnished">
+                                                        <option value ="" selected>Select Furnished</option>
+                                                        <option value ="Furnished">Furnished</option>
+                                                        <option value="Not Furnished">Not Furnished</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </li>
                                     <li>
                                         <div class="search_option_two">
                                             <div class="candidate_revew_select">
@@ -172,6 +182,17 @@
                                                 <!-- <label for="pincode" class="form-label">Sub-Locality</label>  -->
                                                 <ng-multiselect-dropdown class="form-control sub_localty_dropdown" [placeholder]="'Select Sub-locality'" [settings]="dropdownSettings1" [data]="dropdown_sublocality" formControlName="sub_locality">
                                                 </ng-multiselect-dropdown>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="search_option_two">
+                                                <div class="candidate_revew_select">
+                                                    <select class="form-select w100 show-tick" name="Furnished" formControlName="Furnished" id="Furnished">
+                                                        <option value ="" selected>Select Furnished</option>
+                                                        <option value ="Furnished">Furnished</option>
+                                                        <option value="Not Furnished">Not Furnished</option>
+                                                    </select>
+                                                </div>
                                             </div>
                                         </li>
                                         <li>
@@ -433,6 +454,17 @@
                                                 <select class="form-select w100 show-tick" name="type" formControlName="type" id="type">
                                                     <option value ="" selected>Select Property Type</option>
                                                     <option  *ngFor="let properrt_category of category?.data" [value]="properrt_category?.category?.property__type?.name" >{{properrt_category?.category?.property__type?.name}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="search_option_two">
+                                            <div class="candidate_revew_select">
+                                                <select class="form-select w100 show-tick" name="Furnished" formControlName="Furnished" id="Furnished">
+                                                    <option value ="" selected>Select Furnished</option>
+                                                    <option value ="Furnished">Furnished</option>
+                                                    <option value="Not Furnished">Not Furnished</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -863,11 +895,14 @@
                                     <img class="img-whp" src="{{ftpstring}}{{img?.image}}" alt="img1.jpg">
                                     <div class="thumb">
                                         <div class="thmb_cntnt style2">
-                                            <ul class="tag mb0"  [routerLink]="['/product-details']" target="_blank" [queryParams]="{'id':number.product_id,'name':number.build_name}">
+                                            <ul class="tag mb0" id="ul_img_header"  [routerLink]="['/product-details']" target="_blank" [queryParams]="{'id':number.product_id,'name':number.build_name}">
                                                 <li class="list-inline-item" *ngIf=" number.rent_availability != null">
                                                     <a>For Rent</a></li>
                                                 <li class="list-inline-item" *ngIf=" number.sale_availability != null">
                                                     <a>For Sale</a></li>
+                                                <li>
+                                                    <img class="img-whp lazy" alt="No Product Image" src="./../../assets/resources/images/t5.png">
+                                                </li>
                                             </ul>
                                         </div>
                                         <div class="thmb_cntnt style3">
@@ -897,11 +932,14 @@
                                 <img class="img-whp lazy" alt="No Product Image" style="height: 250px;" src="./../../assets/resources/images/no_image_available.jpg">
                                 <div class="thumb">
                                     <div class="thmb_cntnt style2">
-                                        <ul class="tag mb0"  [routerLink]="['/product-details']" target="_blank" [queryParams]="{'id':number.product_id,'name':number.build_name}">
+                                        <ul class="tag mb0"  id="ul_img_header" [routerLink]="['/product-details']" target="_blank" [queryParams]="{'id':number.product_id,'name':number.build_name}">
                                             <li class="list-inline-item" *ngIf=" number.rent_availability != null">
                                                 <a>For Rent</a></li>
                                             <li class="list-inline-item" *ngIf=" number.sale_availability != null">
                                                 <a>For Sale</a></li>
+                                            <li >
+                                                <img class="img-whp lazy" alt="No Product Image" src="./../../assets/resources/images/t5.png">
+                                            </li>    
                                         </ul>
                                     </div>
                                     <div class="thmb_cntnt style3">

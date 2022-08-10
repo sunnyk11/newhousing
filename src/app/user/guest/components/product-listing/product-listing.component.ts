@@ -78,6 +78,7 @@ export class ProductListingComponent implements OnInit {
     type: [''],
     flat_type:[''],
     city:[''],
+    Furnished:[''],
     locality:[''],
     locality_data:[''],
     property_status:[''],
@@ -565,17 +566,17 @@ export class ProductListingComponent implements OnInit {
         }
        if(this.access_search_bar == true){
          if(data.sub_locality.length>0){
-          this.router.navigate(['/product-listing'],{queryParams:{'name':data.build_name,'flat_type':data.flat_type,'product_id':data.product_id,'city':data.city,'type':data.type,'security_deposit':data.security_deposit,'locality':data.locality,'sub_locality':data.sub_locality[0]['sub_locality_text'],'sub_locality_id':data.sub_locality[0]['sub_locality_id'],'search_type':data.search_type,'area_unit':data.area_unit,'years':data.years,'bedrooms':data.bedrooms,'bathrooms':data.bathrooms,'min_price':data.sliderControl[0],'max_price':data.sliderControl[1]}});        
+          this.router.navigate(['/product-listing'],{queryParams:{'name':data.build_name,'flat_type':data.flat_type,'Furnished':data.Furnished,'product_id':data.product_id,'city':data.city,'type':data.type,'security_deposit':data.security_deposit,'locality':data.locality,'sub_locality':data.sub_locality[0]['sub_locality_text'],'sub_locality_id':data.sub_locality[0]['sub_locality_id'],'search_type':data.search_type,'area_unit':data.area_unit,'years':data.years,'bedrooms':data.bedrooms,'bathrooms':data.bathrooms,'min_price':data.sliderControl[0],'max_price':data.sliderControl[1]}});        
          }else{
-          this.router.navigate(['/product-listing'],{queryParams:{'name':data.build_name,'flat_type':data.flat_type,'product_id':data.product_id,'city':data.city,'type':data.type,'security_deposit':data.security_deposit,'locality':data.locality,'search_type':data.search_type,'area_unit':data.area_unit,'years':data.years,'bedrooms':data.bedrooms,'bathrooms':data.bathrooms,'min_price':data.sliderControl[0],'max_price':data.sliderControl[1]}});        
+          this.router.navigate(['/product-listing'],{queryParams:{'name':data.build_name,'flat_type':data.flat_type,'Furnished':data.Furnished,'product_id':data.product_id,'city':data.city,'type':data.type,'security_deposit':data.security_deposit,'locality':data.locality,'search_type':data.search_type,'area_unit':data.area_unit,'years':data.years,'bedrooms':data.bedrooms,'bathrooms':data.bathrooms,'min_price':data.sliderControl[0],'max_price':data.sliderControl[1]}});        
          }
         // this.router.navigate(['/product-listing'],{queryParams:{'name':data.build_name,'city':data.city,'type':data.type,'locality':data.locality,'sub_locality':data.sub_locality[0]['sub_locality_text'],'sub_locality_id':data.sub_locality[0]['sub_locality_id'],'search_type':data.search_type,'area_unit':data.area_unit,'years':data.years,'bedrooms':data.bedrooms,'bathrooms':data.bathrooms,'min_price':data.sliderControl[0],'max_price':data.sliderControl[1]}});
         // this.router.navigate(['/product-listing'],{queryParams:{'name':data.build_name,'city':data.city,'type':data.type,'locality':data.locality,'search_type':data.search_type,'area_unit':data.area_unit,'years':data.years,'bedrooms':data.bedrooms,'bathrooms':data.bathrooms,'minimum':data.sliderControl[0],'maximum':data.sliderControl[1],amenties:this.amenityArray}});
        }else{
-        this.router.navigate(['/product-listing'],{queryParams:{'city':data.city,'flat_type':data.flat_type,'locality':data.locality,'type':data.type,'bedrooms':data.bedrooms,'bathrooms':data.bathrooms,'security_deposit':data.security_deposit,'minimum':data.sliderControl[0],'maximum':data.sliderControl[1]}});
+        this.router.navigate(['/product-listing'],{queryParams:{'city':data.city,'flat_type':data.flat_type,'Furnished':data.Furnished,'locality':data.locality,'type':data.type,'bedrooms':data.bedrooms,'bathrooms':data.bathrooms,'security_deposit':data.security_deposit,'minimum':data.sliderControl[0],'maximum':data.sliderControl[1]}});
        }
      }else{
-      this.router.navigate(['/product-listing'],{queryParams:{'city':data.city,'flat_type':data.flat_type,'locality':data.locality,'type':data.type,'bedrooms':data.bedrooms,'bathrooms':data.bathrooms,'security_deposit':data.security_deposit,'minimum':data.sliderControl[0],'maximum':data.sliderControl[1]}});
+      this.router.navigate(['/product-listing'],{queryParams:{'city':data.city,'flat_type':data.flat_type,'Furnished':data.Furnished,'locality':data.locality,'type':data.type,'bedrooms':data.bedrooms,'bathrooms':data.bathrooms,'security_deposit':data.security_deposit,'minimum':data.sliderControl[0],'maximum':data.sliderControl[1]}});
      }
     } 
   onchangeAmenties(e:any,id:any){
@@ -650,6 +651,7 @@ export class ProductListingComponent implements OnInit {
       type: '',
       sub_locality: '',
       flat_type:'',
+      Furnished:'',
       city:'',
       locality:'',
       locality_data:'',

@@ -6,24 +6,54 @@
         </button>
     </div>
     <div class="modal-body">
-        <form [formGroup]="bank_details" >
+        <form  role="form" action="" method="post" class="f" [formGroup]="bank_details" >
             <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1">User Name*:</span>
+                <span class="input-group-text" id="basic-addon1" style="background-color:#0d6efd!important; color:#fff;border-color:#0d6efd!important;">Bank Type:</span>
+                <select id="searchtype" class="form-select form-select-lg " formControlName="bank_type"   (ngModelChange)="change_banktype($event)" style="border-color:#0d6efd!important;">
+                    <option value="bank_account">Bank Account</option>
+                    <option value="account_upi">Account UPI</option>
+                </select>
+            </div>
+            <div class="input-group mb-3" *ngIf="bank_account==true">
+                <span class="input-group-text" id="basic-addon1" >User Name*:</span>
                 <input type="text" class="form-control" placeholder="" formControlName="account_holder" [ngClass]="{ 'is-invalid': submitted && f.account_holder.errors }">
             </div>
-            <div class="input-group mb-3">
+            <div class="input-group mb-3" *ngIf="bank_account==true">
                 <span class="input-group-text" id="basic-addon1">Account No*:</span>
                 <input type="text" class="form-control" placeholder="" formControlName="account_no" (keypress)="keyPressNumbers($event)" [ngClass]="{ 'is-invalid': submitted && f.account_no.errors }">
             </div>
-            <div class="input-group mb-3">
+            <div class="input-group mb-3" *ngIf="bank_account==true">
+                <span class="input-group-text" id="basic-addon1">Confirm Account No*:</span>
+                <input type="password" class="form-control" placeholder="" formControlName="conf_account_no" (keypress)="keyPressNumbers($event)" [ngClass]="{ 'is-invalid': submitted && f.conf_account_no.errors }">
+            </div>
+            <div class="input-group mb-3" *ngIf="bank_account==true">
                 <span class="input-group-text" id="basic-addon1">IFSC Code*:</span>
                 <input type="text" class="form-control" placeholder="" formControlName="ifsc_code" [ngClass]="{ 'is-invalid': submitted && f.ifsc_code.errors }">
             </div>
+            
+
+            <div class="input-group mb-3" *ngIf="account_upi==true">
+                <span class="input-group-text" id="basic-addon1" >UPI Name*:</span>
+                <input type="text" class="form-control" placeholder="" formControlName="upi_name" [ngClass]="{ 'is-invalid': submitted && f.upi_name.errors }">
+            </div>
+            <div class="input-group mb-3" *ngIf="account_upi==true">
+                <span class="input-group-text" id="basic-addon1">UPI Id*:</span>
+                <input type="text" class="form-control" placeholder="" formControlName="upi_id"[ngClass]="{ 'is-invalid': submitted && f.upi_id.errors }">
+            </div>
+            <div class="input-group mb-3" *ngIf="account_upi==true">
+                <span class="input-group-text" id="basic-addon1">Confirm UPI Id*:</span>
+                <input type="password" class="form-control" placeholder="" formControlName="conf_upi_id"  [ngClass]="{ 'is-invalid': submitted && f.conf_upi_id.errors }">
+            </div>
+            <p *ngIf="upi_error==true" style="font-size:14px; color:red;margin:0px">Please correct UPI Id</p>
         </form>
     </div>
-    <div class="modal-footer">
+    <div class="modal-footer"  *ngIf="bank_account==true">
         <button type="button" class="btn btn-primary" *ngIf="bank_account_no != null" (click)="update_deatils()" >Update Details</button>
         <button type="button" class="btn btn-primary" *ngIf="bank_account_no == null" (click)="update_deatils()" >Add Details</button>
+    </div>
+    <div class="modal-footer"  *ngIf="account_upi==true">
+        <button type="button" class="btn btn-primary" *ngIf="upi_no != null" (click)="update_deatils()" >Update UPI</button>
+        <button type="button" class="btn btn-primary" *ngIf="upi_no == null" (click)="update_deatils()" >Add UPI</button>
     </div>
 </div>
 

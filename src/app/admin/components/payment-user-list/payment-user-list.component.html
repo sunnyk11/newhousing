@@ -1,0 +1,195 @@
+<div class="wrapper">
+        <div class="container  mb20">
+        <div class="row">
+            <div class="col-lg-12 ">
+                <div class="my_dashboard_review">
+                    <form role="form" action="" method="post" class="f1"  [formGroup]="searching_form">
+                    <div class="row">
+                        <div class="col-lg-8  col-12">
+                          <h2 class="mb10"> Searching Payment</h2>
+                        </div>
+                        <div class="col-lg-3 offset-lg-1 col-12 refresh">
+                            <button type="submit" class="btn btn-submit" (click)="refresh_data()">Refresh Form</button>
+                        </div>         
+                        <div class="col-lg-3 col-12 mt15">
+                            <div class="form-group">
+                                <label for="admin_property_type" class="form-label"> Payment Type</label>
+                                <select id="admin_property_type" class="form-select form-select-lg w100" formControlName="admin_payment_type" [ngClass]="{ 'is-invalid': submitted && f.admin_payment_type.errors }">
+                                    <option value="">Select Type</option>
+                                    <option value="Under Process">Under Process</option>
+                                    <option value="Pending">Pending</option>
+                                    <option value="Success">Success</option>
+                                    <option value="Fail">Fail</option>
+                                </select>
+                            </div>
+                        </div>               
+                        <div class="col-lg-3 col-12 mt15">
+                            <div class="form-group">
+                                <label for="star_date" class="form-label">Select Sart Date</label>
+                                <input type="date" class="form-control" id="star_date" formControlName="star_date" [ngClass]="{ 'is-invalid': submitted && f.star_date.errors }" (ngModelChange)="onchange_date()">
+                            </div>
+                        </div>                  
+                        <div class="col-lg-3 col-12 mt15">
+                            <div class="form-group">
+                                <label for="end_date" class="form-label">Select End Date</label>
+                                <input type="date" class="form-control" id="end_date"  formControlName="end_date" [ngClass]="{ 'is-invalid': submitted && f.end_date.errors }" (ngModelChange)="onchange_date()">
+                            </div>
+                        </div>  
+                      <div class="col-lg-3 col-12 search-column mt15">
+                          <!-- <div class="f1-buttons m-auto"> -->
+                              <button type="submit" class="btn btn-submit" [disabled]="disabled" (click)="on_search()"><span *ngIf="disabled==false">Search</span><span *ngIf="disabled== true">No Search data</span></button>
+                          <!-- </div> -->
+                      </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container mt20">
+        <div class="row">
+            
+            <div class="col-lg-9 col-6">
+                <span class="status_tag badge">All Payment ({{payment_user_length}})</span>
+            </div>
+            <div class="col-lg-3 col-6">
+                <span class="status_tag badge" (click)="excel_emport()">Data Excel Export</span>
+            </div>
+            <div class="col-lg-12  col-12">
+                <div class="my_dashboard_review">
+
+                    <div class="row preloader_row" *ngIf="showLoadingIndicator == true">
+                        <div class="col-lg-12">
+                            <div class="preloader"></div>
+                        </div>
+                    </div>
+                    <div class="property_table">
+                        <div class="table-responsive mt0">
+                           <table class="table table-striped  text-center" *ngIf="showLoadingIndicator == false">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th scope="col heading">Payment img</th>
+                                        <th scope="col">Property</th>
+                                        <th scope="col">Transaction Id</th>
+                                        <th scope="col">Amount</th>
+                                        <th scope="col">Property Owner</th>
+                                        <th scope="col">Payment Status</th>
+                                        <th scope="col">CreateBy</th>
+                                        <th scope="col">date</th>
+                                        <th scope="col">Action On</th>
+                                    </tr>
+                                </thead>
+                                <tbody >
+                                    <tr  *ngFor="let data of payment_user?.data?.data">
+                                        <td class="img_tr">
+                                            <div class="thumb" *ngIf="data?.payment_image">
+                                                <img class="img-whp" src="{{ftpstring}}{{data.payment_image}}" alt="fp1.jpg">
+                                             </div>
+                                             <div class="thumb" *ngIf="data?.payment_image == null">
+                                                   <img class="img-whp" src="./../../assets/resources/images/no_image_available.jpg"
+                                                    alt="No Product Image">
+                                              </div>
+                                        </td>
+                                        <td (click)="product_preview(data?.productdetails?.id,data?.productdetails?.build_name)" id="property_name">{{data?.productdetails?.build_name}}</td>
+                                        <td>{{data?.transaction_id}}</td>
+                                        <td>{{data?.amount}}</td>
+                                        <td>{{data?.pro_owner?.name}} </td>
+                                        <td> 
+                                            <p class="text text-warning" *ngIf="data?.payment_status=='Pending'"> {{data?.payment_status}}</p>
+                                            <p class="text text-success" *ngIf="data?.payment_status=='Success'"> {{data?.payment_status}}</p>
+                                            <p class="text text-danger" *ngIf="data?.payment_status=='Fail'"> {{data?.payment_status}}</p>
+                                            <p class="text text-primary" *ngIf="data?.payment_status=='Under Process'"> {{data?.payment_status}}</p>
+                                           
+                                        </td>
+                                        <td>{{data?.pro_created_user?.name}}</td>
+                                        <td>{{data?.created_at | timezone}}</td>
+                                        <td>
+                                            <ul class="view_edit_delete_list mb0">
+                                                <!-- <li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="View">
+                                                    <a (click)="user_bank_history(data?.id,data?.email,data?.other_mobile_number)"><span class="flaticon-view"></span></a>
+                                                </li> -->
+                                                <li class="list-inline-item" *ngIf="data?.payment_status !='Fail'" data-toggle="tooltip" data-placement="top" title="Edit"  data-bs-toggle="modal" data-bs-target="#EditDetailsModal" (click)="viewDetails(data)">
+                                                    <a><span class="flaticon-edit"></span></a>
+                                                </li>
+                                                <li *ngIf="data?.payment_status =='Fail'"><p class="text text-danger"> No Edit </p></li>
+                                                <!-- <li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="Delete">
+                                                    <a (click)="delete_user_bank(data?.id)"><span class="flaticon-garbage"></span></a>
+                                                </li> -->
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="mbp_pagination" *ngIf="payment_user_length>0">
+                                <!-- {{user_bank_details.links | json}} -->
+                                <ul class="page_navigation">
+                                    <li class="page-item" *ngFor="let link of payment_user.data.links; index as i" [ngClass]="{'active' : link.active == true, 'disabled' : link.url == null}">
+                                        <button type="button" (click)="gotoPage(link.url)" class="page-link">
+                                            <span
+                                                *ngIf="link.label.indexOf('Previous') == -1 && link.label.indexOf('Next') == -1"
+                                                [innerHTML]="link.label"></span>
+                                            <span *ngIf="link.label.indexOf('Previous') > -1"
+                                                class="flaticon-left-arrow"></span>
+                                            <span *ngIf="link.label.indexOf('Next') > -1"
+                                                class="flaticon-right-arrow"></span>
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- <div class="col-lg-12 agent_property " *ngIf="user_bank_details?.data?.length>5 && showLoadingIndicator==false">
+                            <pagination-controls (pageChange)="p=$event"></pagination-controls>
+                            </div> -->
+                            <div class="col-lg-12"  *ngIf="payment_user_length==0 && showLoadingIndicator==false">
+                                <h3>No Data Availabe</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- More Details Modal -->
+<div class="modal fade" id="EditDetailsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Property - ({{product | uppercase}})</h5>
+                <button type="button" #closeModal class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form role="form" action="" method="post" class="f" [formGroup]="payment_form" novalidate>
+                    <div class="row" >
+                        <div class="col-12">
+                            <dl class="row" style="margin-bottom: 0px;">
+                                <dt class="col-sm-6">transaction_id:</dt>
+                                <dd class="col-sm-6" >{{transaction_id}}</dd>
+                                <hr>
+                                <dt class="col-sm-6">Amount:</dt>
+                                <dd class="col-sm-6" >{{product_amount}}</dd>
+                                <hr>
+                                <dt class="col-sm-6">Property Owner: </dt>
+                                <dd class="col-sm-6">{{property_owner}}</dd>
+                                <hr>
+                            </dl>
+                        </div>
+                        <div class="col-lg-12 mb10 col-sm-12">
+                            <div class="input-group mb-3">
+                                <label class="input-group-text" for="inputGroupSelect01">Status</label>
+                                <select class="form-select" id="inputGroupSelect01" formControlName="payment_status" [ngClass]="{ 'is-invalid': submitted && g.payment_status.errors }" name="status">
+                                    <option value="Under Process">Under Process</option>
+                                    <option value="Pending">Pending</option>
+                                    <option value="Success">Success</option>
+                                    <option value="Fail">Fail</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 offset-lg-8 col-12">
+                                <button type="submit" data-bs-dismiss="modal" class="btn btn-danger" (click)="onSubmit()">Update</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
