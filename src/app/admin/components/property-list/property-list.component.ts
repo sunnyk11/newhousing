@@ -92,7 +92,11 @@ export class PropertyListComponent implements OnInit {
     this.searching_form.patchValue({
       admin_property_type:'',
       star_date:'',
-      end_date:''
+      end_date:'',
+      user_type:'',
+      user_email:'',
+      invoice_no:'',
+      user_mobile_no:'',
     });
     this.get_property();
   }
