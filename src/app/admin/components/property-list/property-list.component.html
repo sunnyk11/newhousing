@@ -114,7 +114,7 @@
                                 <tbody *ngIf="showLoadingIndicator == false">
                                     <tr  *ngFor="let data of property_data?.data?.data">
                                         <td (click)="product_preview(data?.id,data?.build_name)" id="property_name">{{data?.build_name}}
-                                            <div class="text-primary" (click)="rentslip(data?.id)">Rent Slip </div>
+                                            <div class="text-danger" (click)="rentslip(data?.id)">Rent Slip </div>
                                         </td>
                                         <td>
                                             {{data?.expected_rent}}

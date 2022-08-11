@@ -43,6 +43,8 @@ export class PaymentUserComponent implements OnInit {
   public upi_id:any;
   public mobile_search:boolean=true;
   public email_search:boolean=false;
+  public property_payment:boolean=true;
+  public other_payment:boolean=false;
 
   
   
@@ -54,11 +56,12 @@ export class PaymentUserComponent implements OnInit {
     amount: new FormControl('', Validators.required),
     payment_user: new FormControl('', Validators.required),
     payment_user_data: new FormControl('', Validators.required),
-    product: new FormControl('', Validators.required),
+    product: new FormControl(''),
     message: new FormControl('', Validators.required),
     payment_image:new FormControl(''),
     user_mobile_no: new FormControl('', Validators.required),
     transaction_id: new FormControl('', Validators.required),
+    payment_type: new FormControl('Property Payment', Validators.required),
     bank_details_json: new FormControl('', Validators.required),
   });
   
@@ -166,6 +169,17 @@ export class PaymentUserComponent implements OnInit {
     
   }
   
+  onchange_payment_type(event:any){
+    if (event == 'Any other Payment') {
+      this.property_payment = false;
+      this.other_payment=true;
+      this.Payment_user_form.patchValue({product:''});
+    } else {
+      this.property_payment = true;
+      this.other_payment=false;
+    }
+
+  }
   
   mobile_change_selected_user(data:any){
     this.Payment_user_form.patchValue({user_mobile_no:data.user_mobile});
@@ -333,7 +347,35 @@ export class PaymentUserComponent implements OnInit {
     if(this.Payment_user_form.invalid){
       this.submitted = true;
       }else{
-        this.Payment_user_form.value.product=this.Payment_user_form.value.product[0].product_id;
+        if(this.property_payment ==true &&  this.other_payment ==false ){
+          if(this.Payment_user_form.value.product.length==0){
+            this.toastr.warning('Please Select Any Property');
+            return;
+          }else{
+            if(this.Payment_user_form.value.product.length>0){
+              this.Payment_user_form.value.product=this.Payment_user_form.value.product[0].product_id;
+            }
+            this.UserBankDetailsService.payment_user_create(this.Payment_user_form.value).subscribe(
+              response => {
+                let data:any=response;
+                this.showLoadingIndicator = false;
+                this.toastr.success('User Payment  Successfully');
+                this.router.navigate(['/admin/payment-user-list']); 
+              },
+              err => {
+                this.showLoadingIndicator = false;
+                let errorMessage:any = err.error.errors;
+                this.toastr.error(errorMessage, 'Something Error', {
+                  timeOut: 3000,
+                });
+              }
+            );
+    
+            }
+        }else{
+        if(this.Payment_user_form.value.product.length>0){
+          this.Payment_user_form.value.product=this.Payment_user_form.value.product[0].product_id;
+        }
         this.UserBankDetailsService.payment_user_create(this.Payment_user_form.value).subscribe(
           response => {
             let data:any=response;
@@ -349,6 +391,8 @@ export class PaymentUserComponent implements OnInit {
             });
           }
         );
+
+        }
       }
   }
 

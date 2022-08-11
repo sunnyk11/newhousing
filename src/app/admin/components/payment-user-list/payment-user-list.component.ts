@@ -90,7 +90,6 @@ export class PaymentUserListComponent implements OnInit {
     this.UserBankDetailsService.getpagination1(link_url,param).then(Pagination_data => {
       this.showLoadingIndicator= false;
       this.payment_user=Pagination_data;
-      console.log(this.payment_user);
       // this.user_list_length=this.user_list.data.data.length;
     });
   } 
@@ -131,7 +130,6 @@ on_search(){
     this.UserBankDetailsService.get_payment_user(param).then(
       Pagination_data => {
         this.payment_user=Pagination_data;
-        console.log(this.payment_user);
         this.payment_user_length=this.payment_user.data.total;
         this.showLoadingIndicator= false;
       }, err => {
@@ -146,36 +144,6 @@ onchange_date(){
       this.disabled=false;
     }
 }
-  user_bank_history(id:any,email:any,mobile:any){
-      let param = { user_id: id }
-      this.UserBankDetailsService.get_userbank_history_id(param).subscribe(
-        response => {
-          this.user_bank_history_data=response;
-            if(this.user_bank_history_data.data.length){
-              const modalRef = this.modalService.open(BankHistoryComponent,
-                {
-                  scrollable: true,
-                  windowClass: 'myCustomModalClass',
-                  // keyboard: false,
-                  backdrop: 'static'
-                });
-              let data = {
-                data:this.user_bank_history_data,
-                email:email,
-                mobile:mobile
-              }
-              modalRef.componentInstance.data = data;
-            }else{
-              this.toastr.warning('This User Not Bank History', email, {
-                timeOut: 3000,
-              });
-            }
-        }, err => { 
-          let Message =err.error.message;
-        }
-      );
-    
-  }
   viewDetails(data: any) {
     this.transaction_id='';
     this.property_owner='';
@@ -189,21 +157,6 @@ onchange_date(){
     payment_status:data.payment_status,
     payment_id:data.id
   })
-  }
-  
-  delete_user_bank(id:any){
-    this.showLoadingIndicator =true;
-    let param = { user_id: id}
-    this.UserBankDetailsService.delete_user_bank(param).subscribe(
-      response => {
-        this.showLoadingIndicator =false;
-        let data:any=response;
-        this.toastr.error('Delete Successfully', 'User Bank details', {
-          timeOut: 3000,
-        });
-        this.get_payment_user();
-      }
-    );
   }
   
   excel_emport(){
@@ -223,7 +176,7 @@ onchange_date(){
             title: 'Payment Data',
             useBom: true,
             noDownload: false,
-            headers: ["Transaction id","Amount","Payment Status","Property Name","Owner","Created user","Date"]
+            headers: ["Transaction id","Payment Type","Amount","Payment Status","Property Name","Owner","Created user","Date"]
           };
            new  ngxCsv(data.data, "Property List", options);
         }else{

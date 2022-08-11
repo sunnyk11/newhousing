@@ -85,7 +85,6 @@ export class ProductPreviewComponent implements OnInit {
       this.login_usertype = this.jwtService.getUserType();
       this.login_userid = this.jwtService.getUserId();
       this.login_userid = this.jwtService.getUserId();
-      console.log('khjkj');
       if(this.jwtService.get_Internal_User()== '"Yes"'){
         this.CommonService.getUserPermissions(this.login_userid).subscribe(
           response => {
@@ -177,6 +176,10 @@ export class ProductPreviewComponent implements OnInit {
   });
 }
 
+user_reviews(product_id:number){
+  const url:any = this.router.createUrlTree(['/user-reviews'],{queryParams:{'product_id':product_id}})
+  window.open(url.toString(), '_blank')
+}
   // pricre convert functionalty
   Price_convert(num: number) {
     if (num >= 1000000000) {

@@ -67,7 +67,6 @@ export class PropertyListComponent implements OnInit {
     this.PropertyListService.get_property({ param: null }).then(
       Pagination_data => {
         this.property_data=Pagination_data;
-        console.log(this.property_data);
         this.property_length=this.property_data.data.total;
         this.showLoadingIndicator=false;
       }, err => {
@@ -81,7 +80,6 @@ export class PropertyListComponent implements OnInit {
     this.PropertyListService.getpagination(link_url,param).then(Pagination_data => {
       this.showLoadingIndicator= false;
       this.property_data=Pagination_data;
-      console.log(this.property_data);
       // this.user_list_length=this.user_list.data.data.length;
     });
   } 
@@ -138,7 +136,6 @@ export class PropertyListComponent implements OnInit {
         response => {
           let data:any=response;
           this.dropdownList_mobile=[];
-          console.log(data);
           if(data?.data?.length>0){
             for (let i = 0; i < data.data.length; i++) {
               this.dropdownList_mobile = this.dropdownList_mobile?.concat({user_mobile:data.data[i].other_mobile_number});
@@ -275,7 +272,6 @@ export class PropertyListComponent implements OnInit {
     this.PropertyListService.get_property_excel(param).then(
       Pagination_data => {
         let data:any=Pagination_data;
-        console.log(data);
         if(data.data.length>0){
           var options = { 
             fieldSeparator: ',',

@@ -61,7 +61,8 @@ export class MyPlansComponent implements OnInit {
   }
 
   viewInvoice(invoice_no: any) {
-    this.router.navigate(['/invoice'], { queryParams: { 'invoice_no': invoice_no } });
+    const url:any = this.router.createUrlTree(['/invoice'], { queryParams: { 'invoice_no': invoice_no } })
+      window.open(url.toString(), '_blank')
   }
 
   moreDetails(plan_details: any) {

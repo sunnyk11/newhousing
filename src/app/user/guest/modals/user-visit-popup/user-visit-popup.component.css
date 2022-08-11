@@ -31,16 +31,18 @@
     right: 10px;
     padding: 0px 5px!important;
 }
-.btn{
-    font-size: 12px;
-    padding: 3px 27px!important;
-    width: 100%;
-    margin: 3px 0px;
-}
 .npsRatingBox {
     width: 100%;
     float: left;
     margin: 18px 0px 14px;
+}
+@media (max-width: 768px) {
+    .btn{
+        font-size: 12px;
+        padding: 3px 13px!important;
+        width: 100%;
+        margin: 3px 0px;
+    }
 }
 @media (min-width: 768px) {
     .modal-body{
@@ -50,6 +52,12 @@
     }
     .modal-title{
         font-size: 15px!important;
+    }
+    .btn{
+        font-size: 12px;
+        padding: 3px 27px!important;
+        width: 100%;
+        margin: 3px 0px;
     }
 }
 @media (min-width: 100px) and (max-width: 580px) {

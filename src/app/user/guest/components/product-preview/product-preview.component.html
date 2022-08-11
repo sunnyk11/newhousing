@@ -520,6 +520,13 @@
                             </div>
                         </div>
                     </div>
+                    <div class="sidebar_listing_list payment_summery" *ngIf="isLoggedIn == true">
+                        <div class="row">
+                                <div class="row">
+                                    <h4 class="post_review" (click)="user_reviews(product_data.id)">Post Review <span>click here</span></h4>
+                                </div>
+                        </div>
+                    </div>
                 </div>
                 
                 <div class="col-lg-4 col-xl-4 mt50" *ngIf="product_details?.data?.product_payment_details?.property_owner == login_userid">

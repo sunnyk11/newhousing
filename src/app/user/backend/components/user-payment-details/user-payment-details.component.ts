@@ -14,6 +14,7 @@ export class UserPaymentDetailsComponent implements OnInit {
 
   private user_id: any;
   public payment_data: any;
+  public other_payment_data: any;
   public property_det: any;
 
   constructor(
@@ -35,8 +36,10 @@ export class UserPaymentDetailsComponent implements OnInit {
     this.CommonService.get_property_payment(this.user_id).subscribe(
       res => {
         this.showLoadingIndicator = false;
-        console.log(res);
-        this.payment_data = res;
+        let data:any=res;
+        this.payment_data = data.data;
+        this.other_payment_data=data.other_payment;
+
       },
       err => {
         this.showLoadingIndicator = false;
@@ -44,6 +47,11 @@ export class UserPaymentDetailsComponent implements OnInit {
       }
     );
   }
+  
+rentslip(product_id:number){
+  const url:any = this.router.createUrlTree(['/agent/property-rent-slip'],{queryParams:{'product_id':product_id}})
+  window.open(url.toString(), '_blank')
+}
   
   product_preview(id:number,name:string){
     const url:any = this.router.createUrlTree(['/product-preview'],{queryParams:{'id':id,'name':name}})
