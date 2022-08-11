@@ -90,7 +90,8 @@
                                                     alt="No Product Image">
                                               </div>
                                         </td>
-                                        <td (click)="product_preview(data?.productdetails?.id,data?.productdetails?.build_name)" id="property_name">{{data?.productdetails?.build_name}}</td>
+                                        <td *ngIf="data?.payment_type!='Any other Payment'" (click)="product_preview(data?.productdetails?.id,data?.productdetails?.build_name)" id="property_name">{{data?.productdetails?.build_name}}</td>
+                                        <td *ngIf="data?.payment_type=='Any other Payment'">{{data?.payment_type}}</td>
                                         <td>{{data?.transaction_id}}</td>
                                         <td>{{data?.amount}}</td>
                                         <td>{{data?.pro_owner?.name}} </td>

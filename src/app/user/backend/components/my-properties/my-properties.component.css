@@ -104,6 +104,13 @@
     .feat_property .thumb img {
         height: 150px!important;
     }
+    .feat_property .thumb .thmb_cntnt ul.tag{
+        position: relative!important;
+        left: 0px!important;
+    }
+    .feat_property .thumb .thmb_cntnt ul.tag li a, .feat_property.list ul.tag li a{
+        background-color: #ff5a5f!important;
+    }
     .property_table .table td,
     .property_table .table th {
         line-height: 24px!important;

@@ -85,10 +85,8 @@ export class ProductPreviewComponent implements OnInit {
       this.isLoggedIn= true;
       this.login_userid = this.jwtService.getAdminId();
       this.login_usertype = this.jwtService.getUserType();
-      console.log(this.login_usertype);
       this.ProductPageService.admin_single_product_details(param).subscribe(
         response => {
-          console.log(response);
           this.product_details=response;
           this.product_data=this.product_details.data;
           if(this.product_details.data != null){

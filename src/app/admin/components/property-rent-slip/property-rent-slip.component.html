@@ -22,6 +22,16 @@
                             <th class="text-center img"><img src="../../../../../assets/resources/images/logo/logo.png" alt=""></th>
                             <th class="text-center">
                                 <h3>Rent Slip</h3>
+                                <h6 *ngIf="property_details?.product_payment_details">
+                                    <strong>
+                                        Payment Status
+                                    </strong>  
+                                    
+                                    <span class="text text-warning" *ngIf="property_details?.product_payment_details?.payment_status=='Pending'">{{property_details?.product_payment_details?.payment_status }}</span>
+                                    <span class="text text-success" *ngIf="property_details?.product_payment_details?.payment_status=='Success'">{{property_details?.product_payment_details?.payment_status }}</span>
+                                    <span class="text text-danger" *ngIf="property_details?.product_payment_details?.payment_status=='Fail'">{{property_details?.product_payment_details?.payment_status }}</span>
+                                    <span class="text text-primary" *ngIf="property_details?.product_payment_details?.payment_status=='Under Process'">({{property_details?.product_payment_details?.payment_status }})</span> 
+                                    </h6>
                             </th>
                         </tr>
                         <tr>
