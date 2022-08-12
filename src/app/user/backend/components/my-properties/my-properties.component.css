@@ -75,6 +75,9 @@
 .checkmark {
     color: #00D100;
 }
+.thmb_cntnt ul li{
+    background:#ff5a5f!important;
+}
 @media(max-width: 950) {
     .feat_property {
         width: 270px!important;
