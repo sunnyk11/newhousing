@@ -529,8 +529,8 @@
                     </div>
                 </div>
                 
-                <div class="col-lg-4 col-xl-4 mt50" *ngIf="product_details?.data?.product_payment_details?.property_owner == login_userid">
-                    <div class="sidebar_listing_list payment_summery">
+                <div class="col-lg-4 col-xl-4 mt50" *ngIf="product_details?.data?.user_id == login_userid">
+                    <div class="sidebar_listing_list payment_summery" *ngIf="product_details?.data?.product_payment_details?.property_owner == login_userid">
                         <div class="row">
                             <div class="col-lg-12 col-12">
                                 <h4>Property Payment Status</h4>
@@ -547,6 +547,25 @@
                             </div>
                             <div class="col-lg-8 col-8">
                                 <h6><strong>{{product_details?.data?.product_payment_details?.created_at | timezone }}</strong></h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sidebar_listing_list payment_summery" *ngIf="product_details?.data?.rent_invoice">
+                        <div class="row">
+                            <div class="col-lg-12 col-12">
+                                <h4>Property Renter's Details </h4>
+                            </div>
+                            <div class="col-lg-4 col-4">
+                                <h6>Name:</h6>
+                            </div>
+                            <div class="col-lg-8 col-8">
+                                <h6><strong>{{product_details?.data?.rent_invoice?.user_detail?.name}}</strong></h6>
+                            </div>
+                            <div class="col-lg-4 col-4">
+                                <h6>Phone:</h6>
+                            </div>
+                            <div class="col-lg-8 col-8">
+                                <h6><strong><a href="tel:{{product_data?.rent_invoice?.user_detail?.other_mobile_number}}">{{product_data?.rent_invoice?.user_detail?.other_mobile_number}}</a></strong></h6>
                             </div>
                         </div>
                     </div>

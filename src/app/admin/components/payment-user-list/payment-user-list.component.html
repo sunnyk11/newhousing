@@ -75,6 +75,7 @@
                                         <th scope="col">Property Owner</th>
                                         <th scope="col">Payment Status</th>
                                         <th scope="col">CreateBy</th>
+                                        <!-- <th scope="col">Message</th> -->
                                         <th scope="col">date</th>
                                         <th scope="col">Action On</th>
                                     </tr>
@@ -92,9 +93,9 @@
                                         </td>
                                         <td *ngIf="data?.payment_type!='Any other Payment'" (click)="product_preview(data?.productdetails?.id,data?.productdetails?.build_name)" id="property_name">{{data?.productdetails?.build_name}}</td>
                                         <td *ngIf="data?.payment_type=='Any other Payment'">{{data?.payment_type}}</td>
-                                        <td>{{data?.transaction_id}}</td>
+                                        <td><p style="inline-size: 170px; overflow-wrap: break-word; line-height: 22px;margin: 0px;">{{data?.transaction_id}}</p></td>
                                         <td>{{data?.amount}}</td>
-                                        <td>{{data?.pro_owner?.name}} </td>
+                                        <td>{{data?.pro_owner?.email}}<br><span *ngIf="data?.pro_owner?.other_mobile_number">({{data?.pro_owner?.other_mobile_number}})</span> </td>
                                         <td> 
                                             <p class="text text-warning" *ngIf="data?.payment_status=='Pending'"> {{data?.payment_status}}</p>
                                             <p class="text text-success" *ngIf="data?.payment_status=='Success'"> {{data?.payment_status}}</p>
@@ -102,7 +103,8 @@
                                             <p class="text text-primary" *ngIf="data?.payment_status=='Under Process'"> {{data?.payment_status}}</p>
                                            
                                         </td>
-                                        <td>{{data?.pro_created_user?.name}}</td>
+                                        <td>{{data?.pro_created_user?.email}}<br><span *ngIf="data?.pro_created_user?.other_mobile_number">({{data?.pro_created_user?.other_mobile_number}})</span></td>
+                                        <!-- <td><p style="inline-size: 200px; overflow-wrap: break-word; line-height: 22px;margin: 0px;">{{data?.message}}</p></td> -->
                                         <td>{{data?.created_at | timezone}}</td>
                                         <td>
                                             <ul class="view_edit_delete_list mb0">

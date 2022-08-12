@@ -43,13 +43,13 @@
                         <tbody *ngFor="let property of payment_data; index as i">
                             <tr>
                                 <th scope="row">{{ i+1 }}</th>
-                                <td style="width: 15%;" (click)="product_preview(property?.productdetails?.id,property?.productdetails?.build_name)" id="property_name">
-                                    {{ property?.productdetails?.build_name }}
-                                    <div class="text-warning" (click)="rentslip(property?.productdetails?.id)">Rent Slip </div>
+                                <td style="width: 15%;"  id="property_name">
+                                    <div (click)="product_preview(property?.productdetails?.id,property?.productdetails?.build_name)">{{ property?.productdetails?.build_name }}</div>
+                                    <div class="text-danger" (click)="rentslip(property?.productdetails?.id)">Rent Slip </div>
                                 </td>
                                
-                                <td>{{ property.transaction_id }}</td>
-                                 <td>{{ property.amount }}</td>
+ 
+                                <td><p style="inline-size: 170px; overflow-wrap: break-word; line-height: 22px;margin: 0px;">{{ property.transaction_id }}</p></td>                                <td>{{ property.amount }}</td>
                                 <td>
                                     <p class="text text-warning" *ngIf="property.payment_status=='Pending'">{{ property.payment_status }}</p>
                                     <p class="text text-success" *ngIf="property.payment_status=='Success'">{{ property.payment_status }}</p>
@@ -72,69 +72,6 @@
                             </tr>
                         </tbody>
                     </table>
-                </div>
-
-            </div>
-
-        </div>
-    </div>
-
-    <!-- Modal -->
-    <div class="modal fade" id="MoreDetailsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Details</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <table class="table">
-                        <tbody>
-                            <tr>
-                                <th>Invoice No: </th>
-                                <td>{{ property_det?.invoice_no }}</td>
-                            </tr>
-                            <tr>
-                                <th>Payment Mode:</th>
-                                <td>{{ property_det?.payment_mode }}</td>
-                            </tr>
-                            <tr>
-                                <th>Payment Status:</th>
-                                <td>{{ property_det?.payment_status }}</td>
-                            </tr>
-                            <tr>
-                                <th>Plan Name:</th>
-                                <td>{{ property_det?.plan_name }}</td>
-                            </tr>
-                            <tr>
-                                <th>Plan Price:</th>
-                                <td>{{ property_det?.plan_price }}</td>
-                            </tr>
-                            <tr>
-                                <th>GST Amount:</th>
-                                <td>{{ property_det?.property_rent_table?.gst_amount }}</td>
-                            </tr>
-                            <tr>
-                                <th>Security Deposit:</th>
-                                <td>{{ property_det?.property_rent_table?.security_deposit }}</td>
-                            </tr>
-                            <tr>
-                                <th>Maintenance Charge:</th>
-                                <td>{{ property_det?.property_rent_table?.maintenance_charge }}</td>
-                            </tr>
-                            <tr>
-                                <th>1 Month Rent:</th>
-                                <td>{{ property_det?.property_rent_table?.expected_rent }}</td>
-                            </tr>
-                            <tr>
-                                <th>Total Amount:</th>
-                                <td>{{ property_det?.property_rent_table?.total_amount }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -168,7 +105,7 @@
                         <tbody *ngFor="let property of other_payment_data; index as i">
                             <tr>
                                 <th scope="row">{{ i+1 }}</th>
-                                <td>{{ property.transaction_id }}</td>
+                                <td><p style="inline-size: 170px; overflow-wrap: break-word; line-height: 22px;margin: 0px;">{{ property.transaction_id }}</p></td>
                                  <td>{{ property.amount }}</td>
                                 <td>
                                     <p class="text text-warning" *ngIf="property.payment_status=='Pending'">{{ property.payment_status }}</p>
