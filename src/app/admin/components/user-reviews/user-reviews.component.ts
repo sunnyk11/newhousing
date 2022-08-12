@@ -50,7 +50,8 @@ export class UserReviewsComponent implements OnInit {
   
   gotoPage(link_url: any) {
     this.showLoadingIndicator = true;
-    this.UserReviewsService.getpagination(link_url).then(Pagination_data => {
+    let param = { start_date: this.searching_form.value.star_date,end_date:this.searching_form.value.end_date}
+    this.UserReviewsService.getpagination(link_url,param).then(Pagination_data => {
       this.showLoadingIndicator= false;
       this.user_reviews=Pagination_data;
       // this.user_list_length=this.user_list.data.data.length;
@@ -76,7 +77,7 @@ export class UserReviewsComponent implements OnInit {
         Pagination_data => {
           this.user_reviews=Pagination_data;
           //console.log(this.user_reviews);
-          this.review_length=this.user_reviews.data.data.length;
+          this.review_length=this.user_reviews.data.total;
           this.showLoadingIndicator=false;
         }, err => {
         }

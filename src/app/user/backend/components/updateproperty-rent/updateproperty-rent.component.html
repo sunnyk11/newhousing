@@ -16,6 +16,13 @@
                                 <input type="text" class="form-control" id="property_name" formControlName="property_name" [ngClass]="{ 'is-invalid': submitted1 && step1.property_name.errors }">
                             </div>
                             <div class="col-md-6">
+                                <label for="property_area" class="form-label">Property Area</label>
+                                <input type="text" class="form-control" id="property_area" formControlName="property_area" (keypress)="keyPressNumbers($event)" maxlength="8" [ngClass]="{ 'is-invalid': submitted1 && step1.property_area.errors }">
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="col-md-4">
                                 <label for="property_type" class="form-label">Property Type</label>
                                 <select id="property_type" class="form-select form-select-lg w100" formControlName="property_type" [ngClass]="{ 'is-invalid': submitted1 && step1.property_type.errors }">
                                     <option value ="" selected>Select Property Type</option>
@@ -49,10 +56,7 @@
                                     </optgroup>
                                 </select>
                             </div>
-                        </div>
-
-                        <div class="row mt-3">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <label for="area_unit" class="form-label">Area Unit</label>
                                 <select id="area_unit" class="form-select form-select-lg w100" formControlName="area_unit" [ngClass]="{ 'is-invalid': submitted1 && step1.area_unit.errors }">
                                     <option value="">Select Area Unit</option>
@@ -60,9 +64,13 @@
                                     <option  *ngFor="let area_unit of area_unit" [value]="area_unit?.id" >{{area_unit?.unit}}</option>
                                 </select>
                             </div>
-                            <div class="col-md-6">
-                                <label for="property_area" class="form-label">Property Area</label>
-                                <input type="text" class="form-control" id="property_area" formControlName="property_area" (keypress)="keyPressNumbers($event)" maxlength="8" [ngClass]="{ 'is-invalid': submitted1 && step1.property_area.errors }">
+                            <div class="col-md-4">
+                                <label for="flat_type" class="form-label">Flat Type</label>
+                                <select id="flat_type" class="form-select form-select-lg w100" formControlName="flat_type" [ngClass]="{ 'is-invalid': submitted1 && step1.flat_type.errors }">
+                                    <option value="">Select Flat type</option>
+                                    <option *ngFor="let flat_type of flat_type_data" [value]="flat_type?.id">
+                                        {{flat_type?.name}}</option>
+                                </select>
                             </div>
                         </div>
                         <div class="row mt-3">

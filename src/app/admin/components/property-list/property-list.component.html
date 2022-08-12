@@ -1,0 +1,185 @@
+<div class="wrapper">
+    <div class="container  mb20">
+        <div class="row">
+            <div class="col-lg-12 ">
+                <div class="my_dashboard_review">
+                    <form role="form" action="" method="post" class="f1"  [formGroup]="searching_form">
+                    <div class="row">
+                        <div class="col-lg-8  col-12">
+                          <h2 class="mb10"> Searching Property</h2>
+                        </div>
+                        <div class="col-lg-3 offset-lg-1 col-12 refresh">
+                            <button type="submit" class="btn btn-submit" (click)="refresh_data()">Refresh Form</button>
+                        </div>         
+                        <div class="col-lg-3 col-12 mt15">
+                            <div class="form-group">
+                                <label for="admin_property_type" class="form-label"> Property Type</label>
+                                <select id="admin_property_type" class="form-select form-select-lg w100" formControlName="admin_property_type" [ngClass]="{ 'is-invalid': submitted && f.admin_property_type.errors }"  (ngModelChange)="onchage_type($event)" >
+                                    <option value="">Select Type</option>
+                                    <option value="all_property">All Property</option>
+                                    <option value="letout_property">Live Property</option>
+                                    <option value="rentout_property">Property Rented</option>
+                                    <option value="user">User</option>
+                                    <option value="invoice_no">Invoice No</option>
+                                </select>
+                            </div>
+                        </div>  
+                        <div class="col-md-3 col-12 mt15" *ngIf="search_user_type== true && search_date_type== false && search_invoice_no== false">
+                            <label class="form-label" for="user_type">Search  Type</label>
+                            <select id="searchtype" class="form-select form-select-lg w100" formControlName="user_type" (ngModelChange)="onchage_mehtod($event)" >
+                                <option value="email">Email address</option>
+                                <option value="mobile">Mobile No</option>
+                            </select>
+                        </div> 
+                        <div class="col-md-3  col-12 mt15" *ngIf="search_user_type== true && search_date_type== false && search_invoice_no== false">
+                            <div *ngIf="email_search== true && mobile_search== false">
+                                <label for="pincode" class="form-label">Email* </label>
+                                <input class="w100 form-control" type="text" placeholder="Search User " matInput aria-label="Number" formControlName="user_email" [matAutocomplete]="auto" (ngModelChange)="get_user($event)" [ngClass]="{ 'is-invalid': submitted && f.user_email.errors }">
+                                <mat-autocomplete #auto="matAutocomplete">
+                                    <mat-option *ngFor="let user of filteredOptions | async" [value]="user.user_email">
+                                        {{user.user_email}}
+                                    </mat-option>
+                                </mat-autocomplete>
+                                <!-- <input type="hidden" class="form-control" id="payment_user" formControlName="payment_user" [ngClass]="{ 'is-invalid': submitted && f.payment_user.errors }"> -->
+                                <span *ngIf="submitted && f.user_email.errors" id='dropdownerror'>
+                                <span *ngIf="f.user_email.errors.required">(Please Search Any User)</span>
+                                </span>
+                            </div>
+                            <div *ngIf="email_search== false && mobile_search== true">
+                                <label for="pincode" class="form-label">Mobile* </label>
+                                    <input class="w100 form-control" type="text" placeholder="Search Mobile No: " matInput aria-label="Number1" formControlName="user_mobile_no" [matAutocomplete]="auto" (ngModelChange)="mobile_get_user($event)"  maxlength="10" (keypress)="keyPressNumbers($event)" [ngClass]="{ 'is-invalid': submitted && f.user_mobile_no.errors }">
+                                    <mat-autocomplete #auto="matAutocomplete">
+                                        <mat-option *ngFor="let user1 of filteredOptions_mobile | async" [value]="user1.user_mobile">
+                                            {{user1.user_mobile}}
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                    <!-- <input type="" class="form-control" id="user_mobile_no" formControlName="user_mobile_no" [ngClass]="{ 'is-invalid': submitted && f.user_mobile_no.errors }"> -->
+                                    <span *ngIf="submitted && f.user_mobile_no.errors" id='dropdownerror'>
+                                    <span *ngIf="f.user_mobile_no.errors.required">(Please Search Mobile No)</span>
+                                    </span>
+                            </div>
+                        </div>            
+                        <div class="col-lg-3 col-12 mt15" *ngIf="search_user_type== false && search_date_type== true && search_invoice_no== false">
+                            <div class="form-group">
+                                <label for="star_date" class="form-label">Select Sart Date</label>
+                                <input type="date" class="form-control" id="star_date" formControlName="star_date" [ngClass]="{ 'is-invalid': submitted && f.star_date.errors }" (ngModelChange)="onchange_date()">
+                            </div>
+                        </div>                  
+                        <div class="col-lg-3 col-12 mt15" *ngIf="search_user_type== false && search_date_type== true && search_invoice_no== false">
+                            <div class="form-group">
+                                <label for="end_date" class="form-label">Select End Date</label>
+                                <input type="date" class="form-control" id="end_date"  formControlName="end_date" [ngClass]="{ 'is-invalid': submitted && f.end_date.errors }" (ngModelChange)="onchange_date()">
+                            </div>
+                        </div>                
+                        <div class="col-lg-6 col-12 mt15" *ngIf="search_user_type== false && search_date_type== false && search_invoice_no== true">
+                            <div class="form-group">
+                                <label for="invoice_no" class="form-label">Invoice No</label>
+                                <input type="text" class="form-control" id="invoice_no"  formControlName="invoice_no" placeholder="Enter Invoice No" [ngClass]="{ 'is-invalid': submitted && f.invoice_no.errors }" >
+                            </div>
+                        </div> 
+                      <div class="col-lg-3 col-12 search-column mt15">
+                          <!-- <div class="f1-buttons m-auto"> -->
+                              <button type="submit" class="btn btn-submit" [disabled]="disabled" (click)="on_search()"><span *ngIf="disabled==false">Search</span><span *ngIf="disabled== true">No Search data</span></button>
+                          <!-- </div> -->
+                      </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container mt20">
+        <div class="row">
+            <div class="col-lg-9 col-6">
+                <span class="status_tag badge">Property ({{property_length}})</span>
+            </div>
+            <div class="col-lg-3 col-6">
+                <span class="status_tag badge" (click)="excel_emport()">Data Excel Export</span>
+            </div>
+            <div class="col-lg-12  col-12">
+                <div class="my_dashboard_review">
+                    <div class="property_table">
+                        <div class="table-responsive mt0">
+                            <table class="table table-striped  text-center">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th scope="col heading">Property</th>
+                                        <th scope="col">Price</th>
+                                        <th scope="col">Owner</th>
+                                        <th scope="col">Customer</th>
+                                        <th scope="col">location</th>
+                                        <th scope="col">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngIf="showLoadingIndicator == false">
+                                    <tr  *ngFor="let data of property_data?.data?.data">
+                                        <td id="property_name">
+                                            <div (click)="product_preview(data?.id,data?.build_name)">{{data?.build_name}}</div>
+                                            <div class="text-danger" (click)="rentslip(data?.id)">Rent Slip </div>
+                                        </td>
+                                        <td>
+                                            {{data?.expected_rent}}
+                                        </td>
+                                        <td>
+                                            <p>{{data?.letout_invoice?.user_detail?.email}}</p>
+                                            <p>{{data?.letout_invoice?.user_detail?.other_mobile_number}}</p>
+                                            <div class="text-primary" (click)="viewInvoice(data?.letout_invoice?.invoice_no)">{{data?.letout_invoice?.invoice_no}} </div>
+                                        </td>
+                                        <td>
+                                            <div *ngIf="data?.rent_invoice !=null">
+                                                <p>{{data?.rent_invoice?.user_detail?.email}}</p>
+                                                <p>{{data?.rent_invoice?.user_detail?.other_mobile_number}}</p>
+                                                <div class="text-primary" (click)="viewInvoice(data?.rent_invoice?.invoice_no)">{{data?.rent_invoice?.invoice_no}} </div>    
+                                            </div>
+                                            <div *ngIf="data?.rent_invoice ==null">
+                                                NA    
+                                            </div>
+                                            
+                                        </td>
+                                        <td>
+                                            <p>{{data?.product_sub_locality?.sub_locality}}</p>
+                                            <div>({{data?.product_locality?.locality}})</div>
+                                        </td>
+                                        <td>
+                                            
+                                            <ul class="view_edit_delete_list mb0">
+                                                <li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="Status">
+                                                    <div class="text-success" *ngIf="data?.order_status==0">Live</div>
+                                                    <div class="text-danger" *ngIf="data?.order_status==1">Rented</div>
+                                                </li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tbody >
+                                    <tr  class="preloader_row" *ngIf="showLoadingIndicator == true"> 
+                                         <div class="preloader"></div>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="mbp_pagination" *ngIf="property_length>0">
+                                <!-- {{user_bank_details.links | json}} -->
+                                <ul class="page_navigation">
+                                    <li class="page-item" *ngFor="let link of property_data.data.links; index as i" [ngClass]="{'active' : link.active == true, 'disabled' : link.url == null}">
+                                        <button type="button" (click)="gotoPage(link.url)" class="page-link">
+                                            <span
+                                                *ngIf="link.label.indexOf('Previous') == -1 && link.label.indexOf('Next') == -1"
+                                                [innerHTML]="link.label"></span>
+                                            <span *ngIf="link.label.indexOf('Previous') > -1"
+                                                class="flaticon-left-arrow"></span>
+                                            <span *ngIf="link.label.indexOf('Next') > -1"
+                                                class="flaticon-right-arrow"></span>
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-lg-12"  *ngIf="property_length==0 && showLoadingIndicator==false">
+                                <h3>No Data Availabe</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

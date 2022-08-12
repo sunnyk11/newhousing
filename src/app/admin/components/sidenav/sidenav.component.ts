@@ -23,12 +23,14 @@ export class SidenavComponent implements OnInit {
   public access_manage_roles: boolean = false;
   public access_user_creator: boolean = false;
   public access_bank_details: boolean = false;
+  public property_preview: boolean = false;
   public data_export:boolean=false;
   public visit_user_feedback:boolean=false;
   public access_create_userbyinternal:boolean=false;
   public access_view_userByinternal:boolean=false;
   public access_update_userByinternal:boolean=false;
   public access_delete_userByinternal:boolean=false;
+  public property_access:boolean=false;
   public access_web_Banner:boolean=false;
 
   private user_id: any;
@@ -139,6 +141,18 @@ export class SidenavComponent implements OnInit {
     this.sidenavClose.emit();
     this.router.navigate(['/admin/user-bank-details']);
   }
+  payment_list() {
+    this.sidenavClose.emit();
+    this.router.navigate(['/admin/payment-user-list']);
+  }
+  property_list() {
+    this.sidenavClose.emit();
+    this.router.navigate(['/admin/property-list']);
+  }
+  payment_create() {
+    this.sidenavClose.emit();
+    this.router.navigate(['/admin/payment-user']);
+  }
 
   service_list() {
     this.sidenavClose.emit();
@@ -168,6 +182,7 @@ export class SidenavComponent implements OnInit {
       this.access_la_service_provider = false;
       this.access_manage_blog = false;
       this.access_bank_details = false;
+      this.property_preview = false;
       this.data_export=false;
       this.visit_user_feedback=false;
       this.access_web_Banner=false;
@@ -176,6 +191,7 @@ export class SidenavComponent implements OnInit {
       this.access_view_userByinternal=false;
       this.access_update_userByinternal=false;
       this.access_delete_userByinternal=false;
+      this.property_access=false;
 
     this.user_id = this.jwtService.getAdminId();
     //console.log(this.user_id);
@@ -197,6 +213,8 @@ export class SidenavComponent implements OnInit {
       this.access_view_userByinternal=true;
       this.access_update_userByinternal=true;
       this.access_delete_userByinternal=true;
+      this.property_access=true;
+      this.property_preview=true;
 
     }
     else if(this.user_id) {
@@ -218,6 +236,7 @@ export class SidenavComponent implements OnInit {
           this.access_bank_details = this.permissions_response.includes('access_bank_details');
           this.access_web_Banner = this.permissions_response.includes('access_web_Banner');
 
+          this.property_access = this.permissions_response.includes('property_access');
           
           this.access_create_userbyinternal = this.permissions_response.includes('access_create_userbyinternal');
           this.access_view_userByinternal = this.permissions_response.includes('access_view_userByinternal');
@@ -225,6 +244,9 @@ export class SidenavComponent implements OnInit {
           this.access_delete_userByinternal = this.permissions_response.includes('access_delete_userByinternal');
           if(this.access_update_userByinternal || this.access_delete_userByinternal){
             this.access_view_userByinternal=true;
+          }
+          if(this.access_bank_details || this.property_access){
+            this.property_preview=true;
           }
 
         },

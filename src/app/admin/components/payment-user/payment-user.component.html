@@ -1,0 +1,166 @@
+<div class="wrapper">
+    <div class="container mt20">
+        <div class="row">
+            <div class="col-lg-12 col-12 create_column">
+                <div class="my_dashboard_review">
+                    <form role="form" action="" method="post" class="f" [formGroup]="Payment_user_form" novalidate>
+                        <div class="row">
+                            <div class="col-lg-12 col-12 service_heading">
+                                <h2>Payment User</h2>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 col-12 mt15">
+                                    <label class="form-label" for="user_type">Search  Type</label>
+                                    <select id="searchtype" class="form-select form-select-lg w100" formControlName="user_type" (ngModelChange)="onchage_mehtod($event)" >
+                                        <option value="email">Email address</option>
+                                        <option value="mobile">Mobile No</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4  col-12 mt15" *ngIf="email_search==true && mobile_search==false">
+                                    <label for="pincode" class="form-label">User Email* </label>
+                                    <input class="w100 form-control" type="text" placeholder="Search User " matInput aria-label="Number" formControlName="payment_user_data" [matAutocomplete]="auto" (ngModelChange)="get_user($event)" [ngClass]="{ 'is-invalid': submitted && f.payment_user.errors }">
+                                    <mat-autocomplete #auto="matAutocomplete">
+                                        <mat-option *ngFor="let user of filteredOptions | async" [value]="user.user_email" (onSelectionChange)="change_selected_user(user)">
+                                            {{user.user_email}}
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                    <input type="hidden" class="form-control" id="payment_user" formControlName="payment_user" [ngClass]="{ 'is-invalid': submitted && f.payment_user.errors }">
+                                    <span *ngIf="submitted && f.payment_user.errors" id='dropdownerror'>
+                                    <span *ngIf="f.payment_user.errors.required">(Please Search Any User)</span>
+                                    </span>
+                                </div>
+                                <div class="col-md-4  col-12 mt15" *ngIf="mobile_search==true && email_search==false">
+                                    <label for="pincode" class="form-label">Mobile No* </label>
+                                    <input class="w100 form-control" type="text" placeholder="Search Mobile No: " matInput aria-label="Number1" formControlName="user_mobile_no" maxlength="10" (keypress)="keyPressNumbers($event)"  [matAutocomplete]="auto" (ngModelChange)="mobile_get_user($event)" [ngClass]="{ 'is-invalid': submitted && f.user_mobile_no.errors }">
+                                    <mat-autocomplete #auto="matAutocomplete">
+                                        <mat-option *ngFor="let user1 of filteredOptions_mobile | async" [value]="user1.user_mobile" (onSelectionChange)="mobile_change_selected_user(user1)">
+                                            {{user1.user_mobile}}
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                    <input type="hidden" class="form-control" id="user_mobile_no" formControlName="user_mobile_no" [ngClass]="{ 'is-invalid': submitted && f.user_mobile_no.errors }">
+                                    <span *ngIf="submitted && f.user_mobile_no.errors" id='dropdownerror'>
+                                    <span *ngIf="f.user_mobile_no.errors.required">(Please Search Mobile No)</span>
+                                    </span>
+                                </div>
+                                <div class="col-md-4 col-12 mt15">
+                                    <label class="form-label" for="user_type">Payment Type</label>
+                                    <select id="searchtype" class="form-select form-select-lg w100" formControlName="payment_type" (ngModelChange)="onchange_payment_type($event)" >
+                                        <option value="Property Payment">Property Payment</option>
+                                        <option value="Any other Payment">Any other Payment</option>
+                                    </select>
+                                </div> 
+                                <div class="col-md-4  col-12 mt15" id="multiselect-dropdown1" *ngIf="property_payment == true && other_payment==false">
+                                    <label for="pincode" class="form-label">Property*</label>                              
+                                    <ng-multiselect-dropdown class="form-control sub_localty_dropdown" [placeholder]="'Select Product'" [settings]="dropdownSettings_product" [data]="dropdown_product" formControlName="product" [ngClass]="{ 'is-invalid': submitted && f.product.errors }">
+                                    </ng-multiselect-dropdown>
+                                </div>
+                                <div class="col-lg-4 col-12 mt15"  *ngIf="mobile_search==false && email_search==true">
+                                    <div class="form-group">
+                                        <label for="user_mobile_no" class="form-label">Mobile No*</label>
+                                        <input type="text" class="form-control" id="user_mobile_no" formControlName="user_mobile_no" placeholder="Mobile No:" (keypress)="keyPressNumbers1($event)" (paste)="onPaste($event)" [ngClass]="{ 'is-invalid': submitted && f.user_mobile_no.errors }" readonly>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-lg-4 col-12 mt15"  *ngIf="mobile_search==true && email_search==false">
+                                    <div class="form-group">
+                                        <label for="payment_user_data" class="form-label">User Email *</label>
+                                        <input type="text" class="form-control" id="payment_user_data" formControlName="payment_user_data" placeholder="User Email Address:" (keypress)="keyPressNumbers1($event)" (paste)="onPaste($event)" [ngClass]="{ 'is-invalid': submitted && f.user_mobile_no.errors }" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-12 mt15">
+                                    <div class="form-group">
+                                        <label for="amount" class="form-label">Payment Amount*</label>
+                                        <input type="text" class="form-control" id="amount" formControlName="amount" placeholder="Enter Amount" (keypress)="keyPressNumbers($event)"[ngClass]="{ 'is-invalid': submitted && f.amount.errors }">
+                                    </div>
+                                </div>                           
+                                <div class="col-md-4  col-12 mt15">
+                                    <label for="city" class="form-label">Payment Status*</label>
+                                    <select id="city" class="form-select form-select-lg w100" formControlName="payment_status" [ngClass]="{ 'is-invalid': submitted && f.payment_status.errors }">
+                                    <option value="Under Process">Under Process</option>
+                                    <option value="Pending">Pending</option>
+                                    <option value="Success">Success</option>
+                                    <option value="Fail">Fail</option>
+                                </select>
+                                </div>
+                                <div class="col-lg-4 col-12 mt15">
+                                    <div class="form-group">
+                                        <label for="transaction_id" class="form-label">Transaction Id*</label>
+                                        <textarea class="form-control" id="transaction_id" rows="2" formControlName="transaction_id" placeholder="Enter Transaction Id" [ngClass]="{ 'is-invalid': submitted && f.transaction_id.errors }"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-12 mt15">
+                                    <label for="formFile" class="form-label">Select Payment Image</label>
+                                    <input class="form-control" type="file" id="payment_image" accept=".jpg,.png,.jpeg" formControlName="payment_image" [ngClass]="{ 'is-invalid': submitted && f.payment_image.errors }" (change)="onFileChange($event)">
+                                </div>
+                            </div>
+                            <div class="row">   
+                                <div class="col-lg-12 col-12 mt15">
+                                    <div class="form-group">
+                                        <label for="service" class="form-label">Message</label>
+                                        <textarea class="form-control" id="review_content" rows="2" formControlName="message" placeholder="Payment Message" [ngClass]="{ 'is-invalid': submitted && f.message.errors }"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 offset-lg-3 col-12 mt20 search-column">
+                                <button type="submit" class="btn btn-submit" (click)="onSubmit()">Payment Send</button>
+                            </div>
+                            
+                            <div class="row mt30" *ngIf="bank_account==true"> 
+                                <div class="col-12">
+                                    <h2 class="bank_heading">User Bank Account Details</h2>
+                                </div> 
+                                <div  class="col-lg-8 offset-lg-2 col-12">
+                                    <dl class="row" *ngIf="bank_account==true">
+                                        <dt class="col-sm-3">Account Holder:</dt>
+                                        <dd class="col-sm-9" *ngIf="bank_account_holder">{{bank_account_holder}}</dd>
+                                        <hr>
+            
+                                        <dt class="col-sm-3">Account No:</dt>
+                                        <dd class="col-sm-9" *ngIf="bank_account_no">{{bank_account_no }}</dd>
+                                        <hr>
+            
+                                        <dt class="col-sm-3">IFSC Code: </dt>
+                                        <dd class="col-sm-9" *ngIf="ifsc_code">{{ifsc_code}} </dd>
+                                        <hr>
+                                    </dl>
+                                </div>  
+                            </div>
+                            <div class="row mt30" *ngIf="account_upi==true"> 
+                                <div class="col-12">
+                                    <h2 class="bank_heading">User UPI Details</h2>
+                                </div> 
+                                <div  class="col-lg-8 offset-lg-2 col-12">
+                                    <dl class="row" *ngIf="account_upi==true">
+                                        <dt class="col-sm-3">UPI Name:</dt>
+                                        <dd class="col-sm-9" *ngIf="upi_name">{{upi_name}}</dd>
+                                        <hr>
+            
+                                        <dt class="col-sm-3">UPI ID:</dt>
+                                        <dd class="col-sm-9" *ngIf="upi_id !=null">{{upi_id }}</dd>
+                                        <hr>
+                                    </dl>
+                                </div>  
+                            </div>
+                            <div class="row mt20">
+                                <div class="col-12">
+                                    <h2 class="img_heading">Payment Img</h2>
+                                </div>   
+                                <div class="col-lg-8 col-12 mt15">
+                                    <img class="blog_preview_img" [src]="imgURL" *ngIf="imgURL != null;else OtherImage">
+                                    <ng-template #OtherImage>
+                                    <img [src]="'./../../assets/resources/images/noImageSelected.jpg'">
+                                    </ng-template>
+                                </div>
+                                <span *ngIf="submitted && f.payment_image.errors" id='dropdownerror'>
+                                    <span *ngIf="f.payment_image.errors.required">(Please Select Payment Img)</span>
+                                </span>
+                            </div>
+                            <div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

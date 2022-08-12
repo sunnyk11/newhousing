@@ -31,7 +31,7 @@
                         <thead class="thead-light">
                             <tr>
                                 <th scope="col">Sl. No</th>
-                                <th scope="col">User Email</th>
+                                <th scope="col">Plan</th>
                                 <th scope="col">Plan Amount</th>
                                 <th scope="col">Payment Status</th>
                                 <th scope="col">Date</th>
@@ -42,7 +42,7 @@
                         <tbody *ngFor="let credit of getLetOutInvoices(); index as i">
                             <tr>
                                 <th scope="row">{{ i+1 }}</th>
-                                <td>{{ credit.user_email }}</td>
+                                <td>{{ credit.plan_name }}</td>
                                 <td>{{ credit.plan_price }}</td>
                                 <td>{{ credit.payment_status }}</td>
                                 <td>{{ credit.created_at | timezone }}</td>
@@ -86,7 +86,7 @@
                         <thead class="thead-light">
                             <tr>
                                 <th scope="col">Sl. No</th>
-                                <th scope="col">User Email</th>
+                                <th scope="col">Plan</th>
                                 <th scope="col">Plan Amount</th>
                                 <th scope="col">Payment Status</th>
                                 <th scope="col">Date</th>
@@ -96,7 +96,7 @@
                         <tbody *ngFor="let credit of getRentInvoices(); index as i">
                             <tr>
                                 <th scope="row">{{ i+1 }}</th>
-                                <td>{{ credit.user_email }}</td>
+                                <td>{{ credit.plan_name }}</td>
                                 <td>{{ credit.plan_price }}</td>
                                 <td>{{ credit.payment_status }}</td>
                                 <td>{{ credit.created_at | timezone }}</td>

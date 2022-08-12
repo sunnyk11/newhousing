@@ -44,6 +44,7 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { ConfirmationmodalComponent } from './modals/confirmationmodal/confirmationmodal.component';
 import { RentSlipComponent } from './components/rent-slip/rent-slip.component';
 import { TimezonePipe } from './pipes/timezone.pipe';
+import { UserPaymentDetailsComponent } from './components/user-payment-details/user-payment-details.component';
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -65,7 +66,8 @@ import { TimezonePipe } from './pipes/timezone.pipe';
     GetPercentagePipe,
     ConfirmationmodalComponent,
     RentSlipComponent,
-    TimezonePipe
+    TimezonePipe,
+    UserPaymentDetailsComponent
   ],
   imports: [
     ProgressBarModule,

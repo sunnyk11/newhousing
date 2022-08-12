@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute,Router } from '@angular/router';
 import { ProductPageService } from '../../services/product-page.service';
-import { OwlOptions } from 'ngx-owl-carousel-o';
 import { environment } from 'src/environments/environment';
 import { DomSanitizer } from '@angular/platform-browser';
 import { JwtService } from 'src/app/user/services/jwt.service';
 import { CommonService } from '../../services/common.service';
 import { ToastrService } from 'ngx-toastr';
-import { UserReviewModalComponent } from '../../modals/user-review-modal/user-review-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ClipboardService } from 'ngx-clipboard';
 
@@ -177,6 +175,10 @@ export class ProductPreviewComponent implements OnInit {
   });
 }
 
+user_reviews(product_id:number){
+  const url:any = this.router.createUrlTree(['/user-reviews'],{queryParams:{'product_id':product_id}})
+  window.open(url.toString(), '_blank')
+}
   // pricre convert functionalty
   Price_convert(num: number) {
     if (num >= 1000000000) {

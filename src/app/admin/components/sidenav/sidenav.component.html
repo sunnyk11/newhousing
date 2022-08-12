@@ -133,7 +133,18 @@
             </mat-panel-title>
         </mat-expansion-panel-header>
         <mat-nav-list>
-            <a mat-list-item (click)="bank_details()">Bank Details</a>
+            <a mat-list-item (click)="payment_create()">Create Payment</a>
+            <a mat-list-item (click)="payment_list()">Payment List</a>
+        </mat-nav-list>
+    </mat-expansion-panel>
+    <mat-expansion-panel *ngIf="LoggedIn && property_access">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                All Property 
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-nav-list>
+            <a mat-list-item (click)="property_list()">Property list</a>
         </mat-nav-list>
     </mat-expansion-panel>
     <mat-expansion-panel *ngIf="LoggedIn && data_export">

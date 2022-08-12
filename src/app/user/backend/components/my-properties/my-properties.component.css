@@ -75,6 +75,9 @@
 .checkmark {
     color: #00D100;
 }
+.thmb_cntnt ul li{
+    background:#ff5a5f!important;
+}
 @media(max-width: 950) {
     .feat_property {
         width: 270px!important;
@@ -103,6 +106,13 @@
     }
     .feat_property .thumb img {
         height: 150px!important;
+    }
+    .feat_property .thumb .thmb_cntnt ul.tag{
+        position: relative!important;
+        left: 0px!important;
+    }
+    .feat_property .thumb .thmb_cntnt ul.tag li a, .feat_property.list ul.tag li a{
+        background-color: #ff5a5f!important;
     }
     .property_table .table td,
     .property_table .table th {

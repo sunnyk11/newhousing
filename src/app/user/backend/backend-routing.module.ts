@@ -19,6 +19,7 @@ import { LocalServiceComponent } from './components/local-service/local-service.
 import { VerifyMobileComponent } from '../guest/components/verify-mobile/verify-mobile.component';
 import { ProfileComponent } from '../guest/components/profile/profile.component';
 import { RentSlipComponent } from './components/rent-slip/rent-slip.component';
+import { UserPaymentDetailsComponent } from './components/user-payment-details/user-payment-details.component';
 import { NotfoundComponentComponent } from '../components/notfound-component/notfound-component.component';
 
 const routes: Routes = [
@@ -43,6 +44,7 @@ const routes: Routes = [
       { path: "property-rent-slip", component: RentSlipComponent,canActivate: [AuthGuard]},
       { path: "local-services", component: LocalServiceComponent,canActivate: [AuthGuard]},
       { path: "verify-details", component: VerifyMobileComponent, canActivate: [AuthGuard] },
+      { path: "my-payment-summery", component: UserPaymentDetailsComponent, canActivate: [AuthGuard] },
       {path: '**', component: NotfoundComponentComponent}
     ]
   }

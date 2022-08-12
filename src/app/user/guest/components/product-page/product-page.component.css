@@ -131,7 +131,16 @@
     line-height: 24px;
     margin-bottom: 10px;
     text-align: justify;
- }   
+ }  
+ 
+#img_header{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    position: absolute;
+    right: 40px;
+} 
 #mobile_view{
     display: none!important;
 }
@@ -176,6 +185,22 @@
         margin-bottom: 10px;
         text-align: justify;
      }
+     
+#img_header{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    position: absolute;
+    right: 10px;
+    margin-top: 10px;
+    z-index: 1000000!important;
+
+}
+#img_header img{
+    width: 90px!important;
+    height: 90px!important;
+}
      
 .main-banner-wrapper {
     height: 80vh!important;
@@ -249,7 +274,7 @@
         display: flex;
         align-items: center;
         justify-content: end;
-        margin-top: -60px!important;
+        margin-top: -10px!important;
     }
     section{
         padding: 20px 0px!important;
