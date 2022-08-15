@@ -33,6 +33,12 @@ import { PropertyRentSlipComponent } from './components/property-rent-slip/prope
 import { PaymentUserComponent } from './components/payment-user/payment-user.component';
 import { PaymentUserListComponent } from './components/payment-user-list/payment-user-list.component';
 import { ProductPreviewComponent } from './components/product-preview/product-preview.component';
+import { StateListComponent } from './components/state-list/state-list.component';
+import { DistrictListComponent } from './components/district-list/district-list.component';
+import { LocalityListComponent } from './components/locality-list/locality-list.component';
+import { UpdateLocalityComponent } from './components/update-locality/update-locality.component'; 
+import { SubLocalityListComponent } from './components/sub-locality-list/sub-locality-list.component';
+import { UpdateSubLocalityComponent } from './components/update-sub-locality/update-sub-locality.component';
 import { NotfoundComponentComponent } from '../user/components/notfound-component/notfound-component.component';
 
 
@@ -133,8 +139,26 @@ const routes: Routes = [
       }},
       { path: 'payment-user-list', component: PaymentUserListComponent, canActivate: [AuthGuard, PermissionGuard],data: {
         permission: ['access_bank_details']
-      }},    
-
+      }},   
+      { path: 'state-list', component: StateListComponent, canActivate: [AuthGuard, PermissionGuard],data: {
+        permission: ['access_locality_area']
+      }}, 
+      { path: 'district-list', component: DistrictListComponent, canActivate: [AuthGuard, PermissionGuard],data: {
+        permission: ['access_locality_area']
+      }}, 
+      { path: 'locality-list', component: LocalityListComponent, canActivate: [AuthGuard, PermissionGuard],data: {
+        permission: ['access_locality_area']
+      }}, 
+      { path: 'update-locality', component: UpdateLocalityComponent, canActivate: [AuthGuard, PermissionGuard],data: {
+        permission: ['access_locality_area']
+      }}, 
+      { path: 'sub-locality-list', component: SubLocalityListComponent, canActivate: [AuthGuard, PermissionGuard],data: {
+        permission: ['access_locality_area']
+      }}, 
+      { path: 'update-sub-locality', component: UpdateSubLocalityComponent, canActivate: [AuthGuard, PermissionGuard],data: {
+        permission: ['access_locality_area']
+      }},  
+      
       {path: '**', component: NotfoundComponentComponent}
     ]
   }

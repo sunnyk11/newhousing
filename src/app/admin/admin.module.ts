@@ -60,6 +60,12 @@ import { NgImageSliderModule } from 'ng-image-slider';
 import { AgmCoreModule } from '@agm/core';
 import { ProductPreviewComponent } from './components/product-preview/product-preview.component';
 import { TimezonePipe } from './pipes/timezone.pipe';
+import { StateListComponent } from './components/state-list/state-list.component';
+import { DistrictListComponent } from './components/district-list/district-list.component';
+import { LocalityListComponent } from './components/locality-list/locality-list.component';
+import { UpdateLocalityComponent } from './components/update-locality/update-locality.component';
+import { SubLocalityListComponent } from './components/sub-locality-list/sub-locality-list.component';
+import { UpdateSubLocalityComponent } from './components/update-sub-locality/update-sub-locality.component';
 @NgModule({
   declarations: [
     LoginComponent,
@@ -101,7 +107,13 @@ import { TimezonePipe } from './pipes/timezone.pipe';
     PaymentUserComponent,
     PaymentUserListComponent,
     ProductPreviewComponent,
-    TimezonePipe
+    TimezonePipe,
+    StateListComponent,
+    DistrictListComponent,
+    LocalityListComponent,
+    UpdateLocalityComponent,
+    SubLocalityListComponent,
+    UpdateSubLocalityComponent
   ],
   imports: [
     CommonModule,

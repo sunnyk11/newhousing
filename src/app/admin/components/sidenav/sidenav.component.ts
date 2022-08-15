@@ -32,6 +32,7 @@ export class SidenavComponent implements OnInit {
   public access_delete_userByinternal:boolean=false;
   public property_access:boolean=false;
   public access_web_Banner:boolean=false;
+  public access_locality_area:boolean=false;
 
   private user_id: any;
   public permissions_response: any;
@@ -149,6 +150,25 @@ export class SidenavComponent implements OnInit {
     this.sidenavClose.emit();
     this.router.navigate(['/admin/property-list']);
   }
+  sub_locality_list() {
+    this.sidenavClose.emit();
+    this.router.navigate(['/admin/sub-locality-list']);
+  }
+  
+  locality_list() {
+    this.sidenavClose.emit();
+    this.router.navigate(['/admin/locality-list']);
+  }
+  
+  district_list() {
+    this.sidenavClose.emit();
+    this.router.navigate(['/admin/district-list']);
+  }
+  state_list() {
+    this.sidenavClose.emit();
+    this.router.navigate(['/admin/state-list']);
+  }
+  
   payment_create() {
     this.sidenavClose.emit();
     this.router.navigate(['/admin/payment-user']);
@@ -186,6 +206,7 @@ export class SidenavComponent implements OnInit {
       this.data_export=false;
       this.visit_user_feedback=false;
       this.access_web_Banner=false;
+      this.access_locality_area=false;
       
       this.access_create_userbyinternal=false;
       this.access_view_userByinternal=false;
@@ -203,6 +224,7 @@ export class SidenavComponent implements OnInit {
 
       this.access_all_users = true;
       this.access_web_Banner=true;
+      this.access_locality_area=true;
       this.access_reviews = true;
       this.access_la_service_provider = true;
       this.access_manage_blog = true;
@@ -235,6 +257,8 @@ export class SidenavComponent implements OnInit {
           this.access_manage_blog = this.permissions_response.includes('access_manage_blog');
           this.access_bank_details = this.permissions_response.includes('access_bank_details');
           this.access_web_Banner = this.permissions_response.includes('access_web_Banner');
+          this.access_locality_area = this.permissions_response.includes('access_locality_area');
+          
 
           this.property_access = this.permissions_response.includes('property_access');
           

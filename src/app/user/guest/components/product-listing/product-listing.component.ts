@@ -138,9 +138,8 @@ export class ProductListingComponent implements OnInit {
 
   ngOnInit(): void {  
     this.showLoadingIndicator = true;
-    this.productcategory();
+    this.dropdown_data();
      this.getAmenities();
-     this.getarea_unit();
     
      this.dropdownSettings1 = {
        singleSelection: true,
@@ -207,7 +206,6 @@ export class ProductListingComponent implements OnInit {
          backdrop: 'static'
       });
    modalRef.result.then((result) => {
-      //console.log(result);
     }, (reason) => {
     });
   }
@@ -219,20 +217,14 @@ export class ProductListingComponent implements OnInit {
       }
     );
   }
-  getarea_unit(){
-    this.CommonService.getarea_unit({ param: null }).subscribe(
-      response => {
-        this.area_unit=response;
-      }
-    );
-  }
+  
   // fetch productcategory advance tab
-  productcategory(){
-    this.CommonService.getproductcategory({ param: null }).subscribe(
+  dropdown_data(){
+    this.CommonService.web_dropdown_data({ param: null }).subscribe(
       response => {
         let data:any=response;
         this.category=response;
-        this.flat_type_data=data.flat_type;
+        this.flat_type_data=data;
       }, err => { 
       }
     );
@@ -243,8 +235,6 @@ export class ProductListingComponent implements OnInit {
         response => {
           let data:any=response;
           this.dropdownList=[];
-          //console.log(this.dropdownList);
-          //console.log(data);
           if(data.data[0].length>0){
             for (let i = 0; i < data.data[0].length; i++) {
               this.dropdownList = this.dropdownList?.concat({ item_id: data.data[0][i].locality_id, item_text: data.data[0][i].locality});
@@ -339,7 +329,6 @@ export class ProductListingComponent implements OnInit {
   
   param_query_check(){
     this.route.queryParams.subscribe((params) => {
-      // console.log(params.sub_locality);
       if(params.minimum != null && params.maximum != null){
       
         this.searchForm.patchValue({
@@ -444,7 +433,7 @@ export class ProductListingComponent implements OnInit {
     this.propertyresultlength=false;
     this.product_length=0;
     this.searchForm.value.min_price= this.searchForm.value.sliderControl[0];
-    this.searchForm.value.max_price=this.searchForm.value.sliderControl[1]; 
+    this.searchForm.value.max_price=this.searchForm.value.sliderControl[1];
     if(this.jwtService.getToken().length>5){
       if(this.access_search_bar == true){
         if(this.searchForm.value.sub_locality.length>0){
@@ -497,7 +486,6 @@ export class ProductListingComponent implements OnInit {
       this.ProductListingPageService.product_details(this.searchForm.value).then(
         Pagination_data => {
           this.property=Pagination_data;
-          console.log(this.property);
           this.product_length=this.property.data.total;
           if(this.product_length<1){
             this.property_availablty=false;
@@ -677,7 +665,6 @@ export class ProductListingComponent implements OnInit {
       this.CommonService.product_comp({param}).subscribe(
       response => {
         this.product_copm=response;
-        console.log(response);
         this.product_length=0;
         this.onsearch();
         if(this.product_copm.status==201){

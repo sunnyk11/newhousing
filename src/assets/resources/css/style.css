@@ -1799,11 +1799,6 @@ section {
     border-radius: 5px!important;
 }
 
-.sidebar_content_details.style3 {
-    padding: 5px 0 0;
-    width: 100%!important;
-    z-index: 100000000000!important;
-}
 
 .sidebar_content_details.style3.sidebar_ml0 {
     margin-left: 0;

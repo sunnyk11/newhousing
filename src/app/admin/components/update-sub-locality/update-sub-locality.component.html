@@ -1,0 +1,48 @@
+<div class="wrapper">
+    <div class="container mt20">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2 col-12 create_column">
+                <div class="my_dashboard_review">
+                    <form role="form" action="" method="post" class="f" [formGroup]="update_locality_form" novalidate>
+                        <div class="row">
+                            <div class="col-lg-12 service_heading">
+                                <h2>Update Locality</h2>
+                            </div>
+                            <div class="col-lg-12 mtb10 col-sm-12">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="locality">Locality*</span>
+                                    <input class="form-control" type="text" placeholder="Search Locality* " matInput aria-label="Number" formControlName="locality" [matAutocomplete]="auto" (ngModelChange)="get_locality($event)" [ngClass]="{ 'is-invalid': submitted && f.locality.errors }">
+                                    <mat-autocomplete #auto="matAutocomplete">
+                                        <mat-option *ngFor="let locality of filteredOptions | async" [value]="locality.locality"  (onSelectionChange)="change_selected_locality(locality)">
+                                            {{locality.locality}}
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                    <input type="hidden" class="form-control" id="locality_id" formControlName="locality_id" [ngClass]="{ 'is-invalid': submitted && f.locality_id.errors }"> 
+                                </div>
+                                <div *ngIf="submitted && f.locality_id.errors" id='dropdownerror'>
+                                    <div *ngIf="f.locality_id.errors.required">(Please Search Any Locality)</div>
+                                    </div>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="sub_locality">Sub-Locality*</span>
+                                    <input type="text" formControlName="sub_locality" class="form-control" placeholder="Enter Locality Name *" [ngClass]="{ 'is-invalid': submitted && f.sub_locality.errors }" name="sub_locality" id="sub_locality" aria-describedby="basic-addon1">   
+                               </div>
+                                
+                                <div class="input-group mb-3">
+                                    <label class="input-group-text" for="inputGroupSelect01">Status*</label>
+                                    <select class="form-select" id="inputGroupSelect01" formControlName="status" [ngClass]="{ 'is-invalid': submitted && f.status.errors }" name="status" required>
+                                        <option value="">Select Status</option>
+                                        <option value="1">Enabled</option>
+                                        <option value="0">Disabled</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 offset-lg-6 col-12 mt20 search-column">
+                                <button type="submit" class="btn btn-submit" (click)="Onupdate_data()"><span >Update Sub-locality</span></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

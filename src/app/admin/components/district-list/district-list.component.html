@@ -1,0 +1,189 @@
+<div class="wrapper">
+    <div class="container mt20">
+        <div class="row">
+            <div class="col-lg-4 col-12 create_column">
+                <div class="my_dashboard_review">
+                    <form role="form" action="" method="post" class="f" [formGroup]="district_form" novalidate>
+                        <div class="row">
+                            <div class="col-lg-12 service_heading">
+                                <h2>Add District</h2>
+                            </div>
+                            <div class="col-lg-12 mtb10 col-sm-12">
+                                <div class="input-group mb-3">
+                                    <label class="input-group-text" for="inputGroupSelect01">State</label>
+                                    <select class="form-select" id="inputGroupSelect01" formControlName="state" [ngClass]="{ 'is-invalid': submitted && f.state.errors }" name="status" required>
+                                        <option value="">Select State</option>
+                                        <option  *ngFor="let state of state_data?.data" [value]="state?.state_id" >{{state?.state}}</option>
+                                    </select>
+                                    <!-- <div *ngIf="submitted && f.status.errors" class="invalid-feedback">
+                                        <div *ngIf="f.status.errors.required">Please select Status</div>
+                                    </div> -->
+                                </div>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="district">District Name</span>
+                                    <input type="text" formControlName="district" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.district.errors }" name="district" id="district" aria-describedby="basic-addon1">   
+                               </div>
+                                
+                                <div class="input-group mb-3">
+                                    <label class="input-group-text" for="inputGroupSelect01">Status</label>
+                                    <select class="form-select" id="inputGroupSelect01" formControlName="status" [ngClass]="{ 'is-invalid': submitted && f.status.errors }" name="status" required>
+                                        <option value="">Select Status</option>
+                                        <option value="1">Enabled</option>
+                                        <option value="0">Disabled</option>
+                                    </select>
+                                    <!-- <div *ngIf="submitted && f.status.errors" class="invalid-feedback">
+                                        <div *ngIf="f.status.errors.required">Please select Status</div>
+                                    </div> -->
+                                </div>
+                            </div>
+                            <div class="col-lg-6 offset-lg-6 col-12 mt20 search-column">
+                                <button type="submit" class="btn btn-submit" (click)="onSubmit()"><span >Create</span></button>
+                                    
+                                <!-- <button type="submit" class="btn btn-submit" (click)="onSubmit()">Create</button> -->
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-8 col-12">
+                <div class="my_dashboard_review">
+                    <div class="property_table">
+                        <div class="table-responsive mt0">
+                            <span class="status_tag badge">District ({{district_length}})</span>
+                            <table class="table text-center">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th scope="col heading">No:</th>
+                                        <th scope="col">State</th>
+                                        <th scope="col">District</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Action On</th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngIf="showLoadingIndicator == false">
+                                    <tr *ngFor="let data of district_data?.data?.data;index as i">
+                                        <td>{{i+1}}</td>
+                                        <td>{{data?.state?.state}} </td>
+                                        <td>{{data?.district}} </td>
+                                        <td>
+                                            <label class="switch" *ngIf="data?.status == 1" >
+                                                <input type="checkbox"  (click)="district_status_changes(data?.district_id)" checked>
+                                                <span class="slider round"></span>
+                                              </label>
+                                              <label class="switch" *ngIf="data?.status ==0" >
+                                                  <input type="checkbox"  (click)="district_status_changes(data?.district_id)">
+                                                  <span class="slider round"></span>
+                                                </label>
+                                        </td>
+                                        <td>
+                                            <ul class="view_edit_delete_list mb0">
+                                                <li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="Edit"  data-bs-toggle="modal" data-bs-target="#ViewDetailsModal" (click)="viewDetails(data)">
+                                                    <a ><span class="flaticon-edit"></span></a>
+                                                </li>
+                                                <!-- <li class="list-inline-item" data-toggle="tooltip"  data-placement="top"  title="Edit"  data-bs-toggle="modal" data-bs-target="#EditDetailsModal" (click)="editDetails(data)">
+                                                    <a ><span class="flaticon-edit"></span></a>
+                                                </li> -->
+                                            <li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="Delete" data-bs-toggle="modal" data-bs-target="#DeleteUserModal" (click)="delete_popup(data)">
+                                                    <a ><span class="flaticon-garbage"></span></a>
+                                                </li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tbody>
+                                    <tr class="preloader_row" *ngIf="showLoadingIndicator == true">
+                                        <div class="preloader"></div>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <div class="mbp_pagination" *ngIf="district_length>0">
+                                <ul class="page_navigation">
+                                    <li class="page-item" *ngFor="let link of district_data.data.links; index as i" [ngClass]="{'active' : link.active == true, 'disabled' : link.url == null}">
+                                        <button type="button" (click)="gotoPage(link.url)" class="page-link">
+                                            <span
+                                                *ngIf="link.label.indexOf('Previous') == -1 && link.label.indexOf('Next') == -1"
+                                                [innerHTML]="link.label"></span>
+                                            <span *ngIf="link.label.indexOf('Previous') > -1"
+                                                class="flaticon-left-arrow"></span>
+                                            <span *ngIf="link.label.indexOf('Next') > -1"
+                                                class="flaticon-right-arrow"></span>
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <div class="col-lg-12"  *ngIf="district_length==0 && showLoadingIndicator==false">
+                                <h3>No Data Availabe</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+     <!-- More Details Modal -->
+     <div class="modal fade" id="ViewDetailsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">District Details - ({{details?.district | uppercase}} )</h5>
+                    <button type="button" #closeModal class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form role="form" action="" method="post" class="f" [formGroup]="update_district_form" novalidate>
+                        <div class="row">
+                            <div class="col-lg-12 mtb10 col-sm-12">
+                                <div class="input-group mb-3">
+                                    <label class="input-group-text" for="inputGroupSelect01">State</label>
+                                    <select class="form-select" id="inputGroupSelect01" formControlName="state" [ngClass]="{ 'is-invalid': submitted && f.state.errors }" name="status" required>
+                                        <option value="">Select State</option>
+                                        <option  *ngFor="let state of state_data?.data" [value]="state?.state_id" >{{state?.state}}</option>
+                                    </select>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="district">State Name</span>
+                                    <input type="text" formControlName="district" class="form-control"  name="district" [ngClass]="{ 'is-invalid': update_submitted && g.district.errors }" >        
+                                </div>
+                                <div class="input-group mb-3">
+                                    <label class="input-group-text" for="inputGroupSelect01">Status</label>
+                                    <select class="form-select" id="inputGroupSelect01" formControlName="status" [ngClass]="{ 'is-invalid': update_submitted && g.status.errors }" name="status" readonly>
+                                        <option value="1">Enabled</option>
+                                        <option value="0">Disabled</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-6 offset-lg-6 col-12 mt20 search-column">
+                                    <button type="submit" data-bs-dismiss="modal" class="btn btn-submit" (click)="Onupdate_data()"><span>Update</span></button>
+                                        
+                                    <!-- <button type="submit" class="btn btn-submit" (click)="onSubmit()">Create</button> -->
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- More Details Modal -->
+    
+
+    <!-- Delete User Modal -->
+    <div class="modal fade" id="DeleteUserModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete State - ({{details?.district | uppercase}} )</h5>
+                    <button type="button" #closeDeleteModal class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h4>Are you sure you want to delete?</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="delete_district(details?.district_id)">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
