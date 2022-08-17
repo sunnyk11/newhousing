@@ -355,6 +355,9 @@ export class ProductListingComponent implements OnInit {
             locality:params.locality,
             locality_data:params.locality,
             city:params.city,
+            flat_type:params.flat_type,
+            Furnished:params.Furnished,
+            security_deposit:params.security_deposit,
             sliderControl:[Number(params.min_price),Number(params.max_price)]
           });
            if(this.selected_sub_locality[0].sub_locality_id != undefined){

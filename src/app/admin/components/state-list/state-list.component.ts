@@ -54,7 +54,7 @@ export class StateListComponent implements OnInit {
           this.showLoadingIndicator = false;
           this.State_form.patchValue({
             state_name:"",
-            statu:''
+            status:''
           });
           this.get_data();
           this.toastr.success('State Create Successfully');
@@ -103,7 +103,7 @@ export class StateListComponent implements OnInit {
         this.showLoadingIndicator =false;;
         let data:any=response;
         let Message =data.message;
-        this.toastr.error(Message, 'Banner', {
+        this.toastr.error(Message, 'state', {
           timeOut: 3000,
         });
         this.get_data();

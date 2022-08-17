@@ -59,7 +59,8 @@ export class DistrictListComponent implements OnInit {
           this.showLoadingIndicator = false;
           this.district_form.patchValue({
             district:"",
-            statu:''
+            status:'',
+            state:''
           });
           this.get_data();
           this.toastr.success('District Create Successfully');
