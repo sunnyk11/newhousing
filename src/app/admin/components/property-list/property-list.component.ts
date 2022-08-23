@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PropertyListService } from '../../services/property-list.service';
 import { ToastrService } from 'ngx-toastr';
 import { ngxCsv } from 'ngx-csv/ngx-csv';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { FormControl, FormGroup, Validators } from '@angular/forms';

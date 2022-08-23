@@ -30,16 +30,16 @@
                             <p class="text-secondary-50 mb-3">Please enter your email and password</p>
 
                             <div class="input-group mb-3">
-                                <span class="input-group-text" id="email_address">Email</span>
-                                <input type="email" class="form-control" aria-label="Email Address" aria-describedby="email_address" formControlName="email_address">
+                                <span class="input-group-text" id="email_address"><i class="fa fa-user"></i></span>
+                                <input type="email" class="form-control" aria-label="Email Address" aria-describedby="email_address" placeholder="Enter Your Email Id" formControlName="email_address">
                                 <span class="text-danger w100" *ngIf="(LoginFormControl.email_address.touched || submitted) && LoginFormControl.email_address.errors?.required">
                                     Email Address is required
                                 </span>
                             </div>
 
                             <div class="input-group mb-3">
-                                <span class="input-group-text" id="password">Password</span>
-                                <input type="password" class="form-control" aria-label="Password" aria-describedby="password" formControlName="password">
+                                <span class="input-group-text" id="password"><i class="fa fa-lock"></i></span>
+                                <input type="password" class="form-control" aria-label="Password" aria-describedby="password" formControlName="password" placeholder="Enter Your Password">
                                 <span class="text-danger w100" *ngIf="(LoginFormControl.password.touched || submitted) && LoginFormControl.password.errors?.required">
                                     Password is required
                                 </span>

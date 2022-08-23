@@ -42,7 +42,7 @@
                                                 <div class="candidate_revew_select">
                                                     <select class="form-select w100 show-tick" name="flat_type" formControlName="flat_type" id="flat_type">
                                                         <option value ="" selected>Select Flate Type</option>
-                                                        <option  *ngFor="let flat_type of category?.get_flat_type" [value]="flat_type?.name" >{{flat_type?.name}}</option>
+                                                        <option  *ngFor="let flat_type of category?.flat_type" [value]="flat_type?.flat_type?.pro_flat__type?.name" >{{flat_type?.flat_type?.pro_flat__type?.name}}</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -63,17 +63,7 @@
                                             <div class="candidate_revew_select">
                                                 <select class="form-select w100 show-tick" name="bathrooms" formControlName="bathrooms" id="bathrooms">
                                                     <option value="">Select Bathrooms</option>
-                                                    <option value="0">0</option>
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4">4</option>
-                                                    <option value="5">5</option>
-                                                    <option value="6">6 </option>
-                                                    <option value="7">7</option>
-                                                    <option value="8">8 </option>
-                                                    <option value="9">9</option>
-                                                    <option value="10">10 </option>
+                                                    <option  *ngFor="let bathroom of category?.bathroom" [value]="bathroom?.bathroom" >{{bathroom?.bathroom}}</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -83,17 +73,7 @@
                                             <div class="candidate_revew_select">
                                                 <select class="form-select w100 show-tick" name="bedrooms" formControlName="bedrooms" id="bedrooms">
                                                     <option value="">Select Bedrooms</option>
-                                                    <option value="0">0</option>
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4">4</option>
-                                                    <option value="5">5</option>
-                                                    <option value="6">6 </option>
-                                                    <option value="7">7</option>
-                                                    <option value="8">8 </option>
-                                                    <option value="9">9</option>
-                                                    <option value="10">10 </option>
+                                                    <option  *ngFor="let bedroom of category?.bedroom" [value]="bedroom?.bedroom" >{{bedroom?.bedroom}}</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -103,14 +83,11 @@
                                                 <div class="candidate_revew_select">
                                                     <select class="form-select w100 show-tick" name="security_deposit" formControlName="security_deposit" id="security_deposit">
                                                         <option value ="" selected>Select Security Deposit</option>
-                                                        <option value="0">No Security</option>
-                                                        <option value="0.5">15 Days</option>
-                                                        <option value="1">1 Month Rent</option>
-                                                        <option value="2">2 Month Rent</option>
-                                                        <option value="3">3 Month Rent</option>
-                                                        <option value="4">4 Month Rent</option>
-                                                        <option value="5">5 Month Rent</option>
-                                                        <option value="6">6 Month Rent</option>
+                                                        <option  *ngFor="let security_deposit of category?.security_deposit" [value]="security_deposit?.security_deposit" >
+                                                            <span *ngIf="security_deposit?.security_deposit==0">No Security</span>
+                                                            <span *ngIf="security_deposit?.security_deposit==0.5">15 Days</span>
+                                                            <span *ngIf="security_deposit?.security_deposit>=1">{{security_deposit?.security_deposit}}  Month Rent</span>
+                                                        </option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -166,11 +143,13 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                        </li>
+                                        </li>    
                                         <li class="search_area">
                                             <div class="form-group mb20">
+                                                <!-- <input type="text" class="form-control input-text" name="name" formControlName="build_name" id="build_name" (ngModelChange)="get_locality($event)" placeholder="Enter keywords..."> -->
                                                 <input class="w100 form-control" type="text" placeholder="Search locality" matInput aria-label="Number" formControlName="locality_data" [matAutocomplete]="auto" (ngModelChange)="get_internal_user_locality($event)">
-                                                <mat-autocomplete #auto="matAutocomplete">
+                                                <!-- <span  class="flaticon-magnifying-glass" id="searchable_icon"></span> -->
+                                                <mat-autocomplete #auto="matAutocomplete" id="search_data">
                                                     <mat-option *ngFor="let area of filteredOptions | async" [value]="area.item_text" (onSelectionChange)="selected_locality_inertnal(area.item_text,area.item_id)">
                                                         {{area.item_text}}
                                                     </mat-option>
@@ -200,7 +179,7 @@
                                                 <div class="candidate_revew_select">
                                                     <select class="form-select w100 show-tick" name="area_unit" formControlName="area_unit" id="area_unit">
                                                         <option value="">Select Area Unit</option>
-                                                        <option  *ngFor="let area_unit of area_unit?.data" [value]="area_unit?.unit" >{{area_unit?.unit}}</option>
+                                                        <option  *ngFor="let area_unit of category?.area_unit" [value]="area_unit?.area_unit?.property_area_unit?.unit" >{{area_unit?.area_unit?.property_area_unit?.unit}}</option>   
                                                     </select>
                                                 </div>
                                             </div>
@@ -220,7 +199,7 @@
                                                 <div class="candidate_revew_select">
                                                     <select class="form-select w100 show-tick" name="flat_type" formControlName="flat_type" id="flat_type">
                                                         <option value ="" selected>Select Flate Type</option>
-                                                        <option  *ngFor="let flat_type of category?.get_flat_type" [value]="flat_type?.name" >{{flat_type?.name}}</option>
+                                                        <option  *ngFor="let flat_type of category?.flat_type" [value]="flat_type?.flat_type?.pro_flat__type?.name" >{{flat_type?.flat_type?.pro_flat__type?.name}}</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -230,14 +209,11 @@
                                                 <div class="candidate_revew_select">
                                                     <select class="form-select w100 show-tick" name="security_deposit" formControlName="security_deposit" id="security_deposit">
                                                         <option value ="" selected>Select Security Deposit</option>
-                                                        <option value="0">No Security</option>
-                                                        <option value="0.5">15 Days</option>
-                                                        <option value="1">1 Month Rent</option>
-                                                        <option value="2">2 Month Rent</option>
-                                                        <option value="3">3 Month Rent</option>
-                                                        <option value="4">4 Month Rent</option>
-                                                        <option value="5">5 Month Rent</option>
-                                                        <option value="6">6 Month Rent</option>
+                                                        <option  *ngFor="let security_deposit of category?.security_deposit" [value]="security_deposit?.security_deposit" >
+                                                            <span *ngIf="security_deposit?.security_deposit==0">No Security</span>
+                                                            <span *ngIf="security_deposit?.security_deposit==0.5">15 Days</span>
+                                                            <span *ngIf="security_deposit?.security_deposit>=1">{{security_deposit?.security_deposit}}  Month Rent</span>
+                                                        </option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -248,17 +224,7 @@
                                                 <div class="candidate_revew_select">
                                                     <select class="form-select w100 show-tick" name="bathrooms" formControlName="bathrooms" id="bathrooms">
                                                         <option value="">Select Bathrooms</option>
-                                                        <option value="0">0</option>
-                                                        <option value="1">1</option>
-                                                        <option value="2">2</option>
-                                                        <option value="3">3</option>
-                                                        <option value="4">4</option>
-                                                        <option value="5">5</option>
-                                                        <option value="6">6 </option>
-                                                        <option value="7">7</option>
-                                                        <option value="8">8 </option>
-                                                        <option value="9">9</option>
-                                                        <option value="10">10 </option>
+                                                        <option  *ngFor="let bedroom of category?.bedroom" [value]="bedroom?.bedroom" >{{bedroom?.bedroom}}</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -268,17 +234,7 @@
                                                 <div class="candidate_revew_select">
                                                     <select class="form-select w100 show-tick" name="bedrooms" formControlName="bedrooms" id="bedrooms">
                                                         <option value="">Select Bedrooms</option>
-                                                        <option value="0">0</option>
-                                                        <option value="1">1</option>
-                                                        <option value="2">2</option>
-                                                        <option value="3">3</option>
-                                                        <option value="4">4</option>
-                                                        <option value="5">5</option>
-                                                        <option value="6">6 </option>
-                                                        <option value="7">7</option>
-                                                        <option value="8">8 </option>
-                                                        <option value="9">9</option>
-                                                        <option value="10">10 </option>
+                                                        <option  *ngFor="let bathroom of category?.bathroom" [value]="bathroom?.bathroom" >{{bathroom?.bathroom}}</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -288,39 +244,7 @@
                                                 <div class="candidate_revew_select">
                                                     <select class="form-select w100 show-tick" name="years" formControlName="years" id="years">
                                                         <option value="">Select Built year</option>
-                                                        <option value="2022">2022</option>
-                                                        <option value="2021">2021</option>
-                                                        <option value="2020">2020</option>
-                                                        <option value="2019">2019</option>
-                                                        <option value="2018">2018</option>
-                                                        <option value="2017">2017</option>
-                                                        <option value="2016">2016</option>
-                                                        <option value="2015">2015</option>
-                                                        <option value="2014">2014</option>
-                                                        <option value="2013">2013</option>
-                                                        <option value="2012">2012</option>
-                                                        <option value="2011">2011</option>
-                                                        <option value="2010">2010</option>
-                                                        <option value="2009">2009</option>
-                                                        <option value="2008">2008</option>
-                                                        <option value="2007">2007</option>
-                                                        <option value="2006">2006</option>
-                                                        <option value="2005">2005</option>
-                                                        <option value="2004">2004</option>
-                                                        <option value="2003">2003</option>
-                                                        <option value="2002">2002</option>
-                                                        <option value="2001">2001</option>
-                                                        <option value="2000">2000</option>
-                                                        <option value="1999">1999</option>
-                                                        <option value="1998">1998</option>
-                                                        <option value="1997">1997</option>
-                                                        <option value="1996">1996</option>
-                                                        <option value="1995">1995</option>
-                                                        <option value="1994">1994</option>
-                                                        <option value="1993">1993</option>
-                                                        <option value="1992">1992</option>
-                                                        <option value="1991">1991</option>
-                                                        <option value="1990">1990</option>
+                                                        <option  *ngFor="let buildyear of category?.buildyear" [value]="buildyear?.buildyear" >{{buildyear?.buildyear}}</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -474,7 +398,7 @@
                                             <div class="candidate_revew_select">
                                                 <select class="form-select w100 show-tick" name="flat_type" formControlName="flat_type" id="flat_type">
                                                     <option value ="" selected>Select Flate Type</option>
-                                                    <option  *ngFor="let flat_type of category?.get_flat_type" [value]="flat_type?.name" >{{flat_type?.name}}</option>
+                                                    <option  *ngFor="let flat_type of category?.flat_type" [value]="flat_type?.flat_type?.pro_flat__type?.name" >{{flat_type?.flat_type?.pro_flat__type?.name}}</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -485,17 +409,7 @@
                                             <div class="candidate_revew_select">
                                                 <select class="form-select w100 show-tick" name="bathrooms" formControlName="bathrooms" id="bathrooms">
                                                     <option value="">Select Bathrooms</option>
-                                                    <option value="0">0</option>
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4">4</option>
-                                                    <option value="5">5</option>
-                                                    <option value="6">6 </option>
-                                                    <option value="7">7</option>
-                                                    <option value="8">8 </option>
-                                                    <option value="9">9</option>
-                                                    <option value="10">10 </option>
+                                                    <option  *ngFor="let bathroom of category?.bathroom" [value]="bathroom?.bathroom" >{{bathroom?.bathroom}}</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -505,17 +419,7 @@
                                             <div class="candidate_revew_select">
                                                 <select class="form-select w100 show-tick" name="bedrooms" formControlName="bedrooms" id="bedrooms">
                                                     <option value="">Select Bedrooms</option>
-                                                    <option value="0">0</option>
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4">4</option>
-                                                    <option value="5">5</option>
-                                                    <option value="6">6 </option>
-                                                    <option value="7">7</option>
-                                                    <option value="8">8 </option>
-                                                    <option value="9">9</option>
-                                                    <option value="10">10 </option>
+                                                    <option  *ngFor="let bedroom of category?.bedroom" [value]="bedroom?.bedroom" >{{bedroom?.bedroom}}</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -525,14 +429,11 @@
                                             <div class="candidate_revew_select">
                                                 <select class="form-select w100 show-tick" name="security_deposit" formControlName="security_deposit" id="security_deposit">
                                                     <option value ="" selected>Select Security Deposit</option>
-                                                    <option value="0">No Security</option>
-                                                    <option value="0.5">15 Days</option>
-                                                    <option value="1">1 Month Rent</option>
-                                                    <option value="2">2 Month Rent</option>
-                                                    <option value="3">3 Month Rent</option>
-                                                    <option value="4">4 Month Rent</option>
-                                                    <option value="5">5 Month Rent</option>
-                                                    <option value="6">6 Month Rent</option>
+                                                    <option  *ngFor="let security_deposit of category?.security_deposit" [value]="security_deposit?.security_deposit" >
+                                                        <span *ngIf="security_deposit?.security_deposit==0">No Security</span>
+                                                        <span *ngIf="security_deposit?.security_deposit==0.5">15 Days</span>
+                                                        <span *ngIf="security_deposit?.security_deposit>=1">{{security_deposit?.security_deposit}}  Month Rent</span>
+                                                    </option>
                                                 </select>
                                             </div>
                                         </div>
@@ -623,8 +524,8 @@
                                             <div class="candidate_revew_select">
                                                 <select class="form-select w100 show-tick" name="area_unit" formControlName="area_unit" id="area_unit">
                                                     <option value="">Select Area Unit</option>
-                                                    <option  *ngFor="let area_unit of area_unit?.data" [value]="area_unit?.unit" >{{area_unit?.unit}}</option>
-                                                </select>
+                                                    <option  *ngFor="let area_unit of category?.area_unit" [value]="area_unit?.area_unit?.property_area_unit?.unit" >{{area_unit?.area_unit?.property_area_unit?.unit}}</option>   
+                                              </select>
                                             </div>
                                         </div>
                                     </li>
@@ -643,7 +544,18 @@
                                             <div class="candidate_revew_select">
                                                 <select class="form-select w100 show-tick" name="flat_type" formControlName="flat_type" id="flat_type">
                                                     <option value ="" selected>Select Flate Type</option>
-                                                    <option  *ngFor="let flat_type of category?.get_flat_type" [value]="flat_type?.name" >{{flat_type?.name}}</option>
+                                                    <option  *ngFor="let flat_type of category?.flat_type" [value]="flat_type?.flat_type?.pro_flat__type?.name" >{{flat_type?.flat_type?.pro_flat__type?.name}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="search_option_two">
+                                            <div class="candidate_revew_select">
+                                                <select class="form-select w100 show-tick" name="Furnished" formControlName="Furnished" id="Furnished">
+                                                    <option value ="" selected>Select Furnished</option>
+                                                    <option value ="Furnished">Furnished</option>
+                                                    <option value="Not Furnished">Not Furnished</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -653,14 +565,11 @@
                                             <div class="candidate_revew_select">
                                                 <select class="form-select w100 show-tick" name="security_deposit" formControlName="security_deposit" id="security_deposit">
                                                     <option value ="" selected>Select Security Deposit</option>
-                                                    <option value="0">No Security</option>
-                                                    <option value="0.5">15 Days</option>
-                                                    <option value="1">1 Month Rent</option>
-                                                    <option value="2">2 Month Rent</option>
-                                                    <option value="3">3 Month Rent</option>
-                                                    <option value="4">4 Month Rent</option>
-                                                    <option value="5">5 Month Rent</option>
-                                                    <option value="6">6 Month Rent</option>
+                                                    <option  *ngFor="let security_deposit of category?.security_deposit" [value]="security_deposit?.security_deposit" >
+                                                        <span *ngIf="security_deposit?.security_deposit==0">No Security</span>
+                                                        <span *ngIf="security_deposit?.security_deposit==0.5">15 Days</span>
+                                                        <span *ngIf="security_deposit?.security_deposit>=1">{{security_deposit?.security_deposit}}  Month Rent</span>
+                                                    </option>
                                                 </select>
                                             </div>
                                         </div>
@@ -670,17 +579,7 @@
                                             <div class="candidate_revew_select">
                                                 <select class="form-select w100 show-tick" name="bathrooms" formControlName="bathrooms" id="bathrooms">
                                                     <option value="">Select Bathrooms</option>
-                                                    <option value="0">0</option>
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4">4</option>
-                                                    <option value="5">5</option>
-                                                    <option value="6">6 </option>
-                                                    <option value="7">7</option>
-                                                    <option value="8">8 </option>
-                                                    <option value="9">9</option>
-                                                    <option value="10">10 </option>
+                                                    <option  *ngFor="let bathroom of category?.bathroom" [value]="bathroom?.bathroom" >{{bathroom?.bathroom}}</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -690,17 +589,7 @@
                                             <div class="candidate_revew_select">
                                                 <select class="form-select w100 show-tick" name="bedrooms" formControlName="bedrooms" id="bedrooms">
                                                     <option value="">Select Bedrooms</option>
-                                                    <option value="0">0</option>
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4">4</option>
-                                                    <option value="5">5</option>
-                                                    <option value="6">6 </option>
-                                                    <option value="7">7</option>
-                                                    <option value="8">8 </option>
-                                                    <option value="9">9</option>
-                                                    <option value="10">10 </option>
+                                                    <option  *ngFor="let bedroom of category?.bedroom" [value]="bedroom?.bedroom" >{{bedroom?.bedroom}}</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -710,39 +599,7 @@
                                             <div class="candidate_revew_select">
                                                 <select class="form-select w100 show-tick" name="years" formControlName="years" id="years">
                                                     <option value="">Select Built year</option>
-                                                    <option value="2022">2022</option>
-                                                    <option value="2021">2021</option>
-                                                    <option value="2020">2020</option>
-                                                    <option value="2019">2019</option>
-                                                    <option value="2018">2018</option>
-                                                    <option value="2017">2017</option>
-                                                    <option value="2016">2016</option>
-                                                    <option value="2015">2015</option>
-                                                    <option value="2014">2014</option>
-                                                    <option value="2013">2013</option>
-                                                    <option value="2012">2012</option>
-                                                    <option value="2011">2011</option>
-                                                    <option value="2010">2010</option>
-                                                    <option value="2009">2009</option>
-                                                    <option value="2008">2008</option>
-                                                    <option value="2007">2007</option>
-                                                    <option value="2006">2006</option>
-                                                    <option value="2005">2005</option>
-                                                    <option value="2004">2004</option>
-                                                    <option value="2003">2003</option>
-                                                    <option value="2002">2002</option>
-                                                    <option value="2001">2001</option>
-                                                    <option value="2000">2000</option>
-                                                    <option value="1999">1999</option>
-                                                    <option value="1998">1998</option>
-                                                    <option value="1997">1997</option>
-                                                    <option value="1996">1996</option>
-                                                    <option value="1995">1995</option>
-                                                    <option value="1994">1994</option>
-                                                    <option value="1993">1993</option>
-                                                    <option value="1992">1992</option>
-                                                    <option value="1991">1991</option>
-                                                    <option value="1990">1990</option>
+                                                    <option  *ngFor="let buildyear of category?.buildyear" [value]="buildyear?.buildyear" >{{buildyear?.buildyear}}</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -900,9 +757,9 @@
                                                     <a>For Rent</a></li>
                                                 <li class="list-inline-item" *ngIf=" number.sale_availability != null">
                                                     <a>For Sale</a></li>
-                                                <li>
+                                                <!-- <li>
                                                     <img class="img-whp lazy" alt="No Product Image" src="./../../assets/resources/images/t5.png">
-                                                </li>
+                                                </li> -->
                                             </ul>
                                         </div>
                                         <div class="thmb_cntnt style3">
@@ -937,9 +794,9 @@
                                                 <a>For Rent</a></li>
                                             <li class="list-inline-item" *ngIf=" number.sale_availability != null">
                                                 <a>For Sale</a></li>
-                                            <li >
+                                            <!-- <li >
                                                 <img class="img-whp lazy" alt="No Product Image" src="./../../assets/resources/images/t5.png">
-                                            </li>    
+                                            </li>     -->
                                         </ul>
                                     </div>
                                     <div class="thmb_cntnt style3">
@@ -991,10 +848,19 @@
                                                 </div>
                                             </div>
                                         </div>  
+                                        <div class="row">
+                                            <div class="col-6 mt10 mb10">
+                                                <a  [routerLink]="['/product-details']" target="_blank" [queryParams]="{'id':number.product_id,'name':number.build_name}">                                      
+                                                    <h4>{{number.build_name | titlecase}}
+                                                         <!-- <span *ngIf="number.flat_type != null"> ({{ number?.pro_flat__type?.name | titlecase }})</span> -->
+                                                    </h4>
+                                                </a>
+                                            </div>
+                                            <div class="col-6 mt10 mb10 tollfree_row">
+                                                <span><a href="tel:{{toll_free}}"> <i class="fa fa-phone"></i> {{toll_free}}</a></span>
+                                            </div>
+                                        </div>
                                         <a  [routerLink]="['/product-details']" target="_blank" [queryParams]="{'id':number.product_id,'name':number.build_name}">                                      
-                                        <h4>{{number.build_name | titlecase}}
-                                            <!-- <span *ngIf="number.flat_type != null"> ({{ number?.pro_flat__type?.name | titlecase }})</span> -->
-                                        </h4>
                                         <h5 *ngIf="number.flat_type != null"> ({{ number?.pro_flat__type?.name | titlecase }})</h5>
                                         <p>
                                             <span *ngIf="number.product_sub_locality != null">{{ number?.product_sub_locality?.sub_locality | titlecase }}</span>

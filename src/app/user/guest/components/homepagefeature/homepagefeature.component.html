@@ -32,9 +32,9 @@
                                                     <li class="list-inline-item" *ngIf=" number.sale_availability != null"><a>For
                                                             Sale</a>
                                                     </li>
-                                                    <li>
+                                                    <!-- <li>
                                                         <img class="img-whp lazy" alt="No Product Image" src="./../../assets/resources/images/t5.png">
-                                                    </li>
+                                                    </li> -->
                                                 </ul>
                                             </div>
                                             <div class="thmb_cntnt style3">
@@ -72,9 +72,9 @@
                                                 </li>
                                                 <li class="list-inline-item" *ngIf=" number.sale_availability != null"><a>For Sale</a>
                                                 </li>
-                                                <li>
+                                                <!-- <li>
                                                     <img class="img-whp lazy" alt="No Product Image" src="./../../assets/resources/images/t5.png">
-                                                </li>
+                                                </li> -->
                                             </ul>
                                         </div>
                                         <div class="thmb_cntnt style3">
@@ -127,8 +127,17 @@
                                                     </div>
                                                 </div>
                                             </div> 
+                                            <div class="row">
+                                                <div class="col-6 mt10 mb10" (click)="navigate(number.id,number.build_name,number.city)">
+                                                    <h4>{{number.build_name | titlecase}}
+                                                    <!-- <span *ngIf="number.flat_type != null"> ({{ number?.pro_flat__type?.name | titlecase }})</span> -->
+                                                    </h4>
+                                                </div>
+                                                <div class="col-6 mt10 mb10 tollfree_row">
+                                                    <span id="heading"><a href="tel:{{toll_free}}"> <i class="fa fa-phone"></i> {{toll_free}}</a></span>
+                                                </div>
+                                            </div>
                                             <a (click)="navigate(number.id,number.build_name,number.city)">
-                                            <h4>{{number?.build_name | titlecase}}</h4>
                                             <p>
                                                 <span  *ngIf="number.product_locality != null">{{ number?.product_locality?.locality | titlecase }}</span>
                                                 <span *ngIf="number.product_state != null">({{ number?.product_state?.state | titlecase }})</span>

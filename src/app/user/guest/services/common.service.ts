@@ -61,6 +61,11 @@ export class CommonService {
     const route = "/api/product/property_category";
     return this.apiService.get<ResultModel>(route, reqModel);
   }
+  
+  web_dropdown_data(reqModel:any): Observable<ResultModel> {
+    const route = "/api/product/web_dropdown_data";
+    return this.apiService.get<ResultModel>(route, reqModel);
+  }
   get_common_area_data(reqModel:any): Observable<ResultModel> {
     const route = "/api/auth/get_common_area_data/";
     return this.apiService.get<ResultModel>(route + reqModel);

@@ -84,6 +84,7 @@ export class InvoiceComponent implements OnInit {
         if(this.response  != null){
           this.user_name = data.data.user_detail.name;  
           this.inv_response = this.response;
+          console.log(this.response);
                    
          for(let i=0; i< this.response.plan_features?.features.length; i++){
           if(this.response.plan_features?.features[i].feature_name=='Rent Agreement'){
