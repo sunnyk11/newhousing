@@ -105,18 +105,11 @@
                                            <span (click)="delete_comp(data.product_id)"> <i class="fa fa-balance-scale" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Remove from Compare"></i></span>
                                         </div>
                                     </div>
-                                </div> 
-                                <div class="row">
-                                    <div class="col-6 mt10 mb10" (click)="navigate(data?.productdetails?.id,data?.productdetails?.build_name,data?.productdetails?.city)" >
-                                        <h4>{{data?.productdetails?.build_name | titlecase}}</h4>
-                                    </div>
-                                    <div class="col-6 mt10 mb10 tollfree_row">
-                                        <span id="heading"><a href="tel:{{toll_free}}"> <i class="fa fa-phone"></i> {{toll_free}}</a></span>
-                                    </div>
                                 </div>
                                 <a (click)="navigate(data?.productdetails?.id,data?.productdetails?.build_name,data?.productdetails?.city)">
                                 
-                                <!-- <h4>{{data?.productdetails?.build_name | titlecase}}</h4> -->
+                                <h4>{{data?.productdetails?.build_name | titlecase}}</h4>
+                                   
                                 <p>
                                     <span *ngIf="data?.productdetails?.product_locality != null">{{ data?.productdetails?.product_locality?.locality | titlecase }}</span>
                                     <span *ngIf="data?.productdetails?.product_state != null">({{ data?.productdetails?.product_state?.state | titlecase }})</span>
@@ -131,6 +124,12 @@
                                     <li class="list-inline-item second"><a>Available From: {{data?.productdetails?.available_for | date: ' d MMM y' }}</a></li>
                                 </ul>
                                </a>
+                               
+                               <div class="row">
+                                <div class="col-12 mt10 mb10 tollfree_row">
+                                  <span id="heading"><a href="tel:{{toll_free}}">Branch Chattarpur: <i class="fa fa-phone"></i> {{toll_free}}</a></span>
+                                </div>
+                            </div>
                             </div>
                     </div>
                 </div>

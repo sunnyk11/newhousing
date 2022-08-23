@@ -699,17 +699,16 @@
                                                 </div>
                                             </div>
                                         </div>  
-                                        <div class="row">
-                                            <div class="col-6 mt10 mb10" (click)="navigate(number.id,number.build_name,number.city)">
+                                        <!-- <div class="row">
+                                            <div class="col-12 mt10 mb10" (click)="navigate(number.id,number.build_name,number.city)">
                                                 <h4>{{number.build_name | titlecase}}
-                                                <!-- <span *ngIf="number.flat_type != null"> ({{ number?.pro_flat__type?.name | titlecase }})</span> -->
                                                 </h4>
                                             </div>
-                                            <div class="col-6 mt10 mb10 tollfree_row">
-                                                <span id="heading"><a href="tel:{{toll_free}}"> <i class="fa fa-phone"></i> {{toll_free}}</a></span>
-                                            </div>
-                                        </div>
-                                        <a (click)="navigate(number.id,number.build_name,number.city)">                                        
+                                        </div> -->
+                                        <a (click)="navigate(number.id,number.build_name,number.city)"> 
+                                            <h4>{{number.build_name | titlecase}}
+                                                <!-- <span *ngIf="number.flat_type != null"> ({{ number?.pro_flat__type?.name | titlecase }})</span> -->
+                                            </h4>                                       
                                         <h5 *ngIf="number.flat_type != null"> ({{ number?.pro_flat__type?.name | titlecase }})</h5>
                                         <p>
                                             <span *ngIf="number.product_sub_locality != null">{{ number?.product_sub_locality?.sub_locality | titlecase }}</span>
@@ -736,6 +735,11 @@
                                             </li>
                                         </ul>
                                         </a>
+                                        <div class="row">
+                                            <div class="col-12 mt10 mb10 tollfree_row">
+                                              <span id="heading"><a href="tel:{{toll_free}}">Branch Chattarpur: <i class="fa fa-phone"></i> {{toll_free}}</a></span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
