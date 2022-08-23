@@ -61,7 +61,7 @@
                         <div class="my_dashboard_review">
                             <form role="form" action="" method="post" class="f1"  [formGroup]="searching_form">
                                 <div class="row searching_form_row">         
-                                    <div class="col-lg-6 col-6 mt15">
+                                    <div class="col-lg-6 col-12  mt15 ">
                                         <div class="input-group mb-3">
                                             <span class="input-group-text" id="search_state">State*</span>
                                             <select class="form-select" id="inputGroupSelect01" formControlName="search_state" [ngClass]="{ 'is-invalid': search_submitted && s.search_state.errors }" name="search_state" (ngModelChange)="onchange_state_search()" required>
@@ -70,7 +70,7 @@
                                             </select>
                                        </div>
                                     </div>        
-                                    <div class="col-lg-6 col-6 mt15">
+                                    <div class="col-lg-6 col-12  mt15">
                                         <div class="input-group mb-3">
                                             <span class="input-group-text" id="district">District*</span>
                                             <input class="form-control" type="text" placeholder="Search District " matInput aria-label="Number" formControlName="search_district" [matAutocomplete]="auto1" (ngModelChange)="get_district1($event)" [ngClass]="{ 'is-invalid': search_submitted && s.search_district.errors }">
