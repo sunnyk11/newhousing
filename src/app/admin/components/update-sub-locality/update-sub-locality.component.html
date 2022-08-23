@@ -10,6 +10,23 @@
                             </div>
                             <div class="col-lg-12 mtb10 col-sm-12">
                                 <div class="input-group mb-3">
+                                    <span class="input-group-text" id="State">State*</span>
+                                    <select class="form-select" id="State" formControlName="state" [ngClass]="{ 'is-invalid': submitted && f.state.errors }" name="state" (change)="onchange_state($event)" required>
+                                        <option value="">Select State</option>
+                                        <option  *ngFor="let state of state_data?.data" [value]="state?.state_id" >{{state?.state}}</option>
+                                    </select>
+                               </div>
+                               <div class="input-group mb-3">
+                                   <span class="input-group-text" id="district">District*</span>
+                                   <input class="form-control" type="text" placeholder="Search District " matInput aria-label="Number" formControlName="district" [matAutocomplete]="auto_district" (ngModelChange)="get_district($event)" [ngClass]="{ 'is-invalid': submitted && f.district.errors }">
+                                   <mat-autocomplete #auto_district="matAutocomplete">
+                                       <mat-option *ngFor="let district of filteredOptions_district | async" [value]="district.district"  (onSelectionChange)="change_selected_district(district)">
+                                           {{district.district}}
+                                       </mat-option>
+                                   </mat-autocomplete>
+                                   <input type="hidden" class="form-control" id="district_id" formControlName="district_id" [ngClass]="{ 'is-invalid': submitted && f.district_id.errors }"> 
+                               </div>
+                                <div class="input-group mb-3">
                                     <span class="input-group-text" id="locality">Locality*</span>
                                     <input class="form-control" type="text" placeholder="Search Locality* " matInput aria-label="Number" formControlName="locality" [matAutocomplete]="auto" (ngModelChange)="get_locality($event)" [ngClass]="{ 'is-invalid': submitted && f.locality.errors }">
                                     <mat-autocomplete #auto="matAutocomplete">

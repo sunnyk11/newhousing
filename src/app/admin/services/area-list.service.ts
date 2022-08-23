@@ -62,9 +62,9 @@ export class AreaListService {
     const route = "/api/admin/district_create";
     return this.apiService.admin_post<ResultModel>(route, reqModel);
   }
-  get_district(): Promise<Pagination> {
-    const route = "/api/admin/get_district";
-    return this.apiService.admin_get(route).toPromise().then(
+  get_district_byid(reqModel:any): Promise<Pagination> {
+    const route = "/api/admin/get_district_byid";
+    return this.apiService.admin_post(route,reqModel).toPromise().then(
       (response) => {
         //console.log(response);
         return response as Pagination
@@ -87,8 +87,9 @@ export class AreaListService {
   // locality functuonalty
   get_district_search(reqModel:any): Observable<ResultModel> {
     const route = "/api/admin/search_district/";
-    return this.apiService.admin_get<ResultModel>(route + reqModel);
+    return this.apiService.admin_post<ResultModel>(route,reqModel);
   }
+  
   locality_create(reqModel: any): Observable<ResultModel> {
     const route = "/api/admin/locality_create";
     return this.apiService.admin_post<ResultModel>(route, reqModel);
@@ -124,7 +125,17 @@ export class AreaListService {
   // sublocality functionalty
   get_locality_search(reqModel:any): Observable<ResultModel> {
     const route = "/api/admin/search_locality/";
-    return this.apiService.admin_get<ResultModel>(route + reqModel);
+    return this.apiService.admin_post<ResultModel>(route,reqModel);
+  }
+  
+  get_locality_searching(reqModel:any): Promise<Pagination> {
+    const route = "/api/admin/get_locality_searching";
+    return this.apiService.admin_post(route,reqModel).toPromise().then(
+      (response) => {
+        //console.log(response);
+        return response as Pagination
+      })
+      .catch(this.handleError);
   }
   sub_locality_create(reqModel: any): Observable<ResultModel> {
     const route = "/api/admin/sub_locality_create";
@@ -137,6 +148,15 @@ export class AreaListService {
   sub_locality_update(reqModel: any): Observable<ResultModel> {
     const route = "/api/admin/sub_locality_update";
     return this.apiService.admin_post<ResultModel>(route, reqModel);
+  }
+  get_sub_locality_searching(reqModel:any): Promise<Pagination> {
+    const route = "/api/admin/get_sub_locality_searching";
+    return this.apiService.admin_post(route,reqModel).toPromise().then(
+      (response) => {
+        //console.log(response);
+        return response as Pagination
+      })
+      .catch(this.handleError);
   }
   delete_sub_locality(reqModel:any): Observable<ResultModel> {
     const route = "/api/admin/delete_sub_locality";

@@ -21,6 +21,8 @@ export class UpdateLocalityComponent implements OnInit {
   public disabled_update_btn:boolean=false;
   public filteredOptions!: Observable<any[]>;
   public locality_id:any;
+  public state_data:any;
+  public state_id:any;
 
 
   update_locality_form= new FormGroup({
@@ -29,6 +31,7 @@ export class UpdateLocalityComponent implements OnInit {
     locality:  new FormControl('', Validators.required),
     locality_id:  new FormControl('', Validators.required),
     status: new FormControl('', Validators.required),
+    state: new FormControl('', Validators.required)
   });
 
   constructor(private AreaListService:AreaListService,
@@ -47,6 +50,20 @@ export class UpdateLocalityComponent implements OnInit {
     }
 
   ngOnInit(): void { 
+    this.get_state_data();
+    this.filteredOptions = this.update_locality_form.controls.district.valueChanges.pipe(
+      startWith(''),
+      map((value) => this._filter(value))
+    );
+  }
+  
+  onchange_state(){
+    this.update_locality_form.patchValue({
+      locality:'',
+      district_id:'',
+      district:''
+    });
+    this.dropdownList=[];
     this.filteredOptions = this.update_locality_form.controls.district.valueChanges.pipe(
       startWith(''),
       map((value) => this._filter(value))
@@ -58,23 +75,25 @@ export class UpdateLocalityComponent implements OnInit {
     this.AreaListService.locality_get_id(param).subscribe(
       response => {
         let data:any=response;
+        this.state_id=data.data.status;
         if(data.data == null){
           this.redirect_to_locality();
         }else{
           this.update_locality_form.patchValue({
+            state:data.data.district.state.state_id,
             locality:data.data.locality,
             locality_id:data.data.locality_id,
             status:data.data.status,
             district:data.data.district.district,
-            district_id:data.data.district.district_id,
+            district_id:data.data.district.district_id
           });
         }
       });
-  }
-  
+  }  
   get_district(value:any){
     if(value.length>2){
-      this.AreaListService.get_district_search(value).subscribe(
+      let param={value:value,state_id:this.state_id}
+      this.AreaListService.get_district_search(param).subscribe(
         response => {
           let data:any=response;
           this.dropdownList=[];
@@ -89,7 +108,7 @@ export class UpdateLocalityComponent implements OnInit {
               );
           }else{
             this.dropdownList=[];
-            this.update_locality_form.patchValue({district:'',district_id:''});
+            this.update_locality_form.patchValue({district_id:''});
           }
          
         }, err => {   
@@ -101,6 +120,17 @@ export class UpdateLocalityComponent implements OnInit {
     
     }
   }
+  
+  get_state_data(){
+    this.showLoadingIndicator= true;
+    this.AreaListService.get_state_data().subscribe(
+      response => {
+        this.state_data=response;
+        this.showLoadingIndicator= false;
+      }, err => {
+      }
+    );
+  } 
  
   private _filter(value: any): string[] {
     if (value.district) {

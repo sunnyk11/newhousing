@@ -10,7 +10,7 @@
                             </div>
                             <div class="col-lg-12 mtb10 col-sm-12">
                                 <div class="input-group mb-3">
-                                    <label class="input-group-text" for="inputGroupSelect01">State</label>
+                                    <label class="input-group-text" for="inputGroupSelect01">State*</label>
                                     <select class="form-select" id="inputGroupSelect01" formControlName="state" [ngClass]="{ 'is-invalid': submitted && f.state.errors }" name="status" required>
                                         <option value="">Select State</option>
                                         <option  *ngFor="let state of state_data?.data" [value]="state?.state_id" >{{state?.state}}</option>
@@ -20,12 +20,12 @@
                                     </div> -->
                                 </div>
                                 <div class="input-group mb-3">
-                                    <span class="input-group-text" id="district">District Name</span>
+                                    <span class="input-group-text" id="district">District Name*</span>
                                     <input type="text" formControlName="district" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.district.errors }" name="district" id="district" aria-describedby="basic-addon1">   
                                </div>
                                 
                                 <div class="input-group mb-3">
-                                    <label class="input-group-text" for="inputGroupSelect01">Status</label>
+                                    <label class="input-group-text" for="inputGroupSelect01">Status*</label>
                                     <select class="form-select" id="inputGroupSelect01" formControlName="status" [ngClass]="{ 'is-invalid': submitted && f.status.errors }" name="status" required>
                                         <option value="">Select Status</option>
                                         <option value="1">Enabled</option>
@@ -45,11 +45,48 @@
                     </form>
                 </div>
             </div>
-            <div class="col-lg-8 col-12">
+            <div class="col-lg-7 offset-lg-1 col-12">
+                <div class="row" id="searh_row">
+                    <div class="col-lg-8  col-12" >
+                        <h2 class="mb10"> Searching </h2>
+                      </div>
+                      <div class="col-lg-3 offset-lg-1 col-12 refresh">
+                          <button type="submit" class="btn btn-submit" (click)="refresh_data()">Refresh Form</button>
+                      </div>  
+                    <div class="col-lg-12 ">
+                        <div class="my_dashboard_review">
+                            <form role="form" action="" method="post" class="f1"  [formGroup]="searching_form">
+                                <div class="row searching_form_row">         
+                                    <div class="col-lg-8 col-6 mt15">
+                                        <div class="input-group mb-3">
+                                            <select class="form-select" id="inputGroupSelect01" formControlName="search_state" [ngClass]="{ 'is-invalid': search_submitted && s.search_state.errors }" name="search_state" required>
+                                                <option value="">Select State</option>
+                                                <option  *ngFor="let state of state_data?.data" [value]="state?.state_id" >{{state?.state}}</option>
+                                            </select>
+                                       </div>
+                                    </div>     
+                                    <div class="col-lg-4 col-6 search-column mt15">
+                                            <button type="submit" class="btn btn-submit" (click)="Onsearch()" ><span>Search</span></button>
+                                    </div>
+                                </div>
+                                </form>
+                          
+                        </div>
+                    </div>
+                </div>
                 <div class="my_dashboard_review">
                     <div class="property_table">
                         <div class="table-responsive mt0">
-                            <span class="status_tag badge">District ({{district_length}})</span>
+                            <div class="row">
+                                <div class="col-3">
+                                    <span class="status_tag badge">District ({{district_length}})</span>
+                                </div>
+                                <div class="col-8">
+                                    <!-- <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Search District" [(ngModel)]="term">
+                                    </div> -->
+                                </div>
+                             </div>
                             <table class="table text-center">
                                 <thead class="thead-light">
                                     <tr>
@@ -61,7 +98,7 @@
                                     </tr>
                                 </thead>
                                 <tbody *ngIf="showLoadingIndicator == false">
-                                    <tr *ngFor="let data of district_data?.data?.data;index as i">
+                                    <tr *ngFor="let data of district_data?.data?.data;index as i  ">
                                         <td>{{i+1}}</td>
                                         <td>{{data?.state?.state}} </td>
                                         <td>{{data?.district}} </td>
@@ -135,18 +172,18 @@
                         <div class="row">
                             <div class="col-lg-12 mtb10 col-sm-12">
                                 <div class="input-group mb-3">
-                                    <label class="input-group-text" for="inputGroupSelect01">State</label>
+                                    <label class="input-group-text" for="inputGroupSelect01">State*</label>
                                     <select class="form-select" id="inputGroupSelect01" formControlName="state" [ngClass]="{ 'is-invalid': submitted && f.state.errors }" name="status" required>
                                         <option value="">Select State</option>
                                         <option  *ngFor="let state of state_data?.data" [value]="state?.state_id" >{{state?.state}}</option>
                                     </select>
                                 </div>
                                 <div class="input-group mb-3">
-                                    <span class="input-group-text" id="district">State Name</span>
+                                    <span class="input-group-text" id="district">District *</span>
                                     <input type="text" formControlName="district" class="form-control"  name="district" [ngClass]="{ 'is-invalid': update_submitted && g.district.errors }" >        
                                 </div>
                                 <div class="input-group mb-3">
-                                    <label class="input-group-text" for="inputGroupSelect01">Status</label>
+                                    <label class="input-group-text" for="inputGroupSelect01">Status*</label>
                                     <select class="form-select" id="inputGroupSelect01" formControlName="status" [ngClass]="{ 'is-invalid': update_submitted && g.status.errors }" name="status" readonly>
                                         <option value="1">Enabled</option>
                                         <option value="0">Disabled</option>

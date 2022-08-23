@@ -106,9 +106,17 @@
                                         </div>
                                     </div>
                                 </div> 
+                                <div class="row">
+                                    <div class="col-6 mt10 mb10" (click)="navigate(data?.productdetails?.id,data?.productdetails?.build_name,data?.productdetails?.city)" >
+                                        <h4>{{data?.productdetails?.build_name | titlecase}}</h4>
+                                    </div>
+                                    <div class="col-6 mt10 mb10 tollfree_row">
+                                        <span id="heading"><a href="tel:{{toll_free}}"> <i class="fa fa-phone"></i> {{toll_free}}</a></span>
+                                    </div>
+                                </div>
                                 <a (click)="navigate(data?.productdetails?.id,data?.productdetails?.build_name,data?.productdetails?.city)">
                                 
-                                <h4>{{data?.productdetails?.build_name | titlecase}}</h4>
+                                <!-- <h4>{{data?.productdetails?.build_name | titlecase}}</h4> -->
                                 <p>
                                     <span *ngIf="data?.productdetails?.product_locality != null">{{ data?.productdetails?.product_locality?.locality | titlecase }}</span>
                                     <span *ngIf="data?.productdetails?.product_state != null">({{ data?.productdetails?.product_state?.state | titlecase }})</span>

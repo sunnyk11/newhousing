@@ -10,6 +10,36 @@
     padding: 25px 20px;
     height: 360px;
 }
+#searh_row{
+  padding: 5px 0px;
+  margin-bottom: 20px;
+  border: 3px solid rgb(36, 50, 74);
+}
+#searh_row h2{
+  background: #0d6efd;
+    color: #fff;
+    padding: 10px;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 1.2px;
+}
+
+.refresh{
+  display: flex;
+  align-items: center!important;
+  justify-content: center!important;
+}
+.refresh button{
+  width: 100%;
+  color:#fff!important;
+  background-color: #198754!important;
+  opacity: 1!important;
+}
+.refresh button:hover{
+background-color: #198754!important;
+color: #fff!important;
+opacity: 1!important;
+}
 
 .service_heading {
     background: rgb(36, 50, 74);

@@ -173,9 +173,9 @@ export class ProductListingComponent implements OnInit {
      
      this.isLoggedIn=true;
     }else{
-      setTimeout(() => {
-        this.visit_user();
-      }, 15000);
+      // setTimeout(() => {
+      //   this.visit_user();
+      // }, 15000);
 
     }
     this.selectedItems = new Array<string>();
@@ -336,6 +336,11 @@ export class ProductListingComponent implements OnInit {
           locality:params.locality,
           locality_data:params.locality,
           city:params.city,
+          flat_type:params.flat_type,
+          Furnished:params.Furnished,
+          security_deposit:params.security_deposit,
+          bathrooms:params.bathrooms,
+          bedrooms:params.bedrooms,
           sliderControl:[Number(params.minimum),Number(params.maximum)]
         });
         

@@ -11,7 +11,6 @@ import { Pagination } from 'src/app/user/components/models/pagination.model';
 })
 export class DistrictListComponent implements OnInit {
 
-
   public submitted: boolean = false;
   public showLoadingIndicator: boolean =false;
   public state_data:any={};
@@ -19,6 +18,7 @@ export class DistrictListComponent implements OnInit {
   public district_length:number=0;
   public district_data:any={};
   public Pagination_data: Pagination;
+  public search_submitted: boolean = false;
   public details:any;
   public disabled:boolean=false;
   public update_submitted:boolean=false;
@@ -34,6 +34,9 @@ export class DistrictListComponent implements OnInit {
     district:new FormControl('', Validators.required),
     status: new FormControl('', Validators.required)
   });
+  searching_form = new FormGroup({
+    search_state: new FormControl('1', Validators.required),
+  });
 
   constructor(private AreaListService:AreaListService,
     private toastr: ToastrService) { 
@@ -41,14 +44,39 @@ export class DistrictListComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    this.get_data();
     this.get_state_data();
+    this.Onsearch();
   }
   nosubmit(){
     this.toastr.error('At Least One Filed Select');
   }
   
+  get s() {
+    return this.searching_form.controls;
+  }
+  refresh_data(){
+    this.searching_form.patchValue({search_state:''});
+    this.Onsearch();
+   
+  }
 
+  Onsearch(){
+    console.log(this.searching_form.value);
+    if(this.searching_form.invalid){
+      this.search_submitted = true;
+      return;
+    }else{
+      let param = { state_id: this.searching_form.value.search_state}
+      this.AreaListService.get_district_byid(param).then(
+        Pagination_data => {
+          this.district_data=Pagination_data;
+          this.district_length=this.district_data.data.total;
+          this.showLoadingIndicator=false;
+        }, err => {
+        }
+      );
+    }
+  }
   onSubmit(){
     if(this.district_form.invalid){
       this.submitted = true;
@@ -62,7 +90,7 @@ export class DistrictListComponent implements OnInit {
             status:'',
             state:''
           });
-          this.get_data();
+          this.Onsearch();
           this.toastr.success('District Create Successfully');
         },
         err => {
@@ -84,21 +112,11 @@ export class DistrictListComponent implements OnInit {
       }
     );
   }  
-   get_data(){
-    this.showLoadingIndicator= true;
-    this.AreaListService.get_district().then(
-      Pagination_data => {
-        this.district_data=Pagination_data;
-        this.district_length=this.district_data.data.total;
-        this.showLoadingIndicator=false;
-      }, err => {
-      }
-    );
-  }
 
   gotoPage(link_url: any) {
     this.showLoadingIndicator = true;
-    this.AreaListService.getpagination(link_url).then(Pagination_data => {
+    let param = { state_id: this.searching_form.value.search_state}
+    this.AreaListService.getpagination1(link_url,param).then(Pagination_data => {
       this.showLoadingIndicator= false;
       this.district_data=Pagination_data;
       // this.user_list_length=this.user_list.data.data.length;
@@ -120,7 +138,7 @@ export class DistrictListComponent implements OnInit {
         this.toastr.error(Message, 'District', {
           timeOut: 3000,
         });
-        this.get_data();
+        this.Onsearch();
       },
       err => {
        this.showLoadingIndicator = false;
@@ -137,7 +155,7 @@ export class DistrictListComponent implements OnInit {
         this.toastr.success('Status Updated', 'State', {
           timeOut: 3000,
         });
-        this.get_data();
+        this.Onsearch();
       }
     );
   }
@@ -161,7 +179,7 @@ export class DistrictListComponent implements OnInit {
             district_id:"",
             status:''
           });
-          this.get_data();
+          this.Onsearch();
           this.toastr.success('State Updated');
         },
         err => {

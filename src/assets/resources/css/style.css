@@ -1199,7 +1199,7 @@ section {
 }
 
 .feat_property .details .tc_content h4 {
-    font-size: 18px;
+    font-size: 14px;
     font-family: "Nunito";
     color: #484848;
     font-weight: bold;
@@ -4125,7 +4125,7 @@ input[type="range"]::-ms-fill-upper {
 }
 
 .feat_property .details .tc_content h4 {
-    font-size: 18px;
+    font-size: 14px;
     font-family: "Nunito";
     color: #484848;
     font-weight: bold;

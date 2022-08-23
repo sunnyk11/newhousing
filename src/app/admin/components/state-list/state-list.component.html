@@ -10,12 +10,12 @@
                             </div>
                             <div class="col-lg-12 mtb10 col-sm-12">
                                 <div class="input-group mb-3">
-                                    <span class="input-group-text" id="state_name">State Name</span>
-                                    <input type="text" formControlName="state_name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.state_name.errors }" name="state_name" id="state_name" aria-describedby="basic-addon1">   
+                                    <span class="input-group-text" id="state_name">State Name*</span>
+                                    <input type="text" formControlName="state_name" class="form-control" placeholder="Enter State Name*" [ngClass]="{ 'is-invalid': submitted && f.state_name.errors }" name="state_name" id="state_name" aria-describedby="basic-addon1">   
                                </div>
                                 
                                 <div class="input-group mb-3">
-                                    <label class="input-group-text" for="inputGroupSelect01">Status</label>
+                                    <label class="input-group-text" for="inputGroupSelect01">Status*</label>
                                     <select class="form-select" id="inputGroupSelect01" formControlName="status" [ngClass]="{ 'is-invalid': submitted && f.status.errors }" name="status" required>
                                         <option value="">Select Status</option>
                                         <option value="1">Enabled</option>
@@ -123,11 +123,11 @@
                         <div class="row">
                             <div class="col-lg-12 mtb10 col-sm-12">
                                 <div class="input-group mb-3">
-                                    <span class="input-group-text" id="state_name">State Name</span>
+                                    <span class="input-group-text" id="state_name">State Name*</span>
                                     <input type="text" formControlName="state_name" class="form-control"  name="state_name" [ngClass]="{ 'is-invalid': update_submitted && g.state_name.errors }" >        
                                 </div>
                                 <div class="input-group mb-3">
-                                    <label class="input-group-text" for="inputGroupSelect01">Status</label>
+                                    <label class="input-group-text" for="inputGroupSelect01">Status*</label>
                                     <select class="form-select" id="inputGroupSelect01" formControlName="status" [ngClass]="{ 'is-invalid': update_submitted && g.status.errors }" name="status" readonly>
                                         <option value="1">Enabled</option>
                                         <option value="0">Disabled</option>

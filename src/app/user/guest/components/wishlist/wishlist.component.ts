@@ -15,6 +15,7 @@ import { UserLogsService } from '../../services/user-logs.service';
 export class WishlistComponent implements OnInit {
   
   public ftpstring=environment.ftpURL;
+  public toll_free=environment.toll_free;
   public property:any={};
   private e:any;
   public wishlist_length:number=0;

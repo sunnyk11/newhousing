@@ -5,6 +5,7 @@ import { AreaListService } from '../../services/area-list.service';
 import { Pagination } from 'src/app/user/components/models/pagination.model';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 
 @Component({
   selector: 'app-locality-list',
@@ -23,6 +24,7 @@ export class LocalityListComponent implements OnInit {
   public locality_data:any={};
   public Pagination_data: Pagination;
   public details:any;
+  public state_data:any;
   public disabled:boolean=false;
   public disabled_update_btn:boolean=false;
   public filteredOptions!: Observable<any[]>;
@@ -33,10 +35,13 @@ export class LocalityListComponent implements OnInit {
     district_id:new FormControl('',Validators.required),
     locality:  new FormControl('', Validators.required),
     status: new FormControl('', Validators.required),
+    state: new FormControl('1', Validators.required),
   });
   searching_form = new FormGroup({
+    search_state: new FormControl('1', Validators.required),
     search_district: new FormControl('', Validators.required),
-    search_district_id: new FormControl('', Validators.required)
+    search_district_id: new FormControl('', Validators.required),
+    search_locality: new FormControl(''),
   });
 
   constructor(private AreaListService:AreaListService,
@@ -45,6 +50,7 @@ export class LocalityListComponent implements OnInit {
     }
 
   ngOnInit(): void { 
+    this.get_state_data();
     this.filteredOptions = this.locality_form.controls.district.valueChanges.pipe(
       startWith(''),
       map((value) => this._filter(value))
@@ -58,9 +64,33 @@ export class LocalityListComponent implements OnInit {
     this.toastr.error('At Least One Filed Select');
   }
   
+  get_state_data(){
+    this.showLoadingIndicator= true;
+    this.AreaListService.get_state_data().subscribe(
+      response => {
+        this.state_data=response;
+        this.showLoadingIndicator= false;
+      }, err => {
+      }
+    );
+  } 
+  onchange_state(){
+    this.locality_form.patchValue({
+      locality:'',
+      district_id:'',
+      district:''
+    });
+    this.dropdownList=[];
+    this.filteredOptions = this.locality_form.controls.district.valueChanges.pipe(
+      startWith(''),
+      map((value) => this._filter(value))
+    );
+  }
+  
   get_district(value:any){
     if(value.length>2){
-      this.AreaListService.get_district_search(value).subscribe(
+      let param={value:value,state_id:this.locality_form.value.state}
+      this.AreaListService.get_district_search(param).subscribe(
         response => {
           let data:any=response;
           this.dropdownList=[];
@@ -87,10 +117,21 @@ export class LocalityListComponent implements OnInit {
     
     }
   }
- 
+  onchange_state_search(){
+    this.searching_form.patchValue({
+      search_district:'',
+      search_district_id:''
+    });
+    this.dropdownList1=[];
+    this.filteredOptions1 = this.searching_form.controls.search_district.valueChanges.pipe(
+      startWith(''),
+      map((value) => this._filter1(value))
+    );
+  }
   get_district1(value:any){
     if(value.length>2){
-      this.AreaListService.get_district_search(value).subscribe(
+      let param={value:value,state_id:this.searching_form.value.search_state}
+      this.AreaListService.get_district_search(param).subscribe(
         response => {
           let data:any=response;
           this.dropdownList1=[];
@@ -154,6 +195,23 @@ export class LocalityListComponent implements OnInit {
       );
     }
   }
+  
+  searching(value:any){
+    if(value.length>2){
+      let param={value:value,search_district_id:this.searching_form.value.search_district_id}
+      this.AreaListService.get_locality_searching(param).then(
+        Pagination_data => {
+          this.locality_data=Pagination_data;
+          this.locality_length=this.locality_data.data.total;
+          this.showLoadingIndicator=false;
+        }, err => {
+        }
+      );
+    } 
+    else if(value.length==0){
+      this.Onsearch();
+     }
+  }
   onSubmit(){
     if(this.locality_form.invalid){
       this.submitted = true;
@@ -216,7 +274,7 @@ export class LocalityListComponent implements OnInit {
         this.showLoadingIndicator =false;;
         let data:any=response;
         let Message =data.message;
-        this.toastr.error(Message, 'District', {
+        this.toastr.error(Message, 'Locality', {
           timeOut: 3000,
         });
         this.Onsearch();
@@ -233,7 +291,7 @@ export class LocalityListComponent implements OnInit {
       response => {
         this.showLoadingIndicator =false;
         let data:any=response;
-        this.toastr.success('Status Updated', 'State', {
+        this.toastr.success('Status Updated', 'Locality', {
           timeOut: 3000,
         });
         this.Onsearch();
@@ -245,8 +303,7 @@ export class LocalityListComponent implements OnInit {
     this.details = data;
   }
   refresh_data(){
-    this.searching_form.patchValue({search_district_id:'',search_district:''});
-    this.Onsearch();
+    this.searching_form.patchValue({search_locality:'',search_state:'',search_district_id:'',search_district:''});
     this.locality_length=0;
     this.locality_data='';
   }
