@@ -86,7 +86,7 @@ export class AreaListService {
   }
   // locality functuonalty
   get_district_search(reqModel:any): Observable<ResultModel> {
-    const route = "/api/admin/search_district/";
+    const route = "/api/admin/search_district";
     return this.apiService.admin_post<ResultModel>(route,reqModel);
   }
   
@@ -124,7 +124,7 @@ export class AreaListService {
   }
   // sublocality functionalty
   get_locality_search(reqModel:any): Observable<ResultModel> {
-    const route = "/api/admin/search_locality/";
+    const route = "/api/admin/search_locality";
     return this.apiService.admin_post<ResultModel>(route,reqModel);
   }
   

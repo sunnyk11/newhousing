@@ -345,6 +345,12 @@
     }
 
 }
+.feat_property .details .tc_content .prop_details li a {
+    font-size: 13px;
+    font-family: "Nunito";
+    color: #484848!important;
+    line-height: 1.2;
+}
 .tollfree_row span{
     border: 1px solid #000;
     align-items: center;

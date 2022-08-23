@@ -75,7 +75,7 @@
                         <div class="my_dashboard_review">
                             <form role="form" action="" method="post" class="f1"  [formGroup]="searching_form">
                                 <div class="row searching_form_row">   
-                                    <div class="col-lg-6 col-6 mt15">
+                                    <div class="col-lg-6 col-12 mt15">
                                         <div class="input-group mb-3">
                                             <span class="input-group-text" id="search_state">State*</span>
                                             <select class="form-select" id="search_state" formControlName="search_state" [ngClass]="{ 'is-invalid': search_submitted && s.search_state.errors }" name="search_state" (ngModelChange)="onchange_state_search()" required>
@@ -84,7 +84,7 @@
                                             </select>
                                        </div>
                                     </div>        
-                                    <div class="col-lg-6 col-6 mt15">
+                                    <div class="col-lg-6 col-12 mt15">
                                         <div class="input-group mb-3">
                                             <span class="input-group-text" id="district">District*</span>
                                             <input class="form-control" type="text" placeholder="Search District* " matInput aria-label="Number" formControlName="search_district" [matAutocomplete]="auto_district1" (ngModelChange)="get_district1($event)" [ngClass]="{ 'is-invalid': search_submitted && s.search_district.errors }">
@@ -100,7 +100,7 @@
                                             <div *ngIf="s.search_district_id.errors.required">(Please Search Any District)</div>
                                         </div>
                                     </div>         
-                                    <div class="col-lg-6 col-6 mt15">
+                                    <div class="col-lg-6 col-12  mt15">
                                         <div class="input-group mb-3">
                                             <span class="input-group-text" id="district">Locality*</span>
                                             <input class="form-control" type="text" placeholder="Search Locality*" matInput aria-label="Number" formControlName="search_locality" [matAutocomplete]="auto1" (ngModelChange)="get_locality1($event)" [ngClass]="{ 'is-invalid': search_submitted && s.search_locality.errors }">
@@ -115,7 +115,7 @@
                                             <div *ngIf="s.search_locality_id.errors.required">(Please Search Any Locality)</div>
                                         </div>
                                     </div>     
-                                    <div class="col-lg-6 col-6 search-column mt15">
+                                    <div class="col-lg-6 col-12  search-column mt15">
                                             <button type="submit" class="btn btn-submit" (click)="Onsearch()" ><span>Search</span></button>
                                     </div>
                                 </div>

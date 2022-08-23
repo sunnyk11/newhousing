@@ -30,7 +30,7 @@
     display: flex;
 }
 #feature-property .propertyListingPage .feat_property{
-    height: 480px!important;
+    height: 490px!important;
 }
 
 @media(max-width: 950px) { 
