@@ -18,6 +18,7 @@ export class HomepagefeatureComponent implements OnInit {
   public ftpstring=environment.ftpURL;
   public property:any={};
   public product_copm:any={};
+  public toll_free=environment.toll_free;
   public showLoadingIndicator:boolean= false;
   public product_length:number=0;
 

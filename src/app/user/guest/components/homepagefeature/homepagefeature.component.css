@@ -16,6 +16,22 @@
     background-color: transparent!important;
 }
 
+.tollfree_row #heading a{
+    color: #000!important;
+}
+
+.tollfree_row span i{
+    color:#00ff00;
+}
+.tollfree_row span{
+    border: 1px solid #000;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+#feature-property .propertyListingPage .feat_property{
+    height: 490px!important;
+}
 
 @media(max-width: 950px) { 
     #deshtop_view{

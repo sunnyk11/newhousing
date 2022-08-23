@@ -1199,7 +1199,7 @@ section {
 }
 
 .feat_property .details .tc_content h4 {
-    font-size: 18px;
+    font-size: 14px;
     font-family: "Nunito";
     color: #484848;
     font-weight: bold;
@@ -1799,11 +1799,6 @@ section {
     border-radius: 5px!important;
 }
 
-.sidebar_content_details.style3 {
-    padding: 5px 0 0;
-    width: 100%!important;
-    z-index: 100000000000!important;
-}
 
 .sidebar_content_details.style3.sidebar_ml0 {
     margin-left: 0;
@@ -4130,7 +4125,7 @@ input[type="range"]::-ms-fill-upper {
 }
 
 .feat_property .details .tc_content h4 {
-    font-size: 18px;
+    font-size: 14px;
     font-family: "Nunito";
     color: #484848;
     font-weight: bold;

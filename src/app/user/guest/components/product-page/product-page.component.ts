@@ -32,7 +32,8 @@ export class ProductPageComponent implements OnInit {
   public google_map_url=environment.google_map_url;
   public property: any;
   public similar_property: any;
-  public latCus: any;
+  public latCus: any; 
+  public toll_free=environment.toll_free;
   public longCus: any;
   public address: string = '';
   public product_images: any;
@@ -87,9 +88,9 @@ export class ProductPageComponent implements OnInit {
       this.returnUrl = this.router.url;
       this.jwtService.saveReturnURL(this.returnUrl);
     }else{
-      setTimeout(() => {
-        this.visit_user();
-      }, 15000);
+      // setTimeout(() => {
+      //   this.visit_user();
+      // }, 15000);
 
     }
   }

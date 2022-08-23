@@ -9,7 +9,7 @@ export const environment = {
   you_tube_url:'https://www.youtube-nocookie.com/embed/',
   google_map_url:'https://maps.google.co.in/maps?q=',
   toll_free: '18005475450',
-  App_version:'v2.4.0'
+  App_version:'v2.5.0'
 };
 
 // export const environment = {

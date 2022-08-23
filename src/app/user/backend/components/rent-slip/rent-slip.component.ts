@@ -54,7 +54,6 @@ property_rent_slip(property_id:any){
   this.PlansServiceService.property_rent_slip(param).subscribe(
     response => {
       let data:any=response;
-      console.log(response);
       if(data.data ==null){
         this.router.navigate(['/agent/my-properties']);
       }else{

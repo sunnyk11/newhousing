@@ -38,6 +38,15 @@
     font-size: 30px;
     font-weight: 900;
 }
+.tollfree_row span{
+    border: 1px solid #000;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+.tollfree_row span i{
+    color:#00ff00;
+}
 
 .locality_heading {
     color: #ff5a5f!important;
