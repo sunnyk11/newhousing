@@ -15,6 +15,8 @@ export class MyPropertiesComponent implements OnInit {
   private userEmail: string = '';
   public rent_property_data: any;
   public property_det: any;
+  public purchased_property_length:number=0;
+  public book_property_length:number=0;
 
   constructor(
     private propertiesService: MypropertiesPageService,
@@ -35,8 +37,11 @@ export class MyPropertiesComponent implements OnInit {
     this.propertiesService.get_rent_properties(this.userEmail).subscribe(
       res => {
         this.showLoadingIndicator = false;
-        console.log(res);
         this.rent_property_data = res;
+        if(this.rent_property_data?.book_property){
+          this.book_property_length=this.rent_property_data?.book_property?.length;
+        }
+        this.purchased_property_length=this.rent_property_data?.purchased_property?.length;
       },
       err => {
         this.showLoadingIndicator = false;
@@ -51,11 +56,17 @@ export class MyPropertiesComponent implements OnInit {
   }
   
   viewInvoice(invoice_no: any) {
-    this.router.navigate(['/invoice'], { queryParams: { 'invoice_no': invoice_no } });
+    const url:any = this.router.createUrlTree(['/invoice'],{ queryParams: { 'invoice_no': invoice_no }})
+      window.open(url.toString(), '_blank')
+  }
+  
+  book_Invoice(invoice_no: any) {
+    const url:any = this.router.createUrlTree(['/book-property'],{ queryParams: { 'invoice_no': invoice_no }})
+      window.open(url.toString(), '_blank')
   }
 
   moreDetails(property_details: any) {
-    //console.log(property_details);
+    console.log(property_details);
     this.property_det = property_details;
   }
 

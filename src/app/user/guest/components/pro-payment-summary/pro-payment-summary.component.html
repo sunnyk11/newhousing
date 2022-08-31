@@ -239,14 +239,77 @@
                                         <hr>
                                         
                                         <div class="row">
-                                            <div class="col-7 col-lg-9"> 
+                                            <div class="col-7 col-lg-8"> 
                                                 <h6 class="heading_text"><strong>Total Payable Amount(A+B):</strong></h6>
                                                 <!-- <h6><strong>(A+B)</strong></h6> -->
                                             </div>
-                                            <div class="col-5 col-lg-3"><h6 class="heading_amount"><strong>{{  total_amount_hs + total_amount_owner }}</strong></h6></div>
+                                            <div class="col-5 col-lg-4"><h6 class="heading_amount"><strong>{{  total_amount}}</strong></h6></div>
                                         </div>
                                         
                                         <div class="row">
+                                            
+                                            <div class="col-12 mt10 mb10">
+                                                <div class="row">
+                                                    <div class="col-12 mt10 mb10">
+                                                        <h6 style="margin:10px 0px ;"><strong>Payment Percentage</strong></h6>
+                                                    </div>
+                                                    <div class="col-6"> 
+                                                        <div class="form-check form-check-inline">
+                                                            <input class="form-check-input" type="radio" name="payment_type" id="purchase_property" value="purchase_property" (change)="changepayment_type($event)" checked>
+                                                            <label class="form-check-label" for="purchase_property">
+                                                                Purchase Property
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="form-check form-check-inline">
+                                                            <input class="form-check-input" type="radio" name="payment_type" id="book_property" value="book_property" (change)="changepayment_type($event)" >
+                                                            <label class="form-check-label" for="book_property">
+                                                                Book Property
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12" *ngIf="purchase_property==false && book_property==true">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <h6>Select Percentage</h6>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <div class="form-check form-check-inline">
+                                                            <input class="form-check-input" type="radio" name="percentage" id="fifteen" value="15" (change)="changepercentage($event)" >
+                                                            <label class="form-check-label" for="fifteen">
+                                                                15%
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <div class="form-check form-check-inline">
+                                                            <input class="form-check-input" type="radio" name="percentage" id="twenty" value="20" (change)="changepercentage($event)" >
+                                                            <label class="form-check-label" for="twenty">
+                                                                20%
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <div class="form-check form-check-inline">
+                                                            <input class="form-check-input" type="radio" name="percentage" id="thirty" value="30" (change)="changepercentage($event)" >
+                                                            <label class="form-check-label" for="thirty">
+                                                                30%
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <div class="form-check form-check-inline">
+                                                            <input class="form-check-input" type="radio" name="percentage" id="forteen" value="40" (change)="changepercentage($event)" checked>
+                                                            <label class="form-check-label" for="forteen">
+                                                                40%
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div class="col-12">
                                                 <h6 style="margin:10px 0px ;"><strong>Mode of Payment</strong></h6>
                                             </div>

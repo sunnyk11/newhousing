@@ -13,7 +13,9 @@
 .heading_text{
     text-align: left;
 }
-
+.form-check-label{
+    font-size: 12px!important;
+}
 .heading_amount{
     text-align: right;
 }

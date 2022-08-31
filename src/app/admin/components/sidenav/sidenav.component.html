@@ -151,6 +151,17 @@
             <a mat-list-item (click)="state_list()">State list</a>
         </mat-nav-list>
     </mat-expansion-panel>
+    
+    <mat-expansion-panel *ngIf="LoggedIn && access_locality_area">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                Area Group list
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-nav-list>
+            <a mat-list-item (click)="area_group_list()">Area group list</a>
+        </mat-nav-list>
+    </mat-expansion-panel>
     <mat-expansion-panel *ngIf="LoggedIn && property_access">
         <mat-expansion-panel-header>
             <mat-panel-title>

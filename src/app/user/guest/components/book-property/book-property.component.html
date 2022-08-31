@@ -1,0 +1,161 @@
+<div *ngIf="showLoadingIndicator">
+    <div class="preloader"></div>
+</div>
+<div class="container container1 mt-4">
+    <div class="row">
+        <div class="col-lg-6 col-6">
+            <button (click)="generatePDF()">Generate PDF</button>
+        </div>
+        <!-- <div class="col-lg-6 col-6 text-right">
+            <button type="button" class="btn btn-primary" (click)="navigate_plans()">My Plans</button>
+        </div> -->
+    </div>
+</div>
+<div class="container mt-4">
+    <div class="p-5 mb-4 bg-light rounded-3" id="cont1">
+        <div class="container-fluid py-4">
+            <div class="table-responsive p-5" id="htmlData">
+                <table class="table table-borderless">
+                    <thead>
+                        <tr>
+                            <th class="text-center img"><img src="../../../../../assets/resources/images/logo/logo.png" alt=""></th>
+                            <th class="text-center">
+                                <h4>Book Property INVOICE</h4>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th></th>                            
+                            <th class="text-center">
+                                <h4>{{ inv_response?.payment_status }}
+                                    <span *ngIf="inv_response?.property_status != null"><strong>({{ inv_response?.property_status}})</strong></span>
+                                    <!-- <span *ngIf="inv_response?.property_status?.property_status != null"><strong>({{ inv_response?.property_status?.property_status}})</strong></span> -->
+                                </h4>
+                                <h5 *ngIf="inv_response?.service_delivered_status != null"><strong>{{ inv_response?.service_delivered_status}}</strong>({{inv_response?.service_delivered_date | date: 'dd MMMM yyyy' }})</h5>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>
+                                <h4><strong>HOUSINGSTREET MARKETING AND
+                                        <br>CONSULTING PRIVATE LIMITED</strong></h4>
+                            </th>
+                            <th class="text-center align-top">
+                                <h4><strong>Invoice No:</strong> {{ invoice_id }}<span *ngIf="inv_response?.id">-{{inv_response?.id}}</span><br> <strong>Date:</strong><span *ngIf="inv_response?.invoice_generated_date != null">{{ inv_response?.invoice_generated_date | date: 'dd MMMM yyyy'  }}</span> 
+                                </h4>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>
+                                <h4><strong>GSTIN No:</strong> {{ invoice_data?.gstin }}<br><strong>PAN No:</strong> {{ invoice_data?.pan_no }}<br><strong>Toll Free No:</strong> <a href="tel:{{toll_free}}" >{{toll_free}} </a></h4>
+                            </th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <th>
+                                <h4>
+                                    <!-- <span class="material-icons">
+                                        phone_android
+                                    </span> <span class="ms-2">{{ invoice_data?.mobile_no }}</span><br> -->
+                                    <span class="material-icons">
+                                        email
+                                    </span> <span class="ms-2">{{ invoice_data?.email }}</span><br>
+                                    <span class="material-icons">
+                                        language
+                                    </span> <span class="ms-2">{{ invoice_data?.website_address }}</span><br>
+                                    <span class="material-icons">
+                                        place
+                                    </span>
+                                    <span class="ms-2">{{ address1 }}, {{ address2 }},</span><br>
+                                    <span class="ms-4">{{ address3 }}, {{ address4 }}</span><br>
+                                    <span class="ms-4">CIN: {{ invoice_data?.cin }}</span>
+                                </h4>
+                            </th>
+                            <th class="text-center align-top">
+                                <h4>BILL TO <br> {{ user_name }}<br> {{ inv_response?.user_email }}</h4>
+                            </th>
+                        </tr>
+                    </thead>
+                </table>
+
+                <table class="table text-center">
+                    <thead>
+                        <tr>
+                            <th>Sl No</th>
+                            <th>Payment related to property owner</th>
+                            <th>Duration</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="inv_response?.plan_type == 'Rent'">
+                        <tr *ngIf="ord_details?.expected_rent">
+                            <th>1</th>
+                            <td>Rent</td>
+                            <td>1 Month</td>
+                            <td>&#8377; {{ ord_details?.expected_rent }}</td>
+                        </tr>
+                        <tr *ngIf="ord_details?.security_deposit">
+                            <th>2</th>
+                            <td>Security Deposit</td>
+                            <td>{{ product_data?.security_deposit }} Months</td>
+                            <td>&#8377; {{ ord_details?.security_deposit }}</td>
+                        </tr>
+                        <tr *ngIf="ord_details?.maintenance_charge">
+                            <th>3</th>
+                            <td>Maintenance Charge</td>
+                            <td>{{ product_data?.maintenance_condition?.name }}</td>
+                            <td>&#8377; {{ ord_details?.maintenance_charge }}</td>
+                        </tr>
+                        <tr *ngIf="inv_response?.purchased_property">
+                            <th></th>
+                            <td>Tax Invoice
+                                <a class="text text-primary" [routerLink]="['/invoice']" [queryParams]="{invoice_no: inv_response?.purchased_property?.invoice_no}"  target="_blank">({{ inv_response?.purchased_property?.invoice_no }})</a>
+                            </td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td>Total Amount payable to Owner <strong>(A)</strong></td>
+                            <td></td>
+                            <td><strong>&#8377; {{ total_amount_owner }}</strong></td>
+                        </tr>
+                    </tbody>
+                        <thead   *ngIf="inv_response?.plan_type == 'Rent' && inv_response?.payment_percentage">
+                            <tr>
+                                <th>Sl No</th>
+                                <th>Choose Payment</th>
+                                <th>Percentage</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <tr  *ngIf="inv_response?.plan_type == 'Rent' && inv_response?.payment_percentage">
+                            <th>1</th>
+                            <td> Book Property
+                               
+                            </td>
+                            <td>{{inv_response?.payment_percentage}}%</td>
+                            <td>&#8377; {{percentage_amount}}</td>
+                        </tr>
+                        <tr *ngIf="inv_response?.plan_type == 'Rent' && inv_response?.payment_percentage">
+                            <th></th>
+                            <td><strong>Total Percentage Amount (B)</strong></td>
+                            <td></td>
+                            <td><strong>&#8377; {{percentage_amount}}</strong></td>
+                        </tr>
+                        
+                        <tr *ngIf="inv_response?.plan_type == 'Rent' && inv_response?.payment_percentage">
+                            <td></td>
+                            <td>{{ amount_words_per }}</td>
+                            <td><strong>Payable Total <br>
+                                    <span *ngIf="inv_response?.plan_type == 'Rent'">(A-B)</span>
+                                </strong>
+                            </td>
+                            <td><strong>&#8377; {{ total_amount_owner - percentage_amount }}</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h3 style="text-align: center;">System Generated Invoice</h3>
+            </div>
+        </div>
+    </div>
+</div>

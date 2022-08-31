@@ -141,7 +141,8 @@ export class ListpropertyRentComponent implements OnInit {
       bathrooms: ['', Validators.required],
       balconies: ['', Validators.required],
       flat_type: ['', Validators.required],
-      property_desc: ['', Validators.required]
+      property_desc: ['', Validators.required],
+      property_notes: ['']
     });
 
     this.form_step2 = this._formBuilder.group({

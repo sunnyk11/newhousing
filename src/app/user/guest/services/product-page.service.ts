@@ -20,6 +20,10 @@ export class ProductPageService {
     const route = "/api/product/product_login_see"; 
     return this.apiService.post<ResultModel>(route, reqModel);
   }
+  property_notes_update(reqModel:any): Observable<ResultModel> {
+    const route = "/api/product/property_notes_update"; 
+    return this.apiService.post<ResultModel>(route, reqModel);
+  }
   admin_single_product_details(reqModel:any): Observable<ResultModel> {
     const route = "/api/product/product_login_see"; 
     return this.apiService.admin_post<ResultModel>(route, reqModel);

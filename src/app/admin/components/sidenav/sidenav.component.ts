@@ -33,6 +33,7 @@ export class SidenavComponent implements OnInit {
   public property_access:boolean=false;
   public access_web_Banner:boolean=false;
   public access_locality_area:boolean=false;
+  public access_area_group:boolean=false;
 
   private user_id: any;
   public permissions_response: any;
@@ -155,6 +156,11 @@ export class SidenavComponent implements OnInit {
     this.router.navigate(['/admin/sub-locality-list']);
   }
   
+  area_group_list() {
+    this.sidenavClose.emit();
+    this.router.navigate(['/admin/area-group-list']);
+  }
+  
   locality_list() {
     this.sidenavClose.emit();
     this.router.navigate(['/admin/locality-list']);
@@ -207,6 +213,7 @@ export class SidenavComponent implements OnInit {
       this.visit_user_feedback=false;
       this.access_web_Banner=false;
       this.access_locality_area=false;
+      this.access_area_group=false;
       
       this.access_create_userbyinternal=false;
       this.access_view_userByinternal=false;
@@ -225,6 +232,7 @@ export class SidenavComponent implements OnInit {
       this.access_all_users = true;
       this.access_web_Banner=true;
       this.access_locality_area=true;
+      this.access_area_group=true;
       this.access_reviews = true;
       this.access_la_service_provider = true;
       this.access_manage_blog = true;

@@ -66,6 +66,9 @@ import { LocalityListComponent } from './components/locality-list/locality-list.
 import { UpdateLocalityComponent } from './components/update-locality/update-locality.component';
 import { SubLocalityListComponent } from './components/sub-locality-list/sub-locality-list.component';
 import { UpdateSubLocalityComponent } from './components/update-sub-locality/update-sub-locality.component';
+import { AreaGroupComponent } from './components/area-group/area-group.component';
+import { AddAreaGroupComponent } from './components/add-area-group/add-area-group.component';
+import { UpdateAreaGroupComponent } from './components/update-area-group/update-area-group.component';
 @NgModule({
   declarations: [
     LoginComponent,
@@ -113,7 +116,10 @@ import { UpdateSubLocalityComponent } from './components/update-sub-locality/upd
     LocalityListComponent,
     UpdateLocalityComponent,
     SubLocalityListComponent,
-    UpdateSubLocalityComponent
+    UpdateSubLocalityComponent,
+    AreaGroupComponent,
+    AddAreaGroupComponent,
+    UpdateAreaGroupComponent
   ],
   imports: [
     CommonModule,
