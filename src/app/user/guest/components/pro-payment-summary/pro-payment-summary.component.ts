@@ -229,14 +229,12 @@ export class ProPaymentSummaryComponent implements OnInit {
       this.book_property = true;
       this.choose_payment_type = 'book_property';
       this.payment_percentage=40;
-      this.total_amount= Math.round((this.total_amount_owner)*this.payment_percentage/100);
+      this.total_amount= Math.round((this.total_amount_owner)*this.payment_percentage/100)+this.total_amount_hs;
     }
   }
   changepercentage(e:any) {
     this.payment_percentage=e.target.value;
-    this.total_amount= Math.round((this.total_amount_owner)*this.payment_percentage/100);
-  
-    console.log(this.total_amount);
+    this.total_amount= Math.round((this.total_amount_owner)*this.payment_percentage/100)+this.total_amount_hs;
   }
 
   proceedToPayment() {

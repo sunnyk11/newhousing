@@ -104,14 +104,6 @@
                             <td>{{ product_data?.maintenance_condition?.name }}</td>
                             <td>&#8377; {{ ord_details?.maintenance_charge }}</td>
                         </tr>
-                        <tr *ngIf="inv_response?.purchased_property">
-                            <th></th>
-                            <td>Tax Invoice
-                                <a class="text text-primary" [routerLink]="['/invoice']" [queryParams]="{invoice_no: inv_response?.purchased_property?.invoice_no}"  target="_blank">({{ inv_response?.purchased_property?.invoice_no }})</a>
-                            </td>
-                            <td></td>
-                            <td></td>
-                        </tr>
                         <tr>
                             <th></th>
                             <td>Total Amount payable to Owner <strong>(A)</strong></td>
@@ -136,21 +128,90 @@
                             <td>{{inv_response?.payment_percentage}}%</td>
                             <td>&#8377; {{percentage_amount}}</td>
                         </tr>
-                        <tr *ngIf="inv_response?.plan_type == 'Rent' && inv_response?.payment_percentage">
-                            <th></th>
-                            <td><strong>Total Percentage Amount (B)</strong></td>
-                            <td></td>
-                            <td><strong>&#8377; {{percentage_amount}}</strong></td>
-                        </tr>
                         
                         <tr *ngIf="inv_response?.plan_type == 'Rent' && inv_response?.payment_percentage">
                             <td></td>
-                            <td>{{ amount_words_per }}</td>
-                            <td><strong>Payable Total <br>
+                            <td>
+                                <strong>Property Owner Remaining Amount(C)</strong>
+                                <p>({{ amount_words_per }})</p>
+                            </td>
+                            <td><strong>Remaining Total <br>
                                     <span *ngIf="inv_response?.plan_type == 'Rent'">(A-B)</span>
                                 </strong>
                             </td>
                             <td><strong>&#8377; {{ total_amount_owner - percentage_amount }}</strong></td>
+                        </tr>
+                    </tbody>
+                    <thead>
+                        <tr>
+                            <th>Sl No</th>
+                            <th>Description & Specification of Services</th>
+                            <th>Service Code <br>(SAC)</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+                        <tr>
+                            <th>1</th>
+                            <td> {{ inv_response?.plan_name }} Plan
+                                <span *ngIf="inv_response?.plan_type == 'Rent'">(Property Renting Plan)</span>
+                            </td>
+                            <td>{{ invoice_data?.sac }}</td>
+                            <td>&#8377; {{ inv_response?.plan_price }}</td>
+                        </tr>
+                        <tr >
+                            <th>2</th>
+                            <td>  Rent Aggrement
+                               
+                            </td>
+                            <td></td>
+                            <td>&#8377; {{rent_aggrement_price}}</td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td><strong>Taxable Value/Payout Value (D)
+                            </strong></td>
+                            <td></td>
+                            <td><strong>&#8377; {{ plan_aggrement_price }}</strong></td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td>SGST : {{ invoice_data?.sgst }}%</td>
+                            <td></td>
+                            <td>&#8377; {{ sgst_amount }}</td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td>CGST : {{ invoice_data?.cgst }}%</td>
+                            <td></td>
+                            <td>&#8377; {{ cgst_amount }}</td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td><strong>Total Tax (E)</strong></td>
+                            <td></td>
+                            <td><strong>&#8377; {{ sgst_amount + cgst_amount }}</strong>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Invoice Value (In words)</td>
+                            <td>{{ amount_words }}</td>
+                            <td><strong>Grand Total <br>
+                                    <span *ngIf="inv_response?.plan_type == 'Rent'">(C+D+E)</span>
+                                </strong>
+                            </td>
+                            <td><strong>&#8377; {{ total_amount }}</strong></td>
+                        </tr>
+                        <tr *ngIf="inv_response?.purchased_property">
+                            <th></th>
+                            <td><strong>
+                              Tax  Invoice
+                                <a class="text text-primary" [routerLink]="['/invoice']" [queryParams]="{invoice_no: inv_response?.purchased_property?.invoice_no}"  target="_blank">({{ inv_response?.purchased_property?.invoice_no }})</a>
+                            </strong>
+                            </td>
+                            <td></td>
+                            <td></td>
                         </tr>
                     </tbody>
                 </table>

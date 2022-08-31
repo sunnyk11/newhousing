@@ -81,7 +81,6 @@ export class BookPropertyComponent implements OnInit {
     this.plansPageService.getInvoiceDetails(this.invoice_id).subscribe(
       res => {
         let data:any=res;
-        console.log(data);
         this.response =  data.data;
         if(this.response  != null){
           this.user_name = data.data.user_detail.name;  
@@ -111,15 +110,15 @@ export class BookPropertyComponent implements OnInit {
 
                   if (this.ord_details.maintenance_charge) {
                     this.total_amount_owner = this.ord_details.expected_rent + this.ord_details.security_deposit + this.ord_details.maintenance_charge;
-                    this.total_amount = this.plan_aggrement_price + this.sgst_amount + this.cgst_amount + this.ord_details.expected_rent + this.ord_details.security_deposit + this.ord_details.maintenance_charge;
-                    this.percentage_amount=this.response.amount_paid;
+                    this.percentage_amount=this.total_amount_owner*this.inv_response.payment_percentage/100;
+                    this.total_amount = (this.percentage_amount+this.plan_aggrement_price + this.sgst_amount + this.cgst_amount);
                     this.amount_words = toWords.convert(this.total_amount);
                     this.amount_words_per = toWords.convert(this.total_amount_owner-this.percentage_amount);
                   }
                   else {
                     this.total_amount_owner = this.ord_details.expected_rent + this.ord_details.security_deposit;
-                    this.total_amount = this.plan_aggrement_price + this.sgst_amount + this.cgst_amount + this.ord_details.expected_rent + this.ord_details.security_deposit;
-                    this.percentage_amount=this.response.amount_paid;
+                    this.percentage_amount=this.total_amount_owner*this.inv_response.payment_percentage/100;
+                    this.total_amount = (this.percentage_amount+this.plan_aggrement_price + this.sgst_amount + this.cgst_amount);
                     this.amount_words = toWords.convert(this.total_amount);
                     this.amount_words_per = toWords.convert(this.total_amount_owner-this.percentage_amount);
                   }

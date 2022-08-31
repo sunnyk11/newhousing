@@ -35,8 +35,8 @@ export class InvoiceComponent implements OnInit {
   public invoice_data: any;
   public address: any;
   public product_data: any;
+  public percentage_amount: any;
   public total_amount_owner: any;
-  public total_amount_owner_book: any;
   public amount_words: any;
   public user_name: any;
   public address1: any;
@@ -110,10 +110,11 @@ export class InvoiceComponent implements OnInit {
                   if (this.ord_details.maintenance_charge) {
                     this.total_amount_owner = this.ord_details.expected_rent + this.ord_details.security_deposit + this.ord_details.maintenance_charge;
                     if(this.inv_response.book_property){
-                      this.total_amount_owner_book=this.total_amount_owner- this.inv_response.book_property.amount_paid;
-                      this.total_amount = (this.plan_aggrement_price + this.sgst_amount + this.cgst_amount + this.total_amount_owner_book);
-                      this.amount_words = toWords.convert(this.total_amount);
-                    }else{
+                      let price:any;
+                      price=this.total_amount_owner*this.inv_response.payment_percentage/100;
+                      this.percentage_amount=this.total_amount_owner-price;
+                      this.amount_words = toWords.convert(this.total_amount_owner-this.percentage_amount);
+                       }else{
                       this.total_amount = this.plan_aggrement_price + this.sgst_amount + this.cgst_amount + this.ord_details.expected_rent + this.ord_details.security_deposit + this.ord_details.maintenance_charge;
                       this.amount_words = toWords.convert(this.total_amount);
                     }
@@ -121,10 +122,11 @@ export class InvoiceComponent implements OnInit {
                   else {
                     this.total_amount_owner = this.ord_details.expected_rent + this.ord_details.security_deposit;
                     if(this.inv_response.book_property){
-                      this.total_amount_owner_book=this.total_amount_owner- this.inv_response.book_property.amount_paid;
-                      this.total_amount = (this.plan_aggrement_price + this.sgst_amount + this.cgst_amount + this.total_amount_owner_book);
-                      this.amount_words = toWords.convert(this.total_amount);
-                    }else{
+                      let price:any;
+                      price=this.total_amount_owner*this.inv_response.payment_percentage/100;
+                      this.percentage_amount=this.total_amount_owner-price;
+                      this.amount_words = toWords.convert(this.total_amount_owner-this.percentage_amount);
+                     }else{
                     this.total_amount = this.plan_aggrement_price + this.sgst_amount + this.cgst_amount + this.ord_details.expected_rent + this.ord_details.security_deposit;
                     this.amount_words = toWords.convert(this.total_amount);
                     }
