@@ -20,6 +20,7 @@
                         <tr>
                             <th class="text-center img"><img src="../../../../../assets/resources/images/logo/logo.png" alt=""></th>
                             <th class="text-center">
+                                <h3>Tax INVOICE</h3>
                                 <h4>Book Property INVOICE</h4>
                             </th>
                         </tr>
@@ -122,7 +123,7 @@
                         <tbody>
                         <tr  *ngIf="inv_response?.plan_type == 'Rent' && inv_response?.payment_percentage">
                             <th>1</th>
-                            <td> Book Property
+                            <td><strong>Book Property(B)</strong>
                                
                             </td>
                             <td>{{inv_response?.payment_percentage}}%</td>
@@ -132,11 +133,11 @@
                         <tr *ngIf="inv_response?.plan_type == 'Rent' && inv_response?.payment_percentage">
                             <td></td>
                             <td>
-                                <strong>Property Owner Remaining Amount(C)</strong>
+                                <strong>Property Owner Remaining Amount</strong>
                                 <p>({{ amount_words_per }})</p>
                             </td>
                             <td><strong>Remaining Total <br>
-                                    <span *ngIf="inv_response?.plan_type == 'Rent'">(A-B)</span>
+                                    <span *ngIf="inv_response?.plan_type == 'Rent'">C=(A-B)</span>
                                 </strong>
                             </td>
                             <td><strong>&#8377; {{ total_amount_owner - percentage_amount }}</strong></td>
@@ -198,7 +199,7 @@
                             <td>Invoice Value (In words)</td>
                             <td>{{ amount_words }}</td>
                             <td><strong>Grand Total <br>
-                                    <span *ngIf="inv_response?.plan_type == 'Rent'">(C+D+E)</span>
+                                    <span *ngIf="inv_response?.plan_type == 'Rent'">(B+D+E)</span>
                                 </strong>
                             </td>
                             <td><strong>&#8377; {{ total_amount }}</strong></td>

@@ -20,7 +20,9 @@
                         <tr>
                             <th class="text-center img"><img src="../../../../../assets/resources/images/logo/logo.png" alt=""></th>
                             <th class="text-center">
-                                <h2>TAX INVOICE</h2>
+                                <h2 *ngIf="inv_response?.book_property && inv_response?.plan_type =='Rent'">INVOICE</h2>
+                                <h4 *ngIf="inv_response?.book_property && inv_response?.plan_type =='Rent'">(Remaining Amount)</h4>
+                                <h2 *ngIf="inv_response?.book_property == null && inv_response?.plan_type =='Rent'">Tax INVOICE</h2>
                             </th>
                         </tr>
                         <tr>
@@ -121,7 +123,7 @@
                             <td>Book Property
                                 <a class="text text-primary" [routerLink]="['/book-property']" [queryParams]="{invoice_no: inv_response?.book_property?.invoice_no}"  target="_blank">({{ inv_response?.book_property?.invoice_no }})</a>
                             </td>
-                            <td>&#8377; {{ percentage_amount}}</td>
+                            <td> Advance Payment</td>
                             <td><strong>&#8377; {{ percentage_amount}}</strong></td>
                         </tr>
                         <tr>
