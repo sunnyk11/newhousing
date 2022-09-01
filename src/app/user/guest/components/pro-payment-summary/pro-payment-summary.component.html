@@ -240,8 +240,10 @@
                                         <div class="row" *ngIf="purchase_property==false && book_property==true">
                                             <div class="col-8"><h6 class="heading_text">Select Percentage:</h6></div>
                                             <div class="col-4"><h6 class="heading_amount"><strong>{{ payment_percentage }}%</strong></h6></div>
-                                            <div class="col-8"><h6 class="heading_text"><strong>({{ payment_percentage }}%) Amount(C):</strong></h6></div>
+                                            <div class="col-8"><h6 class="heading_text"><strong> Amount(C) :<br>({{ payment_percentage }}% of A)</strong></h6></div>
                                             <div class="col-4"><h6 class="heading_amount"><strong>{{ section_c }}</strong></h6></div>
+                                            <!-- <div class="col-8"><h6 class="heading_text"><strong>Total Amount(C):</strong></h6></div>
+                                            <div class="col-4"><h6 class="heading_amount"><strong>{{ section_c }}</strong></h6></div> -->
                                         </div>
                                         <hr *ngIf="purchase_property==false && book_property==true">
                                         <div class="row" *ngIf="purchase_property==false && book_property==true">
