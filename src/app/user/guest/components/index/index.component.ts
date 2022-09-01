@@ -104,7 +104,7 @@ export class IndexComponent implements OnInit {
     }else{
       setTimeout(() => {
         this.visit_user();
-      }, 15000);
+      }, 300000);
 
     }
     
