@@ -50,6 +50,7 @@ export class ProPaymentSummaryComponent implements OnInit {
   public cash_pay_btn: boolean = false;
   public choose_payment_type: any = 'purchase_property';
   public payment_percentage: number=100;
+  public section_c: any;
   public main_total_amount:any;
   public mode_payment: any = 'Online';
   public rent_aggrement_price:number=0;
@@ -229,11 +230,13 @@ export class ProPaymentSummaryComponent implements OnInit {
       this.book_property = true;
       this.choose_payment_type = 'book_property';
       this.payment_percentage=40;
+      this.section_c=Math.round((this.total_amount_owner)*this.payment_percentage/100);
       this.total_amount= Math.round((this.total_amount_owner)*this.payment_percentage/100)+this.total_amount_hs;
     }
   }
   changepercentage(e:any) {
     this.payment_percentage=e.target.value;
+    this.section_c=Math.round((this.total_amount_owner)*this.payment_percentage/100);
     this.total_amount= Math.round((this.total_amount_owner)*this.payment_percentage/100)+this.total_amount_hs;
   }
 

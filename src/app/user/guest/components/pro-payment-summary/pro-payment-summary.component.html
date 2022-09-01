@@ -237,14 +237,30 @@
                                             <div class="col-4"><h6 class="heading_amount"><strong>{{ total_amount_hs }}</strong></h6></div>
                                         </div>
                                         <hr>
-                                        
-                                        <div class="row">
+                                        <div class="row" *ngIf="purchase_property==false && book_property==true">
+                                            <div class="col-8"><h6 class="heading_text">Select Percentage:</h6></div>
+                                            <div class="col-4"><h6 class="heading_amount"><strong>{{ payment_percentage }}%</strong></h6></div>
+                                            <div class="col-8"><h6 class="heading_text"><strong> Amount(C) :<br>({{ payment_percentage }}% of A)</strong></h6></div>
+                                            <div class="col-4"><h6 class="heading_amount"><strong>{{ section_c }}</strong></h6></div>
+                                            <!-- <div class="col-8"><h6 class="heading_text"><strong>Total Amount(C):</strong></h6></div>
+                                            <div class="col-4"><h6 class="heading_amount"><strong>{{ section_c }}</strong></h6></div> -->
+                                        </div>
+                                        <hr *ngIf="purchase_property==false && book_property==true">
+                                        <div class="row" *ngIf="purchase_property==false && book_property==true">
+                                            <div class="col-7 col-lg-8"> 
+                                                <h6 class="heading_text"><strong>Total Payable Amount(B+C):</strong></h6>
+                                                <!-- <h6><strong>(A+B)</strong></h6> -->
+                                            </div>
+                                            <div class="col-5 col-lg-4"><h6 class="heading_amount"><strong>{{  total_amount}}</strong></h6></div>
+                                        </div>
+                                        <div class="row" *ngIf="purchase_property==true && book_property==false">
                                             <div class="col-7 col-lg-8"> 
                                                 <h6 class="heading_text"><strong>Total Payable Amount(A+B):</strong></h6>
                                                 <!-- <h6><strong>(A+B)</strong></h6> -->
                                             </div>
                                             <div class="col-5 col-lg-4"><h6 class="heading_amount"><strong>{{  total_amount}}</strong></h6></div>
                                         </div>
+                                        <hr>
                                         
                                         <div class="row">
                                             
