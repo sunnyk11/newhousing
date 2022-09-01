@@ -43,8 +43,14 @@ export class ProPaymentSummaryComponent implements OnInit {
   public property_id: any;
   public total_amount: any;
 
+  public purchase_property: boolean = true;
+  public book_property: boolean = false;
+
   public online_pay_btn: boolean = true;
   public cash_pay_btn: boolean = false;
+  public choose_payment_type: any = 'purchase_property';
+  public payment_percentage: number=100;
+  public main_total_amount:any;
   public mode_payment: any = 'Online';
   public rent_aggrement_price:number=0;
   public plan_aggrement_price:any;
@@ -197,7 +203,6 @@ export class ProPaymentSummaryComponent implements OnInit {
   }
 
   changePayment(e:any) {
-    //console.log(e.target.value);
     if(e.target.value == 'Online') {
       this.online_pay_btn = true;
       this.cash_pay_btn = false;
@@ -209,6 +214,28 @@ export class ProPaymentSummaryComponent implements OnInit {
       this.mode_payment = "Cash";
     }
   }
+  
+  changepayment_type(e:any) {
+    if(e.target.value == 'purchase_property') {
+      this.purchase_property = true;
+      this.book_property = false;
+      this.choose_payment_type = 'purchase_property';
+      this.payment_percentage=100;
+      this.total_amount= this.total_amount_hs + this.total_amount_owner;
+      this.main_total_amount= Math.round(this.total_amount_hs + this.total_amount_owner);
+    }
+    else if (e.target.value == 'book_property') {
+      this.purchase_property = false;
+      this.book_property = true;
+      this.choose_payment_type = 'book_property';
+      this.payment_percentage=40;
+      this.total_amount= Math.round((this.total_amount_owner)*this.payment_percentage/100)+this.total_amount_hs;
+    }
+  }
+  changepercentage(e:any) {
+    this.payment_percentage=e.target.value;
+    this.total_amount= Math.round((this.total_amount_owner)*this.payment_percentage/100)+this.total_amount_hs;
+  }
 
   proceedToPayment() {
 
@@ -217,6 +244,7 @@ export class ProPaymentSummaryComponent implements OnInit {
     const formData: any = new FormData();
     formData.append('plan_name', this.plan_name);
     formData.append('plan_price', this.plan_price);
+    formData.append('plan_aggrement_price', this.rent_aggrement_price);
     formData.append('plan_type', this.plan_type);
     formData.append('plan_id', this.plan_id);
     formData.append('payment_type', this.payment_type);
@@ -226,10 +254,12 @@ export class ProPaymentSummaryComponent implements OnInit {
     formData.append('gst_amount', this.sgst_amount + this.cgst_amount);
     formData.append('maintenance_charge', this.maintenance_charge);
     formData.append('security_deposit', this.security_dep_amount);
-    formData.append('total_amount', this.total_amount_hs + this.total_amount_owner);
+    formData.append('total_amount',  Math.round(this.total_amount));
+    formData.append('main_total_amount',  Math.round(this.total_amount_hs + this.total_amount_owner));
     formData.append('property_uid', this.product_data[0].product_uid);
     formData.append('payment_mode', this.mode_payment);
-
+    formData.append('choose_payment_type', this.choose_payment_type);
+    formData.append('payment_percentage', this.payment_percentage);
     let val = this.jwtService.getToken();
     if (val) {
       this.user_id = this.jwtService.getUserId();
@@ -318,6 +348,7 @@ export class ProPaymentSummaryComponent implements OnInit {
     let data = {
       plan_name: this.plan_name,
       plan_price: this.plan_price,
+      plan_aggrement_price: this.plan_price + this.rent_aggrement_price,
       plan_type: this.plan_type,
       plan_id: this.plan_id,
       payment_type: this.payment_type,
@@ -327,9 +358,12 @@ export class ProPaymentSummaryComponent implements OnInit {
       gst_amount: this.sgst_amount + this.cgst_amount,
       maintenance_charge: this.maintenance_charge,
       security_deposit: this.security_dep_amount,
-      total_amount: this.total_amount_hs + this.total_amount_owner,
+      total_amount: Math.round(this.total_amount),
+      main_total_amount:Math.round(this.total_amount_hs + this.total_amount_owner),
       property_uid: this.product_data[0].product_uid,
       payment_mode: this.mode_payment,
+      choose_payment_type: this.choose_payment_type,
+      payment_percentage: this.payment_percentage,
       plan_features_data: JSON.stringify(this.plan_features_data)
     }
 
@@ -353,6 +387,7 @@ export class ProPaymentSummaryComponent implements OnInit {
     let data = {
       plan_name: this.plan_name,
       plan_price: this.plan_price,
+      plan_aggrement_price: this.plan_price + this.rent_aggrement_price,
       plan_type: this.plan_type,
       plan_id: this.plan_id,
       payment_type: this.payment_type,
@@ -365,6 +400,9 @@ export class ProPaymentSummaryComponent implements OnInit {
       total_amount: this.total_amount_hs + this.total_amount_owner,
       property_uid: this.product_data[0].product_uid,
       payment_mode: this.mode_payment,
+      main_total_amount:  Math.round(this.total_amount_hs + this.total_amount_owner),
+      choose_payment_type:this.choose_payment_type,
+      payment_percentage:this.payment_percentage,
       plan_features_data: JSON.stringify(this.plan_features_data)
     }
 
@@ -381,6 +419,7 @@ export class ProPaymentSummaryComponent implements OnInit {
     var formData: any = new FormData();
     formData.append('plan_name', this.plan_name);
     formData.append('plan_price', this.plan_price);
+    formData.append('plan_aggrement_price', this.rent_aggrement_price);
     formData.append('plan_type', this.plan_type);
     formData.append('plan_id', this.plan_id);
     formData.append('payment_type', this.payment_type);
@@ -390,9 +429,13 @@ export class ProPaymentSummaryComponent implements OnInit {
     formData.append('gst_amount', this.sgst_amount + this.cgst_amount);
     formData.append('maintenance_charge', this.maintenance_charge);
     formData.append('security_deposit', this.security_dep_amount);
-    formData.append('total_amount', this.total_amount_hs + this.total_amount_owner);
+    formData.append('total_amount', Math.round(this.total_amount));
+    formData.append('main_total_amount',  Math.round(this.total_amount_hs + this.total_amount_owner));
     formData.append('property_uid', this.product_data[0].product_uid);
     formData.append('payment_mode', this.mode_payment);
+    formData.append('choose_payment_type', this.choose_payment_type);
+    formData.append('payment_percentage', this.payment_percentage);
+    console.log(formData);
     let val = this.jwtService.getToken();
     if (val) {
       this.user_id = this.jwtService.getUserId();
@@ -416,14 +459,18 @@ export class ProPaymentSummaryComponent implements OnInit {
             //console.log(formData);
             this.plansPageService.postSelectedRentPlan(formData).subscribe(
               res => {
-                //console.log(res);
+                console.log(res);
                 this.rent_plan_data = res;
                 this.plansPageService.generateRentInvoice(this.rent_plan_data.data.order_id).subscribe(
                   res => {
-                    //console.log(res);
+                    console.log(res);
                     this.invoice_data = res;
-                    this.router.navigate(['invoice'], { queryParams: { 'invoice_no': this.invoice_data.data } });
-                  },
+                    if(this.invoice_data.property_type == 'book_property'){
+                      this.router.navigate(['/book-property'], { queryParams: { 'invoice_no': this.invoice_data.data } });
+                    }else{
+                      this.router.navigate(['/invoice'], { queryParams: { 'invoice_no': this.invoice_data.data } });
+                    }
+                   },
                   err => {
                     console.log(err);
                   }

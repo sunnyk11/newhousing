@@ -152,6 +152,38 @@
                                 </p>
                             </div>
                         </div>
+                        <div class="col-lg-12 mt10 mb10" *ngIf="access_other_details == true">    
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faq-h2">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panel-renter8" aria-expanded="true" aria-controls="panel-renter8">
+                                        Property Notes
+                                    </button>
+                                </h2>
+                                <div id="panel-renter8" class="accordion-collapse collapse" aria-labelledby="faq-h2">
+                                    <div class="accordion-body">
+                                        <form role="form" action="" method="post" class="f" [formGroup]="Property_notesform" novalidate>
+                                      <div class="row">
+                                        <div class="col-12 mt10" *ngIf="product_data?.property_notes">
+                                            <p style="text-transform: capitalize;inline-size: 100%; overflow-wrap: break-word;line-height: 28px;font-size: 15px;">{{product_data?.property_notes}}</p>
+                                             <h6><i class="fa fa-user"></i> : <span *ngIf="product_data?.notes_updated?.id != product_data?.user_detail?.id">{{product_data?.notes_updated?.email}} <span *ngIf="product_data?.notes_updated?.other_mobile_number"> ({{product_data?.notes_updated?.other_mobile_number}})</span></span>
+                                                <span *ngIf="product_data?.notes_updated?.id == product_data?.user_detail?.id">Property Owner<span *ngIf="product_data?.notes_updated?.other_mobile_number"> ({{product_data?.notes_updated?.other_mobile_number}})</span></span>
+                                             </h6>
+                                        </div>
+                                        <div class="col-12 mt10 mb10">
+                                            <textarea rows="2" cols="10" class="form-control" placeholder="Enter Notes Content" aria-label="With textarea" id="property_notes" formControlName="property_notes" [ngClass]="{ 'is-invalid': submitted && f.property_notes.errors }"></textarea>
+                                        </div>
+                                        <div class="col-lg-4  col-12 offset-lg-8">
+                                            <button class="btn btn-success" style="background-color:#4caf50!important;" (click)="onsubmit()">
+                                                <span  *ngIf="product_data?.property_notes == null">Add Notes</span>
+                                                <span  *ngIf="product_data?.property_notes != null">Update Notes</span>
+                                            </button>
+                                         </div>
+                                      </div>
+                                      </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-lg-12">
                             <div class="additional_details">
                                 <div class="row">

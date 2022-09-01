@@ -33,6 +33,7 @@ import { UserLogsGuard } from './guards/user-logs.guard';
 import { FaqComponent } from './components/faq/faq.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { ThankYouComponent } from './components/thank-you/thank-you.component';
+import { BookPropertyComponent } from './components/book-property/book-property.component';
 import { UserReviewsComponent } from './components/user-reviews/user-reviews.component';
 import { VerifyMobileSuccessComponent } from './components/verify-mobile-success/verify-mobile-success.component';
 import { FixedAppointmentComponent } from './components/fixed-appointment/fixed-appointment.component';
@@ -67,6 +68,7 @@ const routes: Routes = [
         { path: "user-reviews", component: UserReviewsComponent, canActivate: [AuthGuard,UserLogsGuard]},
         { path: "sign-up/thank-you", component: ThankYouComponent, canActivate: [UserLogsGuard]},
         { path: "invoice", component: InvoiceComponent, canActivate: [AuthGuard]},
+        { path: "book-property", component: BookPropertyComponent, canActivate: [AuthGuard]},
         { path: "my-properties", component: MyPropertiesComponent, canActivate: [AuthGuard]},
         { path: "register", component: RegisterComponent,canActivate:  [UserLogsGuard]},
         { path: "sign-up", component: SignupComponent,canActivate:  [UserLogsGuard]},

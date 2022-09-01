@@ -1,0 +1,104 @@
+<div class="wrapper">
+    <div class="container mt20">
+        <div class="row">
+            <div class="col-lg-7 col-12 create_column">
+                <div class="my_dashboard_review">
+                    <form role="form" action="" method="post" class="f" [formGroup]="update_area_group" novalidate>
+                        <div class="row">
+                            <div class="col-lg-12 service_heading">
+                                <h2>Update Area Group</h2>
+                            </div>
+                            <div class="col-lg-12 mtb10 col-sm-12">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="State">State*</span>
+                                    <select class="form-select" id="State" formControlName="state" [ngClass]="{ 'is-invalid': submitted && f.state.errors }" name="state" (ngModelChange)="onchange_state()" required>
+                                        <option value="">Select State</option>
+                                        <option  *ngFor="let state of state_data?.data" [value]="state?.state_id" >{{state?.state}}</option>
+                                    </select>
+                               </div>
+                               <div class="input-group mb-3">
+                                <span class="input-group-text" id="district">District*</span>
+                                <input class="form-control" type="text" placeholder="Search District* " matInput aria-label="Number" formControlName="district" [matAutocomplete]="auto_district" (ngModelChange)="get_district($event)" [ngClass]="{ 'is-invalid': submitted && f.district.errors }">
+                                <mat-autocomplete #auto_district="matAutocomplete">
+                                    <mat-option *ngFor="let district of filteredOptions_district | async" [value]="district.district"  (onSelectionChange)="change_selected_district(district)">
+                                        {{district.district}}
+                                    </mat-option>
+                                </mat-autocomplete>
+                                <input type="hidden" class="form-control" id="district_id" formControlName="district_id" [ngClass]="{ 'is-invalid': submitted && f.district_id.errors }">
+                            </div>
+                            <div *ngIf="submitted && f.district_id.errors" id='dropdownerror'>
+                                <div *ngIf="f.district_id.errors.required">(Please Search Any District)</div>
+                            </div>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="district">Locality*</span>
+                                    <input class="form-control" type="text" placeholder="Search Locality " matInput aria-label="Number" formControlName="locality" [matAutocomplete]="auto" (ngModelChange)="get_locality($event)" [ngClass]="{ 'is-invalid': submitted && f.locality.errors }">
+                                    <mat-autocomplete #auto="matAutocomplete">
+                                        <mat-option *ngFor="let locality of filteredOptions | async" [value]="locality.locality"  (onSelectionChange)="change_selected_locality(locality)">
+                                            {{locality.locality}}
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                    <input type="hidden" class="form-control" id="locality_id" formControlName="locality_id" [ngClass]="{ 'is-invalid': submitted && f.locality_id.errors }">
+                                 </div>
+                                 <div *ngIf="submitted && f.locality_id.errors" id='dropdownerror'>
+                                    <div *ngIf="f.locality_id.errors.required">(Please Search Any Locality)</div>
+                                 </div>
+                               <div class="input-group mb3" id="multiselect-dropdown2">
+                                <span class="input-group-text" id="locality">Sub-Locality*</span> 
+                                 <ng-multiselect-dropdown class="form-control sub_localty_dropdown" [placeholder]="'Select Sub-locality'" [settings]="dropdownSettings_sub_locality" [data]="dropdown_sublocality"   (onSelect)="onItemSelect($event)"  (onDeSelect)="onItemDeSelect($event)" (onDeSelectAll)="onUnSelectAll()" (onSelectAll)="onSelectAll($event)" formControlName="sub_locality" [ngClass]="{ 'is-invalid': submitted && f.sub_locality.errors }">
+                                </ng-multiselect-dropdown>
+                               </div>
+                                
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="group_name">Group Name*</span>
+                                    <input type="text" formControlName="group_name" class="form-control" placeholder="Enter Group Name *" [ngClass]="{ 'is-invalid': submitted && f.group_name.errors }" name="group_name" id="sub_locality" aria-describedby="basic-addon1">   
+                                </div>
+                            </div>
+                            <div class="col-lg-6 offset-lg-6 col-12 mt20 search-column">
+                                <button type="submit" class="btn btn-submit" (click)="onSubmit()"><span >Update</span></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-12  col-lg-5">
+                <div class="my_dashboard_review">
+                    <div class="property_table">
+                        <div class="table-responsive mt0">
+                            <span class="status_tag badge">Sub-Locality ({{selectedItems_data_length}})</span>
+                            <table class="table text-center">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th scope="col heading">No:</th>
+                                        <th scope="col">Sub-Locality</th>
+                                        <th scope="col">Action On</th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngIf="showLoadingIndicator == false">
+                                    <tr *ngFor="let data of selectedItems_data;index as i">
+                                        <td>{{i+1}}</td>
+                                        <td>{{data?.sub_locality_text}} </td>
+                                        <td>
+                                            <ul class="view_edit_delete_list mb0">
+                                            <li class="list-inline-item"  data-placement="top" title="Delete"  (click)="delete(data)" >
+                                                    <a ><span class="flaticon-garbage"></span></a>
+                                                </li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tbody>
+                                    <tr class="preloader_row" *ngIf="showLoadingIndicator == true">
+                                        <div class="preloader"></div>
+                                    </tr>
+                                </tbody>
+                            </table>                            
+                            <div class="col-lg-12"  *ngIf="selectedItems_data_length==0 && showLoadingIndicator==false">
+                                <h3>No Sub-locality Data Available</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

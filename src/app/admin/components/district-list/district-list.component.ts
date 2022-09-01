@@ -61,7 +61,6 @@ export class DistrictListComponent implements OnInit {
   }
 
   Onsearch(){
-    console.log(this.searching_form.value);
     if(this.searching_form.invalid){
       this.search_submitted = true;
       return;

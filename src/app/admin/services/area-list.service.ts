@@ -141,6 +141,10 @@ export class AreaListService {
     const route = "/api/admin/sub_locality_create";
     return this.apiService.admin_post<ResultModel>(route, reqModel);
   }
+  get_sub_locality(reqModel:any): Observable<ResultModel> {
+    const route = "/api/auth/get_sub_locality";
+    return this.apiService.get<ResultModel>(route, reqModel);
+  }
   sub_locality_status_changes(reqModel: any): Observable<ResultModel> {
     const route = "/api/admin/sub_locality_status_changes";
     return this.apiService.admin_post<ResultModel>(route, reqModel);
@@ -194,6 +198,37 @@ export class AreaListService {
     .catch(this.handleError);
   }
 
+
+  // area group functionalty
+  
+  area_group_create(reqModel: any): Observable<ResultModel> {
+    const route = "/api/admin/area_group_create";
+    return this.apiService.admin_post<ResultModel>(route, reqModel);
+  }
+  area_group_update(reqModel: any): Observable<ResultModel> {
+    const route = "/api/admin/area_group_update";
+    return this.apiService.admin_post<ResultModel>(route, reqModel);
+  }
+
+  get_group_list(reqModel: any): Promise<Pagination> {
+    const route = "/api/admin/get_group_list";
+    return this.apiService.admin_get(route,reqModel).toPromise().then(
+      (response) => {
+        //console.log(response);
+        return response as Pagination
+      })
+      .catch(this.handleError);
+  }
+  
+  group_details_id(reqModel:any): Observable<ResultModel> {
+    const route = "/api/admin/get_group_details_id"; 
+    return this.apiService.admin_get<ResultModel>(route, reqModel);
+  }
+  
+  delete_group(reqModel:any): Observable<ResultModel> {
+    const route = "/api/admin/delete_group";
+    return this.apiService.admin_get<ResultModel>(route, reqModel);
+  }
 
   
 }

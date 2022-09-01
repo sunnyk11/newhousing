@@ -66,6 +66,7 @@ import { ContactSubmitComponent } from './components/contact-submit/contact-subm
 import { UserVisitPopupComponent } from './modals/user-visit-popup/user-visit-popup.component';
 import { VisitUserThankComponent } from './components/visit-user-thank/visit-user-thank.component';
 import { ProductFlatTypeComponent } from './components/product-flat-type/product-flat-type.component';
+import { BookPropertyComponent } from './components/book-property/book-property.component';
 // import { NotfoundComponentComponent } from '../components/notfound-component/notfound-component.component';
 @NgModule({
   declarations: [
@@ -122,6 +123,7 @@ import { ProductFlatTypeComponent } from './components/product-flat-type/product
     UserVisitPopupComponent,
     VisitUserThankComponent,
     ProductFlatTypeComponent,
+    BookPropertyComponent,
   ],
   imports: [
     CommonModule,

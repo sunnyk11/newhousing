@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute,Router } from '@angular/router';
 import { ProductPageService } from '../../services/product-page.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { environment } from 'src/environments/environment';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -61,6 +62,12 @@ export class ProductPageComponent implements OnInit {
   private product_id: any;
   public address_details:string = '';
   public map:any;
+  public submitted:boolean=false;
+  
+  Property_notesform = new FormGroup({
+    property_notes: new FormControl('', Validators.required),
+    property_id: new FormControl('', Validators.required),
+  });
   constructor(
     private _sanitizer: DomSanitizer,
      private route:ActivatedRoute,
@@ -123,6 +130,28 @@ export class ProductPageComponent implements OnInit {
     }, (reason) => {
     });
   }
+  get f(){
+   return  this.Property_notesform.controls;
+  }
+  onsubmit(){
+    if(this.Property_notesform.invalid){
+      this.submitted = true;
+    }else{
+      this.ProductPageService.property_notes_update(this.Property_notesform.value).subscribe(
+        response => {
+          this.toastr.info('Notes Updated', 'Property', {
+            timeOut: 3000,
+          });
+          this.Property_notesform.reset();
+          this.single_product_details(this.product_id);
+        },err => { 
+          this.showLoadingIndicator = false;
+          let Message =err.error.message;
+        }
+        );
+    }
+    
+  }
   // fetch amenties advance tab
   single_product_details(id: number) {
     // this.sectiondisplay=false;
@@ -137,6 +166,7 @@ export class ProductPageComponent implements OnInit {
       if(this.login_usertype == 11){
         this.access_property_location=true;
         this.access_other_details=true;
+        this.Property_notesform.patchValue({property_id:this.product_id});
       }
       if(this.jwtService.get_Internal_User()== '"Yes"'){
         this.CommonService.getUserPermissions(this.login_userid).subscribe(
@@ -145,12 +175,12 @@ export class ProductPageComponent implements OnInit {
             this.permissions_response = response_data.permissions;
             this.access_property_location = this.permissions_response.includes('access_property_location');
             this.access_other_details = this.permissions_response.includes('access_other_details');
+            this.Property_notesform.patchValue({property_id:this.product_id});
           });
         }
       this.ProductPageService.login_single_product_details(param).subscribe(
         response => {
           this.product_details=response;
-          // console.log(response);
           this.product_data=this.product_details.data;
           this.order_status=this.product_data?.order_status;
           if(this.product_details.data != null){
@@ -255,7 +285,6 @@ export class ProductPageComponent implements OnInit {
     }else{
       this.ProductPageService.getsimilarproperty(param).subscribe(
         response => {
-          console.log(response);
           this.similar_property=response;
           this.showLoadingIndicator = false;
           this.product_length=this.similar_property.data.length;

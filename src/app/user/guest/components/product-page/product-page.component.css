@@ -360,7 +360,11 @@
 .tollfree_row span i{
     color:#00ff00;
 }
-button i,a{
+.chekout_btn i{
+    color: #fff!important;
+}
+
+.chekout_btn a{
     color: #fff!important;
 }
 .tollfree_row #heading a{
