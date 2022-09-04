@@ -191,6 +191,7 @@ export class PropertyListComponent implements OnInit {
        let param = {invoice_no:this.searching_form.value.invoice_no,user_mobile_no:this.searching_form.value.user_mobile_no,user_email:this.searching_form.value.user_email, admin_property_type:this.searching_form.value.admin_property_type,start_date: this.searching_form.value.star_date,end_date:this.searching_form.value.end_date}
       this.PropertyListService.get_property(param).then(
         Pagination_data => {
+          console.log(Pagination_data);
           this.property_data=Pagination_data;
           this.property_length=this.property_data.data.total;
           this.showLoadingIndicator=false;
@@ -321,6 +322,11 @@ rentslip(product_id:number){
   window.open(url.toString(), '_blank')
 }
 viewInvoice(invoice_no: any) {
+  const url:any = this.router.createUrlTree(['/admin/invoice'],{queryParams:{'invoice_no': invoice_no}})
+  window.open(url.toString(), '_blank')
+}
+
+book_invoice(invoice_no: any) {
   const url:any = this.router.createUrlTree(['/admin/invoice'],{queryParams:{'invoice_no': invoice_no}})
   window.open(url.toString(), '_blank')
 }

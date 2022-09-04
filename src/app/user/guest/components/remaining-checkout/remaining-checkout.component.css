@@ -1,0 +1,99 @@
+.strike_duration {
+    text-decoration: line-through;
+}
+.container1{
+    padding-top: 140px!important;
+}
+.discount_price {
+    color: #00D100;
+    background: beige;
+    border-radius: 5px;
+    font-size: 25px;
+}
+.heading_text{
+    text-align: left;
+}
+.form-check-label{
+    font-size: 12px!important;
+}
+.heading_amount{
+    text-align: right;
+}
+.h-220 {
+    min-height: 220px !important;
+}
+
+.banner {
+    position: absolute;
+    right: 0;
+    display: block;
+    margin: -40px 0;
+    width: 100%;
+    height: 40px;
+    border: 1px solid #8a1;
+    font: normal 24px/36px 'Rye';
+    text-align: center;
+    color: #451;
+    background: #9b2;
+    border-radius: 4px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, .15) inset, 0 6px 10px rgba(0, 0, 0, .15);
+}
+
+.banner::before,
+.banner::after {
+    content: "";
+    position: absolute;
+    display: block;
+    border-style: solid;
+    border-color: #94b81e transparent transparent transparent;
+    bottom: -1em;
+}
+
+.banner::before {
+    left: 0;
+    border-width: 1em 0 0 1em;
+}
+
+.banner::after {
+    right: 0;
+    border-width: 1em 1em 0 0;
+}
+
+.cards-wrapper {
+    display: flex;
+    justify-content: center;
+}
+.form-check-inline{
+    margin-right: 0px!important;
+}
+.accordion-item .accordion-button{
+    padding: 22px 8px 0px 31px!important;
+    font-size: 18px!important;
+}
+@media only screen and (max-width: 768px) {
+    .discount_price {
+        font-size: 20px;
+    }
+    #deshtop_views{
+        display: none;
+    }
+    .form-check-inline label{
+        font-size: 13px;
+    }
+    
+    .heading_text{
+        font-size: 14px;
+    }
+
+    .heading_amount{
+        font-size: 14px;
+    }
+}
+@media only screen and (min-width: 768px) {
+        #mobile_views{
+            display: none;;
+        }
+        .card-body{
+            padding: 20px 30px;
+        }
+}

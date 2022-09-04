@@ -6,14 +6,15 @@ import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { environment } from 'src/environments/environment';
 import { InvoiceDetailsService } from '../../services/invoice-details.service';
-
 const toWords = new ToWords();
+
 @Component({
-  selector: 'app-invoice-details',
-  templateUrl: './invoice-details.component.html',
-  styleUrls: ['./invoice-details.component.css']
+  selector: 'app-book-invoice',
+  templateUrl: './book-invoice.component.html',
+  styleUrls: ['./book-invoice.component.css']
 })
-export class InvoiceDetailsComponent implements OnInit {
+export class BookInvoiceComponent implements OnInit {
+
   @ViewChild('htmlData') htmlData!: ElementRef;
 
   public showLoadingIndicator: boolean = false;
@@ -28,13 +29,14 @@ export class InvoiceDetailsComponent implements OnInit {
   public rent_aggrement_price:number=0;
   private order_details: any;
   public total_amount: any;
+  public percentage_amount: any;
   public ord_details: any;
   public invoice_data: any;
   public address: any;
   public product_data: any;
-  public percentage_amount: any;
   public total_amount_owner: any;
   public amount_words: any;
+  public amount_words_per: any;
   public user_name: any;
   public address1: any;
   public address2: any;
@@ -77,13 +79,13 @@ export class InvoiceDetailsComponent implements OnInit {
     this.plansPageService.getInvoiceDetails(this.invoice_id).subscribe(
       res => {
         let data:any=res;
-        console.log(data);
         this.response =  data.data;
         if(this.response  != null){
           this.user_name = data.data.user_detail.name;  
           this.inv_response = this.response;
-          console.log(this.response);
-                   
+          if(this.inv_response.choose_payment_type != 'book_property'){
+              this.redirect_to_previous_page();
+          }        
          for(let i=0; i< this.response.plan_features?.features.length; i++){
           if(this.response.plan_features?.features[i].feature_name=='Rent Agreement'){
             if(this.response.plan_features?.features[i].feature_value>0){
@@ -106,27 +108,17 @@ export class InvoiceDetailsComponent implements OnInit {
 
                   if (this.ord_details.maintenance_charge) {
                     this.total_amount_owner = this.ord_details.expected_rent + this.ord_details.security_deposit + this.ord_details.maintenance_charge;
-                    if(this.inv_response.book_property){
-                      let price:any;
-                      price=this.total_amount_owner*this.inv_response.payment_percentage/100;
-                      this.percentage_amount=this.total_amount_owner-price;
-                      this.amount_words = toWords.convert(this.total_amount_owner-this.percentage_amount);
-                       }else{
-                      this.total_amount = this.plan_aggrement_price + this.sgst_amount + this.cgst_amount + this.ord_details.expected_rent + this.ord_details.security_deposit + this.ord_details.maintenance_charge;
-                      this.amount_words = toWords.convert(this.total_amount);
-                    }
+                    this.percentage_amount=this.total_amount_owner*this.inv_response.payment_percentage/100;
+                    this.total_amount = (this.percentage_amount+this.plan_aggrement_price + this.sgst_amount + this.cgst_amount);
+                    this.amount_words = toWords.convert(this.total_amount);
+                    this.amount_words_per = toWords.convert(this.total_amount_owner-this.percentage_amount);
                   }
                   else {
                     this.total_amount_owner = this.ord_details.expected_rent + this.ord_details.security_deposit;
-                    if(this.inv_response.book_property){
-                      let price:any;
-                      price=this.total_amount_owner*this.inv_response.payment_percentage/100;
-                      this.percentage_amount=this.total_amount_owner-price;
-                      this.amount_words = toWords.convert(this.total_amount_owner-this.percentage_amount);
-                     }else{
-                    this.total_amount = this.plan_aggrement_price + this.sgst_amount + this.cgst_amount + this.ord_details.expected_rent + this.ord_details.security_deposit;
+                    this.percentage_amount=this.total_amount_owner*this.inv_response.payment_percentage/100;
+                    this.total_amount = (this.percentage_amount+this.plan_aggrement_price + this.sgst_amount + this.cgst_amount);
                     this.amount_words = toWords.convert(this.total_amount);
-                    }
+                    this.amount_words_per = toWords.convert(this.total_amount_owner-this.percentage_amount);
                   }
           }
           else if (this.inv_response.plan_type == 'Let Out') {
@@ -187,23 +179,10 @@ export class InvoiceDetailsComponent implements OnInit {
       }
 
     });
-
-    /*  html2canvas(data).then(canvas => {
- 
-       let fileWidth = 208;
-       let fileHeight = canvas.height * fileWidth / canvas.width;
- 
-       const FILEURI = canvas.toDataURL('image/png')
-       let PDF = new jsPDF('p', 'mm', 'a4');
-       let position = 0;
-       PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight)
- 
-       PDF.save('invoice.pdf');
-     }); */
   }
-
   redirect_to_previous_page(): void {
     this.router.navigate(['/admin/property-list'])
   }
 
 }
+

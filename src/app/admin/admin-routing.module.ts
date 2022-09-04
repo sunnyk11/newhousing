@@ -42,6 +42,7 @@ import { UpdateSubLocalityComponent } from './components/update-sub-locality/upd
 import { AreaGroupComponent } from './components/area-group/area-group.component';
 import { AddAreaGroupComponent } from './components/add-area-group/add-area-group.component';
 import { UpdateAreaGroupComponent } from './components/update-area-group/update-area-group.component';
+import { BookInvoiceComponent } from './components/book-invoice/book-invoice.component';
 import { NotfoundComponentComponent } from '../user/components/notfound-component/notfound-component.component';
 
 
@@ -132,6 +133,9 @@ const routes: Routes = [
       }},
 
       { path: 'invoice', component: InvoiceDetailsComponent, canActivate: [AuthGuard, PermissionGuard],data: {
+        permission: ['property_access']
+      }},
+      { path: 'book-invoice', component: BookInvoiceComponent, canActivate: [AuthGuard, PermissionGuard],data: {
         permission: ['property_access']
       }},
       { path: 'rent-slip', component: PropertyRentSlipComponent, canActivate: [AuthGuard, PermissionGuard],data: {

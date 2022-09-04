@@ -211,7 +211,6 @@ export class LoginComponent implements OnInit {
             //console.log(this.returnUrl);
             this.proceedToPayment();
           }
-
           else {
             this.router.navigateByUrl(this.returnUrl || '');
           }
@@ -332,7 +331,6 @@ export class LoginComponent implements OnInit {
             //console.log(this.returnUrl);
             this.proceedToPayment();
           }
-
           else {
             this.router.navigateByUrl(this.returnUrl || '');
           }

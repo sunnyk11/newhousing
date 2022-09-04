@@ -15,7 +15,7 @@
     <div class="preloader"></div>
 </div>
 
-<div class="container mt20" *ngIf="getLetOutInvoicesLength() > 0">
+<div class="container mt20" *ngIf="let_out_invoices_length > 0">
     <div class="row">
         <div class="col-lg-12">
             <div class="alert alert-dark" role="alert">
@@ -39,7 +39,7 @@
                                 <th>Details</th>
                             </tr>
                         </thead>
-                        <tbody *ngFor="let credit of getLetOutInvoices(); index as i">
+                        <tbody *ngFor="let credit of let_out_invoices; index as i">
                             <tr>
                                 <th scope="row">{{ i+1 }}</th>
                                 <td>{{ credit.plan_name }}</td>
@@ -70,7 +70,7 @@
     </div>
 </div>
 
-<div class="container mt20" *ngIf="getRentInvoicesLength() > 0">
+<div class="container mt20" *ngIf="rent_invoices_length > 0">
     <div class="row">
         <div class="col-lg-12">
             <div class="alert alert-dark" role="alert">
@@ -89,23 +89,37 @@
                                 <th scope="col">Plan</th>
                                 <th scope="col">Plan Amount</th>
                                 <th scope="col">Payment Status</th>
+                                <th scope="col">Plan Type</th>
                                 <th scope="col">Date</th>
                                 <th>Details</th>
                             </tr>
                         </thead>
-                        <tbody *ngFor="let credit of getRentInvoices(); index as i">
+                        <tbody *ngFor="let property of rent_invoices; index as i">
                             <tr>
                                 <th scope="row">{{ i+1 }}</th>
-                                <td>{{ credit.plan_name }}</td>
-                                <td>{{ credit.plan_price }}</td>
-                                <td>{{ credit.payment_status }}</td>
-                                <td>{{ credit.created_at | timezone }}</td>
+                                <td>{{ property.plan_name }}</td>
+                                <td>{{ property.plan_price }}</td>
+                                <td>{{ property?.property_rented?.payment_status }}</td>
                                 <td>
-                                    <button type="button" class="btn btn-success" (click)="viewInvoice(credit.invoice_no)" *ngIf="credit.payment_status == 'PAID'">View Invoice</button>
-                                    <button type="button" class="btn btn-danger" (click)="viewInvoice(credit.invoice_no)" *ngIf="credit.payment_status != 'PAID'">View
+                                    <span *ngIf="property.property_rented?.choose_payment_type =='book_property'">
+                                        Book Property
+                                    </span>
+                                    <span *ngIf="property.property_rented?.choose_payment_type =='purchase_property'">
+                                        Purchase Property
+                                    </span>
+                                </td>
+                                <td>{{ property.created_at | timezone }}</td>
+                                <td>
+                                    <button type="button" class="btn btn-success" (click)="viewInvoice(property.invoice_no)" *ngIf="property.payment_status == 'PAID'">View Invoice</button>
+                                    <button type="button" class="btn btn-danger" (click)="viewInvoice(property.invoice_no)" *ngIf="property.payment_status != 'PAID'">View
                                         Invoice</button>
-                                    <button type="button" class="btn btn-primary ml10 more_det" data-bs-toggle="modal" data-bs-target="#MoreDetailsModal" (click)="moreDetails(credit)">More
-                                        Details</button>
+                                        <span *ngIf="property?.property_rented?.book_invoice">
+                                            <button type="button" class="btn btn-success ml10" (click)="book_Invoice(property?.property_rented?.book_invoice?.invoice_no)" *ngIf="property?.property_rented?.book_invoice?.payment_status == 'PAID'">Book Invoice</button>
+                                            <button type="button" class="btn btn-danger ml10" (click)="book_Invoice(property?.property_rented?.book_invoice?.invoice_no)" *ngIf="property?.property_rented?.book_invoice?.payment_status != 'PAID'">Book
+                                                Invoice</button>
+                                     </span>
+                                    <!-- <button type="button" class="btn btn-primary ml10 more_det" data-bs-toggle="modal" data-bs-target="#MoreDetailsModal" (click)="moreDetails(property)">More
+                                        Details</button> -->
                                 </td>
                             </tr>
                         </tbody>
@@ -119,7 +133,7 @@
 </div>
 
 
-<div class="col-lg-12" *ngIf="getLetOutInvoicesLength() == 0 && getRentInvoicesLength() == 0">
+<div class="col-lg-12" *ngIf="let_out_invoices_length == 0 && rent_invoices_length == 0">
     <div class="my_dashboard_review mb40"> 
         <div class="property_table">
             <div class="table-responsive mt50 mb50">
@@ -184,14 +198,37 @@
                             <th>Payment Status:</th>
                             <td>{{ plan_det?.payment_status }}</td>
                         </tr>
-                        <tr>
-                            <th>Amount Paid:</th>
-                            <td *ngIf="plan_det?.amount_paid != null">{{ plan_det?.amount_paid }}</td>
-                            <td *ngIf="plan_det?.amount_paid == null">0</td>
+                        <tr *ngIf="plan_det?.property_rented?.agreement_price">
+                            <th>Agrement Price:</th>
+                            <td>{{ plan_det?.property_rented?.agreement_price}}</td>
                         </tr>
                         <tr>
-                            <th>Invoice No: </th>
-                            <td>{{ plan_det?.invoice_no }}</td>
+                            <th>GST Amount:</th>
+                            <td>{{ plan_det?.property_rented?.gst_amount }}</td>
+                        </tr>
+                        <tr>
+                            <th>Security Deposit:</th>
+                            <td>{{ plan_det?.property_rented?.security_deposit }}</td>
+                        </tr>
+                        <tr>
+                            <th>Maintenance Charge:</th>
+                            <td>{{ plan_det?.property_rented?.maintenance_charge }}</td>
+                        </tr>
+                        <tr *ngIf="plan_det?.property_rented?.payment_percentage">
+                            <th>Amount Percentage:</th>
+                            <td>{{ plan_det?.property_rented?.payment_percentage}}%</td>
+                        </tr>
+                        <tr *ngIf="plan_det?.property_rented?.amount_paid">
+                            <th>Amount Paid:</th>
+                            <td>{{ plan_det?.property_rented?.amount_paid }}</td>
+                        </tr>
+                        <tr *ngIf="plan_det?.property_rented?.total_amount">
+                            <th>Total Amount:</th>
+                            <td>{{ plan_det?.property_rented?.total_amount }}</td>
+                        </tr>
+                        <tr *ngIf="plan_det?.property_rented">
+                            <th>Remaining Amount:</th>
+                            <td>{{ plan_det?.property_rented?.total_amount -plan_det?.property_rented?.amount_paid }}</td>
                         </tr>
                         <tr>
                             <th>Date: </th>
