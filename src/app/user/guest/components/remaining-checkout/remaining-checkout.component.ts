@@ -188,6 +188,8 @@ get_invoice_details(invoice_id:any){
                     console.log(this.payment_result);
                     if ( this.payment_result.status == 201) {
                       this.paytm_data =  this.payment_result.data;
+                      console.log(111,this.paytm_data)
+                      
                       this.createPaytmForm(); 
                     }
                   },
@@ -225,7 +227,6 @@ get_invoice_details(invoice_id:any){
       my_tb.value = this.paytm_data[key];
       my_form.appendChild(my_tb);
     };
-    console.log(my_form);
     document.body.appendChild(my_form);
     my_form.submit();
     // after click will fire you will redirect to paytm payment page.

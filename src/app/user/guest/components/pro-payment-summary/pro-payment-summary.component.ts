@@ -332,7 +332,6 @@ export class ProPaymentSummaryComponent implements OnInit {
       my_tb.value = this.paytm_data[key];
       my_form.appendChild(my_tb);
     };
-    console.log(my_form);
     document.body.appendChild(my_form);
     my_form.submit();
     // after click will fire you will redirect to paytm payment page.

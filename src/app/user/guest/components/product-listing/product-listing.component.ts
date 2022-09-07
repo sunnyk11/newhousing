@@ -451,6 +451,7 @@ export class ProductListingComponent implements OnInit {
         // let param={data:this.searchForm.value,amenities:this.amenityArray}
         this.ProductListingPageService.login_product_details(this.searchForm.value).then(
           Pagination_data => {
+            console.log(Pagination_data);
             this.property=Pagination_data;
             this.product_length=this.property.data.total;
             if(this.product_length<1){
@@ -475,6 +476,7 @@ export class ProductListingComponent implements OnInit {
         // let param={data:this.searchForm.value}
         this.ProductListingPageService.login_product_details(this.searchForm.value).then(
           Pagination_data => {
+            console.log(Pagination_data);
             this.property=Pagination_data;
             this.product_length=this.property.data.total;
             if(this.product_length<1){

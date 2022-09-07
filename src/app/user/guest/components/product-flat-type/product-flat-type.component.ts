@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 export class ProductFlatTypeComponent implements OnInit {
 
   public flat_type:any={};
+  public flat_length:number=0;
   private amenityArray:any = [];
 
 
@@ -26,6 +27,7 @@ export class ProductFlatTypeComponent implements OnInit {
     this.CommonService.getproductcategory({ param: null }).subscribe(
       response => {
         this.flat_type=response;
+        this.flat_length=this.flat_type.flat_type.length;
       }, err => { 
       }
     );
