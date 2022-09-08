@@ -19,6 +19,7 @@
                                     <option value="all_property">All Property</option>
                                     <option value="letout_property">Live Property</option>
                                     <option value="rentout_property">Property Rented</option>
+                                    <option value="book_property">Property Book</option>
                                     <option value="user">User</option>
                                     <option value="invoice_no">Invoice No</option>
                                 </select>
@@ -126,12 +127,13 @@
                                             <div class="text-primary" (click)="viewInvoice(data?.letout_invoice?.invoice_no)">{{data?.letout_invoice?.invoice_no}} </div>
                                         </td>
                                         <td>
-                                            <div *ngIf="data?.rent_invoice !=null">
-                                                <p>{{data?.rent_invoice?.user_detail?.email}}</p>
-                                                <p>{{data?.rent_invoice?.user_detail?.other_mobile_number}}</p>
-                                                <div class="text-primary" (click)="viewInvoice(data?.rent_invoice?.invoice_no)">{{data?.rent_invoice?.invoice_no}} </div>    
+                                            <div *ngIf="data?.purchase_property !=null">
+                                                <p>{{data?.purchase_property?.user_details?.email}}</p>
+                                                <p>{{data?.purchase_property?.user_details?.other_mobile_number}}</p>
+                                                <div class="text-primary" *ngIf="data?.book_property" (click)="book_invoice(data?.book_property.invoice_no)">Book({{data?.book_property.invoice_no}}) </div> 
+                                                <div class="text-primary" *ngIf="data?.purchase_property" (click)="viewInvoice(data?.purchase_property.invoice_no)">Main({{data?.purchase_property.invoice_no}})</div>    
                                             </div>
-                                            <div *ngIf="data?.rent_invoice ==null">
+                                            <div *ngIf="data?.purchase_property ==null">
                                                 NA    
                                             </div>
                                             
@@ -146,6 +148,7 @@
                                                 <li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="Status">
                                                     <div class="text-success" *ngIf="data?.order_status==0">Live</div>
                                                     <div class="text-danger" *ngIf="data?.order_status==1">Rented</div>
+                                                    <div class="text-danger" *ngIf="data?.order_status==2">Book</div>
                                                 </li>
                                             </ul>
                                         </td>

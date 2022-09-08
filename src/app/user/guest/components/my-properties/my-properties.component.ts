@@ -38,6 +38,7 @@ export class MyPropertiesComponent implements OnInit {
       res => {
         this.showLoadingIndicator = false;
         this.rent_property_data = res;
+        console.log(this.rent_property_data);
         if(this.rent_property_data?.book_property){
           this.book_property_length=this.rent_property_data?.book_property?.length;
         }
@@ -64,7 +65,10 @@ export class MyPropertiesComponent implements OnInit {
     const url:any = this.router.createUrlTree(['/book-property'],{ queryParams: { 'invoice_no': invoice_no }})
       window.open(url.toString(), '_blank')
   }
-
+  remaining_payment(invoice_no: any) {
+    const url:any = this.router.createUrlTree(['/remaining-payment-summery'],{ queryParams: { 'invoice_no': invoice_no }})
+      window.open(url.toString(), '_blank')
+  }
   moreDetails(property_details: any) {
     console.log(property_details);
     this.property_det = property_details;

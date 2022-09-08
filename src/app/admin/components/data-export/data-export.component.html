@@ -105,7 +105,7 @@
                                               NA
                                             </span>
                                         </td>
-                                        <td>{{data?.Invoice_Generate_date}}</td>
+                                        <td>{{data?.invoice_generated_date}}</td>
                                         <td>
                                            
                                            <button type="button" class="btn btn-primary ml10 more_det" data-bs-toggle="modal" data-bs-target="#MoreDetailsModal" (click)="moreDetails(data)">More
@@ -191,7 +191,7 @@
                         </tr>
                         <tr>
                             <th>Expected Rent:</th>
-                            <td>{{ plan_det?.property_price }}</td>
+                            <td>{{ plan_det?.property_amount }}</td>
                         </tr>
                         <tr>
                             <th>Plan Price:</th>
@@ -213,7 +213,7 @@
                         </tr>
                         <tr>
                             <th>Amount Paid:</th>
-                            <td *ngIf="plan_det?.total_amount != null">{{plan_det?.total_amount}}</td>
+                            <td *ngIf="plan_det?.total_amount != null">{{plan_det?.amount_paid}}</td>
                             <td *ngIf="plan_det?.total_amount == null">0</td>
                         </tr>
                         <tr>
@@ -222,7 +222,7 @@
                         </tr>
                         <tr>
                             <th>Date: </th>
-                            <td>{{ plan_det?.Invoice_Generate_date}}</td>
+                            <td>{{ plan_det?.invoice_generated_date}}</td>
                         </tr>
                         <tr *ngIf="plan_det?.payment_mode">
                             <th>Payment Mode:</th>

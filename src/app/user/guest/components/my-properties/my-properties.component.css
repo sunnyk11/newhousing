@@ -12,3 +12,16 @@
     font-size: 16px;
     letter-spacing: 1.4px;
 }
+
+.btn-danger {
+    font-size: 12px!important;
+}
+.btn-success{
+    font-size: 12px!important;
+}
+.btn-primary{
+    font-size: 12px!important;
+}
+.btn-info{
+    font-size: 12px!important;
+}

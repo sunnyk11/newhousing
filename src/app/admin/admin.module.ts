@@ -69,6 +69,7 @@ import { UpdateSubLocalityComponent } from './components/update-sub-locality/upd
 import { AreaGroupComponent } from './components/area-group/area-group.component';
 import { AddAreaGroupComponent } from './components/add-area-group/add-area-group.component';
 import { UpdateAreaGroupComponent } from './components/update-area-group/update-area-group.component';
+import { BookInvoiceComponent } from './components/book-invoice/book-invoice.component';
 @NgModule({
   declarations: [
     LoginComponent,
@@ -119,7 +120,8 @@ import { UpdateAreaGroupComponent } from './components/update-area-group/update-
     UpdateSubLocalityComponent,
     AreaGroupComponent,
     AddAreaGroupComponent,
-    UpdateAreaGroupComponent
+    UpdateAreaGroupComponent,
+    BookInvoiceComponent
   ],
   imports: [
     CommonModule,

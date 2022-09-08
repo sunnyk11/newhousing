@@ -67,6 +67,7 @@ import { UserVisitPopupComponent } from './modals/user-visit-popup/user-visit-po
 import { VisitUserThankComponent } from './components/visit-user-thank/visit-user-thank.component';
 import { ProductFlatTypeComponent } from './components/product-flat-type/product-flat-type.component';
 import { BookPropertyComponent } from './components/book-property/book-property.component';
+import { RemainingCheckoutComponent } from './components/remaining-checkout/remaining-checkout.component';
 // import { NotfoundComponentComponent } from '../components/notfound-component/notfound-component.component';
 @NgModule({
   declarations: [
@@ -124,6 +125,7 @@ import { BookPropertyComponent } from './components/book-property/book-property.
     VisitUserThankComponent,
     ProductFlatTypeComponent,
     BookPropertyComponent,
+    RemainingCheckoutComponent,
   ],
   imports: [
     CommonModule,

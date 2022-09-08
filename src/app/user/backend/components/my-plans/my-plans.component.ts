@@ -16,6 +16,8 @@ export class MyPlansComponent implements OnInit {
   public plan_det: any;
   public rent_invoices: any;
   public let_out_invoices: any;
+  public let_out_invoices_length:number=0;
+  public rent_invoices_length:number=0;
 
   constructor(private jwtService: JwtService,
     private myPlansService: MyPlansPageService,
@@ -31,7 +33,12 @@ export class MyPlansComponent implements OnInit {
         res => {
           this.showLoadingIndicator = false;
           let data:any=res;
-          this.response = data.data;
+          this.response = data;
+          console.log(this.response);
+          this.let_out_invoices=this.response.let_out;
+          this.let_out_invoices_length=this.response.let_out.length;
+          this.rent_invoices=this.response.rent_out;
+          this.rent_invoices_length=this.response.rent_out.length;
         },
         err => {  
           this.showLoadingIndicator = false;
@@ -47,6 +54,7 @@ export class MyPlansComponent implements OnInit {
 
   getRentInvoices() {
     this.rent_invoices = this.response?.filter((item:any) => item.plan_type == 'Rent');
+    console.log(this.rent_invoices);
     return this.rent_invoices;
   }
 
@@ -57,11 +65,17 @@ export class MyPlansComponent implements OnInit {
 
   getLetOutInvoices() {
     this.let_out_invoices = this.response?.filter((item:any) => item.plan_type == 'Let Out');
+    console.log(this.let_out_invoices);
     return this.let_out_invoices;
   }
 
   viewInvoice(invoice_no: any) {
     const url:any = this.router.createUrlTree(['/invoice'], { queryParams: { 'invoice_no': invoice_no } })
+      window.open(url.toString(), '_blank')
+  }
+  
+  book_Invoice(invoice_no: any) {
+    const url:any = this.router.createUrlTree(['/book-property'],{ queryParams: { 'invoice_no': invoice_no }})
       window.open(url.toString(), '_blank')
   }
 
