@@ -29,6 +29,7 @@ export class PaymentSummaryComponent implements OnInit {
   public content: any;
   private paytm_form_url: string = environment.Paytm_formURL;
   public invoice_data: any;
+  public clicked = false;
 
   constructor(private route: ActivatedRoute,
     private plansPageService: PlansPageService,

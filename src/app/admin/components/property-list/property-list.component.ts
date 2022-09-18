@@ -283,7 +283,7 @@ export class PropertyListComponent implements OnInit {
             title: 'Property Data',
             useBom: true,
             noDownload: false,
-            headers: ["Property","Price","Owner Email","Owner Mobile","Owner Invoice","Customer Email","Customer Mobile","Customer Invoice","Property Location","Property Status"]
+            headers: ["Property","Price","Owner Email","Owner Mobile","Owner Invoice","Customer Email","Customer Mobile","Customer Rented Invoice","Customer Book Invoice","Customer Property","Property Location","Property Status"]
           };
            new  ngxCsv(data.data, "Property List", options);
         }else{
@@ -327,7 +327,7 @@ viewInvoice(invoice_no: any) {
 }
 
 book_invoice(invoice_no: any) {
-  const url:any = this.router.createUrlTree(['/admin/invoice'],{queryParams:{'invoice_no': invoice_no}})
+  const url:any = this.router.createUrlTree(['/admin/book-invoice'],{queryParams:{'invoice_no': invoice_no}})
   window.open(url.toString(), '_blank')
 }
 }

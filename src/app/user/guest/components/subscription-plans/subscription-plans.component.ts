@@ -64,6 +64,7 @@ export class SubscriptionPlansComponent implements OnInit {
   public  price_duration_discount_model:any;
   public  price_duration_actual_model:any;
   public  plan_features_model:any;
+  public clicked = false;
 
   public displayAlert: boolean = false;
 
@@ -176,8 +177,6 @@ export class SubscriptionPlansComponent implements OnInit {
 
             this.plansPageService.postSelectedPlan(formData).subscribe(
               res => {
-                console.log(res);
-                    
                 this.returnUrl = this.router.url;
                 this.jwtService.saveReturnURL(this.returnUrl);
                 this.selected_plan_data = res;

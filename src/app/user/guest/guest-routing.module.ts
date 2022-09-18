@@ -40,6 +40,7 @@ import { FixedAppointmentComponent } from './components/fixed-appointment/fixed-
 import { ProductPreviewComponent } from './components/product-preview/product-preview.component';
 import { VisitUserThankComponent } from './components/visit-user-thank/visit-user-thank.component';
 import { RemainingCheckoutComponent } from './components/remaining-checkout/remaining-checkout.component';
+import { PaymentFailComponent } from './components/payment-fail/payment-fail.component';
 import { NotfoundComponentComponent } from '../components/notfound-component/notfound-component.component';
 //custom component imports
 
@@ -83,6 +84,7 @@ const routes: Routes = [
         { path: 'product-preview', component: ProductPreviewComponent,canActivate:  [UserLogsGuard] },
         { path: 'faq', component: FaqComponent },
         { path: 'remaining-payment-summery', component: RemainingCheckoutComponent,canActivate: [AuthGuard] },
+        { path: 'payment-fail', component: PaymentFailComponent,canActivate: [AuthGuard] },
         {path: '**', component: NotfoundComponentComponent}
       ]
     }
