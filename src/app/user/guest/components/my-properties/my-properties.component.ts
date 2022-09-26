@@ -38,7 +38,6 @@ export class MyPropertiesComponent implements OnInit {
       res => {
         this.showLoadingIndicator = false;
         this.rent_property_data = res;
-        console.log(this.rent_property_data);
         if(this.rent_property_data?.book_property){
           this.book_property_length=this.rent_property_data?.book_property?.length;
         }

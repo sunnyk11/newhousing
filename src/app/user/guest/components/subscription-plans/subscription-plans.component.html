@@ -456,7 +456,7 @@
                 <button type="button" class="btn btn-default" data-bs-dismiss="modal">
                     Cancle
                 </button>
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="plan_payment(plan_name_model, plan_id_model, payment_type_model, plan_type_model, expected_rent_model, price_duration_actual_model, price_duration_discount_model, plan_features_model)" >
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" [disabled]="clicked" (click)="plan_payment(plan_name_model, plan_id_model, payment_type_model, plan_type_model, expected_rent_model, price_duration_actual_model, price_duration_discount_model, plan_features_model);clicked = true;" >
                     Yes
                 </button>                                 
             </div>

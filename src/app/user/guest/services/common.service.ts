@@ -161,4 +161,9 @@ export class CommonService {
     return this.apiService.post<ResultModel>(route, { id: reqModel });
   }
   
+  user_paymentfail(): Observable<ResultModel> {
+    const route = "/api/auth/user_paymentfail/";
+    return this.apiService.get<ResultModel>(route);
+  }
+  
 }

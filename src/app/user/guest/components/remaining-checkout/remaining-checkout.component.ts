@@ -71,6 +71,8 @@ export class RemainingCheckoutComponent implements OnInit {
   public invoice_data: any;
   public plan_features_data: any;
   private paytm_form_url: string = environment.Paytm_formURL;
+  public clicked = false;
+
   constructor(
     private plansPageService: PlansPageService,
     private route: ActivatedRoute,
@@ -188,8 +190,6 @@ get_invoice_details(invoice_id:any){
                     console.log(this.payment_result);
                     if ( this.payment_result.status == 201) {
                       this.paytm_data =  this.payment_result.data;
-                      console.log(111,this.paytm_data)
-                      
                       this.createPaytmForm(); 
                     }
                   },

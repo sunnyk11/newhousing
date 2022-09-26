@@ -497,6 +497,7 @@ export class ProductListingComponent implements OnInit {
       this.ProductListingPageService.product_details(this.searchForm.value).then(
         Pagination_data => {
           this.property=Pagination_data;
+          console.log(Pagination_data);
           this.product_length=this.property.data.total;
           if(this.product_length<1){
             this.property_availablty=false;

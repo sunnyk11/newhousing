@@ -85,6 +85,7 @@
                                         <th>Invoice No</th>
                                         <th >User Email</th>
                                         <th >Order Id</th>
+                                        <th >Plan Type</th>
                                         <th >Plan Name</th>
                                         <th >Service status</th>
                                         <th >Invoice Generate date</th>
@@ -96,12 +97,13 @@
                                         <td>{{data?.invoice_no}}</td>
                                         <td>{{data?.user_email}}</td>
                                         <td>{{data?.order_id}}</td>
+                                        <td>{{data?.plan_type}}</td>
                                         <td>{{data?.plan_name}}</td>
                                         <td>
-                                            <span *ngIf="data?.service_status">
-                                                {{data?.service_status}}
+                                            <span *ngIf="data?.service_delivered_status">
+                                                {{data?.service_delivered_status}}
                                             </span>
-                                            <span *ngIf="data?.service_status == null">
+                                            <span *ngIf="data?.service_delivered_status == null">
                                               NA
                                             </span>
                                         </td>

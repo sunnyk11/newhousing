@@ -34,6 +34,7 @@ export class ProPaymentSummaryComponent implements OnInit {
   public security_dep_amount: any;
   public maintenance_charge: any;
   public total_amount_owner: number = 0;
+  public clicked = false;
 
   public plan_name: any;
   public plan_type: any;
@@ -68,6 +69,7 @@ export class ProPaymentSummaryComponent implements OnInit {
   public rent_plan_data: any;
   public invoice_data: any;
   public plan_features_data: any;
+  public show_section:boolean=true;
 
   private paytm_form_url: string = environment.Paytm_formURL;
 
@@ -103,6 +105,9 @@ export class ProPaymentSummaryComponent implements OnInit {
         if(this.product_data.length>0){
           // if(this.product_data )
         this.pro_data = this.product_data[0];
+        if(this.pro_data.order_status==1 || this.pro_data.order_status==2){
+         this.show_section=false;
+        }
         let user_id:any= this.jwtService.getUserId();
         if(user_id ==this.product_data[0].user_id){
           this.toastr.info('Property Owner', 'user', {
@@ -461,7 +466,6 @@ export class ProPaymentSummaryComponent implements OnInit {
             //console.log(formData);
             this.plansPageService.postSelectedRentPlan(formData).subscribe(
               res => {
-                console.log(res);
                 this.rent_plan_data = res;
                 this.plansPageService.generateRentInvoice(this.rent_plan_data.data.order_id).subscribe(
                   res => {

@@ -10,6 +10,9 @@
     border-radius: 5px;
     font-size: 25px;
 }
+.no_property_row h3{
+    text-align: center;
+}
 .heading_text{
     text-align: left;
 }

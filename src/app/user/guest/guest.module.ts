@@ -68,6 +68,7 @@ import { VisitUserThankComponent } from './components/visit-user-thank/visit-use
 import { ProductFlatTypeComponent } from './components/product-flat-type/product-flat-type.component';
 import { BookPropertyComponent } from './components/book-property/book-property.component';
 import { RemainingCheckoutComponent } from './components/remaining-checkout/remaining-checkout.component';
+import { PaymentFailComponent } from './components/payment-fail/payment-fail.component';
 // import { NotfoundComponentComponent } from '../components/notfound-component/notfound-component.component';
 @NgModule({
   declarations: [
@@ -126,6 +127,7 @@ import { RemainingCheckoutComponent } from './components/remaining-checkout/rema
     ProductFlatTypeComponent,
     BookPropertyComponent,
     RemainingCheckoutComponent,
+    PaymentFailComponent,
   ],
   imports: [
     CommonModule,

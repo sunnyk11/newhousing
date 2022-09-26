@@ -1,0 +1,10 @@
+#property_name{
+    cursor: pointer!important;
+    color: blue;
+}
+@media(max-width: 768px) {
+    .property_table .table td{
+        line-height: 20px!important;
+        font-size: 12px!important;
+    }
+}

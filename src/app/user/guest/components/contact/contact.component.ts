@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { environment } from 'src/environments/environment';
 import { JwtService } from 'src/app/user/services/jwt.service';
 import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-contact',
   templateUrl: './contact.component.html',
@@ -18,6 +19,7 @@ export class ContactComponent implements OnInit {
   public submitted: boolean = false;
   public toll_free=environment.toll_free;
   public returnUrl:any;
+  public clicked = false;
 
   contactForm = this.fb.group({
     name: ['', Validators.required],
@@ -60,7 +62,7 @@ export class ContactComponent implements OnInit {
     formData.append('message', this.contactForm.value.message);
     this.contactService.saveContact(formData).subscribe(
       res => {
-        console.log(res);
+        this.clicked = false;
         this.response = res;
         this.showLoadingIndicator = false;
         this.toastr.success('Your Query Succesfully Mail');
@@ -72,9 +74,9 @@ export class ContactComponent implements OnInit {
           message:''
         });    
         let data:any=res;
-        if(data.status==201){
+        // if(data.status==201){
           this.router.navigate(['/contact/form-submitted']);   
-        }
+        // }
       },
       err => {
         this.errorMessage = err.error.message;
