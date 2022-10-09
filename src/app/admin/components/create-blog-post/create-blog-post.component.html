@@ -8,7 +8,7 @@
             <h5 class="card-title" *ngIf="!isAddMode">Edit Blog Post</h5>
         </div>
         <div class="card-body">
-            <form [formGroup]="blogForm" (ngSubmit)="onSubmit()">
+            <form [formGroup]="blogForm">
                 <div class="mb-3">
                     <label for="title" class="form-label">Title</label>
                     <input formControlName="title" type="text" class="form-control" id="title" [ngClass]="{ 'is-invalid': submitted && g.title.errors }">
@@ -58,7 +58,7 @@
                     </select>
                 </div>
                 <div class="mb-3 text-center">
-                    <button type="submit" class="btn btn-primary">Submit Post</button>
+                    <button type="submit"   [disabled]="clicked" (click)="onSubmit();clicked = true;" class="btn btn-primary">Submit Post</button>
                 </div>
             </form>
         </div>

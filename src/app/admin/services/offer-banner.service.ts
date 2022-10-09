@@ -75,4 +75,36 @@ export class OfferBannerService {
     const route = "/api/admin/delete_Banner";
     return this.apiService.admin_get<ResultModel>(route, reqModel);
   }
+
+
+
+  // listing page content create 
+  listing_page_heading_create(reqModel: any): Observable<ResultModel> {
+    const route = "/api/admin/listing_page_heading_create";
+    return this.apiService.admin_post<ResultModel>(route, reqModel);
+  }
+  get_listing_heading(): Promise<Pagination> {
+    const route = "/api/admin/get_listing_heading";
+    return this.apiService.admin_get(route).toPromise().then(
+      (response) => {
+        //console.log(response);
+        return response as Pagination
+      })
+      .catch(this.handleError);
+  }
+  
+  listing_page_heading_Update(reqModel: any): Observable<ResultModel> {
+    const route = "/api/admin/listing_page_heading_Update";
+    return this.apiService.admin_post<ResultModel>(route, reqModel);
+  }
+  
+  heading_status_changes(reqModel: any): Observable<ResultModel> {
+    const route = "/api/admin/heading_status_changes";
+    return this.apiService.admin_post<ResultModel>(route, reqModel);
+  }
+  
+  delete_heading(reqModel:any): Observable<ResultModel> {
+    const route = "/api/admin/delete_heading";
+    return this.apiService.admin_get<ResultModel>(route, reqModel);
+  }
 }

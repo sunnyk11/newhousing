@@ -70,6 +70,7 @@ import { AreaGroupComponent } from './components/area-group/area-group.component
 import { AddAreaGroupComponent } from './components/add-area-group/add-area-group.component';
 import { UpdateAreaGroupComponent } from './components/update-area-group/update-area-group.component';
 import { BookInvoiceComponent } from './components/book-invoice/book-invoice.component';
+import { ListingPageHeadingComponent } from './components/listing-page-heading/listing-page-heading.component';
 @NgModule({
   declarations: [
     LoginComponent,
@@ -121,7 +122,8 @@ import { BookInvoiceComponent } from './components/book-invoice/book-invoice.com
     AreaGroupComponent,
     AddAreaGroupComponent,
     UpdateAreaGroupComponent,
-    BookInvoiceComponent
+    BookInvoiceComponent,
+    ListingPageHeadingComponent
   ],
   imports: [
     CommonModule,

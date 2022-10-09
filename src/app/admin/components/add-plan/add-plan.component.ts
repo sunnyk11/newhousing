@@ -14,7 +14,8 @@ export class AddPlanComponent implements OnInit {
   public submitted: boolean = false;
   public discount_stat: boolean = false;
   public feature_response: any;
-  public PlanForm: any;
+  public PlanForm: any;  
+  public clicked = false;
 
   constructor(private fb: FormBuilder,
     private router: Router,

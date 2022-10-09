@@ -18,6 +18,7 @@ export class AddAreaGroupComponent implements OnInit {
   public submitted: boolean = false;
   public search_submitted: boolean = false;
   public dropdownList:any=[];
+  public clicked = false;
   public dropdownList_district:any=[];
   public dropdownList1:any=[];
   public showLoadingIndicator: boolean =false;

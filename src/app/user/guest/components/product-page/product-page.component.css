@@ -131,6 +131,9 @@
     line-height: 24px;
     margin-bottom: 10px;
     text-align: justify;
+ }
+ .single_page_banner{
+    height: 500px!important;
  }  
  
 #img_header{
@@ -185,6 +188,10 @@
         margin-bottom: 10px;
         text-align: justify;
      }
+     
+ .single_page_banner{
+    height: 300px!important;
+ }  
      .toll_free{
         background-color: #ffff!important;
         border-color: #888!important;

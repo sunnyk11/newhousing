@@ -20,6 +20,7 @@ export class SubLocalityListComponent implements OnInit {
   public dropdownList_district:any=[];
   public dropdownList_district1:any=[];
   public dropdownList1:any=[];
+  public clicked = false;
   public showLoadingIndicator: boolean =false;
   public p:number=0;
   public sub_locality_length:number=0;

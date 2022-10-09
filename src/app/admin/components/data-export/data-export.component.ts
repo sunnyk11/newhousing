@@ -106,7 +106,7 @@ export class DataExportComponent implements OnInit {
             title: 'Invoice data',
             useBom: true,
             noDownload: false,
-            headers: ["User Email","User id","Order ID", "Invoice No","Invoice ID","Plan Type","Plan Name","Plan Availablty","Payment Type","Plan Price","Payment Status","Payment Mode","Payment Received","Property ID","Property Name","Property Price","Porperty url","GST Amount","SGST Amount","Total Amount","Service Status","Service Deliver Date","Invoice Generate Date","Invoice Paid Date","Created At"]
+            headers: ["User Email","User id","Order ID", "Invoice No","Invoice ID","Plan Type","Plan Name","Plan Availablty","Payment Type","Plan Price","Agreement Price","Payment Status","Payment Mode","Payment Received","Property ID","Property Name","Property Price","Porperty url","GST Amount","SGST Amount","Total Amount","Service Status","Service Deliver Date","Invoice Generate Date","Invoice Paid Date","Created At"]
           };
            new  ngxCsv(data.data, "Invoice data", options);
         }else{

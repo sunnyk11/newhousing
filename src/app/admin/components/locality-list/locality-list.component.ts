@@ -17,6 +17,7 @@ export class LocalityListComponent implements OnInit {
   public submitted: boolean = false;
   public search_submitted: boolean = false;
   public dropdownList:any=[];
+  public clicked = false;
   public dropdownList1:any=[];
   public showLoadingIndicator: boolean =false;
   public p:number=0;

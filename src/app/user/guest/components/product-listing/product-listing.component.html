@@ -352,8 +352,8 @@
                 </div>
             </div>
         </div>
-        <div class="text-center" id="search-text">
-            <h5>Search for property listings based upon budget, type of property, etc. Let us help you find the perfect accommodation!</h5>
+        <div class="text-center" id="search-text" *ngFor="let heading of heading_data?.data">
+            <h5>{{heading?.content}}</h5>
         </div>
         <div class="row">
             <div class="col-lg-4 col-xl-4">

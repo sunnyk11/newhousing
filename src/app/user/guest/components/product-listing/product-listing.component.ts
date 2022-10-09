@@ -63,6 +63,7 @@ export class ProductListingComponent implements OnInit {
   public access_search_bar: boolean = false;
   public  selected_sub_locality:any=[];
   public returnUrl:any;
+  public heading_data:any;
   
   private amenityArray:any = [];
   private search_amenties_convert: any=[];
@@ -140,6 +141,7 @@ export class ProductListingComponent implements OnInit {
     this.showLoadingIndicator = true;
     this.dropdown_data();
      this.getAmenities();
+     this.getheading_data();
     
      this.dropdownSettings1 = {
        singleSelection: true,
@@ -214,6 +216,14 @@ export class ProductListingComponent implements OnInit {
     this.CommonService.getAmenities({ param: null }).subscribe(
       response => {
         this.amenties=response;
+      }
+    );
+  }
+  getheading_data(){
+    this.CommonService.getheading_data({ param: null }).subscribe(
+      response => {
+        this.heading_data=response;
+        console.log(this.heading_data);
       }
     );
   }

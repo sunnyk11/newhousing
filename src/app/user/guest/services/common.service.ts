@@ -57,6 +57,10 @@ export class CommonService {
     const route = "/api/amenities";
     return this.apiService.get<ResultModel>(route, reqModel);
   }  
+  getheading_data(reqModel:any): Observable<ResultModel> {
+    const route = "/api/getheading_data";
+    return this.apiService.get<ResultModel>(route, reqModel);
+  }  
   getproductcategory(reqModel:any): Observable<ResultModel> {
     const route = "/api/product/property_category";
     return this.apiService.get<ResultModel>(route, reqModel);
