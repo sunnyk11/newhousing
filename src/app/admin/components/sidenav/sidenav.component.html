@@ -84,11 +84,14 @@
     <mat-expansion-panel *ngIf="LoggedIn && access_web_Banner">
         <mat-expansion-panel-header>
             <mat-panel-title>
-                Web Banner
+                Frontend Access
             </mat-panel-title>
         </mat-expansion-panel-header>
         <mat-nav-list>
             <a mat-list-item (click)="access_Banner()">Web Banner</a>
+        </mat-nav-list>
+        <mat-nav-list>
+            <a mat-list-item (click)="listing_page()">Listing Page</a>
         </mat-nav-list>
     </mat-expansion-panel>
     
