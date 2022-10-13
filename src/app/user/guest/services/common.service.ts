@@ -88,6 +88,11 @@ export class CommonService {
     return this.apiService.get<ResultModel>(route, reqModel);
   }
   
+  get_sub_locality_byid(reqModel:any): Observable<ResultModel> {
+    const route = "/api/auth/sub_locality_byid";
+    return this.apiService.post<ResultModel>(route, reqModel);
+  }
+  
   getrecently_product(reqModel:any): Observable<ResultModel> {
     const route = "/api/product/user_recently_pro";
     return this.apiService.get<ResultModel>(route, reqModel);
