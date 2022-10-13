@@ -51,6 +51,7 @@ export class UpdatepropertyRentComponent implements OnInit {
   public showLoadingIndicator:boolean=false;
   public show_draft_btn: boolean = false;
   public testing:any;
+  public clicked = false;
   public amenties:any=[];
   public videolink:number=0;
   public youtube_url: any;

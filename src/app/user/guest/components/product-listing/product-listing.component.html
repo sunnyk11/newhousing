@@ -157,7 +157,7 @@
                                             </div>
                                         </li>
                                         <li class="search_area mb20">
-                                            <div lass="form-group " id="multiselect-dropdown">
+                                            <div lass="form-group " >
                                                 <!-- <label for="pincode" class="form-label">Sub-Locality</label>  -->
                                                 <ng-multiselect-dropdown class="form-control sub_localty_dropdown" [placeholder]="'Select Sub-locality'" [settings]="dropdownSettings1" [data]="dropdown_sublocality" formControlName="sub_locality">
                                                 </ng-multiselect-dropdown>
@@ -352,8 +352,8 @@
                 </div>
             </div>
         </div>
-        <div class="text-center" id="search-text">
-            <h5>Search for property listings based upon budget, type of property, etc. Let us help you find the perfect accommodation!</h5>
+        <div class="text-center" id="search-text" *ngFor="let heading of heading_data?.data">
+            <h5>{{heading?.content}}</h5>
         </div>
         <div class="row">
             <div class="col-lg-4 col-xl-4">
@@ -513,7 +513,7 @@
                                         </div>
                                     </li>
                                     <li class="search_area mb20">
-                                        <div lass="form-group " id="multiselect-dropdown">
+                                        <div lass="form-group " >
                                             <!-- <label for="pincode" class="form-label">Sub-Locality</label>  -->
                                             <ng-multiselect-dropdown class="form-control sub_localty_dropdown" [placeholder]="'Select Sub-locality'" [settings]="dropdownSettings1" [data]="dropdown_sublocality" formControlName="sub_locality">
                                             </ng-multiselect-dropdown>

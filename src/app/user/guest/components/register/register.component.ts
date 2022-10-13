@@ -16,6 +16,7 @@ export class RegisterComponent implements OnInit {
   public showLoadingIndicator: boolean = false;
 
   public isSuccessful = false;
+  public clicked = false;
   public errorMessage: any;
   public isSignUpFailed: boolean = false;
   public isVerified: boolean = false;

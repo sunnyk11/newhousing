@@ -102,7 +102,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-6 offset-lg-3 col-12 mt20 search-column">
-                                <button type="submit" class="btn btn-submit" (click)="onSubmit()">Payment Send</button>
+                                <button type="submit" class="btn btn-submit"  [disabled]="clicked" (click)="onSubmit();clicked = true;">Payment Send</button>
                             </div>
                             
                             <div class="row mt30" *ngIf="bank_account==true"> 

@@ -20,6 +20,7 @@ export class CreateBlogPostComponent implements OnInit {
   private files: any;
   private imagePath: any;
   public imgURL: any;
+  public clicked = false;
   public isAddMode: boolean = false;
   private parsedData: any = {};
   public ftpstring: string = environment.ftpURL;

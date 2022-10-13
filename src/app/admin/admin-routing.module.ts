@@ -43,6 +43,7 @@ import { AreaGroupComponent } from './components/area-group/area-group.component
 import { AddAreaGroupComponent } from './components/add-area-group/add-area-group.component';
 import { UpdateAreaGroupComponent } from './components/update-area-group/update-area-group.component';
 import { BookInvoiceComponent } from './components/book-invoice/book-invoice.component';
+import { ListingPageHeadingComponent } from './components/listing-page-heading/listing-page-heading.component';
 import { NotfoundComponentComponent } from '../user/components/notfound-component/notfound-component.component';
 
 
@@ -125,6 +126,10 @@ const routes: Routes = [
       { path: 'offer-banner', component: OfferBannerComponent, canActivate: [AuthGuard, PermissionGuard],data: {
         permission: ['access_web_Banner']
       }},
+      { path: 'listing-page-heading', component: ListingPageHeadingComponent, canActivate: [AuthGuard, PermissionGuard],data: {
+        permission: ['access_web_Banner']
+      }},
+      
       { path: 'property-list', component: PropertyListComponent, canActivate: [AuthGuard, PermissionGuard],data: {
         permission: ['property_access']
       }},

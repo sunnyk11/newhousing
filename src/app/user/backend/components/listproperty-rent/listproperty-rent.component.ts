@@ -66,6 +66,7 @@ export class ListpropertyRentComponent implements OnInit {
   public agreement_type:any;
   public agreement_duration:any;
   public flat_type:any;
+  public clicked = false;
   public maintenance_charge_condition:any;
 
   private product_img: any = [];
