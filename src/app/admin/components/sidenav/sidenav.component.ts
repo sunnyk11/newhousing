@@ -138,6 +138,10 @@ export class SidenavComponent implements OnInit {
     this.sidenavClose.emit();
     this.router.navigate(['/admin/offer-banner']);
   }
+  listing_page() {
+    this.sidenavClose.emit();
+    this.router.navigate(['/admin/listing-page-heading']);
+  }
 
   bank_details() {
     this.sidenavClose.emit();
