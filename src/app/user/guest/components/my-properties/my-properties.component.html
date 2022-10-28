@@ -99,7 +99,14 @@
                                 <button type="button" class="btn btn-danger ml10" (click)="book_Invoice(book_property?.property_rented?.book_invoice?.invoice_no)" *ngIf="book_property?.property_rented?.book_invoice?.payment_status != 'PAID'">Book
                                     Invoice</button>
                                <button type="button" class="btn btn-primary ml10" data-bs-toggle="modal" data-bs-target="#MoreDetailsModal" (click)="moreDetails(book_property)">More Details</button>
-                               <button type="button" class="btn btn-info ml10" (click)="remaining_payment(book_property?.property_rented?.book_invoice?.invoice_no)" *ngIf="book_property?.property_rented?.book_invoice?.payment_status == 'PAID'">Remaining checkout</button>
+                               <span *ngIf="book_property?.property_rented?.book_invoice?.payment_status == 'Payment Forfeited'">
+                                <!-- <p class="text-primary ml10">Payment Forfeited</p> -->
+                                <button type="button" class="btn btn-primary ml10">Payment Forfeited</button>
+                               </span>
+                               <span *ngIf="book_property?.property_rented?.book_invoice?.payment_status != 'Payment Forfeited'">
+                                <button type="button" class="btn btn-warning ml10" (click)="remaining_payment(book_property?.property_rented?.book_invoice?.invoice_no)" *ngIf="book_property?.property_rented?.book_invoice?.payment_status == 'UNPAID'">Contact Admin</button>
+                                <button type="button" class="btn btn-info ml10" (click)="remaining_payment(book_property?.property_rented?.book_invoice?.invoice_no)" *ngIf="book_property?.property_rented?.book_invoice?.payment_status == 'PAID'">Remaining checkout</button>
+                               </span>
                                 </td>
                             </tr>
                         </tbody>
