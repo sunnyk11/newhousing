@@ -38,6 +38,21 @@ export class AreaGroupComponent implements OnInit {
     );
   }
   
+  gotoPage(link_url: any) {
+    this.showLoadingIndicator = true;
+    // let param = { state_id: this.searching_form.value.search_state}
+    // this.AreaListService.getpagination1(link_url,param).then(Pagination_data => {
+    //   this.showLoadingIndicator= false;
+    //   this.district_data=Pagination_data;
+    //   // this.user_list_length=this.user_list.data.data.length;
+    // });
+    this.AreaListService.getpagination(link_url).then(Pagination_data => {
+      this.showLoadingIndicator= false;
+      this.group_data=Pagination_data;
+      // this.user_list_length=this.user_list.data.data.length;
+    });
+  }
+  
   viewDetails(data: any) {
     this.group_details=data;
    

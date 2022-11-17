@@ -18,8 +18,10 @@ export class CreateUserComponent implements OnInit {
   public roles_response: any;
   public response: any;
   public dropdownList: any = [];
+  public dropdownList_group: any = [];
   public selectedItems = [];
   public dropdownSettings: IDropdownSettings;
+  public dropdownSettings1!: IDropdownSettings;
   public item_id: number = 0;
   public item_text: string = '';
   public showLoadingIndicator: boolean = false;
@@ -36,7 +38,8 @@ export class CreateUserComponent implements OnInit {
       address2: [''],
       password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(40)]],
       cpassword: ['', [Validators.required]],
-      userRole: ['', Validators.required]
+      userRole: ['', Validators.required],
+      area_group: ['', Validators.required],
     },
      {
       validators: ConfirmedValidator('password', 'cpassword')
@@ -52,17 +55,47 @@ export class CreateUserComponent implements OnInit {
       allowSearchFilter: false,
       maxHeight: 250
     };
+    this.dropdownSettings1 = {
+      singleSelection: false,
+      idField: 'area_id',
+      textField: 'area_text',
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      itemsShowLimit: 3,
+      allowSearchFilter: false,
+      maxHeight: 250
+    };
    }
 
   ngOnInit(): void {
     this.showLoadingIndicator = true;
     this.getRoles();
+    this.get_area_group();
   }
 
   get f() {
     return this.UserForm.controls;
   }
 
+  get_area_group() {
+    this.rolesService.get_area_group({ param: null }).subscribe(
+      response => {
+        //console.log(response);
+        this.response = response;
+        let area_group_data:any;
+        area_group_data = this.response.area_group;
+        //console.log(this.roles_response);
+        for (let i = 0; i < area_group_data.length; i++) {
+          this.dropdownList_group = this.dropdownList_group.concat({ area_id: area_group_data[i].id, area_text: area_group_data[i].group_name});
+        }
+        this.showLoadingIndicator = false;
+        //console.log(this.dropdownList);
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
   getRoles() {
     this.rolesService.getRoles({ param: null }).subscribe(
       response => {

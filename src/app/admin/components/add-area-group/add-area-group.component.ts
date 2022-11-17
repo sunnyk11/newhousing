@@ -263,9 +263,15 @@ onUnSelectAll() {
         err => {
           this.showLoadingIndicator = false;
           let errorMessage:any = err.error.errors;
-          this.toastr.error(errorMessage, 'Something Error', {
-            timeOut: 3000,
-          });
+          if(errorMessage.group_name){
+            this.toastr.error(errorMessage.group_name, 'Something Error', {
+              timeOut: 3000,
+            });
+          }else{
+            this.toastr.error(errorMessage, 'Something Error', {
+              timeOut: 3000,
+            });
+          }
         }
       );
     }

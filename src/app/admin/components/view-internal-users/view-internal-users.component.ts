@@ -27,8 +27,10 @@ export class ViewInternalUsersComponent implements OnInit {
   public dropdownSettings: IDropdownSettings;
   public response: any;
   public roles_response: any;
+  public group_response: any;
   public dropdownList: any = [];
   public EditUserForm: any;
+  public EditUsergroup: any;
   private user_id: any;
   public user_name:any;
   public delete_user_details: any;
@@ -62,6 +64,9 @@ UserForm = new FormGroup({
     this.EditUserForm = this.fb.group({
       EditRolesArray: this.fb.group([])
     });
+    this.EditUsergroup = this.fb.group({
+      EditgroupArray: this.fb.group([])
+    });
 
     this.dropdownSettings = {
       singleSelection: false,
@@ -85,6 +90,7 @@ UserForm = new FormGroup({
     this.internalUserService.getAllInternalUsers({ param: null }).subscribe(
       res => {
         this.user_response = res;
+        console.log(this.user_response);
         this.user_list_length=this.user_response.total;
         this.showLoadingIndicator = false;
       },
@@ -101,10 +107,14 @@ UserForm = new FormGroup({
       this.user_response=Pagination_data;
       // this.user_list_length=this.user_list.data.data.length;
     });
-  } 
+  }
 
   get g() {
     return this.EditUserForm.controls.EditRolesArray;
+  }
+  
+  get k() {
+    return this.EditUsergroup.controls.EditgroupArray;
   }
 
   get f() {
@@ -113,9 +123,9 @@ UserForm = new FormGroup({
   getUserRoles(userId: any) {
     this.showLoadingIndicator = true;
     this.rolesService.getUserRoles(userId).subscribe(
-      res => {
-        //console.log(res);
-        this.roles_response = res;
+      value => {
+        console.log(value);
+        this.roles_response = value;
         this.roles_response.forEach((role:any) => {
           if(role.status == true) {
             if (this.g.controls[role.role_name]) {
@@ -138,9 +148,39 @@ UserForm = new FormGroup({
       }
     );
   }
+  
+  getUsergroup(userId: any) {
+    this.showLoadingIndicator = true;
+    this.rolesService.getUsergroup(userId).subscribe(
+      res => {
+        console.log(res);
+        this.group_response = res;
+        this.group_response.forEach((group:any) => {
+          if(group.status == true) {
+            if (this.k.controls[group.group_name]) {
+              this.k.removeControl(group.group_name);
+              this.k.addControl(group.group_name, new FormControl(true));
+            }
+            else {
+              this.k.addControl(group.group_name, new FormControl(true));
+            }
+          }
+          else {
+            this.k.addControl(group.group_name, new FormControl(false));
+          }
+        })
+        this.showLoadingIndicator = false;
+      },
+      err => {
+        console.log(err);
+        this.showLoadingIndicator = false;
+      }
+    );
+  }
 
   viewDetails(user: any) {
     this.user_details = user;
+    console.log(this.user_details);
   }
   user_details_email(){
     const modalRef = this.modalService.open(UserEmailUpdateComponent,
@@ -182,6 +222,7 @@ UserForm = new FormGroup({
 
   editDetails(user: any) {
     this.EditUserForm.reset();
+    this.EditUsergroup.reset();
     this.edit_user_details = user;
     this.user_id = this.edit_user_details.id;
     this.UserForm.patchValue({
@@ -203,6 +244,7 @@ UserForm = new FormGroup({
     this.user_name=this.edit_user_details.name;
     }
     this.getUserRoles(this.user_id);
+    this.getUsergroup(this.user_id);
   }
   
   edit_user() {
@@ -229,6 +271,26 @@ UserForm = new FormGroup({
     //console.log(user_id);
     this.showLoadingIndicator = true;
     this.rolesService.editUserRoles(user_id, this.EditUserForm.value).subscribe(
+      response => {
+        //console.log(response);
+        this.showLoadingIndicator = false;
+        this.modalClose.nativeElement.click();
+        this.toastr.success('Successfully updated User details');
+        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+        this.router.onSameUrlNavigation = 'reload';
+        this.router.navigate([this.router.url]);
+      },
+      err => {
+        console.log(err);
+        this.showLoadingIndicator = false;
+      }
+    );
+  }
+  
+  save_group(user_id: any) {
+    //console.log(user_id);
+    this.showLoadingIndicator = true;
+    this.rolesService.editUsergroup(user_id, this.EditUsergroup.value).subscribe(
       response => {
         //console.log(response);
         this.showLoadingIndicator = false;
