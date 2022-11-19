@@ -209,6 +209,10 @@ export class AreaListService {
     const route = "/api/admin/area_group_update";
     return this.apiService.admin_post<ResultModel>(route, reqModel);
   }
+  area_group_name_update(reqModel: any): Observable<ResultModel> {
+    const route = "/api/admin/area_group_name_update";
+    return this.apiService.admin_post<ResultModel>(route, reqModel);
+  }
 
   get_group_list(reqModel: any): Promise<Pagination> {
     const route = "/api/admin/get_group_list";

@@ -18,6 +18,7 @@ export class UpdateAreaGroupComponent implements OnInit {
 
  
   public submitted: boolean = false;
+  public submitted_name:boolean=false;
   public search_submitted: boolean = false;
   public dropdownList:any=[];
   public dropdownList_district:any=[];
@@ -49,6 +50,11 @@ export class UpdateAreaGroupComponent implements OnInit {
     state: new FormControl('1'),
     district:new FormControl(''),
     district_id:new FormControl(''),
+    group_id:new FormControl('', Validators.required),
+  });
+  
+  update_area_group_name= new FormGroup({
+    group_name: new FormControl('', Validators.required),
     group_id:new FormControl('', Validators.required),
   });
 
@@ -103,6 +109,7 @@ export class UpdateAreaGroupComponent implements OnInit {
     this.AreaListService.group_details_id(param).subscribe(
       response => {
         let data:any=response;
+        console.log(data);
         for (let i = 0; i < data.data.pivot_data?.length; i++) {
         this.selectedItems_data.push({sub_locality_id: data?.data?.pivot_data[i]?.sub_locality?.sub_locality_id, sub_locality_text: data?.data?.pivot_data[i]?.sub_locality?.sub_locality});
         this.selectedItems_data_db.push({sub_locality_id: data?.data?.pivot_data[i]?.sub_locality?.sub_locality_id, sub_locality_text: data?.data?.pivot_data[i]?.sub_locality?.sub_locality});
@@ -110,6 +117,7 @@ export class UpdateAreaGroupComponent implements OnInit {
         }
         this.selectedItems_data_length=this.selectedItems_data1.length;
         this.update_area_group.patchValue({group_id:data.data.id,group_name:data.data.group_name});
+        this.update_area_group_name.patchValue({group_id:data.data.id,group_name:data.data.group_name});
       });
 
   }
@@ -319,14 +327,55 @@ onUnSelectAll() {
           err => {
             this.showLoadingIndicator = false;
             let errorMessage:any = err.error.errors;
-            this.toastr.error(errorMessage, 'Something Error', {
-              timeOut: 3000,
-            });
+            if(errorMessage.group_name){
+              this.toastr.error(errorMessage.group_name, 'Something Error', {
+                timeOut: 3000,
+              });
+            }else{
+              this.toastr.error(errorMessage, 'Something Error', {
+                timeOut: 3000,
+              });
+            }
           }
         );
 
       }else{
         this.toastr.info('Please Any Sublocality Selected ');
+      }
+    }
+  }
+  
+  onSubmit_name(){
+    let param={group_id:this.update_area_group_name.value.group_id,group_name:this.update_area_group_name.value.group_name}
+    if(this.update_area_group_name.invalid){
+      this.submitted = true;
+      return;
+    }else{
+      if(this.update_area_group_name.value.group_name == this.update_area_group.value.group_name){
+        this.toastr.error('You cannot enter the same Name', 'Something Error', {
+          timeOut: 3000,
+        });
+      }else{
+        this.AreaListService.area_group_name_update(param).subscribe(
+          response => {
+            let data:any=response;
+            this.showLoadingIndicator = false;
+            this.update_area_group_name.patchValue({
+              group_name:'',
+              group_id:''
+            });          
+            this.router.navigate(['/admin/area-group-list']);
+            this.toastr.success('Area Group Updates Successfully');
+          },
+          err => {
+            this.showLoadingIndicator = false;
+            let errorMessage:any = err.error.errors;
+              this.toastr.error(errorMessage, 'Something Error', {
+                timeOut: 3000,
+              });
+            }
+        );
+        
       }
     }
   }
@@ -360,6 +409,9 @@ onUnSelectAll() {
  
   get f() {
     return this.update_area_group.controls;
+  }
+  get g() {
+    return this.update_area_group_name.controls;
   }
 
 }

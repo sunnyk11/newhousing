@@ -18,7 +18,7 @@
                                     <tr>
                                         <th scope="col heading">No:</th>
                                         <th scope="col">Group</th>
-                                        <th scope="col">Created</th>
+                                        <!-- <th scope="col">Created</th> -->
                                         <th scope="col">Action On</th>
                                     </tr>
                                 </thead>
@@ -26,8 +26,8 @@
                                     <tr *ngFor="let data of group_data?.data?.data;index as i">
                                         <td>{{i+1}}</td>
                                         <td>{{data?.group_name}} </td>
-                                        <td>{{data?.created_at | timezone}} </td>
-                                        <td>
+                                        <!-- <td>{{data?.created_at | timezone}} </td> -->
+                                        <td *ngIf="data?.group_name !='Delhi' &&  data?.group_name !='SOUTH WEST Delhi' && data?.group_name !='SOUTH-EAST Delhi' && data?.group_name !='WEST Delhi' &&  data?.group_name !='SOUTH Delhi' && data?.group_name !='SHAHDARA Delhi' && data?.group_name !='NORTH WEST Delhi' && data?.group_name !='NORTH EAST Delhi' && data?.group_name !='NORTH Delhi' && data?.group_name !='NEW DELHI' && data?.group_name !='EAST Delhi' && data?.group_name !='CENTRAL Delhi' ">
                                             <ul class="view_edit_delete_list mb0">
                                                 <li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="View"  data-bs-toggle="modal" data-bs-target="#ViewDetailsModal" (click)="viewDetails(data)">
                                                     <a><span class="flaticon-view"></span></a>
@@ -41,6 +41,14 @@
                                                 
                                             </ul>
                                         </td>
+                                        <td *ngIf="data?.group_name=='Delhi' || data?.group_name=='SOUTH WEST Delhi' || data?.group_name=='SOUTH-EAST Delhi' || data?.group_name=='WEST Delhi'  ||  data?.group_name=='SOUTH Delhi' || data?.group_name=='SHAHDARA Delhi' || data?.group_name=='NORTH WEST Delhi' || data?.group_name=='NORTH EAST Delhi' || data?.group_name=='NORTH Delhi' ||data?.group_name=='NEW DELHI' || data?.group_name=='EAST Delhi' || data?.group_name=='CENTRAL Delhi' ">
+                                            <ul class="view_edit_delete_list mb0">
+                                                <li class="list-inline-item">
+                                                   <span class="text-danger">Pre-Define</span>
+                                                </li>
+                                                
+                                            </ul>
+                                        </td>
                                     </tr>
                                 </tbody>
                                 <tbody>
@@ -48,7 +56,24 @@
                                         <div class="preloader"></div>
                                     </tr>
                                 </tbody>
-                            </table>                            
+                            </table>   
+                            
+
+                            <div class="mbp_pagination" *ngIf="group_data_length>0">
+                                <ul class="page_navigation">
+                                    <li class="page-item" *ngFor="let link of group_data.data.links; index as i" [ngClass]="{'active' : link.active == true, 'disabled' : link.url == null}">
+                                        <button type="button" (click)="gotoPage(link.url)" class="page-link">
+                                            <span
+                                                *ngIf="link.label.indexOf('Previous') == -1 && link.label.indexOf('Next') == -1"
+                                                [innerHTML]="link.label"></span>
+                                            <span *ngIf="link.label.indexOf('Previous') > -1"
+                                                class="flaticon-left-arrow"></span>
+                                            <span *ngIf="link.label.indexOf('Next') > -1"
+                                                class="flaticon-right-arrow"></span>
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>                         
                             <div class="col-lg-12"  *ngIf="group_data_length==0 && showLoadingIndicator==false">
                                 <h3>No Group Data Available</h3>
                             </div>

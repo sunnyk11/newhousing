@@ -103,9 +103,9 @@ export class ProductListingComponent implements OnInit {
     },
   };
   options_rent: Options = {
-    step:1000,
+    step:5000,
     floor: 5000,
-    ceil: 50000,
+    ceil: 300000,
     translate: (value: number, label: LabelType): string => {
       return '₹' + value.toLocaleString('en');
     },
@@ -456,13 +456,13 @@ export class ProductListingComponent implements OnInit {
        else if(params.category != null){
         this.searchForm.controls['type'].setValue(params.category);         
         this.searchForm.value.sliderControl[0] = 5000;
-        this.searchForm.value.sliderControl[1] = 50000;  
+        this.searchForm.value.sliderControl[1] = 300000;  
         this.onsearch();
        }
        else if(params.flat_type != null){
         this.searchForm.controls['flat_type'].setValue(params.flat_type);         
         this.searchForm.value.sliderControl[0] = 5000;
-        this.searchForm.value.sliderControl[1] = 50000;  
+        this.searchForm.value.sliderControl[1] = 300000;  
         this.onsearch();
        }else if(params.cities != null){
         this.searchForm.patchValue({
@@ -479,19 +479,19 @@ export class ProductListingComponent implements OnInit {
         });
         this.searchForm.controls['city'].setValue(params.cities);        
         this.searchForm.value.sliderControl[0] = 5000;
-        this.searchForm.value.sliderControl[1] = 50000;
+        this.searchForm.value.sliderControl[1] = 300000;
         this.onsearch();
        }else if(params.locality != null){
         this.searchForm.controls['locality'].setValue(params.locality);  
         this.searchForm.controls['locality_data'].setValue(params.locality);        
         this.searchForm.value.sliderControl[0] = 5000;
-        this.searchForm.value.sliderControl[1] = 50000;
+        this.searchForm.value.sliderControl[1] = 300000;
         this.onsearch();
        }
        
        else{
         this.searchForm.value.sliderControl[0] = 5000;
-        this.searchForm.value.sliderControl[1] = 50000;
+        this.searchForm.value.sliderControl[1] = 300000;
         this.onsearch();
        }
     });
@@ -666,7 +666,7 @@ export class ProductListingComponent implements OnInit {
   property_type():void{
     if(this.searchForm.value.search_type=='rent'){ 
       this.searchForm.value.sliderControl[0] = 5000;
-      this.searchForm.value.sliderControl[1] = 500000;
+      this.searchForm.value.sliderControl[1] = 300000;
       this.searchForm.controls['search_type'].setValue('rent');
       this.rent_range_slider=true;
       this.buyyer_range_slider=false;

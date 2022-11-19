@@ -169,12 +169,12 @@ export class ProductPageComponent implements OnInit {
         this.Property_notesform.patchValue({property_id:this.product_id});
       }
       if(this.jwtService.get_Internal_User()== '"Yes"'){
-        this.CommonService.getUserPermissions(this.login_userid).subscribe(
+        this.CommonService.get_user_area_group_permission(this.login_userid).subscribe(
           response => {
             let  response_data:any=response;
+            console.log(response);
             this.permissions_response = response_data.permissions;
-            this.access_property_location = this.permissions_response.includes('access_property_location');
-            this.access_other_details = this.permissions_response.includes('access_other_details');
+            // console.log( this.permissions_response);
             this.Property_notesform.patchValue({property_id:this.product_id});
           });
         }
@@ -184,9 +184,16 @@ export class ProductPageComponent implements OnInit {
           this.product_data=this.product_details.data;
           this.order_status=this.product_data?.order_status;
           if(this.product_details.data != null){
+            // console.log(this.product_details);
             // this.youtube_url = environment.you_tube_url + this.product_data.video_link+"?playlist="+this.product_data.video_link+"&loop=1&mute=1";          
             // this.safeURL = this._sanitizer.bypassSecurityTrustResourceUrl(this.youtube_url);
             this.locality_id=this.product_data.locality_id;
+            if(this.jwtService.get_Internal_User()== '"Yes"'){
+              this.access_property_location = this.permissions_response.includes(this.product_data.sub_locality_id);
+              this.access_other_details = this.permissions_response.includes(this.product_data.sub_locality_id);
+              // this.access_other_details = this.permissions_response.includes('access_other_details');
+             
+            }
             this.similarproperty(this.product_data.locality_id);
             this.address=this.product_data.address;
             this.address_details=this.product_data.address_details;
