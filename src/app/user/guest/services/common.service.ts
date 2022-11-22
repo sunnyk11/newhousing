@@ -159,8 +159,8 @@ export class CommonService {
   }
   
   get_user_area_group_permission(reqModel:any): Observable<ResultModel> {
-    const route = "/api/auth/get_user_area_group_permission/";
-    return this.apiService.get<ResultModel>(route + reqModel);
+    const route = "/api/auth/get_user_area_group_permission";
+    return this.apiService.get<ResultModel>(route, reqModel);
   }
   user_plan_availability(reqModel:any): Observable<ResultModel> {
     const route = "/api/auth/user_plan_availability";
