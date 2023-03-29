@@ -163,6 +163,14 @@ export class ApiService {
       })
       .pipe(catchError(this.formatErrors));
   }
+  
+  post_pagination_admin<ResultModel>(path: string, body: Object = {}): Observable<ResultModel> {
+    return this.http
+      .post<ResultModel>(`${path}`, body, {
+        headers: this.setAdminHeaders()
+      })
+      .pipe(catchError(this.formatErrors));
+  }
 
   /* For Admin API calls - End */
 
@@ -174,6 +182,7 @@ export class ApiService {
       })
       .pipe(catchError(this.formatErrors));
   }
+  
 
 
   patch<ResultModel>(path: string, body: Object = {}): Observable<ResultModel> {

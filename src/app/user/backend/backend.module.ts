@@ -93,7 +93,7 @@ import { UserPaymentDetailsComponent } from './components/user-payment-details/u
     MatExpansionModule,
     NgMultiSelectDropDownModule.forRoot(),
     AgmCoreModule.forRoot({  
-      apiKey: 'AIzaSyC2S5kHeGYkW9cL4d7_uxfauTBfQEtN4HA', libraries: ['places']
+      apiKey: 'AIzaSyBXjEN704D8_IV_U1sHEhl9Cx9lqCzixms', libraries: ['places']
     }),
     MatSliderModule,
     NgxStarRatingModule

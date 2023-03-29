@@ -191,7 +191,7 @@ export class AreaListService {
   
   getpagination1(url: string,reqModel:any): Promise<Pagination> {
     const route = url;
-    return this.apiService.post_pagination(route,reqModel).toPromise().then(
+    return this.apiService.post_pagination_admin(route,reqModel).toPromise().then(
       (response) => {
       return response as Pagination
     })

@@ -140,7 +140,7 @@ import { PaymentFailComponent } from './components/payment-fail/payment-fail.com
     ClipboardModule,
     ReactiveFormsModule,
     AgmCoreModule.forRoot({  
-      apiKey: 'AIzaSyC2S5kHeGYkW9cL4d7_uxfauTBfQEtN4HA', libraries: ['places','drawing', 'geometry']
+      apiKey: 'AIzaSyBXjEN704D8_IV_U1sHEhl9Cx9lqCzixms', libraries: ['places','drawing', 'geometry']
     }),  
     NgImageSliderModule,
     NgbModule,
