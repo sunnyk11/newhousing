@@ -21,9 +21,9 @@ export class ListpropertyRentComponent implements OnInit {
   public dropdownList: any = [];
   public dropdown_sublocality:any=[];
   options: Options = {
-    step: 100,
+    step: 500,
     floor: 5000,
-    ceil: 50000,
+    ceil: 300000,
     translate: (value: number, label: LabelType): string => {
       return '₹' + value.toLocaleString('en');
     },
