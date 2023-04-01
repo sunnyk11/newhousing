@@ -165,7 +165,7 @@ export class IndexComponent implements OnInit {
         }
         if(this.property.Vasant_data.length>0){
           this.city_name1=this.property.Vasant_data['0'].city;
-          this.product_length1=this.property.Vasant_data['0'].city_count;
+          this.product_length1=this.property.Vasant_data['0'].Vasant_count;
         }else{
           this.city_name1='VASANT KUNJ';
           this.product_length1=0;

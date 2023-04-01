@@ -24,8 +24,8 @@ export class SubscriptionPlansComponent implements OnInit {
   value: number = 10000;
   options: Options = {
     floor: 5000,
-    ceil: 50000,
-    step: 100,
+    ceil: 300000,
+    step: 5000,
     animate: true,
     showSelectionBar: true,
     translate: (value: number, label): string => {
