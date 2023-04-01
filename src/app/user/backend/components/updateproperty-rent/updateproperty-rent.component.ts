@@ -24,9 +24,9 @@ export class UpdatepropertyRentComponent implements OnInit {
   private option: any;
 
   options: Options = {
-    step:100,
+    step:500,
     floor: 5000,
-    ceil: 50000,
+    ceil: 300000,
     translate: (value: number, label: LabelType): string => {
       return '₹' + value.toLocaleString('en');
     },
@@ -51,6 +51,7 @@ export class UpdatepropertyRentComponent implements OnInit {
   public showLoadingIndicator:boolean=false;
   public show_draft_btn: boolean = false;
   public testing:any;
+  public clicked = false;
   public amenties:any=[];
   public videolink:number=0;
   public youtube_url: any;
@@ -181,7 +182,8 @@ export class UpdatepropertyRentComponent implements OnInit {
       bathrooms: ['', Validators.required],
       balconies: ['', Validators.required],
       flat_type: ['', Validators.required],
-      property_desc: ['', Validators.required]
+      property_desc: ['', Validators.required],
+      property_notes: ['']
     });
 
     this.form_step2 = this._formBuilder.group({
@@ -604,6 +606,12 @@ export class UpdatepropertyRentComponent implements OnInit {
               property_desc:  data.data.property_detail
             });
           }
+          if(data.data.property_notes != null){
+            this.form_step1.patchValue({
+              property_notes:  data.data.property_notes
+            });
+          }
+          
           if(data.data.flat_type != null){
             this.form_step1.patchValue({
               flat_type:  data.data.flat_type

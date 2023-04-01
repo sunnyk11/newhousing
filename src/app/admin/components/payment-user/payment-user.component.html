@@ -64,7 +64,7 @@
                                 <div class="col-lg-4 col-12 mt15"  *ngIf="mobile_search==true && email_search==false">
                                     <div class="form-group">
                                         <label for="payment_user_data" class="form-label">User Email *</label>
-                                        <input type="text" class="form-control" id="payment_user_data" formControlName="payment_user_data" placeholder="User Email Address:" (keypress)="keyPressNumbers1($event)" (paste)="onPaste($event)" [ngClass]="{ 'is-invalid': submitted && f.user_mobile_no.errors }" readonly>
+                                        <input type="text" class="form-control" id="payment_user_data" formControlName="payment_user_data" placeholder="User Email Address:" (keypress)="keyPressNumbers1($event)" (paste)="onPaste($event)" [ngClass]="{ 'is-invalid': submitted && f.payment_user_data.errors }" readonly>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-12 mt15">
@@ -102,7 +102,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-6 offset-lg-3 col-12 mt20 search-column">
-                                <button type="submit" class="btn btn-submit" (click)="onSubmit()">Payment Send</button>
+                                <button type="submit" class="btn btn-submit"  [disabled]="clicked" (click)="onSubmit();clicked = true;">Payment Send</button>
                             </div>
                             
                             <div class="row mt30" *ngIf="bank_account==true"> 

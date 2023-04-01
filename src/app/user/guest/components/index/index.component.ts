@@ -28,8 +28,10 @@ export class IndexComponent implements OnInit {
   public buyyer_range_slider:boolean= false;
   public property:any={};
   public product_length:number=0;
+  public product_length1:number=0;
   public toll_free=environment.toll_free;
   public city_name:any='';
+  public city_name1:any='';
   public category:any={};
   public chattarpur:any;
   public chattarpur_length:number=0;
@@ -104,7 +106,7 @@ export class IndexComponent implements OnInit {
     }else{
       setTimeout(() => {
         this.visit_user();
-      }, 15000);
+      }, 300000);
 
     }
     
@@ -152,6 +154,7 @@ export class IndexComponent implements OnInit {
   get_property(){
     this.indexPageService.get_Property({ param: null }).subscribe(
       response => {
+        console.log(response);
         this.property=response;
         if(this.property.data.length>0){
           this.city_name=this.property.data['0'].city;
@@ -159,6 +162,13 @@ export class IndexComponent implements OnInit {
         }else{
           this.city_name='Delhi';
           this.product_length=0;
+        }
+        if(this.property.Vasant_data.length>0){
+          this.city_name1=this.property.Vasant_data['0'].city;
+          this.product_length1=this.property.Vasant_data['0'].Vasant_count;
+        }else{
+          this.city_name1='VASANT KUNJ';
+          this.product_length1=0;
         }
         if(this.property.Chattarpur_data.length>0){
           this.chattarpur=this.property.Chattarpur_data['0'].city;
@@ -250,6 +260,10 @@ export class IndexComponent implements OnInit {
    // searching locality name property 
   property_search_locality(){
     this.router.navigate(['/product-listing'],{queryParams:{'locality':'Chattarpur'}})
+  }
+   // searching locality name property 
+   property_search_locality1(){
+    this.router.navigate(['/product-listing'],{queryParams:{'locality':'Vasant Kunj'}})
   }
   selected_locality(data:any){
     this.searchForm.patchValue({locality:data});

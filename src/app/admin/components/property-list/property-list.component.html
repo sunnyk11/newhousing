@@ -19,6 +19,7 @@
                                     <option value="all_property">All Property</option>
                                     <option value="letout_property">Live Property</option>
                                     <option value="rentout_property">Property Rented</option>
+                                    <option value="book_property">Property Book</option>
                                     <option value="user">User</option>
                                     <option value="invoice_no">Invoice No</option>
                                 </select>
@@ -123,15 +124,34 @@
                                         <td>
                                             <p>{{data?.letout_invoice?.user_detail?.email}}</p>
                                             <p>{{data?.letout_invoice?.user_detail?.other_mobile_number}}</p>
-                                            <div class="text-primary" (click)="viewInvoice(data?.letout_invoice?.invoice_no)">{{data?.letout_invoice?.invoice_no}} </div>
+                                            <div (click)="viewInvoice(data?.letout_invoice?.invoice_no)">
+                                                <span class="text-danger" *ngIf="data?.letout_invoice?.payment_status=='UNPAID'">
+                                                    {{data?.letout_invoice?.invoice_no}} 
+                                                </span> 
+                                                <span class="text-success" *ngIf="data?.letout_invoice?.payment_status=='PAID'">
+                                                    {{data?.letout_invoice?.invoice_no}} 
+                                                </span> 
+                                            </div>
                                         </td>
                                         <td>
-                                            <div *ngIf="data?.rent_invoice !=null">
-                                                <p>{{data?.rent_invoice?.user_detail?.email}}</p>
-                                                <p>{{data?.rent_invoice?.user_detail?.other_mobile_number}}</p>
-                                                <div class="text-primary" (click)="viewInvoice(data?.rent_invoice?.invoice_no)">{{data?.rent_invoice?.invoice_no}} </div>    
+                                            <div *ngIf="data?.purchase_property !=null || data?.book_property !=null">
+                                                <span *ngIf="data?.purchase_property !=null">
+                                                    <p>{{data?.purchase_property?.user_details?.email}}</p>
+                                                    <p>{{data?.purchase_property?.user_details?.other_mobile_number}}</p>
+                                                    <div style="cursor:pointer;" *ngIf="data?.purchase_property" (click)="viewInvoice(data?.purchase_property.invoice_no)">
+                                                      <span class="text-success" *ngIf="data?.purchase_property?.payment_status=='PAID'">Main({{data?.purchase_property.invoice_no}})</span> 
+                                                    </div>
+                                                </span>
+                                                <span *ngIf="data?.book_property !=null"></span>
+                                                <p>{{data?.book_property?.admin_purchase_property?.user_details?.email}}</p>
+                                                <p>{{data?.book_property?.admin_purchase_property?.user_details?.other_mobile_number}}</p>
+                                                <div style="cursor:pointer;" class="text-success" *ngIf="data?.book_property" (click)="book_invoice(data?.book_property.invoice_no)">Book({{data?.book_property.invoice_no}}) </div> 
+                                                <div  style="cursor:pointer;" *ngIf="data?.book_property?.admin_purchase_property" (click)="viewInvoice(data?.book_property?.admin_purchase_property.invoice_no)">
+                                                  <span class="text-danger" *ngIf="data?.book_property?.admin_purchase_property?.payment_status=='UNPAID'">Main({{data?.book_property?.admin_purchase_property.invoice_no}})</span> 
+                                                  <span class="text-success" *ngIf="data?.book_property?.admin_purchase_property?.payment_status=='PAID'">Main({{data?.book_property?.admin_purchase_property.invoice_no}})</span> 
+                                                </div>    
                                             </div>
-                                            <div *ngIf="data?.rent_invoice ==null">
+                                            <div *ngIf="data?.purchase_property ==null && data?.book_property ==null">
                                                 NA    
                                             </div>
                                             
@@ -146,6 +166,7 @@
                                                 <li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="Status">
                                                     <div class="text-success" *ngIf="data?.order_status==0">Live</div>
                                                     <div class="text-danger" *ngIf="data?.order_status==1">Rented</div>
+                                                    <div class="text-danger" *ngIf="data?.order_status==2">Book</div>
                                                 </li>
                                             </ul>
                                         </td>
@@ -174,7 +195,7 @@
                                 </ul>
                             </div>
                             <div class="col-lg-12"  *ngIf="property_length==0 && showLoadingIndicator==false">
-                                <h3>No Data Availabe</h3>
+                                <h3>No Data Available</h3>
                             </div>
                         </div>
                     </div>

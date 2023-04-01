@@ -16,6 +16,7 @@ export class RegisterComponent implements OnInit {
   public showLoadingIndicator: boolean = false;
 
   public isSuccessful = false;
+  public clicked = false;
   public errorMessage: any;
   public isSignUpFailed: boolean = false;
   public isVerified: boolean = false;
@@ -141,6 +142,7 @@ export class RegisterComponent implements OnInit {
          // user logs functionalty 
          this.type="Registration page";
          this.input_info=user_data.data;
+          this.jwtService.saveReturnURL('/');
          let param={'userEmail':user_data.data.email,'user_type':this.usertype,'device_info':this.device_info,'browser_info':this.browser_info,'ip_address':this.ip_address,'url_info':this.url_info,'type':this.type,'user_cart':this.user_cart,'input_info':this.input_info}
          this.UserLogsService.user_logs(param).subscribe(
            reponse => {

@@ -23,7 +23,8 @@ export class PaymentSummaryComponent implements OnInit {
 
   public online_pay_btn: boolean = true;
   public cash_pay_btn: boolean = false;
-  public mode_payment: any = 'Online';
+  public mode_payment: any = 'Online'; 
+  public clicked = false;
 
   constructor(
     private PlansServiceService:PlansServiceService,
@@ -89,6 +90,7 @@ export class PaymentSummaryComponent implements OnInit {
        my_form.appendChild(my_tb);
      };
      // console.log(my_form);
+          this.clicked = false;
      document.body.appendChild(my_form);
      my_form.submit();
    // after click will fire you will redirect to paytm payment page.
@@ -115,6 +117,7 @@ export class PaymentSummaryComponent implements OnInit {
       response => {
         let res:any=response;
         this.router.navigate(['invoice'], { queryParams: { 'invoice_no': res.data } });
+        this.clicked = false;
       },
       err => {
         console.log(err);

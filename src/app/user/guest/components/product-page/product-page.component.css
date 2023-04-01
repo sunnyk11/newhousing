@@ -131,6 +131,9 @@
     line-height: 24px;
     margin-bottom: 10px;
     text-align: justify;
+ }
+ .single_page_banner{
+    height: 500px!important;
  }  
  
 #img_header{
@@ -185,6 +188,10 @@
         margin-bottom: 10px;
         text-align: justify;
      }
+     
+ .single_page_banner{
+    height: 300px!important;
+ }  
      .toll_free{
         background-color: #ffff!important;
         border-color: #888!important;
@@ -360,7 +367,11 @@
 .tollfree_row span i{
     color:#00ff00;
 }
-button i,a{
+.chekout_btn i{
+    color: #fff!important;
+}
+
+.chekout_btn a{
     color: #fff!important;
 }
 .tollfree_row #heading a{

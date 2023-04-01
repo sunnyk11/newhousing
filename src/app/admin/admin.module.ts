@@ -66,6 +66,11 @@ import { LocalityListComponent } from './components/locality-list/locality-list.
 import { UpdateLocalityComponent } from './components/update-locality/update-locality.component';
 import { SubLocalityListComponent } from './components/sub-locality-list/sub-locality-list.component';
 import { UpdateSubLocalityComponent } from './components/update-sub-locality/update-sub-locality.component';
+import { AreaGroupComponent } from './components/area-group/area-group.component';
+import { AddAreaGroupComponent } from './components/add-area-group/add-area-group.component';
+import { UpdateAreaGroupComponent } from './components/update-area-group/update-area-group.component';
+import { BookInvoiceComponent } from './components/book-invoice/book-invoice.component';
+import { ListingPageHeadingComponent } from './components/listing-page-heading/listing-page-heading.component';
 @NgModule({
   declarations: [
     LoginComponent,
@@ -113,7 +118,12 @@ import { UpdateSubLocalityComponent } from './components/update-sub-locality/upd
     LocalityListComponent,
     UpdateLocalityComponent,
     SubLocalityListComponent,
-    UpdateSubLocalityComponent
+    UpdateSubLocalityComponent,
+    AreaGroupComponent,
+    AddAreaGroupComponent,
+    UpdateAreaGroupComponent,
+    BookInvoiceComponent,
+    ListingPageHeadingComponent
   ],
   imports: [
     CommonModule,
@@ -135,7 +145,7 @@ import { UpdateSubLocalityComponent } from './components/update-sub-locality/upd
     MatAutocompleteModule,
     EditorModule,
     AgmCoreModule.forRoot({  
-      apiKey: 'AIzaSyC2S5kHeGYkW9cL4d7_uxfauTBfQEtN4HA', libraries: ['places','drawing', 'geometry']
+      apiKey: 'AIzaSyBXjEN704D8_IV_U1sHEhl9Cx9lqCzixms', libraries: ['places','drawing', 'geometry']
     }),  
     NgImageSliderModule,
     GuestModule

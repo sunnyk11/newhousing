@@ -4,7 +4,7 @@ import { LocalServiceProviderService } from 'src/app/user/backend/services/local
 import { ToastrService } from 'ngx-toastr';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { CommonService } from 'src/app/user/backend/services/common.service';
-import { Router,ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 

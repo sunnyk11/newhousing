@@ -24,6 +24,10 @@ export class RolesService {
     const route = "/api/get_roles";
     return this.apiService.get<ResultModel>(route, reqModel);
   }
+  get_area_group(reqModel: any): Observable<ResultModel> {
+    const route = "/api/get_area_group";
+    return this.apiService.get<ResultModel>(route, reqModel);
+  }
 
   getRolePermissions(reqModel: any): Observable<ResultModel> {
     const route = "/api/get_role_permissions";
@@ -54,9 +58,17 @@ export class RolesService {
     const route = "/api/auth/get_user_roles/";
     return this.apiService.admin_get<ResultModel>(route + reqModel);
   }
+  getUsergroup(reqModel:any): Observable<ResultModel> {
+    const route = "/api/auth/getUsergroup/";
+    return this.apiService.admin_get<ResultModel>(route + reqModel);
+  }
 
   editUserRoles(user_id:any, rolesArray: any) {
     const route = "/api/auth/edit_user_roles";
+    return this.apiService.admin_post<ResultModel>(route, {user_id: user_id, rolesArray: rolesArray});
+  }
+  editUsergroup(user_id:any, rolesArray: any) {
+    const route = "/api/auth/edit_user_group";
     return this.apiService.admin_post<ResultModel>(route, {user_id: user_id, rolesArray: rolesArray});
   }
  }

@@ -33,11 +33,14 @@ import { UserLogsGuard } from './guards/user-logs.guard';
 import { FaqComponent } from './components/faq/faq.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { ThankYouComponent } from './components/thank-you/thank-you.component';
+import { BookPropertyComponent } from './components/book-property/book-property.component';
 import { UserReviewsComponent } from './components/user-reviews/user-reviews.component';
 import { VerifyMobileSuccessComponent } from './components/verify-mobile-success/verify-mobile-success.component';
 import { FixedAppointmentComponent } from './components/fixed-appointment/fixed-appointment.component';
 import { ProductPreviewComponent } from './components/product-preview/product-preview.component';
 import { VisitUserThankComponent } from './components/visit-user-thank/visit-user-thank.component';
+import { RemainingCheckoutComponent } from './components/remaining-checkout/remaining-checkout.component';
+import { PaymentFailComponent } from './components/payment-fail/payment-fail.component';
 import { NotfoundComponentComponent } from '../components/notfound-component/notfound-component.component';
 //custom component imports
 
@@ -67,6 +70,7 @@ const routes: Routes = [
         { path: "user-reviews", component: UserReviewsComponent, canActivate: [AuthGuard,UserLogsGuard]},
         { path: "sign-up/thank-you", component: ThankYouComponent, canActivate: [UserLogsGuard]},
         { path: "invoice", component: InvoiceComponent, canActivate: [AuthGuard]},
+        { path: "book-property", component: BookPropertyComponent, canActivate: [AuthGuard]},
         { path: "my-properties", component: MyPropertiesComponent, canActivate: [AuthGuard]},
         { path: "register", component: RegisterComponent,canActivate:  [UserLogsGuard]},
         { path: "sign-up", component: SignupComponent,canActivate:  [UserLogsGuard]},
@@ -79,6 +83,8 @@ const routes: Routes = [
         { path: 'blog', component: BlogComponent,canActivate:  [UserLogsGuard] },
         { path: 'product-preview', component: ProductPreviewComponent,canActivate:  [UserLogsGuard] },
         { path: 'faq', component: FaqComponent },
+        { path: 'remaining-payment-summery', component: RemainingCheckoutComponent,canActivate: [AuthGuard] },
+        { path: 'payment-fail', component: PaymentFailComponent,canActivate: [AuthGuard] },
         {path: '**', component: NotfoundComponentComponent}
       ]
     }

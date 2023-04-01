@@ -20,7 +20,9 @@
                         <tr>
                             <th class="text-center img"><img src="../../../../../assets/resources/images/logo/logo.png" alt=""></th>
                             <th class="text-center">
-                                <h2>TAX INVOICE</h2>
+                                <h2 *ngIf="inv_response?.book_property && inv_response?.plan_type =='Rent'">INVOICE</h2>
+                                <h4 *ngIf="inv_response?.book_property && inv_response?.plan_type =='Rent'">(Remaining Amount)</h4>
+                                <h2 *ngIf="inv_response?.book_property == null && inv_response?.plan_type =='Rent'">Tax INVOICE</h2>
                             </th>
                         </tr>
                         <tr>
@@ -104,15 +106,50 @@
                             <td>{{ product_data?.maintenance_condition?.name }}</td>
                             <td>&#8377; {{ ord_details?.maintenance_charge }}</td>
                         </tr>
+                        
+                        <tr *ngIf="inv_response?.book_property && inv_response?.plan_type =='Rent'">
+                            <th></th>
+                            <td>Total Amount to Owner</td>
+                            <td>
+                                <strong>( 1
+                                   <span *ngIf="ord_details?.security_deposit">+ 2 </span>
+                                   <span *ngIf="ord_details?.maintenance_charge">+ 3 </span>)
+                                </strong>
+                            </td>
+                            <td><strong>&#8377; {{total_amount_owner}}</strong></td>
+                        </tr>
+                        <tr *ngIf="inv_response?.book_property && inv_response?.plan_type =='Rent'">
+                            <th></th>
+                            <td>Book Property
+                                <a class="text text-primary" [routerLink]="['/book-property']" [queryParams]="{invoice_no: inv_response?.book_property?.invoice_no}"  target="_blank">({{ inv_response?.book_property?.invoice_no }})</a>
+                            </td>
+                            <td> Advance Payment</td>
+                            <td><strong>&#8377; {{ percentage_amount}}</strong></td>
+                        </tr>
                         <tr>
                             <th></th>
-                            <td>Total Amount payable to Owner <strong>(A)</strong></td>
+                            <td>Total Amount payable to Owner <strong>(A)</strong>
+                             </td>
+                            <td>
+                                <span *ngIf="inv_response?.book_property">&#8377; {{ total_amount_owner }}- {{percentage_amount}}</span>
+                                <span *ngIf="inv_response?.book_property ==null">&#8377;{{ total_amount_owner }}</span>
+                            </td>
+                            <td><strong>
+                                <span *ngIf="inv_response?.book_property">{{ total_amount_owner - percentage_amount }}</span>
+                                <span *ngIf="inv_response?.book_property == null">&#8377;{{ total_amount_owner }}</span>
+                            </strong></td>
+                        </tr>
+                        <tr *ngIf="inv_response?.book_property && inv_response?.plan_type =='Rent'">
                             <td></td>
-                            <td><strong>&#8377; {{ total_amount_owner }}</strong></td>
+                            <td> </td>
+                            <td>
+                                <strong>{{amount_words}}</strong>
+                            </td>
+                            <td></td>
                         </tr>
                     </tbody>
 
-                    <thead>
+                    <thead  *ngIf="inv_response?.book_property == null">
                         <tr>
                             <th>Sl No</th>
                             <th>Description & Specification of Services</th>
@@ -120,7 +157,7 @@
                             <th>Amount</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody *ngIf="inv_response?.book_property == null">
                         <tr>
                             <th>1</th>
                             <td> {{ inv_response?.plan_name }} Plan

@@ -19,6 +19,7 @@ export class PaymentUserComponent implements OnInit {
   public submitted: boolean = false;
   public showLoadingIndicator: boolean =false;
   public p:number=0;
+  public clicked = false;
   public dropdownList:any=[];
   public dropdownList_mobile:any=[];
   public dropdown_product:any=[];

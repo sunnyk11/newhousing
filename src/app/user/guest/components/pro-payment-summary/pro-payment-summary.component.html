@@ -1,7 +1,7 @@
 <div *ngIf="showLoadingIndicator">
     <div class="preloader"></div>
 </div>
-<div class="container container1 mb20">
+<div class="container container1 mb20" *ngIf="show_section==true">
     <div class="accordion" id="accordionExample">
         <div class="accordion-item">
             <h2 class="accordion-header" id="headingOne">
@@ -237,16 +237,95 @@
                                             <div class="col-4"><h6 class="heading_amount"><strong>{{ total_amount_hs }}</strong></h6></div>
                                         </div>
                                         <hr>
-                                        
-                                        <div class="row">
-                                            <div class="col-7 col-lg-9"> 
+                                        <div class="row" *ngIf="purchase_property==false && book_property==true">
+                                            <div class="col-8"><h6 class="heading_text">Select Percentage:</h6></div>
+                                            <div class="col-4"><h6 class="heading_amount"><strong>{{ payment_percentage }}%</strong></h6></div>
+                                            <div class="col-8"><h6 class="heading_text"><strong> Amount(C) :<br>({{ payment_percentage }}% of A)</strong></h6></div>
+                                            <div class="col-4"><h6 class="heading_amount"><strong>{{ section_c }}</strong></h6></div>
+                                            <!-- <div class="col-8"><h6 class="heading_text"><strong>Total Amount(C):</strong></h6></div>
+                                            <div class="col-4"><h6 class="heading_amount"><strong>{{ section_c }}</strong></h6></div> -->
+                                        </div>
+                                        <hr *ngIf="purchase_property==false && book_property==true">
+                                        <div class="row" *ngIf="purchase_property==false && book_property==true">
+                                            <div class="col-7 col-lg-8"> 
+                                                <h6 class="heading_text"><strong>Total Payable Amount(B+C):</strong></h6>
+                                                <!-- <h6><strong>(A+B)</strong></h6> -->
+                                            </div>
+                                            <div class="col-5 col-lg-4"><h6 class="heading_amount"><strong>{{  total_amount}}</strong></h6></div>
+                                        </div>
+                                        <div class="row" *ngIf="purchase_property==true && book_property==false">
+                                            <div class="col-7 col-lg-8"> 
                                                 <h6 class="heading_text"><strong>Total Payable Amount(A+B):</strong></h6>
                                                 <!-- <h6><strong>(A+B)</strong></h6> -->
                                             </div>
-                                            <div class="col-5 col-lg-3"><h6 class="heading_amount"><strong>{{  total_amount_hs + total_amount_owner }}</strong></h6></div>
+                                            <div class="col-5 col-lg-4"><h6 class="heading_amount"><strong>{{  total_amount}}</strong></h6></div>
                                         </div>
+                                        <hr>
                                         
                                         <div class="row">
+                                            
+                                            <div class="col-12 mt10 mb10">
+                                                <div class="row">
+                                                    <div class="col-12 mt10 mb10">
+                                                        <h6 style="margin:10px 0px ;"><strong>Payment Percentage</strong></h6>
+                                                    </div>
+                                                    <div class="col-6"> 
+                                                        <div class="form-check form-check-inline">
+                                                            <input class="form-check-input" type="radio" name="payment_type" id="purchase_property" value="purchase_property" (change)="changepayment_type($event)" checked>
+                                                            <label class="form-check-label" for="purchase_property">
+                                                                Rent Property
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="form-check form-check-inline">
+                                                            <input class="form-check-input" type="radio" name="payment_type" id="book_property" value="book_property" (change)="changepayment_type($event)" >
+                                                            <label class="form-check-label" for="book_property">
+                                                                Book Property
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12" *ngIf="purchase_property==false && book_property==true">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <h6>Select Percentage</h6>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <div class="form-check form-check-inline">
+                                                            <input class="form-check-input" type="radio" name="percentage" id="fifteen" value="15" (change)="changepercentage($event)" >
+                                                            <label class="form-check-label" for="fifteen">
+                                                                15%
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <div class="form-check form-check-inline">
+                                                            <input class="form-check-input" type="radio" name="percentage" id="twenty" value="20" (change)="changepercentage($event)" >
+                                                            <label class="form-check-label" for="twenty">
+                                                                20%
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <div class="form-check form-check-inline">
+                                                            <input class="form-check-input" type="radio" name="percentage" id="thirty" value="30" (change)="changepercentage($event)" >
+                                                            <label class="form-check-label" for="thirty">
+                                                                30%
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <div class="form-check form-check-inline">
+                                                            <input class="form-check-input" type="radio" name="percentage" id="forteen" value="40" (change)="changepercentage($event)" checked>
+                                                            <label class="form-check-label" for="forteen">
+                                                                40%
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div class="col-12">
                                                 <h6 style="margin:10px 0px ;"><strong>Mode of Payment</strong></h6>
                                             </div>
@@ -262,13 +341,13 @@
                                                 <div class="form-check form-check-inline">
                                                     <input class="form-check-input" type="radio" name="payment" id="cash_payment" value="Cash" (change)="changePayment($event)">
                                                     <label class="form-check-label" for="cash_payment">
-                                                        Payment By Cash
+                                                        Offline Payment
                                                     </label>
                                                 </div>
                                             </div>
                                             <div class="col-12">
-                                                <button class="btn btn-success" *ngIf="online_pay_btn" (click)="proceedToPayment()">Proceed to Payment</button>
-                                                <button class="btn btn-info" *ngIf="cash_pay_btn" (click)="generateInvoice()">Generate Invoice</button>
+                                                <button class="btn btn-success" *ngIf="online_pay_btn" [disabled]="clicked" (click)="proceedToPayment();clicked = true;">Proceed to Payment</button>
+                                                <button class="btn btn-info" *ngIf="cash_pay_btn"  [disabled]="clicked" (click)="generateInvoice();  clicked = true;">Generate Invoice</button>
                                             </div>
                                         </div>
                                         <!-- <h4><strong>Total Payable Amount (A+B): {{ total_amount_hs + total_amount_owner
@@ -298,6 +377,20 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container container1 mb20" *ngIf="show_section==false">
+    <div class="wrapper no_property_row">
+        <div  class="container">
+            <div class="row">
+                <div class="col-12 col-lg-8 offset-lg-2">
+                   <h3 class="text-danger no_property"  *ngIf="pro_data.order_status==1">This Property has been Let Out</h3>
+                    <h3 class="text-danger no_property"  *ngIf="pro_data.order_status== 2">This Property has been Book</h3>
+                    <img class="img-whp noproduct" src="./../../assets/resources/images/error.png" alt="No Product Image">
                 </div>
             </div>
         </div>

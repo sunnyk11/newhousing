@@ -63,6 +63,8 @@ export class ProductListingComponent implements OnInit {
   public access_search_bar: boolean = false;
   public  selected_sub_locality:any=[];
   public returnUrl:any;
+  public heading_data:any;
+  public  sublocality_data: any = [];
   
   private amenityArray:any = [];
   private search_amenties_convert: any=[];
@@ -80,6 +82,7 @@ export class ProductListingComponent implements OnInit {
     city:[''],
     Furnished:[''],
     locality:[''],
+    locality_id:[''],
     locality_data:[''],
     property_status:[''],
     search_type: ['rent'],
@@ -100,9 +103,9 @@ export class ProductListingComponent implements OnInit {
     },
   };
   options_rent: Options = {
-    step:1000,
+    step:5000,
     floor: 5000,
-    ceil: 50000,
+    ceil: 300000,
     translate: (value: number, label: LabelType): string => {
       return '₹' + value.toLocaleString('en');
     },
@@ -140,13 +143,16 @@ export class ProductListingComponent implements OnInit {
     this.showLoadingIndicator = true;
     this.dropdown_data();
      this.getAmenities();
+     this.getheading_data();
+     
+     this.sublocality_data = new Array<string>();
     
      this.dropdownSettings1 = {
-       singleSelection: true,
+       singleSelection: false,
        idField: 'sub_locality_id',
        textField: 'sub_locality_text',
        enableCheckAll: false,
-       itemsShowLimit: 1,
+       itemsShowLimit: 3,
        allowSearchFilter: true,
        closeDropDownOnSelection:true,
        noDataAvailablePlaceholderText: "Sub Locality not Availabale",
@@ -214,6 +220,13 @@ export class ProductListingComponent implements OnInit {
     this.CommonService.getAmenities({ param: null }).subscribe(
       response => {
         this.amenties=response;
+      }
+    );
+  }
+  getheading_data(){
+    this.CommonService.getheading_data({ param: null }).subscribe(
+      response => {
+        this.heading_data=response;
       }
     );
   }
@@ -348,28 +361,73 @@ export class ProductListingComponent implements OnInit {
         this.onsearch();
        }else if(params.min_price != null && params.max_price != null){
           this.selected_sub_locality=[];
-          this.selected_sub_locality =this.selected_sub_locality.concat({sub_locality_id: params.sub_locality_id, sub_locality_text: params.sub_locality});     
+          let url_locality_id:any;
+          url_locality_id=params.locality_id;
+          if(params.sub_locality_id != null){
+            let param={Locality_id:params.sub_locality_id.split(',')}
+             this.CommonService.get_sub_locality_byid(param).subscribe(
+               response => {
+                 let data:any=response;
+                 this.dropdown_sublocality=[];
+                 // this.form_step2.patchValue({sub_locality:''});
+                 if(data.data.length<1){
+                   this.dropdown_sublocality=[];
+                 }else{
+                   for (let i = 0; i < data.data.length; i++) {
+                     this.selected_sub_locality = this.selected_sub_locality?.concat({ sub_locality_id: data.data[i].sub_locality_id, sub_locality_text: data.data[i].sub_locality});
+                   }
+                   this.searchForm.patchValue({
+                     sub_locality:this.selected_sub_locality
+                   });
+                    this.searchForm.patchValue({
+                    bathrooms:params.bathrooms,
+                    bedrooms:params.bedrooms,
+                    area_unit:params.area_unit,
+                    build_name:params.name,
+                    product_id:params.product_id,
+                    years:params.years,
+                    type:params.type,
+                    locality:params.locality,
+                    locality_data:params.locality,
+                    city:params.city,
+                    flat_type:params.flat_type,
+                    Furnished:params.Furnished,
+                    security_deposit:params.security_deposit,
+                    sliderControl:[Number(params.min_price),Number(params.max_price)]
+                  });
+                  this.selected_locality_inertnal(params.locality,url_locality_id);
+                  this.property_type_check_url();
+                  this.onsearch();
+                 }
+               }
+             );
+          }else{
             this.searchForm.patchValue({
-            bathrooms:params.bathrooms,
-            bedrooms:params.bedrooms,
-            area_unit:params.area_unit,
-            build_name:params.name,
-            product_id:params.product_id,
-            years:params.years,
-            type:params.type,
-            locality:params.locality,
-            locality_data:params.locality,
-            city:params.city,
-            flat_type:params.flat_type,
-            Furnished:params.Furnished,
-            security_deposit:params.security_deposit,
-            sliderControl:[Number(params.min_price),Number(params.max_price)]
-          });
-           if(this.selected_sub_locality[0].sub_locality_id != undefined){
-              this.searchForm.patchValue({
-                sub_locality:this.selected_sub_locality
-              });
-            }
+              bathrooms:params.bathrooms,
+              bedrooms:params.bedrooms,
+              area_unit:params.area_unit,
+              build_name:params.name,
+              product_id:params.product_id,
+              years:params.years,
+              type:params.type,
+              locality:params.locality,
+              locality_data:params.locality,
+              city:params.city,
+              flat_type:params.flat_type,
+              Furnished:params.Furnished,
+              security_deposit:params.security_deposit,
+              sliderControl:[Number(params.min_price),Number(params.max_price)]
+            });
+            this.selected_locality_inertnal(params.locality,url_locality_id);
+            this.property_type_check_url();
+            this.onsearch();
+          }
+          // console.log(this.selected_sub_locality);
+          //  if(this.selected_sub_locality[0].sub_locality_id != undefined){
+          //     this.searchForm.patchValue({
+          //       sub_locality:this.selected_sub_locality
+          //     });
+          //   }
             if(params.amenties != null){  
             this.search_amenties=params.amenties;      
                 if(this.search_amenties.length>0){
@@ -379,9 +437,10 @@ export class ProductListingComponent implements OnInit {
                   }
                   this.amenityArray=this.search_amenties_convert;
                 }
-            }
+                
           this.property_type_check_url();
           this.onsearch();
+            }
          }
       //  else if(params.search_type !=null){
       //   this.searchForm.patchValue({
@@ -397,13 +456,13 @@ export class ProductListingComponent implements OnInit {
        else if(params.category != null){
         this.searchForm.controls['type'].setValue(params.category);         
         this.searchForm.value.sliderControl[0] = 5000;
-        this.searchForm.value.sliderControl[1] = 50000000;  
+        this.searchForm.value.sliderControl[1] = 300000;  
         this.onsearch();
        }
        else if(params.flat_type != null){
         this.searchForm.controls['flat_type'].setValue(params.flat_type);         
         this.searchForm.value.sliderControl[0] = 5000;
-        this.searchForm.value.sliderControl[1] = 50000000;  
+        this.searchForm.value.sliderControl[1] = 300000;  
         this.onsearch();
        }else if(params.cities != null){
         this.searchForm.patchValue({
@@ -415,23 +474,24 @@ export class ProductListingComponent implements OnInit {
           years:'',
           type:'',
           locality:'',
+          locality_id:'',
           locality_data:'',
         });
         this.searchForm.controls['city'].setValue(params.cities);        
         this.searchForm.value.sliderControl[0] = 5000;
-        this.searchForm.value.sliderControl[1] = 50000000;
+        this.searchForm.value.sliderControl[1] = 300000;
         this.onsearch();
        }else if(params.locality != null){
         this.searchForm.controls['locality'].setValue(params.locality);  
         this.searchForm.controls['locality_data'].setValue(params.locality);        
         this.searchForm.value.sliderControl[0] = 5000;
-        this.searchForm.value.sliderControl[1] = 50000000;
+        this.searchForm.value.sliderControl[1] = 300000;
         this.onsearch();
        }
        
        else{
         this.searchForm.value.sliderControl[0] = 5000;
-        this.searchForm.value.sliderControl[1] = 50000000;
+        this.searchForm.value.sliderControl[1] = 300000;
         this.onsearch();
        }
     });
@@ -444,13 +504,18 @@ export class ProductListingComponent implements OnInit {
     this.searchForm.value.max_price=this.searchForm.value.sliderControl[1];
     if(this.jwtService.getToken().length>5){
       if(this.access_search_bar == true){
-        if(this.searchForm.value.sub_locality.length>0){
-          this.searchForm.value.sub_locality=Number(this.searchForm.value.sub_locality[0].sub_locality_id);
+        if(this.selected_sub_locality.length>0){
+          this.sublocality_data=[];
+            for(let i=0; i<this.selected_sub_locality.length; i++){
+              this.sublocality_data.push(this.selected_sub_locality[i].sub_locality_id);
+            }
+          this.searchForm.value.sub_locality=this.sublocality_data;
         }
         // let param={data:this.searchForm.value,amenities:this.amenityArray}
         this.ProductListingPageService.login_product_details(this.searchForm.value).then(
           Pagination_data => {
             this.property=Pagination_data;
+            console.log(Pagination_data);
             this.product_length=this.property.data.total;
             if(this.product_length<1){
               this.property_availablty=false;
@@ -507,7 +572,6 @@ export class ProductListingComponent implements OnInit {
     }
     this.closePopup();
   } 
-  
   gotoPage(link_url: any) {
     this.searchForm.value.min_price= this.searchForm.value.sliderControl[0];
     this.searchForm.value.max_price=this.searchForm.value.sliderControl[1]; 
@@ -519,11 +583,12 @@ export class ProductListingComponent implements OnInit {
     });
   } 
   selected_locality(data:any){
-    this.searchForm.controls['locality'].setValue(data);  
+    this.searchForm.controls['locality'].setValue(data);   
   }   
   selected_locality_inertnal(text:any,id:any){
     let param = { Locality_id:id}
-    this.searchForm.controls['locality'].setValue(text);  
+    this.searchForm.controls['locality'].setValue(text);
+    this.searchForm.controls['locality_id'].setValue(id);    
     this.CommonService.get_sub_locality(param).subscribe(
       response => {
         let data:any=response;
@@ -539,12 +604,17 @@ export class ProductListingComponent implements OnInit {
       }
     );
   }
+  
   navigate(): void{
     this.showLoadingIndicator = true;
     if(this.searchForm.value.locality.length<3){
       this.searchForm.patchValue({locality:'',sub_locality:''});
     }
     let data:any=this.searchForm.value;
+    this.sublocality_data=[];
+    for(let i=0; i<data.sub_locality.length; i++){
+      this.sublocality_data.push(data.sub_locality[i].sub_locality_id);
+    }
     this.product_length=0;
     if(this.jwtService.getToken()){
       this.login_userid = this.jwtService.getUserId();
@@ -562,9 +632,9 @@ export class ProductListingComponent implements OnInit {
         }
        if(this.access_search_bar == true){
          if(data.sub_locality.length>0){
-          this.router.navigate(['/product-listing'],{queryParams:{'name':data.build_name,'flat_type':data.flat_type,'Furnished':data.Furnished,'product_id':data.product_id,'city':data.city,'type':data.type,'security_deposit':data.security_deposit,'locality':data.locality,'sub_locality':data.sub_locality[0]['sub_locality_text'],'sub_locality_id':data.sub_locality[0]['sub_locality_id'],'search_type':data.search_type,'area_unit':data.area_unit,'years':data.years,'bedrooms':data.bedrooms,'bathrooms':data.bathrooms,'min_price':data.sliderControl[0],'max_price':data.sliderControl[1]}});        
+          this.router.navigate(['/product-listing'],{queryParams:{'name':data.build_name,'flat_type':data.flat_type,'Furnished':data.Furnished,'product_id':data.product_id,'city':data.city,'type':data.type,'security_deposit':data.security_deposit,'locality':data.locality,'locality_id':data.locality_id,'sub_locality':data.sub_locality[0]['sub_locality_text'],'sub_locality_id':this.sublocality_data.toString(),'search_type':data.search_type,'area_unit':data.area_unit,'years':data.years,'bedrooms':data.bedrooms,'bathrooms':data.bathrooms,'min_price':data.sliderControl[0],'max_price':data.sliderControl[1]}});        
          }else{
-          this.router.navigate(['/product-listing'],{queryParams:{'name':data.build_name,'flat_type':data.flat_type,'Furnished':data.Furnished,'product_id':data.product_id,'city':data.city,'type':data.type,'security_deposit':data.security_deposit,'locality':data.locality,'search_type':data.search_type,'area_unit':data.area_unit,'years':data.years,'bedrooms':data.bedrooms,'bathrooms':data.bathrooms,'min_price':data.sliderControl[0],'max_price':data.sliderControl[1]}});        
+          this.router.navigate(['/product-listing'],{queryParams:{'name':data.build_name,'flat_type':data.flat_type,'Furnished':data.Furnished,'product_id':data.product_id,'city':data.city,'type':data.type,'security_deposit':data.security_deposit,'locality':data.locality,'locality_id':data.locality_id,'search_type':data.search_type,'area_unit':data.area_unit,'years':data.years,'bedrooms':data.bedrooms,'bathrooms':data.bathrooms,'min_price':data.sliderControl[0],'max_price':data.sliderControl[1]}});        
          }
         // this.router.navigate(['/product-listing'],{queryParams:{'name':data.build_name,'city':data.city,'type':data.type,'locality':data.locality,'sub_locality':data.sub_locality[0]['sub_locality_text'],'sub_locality_id':data.sub_locality[0]['sub_locality_id'],'search_type':data.search_type,'area_unit':data.area_unit,'years':data.years,'bedrooms':data.bedrooms,'bathrooms':data.bathrooms,'min_price':data.sliderControl[0],'max_price':data.sliderControl[1]}});
         // this.router.navigate(['/product-listing'],{queryParams:{'name':data.build_name,'city':data.city,'type':data.type,'locality':data.locality,'search_type':data.search_type,'area_unit':data.area_unit,'years':data.years,'bedrooms':data.bedrooms,'bathrooms':data.bathrooms,'minimum':data.sliderControl[0],'maximum':data.sliderControl[1],amenties:this.amenityArray}});
@@ -596,7 +666,7 @@ export class ProductListingComponent implements OnInit {
   property_type():void{
     if(this.searchForm.value.search_type=='rent'){ 
       this.searchForm.value.sliderControl[0] = 5000;
-      this.searchForm.value.sliderControl[1] = 500000;
+      this.searchForm.value.sliderControl[1] = 300000;
       this.searchForm.controls['search_type'].setValue('rent');
       this.rent_range_slider=true;
       this.buyyer_range_slider=false;
@@ -650,6 +720,7 @@ export class ProductListingComponent implements OnInit {
       Furnished:'',
       city:'',
       locality:'',
+      locality_id:'',
       locality_data:'',
       property_status:'',
       security_deposit:'',

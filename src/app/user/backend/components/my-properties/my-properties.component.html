@@ -135,14 +135,14 @@
                                     <tr *ngIf="property?.enabled == 'yes'">
                                       <td class="enabled_text" colspan="2">
                                         <h4  *ngIf="property?.order_status == '0'"><span class="checkmark"><strong>&#10004;</strong></span> Your property is live</h4>
-                                        <h4  *ngIf="property?.order_status == '1'"><span class="checkmark"><strong>&#10004;</strong></span> Your property is Rentout</h4>
+                                        <h4  *ngIf="property?.order_status == '1' || property?.order_status == '2'"><span class="checkmark"><strong>&#10004;</strong></span> Your property is Rentout</h4>
                                       </td>
                                       <td class="enabled_text" colspan="2">
                                        
                                         <!-- <button class="btn btn-success"  data-bs-toggle="modal" data-bs-target="#Mymodal" (click)="property_rent_slip(property.id)">
                                            Property Rent Slip
                                           </button> -->
-                                          <button class="btn btn-success" *ngIf="property?.order_status == 1" (click)="rentslip(property.id)"> Property Rent Slip </button>
+                                          <button class="btn btn-success" *ngIf="property?.order_status == '1' || property?.order_status == '2'" (click)="rentslip(property.id)"> Property Rent Slip </button>
                                           <button class="btn btn-warning" *ngIf="property?.order_status == 0" (click)="rentslip(property.id)"> Property Rent Slip </button>
                                            <!-- <button type="button" class="btn btn-success" *ngIf="data.payment_received != 'Pending'" data-bs-toggle="modal" data-bs-target="#Mymodal" (click)="confirmation_modal(data.invoice_no)" > </button>-->
                                

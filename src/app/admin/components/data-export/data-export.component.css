@@ -11,6 +11,15 @@
     font-size: 20px;
     cursor: pointer!important;
 }
+.btn-primary{
+  font-size: 12px!important;
+}
+td{
+  font-size: 14px!important;
+}
+th{
+  font-size: 13px!important;
+}
 .fa-star{
     color: #fd4!important;
     cursor: pointer;

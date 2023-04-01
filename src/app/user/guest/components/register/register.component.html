@@ -23,7 +23,7 @@
                         <p class="text-center">Have an account? <a class="text-thm" routerLink="/login">Login</a></p>
                     </div>
                     <div class="details">
-                        <form [formGroup]="form" *ngIf="!isSuccessful && isVerified == false && showLoadingIndicator == false" name="form" (ngSubmit)="onSubmit()">
+                        <form [formGroup]="form" *ngIf="!isSuccessful && isVerified == false && showLoadingIndicator == false" name="form" >
                             <div class="row">
                                 <div class="col-xl-6 col-lg-12 col-md-6 col-sm-12">
                                     <div class="input-group mb-3">
@@ -125,7 +125,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <button class="btn btn-log btn-block btn-thm">Register</button>
+                                <button class="btn btn-log btn-block btn-thm" [disabled]="clicked" (click)="onSubmit();clicked = true;">Register</button>
                             </div>
 
                             <div class="alert alert-warning mt20" *ngIf="submitted && isSignUpFailed">

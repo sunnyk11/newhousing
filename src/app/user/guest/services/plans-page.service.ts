@@ -47,6 +47,11 @@ export class PlansPageService {
     const route = "/api/auth/plans_rent_payment/";
     return this.apiService.get<ResultModel>(route + reqModel);
   }
+  
+  remaing_plans_rent_payment(reqModel: any): Observable<ResultModel> {
+    const route = "/api/auth/remaing_plans_rent_payment/";
+    return this.apiService.get<ResultModel>(route + reqModel);
+  }
 
   generateRentInvoice(reqModel: any): Observable<ResultModel> {
     const route = "/api/auth/generate_rent_invoice";

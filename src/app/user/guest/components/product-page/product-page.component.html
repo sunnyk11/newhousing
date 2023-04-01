@@ -152,6 +152,38 @@
                                 </p>
                             </div>
                         </div>
+                        <div class="col-lg-12 mt10 mb10" *ngIf="access_other_details == true">    
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faq-h2">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panel-renter8" aria-expanded="true" aria-controls="panel-renter8">
+                                        Property Notes
+                                    </button>
+                                </h2>
+                                <div id="panel-renter8" class="accordion-collapse collapse" aria-labelledby="faq-h2">
+                                    <div class="accordion-body">
+                                        <form role="form" action="" method="post" class="f" [formGroup]="Property_notesform" novalidate>
+                                      <div class="row">
+                                        <div class="col-12 mt10" *ngIf="product_data?.property_notes">
+                                            <p style="text-transform: capitalize;inline-size: 100%; overflow-wrap: break-word;line-height: 28px;font-size: 15px;">{{product_data?.property_notes}}</p>
+                                             <h6><i class="fa fa-user"></i> : <span *ngIf="product_data?.notes_updated?.id != product_data?.user_detail?.id">{{product_data?.notes_updated?.email}} <span *ngIf="product_data?.notes_updated?.other_mobile_number"> ({{product_data?.notes_updated?.other_mobile_number}})</span></span>
+                                                <span *ngIf="product_data?.notes_updated?.id == product_data?.user_detail?.id">Property Owner<span *ngIf="product_data?.notes_updated?.other_mobile_number"> ({{product_data?.notes_updated?.other_mobile_number}})</span></span>
+                                             </h6>
+                                        </div>
+                                        <div class="col-12 mt10 mb10">
+                                            <textarea rows="2" cols="10" class="form-control" placeholder="Enter Notes Content" aria-label="With textarea" id="property_notes" formControlName="property_notes" [ngClass]="{ 'is-invalid': submitted && f.property_notes.errors }"></textarea>
+                                        </div>
+                                        <div class="col-lg-4  col-12 offset-lg-8">
+                                            <button class="btn btn-success" style="background-color:#4caf50!important;" (click)="onsubmit()">
+                                                <span  *ngIf="product_data?.property_notes == null">Add Notes</span>
+                                                <span  *ngIf="product_data?.property_notes != null">Update Notes</span>
+                                            </button>
+                                         </div>
+                                      </div>
+                                      </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-lg-12">
                             <div class="additional_details">
                                 <div class="row">
@@ -901,7 +933,7 @@
     </section>
 
     <span *ngIf="login_usertype == 11 || login_usertype == 8 ">
-    <div class="single_page_listing_tab" *ngIf= "order_status == 1 && sectiondisplay == true">
+    <div class="single_page_listing_tab" *ngIf= "(order_status == 1 || order_status == 2) && sectiondisplay == true">
         <div class="tab-content" id="myTabContent" *ngIf="login_usertype == 11 || login_usertype == 8 ">
             <div class="tab-pane fade show active" id="slider_tabs" role="tabpanel" aria-labelledby="slider-tab">
                 <!-- 10th Home Slider -->
@@ -954,10 +986,13 @@
     </div>
     </span>
     <span *ngIf="login_usertype == 11 || login_usertype == 8 ">
-    <section class="our-agent-single bgc-f7 pb30-991"   *ngIf="order_status == 1 && sectiondisplay == true">
+    <section class="our-agent-single bgc-f7 pb30-991"   *ngIf="(order_status == 1 || order_status == 2) && sectiondisplay == true">
         <div class="container" *ngIf="login_usertype == 11 || login_usertype == 8 ">
             <div class="row">
-                <div class="col-lg-12 col-12"><h3 class="text-danger no_property">This Property has been Let Out</h3></div>
+                <div class="col-lg-12 col-12">
+                    <h3 class="text-danger no_property"  *ngIf="order_status == 1">This Property has been Let Out</h3>
+                    <h3 class="text-danger no_property"  *ngIf="order_status == 2">This Property has been Book</h3>
+                </div>
                 <div class="col-lg-7 col-xl-8">
                     <div class="single_property_title mt30-767 mb30-767">
                         <h2>{{ product_data?.build_name }}</h2>
@@ -1630,12 +1665,13 @@
 
 
 
-    <section  *ngIf="order_status == 1 && login_usertype != 8 && login_usertype != 11">      
+    <section  *ngIf="(order_status == 1 || order_status == 2) && login_usertype != 8 && login_usertype != 11">      
         <div class="wrapper no_property_row">
             <div  class="container">
                 <div class="row">
                     <div class="col-12 col-lg-8 offset-lg-2">
-                        <h3 class="text-danger no_property">This Property has been Let Out</h3>
+                       <h3 class="text-danger no_property"  *ngIf="order_status == 1">This Property has been Let Out</h3>
+                        <h3 class="text-danger no_property"  *ngIf="order_status == 2">This Property has been Book</h3>
                         <img class="img-whp noproduct" src="./../../assets/resources/images/error.png" alt="No Product Image">
                     </div>
                 </div>

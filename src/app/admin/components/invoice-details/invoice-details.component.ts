@@ -32,6 +32,7 @@ export class InvoiceDetailsComponent implements OnInit {
   public invoice_data: any;
   public address: any;
   public product_data: any;
+  public percentage_amount: any;
   public total_amount_owner: any;
   public amount_words: any;
   public user_name: any;
@@ -42,24 +43,22 @@ export class InvoiceDetailsComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private InvoiceDetailsService: InvoiceDetailsService,
+    private plansPageService: InvoiceDetailsService,
     private router: Router,
-    private invoicePageService: InvoicePageService)  {
-
-console.log(this.route.snapshot.queryParams['invoice_no']);
+    private invoicePageService: InvoicePageService,) {
       if(this.route.snapshot.queryParams['invoice_no'].length>3){
-          this.invoice_id = this.route.snapshot.queryParams['invoice_no'];     
-        } else {
-          this.redirect_to_previous_page();
-        }
+        this.invoice_id = this.route.snapshot.queryParams['invoice_no'];     
+      } else {
+        this.redirect_to_previous_page();
+      }
   }
 
   ngOnInit(): void {
 
     this.showLoadingIndicator = true;
-    this.invoice_id = this.invoice_id;
+    this.invoice_id = this.route.snapshot.queryParams['invoice_no'];
 
-    this.InvoiceDetailsService.getInvoiceData().subscribe(
+    this.invoicePageService.getInvoiceData().subscribe(
       data => {
         this.invoice_data = data;
         this.address = this.invoice_data.address.split(",");
@@ -75,14 +74,15 @@ console.log(this.route.snapshot.queryParams['invoice_no']);
       }
     );
     this.showLoadingIndicator = true;
-    this.InvoiceDetailsService.getInvoiceDetails(this.invoice_id).subscribe(
+    this.plansPageService.getInvoiceDetails(this.invoice_id).subscribe(
       res => {
         let data:any=res;
+        console.log(data);
         this.response =  data.data;
-        console.log(this.response);
         if(this.response  != null){
           this.user_name = data.data.user_detail.name;  
           this.inv_response = this.response;
+          console.log(this.response);
                    
          for(let i=0; i< this.response.plan_features?.features.length; i++){
           if(this.response.plan_features?.features[i].feature_name=='Rent Agreement'){
@@ -106,13 +106,27 @@ console.log(this.route.snapshot.queryParams['invoice_no']);
 
                   if (this.ord_details.maintenance_charge) {
                     this.total_amount_owner = this.ord_details.expected_rent + this.ord_details.security_deposit + this.ord_details.maintenance_charge;
-                    this.total_amount = this.plan_aggrement_price + this.sgst_amount + this.cgst_amount + this.ord_details.expected_rent + this.ord_details.security_deposit + this.ord_details.maintenance_charge;
-                    this.amount_words = toWords.convert(this.total_amount);
+                    if(this.inv_response.book_property){
+                      let price:any;
+                      price=this.total_amount_owner*this.inv_response.payment_percentage/100;
+                      this.percentage_amount=this.total_amount_owner-price;
+                      this.amount_words = toWords.convert(this.total_amount_owner-this.percentage_amount);
+                       }else{
+                      this.total_amount = this.plan_aggrement_price + this.sgst_amount + this.cgst_amount + this.ord_details.expected_rent + this.ord_details.security_deposit + this.ord_details.maintenance_charge;
+                      this.amount_words = toWords.convert(this.total_amount);
+                    }
                   }
                   else {
                     this.total_amount_owner = this.ord_details.expected_rent + this.ord_details.security_deposit;
+                    if(this.inv_response.book_property){
+                      let price:any;
+                      price=this.total_amount_owner*this.inv_response.payment_percentage/100;
+                      this.percentage_amount=this.total_amount_owner-price;
+                      this.amount_words = toWords.convert(this.total_amount_owner-this.percentage_amount);
+                     }else{
                     this.total_amount = this.plan_aggrement_price + this.sgst_amount + this.cgst_amount + this.ord_details.expected_rent + this.ord_details.security_deposit;
                     this.amount_words = toWords.convert(this.total_amount);
+                    }
                   }
           }
           else if (this.inv_response.plan_type == 'Let Out') {
@@ -189,9 +203,7 @@ console.log(this.route.snapshot.queryParams['invoice_no']);
   }
 
   redirect_to_previous_page(): void {
-    // this.router.navigate(['/'])
+    this.router.navigate(['/admin/property-list'])
   }
-
-
 
 }

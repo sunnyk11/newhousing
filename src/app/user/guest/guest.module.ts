@@ -66,6 +66,9 @@ import { ContactSubmitComponent } from './components/contact-submit/contact-subm
 import { UserVisitPopupComponent } from './modals/user-visit-popup/user-visit-popup.component';
 import { VisitUserThankComponent } from './components/visit-user-thank/visit-user-thank.component';
 import { ProductFlatTypeComponent } from './components/product-flat-type/product-flat-type.component';
+import { BookPropertyComponent } from './components/book-property/book-property.component';
+import { RemainingCheckoutComponent } from './components/remaining-checkout/remaining-checkout.component';
+import { PaymentFailComponent } from './components/payment-fail/payment-fail.component';
 // import { NotfoundComponentComponent } from '../components/notfound-component/notfound-component.component';
 @NgModule({
   declarations: [
@@ -122,6 +125,9 @@ import { ProductFlatTypeComponent } from './components/product-flat-type/product
     UserVisitPopupComponent,
     VisitUserThankComponent,
     ProductFlatTypeComponent,
+    BookPropertyComponent,
+    RemainingCheckoutComponent,
+    PaymentFailComponent,
   ],
   imports: [
     CommonModule,
@@ -134,7 +140,7 @@ import { ProductFlatTypeComponent } from './components/product-flat-type/product
     ClipboardModule,
     ReactiveFormsModule,
     AgmCoreModule.forRoot({  
-      apiKey: 'AIzaSyC2S5kHeGYkW9cL4d7_uxfauTBfQEtN4HA', libraries: ['places','drawing', 'geometry']
+      apiKey: 'AIzaSyBXjEN704D8_IV_U1sHEhl9Cx9lqCzixms', libraries: ['places','drawing', 'geometry']
     }),  
     NgImageSliderModule,
     NgbModule,

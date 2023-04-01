@@ -46,7 +46,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-6 offset-lg-6 col-12 mt20 search-column">
-                                <button type="submit" class="btn btn-submit" (click)="onSubmit()"><span >Create</span></button>
+                                <button type="submit" class="btn btn-submit" [disabled]="clicked" (click)="onSubmit();clicked = true;"><span >Create</span></button>
                             </div>
                         </div>
                     </form>
@@ -177,7 +177,7 @@
                             </div>
                             
                             <div class="col-lg-12"  *ngIf="locality_length==0 && showLoadingIndicator==false">
-                                <h3>No Data Availabe</h3>
+                                <h3>No Data Available</h3>
                             </div>
                         </div>
                     </div>

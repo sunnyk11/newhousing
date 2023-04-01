@@ -11,3 +11,12 @@ p{
     font-size: 18px;
     font-weight: 600;
 }
+.btn-danger {
+    font-size: 12px!important;
+}
+.btn-success{
+    font-size: 12px!important;
+}
+.btn-primary{
+    font-size: 12px!important;
+}

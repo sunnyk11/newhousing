@@ -88,6 +88,16 @@
                                     <input class="form-check-input me-1" type="checkbox" value="" checked disabled>
                                 </li>
                             </ol>
+                        </dd><dt class="col-sm-4">Group Assigned: </dt>
+                        <dd class="col-sm-8">
+                            <ol class="list-group list-group-numbered">
+                                <span *ngIf="user_details?.area_group_data?.length>0">
+                                    <li class="list-group-item" *ngFor="let group of user_details?.area_group_data;index as i">
+                                       {{i+1}}.{{ group?.area_group_permission?.group_name}}
+                                    <input class="form-check-input me-1" type="checkbox" value="" checked disabled>
+                                </li></span>
+                                <li *ngIf="user_details?.area_group_data?.length==0">NA</li>
+                            </ol>
                         </dd>
                     </dl>
 
@@ -162,7 +172,24 @@
                                 <button type="button" class="btn btn-primary" (click)="save_user(edit_user_details?.id)">Update Role</button>
                             </div>
                         </div>
-                        
+                    </form>
+                    
+                    <form [formGroup]="EditUsergroup" class="mt-4" style="border: 2px solid #0d6efd; padding:30px">
+                        <div class="row">
+                            <h4 style="text-align: center; font-size:22px;border-bottom:1px solid #CCCCCC; margin-bottom: 20px;">{{ user_name | uppercase}} :Group</h4>
+                            <div class="form-check col-lg-6 ps-4" formArrayName="EditgroupArray" *ngFor="let group of group_response; let i = index">
+                                <input class="form-check-input" id="{{group.id}}a" type="checkbox" [formControlName]="group.group_name">
+                                <label class="form-check-label" for="{{group.id}}a">
+                                    {{group.group_name }}
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row" style="border-top: 1px solid #CCCCCC ; padding: 20px 0px 0px;">
+                            
+                            <div class="col-lg-5 offset-lg-7 col-12">
+                                <button type="button" class="btn btn-primary" (click)="save_group(edit_user_details?.id)">Update Group</button>
+                            </div>
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">

@@ -10,10 +10,15 @@
     border-radius: 5px;
     font-size: 25px;
 }
+.no_property_row h3{
+    text-align: center;
+}
 .heading_text{
     text-align: left;
 }
-
+.form-check-label{
+    font-size: 12px!important;
+}
 .heading_amount{
     text-align: right;
 }

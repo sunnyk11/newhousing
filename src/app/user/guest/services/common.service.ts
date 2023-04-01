@@ -57,6 +57,10 @@ export class CommonService {
     const route = "/api/amenities";
     return this.apiService.get<ResultModel>(route, reqModel);
   }  
+  getheading_data(reqModel:any): Observable<ResultModel> {
+    const route = "/api/getheading_data";
+    return this.apiService.get<ResultModel>(route, reqModel);
+  }  
   getproductcategory(reqModel:any): Observable<ResultModel> {
     const route = "/api/product/property_category";
     return this.apiService.get<ResultModel>(route, reqModel);
@@ -82,6 +86,11 @@ export class CommonService {
   get_sub_locality(reqModel:any): Observable<ResultModel> {
     const route = "/api/auth/get_sub_locality";
     return this.apiService.get<ResultModel>(route, reqModel);
+  }
+  
+  get_sub_locality_byid(reqModel:any): Observable<ResultModel> {
+    const route = "/api/auth/sub_locality_byid";
+    return this.apiService.post<ResultModel>(route, reqModel);
   }
   
   getrecently_product(reqModel:any): Observable<ResultModel> {
@@ -148,6 +157,11 @@ export class CommonService {
     const route = "/api/auth/get_user_permissions/";
     return this.apiService.get<ResultModel>(route + reqModel);
   }
+  
+  get_user_area_group_permission(reqModel:any): Observable<ResultModel> {
+    const route = "/api/auth/get_user_area_group_permission";
+    return this.apiService.get<ResultModel>(route, reqModel);
+  }
   user_plan_availability(reqModel:any): Observable<ResultModel> {
     const route = "/api/auth/user_plan_availability";
     return this.apiService.get1<ResultModel>(route, reqModel);
@@ -159,6 +173,11 @@ export class CommonService {
   crm_call_appionment(reqModel: any): Observable<ResultModel> {
     const route = "/api/auth/crm_call_appionment";
     return this.apiService.post<ResultModel>(route, { id: reqModel });
+  }
+  
+  user_paymentfail(): Observable<ResultModel> {
+    const route = "/api/auth/user_paymentfail/";
+    return this.apiService.get<ResultModel>(route);
   }
   
 }

@@ -39,6 +39,11 @@ import { LocalityListComponent } from './components/locality-list/locality-list.
 import { UpdateLocalityComponent } from './components/update-locality/update-locality.component'; 
 import { SubLocalityListComponent } from './components/sub-locality-list/sub-locality-list.component';
 import { UpdateSubLocalityComponent } from './components/update-sub-locality/update-sub-locality.component';
+import { AreaGroupComponent } from './components/area-group/area-group.component';
+import { AddAreaGroupComponent } from './components/add-area-group/add-area-group.component';
+import { UpdateAreaGroupComponent } from './components/update-area-group/update-area-group.component';
+import { BookInvoiceComponent } from './components/book-invoice/book-invoice.component';
+import { ListingPageHeadingComponent } from './components/listing-page-heading/listing-page-heading.component';
 import { NotfoundComponentComponent } from '../user/components/notfound-component/notfound-component.component';
 
 
@@ -121,6 +126,10 @@ const routes: Routes = [
       { path: 'offer-banner', component: OfferBannerComponent, canActivate: [AuthGuard, PermissionGuard],data: {
         permission: ['access_web_Banner']
       }},
+      { path: 'listing-page-heading', component: ListingPageHeadingComponent, canActivate: [AuthGuard, PermissionGuard],data: {
+        permission: ['access_web_Banner']
+      }},
+      
       { path: 'property-list', component: PropertyListComponent, canActivate: [AuthGuard, PermissionGuard],data: {
         permission: ['property_access']
       }},
@@ -129,6 +138,9 @@ const routes: Routes = [
       }},
 
       { path: 'invoice', component: InvoiceDetailsComponent, canActivate: [AuthGuard, PermissionGuard],data: {
+        permission: ['property_access']
+      }},
+      { path: 'book-invoice', component: BookInvoiceComponent, canActivate: [AuthGuard, PermissionGuard],data: {
         permission: ['property_access']
       }},
       { path: 'rent-slip', component: PropertyRentSlipComponent, canActivate: [AuthGuard, PermissionGuard],data: {
@@ -157,7 +169,16 @@ const routes: Routes = [
       }}, 
       { path: 'update-sub-locality', component: UpdateSubLocalityComponent, canActivate: [AuthGuard, PermissionGuard],data: {
         permission: ['access_locality_area']
+      }}, 
+      { path: 'area-group-list', component: AreaGroupComponent, canActivate: [AuthGuard, PermissionGuard],data: {
+        permission: ['access_area_group']
       }},  
+      { path: 'add-area-group', component: AddAreaGroupComponent, canActivate: [AuthGuard, PermissionGuard],data: {
+        permission: ['access_area_group']
+      }},
+      { path: 'update-area-group', component: UpdateAreaGroupComponent, canActivate: [AuthGuard, PermissionGuard],data: {
+        permission: ['access_area_group']
+      }}, 
       
       {path: '**', component: NotfoundComponentComponent}
     ]

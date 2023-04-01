@@ -1,0 +1,159 @@
+<div *ngIf="showLoadingIndicator">
+    <div class="preloader"></div>
+</div>
+<div class="container container1 mb20">
+    <div class="accordion" id="accordionExample">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" aria-expanded="true" aria-controls="collapseTwo">
+                   Remaining Payment Summary
+                </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <div class="row">
+                                    <div class="card text-center mb20">
+                                        <div class="card-header">
+                                            <h4>Property Details</h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row subRow">
+
+                                                <div class="col-lg-4 col-md-6">
+                                                    <p class="text-muted row1">Property Name</p>
+                                                    <p class="row2">{{property_name}}</p>
+                                                </div>
+
+                                                <div class="col-lg-4 col-md-6">
+                                                    <p class="text-muted row1">Property Size</p>
+                                                    <p class="row2">{{area}}/{{area_unit}}</p>
+                                                </div>
+
+                                                <div class="col-lg-4 col-md-6">
+                                                    <p class="text-muted row1">Rent</p>
+                                                    <p class="row2">{{ expected_rent }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="card text-center mb20">
+                                        <div class="card-header">
+                                            <h4>Plan Details</h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row subRow">
+                                                <div class="col-lg-4 col-md-4">
+                                                    <p class="text-muted row1">Plan Name</p>
+                                                    <p class="row2">{{ plan_name }}</p>
+                                                </div>
+                                                <div class="col-lg-4 col-md-4">
+                                                    <p class="text-muted row1">Plan Price</p>
+                                                    <p class="row2">{{ plan_price }}</p>
+                                                </div>
+                                                <div class="col-lg-4 col-md-4">
+                                                    <p class="text-muted row1">Agrement Price</p>
+                                                    <p class="row2">{{ rent_aggrement_price }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <div class="card text-center mb20">
+                                    <div class="card-header">
+                                        <h4>Payment Details</h4>
+                                    </div>
+                                    <div class="card-body" >
+                                        <h6><strong>Payable to Owner (A)</strong></h6>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-8"><h6 class="heading_text">1 Month Rent:</h6></div>
+                                            <div class="col-4"><h6 class="heading_amount"><strong>{{ expected_rent }}</strong></h6></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-8"><h6 class="heading_text">Security Deposit <span *ngIf="security_deposit == 0">(NA)</span><span *ngIf="security_deposit > 0">:<br>({{security_deposit}} Months)</span></h6></div>
+                                            <div class="col-4"><h6 class="heading_amount"><strong >{{
+                                                security_dep_amount }}</strong></h6></div>
+                                        </div>
+                                        
+                                        <div class="row" *ngIf="maintenance_charge_status == 1">
+                                            <div class="col-8">
+                                                <h6 class="heading_text">Maintenance Charge:
+                                                    <br>({{maintenance_condition}})</h6>
+                                            </div>
+                                            <div class="col-4"><h6 class="heading_amount"><strong>{{ maintenance_charge}}</strong></h6></div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-8"><h6 class="heading_text"><strong>Total Amount(A):</strong></h6></div>
+                                            <div class="col-4"><h6 class="heading_amount"><strong>{{ total_amount_owner }}</strong></h6></div>
+                                        </div>
+                                        <hr>
+                                        <div class="row" >
+                                            <div class="col-8"><h6 class="heading_text">Select Percentage:</h6></div>
+                                            <div class="col-4"><h6 class="heading_amount"><strong>{{ payment_percentage }}%</strong></h6></div>
+                                            <div class="col-8"><h6 class="heading_text"><strong> Amount(B) :<br>({{ payment_percentage }}% of A)</strong></h6></div>
+                                            <div class="col-4"><h6 class="heading_amount"><strong>{{ section_c }}</strong></h6></div>
+                                            <div class="col-12">
+                                                <h6 class="heading_text" style="text-align:center;"><strong>Book Invoice:</strong></h6>
+                                                <h6 class="heading_text" style="text-align:center;">
+                                                    <strong>
+                                                    <a class="text text-primary" [routerLink]="['/book-property']" [queryParams]="{invoice_no: invoice_id}"  target="_blank">({{invoice_id }})</a>
+                                                   </strong>
+                                                 </h6>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-7 col-lg-8"> 
+                                                <h6 class="heading_text"><strong>Remaining Amount:<br>(A-B)</strong></h6>
+                                                <!-- <h6><strong>(A+B)</strong></h6> -->
+                                            </div>
+                                            <div class="col-5 col-lg-4"><h6 class="heading_amount"><strong>{{  remaining_amount}}</strong></h6></div>
+                                        </div>
+                                        <hr>
+                                        
+                                        <div class="row">
+                                            
+                                                
+                                            <div class="col-12">
+                                                <h6 style="margin:10px 0px ;"><strong>Mode of Payment</strong></h6>
+                                            </div>
+                                            <div class="col-6"> 
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="payment" id="online_payment" value="Online" (change)="changePayment($event)" checked>
+                                                    <label class="form-check-label" for="online_payment">
+                                                        Online Payment
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="payment" id="cash_payment" value="Cash" (change)="changePayment($event)">
+                                                    <label class="form-check-label" for="cash_payment">
+                                                        Payment By Cash
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <button class="btn btn-success" *ngIf="online_pay_btn" [disabled]="clicked" (click)="proceedToPayment();clicked = true;">Proceed to Payment</button>
+                                                <button class="btn btn-info" *ngIf="cash_pay_btn" (click)="offline_payment()">Offline Payment</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
