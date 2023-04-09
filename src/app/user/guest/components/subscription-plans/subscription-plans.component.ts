@@ -36,8 +36,8 @@ export class SubscriptionPlansComponent implements OnInit {
   expected_rent_value: number = 5000;
   exp_rent_options: Options = {
     floor: 5000,
-    ceil: 50000,
-    step: 100,
+    ceil: 300000,
+    step: 5000,
     animate: true,
     showSelectionBar: true,
     translate: (value: number, label): string => {
