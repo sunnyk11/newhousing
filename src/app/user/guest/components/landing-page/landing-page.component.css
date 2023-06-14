@@ -1,0 +1,182 @@
+#breadcrumb {
+    position: relative;
+}
+
+.accordion-button {
+    border: 1px solid #eee;
+}
+
+.accordion-button:not(.collapsed) {
+    color: #ff5a5f;
+    background-color: #f7f7f7;
+}
+li{
+    margin: 10px 0px;
+    letter-spacing: 1px;
+    line-height: 24px;
+    font-weight: 500;
+}
+.accordion-body{
+    font-size: 16px;
+    /* font-weight: 500; */
+    letter-spacing: 0.5px;
+    line-height: 30px;
+}
+.form-section label{
+    font-size: 12px!important;
+}
+.form-section .btn-success{
+    width: 100%!important;
+}
+#number{
+    color: #00ff00!important;
+}
+.form-section  .para{
+    font-size: 14px!important;
+}
+ #number  span a{
+    color: #000!important;
+    transition: .3s all;
+}
+.my-4{
+    margin:0px!important;
+}
+
+ #number{
+    color: #00ff00;
+}
+.bg-secondary1{
+    background-image: radial-gradient(
+              rgba(240, 240, 240, 0.3),
+              rgba(240, 240, 240, 0.3)), url('../../../../../assets/resources/images/landing/banner-img.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* height: 500px!important; */
+    padding: 50px 20px!important;
+    margin: 100px 0px 0px!important;
+}
+
+.bg-secondary1 .banner-content h3{
+    color: #000!important;
+    font-size: 30px;
+    line-height: 40px;
+    font-weight: 800;
+}
+.bg-secondary1 .banner-content ul{
+    margin: 2px 0px;
+    letter-spacing: 1.1px;
+    line-height: 22px;
+    font-weight: 500;
+    font-size: 14px;
+    list-style: auto;
+    text-align: justify;
+    color: #000;
+    font-weight: 600;
+}
+
+:host ::ng-deep .owl-carousel .owl-stage {
+    display: flex;
+}
+:host ::ng-deep .owl-carousel .owl-stage {
+    display: flex;
+}
+
+:host ::ng-deep .owl-carousel .owl-item .why-chose-us {
+    height: 100%;
+}
+
+.limitTextHeight1 {
+    height: 250px;
+    overflow: hidden;
+}
+.how_it_section .col-lg-6,.how_it_section .col-12{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.how_it_section .img-section img{
+    height:350px!important;
+}
+.how_it_section .content-section p{
+    font-size: 16px;
+    letter-spacing: .8px;
+    text-align: justify;
+    margin: 15px 0px;
+}
+:host ::ng-deep .owl-carousel .owl-item .why-chose-us {
+    height: 100%;
+}
+
+.limitTextHeight1 {
+    height: 250px;
+    overflow: hidden;
+}
+#feq_section{
+    margin:20px 0px!important;
+}
+#feq_section h2{
+    text-align: center!important;
+}
+.invalid-feedback1{
+    color:red;
+    font-size: 12px!important;
+}
+.preloader{
+    height: 250px!important;
+}
+
+@media(max-width: 768px) {
+    .p-5 {
+        padding: 3px 20px!important;
+    } 
+    .bg-secondary1 .banner-content h3{
+        color: #000!important;
+        font-size: 24px;
+        line-height: 36px;
+        font-weight: 800;
+        text-align: center;
+    }
+    #feq_section{
+        padding: 0px!important;
+    }
+    .bg-secondary1 .banner-content ul{
+        padding:10px  15px!important;
+    }
+    .bg-secondary1 .banner-content ul li{
+        font-size: 12px!important;
+    }
+    #p-51 {
+        padding: 20px 0px!important;
+    }
+        .preloader{
+            height: 350px!important;
+        }
+    .how_it_section .content-section p{
+        font-size: 13px;
+        letter-spacing: .8px;
+        text-align: justify;
+        margin: 15px 0px;
+    }
+    .how_it_section .content-section h3{
+        font-size: 16px;
+        text-align: center!important;
+    }
+    .how_it_section .img-section img{
+        height:250px!important;
+    }
+    #row_direction{
+        flex-direction: column-reverse;
+    }
+    #nav-owner-tab{
+        font-size: 14px!important;
+    }
+    #nav-renter-tab{
+        font-size: 14px!important;
+    }
+    #nav-tab{
+        display: -webkit-box!important;
+    }
+    .nav-pills .nav-link{
+        width: 50%!important;
+    }
+}

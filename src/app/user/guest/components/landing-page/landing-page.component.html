@@ -1,0 +1,492 @@
+<div class="wrapper">
+    
+    <!--Breadcrumb-->
+    <div class="p-5 bg-secondary1 rounded-3" id="p-51">
+        <div class="container">
+                <div class="row">
+                    <div class="col-12 col-lg-7">
+                        <div class="banner-content">
+                            <h3>Rent Out Your Residential <br>Property <span style="color: green;">in 30 Days</span></h3>
+                            <ul>
+                                <li>Nothing to pay in Advance : When You Earn We Earn</li>
+                                <li>You'll be involved only during payment transfers.</li>
+                                <li>Leave the property management tasks to us, we'll handle everything from
+                                    property photos to tenant visits, ensuring a hassle-free experience for you</li>
+                                <li>Zero Risk, Pay Only on Success </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-5">
+                        <div class="form-section">
+                            <div class="card shadow text-dark login-card">
+                                <div class="card-body py-3 px-5 text-center">
+                                    <div *ngIf="showLoadingIndicator">
+                                        <div class="preloader"></div>
+                                    </div>
+                                    <div class="mb-md-0 mt-md-3 pb-2" *ngIf="display_otp_form == true && showLoadingIndicator== false" >
+                                        
+                                        <form [formGroup]="otpForm"  (ngSubmit)="onSubmitotp()" novalidate>
+                                                    <p class="text-secondary-50">An OTP will be sent to the following Mobile Number</p>
+                                                    <p>{{ mobile_slice }}</p>
+                                                    <div class="input-group mb-3">
+                                                        <span class="input-group-text" id="mobile_number">OTP</span>
+                                                        <input type="text" class="form-control" autocomplete="off" formControlName="otp_password" minlength="6" maxlength="6"  [ngClass]="{ 'is-invalid': otp_submitted && g.otp_password.errors }" placeholder="Please Enter OTP" (keypress)="keyPressNumbers($event)" required>
+                                                    </div>
+                                                    <div class="alert alert-danger" role="alert" *ngIf="otp_submitted && g.otp_password.invalid">
+                                                        <div *ngIf="g.otp_password.errors?.required">OTP is required
+                                                        </div>
+                                                        <div *ngIf="g.otp_password.errors?.minlength">
+                                                            OTP must be 6 digits
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12">
+                                                        <button class="btn btn-success" type="submit">Verify</button>
+                                                    </div>
+                                                    <div class="alert alert-danger text-center mt-4" role="alert" *ngIf="otp_submitted && isFailedVerify_otp">
+                                                        <div *ngIf="errorMessage">
+                                                            <p><strong>Verification failed.</strong></p>
+                                                        </div>
+                                                    </div>
+                                        </form>
+                                        <p class="mb-1 mt-3">Are You sure? <a (click)="user_otp_resend()" class="text-thm fw-bold sign_up" style="cursor: pointer;">Resend OTP</a></p>
+                                      
+                                    </div>
+                
+                                    <div class="mb-md-0 mt-md-3 pb-2" id="sign_up_form" *ngIf="display_otp_form== false && showLoadingIndicator== false">
+                                        <form [formGroup]="loginForm" #ngForm="ngForm" (ngSubmit)="onSubmit()" >
+                                            <!-- <h2 class="fw-bold mb-2 text-uppercase">Sign-up</h2> -->
+                                            <p class="text-secondary-50 mb-3">Get Started With Your Phone No.</p>
+                
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text" id="user_name"><i class="fa fa-user"></i></span>
+                                                <input type="email" class="form-control" aria-label="Email Address" aria-describedby="user_name" formControlName="user_name" placeholder="Enter Full Name">
+                                                <span class="text-danger w100" *ngIf="(LoginFormControl.user_name.touched || submitted) && LoginFormControl.user_name.errors?.required">
+                                                    Name is required
+                                                </span>
+                                            </div>
+                
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text" id="mobile"><i class="fa fa-phone"></i></span>
+                                                <input type="mobile_no" class="form-control" formControlName="mobile_no" minlength="10" maxlength="10"  (keypress)="keyPressNumbers($event)" placeholder="Enter Mobile No">
+                                                <span class="text-danger w100" *ngIf="(LoginFormControl.mobile_no.touched || submitted)">
+                                                    <span *ngIf="LoginFormControl.mobile_no.errors?.required">
+                                                        Mobile No required
+                                                    </span>
+                                                    <span *ngIf="LoginFormControl.mobile_no.errors?.minlength || LoginFormControl.mobile_no.errors?.maxlength">
+                                                        Mobile number must be 10 digits
+                                                    </span>
+                                                 </span>
+                                            </div>
+                                            
+                                            <div class="row">
+                                                <div class="mb-3 ms-2 form-check">
+                                                    <input type="checkbox" class="form-check-input" id="tnc_check" formControlName="tnc_check"  name="tnc_check" value="" required>
+                                                    <label class="form-check-label" for="tnc_check" style="font-size: 14px;">I have read and accept the<a
+                                                            class="modal_links" data-bs-toggle="modal" data-bs-target="#tncModal"> Terms
+                                                            and Conditions</a> and <a class="modal_links" data-bs-toggle="modal"
+                                                            data-bs-target="#privacyPolicyModal">Privacy Policy</a></label>
+                                                    <div *ngIf="(submitted || LoginFormControl.tnc_check.touched) && LoginFormControl.tnc_check.errors?.required" class="invalid-feedback1">
+                                                        Please accept the Terms & Conditions and Privacy Policy
+                                                    </div>
+                                                </div>
+                                            </div>
+                
+                                            <button class="btn btn-success" type="submit">Continue</button>
+                                        </form>
+                
+                                        <div class="alert alert-danger mt20" role="alert" *ngIf="submitted && LoginFailed">
+                                           <span *ngIf="errormobile">Login failed: {{ errormobile }}</span> 
+                                           <span *ngIf="errorMessage">Login failed: {{ errorMessage }}</span> 
+                                        </div>
+                                        <div class="alert alert-danger" role="alert" *ngIf="submitted && LoginFailed && status_code==200">
+                                            Either you have Entered Wrong credentials or you have No Account on this site.
+                                        </div>
+                                        <div>
+                                            <p class="mb-1 mt-3" *ngIf="display_otp_form== false && showLoadingIndicator== false">Already have an account? <a routerLink="/login" class="text-thm fw-bold sign_up">Login here</a></p>                                  
+                                            <div class="divider d-flex align-items-center my-4">
+                                                <p class="text-center mx-3 mb-0">Or</p>
+                                            </div>
+                                            <p class="para">Need help in listing property? Call Now</p>
+                                            <p class="para"><a id="number">
+                                                <!-- <mat-icon *ngIf="icon_show == true">phone</mat-icon> -->
+                                                <i class="fa fa-phone"></i>
+                                                <span><a href="tel:{{toll_free}}" >{{toll_free}}</a></span>
+                                                 </a>
+                                               </p>
+                                        </div>
+                                        
+                
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            
+        </div>
+    </div>
+    <!-- Why Choose Us -->
+    
+<section id="why-chose" class="whychose_us bgc-f7 pb30">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3">
+                <div class="main-title text-center">
+                    <h2>Why Choose Us</h2>
+                    <p>We provide full service at every step.</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <owl-carousel-o [options]="customOptions">
+                <ng-template carouselSlide>
+                    <div class="why_chose_us mx-4">
+                        <div class="icon">
+                            <span class="flaticon-home-1"></span>
+                        </div>
+                        <div class="details" [ngClass]="{'limitTextHeight1': isReadMore}">
+                            <!-- <h4>Hassle-Free Letting</h4> -->
+                            <h5 class="text-thm">Hassle-Free Letting</h5>
+                            <p>With HousingStreet.com, you can say goodbye to the 
+                                burdensome process of dealing with property 
+                                dealers, brokers, or other proptech companies. We 
+                                understand that as a property owner, you want a 
+                                seamless experience without any unnecessary 
+                                tension. Our dedicated team takes care of everything, 
+                                from capturing attractive property photos to 
+                                managing tenant inquiries and property visits. We 
+                                handle the entire process, allowing you to sit back 
+                                and relax while we do the work for you.</p>
+                        </div>
+                        <button type="button" class="btn btn-thm mt-3" (click)="showText()">
+                            {{ isReadMore ? 'Read More': 'Read Less' }}
+                        </button>
+                    </div>
+                </ng-template>
+                <ng-template carouselSlide>
+                    <div class="why_chose_us mx-4">
+                        <div class="icon">
+                            <span class="flaticon-profit"></span>
+                        </div>
+                        <div class="details" [ngClass]="{'limitTextHeight1': isReadMore}">
+                            <!-- <h4>For Owners</h4> -->
+                            <h5 class="text-thm">Cost-Effective and Transparent</h5>
+                            <p>Don't worry - our team will ensure your property is let out in 30 days; you won't have to wait 3 months! If your property is prematurely vacated within 3 months, you don't have to pay commission again.</p>
+                            <h5 class="text-thm"></h5>
+                            <p>At HousingStreet.com, we believe in fair and transparent 
+                                pricing. We understand that paying hefty advance fees 
+                                or high brokerage charges can significantly impact your 
+                                finances. That s why we offer a unique pricing structure 
+                                that benefits you. Instead of demanding upfront 
+                                payments, we charge a nominal service fee equivalent to 
+                                just 15 days rent when we successfully let out your 
+                                property. This cost-effective approach ensures that you 
+                                save money while still receiving top-notch services from 
+                                our experienced team. Additionally, our MahaRaja plan 
+                                offers even greater value, guaranteeing two additional 
+                                free let-outs if your property becomes vacant within the 
+                                next 5 months</p>
+                        </div>
+                        <button type="button" class="btn btn-thm mt-3" (click)="showText()">
+                            {{ isReadMore ? 'Read More': 'Read Less' }}
+                        </button>
+                    </div>
+                </ng-template>
+                <ng-template carouselSlide>
+                    <div class="why_chose_us mx-4">
+                        <div class="icon">
+                            <span class="flaticon-high-five"></span>
+                        </div>
+                        <div class="details" [ngClass]="{'limitTextHeight1': isReadMore}">
+                            <!-- <h4>Trusted By Several</h4> -->
+                            <h5 class="text-thm">Swift and Guaranteed Results</h5>
+                            <p>We value your time and understand the importance of a 
+                                quick turnaround when it comes to letting out your 
+                                property. Unlike other platforms where you have to pay 
+                                in advance without any guarantee of finding a tenant, 
+                                HousingStreet.com stands out by ensuring that your 
+                                property is let out within 30 days. Our extensive network 
+                                and proactive marketing strategies enable us to attract 
+                                potential tenants efficiently. We are committed to 
+                                delivering fast results, so you can start earning rental 
+                                income sooner rather than later.</p>
+                        </div>
+                        <button type="button" class="btn btn-thm mt-3" (click)="showText()">
+                            {{ isReadMore ? 'Read More': 'Read Less' }}
+                        </button>
+                    </div>
+                </ng-template>
+            </owl-carousel-o>
+        </div>
+    </div>
+</section>
+    <!-- Our Testimonials -->
+    <app-testimonial></app-testimonial>
+    
+<section id="why-chose" class="whychose_us bgc-f7 pb30 how_it_section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3">
+                <div class="main-title text-center">
+                    <h2>How It Works:</h2>
+                    <p>4 Simple Step To Let Out Your Property Hassle-Free</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-lg-6">
+                <div class="content-section">
+                    <h3>1: Register or Call our Toll-Free Number</h3>
+                    <p>To get started, simply register on our website or give us a call on our toll-free 
+                        number, 18005475450. Our team is always ready to assist you. We understand 
+                        your needs as a property owner and are dedicated to providing a hassle-free 
+                        experience throughout the process.
+                    </p>
+                </div>
+            </div>
+            <div class="col-12 col-lg-6">
+                <div class="img-section">
+                    <img class="img-fluid w100" src="../../../../../assets/resources/images/landing/img1.jpg" alt="pc2.jpg">
+                </div>
+            </div>
+        </div>
+        <div class="row" id="row_direction">
+            <div class="col-12 col-lg-6">
+                <div class="img-section">
+                    <img class="img-fluid w100" src="../../../../../assets/resources/images/landing/img2.jpg" alt="pc2.jpg">
+                </div>
+            </div>
+            <div class="col-12 col-lg-6">
+                <div class="content-section">
+                    <h3>2: Assigned Relationship Manager (RM)</h3>
+                    <p>Once you register or call us, we will assign a dedicated Relationship 
+                        Manager (RM) to you. Your RM will be your main point of contact and will 
+                        guide you through the entire process. They will reach out to you within 4 
+                        hours to schedule a property visit and discuss the necessary details
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-lg-6">
+                <div class="content-section">
+                    <h3>3: Let HousingStreet.com Take Care of Everything</h3>
+                    <p>Sit back and relax while our expert team takes care of all the work involved in 
+                        letting out your property. From clicking professional property photos and 
+                        creating live listings on our website to handling tenant inquiries and 
+                        property visits, we handle it all. Our team will manage tenant follow-ups, 
+                        conduct thorough tenant verifications, and even assist in drafting the rent 
+                        agreement. We strive to make the process as seamless as possible, so you 
+                        can focus on other important matters in your life.
+                    </p>
+                </div>
+            </div>
+            <div class="col-12 col-lg-6">
+                <div class="img-section">
+                    <img class="img-fluid w100" src="../../../../../assets/resources/images/landing/img3.jpg" alt="pc2.jpg">
+                </div>
+            </div>
+        </div>
+        <div class="row" id="row_direction">
+            <div class="col-12 col-lg-6">
+                <div class="img-section">
+                    <img class="img-fluid w100" src="../../../../../assets/resources/images/landing/img4.jpg" alt="pc2.jpg">
+                </div>
+            </div>
+            <div class="col-12 col-lg-6">
+                <div class="content-section">
+                    <h3>4: Receive Payments with Peace of Mind</h3>
+                    <p>At HousingStreet.com, we value your time and money. Unlike other 
+                        platforms or traditional methods, we don't require any advance payments 
+                        for property listing. You only pay us when your property gets successfully let 
+                        out. Our service fee is a mere 15 days' rent, making it cost-effective and 
+                        convenient for you. We take care of the entire payment process and ensure 
+                        that the funds are securely transferred to your account. You can trust us to 
+                        handle the financial aspects while you enjoy the benefits of a hassle-free 
+                        property letting experience.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+    <div class="container py-4">
+        <section id="feq_section">
+            <div class="row">
+                <div class="col-12 col-lg-12" >
+                    <h2>Frequently Asked Questions</h2>
+                    <div class="tab-pane fade show active" id="nav-owner" role="tabpanel" aria-labelledby="nav-owner-tab">
+                        <div class="accordion accordion-flush mt-4" id="faq-accordion">
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faq-h7">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panel8" aria-expanded="true" aria-controls="panel8">
+                                        Can I list properties for free?
+                                    </button>
+                                </h2>
+                                <div id="panel8" class="accordion-collapse collapse show" aria-labelledby="faq-h7">
+                                    <div class="accordion-body">
+                                        No we don’t provide any free service. Reasonable plans are available for listing properties.  
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faq-h7">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panel9" aria-expanded="true" aria-controls="panel9">
+                                        What is the commission I need to pay to get renters for my property?
+                                    </button>
+                                </h2>
+                                <div id="panel9" class="accordion-collapse collapse" aria-labelledby="faq-h7">
+                                    <div class="accordion-body">
+                                       There  are two types of plans:
+        
+                                        <li>Raja – you need to pay 15 days of rent amount as commission.</li>
+                                        <li> Maha Raja – you have to pay 20 days of rent amount as commission.</li>
+                                        For more details, please refer to the Plans page and calculate commission accordingly.
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faq-h7">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panel10" aria-expanded="true" aria-controls="panel10">
+                                        What is Local area service provider list?
+                                    </button>
+                                </h2>
+                                <div id="panel10" class="accordion-collapse collapse" aria-labelledby="faq-h7">
+                                    <div class="accordion-body">
+                                        It is an updated list with contact numbers of electricians, plumbers, painters, cleaners, maids, maintenance people, etc.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faq-h7">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panel11" aria-expanded="true" aria-controls="panel11">
+                                        What is the difference between Advance Payment Plans and Pay Later Plans?
+                                    </button>
+                                </h2>
+                                <div id="panel11" class="accordion-collapse collapse" aria-labelledby="faq-h7">
+                                    <div class="accordion-body">
+                                        If you opt for Advance Payment, as available with Maha Raja and Raja Plans you have to pay the commission before you start receiving rent. With the Pay Later Option, as available with the Standard Plan, we deduct the service charge from the rent that the customer pays to Housing Street. The rest of the amount will be transferred to your account.
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faq-h7">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panel12" aria-expanded="true" aria-controls="panel12">
+                                        What does client visit priority mean?
+                                    </button>
+                                </h2>
+                                <div id="panel12" class="accordion-collapse collapse" aria-labelledby="faq-h7">
+                                    <div class="accordion-body">
+                                        Those with Maha Raja Plan properties are top priority, followed by Raja and Standard Plans, respectively.
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faq-h7">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panel13" aria-expanded="true" aria-controls="panel13">
+                                        How long does it take to let out property?
+                                    </button>
+                                </h2>
+                                <div id="panel13" class="accordion-collapse collapse" aria-labelledby="faq-h7">
+                                    <div class="accordion-body">
+                                        <li>Maha Raja – 30 days and 100% money-back guarantee. If your property is vacated within 5 months, you can let it out up to 3 times without paying any commission.</li>
+                                        <li>Raja – 45 days and 100% money-back guarantee. If your property is vacated in 3 months, you can let it out 1 time without paying any commission. </li>
+                                        <li>Standard – 60 days.</li>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faq-h7">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panel14" aria-expanded="true" aria-controls="panel14">
+                                        How will I receive rent? Where will I receive my first rent?
+                                    </button>
+                                </h2>
+                                <div id="panel14" class="accordion-collapse collapse" aria-labelledby="faq-h7">
+                                    <div class="accordion-body">
+                                        The rent for the first month will be transferred directly to your bank account. From the next month, you take charge of the transactions. 
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faq-h7">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panel15" aria-expanded="true" aria-controls="panel15">
+                                        Do you verify renters as well?
+                                    </button>
+                                </h2>
+                                <div id="panel15" class="accordion-collapse collapse" aria-labelledby="faq-h7">
+                                    <div class="accordion-body">
+                                        No we don’t vet or run background checks on renters. It is the sole responsible of the property owner. 
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faq-h7">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panel16" aria-expanded="true" aria-controls="panel16">
+                                        How do you operate?
+                                    </button>
+                                </h2>
+                                <div id="panel16" class="accordion-collapse collapse" aria-labelledby="faq-h7">
+                                    <div class="accordion-body">
+                                        Fill in information about your property – be as specific as possible and make sure not to leave any field blank. The more details you give, the more convenient it is for us to find the ideal renter for you. Please upload photos in HD resolution to give the prospective renter a clear idea regarding your property. Once you fill in all details, we will visit the property to verify it. In case the photos are blurred and grainy, we will arrange for a professional photographer and get good images clicked. After verification, the property is officially listed on our website. The next step is to choose from our plans.
+                                        <li>Maha Raja – 30 days to let out and 100% money-back guarantee. If your property is vacated within 5 months, you can let it out up to 3 times without paying any commission.</li> 
+                                        <li>Raja – 45 days to let out and 100% money-back guarantee. If your property is vacated in 3 months, you can let it out 1 time without paying any commission.</li>
+                                        <li>Standard – 60 days to let out.</li>
+                                        Maha Raja and Raja are Advance Payment Plans, where we charge 20 days and 15 days of rent respectively as commission.  Standard is a Pay Later Plan where we deduct a service charge from the rent paid to us by the renter, and then transfer the remaining amount to your bank account. Rent agreement is prepared free of charge for all Plans.
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faq-h4">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panel-four" aria-expanded="true" aria-controls="panel-four">
+                                        What if a renter wants to vacate a property soon after moving in?
+                                    </button>
+                                </h2>
+                                <div id="panel-four" class="accordion-collapse collapse" aria-labelledby="faq-h4">
+                                    <div class="accordion-body">
+                                        You are only charged once the renter moves in. If they vacate the property within 2 to 6 months of moving in, you won't have to pay any commission to start letting it out again.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faq-h5">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panel-five" aria-expanded="true" aria-controls="panel-five">
+                                        How is the rent deposited?
+                                    </button>
+                                </h2>
+                                <div id="panel-five" class="accordion-collapse collapse" aria-labelledby="faq-h5">
+                                    <div class="accordion-body">
+                                        The rent of the very first month is deposited directly in your bank account. After that, you can take over the transactions and conduct them as per convenience.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faq-h7">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panel-seven" aria-expanded="true" aria-controls="panel-seven">
+                                        How do you ensure the move is seamless?
+                                    </button>
+                                </h2>
+                                <div id="panel-seven" class="accordion-collapse collapse" aria-labelledby="faq-h7">
+                                    <div class="accordion-body">
+                                        Local service provider lists are given to both renters and property owners. For the former, it is to ensure they don't have trouble locating a plumber, electrician, or any other handyman after moving in. For property owners, the list is for fixing up
+                                        the property before showing it to prospective clients, or after renters have vacated it.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+<!-- Real Estate Agent -->
+<app-real-estate-agent></app-real-estate-agent>
+</div>

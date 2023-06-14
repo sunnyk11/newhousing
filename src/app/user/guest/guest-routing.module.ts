@@ -41,6 +41,7 @@ import { ProductPreviewComponent } from './components/product-preview/product-pr
 import { VisitUserThankComponent } from './components/visit-user-thank/visit-user-thank.component';
 import { RemainingCheckoutComponent } from './components/remaining-checkout/remaining-checkout.component';
 import { PaymentFailComponent } from './components/payment-fail/payment-fail.component';
+import { LandingPageComponent } from './components/landing-page/landing-page.component';
 import { NotfoundComponentComponent } from '../components/notfound-component/notfound-component.component';
 //custom component imports
 
@@ -54,6 +55,7 @@ const routes: Routes = [
         { path: "contact", component:ContactComponent,canActivate: [UserLogsGuard]},
         { path: "contact/form-submitted", component:ContactSubmitComponent,canActivate: [UserLogsGuard]},
         { path: "product-listing", component:ProductListingComponent,canActivate:[UserLogsGuard]},
+        { path: "owner-landing", component:LandingPageComponent,canActivate:[UserLogsGuard]},
         { path: "product-details", component:ProductPageComponent,canActivate:  [UserLogsGuard]},
         { path: "plans", component:SubscriptionPlansComponent,canActivate:  [UserLogsGuard]},
         { path: "login", component:LoginComponent},
