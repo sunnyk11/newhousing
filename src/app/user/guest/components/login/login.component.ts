@@ -11,6 +11,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FixAppointmentComponent } from '../../modals/fix-appointment/fix-appointment.component';
 import { UserLogsService } from '../../services/user-logs.service';
 import { ToastrService } from 'ngx-toastr';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-login',
@@ -74,6 +75,7 @@ export class LoginComponent implements OnInit {
   public user_cart: any = null;
 
   constructor(
+    private titleService: Title,
     private fb: FormBuilder,
     private loginPageService: LoginPageService,
     private jwtService: JwtService,
@@ -94,7 +96,7 @@ export class LoginComponent implements OnInit {
       //console.log(this.ip_address);
      }
 
-  ngOnInit(): void {
+  ngOnInit(): void { this.titleService.setTitle('Login Page');
     this.ip_address = this.UserLogsService.getIpAddress();
     this.route.queryParams.subscribe(
       params => {

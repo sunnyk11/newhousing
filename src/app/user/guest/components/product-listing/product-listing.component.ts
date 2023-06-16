@@ -10,6 +10,7 @@ import { JwtService } from 'src/app/user/services/jwt.service';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
+import { Title } from '@angular/platform-browser';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { map, startWith } from 'rxjs/operators';
 import { Pagination } from 'src/app/user/components/models/pagination.model';
@@ -129,6 +130,7 @@ export class ProductListingComponent implements OnInit {
     private formBuilder: FormBuilder,
     // private mapsAPILoader: MapsAPILoader,
     // private ngZone:NgZone,
+    private titleService: Title,
      private modalService: NgbModal,
      private UserLogsService:UserLogsService,
     private jwtService: JwtService,
@@ -139,7 +141,8 @@ export class ProductListingComponent implements OnInit {
       this.param_query_check();     
      }
 
-  ngOnInit(): void {  
+  ngOnInit(): void {   
+    this.titleService.setTitle('Listing Page');
     this.showLoadingIndicator = true;
     this.dropdown_data();
      this.getAmenities();
@@ -195,7 +198,7 @@ export class ProductListingComponent implements OnInit {
       response => {
         let data:any=response;
         if(data.data.length<1){
-          this.openModal_feedback();
+          // this.openModal_feedback();
         }
       }, err => { 
         let Message =err.error.message;
@@ -203,18 +206,18 @@ export class ProductListingComponent implements OnInit {
     );
   }
   
-  openModal_feedback() {
-    const modalRef = this.modalService.open(UserVisitPopupComponent,
-      {
-        scrollable: true,
-        windowClass: 'myCustomModalClass',
-        // keyboard: false,
-         backdrop: 'static'
-      });
-   modalRef.result.then((result) => {
-    }, (reason) => {
-    });
-  }
+  // openModal_feedback() {
+  //   const modalRef = this.modalService.open(UserVisitPopupComponent,
+  //     {
+  //       scrollable: true,
+  //       windowClass: 'myCustomModalClass',
+  //       // keyboard: false,
+  //        backdrop: 'static'
+  //     });
+  //  modalRef.result.then((result) => {
+  //   }, (reason) => {
+  //   });
+  // }
   // fetch amenties advance tab
   getAmenities(){
     this.CommonService.getAmenities({ param: null }).subscribe(
@@ -559,6 +562,7 @@ export class ProductListingComponent implements OnInit {
       this.ProductListingPageService.product_details(this.searchForm.value).then(
         Pagination_data => {
           this.property=Pagination_data;
+          console.log(this.property);
           this.product_length=this.property.data.total;
           if(this.product_length<1){
             this.property_availablty=false;

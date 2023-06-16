@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { OwlOptions } from 'ngx-owl-carousel-o';
+import { Title } from '@angular/platform-browser';
 import { RegisterPageService } from '../../services/register-page.service';
 
 import { environment } from 'src/environments/environment';
@@ -43,7 +44,7 @@ export class LandingPageComponent implements OnInit {
 
   public toll_free=environment.toll_free;
   constructor(
-    private fb: FormBuilder,
+    private fb: FormBuilder,private titleService: Title,
     private registerService: RegisterPageService,
     private route: ActivatedRoute,
     private router: Router,
@@ -51,6 +52,7 @@ export class LandingPageComponent implements OnInit {
     private jwtService: JwtService,) { }
 
   ngOnInit(): void {
+    this.titleService.setTitle('Onwer-Landing Page');
   }
   get LoginFormControl() {
     return this.loginForm.controls;

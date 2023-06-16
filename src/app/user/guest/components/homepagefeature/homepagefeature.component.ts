@@ -58,6 +58,7 @@ export class HomepagefeatureComponent implements OnInit {
       response => {
         this.showLoadingIndicator= false;
         this.property=response;
+        console.log(response);
         this.product_length=this.property.data.length;
       }, err => { 
         this.showLoadingIndicator = false;
@@ -169,8 +170,8 @@ export class HomepagefeatureComponent implements OnInit {
     }
   }
   
-  navigate(id:number,name:string,city:string){
-    this.router.navigate(['/product-details'],{queryParams:{'id':id,'name':name,'city':city}})
+  navigate(id:number,name:string,city:string,locality:string,sublocality:string,flat_type:string){
+    this.router.navigate(['/product-details'],{queryParams:{'id':id,'name':name,'city':city,'locality':locality,'sublocality':sublocality,'flat-type':flat_type}})
   }
 
   // pricre convert functionalty

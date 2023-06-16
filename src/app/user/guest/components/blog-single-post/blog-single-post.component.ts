@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BlogService } from '../../services/blog.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-blog-single-post',
@@ -17,10 +18,10 @@ export class BlogSinglePostComponent implements OnInit {
   public showLoadingIndicator: boolean =false;
   images_folder: string = environment.ftpURL;
 
-  constructor(private _ActivatedRoute:ActivatedRoute, private _router:Router, private blogService:BlogService) { }
+  constructor(private titleService: Title,private _ActivatedRoute:ActivatedRoute, private _router:Router, private blogService:BlogService) { }
 
   ngOnInit(): void {
-
+    this.titleService.setTitle('Blog-Single Page');
     this.showLoadingIndicator = true;
     this.activatedRouteSnapshot = this._ActivatedRoute.snapshot.params.slug;
     //console.log(this.activatedRouteSnapshot);
