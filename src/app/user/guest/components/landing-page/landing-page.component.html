@@ -3,7 +3,7 @@
     <!--Breadcrumb-->
     <div class="p-5 bg-secondary1 rounded-3" id="p-51">
         <div class="container">
-                <div class="row">
+                <div class="row" *ngIf="!LoggedIn">
                     <div class="col-12 col-lg-7">
                         <div class="banner-content">
                             <h3>Rent Out Your Residential <br>Property <span style="color: green;">in 30 Days</span></h3>
@@ -17,7 +17,7 @@
                         </div>
                     </div>
                     <div class="col-12 col-lg-5">
-                        <div class="form-section">
+                        <div class="form-section" *ngIf="!LoggedIn">
                             <div class="card shadow text-dark login-card">
                                 <div class="card-body py-3 px-5 text-center">
                                     <div *ngIf="showLoadingIndicator">
@@ -119,6 +119,20 @@
                                 </div>
                             </div>
                         </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" *ngIf="LoggedIn==true">
+                    <div class="col-8 col-lg-8 offset-2">
+                        <div class="banner-content">
+                            <h3>Rent Out Your Residential <br>Property <span style="color: green;">in 30 Days</span></h3>
+                            <ul>
+                                <li>Nothing to pay in Advance : When You Earn We Earn</li>
+                                <li>You'll be involved only during payment transfers.</li>
+                                <li>Leave the property management tasks to us, we'll handle everything from
+                                    property photos to tenant visits, ensuring a hassle-free experience for you</li>
+                                <li>Zero Risk, Pay Only on Success </li>
+                            </ul>
                         </div>
                     </div>
                 </div>

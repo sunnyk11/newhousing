@@ -616,6 +616,10 @@ export class ProductPageComponent implements OnInit {
     modalRef.componentInstance.fromParent = data;
   }
   proceedToPayment(productId:any) {
+    this.router.navigate(['/product_payment_summary'], { queryParams: {'productID': productId } });    
+  }
+  
+  proceedToPayment1(productId:any) {
     
     let val = this.jwtService.getToken();
     if (val) {

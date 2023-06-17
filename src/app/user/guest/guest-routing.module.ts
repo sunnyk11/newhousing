@@ -65,7 +65,7 @@ const routes: Routes = [
         { path: "ip-disclaimer", component:IpDisclaimerComponent,canActivate:  [UserLogsGuard]},
         { path: "privacy-policy", component:PrivacyPolicyComponent,canActivate:  [UserLogsGuard]},
         { path: "logout", component:LogoutComponent,canActivate:  [UserLogsGuard]},
-        { path: "product_payment_summary", component: ProPaymentSummaryComponent,canActivate: [AuthGuard]},
+        { path: "product_payment_summary", component: ProPaymentSummaryComponent},
         { path: "verify-mobile", component: VerifyMobileComponent, canActivate: [AuthGuard,UserLogsGuard]},
         { path: "verify-mobile/success", component: VerifyMobileSuccessComponent, canActivate: [AuthGuard,UserLogsGuard]},
         { path: "fix-appointment", component: FixedAppointmentComponent, canActivate: [AuthGuard,UserLogsGuard]},

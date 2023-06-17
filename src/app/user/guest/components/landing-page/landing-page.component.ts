@@ -19,6 +19,7 @@ export class LandingPageComponent implements OnInit {
   
   public submitted: boolean = false;
   public mobile_submitted:boolean=false;
+  public LoggedIn: boolean = false;
   public display_otp_form: boolean = false;
   public isFailedVerify_otp: boolean = false;
   public status_code:number=200;
@@ -53,6 +54,12 @@ export class LandingPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.titleService.setTitle('Onwer-Landing Page');
+    
+    if (this.jwtService.isTokenAvailable()) {
+      this.LoggedIn = true;
+    }else{
+      this.LoggedIn = false;
+    }
   }
   get LoginFormControl() {
     return this.loginForm.controls;

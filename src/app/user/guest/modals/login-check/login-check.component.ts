@@ -43,6 +43,7 @@ export class LoginCheckComponent implements OnInit {
       }
     }
     if(this.returnUrl){
+      console.log(this.jwtService.getReturnURL());
       let session_url:any=this.jwtService.getReturnURL().split('?')[0];
       if (session_url == '/product_payment_summary') {
         console.log(session_url);

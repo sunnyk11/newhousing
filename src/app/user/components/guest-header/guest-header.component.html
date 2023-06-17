@@ -161,7 +161,7 @@
             </li>
             <li class="add_listing">
                 <span>
-                    <a [routerLink]="['/agent/list-property']" routerLinkActive="active">
+                    <a  routerLinkActive="active" (click)="navigate()">
                         <!-- <mat-icon *ngIf="icon_show == true"> add_circle_outline</mat-icon> -->
                         <i class="fa fa-plus-circle"></i>
                         <span> List Property</span>

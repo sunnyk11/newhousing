@@ -5,6 +5,7 @@ import { CommonService } from '../../guest/services/common.service';
 import { environment } from 'src/environments/environment';
 import { ToastrService } from 'ngx-toastr';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-guest-header',
@@ -39,7 +40,8 @@ export class GuestHeaderComponent implements OnInit {
     private jwtService: JwtService,
     private commonService: CommonService,
     private sanitizer: DomSanitizer,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private router:Router,
   ) {
     this.logged_in = this.commonService.getUpdate().subscribe(
       message => {
@@ -87,6 +89,14 @@ export class GuestHeaderComponent implements OnInit {
         this.wishlist_length = this.property.data.length;
       }
     );
+  }
+  
+  navigate(){
+    if (this.jwtService.isTokenAvailable()) {
+       this.router.navigate(['/agent/list-property']);
+    }else{
+      this.router.navigate(['/owner-landing']);
+    }
   }
   // fetch product compare property 
   product_comapre() {

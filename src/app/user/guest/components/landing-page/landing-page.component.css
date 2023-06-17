@@ -48,11 +48,11 @@ li{
 .bg-secondary1{
     background-image: radial-gradient(
               rgba(240, 240, 240, 0.3),
-              rgba(240, 240, 240, 0.3)), url('../../../../../assets/resources/images/landing/banner-img.jpg');
+              rgba(240, 240, 240, 0.3)), url('../../../../../assets/resources/images/landing/banner-img.png');
     background-repeat: no-repeat;
     background-size: cover;
     /* height: 500px!important; */
-    padding: 60px 20px!important;
+    padding: 100px 20px!important;
     margin: 100px 0px 0px!important;
 }
 
