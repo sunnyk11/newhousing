@@ -513,13 +513,6 @@
                         </button>
                             </div>
                             
-                            <div class="sidebar_listing_list" id="mobile_view">
-                                <div class="row">
-                                    <h4 id="fixed_appointment_heading">CALL NOW! As Our Service is 100% Free for Tenant/Renter, So we work on first-come first-serve policy. Fix your Property Visit ASAP and let our Relationship Manager(RM) guide you through the process. Any delay or hesitation could mean an ideal property passing on to someone else. Remember - there are no "copies" of properties, so you might have to compromise on requirements later!</h4>
-                                    <!-- <button class="chekout_btn w100 h50" (click)="fixed_appointment(product_data.id)">Fix Appointment</button> -->
-                                    <button class="chekout_btn w100 h50"><a href="tel:{{toll_free}}" ><i class="fa fa-phone"></i> {{toll_free}}</a></button>
-                                </div>
-                            </div>
                         </div>
                     </div>
                     <div class="col-lg-12" *ngIf="isLoggedIn == true">
@@ -603,6 +596,14 @@
                                     </ul>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                    
+                    <div class="sidebar_listing_list" id="mobile_view">
+                        <div class="row">
+                            <h4 id="fixed_appointment_heading">CALL NOW! As Our Service is 100% Free for Tenant/Renter, So we work on first-come first-serve policy. Fix your Property Visit ASAP and let our Relationship Manager(RM) guide you through the process. Any delay or hesitation could mean an ideal property passing on to someone else. Remember - there are no "copies" of properties, so you might have to compromise on requirements later!</h4>
+                            <!-- <button class="chekout_btn w100 h50" (click)="fixed_appointment(product_data.id)">Fix Appointment</button> -->
+                            <button class="chekout_btn w100 h50"><a href="tel:{{toll_free}}" ><i class="fa fa-phone"></i> {{toll_free}}</a></button>
                         </div>
                     </div>
                     <!-- <div class="col-lg-12 single-page_inner_column" *ngIf="product_data?.video_link?.length>0 && product_data?.video_link !=null ">

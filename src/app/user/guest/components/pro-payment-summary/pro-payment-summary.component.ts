@@ -9,6 +9,7 @@ import { MobileCheckComponent } from '../../modals/mobile-check/mobile-check.com
 import { LoginPageService } from '../../services/login-page.service';
 import { environment } from 'src/environments/environment';
 import { ToastrService } from 'ngx-toastr';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-pro-payment-summary',
@@ -66,6 +67,7 @@ export class ProPaymentSummaryComponent implements OnInit {
   public selected_plan_data: any;
   public payment_result: any;
   public paytm_data: any;
+  public toll_free=environment.toll_free;
   public rent_plan_data: any;
   public invoice_data: any;
   public plan_features_data: any;
@@ -74,6 +76,7 @@ export class ProPaymentSummaryComponent implements OnInit {
   private paytm_form_url: string = environment.Paytm_formURL;
 
   constructor(
+    private titleService: Title,
     private plansPageService: PlansPageService,
     private route: ActivatedRoute,
     private productService: ProductPageService,
@@ -93,6 +96,7 @@ export class ProPaymentSummaryComponent implements OnInit {
       });}
 
   ngOnInit(): void {
+    this.titleService.setTitle('Product Summery');
     this.showLoadingIndicator = true;   
     this.getRentFeatures();
   }
@@ -315,6 +319,9 @@ export class ProPaymentSummaryComponent implements OnInit {
     } 
     else {
       this.showLoadingIndicator = false;
+      let  url:any= '/product_payment_summary?productID='+this.product_id;
+      this.jwtService.removeReturnURL();
+      this.jwtService.saveReturnURL(url);
       //console.log("Not logged in: " + val);
       this.openModal();
     }
@@ -493,6 +500,9 @@ export class ProPaymentSummaryComponent implements OnInit {
     else {
       this.showLoadingIndicator = false;
       //console.log("Not logged in: " + val);
+      let  url:any= '/product_payment_summary?productID='+this.product_id;
+      this.jwtService.removeReturnURL();
+      this.jwtService.saveReturnURL(url);
       this.openModal();
     }
   }

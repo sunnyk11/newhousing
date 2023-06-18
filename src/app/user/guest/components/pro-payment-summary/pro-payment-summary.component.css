@@ -10,6 +10,19 @@
     border-radius: 5px;
     font-size: 25px;
 }
+.chekout_btn {
+    margin: 10px 0px 5px 0px!important;
+    padding: 0px!important;
+}
+.chekout_btn a{
+    color: #fff!important;
+}
+.chekout_btn span{
+    font-size: 12px!important;
+    line-height: 0px!important;
+    letter-spacing:0px!important;
+    margin-bottom: 5px!important;
+}
 .no_property_row h3{
     text-align: center;
 }

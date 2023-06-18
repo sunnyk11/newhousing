@@ -5,6 +5,7 @@ import { JwtService } from 'src/app/user/services/jwt.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { UserLogsService } from '../../services/user-logs.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-compare',
@@ -46,10 +47,12 @@ export class CompareComponent implements OnInit {
     private jwtService: JwtService,
     private router:Router,
     private UserLogsService:UserLogsService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private titleService: Title
     ) {   }
 
   ngOnInit(): void {
+    this.titleService.setTitle('Compare Page');
     if(this.jwtService.isTokenAvailable()){
       this.userEmail =  this.jwtService.getUserEmail();
       this.usertype = this.jwtService.getUserType();

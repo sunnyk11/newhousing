@@ -9,6 +9,7 @@ import { LoginCheckComponent } from '../../modals/login-check/login-check.compon
 import { MobileCheckComponent } from '../../modals/mobile-check/mobile-check.component';
 import { FixAppointmentComponent } from '../../modals/fix-appointment/fix-appointment.component';
 import { OwlOptions } from 'ngx-owl-carousel-o';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-subscription-plans',
@@ -69,6 +70,7 @@ export class SubscriptionPlansComponent implements OnInit {
   public displayAlert: boolean = false;
 
   constructor(
+    private titleService: Title,
     private plansPageService: PlansPageService,
     private jwtService: JwtService,
     private loginPageService: LoginPageService,
@@ -76,7 +78,7 @@ export class SubscriptionPlansComponent implements OnInit {
     private modalService: NgbModal
   ) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void { this.titleService.setTitle('Plans Page');
     this.getRentFeatures();
     this.getLetOutFeatures();
   }

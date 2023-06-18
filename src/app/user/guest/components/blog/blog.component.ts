@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BlogService } from '../../services/blog.service';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 import { PaginatedPosts } from '../../models/paginated-posts.model';
 
 @Component({
@@ -18,12 +19,15 @@ export class BlogComponent implements OnInit {
   public returnedPosts: any;
   public showLoadingIndicator: boolean = false;
 
-  constructor(private blogService: BlogService, private _router: Router) {
+  constructor(private blogService: BlogService,
+    private titleService: Title,
+     private _router: Router) {
     this.paginated_posts = new PaginatedPosts();
   }
 
   ngOnInit(): void {
     this.showLoadingIndicator = true;
+    this.titleService.setTitle('Blog Page');
     this.blogService.getPosts().then(
       paginatedPosts => {
         this.paginated_posts = paginatedPosts;

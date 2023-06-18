@@ -29,7 +29,7 @@ const routes: Routes = [
     children: [
       { path: "my-plans", component: MyPlansComponent, canActivate: [AuthGuard] },
       { path: "", component:ProfileComponent,canActivate: [AuthGuard] },
-      { path: "list-property", component: ListpropertyComponent,canActivate: [AuthGuard]},
+      { path: "list-property", component: ListpropertyComponent},
       { path: "my-properties", component: MyPropertiesComponent,canActivate: [AuthGuard]},
       { path: "list-property-rent", component: ListpropertyRentComponent,canActivate: [AuthGuard, VerifyMobileGuard]},
       /* Sale feature Commented */

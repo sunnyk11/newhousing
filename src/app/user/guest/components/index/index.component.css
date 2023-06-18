@@ -5,6 +5,10 @@
 .home1-advnc-search ul .amentites_li {
     margin: 0px!important;
 }
+.limitTextHeight1 {
+    height:315px;
+    overflow: hidden;
+}
 
 .ui_kit_checkbox .form-check-label {
     display: flex!important;
@@ -76,6 +80,7 @@
 }
 
 @media(max-width: 768px) {
+   
     .home1-advnc-search ul .locality_list {
         display: inline-block;
         line-height: 3;

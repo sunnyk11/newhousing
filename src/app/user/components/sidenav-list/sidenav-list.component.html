@@ -15,8 +15,8 @@
     <!-- <a mat-list-item routerLink="/about" (click)="onSidenavClose()">
         <mat-icon>description</mat-icon><span class="nav-caption">About Us</span>
     </a> -->
-    <a mat-list-item routerLink="/faq" routerLinkActive="active" (click)="onSidenavClose()">
-        <mat-icon>description</mat-icon><span class="nav-caption">FAQs</span>
+    <a mat-list-item routerLink="/owner-landing" routerLinkActive="active" (click)="onSidenavClose()">
+        <mat-icon>description</mat-icon><span class="nav-caption">Owner Landing</span>
     </a>
     <a *ngIf="LoggedIn" mat-list-item routerLink="/wishlist" routerLinkActive="active" (click)="onSidenavClose()">
         <span matBadge={{wishlist_length}} matBadgeOverlap="false" matBadgeColor="warn"><mat-icon>favorite</mat-icon></span>
@@ -27,8 +27,8 @@
     <a *ngIf="LoggedIn && property_comp_length < 2" mat-list-item (click)="compare_notification()">
         <span matBadge={{property_comp_length}} matBadgeOverlap="false" matBadgeColor="warn"><mat-icon>compare_arrows</mat-icon></span>
     </a>
-    <a mat-list-item routerLink="/agent/list-property"  routerLinkActive="active" (click)="onSidenavClose()">
-        <mat-icon>add_circle</mat-icon><span class="nav-caption">List Property</span>
+    <a mat-list-item  routerLinkActive="active" (click)="onSidenavClose(); navigate()">
+        <mat-icon>add_circle</mat-icon><span class="nav-caption" >List Property</span>
     </a>
         <a mat-list-item  (click)="onSidenavClose()">
             <mat-icon id="phone">phone</mat-icon><span class="nav-caption"><a href="tel:{{toll_free}}" >{{toll_free}}</a></span>

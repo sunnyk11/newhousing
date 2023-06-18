@@ -15,6 +15,7 @@ import { ClipboardService } from 'ngx-clipboard';
 import { LoginCheckComponent } from '../../modals/login-check/login-check.component';
 import { UserVisitPopupComponent } from '../../modals/user-visit-popup/user-visit-popup.component';
 
+import { Title } from '@angular/platform-browser';
 import { MobileCheckComponent } from '../../modals/mobile-check/mobile-check.component';
 
 @Component({
@@ -69,6 +70,7 @@ export class ProductPageComponent implements OnInit {
     property_id: new FormControl('', Validators.required),
   });
   constructor(
+    private titleService: Title,
     private _sanitizer: DomSanitizer,
      private route:ActivatedRoute,
      private UserLogsService:UserLogsService,
@@ -90,7 +92,7 @@ export class ProductPageComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void { this.titleService.setTitle('Single Property Page');
     if(this.jwtService.getToken()){
       this.returnUrl = this.router.url;
       this.jwtService.saveReturnURL(this.returnUrl);
@@ -109,7 +111,7 @@ export class ProductPageComponent implements OnInit {
       response => {
         let data:any=response;
         if(data.data.length<1){
-          this.openModal_feedback();
+          // this.openModal_feedback();
         }
       }, err => { 
         let Message =err.error.message;
@@ -117,19 +119,19 @@ export class ProductPageComponent implements OnInit {
     );
   }
   
-  openModal_feedback() {
-    const modalRef = this.modalService.open(UserVisitPopupComponent,
-      {
-        scrollable: true,
-        windowClass: 'myCustomModalClass',
-        // keyboard: false,
-         backdrop: 'static'
-      });
-   modalRef.result.then((result) => {
-      //console.log(result);
-    }, (reason) => {
-    });
-  }
+  // openModal_feedback() {
+  //   const modalRef = this.modalService.open(UserVisitPopupComponent,
+  //     {
+  //       scrollable: true,
+  //       windowClass: 'myCustomModalClass',
+  //       // keyboard: false,
+  //        backdrop: 'static'
+  //     });
+  //  modalRef.result.then((result) => {
+  //     //console.log(result);
+  //   }, (reason) => {
+  //   });
+  // }
   get f(){
    return  this.Property_notesform.controls;
   }
@@ -614,6 +616,10 @@ export class ProductPageComponent implements OnInit {
     modalRef.componentInstance.fromParent = data;
   }
   proceedToPayment(productId:any) {
+    this.router.navigate(['/product_payment_summary'], { queryParams: {'productID': productId } });    
+  }
+  
+  proceedToPayment1(productId:any) {
     
     let val = this.jwtService.getToken();
     if (val) {
