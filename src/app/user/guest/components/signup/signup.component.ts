@@ -5,7 +5,7 @@ import { RegisterPageService } from '../../services/register-page.service';
 import { UserLogsService } from '../../services/user-logs.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { JwtService } from 'src/app/user/services/jwt.service';
-import { ToastrService } from 'ngx-toastr';
+import { ToastrService } from 'ngx-toastr';import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-signup',
@@ -59,6 +59,7 @@ export class SignupComponent implements OnInit {
     private router: Router,
     private toastr: ToastrService,
     private jwtService: JwtService,
+    private titleService: Title,
     private UserLogsService:UserLogsService
     ) {
       this.usertype = this.jwtService.getUserType();
@@ -70,6 +71,8 @@ export class SignupComponent implements OnInit {
        }
 
   ngOnInit(): void {
+    
+    this.titleService.setTitle('Sign-UP');
     this.returnUrl = this.jwtService.getReturnURL();
     if (this.jwtService.getToken()) {
         this.router.navigateByUrl('');

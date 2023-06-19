@@ -142,7 +142,7 @@ export class ProductListingComponent implements OnInit {
      }
 
   ngOnInit(): void {   
-    this.titleService.setTitle('Listing Page');
+    this.titleService.setTitle('Listing');
     this.showLoadingIndicator = true;
     this.dropdown_data();
      this.getAmenities();

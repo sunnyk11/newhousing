@@ -78,7 +78,7 @@ export class SubscriptionPlansComponent implements OnInit {
     private modalService: NgbModal
   ) { }
 
-  ngOnInit(): void { this.titleService.setTitle('Plans Page');
+  ngOnInit(): void { this.titleService.setTitle('Plans');
     this.getRentFeatures();
     this.getLetOutFeatures();
   }

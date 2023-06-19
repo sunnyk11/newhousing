@@ -39,7 +39,7 @@ export class ContactComponent implements OnInit {
 
   ngOnInit(): void {
     this.showLoadingIndicator = false;    
-    this.titleService.setTitle('Contact Page');
+    this.titleService.setTitle('Contact');
     if(this.jwtService.getToken()){
       this.returnUrl = this.router.url;
       this.jwtService.saveReturnURL(this.returnUrl);

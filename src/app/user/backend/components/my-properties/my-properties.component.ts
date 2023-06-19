@@ -12,7 +12,7 @@ import { Pagination } from 'src/app/user/components/models/pagination.model';
 import { ConfirmationmodalComponent } from '../../modals/confirmationmodal/confirmationmodal.component';
 import { ToWords } from 'to-words';
 import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
+import html2canvas from 'html2canvas';import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-my-properties',
@@ -44,7 +44,7 @@ export class MyPropertiesComponent implements OnInit {
 
   private e:any;
 
-  constructor(
+  constructor(private titleService: Title,
     private MypropertiesService:MypropertiesService,
     private toastr: ToastrService,
     private PlansServiceService:PlansServiceService,
@@ -68,7 +68,7 @@ export class MyPropertiesComponent implements OnInit {
           });
       }
 
-  ngOnInit(): void {
+  ngOnInit(): void {  this.titleService.setTitle('My-properties');
     this.agent_properties();
     this.draft_properties();
     this.userEmail = this.jwtService.getUserEmail();

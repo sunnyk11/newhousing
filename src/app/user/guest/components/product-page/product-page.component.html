@@ -448,72 +448,6 @@
                                 </div>
                             </div>
                         </div> -->
-                        <div class="col-12 hidden-lg">
-                            <div class="sidebar_listing_list payment_summery" *ngIf="product_data?.sale_availability == 1">
-                                <div class="row">
-                                    <div class="col-lg-12 col-12">
-                                        <h4>Property Owner's Demanding</h4>
-                                    </div>
-                                    <div class="col-lg-9 col-9">
-                                        <h6>Property Price:</h6>
-                                    </div>
-                                    <div class="col-lg-3 col-3">
-                                        <h6><strong>{{commaSeperated(product_data?.expected_pricing)}}</strong></h6>
-                                    </div>
-                                    <div class="col-lg-9 col-9" *ngIf="product_data?.maintenance_charge_status == '1'">
-                                        <h6>Maintenance Charge({{product_data?.maintenance_condition?.name}}): </h6>
-                                    </div>
-                                    <div class="col-lg-3 col-3" *ngIf="product_data?.maintenance_charge_status == '1'">
-                                        <h6><strong>{{commaSeperated(product_data?.maintenance_charge)}}</strong></h6>
-                                    </div>
-                                    <div class="col-lg-9 col-9">
-                                        <h6>Total Amount: </h6>
-                                    </div>
-                                    <div class="col-lg-3 col-3">
-                                        <h6><strong>{{commaSeperated(total_amount_owner)}}</strong></h6>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="sidebar_listing_list payment_summery" *ngIf="product_data?.rent_availability == 1">
-                                <div class="row">
-                                    <div class="col-lg-12 col-12">
-                                        <h4>Property Owner's Demanding</h4>
-                                    </div>
-                                    <div class="col-lg-9 col-9">
-                                        <h6>1 Month Rent:</h6>
-                                    </div>
-                                    <div class="col-lg-3 col-3">
-                                        <h6><strong>{{commaSeperated(product_data?.expected_rent)}}</strong></h6>
-                                    </div>
-                                    <div class="col-lg-9 col-9">
-                                        <h6>Security Deposit (<span *ngIf="product_data?.security_deposit == 0">No Security</span><span *ngIf="product_data?.security_deposit > 0">{{product_data?.security_deposit}} Month Rent</span>): </h6>
-                                    </div>
-                                    <div class="col-lg-3 col-3">
-                                        <h6>
-                                            <strong *ngIf="product_data?.security_deposit == 0">NA</strong>
-                                            <strong *ngIf="product_data?.security_deposit > 0">{{commaSeperated(security_dep_amount)}}</strong>
-                                        </h6>
-                                    </div>
-                                    <div class="col-lg-9 col-9" *ngIf="product_data?.maintenance_charge_status == '1'">
-                                        <!-- <hr> -->
-                                        <h6>Maintenance Charge({{product_data?.maintenance_condition?.name}}): </h6>
-                                    </div>
-                                    <div class="col-lg-3 col-3" *ngIf="product_data?.maintenance_charge_status == '1'">
-                                        <h6><strong>{{commaSeperated(product_data?.maintenance_charge)}}</strong></h6>
-                                    </div>
-                                    <div class="col-lg-9 col-9">
-                                        <h6>Total Amount: </h6>
-                                    </div>
-                                    <div class="col-lg-3 col-3">
-                                        <h6><strong>{{commaSeperated(total_amount_owner)}}</strong></h6>
-                                    </div>
-                                </div>
-                                <button class="chekout_btn w100 h50" (click)="proceedToPayment(product_data.id)" *ngIf="login_userid != product_data?.user_id">
-                                    Check Final Cost
-                        </button>
-                            </div>
-                            
-                        </div>
                     </div>
                     <div class="col-lg-12" *ngIf="isLoggedIn == true">
                         <div class="col-lg-12" *ngIf="login_userid == product_data?.user_id && access_property_location == false">
@@ -597,6 +531,72 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="col-12 hidden-lg">
+                        <div class="sidebar_listing_list payment_summery" *ngIf="product_data?.sale_availability == 1">
+                            <div class="row">
+                                <div class="col-lg-12 col-12">
+                                    <h4>Property Owner's Demanding</h4>
+                                </div>
+                                <div class="col-lg-9 col-9">
+                                    <h6>Property Price:</h6>
+                                </div>
+                                <div class="col-lg-3 col-3">
+                                    <h6><strong>{{commaSeperated(product_data?.expected_pricing)}}</strong></h6>
+                                </div>
+                                <div class="col-lg-9 col-9" *ngIf="product_data?.maintenance_charge_status == '1'">
+                                    <h6>Maintenance Charge({{product_data?.maintenance_condition?.name}}): </h6>
+                                </div>
+                                <div class="col-lg-3 col-3" *ngIf="product_data?.maintenance_charge_status == '1'">
+                                    <h6><strong>{{commaSeperated(product_data?.maintenance_charge)}}</strong></h6>
+                                </div>
+                                <div class="col-lg-9 col-9">
+                                    <h6>Total Amount: </h6>
+                                </div>
+                                <div class="col-lg-3 col-3">
+                                    <h6><strong>{{commaSeperated(total_amount_owner)}}</strong></h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sidebar_listing_list payment_summery" *ngIf="product_data?.rent_availability == 1">
+                            <div class="row">
+                                <div class="col-lg-12 col-12">
+                                    <h4>Property Owner's Demanding</h4>
+                                </div>
+                                <div class="col-lg-9 col-9">
+                                    <h6>1 Month Rent:</h6>
+                                </div>
+                                <div class="col-lg-3 col-3">
+                                    <h6><strong>{{commaSeperated(product_data?.expected_rent)}}</strong></h6>
+                                </div>
+                                <div class="col-lg-9 col-9">
+                                    <h6>Security Deposit (<span *ngIf="product_data?.security_deposit == 0">No Security</span><span *ngIf="product_data?.security_deposit > 0">{{product_data?.security_deposit}} Month Rent</span>): </h6>
+                                </div>
+                                <div class="col-lg-3 col-3">
+                                    <h6>
+                                        <strong *ngIf="product_data?.security_deposit == 0">NA</strong>
+                                        <strong *ngIf="product_data?.security_deposit > 0">{{commaSeperated(security_dep_amount)}}</strong>
+                                    </h6>
+                                </div>
+                                <div class="col-lg-9 col-9" *ngIf="product_data?.maintenance_charge_status == '1'">
+                                    <!-- <hr> -->
+                                    <h6>Maintenance Charge({{product_data?.maintenance_condition?.name}}): </h6>
+                                </div>
+                                <div class="col-lg-3 col-3" *ngIf="product_data?.maintenance_charge_status == '1'">
+                                    <h6><strong>{{commaSeperated(product_data?.maintenance_charge)}}</strong></h6>
+                                </div>
+                                <div class="col-lg-9 col-9">
+                                    <h6>Total Amount: </h6>
+                                </div>
+                                <div class="col-lg-3 col-3">
+                                    <h6><strong>{{commaSeperated(total_amount_owner)}}</strong></h6>
+                                </div>
+                            </div>
+                            <button class="chekout_btn w100 h50" (click)="proceedToPayment(product_data.id)" *ngIf="login_userid != product_data?.user_id">
+                                Check Final Cost
+                    </button>
+                        </div>
+                        
                     </div>
                     
                     <div class="sidebar_listing_list" id="mobile_view">

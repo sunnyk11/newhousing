@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { JwtService } from 'src/app/user/services/jwt.service';
 import { CommonService } from '../../services/common.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-logout',
@@ -14,11 +15,12 @@ export class LogoutComponent implements OnInit {
   public user_blocked_status:boolean=false;
 
   constructor(
-    private jwtService: JwtService,
+    private jwtService: JwtService,private titleService: Title,
     private commonService: CommonService
   ) { }
 
   ngOnInit(): void {
+    this.titleService.setTitle('Logout');
     //console.log("Log Out");
     if(this.jwtService.getUserBlockStatus()==1){
       this.user_blocked_status=true;

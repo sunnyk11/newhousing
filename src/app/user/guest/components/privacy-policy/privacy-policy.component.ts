@@ -10,7 +10,7 @@ export class PrivacyPolicyComponent implements OnInit {
 
   constructor(private titleService: Title) { }
 
-  ngOnInit(): void {this.titleService.setTitle('Privacy-Policy Page');
+  ngOnInit(): void {this.titleService.setTitle('Privacy-Policy');
   }
 
 }

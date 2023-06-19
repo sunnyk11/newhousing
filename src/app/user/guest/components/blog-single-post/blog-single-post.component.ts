@@ -21,7 +21,7 @@ export class BlogSinglePostComponent implements OnInit {
   constructor(private titleService: Title,private _ActivatedRoute:ActivatedRoute, private _router:Router, private blogService:BlogService) { }
 
   ngOnInit(): void {
-    this.titleService.setTitle('Blog-Single Page');
+    this.titleService.setTitle('Blog-Single');
     this.showLoadingIndicator = true;
     this.activatedRouteSnapshot = this._ActivatedRoute.snapshot.params.slug;
     //console.log(this.activatedRouteSnapshot);

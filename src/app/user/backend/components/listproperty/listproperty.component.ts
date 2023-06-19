@@ -3,6 +3,7 @@ import { JwtService } from 'src/app/user/services/jwt.service';
 import { LoginPageService } from '../../services/login-page.service';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Title } from '@angular/platform-browser';
 import { MobileCheckComponent } from 'src/app/user/guest/modals/mobile-check/mobile-check.component';
 
 @Component({
@@ -18,10 +19,10 @@ export class ListpropertyComponent implements OnInit {
 
   constructor(private jwtService: JwtService,
     private loginPageService: LoginPageService,
-    private router: Router,
+    private router: Router,private titleService: Title,
     private modalService: NgbModal) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void {this.titleService.setTitle('List-Property');
   }
 
   mob_verify_check(page: string) {

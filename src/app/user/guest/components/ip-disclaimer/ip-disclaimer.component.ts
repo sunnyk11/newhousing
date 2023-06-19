@@ -11,7 +11,7 @@ export class IpDisclaimerComponent implements OnInit {
   constructor(private titleService: Title) { }
 
   ngOnInit(): void {
-    this.titleService.setTitle('IP Disclaimer Page');
+    this.titleService.setTitle('IP Disclaimer');
   }
 
 }

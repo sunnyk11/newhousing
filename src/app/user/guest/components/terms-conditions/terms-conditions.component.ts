@@ -12,7 +12,7 @@ export class TermsConditionsComponent implements OnInit {
     private titleService: Title) { }
 
   ngOnInit(): void {
-    this.titleService.setTitle('Terms & Condition Page');
+    this.titleService.setTitle('Terms & Condition');
 
   }
 

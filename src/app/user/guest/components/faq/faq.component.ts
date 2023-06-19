@@ -16,7 +16,7 @@ export class FaqComponent implements OnInit {
     private jwtService: JwtService,
     private router:Router) { }
 
-  ngOnInit(): void {    this.titleService.setTitle('FAQ Page');
+  ngOnInit(): void {    this.titleService.setTitle('FAQ');
     if(this.jwtService.getToken()){
       this.returnUrl = this.router.url;
       this.jwtService.saveReturnURL(this.returnUrl);

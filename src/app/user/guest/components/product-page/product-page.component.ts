@@ -92,7 +92,7 @@ export class ProductPageComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void { this.titleService.setTitle('Single Property Page');
+  ngOnInit(): void { this.titleService.setTitle('Single Property');
     if(this.jwtService.getToken()){
       this.returnUrl = this.router.url;
       this.jwtService.saveReturnURL(this.returnUrl);

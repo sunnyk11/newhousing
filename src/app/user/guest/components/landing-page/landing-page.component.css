@@ -84,7 +84,16 @@ li{
 :host ::ng-deep .owl-carousel .owl-item .why-chose-us {
     height: 100%;
 }
-
+.fa-star{
+    font-size: 24px!important;
+    padding: 0px 5px!important;
+    color: #FDCC0D!important;
+}
+@media(max-width: 768px) {  
+    .testimonial_grid .details .content{
+        text-align: center!important;
+    }
+}
 .limitTextHeight1 {
     height: 250px;
     overflow: hidden;
@@ -124,6 +133,9 @@ li{
 .preloader{
     height: 250px!important;
 }
+.btn-success a{
+    color: #fff!important;
+}
 
 @media(max-width: 768px) {
     .p-5 {
@@ -152,7 +164,7 @@ li{
             height: 350px!important;
         }
     .how_it_section .content-section p{
-        font-size: 13px;
+        font-size: 14px;
         letter-spacing: .8px;
         text-align: justify;
         margin: 15px 0px;
