@@ -52,7 +52,7 @@ export class CompareComponent implements OnInit {
     ) {   }
 
   ngOnInit(): void {
-    this.titleService.setTitle('Compare Page');
+    this.titleService.setTitle('Compare');
     if(this.jwtService.isTokenAvailable()){
       this.userEmail =  this.jwtService.getUserEmail();
       this.usertype = this.jwtService.getUserType();

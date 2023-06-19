@@ -235,7 +235,86 @@
     </div>
 </section>
     <!-- Our Testimonials -->
-    <app-testimonial></app-testimonial>
+    <section id="our-testimonials" class="our-testimonial" >
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 offset-lg-3">
+                    <div class="main-title text-center">
+                        <h2 class="color-white">Testimonials</h2>
+                        <p class="color-white">What our Customers are Saying About us</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 offset-lg-3">
+                    <div class="testimonial_grid_slider">
+                        <owl-carousel-o [options]="testimonial">
+                            <ng-container *ngFor="let testimonial of testimonial_data; let i = index ">
+                                <ng-template carouselSlide >
+                                    <div class="item">
+                                        <div class="testimonial_grid">
+                                            <!-- <div class="thumb" >  
+                                                <img *ngIf="testimonial?.user_detail?.profile_pic !== null && testimonial?.user_detail?.profile_pic?.indexOf('https') == -1" class="profile-img" src="{{ ftpstring }}images/{{ testimonial?.user_detail?.profile_pic  }}" alt="Profile Pic">
+                                                <img *ngIf="testimonial?.user_detail?.profile_pic !== null && testimonial?.user_detail?.profile_pic?.indexOf('https') != -1" class="profile-img" src="{{testimonial?.user_detail?.profile_pic}}" alt="Profile Pic">
+                                                <img *ngIf="testimonial?.user_detail?.profile_pic == null" class="profile-img" src="assets/resources/images/testimonial/img_avatar2-png-9.png" alt="img_avatar2-png-9.png" alt="Profile Pic">
+                                            </div> -->
+                                            <div class="details">
+                                                <h4 class="mt15 mb15">{{testimonial?.author}}</h4>
+                                                <!-- <p>Sales Manager</p> -->
+                                                <p class="mt15 mb15" *ngIf="testimonial.stars == 0">
+                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                </p>
+                                                <p class="mt15 mb15" *ngIf="testimonial.stars == 1">
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                </p>
+                                                <p class="mt15 mb15" *ngIf="testimonial.stars == 2">
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                </p>
+                                                <p class="mt15 mb15" *ngIf="testimonial.stars == 3">
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                </p>
+                                                <p class="mt15 mb15" *ngIf="testimonial.stars == 4">
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                </p>
+                                                <p class="mt15 mb15" *ngIf="testimonial.stars == 5">
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                </p>
+                                                <p class="mt15 mb15 content">{{testimonial?.content}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                            </ng-container>
+                        </owl-carousel-o>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
     
 <section id="why-chose" class="whychose_us bgc-f7 pb30 how_it_section">
     <div class="container">
@@ -322,6 +401,11 @@
                 </div>
             </div>
         </div>
+        <div class="row" *ngIf="!LoggedIn">
+            <div class="col-12">
+                <button class="btn btn-success" type="button"><a [routerLink]="['/sign-up']" target="_self">Register Now</a></button>
+            </div>
+        </div>
     </div>
 </section>
     <div class="container py-4">
@@ -335,28 +419,38 @@
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="faq-h7">
                                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panel8" aria-expanded="true" aria-controls="panel8">
-                                        Can I list properties for free?
+                                         How is HousingStreet.com different
+                                        from other property listing platforms?
                                     </button>
                                 </h2>
                                 <div id="panel8" class="accordion-collapse collapse show" aria-labelledby="faq-h7">
                                     <div class="accordion-body">
-                                        No we don’t provide any free service. Reasonable plans are available for listing properties.  
+                                        HousingStreet.com stands out by
+                                        ensuring that your property gets rented out
+                                        within 30 days, without any upfront payment.
+                                        Unlike other platforms, we charge a service
+                                        fee of only 15 days' rent upon successful
+                                        renting, saving you both time and money.
                                     </div>
                                 </div>
                             </div>
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="faq-h7">
                                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panel9" aria-expanded="true" aria-controls="panel9">
-                                        What is the commission I need to pay to get renters for my property?
+                                        What makes HousingStreet.com more
+                                        reliable than property dealers or brokers?
                                     </button>
                                 </h2>
                                 <div id="panel9" class="accordion-collapse collapse" aria-labelledby="faq-h7">
                                     <div class="accordion-body">
-                                       There  are two types of plans:
-        
-                                        <li>Raja – you need to pay 15 days of rent amount as commission.</li>
-                                        <li> Maha Raja – you have to pay 20 days of rent amount as commission.</li>
-                                        For more details, please refer to the Plans page and calculate commission accordingly.
+                                        With HousingStreet.com, you can
+                                        eliminate the hassle of dealing with property
+                                        dealers or brokers and their hefty 15-30 days'
+                                        rent brokerage fees. Our experienced team
+                                        handles all the work, from property
+                                        photography to tenant verification and
+                                        drafting rent agreements, ensuring a
+                                        seamless renting process for you.
                                     </div>
                                 </div>
                             </div>
@@ -364,24 +458,38 @@
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="faq-h7">
                                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panel10" aria-expanded="true" aria-controls="panel10">
-                                        What is Local area service provider list?
+                                        How does HousingStreet.com
+                                        guarantee the timely letting out of my
+                                        property?
+                                        
                                     </button>
                                 </h2>
                                 <div id="panel10" class="accordion-collapse collapse" aria-labelledby="faq-h7">
                                     <div class="accordion-body">
-                                        It is an updated list with contact numbers of electricians, plumbers, painters, cleaners, maids, maintenance people, etc.
+                                        While we cannot provide an absolute
+                                        guarantee, our track record speaks for itself.
+                                        We have successfully rented out numerous
+                                        properties within 30 days, thanks to our wide
+                                        network, proactive marketing strategies, and
+                                        efficient tenant management system.
                                     </div>
                                 </div>
                             </div>
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="faq-h7">
                                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panel11" aria-expanded="true" aria-controls="panel11">
-                                        What is the difference between Advance Payment Plans and Pay Later Plans?
+                                        How much do I have to pay in advance
+                                        to list my property on HousingStreet.com?
                                     </button>
                                 </h2>
                                 <div id="panel11" class="accordion-collapse collapse" aria-labelledby="faq-h7">
                                     <div class="accordion-body">
-                                        If you opt for Advance Payment, as available with Maha Raja and Raja Plans you have to pay the commission before you start receiving rent. With the Pay Later Option, as available with the Standard Plan, we deduct the service charge from the rent that the customer pays to Housing Street. The rest of the amount will be transferred to your account.
+                                        With HousingStreet.com, you don't need
+                                        to pay anything in advance to list your
+                                        property. We believe in the success of our
+                                        services, and you only pay a nominal service
+                                        fee of 15 days' rent upon finding a suitable
+                                        tenant for your property.
                                     </div>
                                 </div>
                             </div>
@@ -389,12 +497,20 @@
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="faq-h7">
                                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panel12" aria-expanded="true" aria-controls="panel12">
-                                        What does client visit priority mean?
+                                        What is the "MahaRaja" plan, and how
+                                        does it benefit me?
                                     </button>
                                 </h2>
                                 <div id="panel12" class="accordion-collapse collapse" aria-labelledby="faq-h7">
                                     <div class="accordion-body">
-                                        Those with Maha Raja Plan properties are top priority, followed by Raja and Standard Plans, respectively.
+                                        The "MahaRaja" plan is an exclusive
+                                        offer for property owners. If your property
+                                        becomes vacant within the next 5 months
+                                        after the first successful letting, we will let
+                                        out your property for the 2nd and 3rd time
+                                        absolutely free of cost. It provides you with
+                                        added assurance and value for choosing
+                                        HousingStreet.com.
                                     </div>
                                 </div>
                             </div>
@@ -403,14 +519,19 @@
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="faq-h7">
                                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panel13" aria-expanded="true" aria-controls="panel13">
-                                        How long does it take to let out property?
+                                         How involved do I need to be in the
+                                        renting process?
                                     </button>
                                 </h2>
                                 <div id="panel13" class="accordion-collapse collapse" aria-labelledby="faq-h7">
                                     <div class="accordion-body">
-                                        <li>Maha Raja – 30 days and 100% money-back guarantee. If your property is vacated within 5 months, you can let it out up to 3 times without paying any commission.</li>
-                                        <li>Raja – 45 days and 100% money-back guarantee. If your property is vacated in 3 months, you can let it out 1 time without paying any commission. </li>
-                                        <li>Standard – 60 days.</li>
+                                        HousingStreet.com takes care of all the
+                                        work on your behalf. Our dedicated team
+                                        handles property photography, listing, tenant
+                                        inquiries, property visits, tenant verification,
+                                        and rent agreement drafting. You are
+                                        involved only when the payment is being
+                                        transferred to your account.
                                     </div>
                                 </div>
                             </div>
@@ -418,12 +539,21 @@
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="faq-h7">
                                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panel14" aria-expanded="true" aria-controls="panel14">
-                                        How will I receive rent? Where will I receive my first rent?
+                                        What if I have specific requirements for
+                                        tenants or my property?                                        
                                     </button>
                                 </h2>
                                 <div id="panel14" class="accordion-collapse collapse" aria-labelledby="faq-h7">
                                     <div class="accordion-body">
-                                        The rent for the first month will be transferred directly to your bank account. From the next month, you take charge of the transactions. 
+                                        We understand that every property
+                                        owner may have unique requirements. Our
+                                        team ensures to communicate and
+                                        understand your preferences thoroughly. We
+                                        aim to find tenants who meet your criteria,
+                                        whether it's regarding the tenant's
+                                        profession, family size, or other specific
+                                        needs.
+
                                     </div>
                                 </div>
                             </div>
@@ -431,12 +561,20 @@
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="faq-h7">
                                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panel15" aria-expanded="true" aria-controls="panel15">
-                                        Do you verify renters as well?
+                                        How can I trust HousingStreet.com with
+                                        managing my property and tenants?
                                     </button>
                                 </h2>
                                 <div id="panel15" class="accordion-collapse collapse" aria-labelledby="faq-h7">
                                     <div class="accordion-body">
-                                        No we don’t vet or run background checks on renters. It is the sole responsible of the property owner. 
+                                         HousingStreet.com is committed to
+                                        providing trustworthy and reliable services.
+                                        Our team follows a rigorous tenant
+                                        verification process, including background
+                                        checks, employment verification, and rental
+                                        history screening. We prioritize your peace
+                                        of mind and the safety of your property.
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -444,16 +582,19 @@
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="faq-h7">
                                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panel16" aria-expanded="true" aria-controls="panel16">
-                                        How do you operate?
+                                        Can I still list my property on other
+                                        platforms while using HousingStreet.com?
                                     </button>
                                 </h2>
                                 <div id="panel16" class="accordion-collapse collapse" aria-labelledby="faq-h7">
                                     <div class="accordion-body">
-                                        Fill in information about your property – be as specific as possible and make sure not to leave any field blank. The more details you give, the more convenient it is for us to find the ideal renter for you. Please upload photos in HD resolution to give the prospective renter a clear idea regarding your property. Once you fill in all details, we will visit the property to verify it. In case the photos are blurred and grainy, we will arrange for a professional photographer and get good images clicked. After verification, the property is officially listed on our website. The next step is to choose from our plans.
-                                        <li>Maha Raja – 30 days to let out and 100% money-back guarantee. If your property is vacated within 5 months, you can let it out up to 3 times without paying any commission.</li> 
-                                        <li>Raja – 45 days to let out and 100% money-back guarantee. If your property is vacated in 3 months, you can let it out 1 time without paying any commission.</li>
-                                        <li>Standard – 60 days to let out.</li>
-                                        Maha Raja and Raja are Advance Payment Plans, where we charge 20 days and 15 days of rent respectively as commission.  Standard is a Pay Later Plan where we deduct a service charge from the rent paid to us by the renter, and then transfer the remaining amount to your bank account. Rent agreement is prepared free of charge for all Plans.
+                                        Yes, you can list your property on other
+                                        platforms simultaneously. However, keep in
+                                        mind that HousingStreet.com offers a unique
+                                        approach, focusing on a quicker renting
+                                        process, zero upfront payment, and lower
+                                        service fees. Our dedicated efforts increase
+                                        the chances of finding a tenant sooner.
                                         
                                     </div>
                                 </div>
@@ -461,37 +602,98 @@
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="faq-h4">
                                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panel-four" aria-expanded="true" aria-controls="panel-four">
-                                        What if a renter wants to vacate a property soon after moving in?
+                                        What if I have additional questions or
+                                        need assistance?
                                     </button>
                                 </h2>
                                 <div id="panel-four" class="accordion-collapse collapse" aria-labelledby="faq-h4">
                                     <div class="accordion-body">
-                                        You are only charged once the renter moves in. If they vacate the property within 2 to 6 months of moving in, you won't have to pay any commission to start letting it out again.
+                                        We are here to assist you at every step
+                                        of the way. If you have any further questions
+                                        or need personalized support, feel free to
+                                        contact our friendly customer service team.
+                                        We are available via phone, email, or live
+                                        chat on our website.
+                                        
                                     </div>
                                 </div>
                             </div>
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="faq-h5">
                                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panel-five" aria-expanded="true" aria-controls="panel-five">
-                                        How is the rent deposited?
+                                        What if my property is located in a nonpremium location in Delhi? Can I still use
+                                        HousingStreet.com?
                                     </button>
                                 </h2>
                                 <div id="panel-five" class="accordion-collapse collapse" aria-labelledby="faq-h5">
                                     <div class="accordion-body">
-                                        The rent of the very first month is deposited directly in your bank account. After that, you can take over the transactions and conduct them as per convenience.
+                                        Absolutely! HousingStreet.com caters to
+                                        properties in both premium and nonpremium locations in Delhi. Our extensive
+                                        network and marketing strategies enable us
+                                        to find suitable tenants for properties across
+                                        various areas.
+                                        
                                     </div>
                                 </div>
                             </div>
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="faq-h7">
                                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panel-seven" aria-expanded="true" aria-controls="panel-seven">
-                                        How do you ensure the move is seamless?
+                                        What happens if a tenant damages my
+                                     property during their tenancy?
                                     </button>
                                 </h2>
                                 <div id="panel-seven" class="accordion-collapse collapse" aria-labelledby="faq-h7">
                                     <div class="accordion-body">
-                                        Local service provider lists are given to both renters and property owners. For the former, it is to ensure they don't have trouble locating a plumber, electrician, or any other handyman after moving in. For property owners, the list is for fixing up
-                                        the property before showing it to prospective clients, or after renters have vacated it.
+                                        While we strive to find reliable tenants,
+                                        unforeseen circumstances can occur. In such
+                                        cases, we assist in resolving the matter by
+                                        following the terms outlined in the rent
+                                        agreement. We also recommend taking
+                                        appropriate security deposits to mitigate any
+                                        potential damages.
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faq-h8">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panel-seven8" aria-expanded="true" aria-controls="panel-seven">
+                                        How long does it typically take to find
+                                        a suitable tenant through HousingStreet.com?
+                                    </button>
+                                </h2>
+                                <div id="panel-seven8" class="accordion-collapse collapse" aria-labelledby="faq-h8">
+                                    <div class="accordion-body">
+                                        While the timeline may vary depending 
+                                        on several factors, including location,
+                                        property type, and market demand, our goal
+                                        is to find a tenant within 30 days. Our
+                                        proactive marketing strategies and tenant
+                                        management systems enhance the chances
+                                        of securing a tenant swiftly.
+                                        
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="9faq-h9">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panel-seven9" aria-expanded="true" aria-controls="panel-seven9">
+                                        How does HousingStreet.com ensure
+                                        tenant quality and reliability?
+                                    </button>
+                                </h2>
+                                <div id="panel-seven9" class="accordion-collapse collapse" aria-labelledby="9faq-h9">
+                                    <div class="accordion-body">
+                                        We have a thorough tenant verification
+                                        process in place. This includes Police
+                                        Verification, employment verification,
+                                        reference checks, and a review of their rental
+                                        history. By diligently screening tenants, we
+                                        aim to find reliable individuals who will
+                                        respect and maintain your property.
+
                                     </div>
                                 </div>
                             </div>

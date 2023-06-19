@@ -62,7 +62,7 @@ export class RecentlyViewedProductComponent implements OnInit {
   
   navigate(id:number,name:string,city:string){
     const url:any = this.router.createUrlTree(['/product-details'],{queryParams:{'id':id,'name':name,'city':city}})
-    window.open(url.toString(), '_blank')
+    window.open(url.toString(), '_self')
   }  
 
 }

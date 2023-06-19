@@ -45,7 +45,7 @@ export class WishlistComponent implements OnInit {
     private router:Router
     ) { }
 
-  ngOnInit(): void {  this.titleService.setTitle('Wishlist Page');
+  ngOnInit(): void {  this.titleService.setTitle('Wishlist');
 
     if(this.jwtService.getToken()){
       this.showLoadingIndicator = true;

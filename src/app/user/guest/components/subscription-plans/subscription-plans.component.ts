@@ -10,6 +10,8 @@ import { MobileCheckComponent } from '../../modals/mobile-check/mobile-check.com
 import { FixAppointmentComponent } from '../../modals/fix-appointment/fix-appointment.component';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { Title } from '@angular/platform-browser';
+import { GtmserviceService } from '../../services/gtmservice.service';
+import { UserLogsService } from '../../services/user-logs.service';
 
 @Component({
   selector: 'app-subscription-plans',
@@ -75,12 +77,15 @@ export class SubscriptionPlansComponent implements OnInit {
     private jwtService: JwtService,
     private loginPageService: LoginPageService,
     private router: Router,
+    private UserLogsService:UserLogsService,
+    private gtmService: GtmserviceService,
     private modalService: NgbModal
   ) { }
 
-  ngOnInit(): void { this.titleService.setTitle('Plans Page');
+  ngOnInit(): void { this.titleService.setTitle('Plans');
     this.getRentFeatures();
     this.getLetOutFeatures();
+    this.sendDataToGTM();
   }
 
   getRentFeatures() {
@@ -100,6 +105,26 @@ export class SubscriptionPlansComponent implements OnInit {
     );
   }
 
+  sendDataToGTM()  {
+      
+    const data = {
+      event: 'dataLayer',
+      data: {
+        site_type:this.UserLogsService.getDeviceInfo(),
+        property_url: this.router.url,
+        // maintance:this.maintenance,
+        page_name:'plans Page',
+
+
+      },
+      action: 'Onload Action',
+      label: 'PLAN page'
+      // Additional data properties as needed
+    };
+
+    this.gtmService.pushToDataLayer(data);
+    console.log(data);
+  }
 
   getLetOutFeatures() {
     this.showLoadingIndicator = true;

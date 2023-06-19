@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { JwtService } from 'src/app/user/services/jwt.service';
 import { interval } from 'rxjs';
-import { Router } from '@angular/router';
+import { Router } from '@angular/router';import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-visit-user-thank',
@@ -13,11 +13,11 @@ export class VisitUserThankComponent implements OnInit {
   public returnUrl:any;  
   public modified_url:any;  
 
-  constructor(
+  constructor(private titleService: Title,
     private jwtService: JwtService,
     private router: Router) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void { this.titleService.setTitle('Visit-User-thank');
     this.jwtService.getReturnURL();
     
     const obs$=interval(1000);

@@ -90,7 +90,7 @@ export class IndexComponent implements OnInit {
     private router:Router
   ) { }
 
-  ngOnInit(): void {this.titleService.setTitle('Home Page');
+  ngOnInit(): void {this.titleService.setTitle('Home');
     this.searchForm.value.sliderControl[0] = 5000;
     this.searchForm.value.sliderControl[1] = 500000;
     this.getAmenities();

@@ -13,6 +13,8 @@ import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
+import { Title } from '@angular/platform-browser';
+
 @Component({
   selector: 'app-updateproperty-rent',
   templateUrl: './updateproperty-rent.component.html',
@@ -123,7 +125,7 @@ export class UpdatepropertyRentComponent implements OnInit {
   form_step4: FormGroup = new FormGroup({});
   private locality: any;
 
-  constructor(
+  constructor(private titleService: Title,
     private _formBuilder: FormBuilder,
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
@@ -145,7 +147,7 @@ export class UpdatepropertyRentComponent implements OnInit {
     }
 
  
-  ngOnInit(): void {
+  ngOnInit(): void {  this.titleService.setTitle('Update-Property-Rent');
     this.dropdownSettings = {
       singleSelection: true,
       idField: 'locality_id',

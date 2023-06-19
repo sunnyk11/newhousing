@@ -96,7 +96,7 @@ export class LoginComponent implements OnInit {
       //console.log(this.ip_address);
      }
 
-  ngOnInit(): void { this.titleService.setTitle('Login Page');
+  ngOnInit(): void { this.titleService.setTitle('Login');
     this.ip_address = this.UserLogsService.getIpAddress();
     this.route.queryParams.subscribe(
       params => {

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonService } from '../../services/common.service';
 import { JwtService } from 'src/app/user/services/jwt.service';
 import { Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-payment-fail',
@@ -18,11 +19,11 @@ export class PaymentFailComponent implements OnInit {
 
   constructor(
     private CommonService: CommonService,
-    private jwtService: JwtService,
+    private jwtService: JwtService,private titleService: Title,
     private router: Router
   ) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void {   this.titleService.setTitle('Payment-Failed');
     let val = this.jwtService.getToken();
     if (val) {
       this.user_id = this.jwtService.getUserId();

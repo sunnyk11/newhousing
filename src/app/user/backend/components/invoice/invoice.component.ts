@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';import { Title } from '@angular/platform-browser';
 import { PlansServiceService } from '../../services/plans-service.service';
 
 @Component({
@@ -19,11 +19,13 @@ export class InvoiceComponent implements OnInit {
   private order_details: any;
 
   constructor(
+    private titleService: Title,
     private route: ActivatedRoute,
     private PlansServiceService:PlansServiceService
     ) { }
 
   ngOnInit(): void {
+    this.titleService.setTitle('Invoice');
     this.invoice_id = this.route.snapshot.queryParams['invoice_no'];
     this.PlansServiceService.getInvoiceDetails(this.invoice_id).subscribe(
       response => {

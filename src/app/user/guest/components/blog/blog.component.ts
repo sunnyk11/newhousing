@@ -27,7 +27,7 @@ export class BlogComponent implements OnInit {
 
   ngOnInit(): void {
     this.showLoadingIndicator = true;
-    this.titleService.setTitle('Blog Page');
+    this.titleService.setTitle('Blog');
     this.blogService.getPosts().then(
       paginatedPosts => {
         this.paginated_posts = paginatedPosts;

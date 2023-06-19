@@ -6,6 +6,8 @@ import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { Title } from '@angular/platform-browser';
+import { GtmserviceService } from '../../services/gtmservice.service';
+import { UserLogsService } from '../../services/user-logs.service';
 import { RegisterPageService } from '../../services/register-page.service';
 
 import { environment } from 'src/environments/environment';
@@ -16,6 +18,13 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./landing-page.component.css']
 })
 export class LandingPageComponent implements OnInit {
+  testimonial_data = [
+    { id:1,content: "I had been struggling to find a reliable platform to let out my property in Delhi. But with HousingStreet.com, I got my property rented out within just 30 days, without paying anything in advance. Their efficient team took care of everything, making the    process hassle-free. Highly recommended!", author: "Rajesh Verma" ,stars:5},
+    { id:2,content: "After dealing with brokers and paying hefty brokerage fees, I came across HousingStreet.com. They not only let out my property within 30 days but also charged me just 15 days rent as their service fee. Their professional team handled everything, from tenant verification to rent agreement, saving  me a lot of time and effort. Thanks to HousingStreet.com!", author: "M.K Sharma", stars:5 },
+    { id:3,content: "Wow! HousingStreet.com made renting out my property in Delhi a breeze. Within just 30 days, they found reliable tenants, took care of all the paperwork, and I didn't have to payanything upfront. Their service fee of just 15 days' rent is a steal!", author: "Deepak Joshi",stars:5 },
+    { id:4,content: "I'm extremely satisfied with the service provided by HousingStreet.com. They took  care of everything, from listing my property to tenant verification. The best part was that I only had to get involved when the payment was transferred to my account. Highly recommend their efficient and cost-effective approach!", author: "Rakesh Kapoor",stars:5 },
+    // Add more testimonials as needed
+  ];
   
   public submitted: boolean = false;
   public mobile_submitted:boolean=false;
@@ -49,11 +58,14 @@ export class LandingPageComponent implements OnInit {
     private registerService: RegisterPageService,
     private route: ActivatedRoute,
     private router: Router,
+    private UserLogsService:UserLogsService,
+    private gtmService: GtmserviceService,
     private toastr: ToastrService,
     private jwtService: JwtService,) { }
 
   ngOnInit(): void {
-    this.titleService.setTitle('Onwer-Landing Page');
+    this.titleService.setTitle('Onwers');
+    this.sendDataToGTM();
     
     if (this.jwtService.isTokenAvailable()) {
       this.LoggedIn = true;
@@ -67,7 +79,24 @@ export class LandingPageComponent implements OnInit {
   get g() {
     return this.otpForm.controls;
   }
-  
+  sendDataToGTM()  {
+           
+    const data = {
+      event: 'dataLayer',
+      data: {
+        site_type:this.UserLogsService.getDeviceInfo(),
+        property_url: this.router.url,        
+        page_name:'Owner Landing page',
+
+      },
+      action: 'Onload Action',
+      label: 'Owner Landing page'
+      // Additional data properties as needed
+    };
+
+    this.gtmService.pushToDataLayer(data);
+    console.log(data);
+  }
   onSubmit() {
     this.submitted=true;
     this.LoginFailed = false;
@@ -152,6 +181,36 @@ export class LandingPageComponent implements OnInit {
       }
       );
     }
+  }
+  // carosule image
+  testimonial: OwlOptions = {
+    loop: true,
+    mouseDrag: false,
+    touchDrag: false,
+    pullDrag: false,
+    autoplay:true,
+    autoplayHoverPause:true,
+    dots: true,
+    navSpeed: 2000,
+    navText: ['', ''],
+    responsive: {
+      0: {
+        items: 1
+      },
+      400: {
+        items: 1
+      },
+      740: {
+        items: 1
+      },
+      940: {
+        items: 1
+      },
+      1050: {
+        items: 1
+      }
+    },
+    nav: true
   }
   
   keyPressNumbers(event: { which: any; keyCode: any; preventDefault: () => void; }) {

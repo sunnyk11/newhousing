@@ -15,11 +15,11 @@ export class AboutComponent implements OnInit {
     private router:Router,private titleService: Title) { }
 
   ngOnInit(): void {
+    this.titleService.setTitle('About');
     if(this.jwtService.getToken()){
       this.returnUrl = this.router.url;
       this.jwtService.saveReturnURL(this.returnUrl);
     }
-    this.titleService.setTitle('About Page');
   }
   
 
