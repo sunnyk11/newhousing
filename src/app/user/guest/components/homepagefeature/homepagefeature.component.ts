@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { JwtService } from 'src/app/user/services/jwt.service';
 import { CommonService } from '../../services/common.service';
 import { ToastrService } from 'ngx-toastr';
+import { GtmserviceService } from '../../services/gtmservice.service';
+import { UserLogsService } from '../../services/user-logs.service';
 
 @Component({
   selector: 'app-homepagefeature',
@@ -27,6 +29,8 @@ export class HomepagefeatureComponent implements OnInit {
     private router:Router,
     private jwtService: JwtService,
     public CommonService:CommonService,
+    private UserLogsService:UserLogsService,
+    private gtmService: GtmserviceService,
     private toastr: ToastrService
     ) { 
       this.showLoadingIndicator= true;
@@ -45,6 +49,7 @@ export class HomepagefeatureComponent implements OnInit {
         //console.log(response);
         this.showLoadingIndicator= false;
         this.property=response;
+        this.sendDataToGTM();
         this.product_length=this.property.data.length;
       }, err => { 
         this.showLoadingIndicator = false;
@@ -59,6 +64,7 @@ export class HomepagefeatureComponent implements OnInit {
         this.showLoadingIndicator= false;
         this.property=response;
         console.log(response);
+        this.sendDataToGTM();
         this.product_length=this.property.data.length;
       }, err => { 
         this.showLoadingIndicator = false;
@@ -90,6 +96,51 @@ export class HomepagefeatureComponent implements OnInit {
     }
   }
   
+  sendDataToGTM()  {
+    this.property?.data.forEach((data1: any) => {     
+    const data = {
+      event: 'dataLayer',
+      data: {
+        all_data:data1,
+        property_id:data1?.id,
+        property_name:data1?.build_name,
+        property_type:data1?.property__type?.name,
+        // furnishing_type:this.furnishing_type,
+        flat_type:data1?.pro_flat__type?.name ,
+        site_type:this.UserLogsService.getDeviceInfo(),
+        property_url: this.router.url,
+        // year_build:data1?.buildyear,
+        // address:data1?.address,
+        available_form:data1?.available_for,
+        area:data1?.area,
+        area_unit:data1?.property_area_unit?.unit,
+        currency:'₹',
+        price:this.commaSeperated(data1?.expected_rent),
+        // maintance:this.maintenance,
+        page_name:'Home page',
+        city_name:data1?.product_state?.state,
+        // district:this.product_data?.product_state?.state,
+        locality:data1?.product_locality?.locality,
+        sublocality:data1?.product_sub_locality?.sub_locality ,
+
+
+      },
+      action: 'Onload Action',
+      label: 'Home Page'
+      // Additional data properties as needed
+    };
+
+    this.gtmService.pushToDataLayer(data);
+    console.log(data);
+  });
+  }
+
+  commaSeperated(e: any) {
+    var t = (e = e ? e.toString() : "").substring(e.length - 3)
+      , n = e.substring(0, e.length - 3);
+    return "" !== n && (t = "," + t),
+      n.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + t
+  }
   // property compare
   product_comp(id:number){
     let param={id:id}

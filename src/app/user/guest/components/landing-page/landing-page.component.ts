@@ -6,6 +6,8 @@ import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { Title } from '@angular/platform-browser';
+import { GtmserviceService } from '../../services/gtmservice.service';
+import { UserLogsService } from '../../services/user-logs.service';
 import { RegisterPageService } from '../../services/register-page.service';
 
 import { environment } from 'src/environments/environment';
@@ -56,11 +58,14 @@ export class LandingPageComponent implements OnInit {
     private registerService: RegisterPageService,
     private route: ActivatedRoute,
     private router: Router,
+    private UserLogsService:UserLogsService,
+    private gtmService: GtmserviceService,
     private toastr: ToastrService,
     private jwtService: JwtService,) { }
 
   ngOnInit(): void {
     this.titleService.setTitle('Onwers');
+    this.sendDataToGTM();
     
     if (this.jwtService.isTokenAvailable()) {
       this.LoggedIn = true;
@@ -74,7 +79,24 @@ export class LandingPageComponent implements OnInit {
   get g() {
     return this.otpForm.controls;
   }
-  
+  sendDataToGTM()  {
+           
+    const data = {
+      event: 'dataLayer',
+      data: {
+        site_type:this.UserLogsService.getDeviceInfo(),
+        property_url: this.router.url,        
+        page_name:'Owner Landing page',
+
+      },
+      action: 'Onload Action',
+      label: 'Owner Landing page'
+      // Additional data properties as needed
+    };
+
+    this.gtmService.pushToDataLayer(data);
+    console.log(data);
+  }
   onSubmit() {
     this.submitted=true;
     this.LoginFailed = false;
