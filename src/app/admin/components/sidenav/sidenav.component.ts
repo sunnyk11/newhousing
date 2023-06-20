@@ -177,7 +177,8 @@ export class SidenavComponent implements OnInit {
             title: 'Property Data',
             useBom: true,
             noDownload: false,
-            headers: ["Property_id","property_url","property_name","property_price","property_detail","address","address_details","map_latitude","map_longitude","bedroom","bathroom","balconies","product_image","security_deposit","area_unit","property_type","furnishing_status","product_state","product_district","product_locality","product_sub_locality","property_draft_mode","property_enabled","Porperty_status"]
+            headers: ["Property_id","property_url","property_name","property_price","property_detail","address","address_details","map_latitude","map_longitude","bedroom","bathroom","balconies","product_image","Availability_date","security_deposit","Security deposit Amount","area","area_unit","property_flat_type","property_type","Simillar Property Id","furnishing_status","product_state","product_district","product_locality","product_sub_locality","Draft Mode","Enabled","Property_type status","Property Order-status"],
+            data: data.data,
           };
            new  ngxCsv(data.data, "Property List", options);
         }else{

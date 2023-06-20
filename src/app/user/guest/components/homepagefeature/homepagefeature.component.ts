@@ -49,7 +49,7 @@ export class HomepagefeatureComponent implements OnInit {
         //console.log(response);
         this.showLoadingIndicator= false;
         this.property=response;
-        this.sendDataToGTM();
+        // this.sendDataToGTM();
         this.product_length=this.property.data.length;
       }, err => { 
         this.showLoadingIndicator = false;
@@ -64,7 +64,7 @@ export class HomepagefeatureComponent implements OnInit {
         this.showLoadingIndicator= false;
         this.property=response;
         console.log(response);
-        this.sendDataToGTM();
+        // this.sendDataToGTM();
         this.product_length=this.property.data.length;
       }, err => { 
         this.showLoadingIndicator = false;

@@ -571,7 +571,7 @@ export class ProductListingComponent implements OnInit {
             this.property=Pagination_data;
             console.log(Pagination_data);
             
-           this.sendDataToGTM();
+          //  this.sendDataToGTM();
             this.product_length=this.property.data.total;
             if(this.product_length<1){
               this.property_availablty=false;
@@ -597,7 +597,7 @@ export class ProductListingComponent implements OnInit {
           Pagination_data => {
             this.property=Pagination_data;
            
-            this.sendDataToGTM();
+            // this.sendDataToGTM();
             this.product_length=this.property.data.total;
             if(this.product_length<1){
               this.property_availablty=false;
@@ -618,7 +618,7 @@ export class ProductListingComponent implements OnInit {
         Pagination_data => {
           this.property=Pagination_data;
           console.log(this.property);
-          this.sendDataToGTM();
+          // this.sendDataToGTM();
           this.product_length=this.property.data.total;
           if(this.product_length<1){
             this.property_availablty=false;
@@ -640,7 +640,7 @@ export class ProductListingComponent implements OnInit {
       this.showLoadingIndicator= false;
       this.property=Pagination_data;
       
-      this.sendDataToGTM();
+      // this.sendDataToGTM();
       // this.user_list_length=this.user_list.data.data.length;
     });
   } 

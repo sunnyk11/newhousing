@@ -189,7 +189,7 @@ export class ProductPageComponent implements OnInit {
           }else{
             this.maintenance='No';
           }
-           this.sendDataToGTM();
+          //  this.sendDataToGTM();
           if(this.product_details.data != null){
             // console.log(this.product_details);
             // this.youtube_url = environment.you_tube_url + this.product_data.video_link+"?playlist="+this.product_data.video_link+"&loop=1&mute=1";          
@@ -262,7 +262,7 @@ export class ProductPageComponent implements OnInit {
           }else{
             this.maintenance='No';
           }
-           this.sendDataToGTM();
+          //  this.sendDataToGTM();
           this.order_status=this.product_data?.order_status;
           if(this.product_details.data != null){
             // this.youtube_url = environment.you_tube_url + this.product_data.video_link+"?playlist="+this.product_data.video_link+"&loop=1&mute=1";          
