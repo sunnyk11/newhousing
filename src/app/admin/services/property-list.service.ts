@@ -35,6 +35,15 @@ export class PropertyListService {
       })
       .catch(this.handleError);
   }
+  get_all_property_excel(reqModel: any): Promise<Pagination> {
+    const route = "/api/admin/admin_get_all_property_excel";
+    return this.apiService.admin_get(route,reqModel).toPromise().then(
+      (response) => {
+        //console.log(response);
+        return response as Pagination
+      })
+      .catch(this.handleError);
+  }
   
   
   get_search_user(reqModel:any): Observable<ResultModel> {

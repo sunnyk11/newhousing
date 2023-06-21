@@ -305,12 +305,10 @@ export class ProductPageComponent implements OnInit {
 
 
     
-  sendDataToGTM()  {
-           
+  sendDataToGTM()  { 
     const data = {
       event: 'dataLayer',
       data: {
-        all_data:this.product_data,
         property_id:this.product_data?.id,
         property_name:this.product_data?.build_name,
         property_type:this.product_data?.property__type?.name,

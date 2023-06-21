@@ -32,6 +32,7 @@ export class ProductListingComponent implements OnInit {
   public area_unit:any={};
   public toll_free=environment.toll_free;
   public property:any={};
+  public  property_data: any = [];
   
   public furnishing_type: any;
   public maintenance: any;
@@ -153,6 +154,7 @@ export class ProductListingComponent implements OnInit {
     this.dropdown_data();
      this.getAmenities();
      this.getheading_data();
+     this.property_data = new Array<string>();
      
      this.sublocality_data = new Array<string>();
     
@@ -212,35 +214,45 @@ export class ProductListingComponent implements OnInit {
     );
   }
   sendDataToGTM()  {
-    this.property?.data?.data.forEach((data1: any) => {     
+    this.property_data=[];
+    for(let i=0; i<this.property?.data?.data.length; i++){
+      if(this.property?.data?.data[i]?.furnishing_status==1){
+        this.furnishing_type='furnished';
+      }else{
+        this.furnishing_type='Not furnished';
+      }
+      if(this.property?.data?.data[i]?.maintenance_charge_condition != null){
+        this.maintenance=this.property?.data?.data[i]?.maintenance_charge +'/'+ (this.property?.data?.data[i]?.maintenance_condition?.name);
+      }else{
+        this.maintenance='No';
+      }
+      this.property_data.push({
+        'property_id':this.property?.data?.data[i]?.product_id,
+        'property_name':this.property?.data?.data[i]?.build_name,
+        'property_type':this.property?.data?.data[i]?.property__type?.name,
+        'flat_type':this.property?.data?.data[i]?.pro_flat__type?.name ,
+        'site_type':this.UserLogsService.getDeviceInfo(),
+        'property_url':this.router.url,
+        'available_form':this.property?.data?.data[i]?.available_for,
+        'area':this.property?.data?.data[i]?.area,
+        'area_unit':this.property?.data?.data[i]?.property_area_unit?.unit,
+        'currency':'₹',
+        'price':this.commaSeperated(this.property?.data?.data[i]?.expected_rent),
+        'furnishing_type':this.furnishing_type,
+        'maintance': this.maintenance,
+        'page_name':'Listing Page',
+        'city_name':this.property?.data?.data[i]?.product_state?.state,
+        'locality':this.property?.data?.data[i]?.product_locality?.locality,
+        'sublocality':this.property?.data?.data[i]?.product_sub_locality?.sub_locality,
+        
+      });
+      }   
     const data = {
       event: 'dataLayer',
       data: {
-        all_data:data1,
-        property_id:data1?.product_id,
-        property_name:data1?.build_name,
-        property_type:data1?.property__type?.name,
-        // furnishing_type:this.furnishing_type,
-        flat_type:data1?.pro_flat__type?.name ,
-        site_type:this.UserLogsService.getDeviceInfo(),
-        property_url: this.router.url,
-        // year_build:data1?.buildyear,
-        // address:data1?.address,
-        available_form:data1?.available_for,
-        area:data1?.area,
-        area_unit:data1?.property_area_unit?.unit,
-        currency:'₹',
-        price:this.commaSeperated(data1?.expected_rent),
-        // maintance:this.maintenance,
-        page_name:'Listing Page',
-        city_name:data1?.product_state?.state,
-        // district:this.product_data?.product_state?.state,
-        locality:data1?.product_locality?.locality,
-        sublocality:data1?.product_sub_locality?.sub_locality ,
-        search_form_data:this.searchForm.value,
-
-
+      data: this.property_data,
       },
+      page_link:this.property?.data?.links,
       action: 'Onload Action',
       label: 'Listing Property'
       // Additional data properties as needed
@@ -248,7 +260,6 @@ export class ProductListingComponent implements OnInit {
 
     this.gtmService.pushToDataLayer(data);
     console.log(data);
-  });
   }
   
   // openModal_feedback() {
@@ -569,7 +580,7 @@ export class ProductListingComponent implements OnInit {
         this.ProductListingPageService.login_product_details(this.searchForm.value).then(
           Pagination_data => {
             this.property=Pagination_data;
-            console.log(Pagination_data);
+            // console.log(Pagination_data);
             
            this.sendDataToGTM();
             this.product_length=this.property.data.total;
@@ -617,7 +628,7 @@ export class ProductListingComponent implements OnInit {
       this.ProductListingPageService.product_details(this.searchForm.value).then(
         Pagination_data => {
           this.property=Pagination_data;
-          console.log(this.property);
+          // console.log(this.property);
           this.sendDataToGTM();
           this.product_length=this.property.data.total;
           if(this.product_length<1){

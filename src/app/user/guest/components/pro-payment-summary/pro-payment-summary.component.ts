@@ -10,6 +10,8 @@ import { LoginPageService } from '../../services/login-page.service';
 import { environment } from 'src/environments/environment';
 import { ToastrService } from 'ngx-toastr';
 import { Title } from '@angular/platform-browser';
+import { GtmserviceService } from '../../services/gtmservice.service';
+import { UserLogsService } from '../../services/user-logs.service';
 
 @Component({
   selector: 'app-pro-payment-summary',
@@ -76,6 +78,7 @@ export class ProPaymentSummaryComponent implements OnInit {
   private paytm_form_url: string = environment.Paytm_formURL;
 
   constructor(
+    private gtmService: GtmserviceService,
     private titleService: Title,
     private plansPageService: PlansPageService,
     private route: ActivatedRoute,
@@ -83,6 +86,7 @@ export class ProPaymentSummaryComponent implements OnInit {
     private jwtService: JwtService,
     private modalService: NgbModal,
     private toastr: ToastrService,
+    private UserLogsService:UserLogsService,
     private loginPageService: LoginPageService,
     private router: Router
     ) { 
@@ -101,6 +105,28 @@ export class ProPaymentSummaryComponent implements OnInit {
     this.getRentFeatures();
   }
 
+  sendDataToGTM()  { 
+    const data = {
+      event: 'dataLayer',
+      data: {
+        property_id:this.pro_data?.id,
+        property_name:this.pro_data?.build_name,
+        property_type:this.pro_data?.property__type?.name,
+        site_type:this.UserLogsService.getDeviceInfo(),
+        property_url: this.router.url,
+        page_name:'single-property',
+        plan_name:this.plan_name,
+        plan_price:this.plan_price,
+
+      },
+      action: 'Click Action',
+      label: 'Single Property'
+      // Additional data properties as needed
+    };
+
+    this.gtmService.pushToDataLayer(data);
+    console.log(data);
+  }
   product_details(product_id:any){
     this.productService.get_product_details(product_id).subscribe(
       prod_data => {
@@ -203,6 +229,7 @@ export class ProPaymentSummaryComponent implements OnInit {
     this.total_amount_hs = this.plan_aggrement_price + this.sgst_amount + this.cgst_amount;
     this.maintenance_charge = this.product_data[0].maintenance_charge;
     //console.log(this.maintenance_charge);
+    this.sendDataToGTM() ;
     if (this.maintenance_charge) {
       this.total_amount_owner = Number(this.expected_rent) + Number(this.security_dep_amount) + Number(this.maintenance_charge);
     }

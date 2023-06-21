@@ -2,7 +2,11 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { JwtService } from 'src/app/user/services/jwt.service';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { ngxCsv } from 'ngx-csv/ngx-csv';
+import { ToastrService } from 'ngx-toastr';
 import { RolesService } from '../../services/roles.service';
+import { PropertyListService } from '../../services/property-list.service';
+
 
 @Component({
   selector: 'app-sidenav',
@@ -34,6 +38,7 @@ export class SidenavComponent implements OnInit {
   public access_web_Banner:boolean=false;
   public access_locality_area:boolean=false;
   public access_area_group:boolean=false;
+  public showLoadingIndicator:boolean=false;
 
   private user_id: any;
   public permissions_response: any;
@@ -45,7 +50,9 @@ export class SidenavComponent implements OnInit {
 
   constructor(private jwtService: JwtService,
     private authService: AuthService,
-    private router: Router,
+    private router: Router, 
+    private toastr: ToastrService,
+    private PropertyListService:PropertyListService,
     private rolesService: RolesService) {
 
     this.authService.getUpdate().subscribe(
@@ -155,6 +162,31 @@ export class SidenavComponent implements OnInit {
     this.sidenavClose.emit();
     this.router.navigate(['/admin/property-list']);
   }
+  property_list_export(){
+    let param =null;
+    this.PropertyListService.get_all_property_excel(param).then(
+      Pagination_data => {
+        let data:any=Pagination_data;
+        if(data.data.length>0){
+          var options = { 
+            fieldSeparator: ',',
+            quoteStrings: '"',
+            decimalseparator: '.',
+            showLabels: true, 
+            showTitle: true,
+            title: 'Property Data',
+            useBom: true,
+            noDownload: false,
+            headers: ["Property_id","property_url","property_name","property_price","property_detail","address","address_details","map_latitude","map_longitude","bedroom","bathroom","balconies","product_image","Availability_date","security_deposit","Security deposit Amount","area","area_unit","property_flat_type","property_type","Simillar Property Id","furnishing_status","product_state","product_district","product_locality","product_sub_locality","Draft Mode","Enabled","Property_type status","Property Order-status"],
+            data: data.data,
+          };
+           new  ngxCsv(data.data, "Property List", options);
+        }else{
+          this.toastr.error('Please Applied  Search form fillter');
+        }
+        this.showLoadingIndicator=false;
+      });
+    }
   sub_locality_list() {
     this.sidenavClose.emit();
     this.router.navigate(['/admin/sub-locality-list']);
