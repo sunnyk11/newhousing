@@ -65,7 +65,7 @@ export class LandingPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.titleService.setTitle('Onwers');
-    // this.sendDataToGTM();
+    this.sendDataToGTM();
     
     if (this.jwtService.isTokenAvailable()) {
       this.LoggedIn = true;

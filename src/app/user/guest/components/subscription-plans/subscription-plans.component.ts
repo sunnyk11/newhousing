@@ -85,7 +85,7 @@ export class SubscriptionPlansComponent implements OnInit {
   ngOnInit(): void { this.titleService.setTitle('Plans');
     this.getRentFeatures();
     this.getLetOutFeatures();
-    // this.sendDataToGTM();
+    this.sendDataToGTM();
   }
 
   getRentFeatures() {

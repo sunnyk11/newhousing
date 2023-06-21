@@ -189,7 +189,7 @@ export class ProductPageComponent implements OnInit {
           }else{
             this.maintenance='No';
           }
-          //  this.sendDataToGTM();
+           this.sendDataToGTM();
           if(this.product_details.data != null){
             // console.log(this.product_details);
             // this.youtube_url = environment.you_tube_url + this.product_data.video_link+"?playlist="+this.product_data.video_link+"&loop=1&mute=1";          
@@ -262,7 +262,7 @@ export class ProductPageComponent implements OnInit {
           }else{
             this.maintenance='No';
           }
-          //  this.sendDataToGTM();
+           this.sendDataToGTM();
           this.order_status=this.product_data?.order_status;
           if(this.product_details.data != null){
             // this.youtube_url = environment.you_tube_url + this.product_data.video_link+"?playlist="+this.product_data.video_link+"&loop=1&mute=1";          
@@ -305,12 +305,10 @@ export class ProductPageComponent implements OnInit {
 
 
     
-  sendDataToGTM()  {
-           
+  sendDataToGTM()  { 
     const data = {
       event: 'dataLayer',
       data: {
-        all_data:this.product_data,
         property_id:this.product_data?.id,
         property_name:this.product_data?.build_name,
         property_type:this.product_data?.property__type?.name,
