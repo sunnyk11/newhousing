@@ -117,7 +117,7 @@ export class HomepagefeatureComponent implements OnInit {
         this.maintenance='No';
       }
       this.property_data.push({
-        'property_id':this.property?.data?.data[i]?.product_id,
+        'property_id':this.property?.data?.data[i]?.id,
         'property_name':this.property?.data?.data[i]?.build_name,
         'property_type':this.property?.data?.data[i]?.property__type?.name,
         'flat_type':this.property?.data?.data[i]?.pro_flat__type?.name ,
