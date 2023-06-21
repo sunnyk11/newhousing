@@ -216,10 +216,6 @@ export class ProductListingComponent implements OnInit {
   sendDataToGTM()  {
     this.property_data=[];
     for(let i=0; i<this.property?.data?.data.length; i++){
-      //  let data: {
-      //     property_id:this.property?.data?.data?.product_id,
-         
-      //   },
       if(this.property?.data?.data[i]?.furnishing_status==1){
         this.furnishing_type='furnished';
       }else{
