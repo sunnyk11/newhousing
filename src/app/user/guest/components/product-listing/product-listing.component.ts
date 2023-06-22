@@ -254,7 +254,11 @@ export class ProductListingComponent implements OnInit {
       },
       page_link:this.property?.data?.links,
       action: 'Onload Action',
-      label: 'Listing Property'
+      label: 'Listing Property',
+      page_name:'Listing Page',
+      page_url:this.router.url,
+      site_type:this.UserLogsService.getDeviceInfo(),
+      search_filter: this.searchForm.value,
       // Additional data properties as needed
     };
 

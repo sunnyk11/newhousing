@@ -84,13 +84,14 @@ export class LandingPageComponent implements OnInit {
     const data = {
       event: 'dataLayer',
       data: {
-        site_type:this.UserLogsService.getDeviceInfo(),
-        property_url: this.router.url,        
-        page_name:'Owner Landing page',
+        
 
       },
       action: 'Onload Action',
-      label: 'Owner Landing page'
+      label: 'Owner Landing page',
+      page_name:'Owner Landing Page',
+      page_url:this.router.url,
+      site_type:this.UserLogsService.getDeviceInfo(),
       // Additional data properties as needed
     };
 
