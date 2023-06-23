@@ -11,6 +11,9 @@
 }
 
 @media(max-width: 768px) {
+    .owl-theme .owl-nav{
+        display: none!important;
+    }
     .flaticon-maps-and-flags{
         display: none!important;
     } .property_table .table td{

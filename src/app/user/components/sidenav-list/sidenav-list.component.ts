@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { CommonService } from '../../guest/services/common.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sidenav-list',
@@ -33,6 +34,7 @@ export class SidenavListComponent implements OnInit {
 
   constructor(private jwtService: JwtService, 
     private commonService: CommonService, 
+    private router:Router,
     private sanitizer:DomSanitizer,
     private toastr: ToastrService) { 
     this.logged_in = this.commonService.getUpdate().subscribe(
@@ -80,6 +82,14 @@ export class SidenavListComponent implements OnInit {
 
   public onSidenavClose = () => {
     this.sidenavClose.emit();
+  }
+  
+  navigate(){
+    if (this.jwtService.isTokenAvailable()) {
+       this.router.navigate(['/agent/list-property']);
+    }else{
+      this.router.navigate(['/owner-landing']);
+    }
   }
 
   sanitize(url:string){

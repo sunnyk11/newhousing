@@ -9,6 +9,9 @@ import { MobileCheckComponent } from '../../modals/mobile-check/mobile-check.com
 import { LoginPageService } from '../../services/login-page.service';
 import { environment } from 'src/environments/environment';
 import { ToastrService } from 'ngx-toastr';
+import { Title } from '@angular/platform-browser';
+import { GtmserviceService } from '../../services/gtmservice.service';
+import { UserLogsService } from '../../services/user-logs.service';
 
 @Component({
   selector: 'app-pro-payment-summary',
@@ -66,6 +69,7 @@ export class ProPaymentSummaryComponent implements OnInit {
   public selected_plan_data: any;
   public payment_result: any;
   public paytm_data: any;
+  public toll_free=environment.toll_free;
   public rent_plan_data: any;
   public invoice_data: any;
   public plan_features_data: any;
@@ -74,12 +78,15 @@ export class ProPaymentSummaryComponent implements OnInit {
   private paytm_form_url: string = environment.Paytm_formURL;
 
   constructor(
+    private gtmService: GtmserviceService,
+    private titleService: Title,
     private plansPageService: PlansPageService,
     private route: ActivatedRoute,
     private productService: ProductPageService,
     private jwtService: JwtService,
     private modalService: NgbModal,
     private toastr: ToastrService,
+    private UserLogsService:UserLogsService,
     private loginPageService: LoginPageService,
     private router: Router
     ) { 
@@ -93,10 +100,33 @@ export class ProPaymentSummaryComponent implements OnInit {
       });}
 
   ngOnInit(): void {
+    this.titleService.setTitle('Product Summery');
     this.showLoadingIndicator = true;   
     this.getRentFeatures();
   }
 
+  sendDataToGTM()  { 
+    const data = {
+      event: 'dataLayer',
+      data: {
+        property_id:this.pro_data?.id,
+        property_name:this.pro_data?.build_name,
+        property_type:this.pro_data?.property__type?.name,
+        site_type:this.UserLogsService.getDeviceInfo(),
+        property_url: this.router.url,
+        page_name:'Payment Page',
+        plan_name:this.plan_name,
+        plan_price:this.plan_price,
+
+      },
+      action: 'Click Action',
+      label: 'Payment Page'
+      // Additional data properties as needed
+    };
+
+    this.gtmService.pushToDataLayer(data);
+    console.log(data);
+  }
   product_details(product_id:any){
     this.productService.get_product_details(product_id).subscribe(
       prod_data => {
@@ -199,6 +229,7 @@ export class ProPaymentSummaryComponent implements OnInit {
     this.total_amount_hs = this.plan_aggrement_price + this.sgst_amount + this.cgst_amount;
     this.maintenance_charge = this.product_data[0].maintenance_charge;
     //console.log(this.maintenance_charge);
+    this.sendDataToGTM() ;
     if (this.maintenance_charge) {
       this.total_amount_owner = Number(this.expected_rent) + Number(this.security_dep_amount) + Number(this.maintenance_charge);
     }
@@ -315,6 +346,9 @@ export class ProPaymentSummaryComponent implements OnInit {
     } 
     else {
       this.showLoadingIndicator = false;
+      let  url:any= '/product_payment_summary?productID='+this.product_id;
+      this.jwtService.removeReturnURL();
+      this.jwtService.saveReturnURL(url);
       //console.log("Not logged in: " + val);
       this.openModal();
     }
@@ -493,6 +527,9 @@ export class ProPaymentSummaryComponent implements OnInit {
     else {
       this.showLoadingIndicator = false;
       //console.log("Not logged in: " + val);
+      let  url:any= '/product_payment_summary?productID='+this.product_id;
+      this.jwtService.removeReturnURL();
+      this.jwtService.saveReturnURL(url);
       this.openModal();
     }
   }

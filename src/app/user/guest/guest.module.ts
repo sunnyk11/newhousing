@@ -69,6 +69,7 @@ import { ProductFlatTypeComponent } from './components/product-flat-type/product
 import { BookPropertyComponent } from './components/book-property/book-property.component';
 import { RemainingCheckoutComponent } from './components/remaining-checkout/remaining-checkout.component';
 import { PaymentFailComponent } from './components/payment-fail/payment-fail.component';
+import { LandingPageComponent } from './components/landing-page/landing-page.component';
 // import { NotfoundComponentComponent } from '../components/notfound-component/notfound-component.component';
 @NgModule({
   declarations: [
@@ -128,6 +129,7 @@ import { PaymentFailComponent } from './components/payment-fail/payment-fail.com
     BookPropertyComponent,
     RemainingCheckoutComponent,
     PaymentFailComponent,
+    LandingPageComponent,
   ],
   imports: [
     CommonModule,

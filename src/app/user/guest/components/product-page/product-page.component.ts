@@ -8,6 +8,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { JwtService } from 'src/app/user/services/jwt.service';
 import { CommonService } from '../../services/common.service';
 import { ToastrService } from 'ngx-toastr';
+import { GtmserviceService } from '../../services/gtmservice.service';
 import { UserLogsService } from '../../services/user-logs.service';
 import { UserReviewModalComponent } from '../../modals/user-review-modal/user-review-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -15,6 +16,7 @@ import { ClipboardService } from 'ngx-clipboard';
 import { LoginCheckComponent } from '../../modals/login-check/login-check.component';
 import { UserVisitPopupComponent } from '../../modals/user-visit-popup/user-visit-popup.component';
 
+import { Title } from '@angular/platform-browser';
 import { MobileCheckComponent } from '../../modals/mobile-check/mobile-check.component';
 
 @Component({
@@ -28,6 +30,8 @@ export class ProductPageComponent implements OnInit {
   public youtube_url: any;
   public safeURL: any;
   public product_data: any;
+  public furnishing_type: any;
+  public maintenance: any;
   public isReadMore: boolean = true;
   public ftpstring = environment.ftpURL;
   public google_map_url=environment.google_map_url;
@@ -69,6 +73,8 @@ export class ProductPageComponent implements OnInit {
     property_id: new FormControl('', Validators.required),
   });
   constructor(
+    private gtmService: GtmserviceService,
+    private titleService: Title,
     private _sanitizer: DomSanitizer,
      private route:ActivatedRoute,
      private UserLogsService:UserLogsService,
@@ -90,7 +96,7 @@ export class ProductPageComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void { this.titleService.setTitle('Single Property');
     if(this.jwtService.getToken()){
       this.returnUrl = this.router.url;
       this.jwtService.saveReturnURL(this.returnUrl);
@@ -109,7 +115,7 @@ export class ProductPageComponent implements OnInit {
       response => {
         let data:any=response;
         if(data.data.length<1){
-          this.openModal_feedback();
+          // this.openModal_feedback();
         }
       }, err => { 
         let Message =err.error.message;
@@ -117,19 +123,19 @@ export class ProductPageComponent implements OnInit {
     );
   }
   
-  openModal_feedback() {
-    const modalRef = this.modalService.open(UserVisitPopupComponent,
-      {
-        scrollable: true,
-        windowClass: 'myCustomModalClass',
-        // keyboard: false,
-         backdrop: 'static'
-      });
-   modalRef.result.then((result) => {
-      //console.log(result);
-    }, (reason) => {
-    });
-  }
+  // openModal_feedback() {
+  //   const modalRef = this.modalService.open(UserVisitPopupComponent,
+  //     {
+  //       scrollable: true,
+  //       windowClass: 'myCustomModalClass',
+  //       // keyboard: false,
+  //        backdrop: 'static'
+  //     });
+  //  modalRef.result.then((result) => {
+  //     //console.log(result);
+  //   }, (reason) => {
+  //   });
+  // }
   get f(){
    return  this.Property_notesform.controls;
   }
@@ -173,6 +179,17 @@ export class ProductPageComponent implements OnInit {
           this.product_details=response;
           this.product_data=this.product_details.data;
           this.order_status=this.product_data?.order_status;
+          if(this.product_data?.furnishing_status==1){
+            this.furnishing_type='Yes';
+          }else{
+            this.furnishing_type='No';
+          }
+          if(this.product_data?.maintenance_charge_condition != null){
+            this.maintenance=this.product_data?.maintenance_charge +' / '+(this.product_data?.maintenance_condition?.name);
+          }else{
+            this.maintenance='No';
+          }
+           this.sendDataToGTM();
           if(this.product_details.data != null){
             // console.log(this.product_details);
             // this.youtube_url = environment.you_tube_url + this.product_data.video_link+"?playlist="+this.product_data.video_link+"&loop=1&mute=1";          
@@ -234,6 +251,18 @@ export class ProductPageComponent implements OnInit {
         response => {
           this.product_details=response;
           this.product_data=this.product_details.data;
+          console.log(response);
+          if(this.product_data?.furnishing_status==1){
+            this.furnishing_type='Yes';
+          }else{
+            this.furnishing_type='No';
+          }
+          if(this.product_data?.maintenance_charge_condition != null){
+            this.maintenance=this.product_data?.maintenance_charge +(this.product_data?.maintenance_condition?.name);
+          }else{
+            this.maintenance='No';
+          }
+           this.sendDataToGTM();
           this.order_status=this.product_data?.order_status;
           if(this.product_details.data != null){
             // this.youtube_url = environment.you_tube_url + this.product_data.video_link+"?playlist="+this.product_data.video_link+"&loop=1&mute=1";          
@@ -271,6 +300,49 @@ export class ProductPageComponent implements OnInit {
         }
       );
     }
+  }
+
+
+
+    
+  sendDataToGTM()  { 
+    const data = {
+      event: 'dataLayer',
+      data: {
+        property_id:this.product_data?.id,
+        property_name:this.product_data?.build_name,
+        property_type:this.product_data?.property__type?.name,
+        furnishing_type:this.furnishing_type,
+        flat_type:this.product_data?.pro_flat__type?.name ,
+        site_type:this.UserLogsService.getDeviceInfo(),
+        property_url: this.router.url,
+        year_build:this.product_data?.buildyear,
+        address:this.product_data?.address,
+        available_form:this.product_data?.available_for,
+        area:this.product_data?.area,
+        area_unit:this.product_data?.property_area_unit?.unit,
+        currency:'₹',
+        price:this.commaSeperated(this.product_data?.expected_rent),
+        maintance:this.maintenance,
+        security_deposit:this.product_data?.security_deposit,
+        security_deposit_amount:this.product_data?.expected_rent*this.product_data?.security_deposit,
+        page_name:'single-property',
+        city_name:this.product_data?.product_state?.state,
+        // district:this.product_data?.product_state?.state,
+        locality:this.product_data?.product_locality?.locality,
+        sublocality:this.product_data?.product_sub_locality?.sub_locality ,
+
+      },
+      action: 'Click Action',
+      label: 'Single Property',
+      page_name:'Single Page',
+      page_url:this.router.url,
+      site_type:this.UserLogsService.getDeviceInfo(),
+      // Additional data properties as needed
+    };
+
+    this.gtmService.pushToDataLayer(data);
+    console.log(data);
   }
   // fetch similar property 
   similarproperty(locality_id: any){
@@ -614,6 +686,10 @@ export class ProductPageComponent implements OnInit {
     modalRef.componentInstance.fromParent = data;
   }
   proceedToPayment(productId:any) {
+    this.router.navigate(['/product_payment_summary'], { queryParams: {'productID': productId } });    
+  }
+  
+  proceedToPayment1(productId:any) {
     
     let val = this.jwtService.getToken();
     if (val) {

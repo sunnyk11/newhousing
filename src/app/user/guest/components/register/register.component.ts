@@ -5,6 +5,7 @@ import { ConfirmedValidator } from '../../utils/validation';
 import { UserLogsService } from '../../services/user-logs.service';
 import { JwtService } from 'src/app/user/services/jwt.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-register',
@@ -47,7 +48,7 @@ export class RegisterComponent implements OnInit {
   constructor(
     private registerService: RegisterPageService,
     private formBuilder: FormBuilder,
-    private route: ActivatedRoute,
+    private route: ActivatedRoute,private titleService: Title,
     private router: Router,
     private jwtService: JwtService,
 
@@ -74,6 +75,7 @@ export class RegisterComponent implements OnInit {
     }
 
   ngOnInit(): void {
+    this.titleService.setTitle('Register');
     this.form = this.formBuilder.group(
       {
         firstName: ['', Validators.required],

@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { IndexPageService } from '../../services/index-page.service';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
+import { Title } from '@angular/platform-browser';
 import { map, startWith } from 'rxjs/operators';
 import { UserLogsService } from '../../services/user-logs.service';
 import { OwlOptions } from 'ngx-owl-carousel-o';
@@ -40,6 +41,7 @@ export class IndexComponent implements OnInit {
   private amenityArray:any = [];
   public filteredOptions!: Observable<any[]>;
   public returnUrl:any;
+  public isReadMore: boolean = true;
 
   searchForm = this.formBuilder.group({
     bathrooms: [''],
@@ -77,7 +79,7 @@ export class IndexComponent implements OnInit {
   /* Sale feature Commented */
   
 
-  constructor(
+  constructor(private titleService: Title,
     private CommonService:CommonService,
     private formBuilder: FormBuilder,
     private modalService: NgbModal,
@@ -88,7 +90,7 @@ export class IndexComponent implements OnInit {
     private router:Router
   ) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void {this.titleService.setTitle('Home');
     this.searchForm.value.sliderControl[0] = 5000;
     this.searchForm.value.sliderControl[1] = 500000;
     this.getAmenities();
@@ -118,7 +120,7 @@ export class IndexComponent implements OnInit {
       response => {
         let data:any=response;
         if(data.data.length<1){
-          this.openModal_feedback();
+          // this.openModal_feedback();
         }
       }, err => { 
         let Message =err.error.message;
@@ -127,18 +129,21 @@ export class IndexComponent implements OnInit {
 
   }
   
-  openModal_feedback() {
-    const modalRef = this.modalService.open(UserVisitPopupComponent,
-      {
-        scrollable: true,
-        windowClass: 'myCustomModalClass',
-        // keyboard: false,
-         backdrop: 'static'
-      });
-   modalRef.result.then((result) => {
-      //console.log(result);
-    }, (reason) => {
-    });
+  // openModal_feedback() {
+  //   const modalRef = this.modalService.open(UserVisitPopupComponent,
+  //     {
+  //       scrollable: true,
+  //       windowClass: 'myCustomModalClass',
+  //       // keyboard: false,
+  //        backdrop: 'static'
+  //     });
+  //  modalRef.result.then((result) => {
+  //     //console.log(result);
+  //   }, (reason) => {
+  //   });
+  // }
+  showText() {
+    this.isReadMore = !this.isReadMore;
   }
   // fetch amenties advance tab
   getAmenities(){

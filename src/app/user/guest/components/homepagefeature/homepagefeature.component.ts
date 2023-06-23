@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { JwtService } from 'src/app/user/services/jwt.service';
 import { CommonService } from '../../services/common.service';
 import { ToastrService } from 'ngx-toastr';
+import { GtmserviceService } from '../../services/gtmservice.service';
+import { UserLogsService } from '../../services/user-logs.service';
 
 @Component({
   selector: 'app-homepagefeature',
@@ -21,12 +23,17 @@ export class HomepagefeatureComponent implements OnInit {
   public toll_free=environment.toll_free;
   public showLoadingIndicator:boolean= false;
   public product_length:number=0;
+  public furnishing_type: any;
+  public maintenance: any;
+  public  property_data: any = [];
 
   constructor(
     private indexPageService: IndexPageService,
     private router:Router,
     private jwtService: JwtService,
     public CommonService:CommonService,
+    private UserLogsService:UserLogsService,
+    private gtmService: GtmserviceService,
     private toastr: ToastrService
     ) { 
       this.showLoadingIndicator= true;
@@ -35,6 +42,7 @@ export class HomepagefeatureComponent implements OnInit {
   ngOnInit(): void {
     this.showLoadingIndicator= true;
     this.feature_property(); 
+    this.property_data = new Array<string>();
   }
   // fetch feature property 
   feature_property(){
@@ -45,6 +53,7 @@ export class HomepagefeatureComponent implements OnInit {
         //console.log(response);
         this.showLoadingIndicator= false;
         this.property=response;
+        this.sendDataToGTM();
         this.product_length=this.property.data.length;
       }, err => { 
         this.showLoadingIndicator = false;
@@ -58,6 +67,8 @@ export class HomepagefeatureComponent implements OnInit {
       response => {
         this.showLoadingIndicator= false;
         this.property=response;
+        // console.log(response);
+        this.sendDataToGTM();
         this.product_length=this.property.data.length;
       }, err => { 
         this.showLoadingIndicator = false;
@@ -89,6 +100,69 @@ export class HomepagefeatureComponent implements OnInit {
     }
   }
   
+  sendDataToGTM()  {
+    console.log(this.property?.data);
+    console.log('fkjgkf')
+    for(let i=0; i<this.property?.data?.length; i++){
+      //  let data: {
+      //     property_id:this.property?.data?.data?.product_id,
+         
+      //   },
+      if(this.property?.data[i]?.furnishing_status==1){
+        this.furnishing_type='furnished';
+      }else{
+        this.furnishing_type='Not furnished';
+      }
+      if(this.property?.data[i]?.maintenance_charge_condition != null){
+        this.maintenance=this.property?.data[i]?.maintenance_charge +'/'+ (this.property?.data[i]?.maintenance_condition?.name);
+      }else{
+        this.maintenance='No';
+      }
+      this.property_data.push({
+        'property_id':this.property?.data[i]?.id,
+        'property_name':this.property?.data[i]?.build_name,
+        'property_type':this.property?.data[i]?.property__type?.name,
+        'flat_type':this.property?.data[i]?.pro_flat__type?.name ,
+        'site_type':this.UserLogsService.getDeviceInfo(),
+        'property_url':this.router.url,
+        'available_form':this.property?.data[i]?.available_for,
+        'area':this.property?.data[i]?.area,
+        'area_unit':this.property?.data[i]?.property_area_unit?.unit,
+        'currency':'₹',
+        'price':this.commaSeperated(this.property?.data[i]?.expected_rent),
+        'furnishing_type':this.furnishing_type,
+        'maintance': this.maintenance,
+        'page_name':'Home Page',
+        'city_name':this.property?.data[i]?.product_state?.state,
+        'locality':this.property?.data[i]?.product_locality?.locality,
+        'sublocality':this.property?.data[i]?.product_sub_locality?.sub_locality,
+        
+      });
+      }   
+      console.log(this.property_data); 
+    const data = {
+      event: 'dataLayer',
+      data: {
+        data: this.property_data,
+      },
+      action: 'Onload Action',
+      label: 'Home Page',
+      page_name:'Home Page',
+      page_url:this.router.url,
+      site_type:this.UserLogsService.getDeviceInfo(),
+      // Additional data properties as needed
+    };
+
+    this.gtmService.pushToDataLayer(data);
+    console.log(data);
+  }
+
+  commaSeperated(e: any) {
+    var t = (e = e ? e.toString() : "").substring(e.length - 3)
+      , n = e.substring(0, e.length - 3);
+    return "" !== n && (t = "," + t),
+      n.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + t
+  }
   // property compare
   product_comp(id:number){
     let param={id:id}
@@ -169,8 +243,8 @@ export class HomepagefeatureComponent implements OnInit {
     }
   }
   
-  navigate(id:number,name:string,city:string){
-    this.router.navigate(['/product-details'],{queryParams:{'id':id,'name':name,'city':city}})
+  navigate(id:number,name:string,city:string,district:string,locality:string,sublocality:string,flat_type:string){
+    this.router.navigate(['/product-details'],{queryParams:{'id':id,'name':name,'city':city,'district':district,'locality':locality,'sublocality':sublocality,'flat-type':flat_type}})
   }
 
   // pricre convert functionalty

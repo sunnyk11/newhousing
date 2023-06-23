@@ -4,7 +4,7 @@
         <owl-carousel-o [options]="featured_property">
             <ng-container *ngFor="let property of pro_featured?.data; let i = index ">
                 <ng-template carouselSlide [id]="property.id">
-                    <a (click)="navigate(property.id,property.build_name,property.city)">
+                    <a (click)="navigate(property.id,property.build_name,property.city,property?.product_district?.district,property?.product_locality?.locality,property?.product_sub_locality?.sub_locality,property?.pro_flat__type?.name)">
                     <div class="item">
                         <div class="feat_property home7">
                             <div class="thumb">

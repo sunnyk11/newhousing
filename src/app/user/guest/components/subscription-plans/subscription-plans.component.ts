@@ -9,6 +9,9 @@ import { LoginCheckComponent } from '../../modals/login-check/login-check.compon
 import { MobileCheckComponent } from '../../modals/mobile-check/mobile-check.component';
 import { FixAppointmentComponent } from '../../modals/fix-appointment/fix-appointment.component';
 import { OwlOptions } from 'ngx-owl-carousel-o';
+import { Title } from '@angular/platform-browser';
+import { GtmserviceService } from '../../services/gtmservice.service';
+import { UserLogsService } from '../../services/user-logs.service';
 
 @Component({
   selector: 'app-subscription-plans',
@@ -20,6 +23,8 @@ export class SubscriptionPlansComponent implements OnInit {
   public showLoadingIndicator: boolean = false;
   public showLoadingIndicator1: boolean = false;
   public returnUrl: string = '';
+  public  plan_name:any;
+  public slider_amount:any;
 
   value: number = 10000;
   options: Options = {
@@ -69,16 +74,20 @@ export class SubscriptionPlansComponent implements OnInit {
   public displayAlert: boolean = false;
 
   constructor(
+    private titleService: Title,
     private plansPageService: PlansPageService,
     private jwtService: JwtService,
     private loginPageService: LoginPageService,
     private router: Router,
+    private UserLogsService:UserLogsService,
+    private gtmService: GtmserviceService,
     private modalService: NgbModal
   ) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void { this.titleService.setTitle('Plans');
     this.getRentFeatures();
     this.getLetOutFeatures();
+    this.sendDataToGTM1();
   }
 
   getRentFeatures() {
@@ -97,7 +106,52 @@ export class SubscriptionPlansComponent implements OnInit {
       }
     );
   }
+  sendDataToGTM1()  {
+    this.plan_name='Rentout';
+    this.slider_amount=this.value;
+   
+    const data = {
+      event: 'dataLayer',
+      data: {
+        property_url: this.router.url,
+        plan_name: this.plan_name,
+        slider_amount:this.slider_amount,
+        page_name:'plans Page',
+      },
+      action: 'Onload Action',
+      label: 'PLAN page',
+      page_name:'Plan Page',
+      page_url:this.router.url,
+      site_type:this.UserLogsService.getDeviceInfo(),
+      // Additional data properties as needed
+    };
 
+    this.gtmService.pushToDataLayer(data);
+    console.log(data);
+  }
+  sendDataToGTM()  {
+      this.plan_name='Letout';
+      this.slider_amount=this.expected_rent_value;
+   
+    const data = {
+      event: 'dataLayer',
+      data: {
+        property_url: this.router.url,
+        plan_name: this.plan_name,
+        slider_amount:this.slider_amount,
+        page_name:'plans Page',
+      },
+      action: 'Onload Action',
+      label: 'PLAN page',
+      page_name:'Plan Page',
+      page_url:this.router.url,
+      site_type:this.UserLogsService.getDeviceInfo(),
+      // Additional data properties as needed
+    };
+
+    this.gtmService.pushToDataLayer(data);
+    console.log(data);
+  }
 
   getLetOutFeatures() {
     this.showLoadingIndicator = true;

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { CommonService } from '../../services/common.service';
 import { JwtService } from 'src/app/user/services/jwt.service';
 import { ToastrService } from 'ngx-toastr';
+import { Title } from '@angular/platform-browser';
 import { UserLogsService } from '../../services/user-logs.service';
 
 @Component({
@@ -39,11 +40,13 @@ export class WishlistComponent implements OnInit {
     private jwtService: JwtService,
     private CommonService:CommonService,
     private toastr: ToastrService,
+    private titleService: Title,
     private UserLogsService:UserLogsService,
     private router:Router
     ) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void {  this.titleService.setTitle('Wishlist');
+
     if(this.jwtService.getToken()){
       this.showLoadingIndicator = true;
       this.userEmail =  this.jwtService.getUserEmail();

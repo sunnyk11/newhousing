@@ -1,22 +1,34 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import { Validators } from '@angular/forms';
-import { RegisterPageService } from '../../services/register-page.service';
-import { UserLogsService } from '../../services/user-logs.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { JwtService } from 'src/app/user/services/jwt.service';
-import { ToastrService } from 'ngx-toastr';import { Title } from '@angular/platform-browser';
+import { ToastrService } from 'ngx-toastr';
+import { FormBuilder } from '@angular/forms';
+import { Validators } from '@angular/forms';
+import { OwlOptions } from 'ngx-owl-carousel-o';
+import { Title } from '@angular/platform-browser';
+import { GtmserviceService } from '../../services/gtmservice.service';
+import { UserLogsService } from '../../services/user-logs.service';
+import { RegisterPageService } from '../../services/register-page.service';
+
+import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-signup',
-  templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.css']
+  selector: 'app-landing-page',
+  templateUrl: './landing-page.component.html',
+  styleUrls: ['./landing-page.component.css']
 })
-export class SignupComponent implements OnInit {
-  
+export class LandingPageComponent implements OnInit {
+  testimonial_data = [
+    { id:1,content: "I had been struggling to find a reliable platform to let out my property in Delhi. But with HousingStreet.com, I got my property rented out within just 30 days, without paying anything in advance. Their efficient team took care of everything, making the    process hassle-free. Highly recommended!", author: "Rajesh Verma" ,stars:5},
+    { id:2,content: "After dealing with brokers and paying hefty brokerage fees, I came across HousingStreet.com. They not only let out my property within 30 days but also charged me just 15 days rent as their service fee. Their professional team handled everything, from tenant verification to rent agreement, saving  me a lot of time and effort. Thanks to HousingStreet.com!", author: "M.K Sharma", stars:5 },
+    { id:3,content: "Wow! HousingStreet.com made renting out my property in Delhi a breeze. Within just 30 days, they found reliable tenants, took care of all the paperwork, and I didn't have to payanything upfront. Their service fee of just 15 days' rent is a steal!", author: "Deepak Joshi",stars:5 },
+    { id:4,content: "I'm extremely satisfied with the service provided by HousingStreet.com. They took  care of everything, from listing my property to tenant verification. The best part was that I only had to get involved when the payment was transferred to my account. Highly recommend their efficient and cost-effective approach!", author: "Rakesh Kapoor",stars:5 },
+    // Add more testimonials as needed
+  ];
   
   public submitted: boolean = false;
   public mobile_submitted:boolean=false;
+  public LoggedIn: boolean = false;
   public display_otp_form: boolean = false;
   public isFailedVerify_otp: boolean = false;
   public status_code:number=200;
@@ -28,19 +40,7 @@ export class SignupComponent implements OnInit {
   public mobile_no:any;
   public mobile_slice: any;
   public returnUrl:any;
-
-  
-  private usertype: any;
-  public userDetails: any;
-  public ip_address: any;
-  public pro_id: any = null;
-  public type: any;
-  public device_info: any;
-  public  browser_info: any;
-  public url_info: string = '';
-  public url: any;
-  public input_info: any = null;
-  public user_cart: any = null;
+  public isReadMore: boolean = true;
 
   otpForm = this.fb.group({
     otp_password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]]
@@ -52,41 +52,52 @@ export class SignupComponent implements OnInit {
     tnc_check: [false, Validators.required]
   })
 
+  public toll_free=environment.toll_free;
   constructor(
-    private fb: FormBuilder,
+    private fb: FormBuilder,private titleService: Title,
     private registerService: RegisterPageService,
     private route: ActivatedRoute,
     private router: Router,
+    private UserLogsService:UserLogsService,
+    private gtmService: GtmserviceService,
     private toastr: ToastrService,
-    private jwtService: JwtService,
-    private titleService: Title,
-    private UserLogsService:UserLogsService
-    ) {
-      this.usertype = this.jwtService.getUserType();
-        this.url_info= this.router.url;
-        this.type="sign-up page";
-        this.device_info = this.UserLogsService.getDeviceInfo();
-        this.browser_info = this.UserLogsService.getbrowserInfo();
-        this.ip_address = this.UserLogsService.getIpAddress();
-       }
+    private jwtService: JwtService,) { }
 
   ngOnInit(): void {
+    this.titleService.setTitle('Onwers');
+    this.sendDataToGTM();
     
-    this.titleService.setTitle('Sign-UP');
-    this.returnUrl = this.jwtService.getReturnURL();
-    if (this.jwtService.getToken()) {
-        this.router.navigateByUrl('');
-      }
-    
+    if (this.jwtService.isTokenAvailable()) {
+      this.LoggedIn = true;
+    }else{
+      this.LoggedIn = false;
+    }
   }
-  
   get LoginFormControl() {
     return this.loginForm.controls;
   }
   get g() {
     return this.otpForm.controls;
   }
-  
+  sendDataToGTM()  {
+           
+    const data = {
+      event: 'dataLayer',
+      data: {
+        
+
+      },
+      action: 'Onload Action',
+      label: 'Owner Landing page',
+      page_name:'Owner Landing Page',
+      page_url:this.router.url,
+      site_type:this.UserLogsService.getDeviceInfo(),
+      // Additional data properties as needed
+    };
+
+    this.gtmService.pushToDataLayer(data);
+    console.log(data);
+  }
   onSubmit() {
     this.submitted=true;
     this.LoginFailed = false;
@@ -159,11 +170,6 @@ export class SignupComponent implements OnInit {
     this.registerService.mobile_login_verify_otp(this.mobile_no,this.loginForm.value, this.otpForm.value.otp_password).subscribe(
       response => {
         let data:any=response;
-        this.input_info=this.loginForm.value;
-        let param={'user_mobile':this.mobile_no,'user_type':this.usertype,'device_info':this.device_info,'browser_info':this.browser_info,'ip_address':this.ip_address,'url_info':this.url_info,'type':this.type,'user_cart':this.user_cart,'input_info':this.input_info}
-        this.UserLogsService.user_logs(param).subscribe(
-          reponse => {
-         });
         if(data.status==200){
           this.router.navigate(['/register'], { queryParams: { 'verify_token': data.verify_code } });
         }
@@ -177,6 +183,36 @@ export class SignupComponent implements OnInit {
       );
     }
   }
+  // carosule image
+  testimonial: OwlOptions = {
+    loop: true,
+    mouseDrag: false,
+    touchDrag: false,
+    pullDrag: false,
+    autoplay:true,
+    autoplayHoverPause:true,
+    dots: true,
+    navSpeed: 2000,
+    navText: ['', ''],
+    responsive: {
+      0: {
+        items: 1
+      },
+      400: {
+        items: 1
+      },
+      740: {
+        items: 1
+      },
+      940: {
+        items: 1
+      },
+      1050: {
+        items: 1
+      }
+    },
+    nav: true
+  }
   
   keyPressNumbers(event: { which: any; keyCode: any; preventDefault: () => void; }) {
     var charCode = (event.which) ? event.which : event.keyCode;
@@ -188,5 +224,38 @@ export class SignupComponent implements OnInit {
       return true;
     }
   }
+  showText() {
+    this.isReadMore = !this.isReadMore;
+  }
+
+  customOptions: OwlOptions = {
+    mouseDrag: true,
+    touchDrag: true,
+    pullDrag: true,
+    autoplay: true,
+    dots: true,
+    navSpeed: 700,
+    navText: ['&#8249', '&#8250;'],
+    responsive: {
+      0: {
+        items: 1,
+        loop: true 
+      },
+      480: {
+        items: 1,
+        loop: true
+      },
+      667: {
+        items: 2,
+        loop: true
+      },
+      1024: {
+        items: 3,
+        loop: false
+      }
+    },
+    nav: true
+  }
+
 
 }

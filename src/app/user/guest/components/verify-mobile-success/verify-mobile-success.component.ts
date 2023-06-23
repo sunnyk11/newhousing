@@ -5,7 +5,7 @@ import { VerifyMobileService } from '../../services/verify-mobile.service';
 import { PlansPageService } from '../../services/plans-page.service';
 import { environment } from 'src/environments/environment';
 import { LoginPageService } from '../../services/login-page.service';
-import { interval } from 'rxjs';
+import { interval } from 'rxjs';import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-verify-mobile-success',
@@ -30,14 +30,14 @@ export class VerifyMobileSuccessComponent implements OnInit {
   public count_number:any;
 
 
-  constructor(
+  constructor(private titleService: Title,
     private jwtService: JwtService,
     private loginPageService: LoginPageService,
     private plansPageService: PlansPageService,
     private router: Router) { }
 
   ngOnInit(): void {
-    
+    this.titleService.setTitle('Verify-Mobile');
     const obs$=interval(1000);
     obs$.subscribe((d)=>{
       let data_check:number=1;

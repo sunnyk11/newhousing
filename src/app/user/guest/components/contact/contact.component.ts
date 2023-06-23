@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { environment } from 'src/environments/environment';
 import { JwtService } from 'src/app/user/services/jwt.service';
 import { Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-contact',
@@ -33,10 +34,12 @@ export class ContactComponent implements OnInit {
     private toastr: ToastrService,
     private jwtService: JwtService,
     private router: Router,
+    private titleService: Title,
     private contactService: ContactPageService) { }
 
   ngOnInit(): void {
-    this.showLoadingIndicator = false;
+    this.showLoadingIndicator = false;    
+    this.titleService.setTitle('Contact');
     if(this.jwtService.getToken()){
       this.returnUrl = this.router.url;
       this.jwtService.saveReturnURL(this.returnUrl);

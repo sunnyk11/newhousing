@@ -10,6 +10,8 @@ import { JwtService } from 'src/app/user/services/jwt.service';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
+import { GtmserviceService } from '../../services/gtmservice.service';
+import { Title } from '@angular/platform-browser';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { map, startWith } from 'rxjs/operators';
 import { Pagination } from 'src/app/user/components/models/pagination.model';
@@ -30,6 +32,10 @@ export class ProductListingComponent implements OnInit {
   public area_unit:any={};
   public toll_free=environment.toll_free;
   public property:any={};
+  public  property_data: any = [];
+  
+  public furnishing_type: any;
+  public maintenance: any;
   public showLoadingIndicator:boolean= false;
   public  year:any='';
   public search_amenties:any=[];
@@ -129,6 +135,9 @@ export class ProductListingComponent implements OnInit {
     private formBuilder: FormBuilder,
     // private mapsAPILoader: MapsAPILoader,
     // private ngZone:NgZone,
+    
+    private gtmService: GtmserviceService,
+    private titleService: Title,
      private modalService: NgbModal,
      private UserLogsService:UserLogsService,
     private jwtService: JwtService,
@@ -139,11 +148,13 @@ export class ProductListingComponent implements OnInit {
       this.param_query_check();     
      }
 
-  ngOnInit(): void {  
+  ngOnInit(): void {   
+    this.titleService.setTitle('Listing');
     this.showLoadingIndicator = true;
     this.dropdown_data();
      this.getAmenities();
      this.getheading_data();
+     this.property_data = new Array<string>();
      
      this.sublocality_data = new Array<string>();
     
@@ -195,26 +206,80 @@ export class ProductListingComponent implements OnInit {
       response => {
         let data:any=response;
         if(data.data.length<1){
-          this.openModal_feedback();
+          // this.openModal_feedback();
         }
       }, err => { 
         let Message =err.error.message;
       }
     );
   }
-  
-  openModal_feedback() {
-    const modalRef = this.modalService.open(UserVisitPopupComponent,
-      {
-        scrollable: true,
-        windowClass: 'myCustomModalClass',
-        // keyboard: false,
-         backdrop: 'static'
+  sendDataToGTM()  {
+    this.property_data=[];
+    for(let i=0; i<this.property?.data?.data.length; i++){
+      if(this.property?.data?.data[i]?.furnishing_status==1){
+        this.furnishing_type='furnished';
+      }else{
+        this.furnishing_type='Not furnished';
+      }
+      if(this.property?.data?.data[i]?.maintenance_charge_condition != null){
+        this.maintenance=this.property?.data?.data[i]?.maintenance_charge +'/'+ (this.property?.data?.data[i]?.maintenance_condition?.name);
+      }else{
+        this.maintenance='No';
+      }
+      this.property_data.push({
+        'property_id':this.property?.data?.data[i]?.product_id,
+        'property_name':this.property?.data?.data[i]?.build_name,
+        'property_type':this.property?.data?.data[i]?.property__type?.name,
+        'flat_type':this.property?.data?.data[i]?.pro_flat__type?.name ,
+        'site_type':this.UserLogsService.getDeviceInfo(),
+        'property_url':this.router.url,
+        'available_form':this.property?.data?.data[i]?.available_for,
+        'area':this.property?.data?.data[i]?.area,
+        'area_unit':this.property?.data?.data[i]?.property_area_unit?.unit,
+        'currency':'₹',
+        'price':this.commaSeperated(this.property?.data?.data[i]?.expected_rent),
+        'furnishing_type':this.furnishing_type,
+        'maintance': this.maintenance,
+        'page_name':'Listing Page',
+        'city_name':this.property?.data?.data[i]?.product_state?.state,
+        'locality':this.property?.data?.data[i]?.product_locality?.locality,
+        'sublocality':this.property?.data?.data[i]?.product_sub_locality?.sub_locality,
+        
       });
-   modalRef.result.then((result) => {
-    }, (reason) => {
-    });
+      }   
+    const data = {
+      event: 'dataLayer',
+      data: {
+      data: this.property_data,
+      },
+      // page_link:this.property?.data?.links,
+      action: 'Onload Action',
+      label: 'Listing Property',
+      page_name:'Listing Page',
+      page_url:this.router.url,
+      site_type:this.UserLogsService.getDeviceInfo(),
+      search_filter: this.searchForm.value,
+      product_count:this.product_length,
+      property_status: this.searchForm.value.property_status,
+      // Additional data properties as needed
+    };
+
+    this.gtmService.pushToDataLayer(data);
+    console.log(data);
   }
+  
+  // openModal_feedback() {
+  //   const modalRef = this.modalService.open(UserVisitPopupComponent,
+  //     {
+  //       scrollable: true,
+  //       windowClass: 'myCustomModalClass',
+  //       // keyboard: false,
+  //        backdrop: 'static'
+  //     });
+  //  modalRef.result.then((result) => {
+  //   }, (reason) => {
+  //   });
+  // }
   // fetch amenties advance tab
   getAmenities(){
     this.CommonService.getAmenities({ param: null }).subscribe(
@@ -242,6 +307,12 @@ export class ProductListingComponent implements OnInit {
       }
     );
   } 
+  commaSeperated(e: any) {
+    var t = (e = e ? e.toString() : "").substring(e.length - 3)
+      , n = e.substring(0, e.length - 3);
+    return "" !== n && (t = "," + t),
+      n.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + t
+  }
   get_locality(value:any){
     if(value.length>2){
       this.CommonService.get_common_area_data(value).subscribe(
@@ -515,7 +586,9 @@ export class ProductListingComponent implements OnInit {
         this.ProductListingPageService.login_product_details(this.searchForm.value).then(
           Pagination_data => {
             this.property=Pagination_data;
-            console.log(Pagination_data);
+            // console.log(Pagination_data);
+            
+           this.sendDataToGTM();
             this.product_length=this.property.data.total;
             if(this.product_length<1){
               this.property_availablty=false;
@@ -540,6 +613,8 @@ export class ProductListingComponent implements OnInit {
         this.ProductListingPageService.login_product_details(this.searchForm.value).then(
           Pagination_data => {
             this.property=Pagination_data;
+           
+            this.sendDataToGTM();
             this.product_length=this.property.data.total;
             if(this.product_length<1){
               this.property_availablty=false;
@@ -559,6 +634,8 @@ export class ProductListingComponent implements OnInit {
       this.ProductListingPageService.product_details(this.searchForm.value).then(
         Pagination_data => {
           this.property=Pagination_data;
+          // console.log(this.property);
+          this.sendDataToGTM();
           this.product_length=this.property.data.total;
           if(this.product_length<1){
             this.property_availablty=false;
@@ -579,6 +656,8 @@ export class ProductListingComponent implements OnInit {
     this.ProductListingPageService.post_pagination(link_url,this.searchForm.value).then(Pagination_data => {
       this.showLoadingIndicator= false;
       this.property=Pagination_data;
+      
+      this.sendDataToGTM();
       // this.user_list_length=this.user_list.data.data.length;
     });
   } 

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MypropertiesPageService } from '../../services/myproperties-page.service';
 import { JwtService } from 'src/app/user/services/jwt.service';
 import { Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-my-properties',
@@ -20,11 +21,12 @@ export class MyPropertiesComponent implements OnInit {
 
   constructor(
     private propertiesService: MypropertiesPageService,
-    private jwtService: JwtService,
+    private jwtService: JwtService,private titleService: Title,
     private router: Router
   ) { }
 
   ngOnInit(): void {
+    this.titleService.setTitle('My Properties');
     let val = this.jwtService.getToken();
     if (val) {
       this.userEmail = this.jwtService.getUserEmail();

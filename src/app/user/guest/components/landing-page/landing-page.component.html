@@ -1,0 +1,708 @@
+<div class="wrapper">
+    
+    <!--Breadcrumb-->
+    <div class="p-5 bg-secondary1 rounded-3" id="p-51">
+        <div class="container">
+                <div class="row" *ngIf="!LoggedIn">
+                    <div class="col-12 col-lg-7">
+                        <div class="banner-content">
+                            <h3>Rent Out Your Residential <br>Property <span style="color: green;">in 30 Days</span></h3>
+                            <ul>
+                                <li>Nothing to pay in Advance : When You Earn We Earn</li>
+                                <li>You'll be involved only during payment transfers.</li>
+                                <li>Leave the property management tasks to us, we'll handle everything from
+                                    property photos to tenant visits, ensuring a hassle-free experience for you</li>
+                                <li>Zero Risk, Pay Only on Success </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-5">
+                        <div class="form-section" *ngIf="!LoggedIn">
+                            <div class="card shadow text-dark login-card">
+                                <div class="card-body py-3 px-5 text-center">
+                                    <div *ngIf="showLoadingIndicator">
+                                        <div class="preloader"></div>
+                                    </div>
+                                    <div class="mb-md-0 mt-md-3 pb-2" *ngIf="display_otp_form == true && showLoadingIndicator== false" >
+                                        
+                                        <form [formGroup]="otpForm"  (ngSubmit)="onSubmitotp()" novalidate>
+                                                    <p class="text-secondary-50">An OTP will be sent to the following Mobile Number</p>
+                                                    <p>{{ mobile_slice }}</p>
+                                                    <div class="input-group mb-3">
+                                                        <span class="input-group-text" id="mobile_number">OTP</span>
+                                                        <input type="text" class="form-control" autocomplete="off" formControlName="otp_password" minlength="6" maxlength="6"  [ngClass]="{ 'is-invalid': otp_submitted && g.otp_password.errors }" placeholder="Please Enter OTP" (keypress)="keyPressNumbers($event)" required>
+                                                    </div>
+                                                    <div class="alert alert-danger" role="alert" *ngIf="otp_submitted && g.otp_password.invalid">
+                                                        <div *ngIf="g.otp_password.errors?.required">OTP is required
+                                                        </div>
+                                                        <div *ngIf="g.otp_password.errors?.minlength">
+                                                            OTP must be 6 digits
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12">
+                                                        <button class="btn btn-success" type="submit">Verify</button>
+                                                    </div>
+                                                    <div class="alert alert-danger text-center mt-4" role="alert" *ngIf="otp_submitted && isFailedVerify_otp">
+                                                        <div *ngIf="errorMessage">
+                                                            <p><strong>Verification failed.</strong></p>
+                                                        </div>
+                                                    </div>
+                                        </form>
+                                        <p class="mb-1 mt-3">Are You sure? <a (click)="user_otp_resend()" class="text-thm fw-bold sign_up" style="cursor: pointer;">Resend OTP</a></p>
+                                      
+                                    </div>
+                
+                                    <div class="mb-md-0 mt-md-3 pb-2" id="sign_up_form" *ngIf="display_otp_form== false && showLoadingIndicator== false">
+                                        <form [formGroup]="loginForm" #ngForm="ngForm" (ngSubmit)="onSubmit()" >
+                                            <!-- <h2 class="fw-bold mb-2 text-uppercase">Sign-up</h2> -->
+                                            <p class="text-secondary-50 mb-3">Get Started With Your Phone No.</p>
+                
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text" id="user_name"><i class="fa fa-user"></i></span>
+                                                <input type="email" class="form-control" aria-label="Email Address" aria-describedby="user_name" formControlName="user_name" placeholder="Enter Full Name">
+                                                <span class="text-danger w100" *ngIf="(LoginFormControl.user_name.touched || submitted) && LoginFormControl.user_name.errors?.required">
+                                                    Name is required
+                                                </span>
+                                            </div>
+                
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text" id="mobile"><i class="fa fa-phone"></i></span>
+                                                <input type="mobile_no" class="form-control" formControlName="mobile_no" minlength="10" maxlength="10"  (keypress)="keyPressNumbers($event)" placeholder="Enter Mobile No">
+                                                <span class="text-danger w100" *ngIf="(LoginFormControl.mobile_no.touched || submitted)">
+                                                    <span *ngIf="LoginFormControl.mobile_no.errors?.required">
+                                                        Mobile No required
+                                                    </span>
+                                                    <span *ngIf="LoginFormControl.mobile_no.errors?.minlength || LoginFormControl.mobile_no.errors?.maxlength">
+                                                        Mobile number must be 10 digits
+                                                    </span>
+                                                 </span>
+                                            </div>
+                                            
+                                            <div class="row">
+                                                <div class="mb-3 ms-2 form-check">
+                                                    <input type="checkbox" class="form-check-input" id="tnc_check" formControlName="tnc_check"  name="tnc_check" value="" required>
+                                                    <label class="form-check-label" for="tnc_check" style="font-size: 14px;">I have read and accept the<a
+                                                            class="modal_links" data-bs-toggle="modal" data-bs-target="#tncModal"> Terms
+                                                            and Conditions</a> and <a class="modal_links" data-bs-toggle="modal"
+                                                            data-bs-target="#privacyPolicyModal">Privacy Policy</a></label>
+                                                    <div *ngIf="(submitted || LoginFormControl.tnc_check.touched) && LoginFormControl.tnc_check.errors?.required" class="invalid-feedback1">
+                                                        Please accept the Terms & Conditions and Privacy Policy
+                                                    </div>
+                                                </div>
+                                            </div>
+                
+                                            <button class="btn btn-success" type="submit">Continue</button>
+                                        </form>
+                
+                                        <div class="alert alert-danger mt20" role="alert" *ngIf="submitted && LoginFailed">
+                                           <span *ngIf="errormobile">Login failed: {{ errormobile }}</span> 
+                                           <span *ngIf="errorMessage">Login failed: {{ errorMessage }}</span> 
+                                        </div>
+                                        <div class="alert alert-danger" role="alert" *ngIf="submitted && LoginFailed && status_code==200">
+                                            Either you have Entered Wrong credentials or you have No Account on this site.
+                                        </div>
+                                        <div>
+                                            <p class="mb-1 mt-3" *ngIf="display_otp_form== false && showLoadingIndicator== false">Already have an account? <a routerLink="/login" class="text-thm fw-bold sign_up">Login here</a></p>                                  
+                                            <div class="divider d-flex align-items-center my-4">
+                                                <p class="text-center mx-3 mb-0">Or</p>
+                                            </div>
+                                            <p class="para">Need help in listing property? Call Now</p>
+                                            <p class="para"><a id="number">
+                                                <!-- <mat-icon *ngIf="icon_show == true">phone</mat-icon> -->
+                                                <i class="fa fa-phone"></i>
+                                                <span><a href="tel:{{toll_free}}" >{{toll_free}}</a></span>
+                                                 </a>
+                                               </p>
+                                        </div>
+                                        
+                
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" *ngIf="LoggedIn==true">
+                    <div class="col-8 col-lg-8 offset-2">
+                        <div class="banner-content">
+                            <h3>Rent Out Your Residential <br>Property <span style="color: green;">in 30 Days</span></h3>
+                            <ul>
+                                <li>Nothing to pay in Advance : When You Earn We Earn</li>
+                                <li>You'll be involved only during payment transfers.</li>
+                                <li>Leave the property management tasks to us, we'll handle everything from
+                                    property photos to tenant visits, ensuring a hassle-free experience for you</li>
+                                <li>Zero Risk, Pay Only on Success </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            
+        </div>
+    </div>
+    <!-- Why Choose Us -->
+    
+<section id="why-chose" class="whychose_us bgc-f7 pb30">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3">
+                <div class="main-title text-center">
+                    <h2>Why Choose Us</h2>
+                    <p>We provide full service at every step.</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <owl-carousel-o [options]="customOptions">
+                <ng-template carouselSlide>
+                    <div class="why_chose_us mx-4">
+                        <div class="icon">
+                            <span class="flaticon-home-1"></span>
+                        </div>
+                        <div class="details" [ngClass]="{'limitTextHeight1': isReadMore}">
+                            <!-- <h4>Hassle-Free Letting</h4> -->
+                            <h5 class="text-thm">Hassle-Free Letting</h5>
+                            <p>With HousingStreet.com, you can say goodbye to the 
+                                burdensome process of dealing with property 
+                                dealers, brokers, or other proptech companies. We 
+                                understand that as a property owner, you want a 
+                                seamless experience without any unnecessary 
+                                tension. Our dedicated team takes care of everything, 
+                                from capturing attractive property photos to 
+                                managing tenant inquiries and property visits. We 
+                                handle the entire process, allowing you to sit back 
+                                and relax while we do the work for you.</p>
+                        </div>
+                        <button type="button" class="btn btn-thm mt-3" (click)="showText()">
+                            {{ isReadMore ? 'Read More': 'Read Less' }}
+                        </button>
+                    </div>
+                </ng-template>
+                <ng-template carouselSlide>
+                    <div class="why_chose_us mx-4">
+                        <div class="icon">
+                            <span class="flaticon-profit"></span>
+                        </div>
+                        <div class="details" [ngClass]="{'limitTextHeight1': isReadMore}">
+                            <!-- <h4>For Owners</h4> -->
+                            <h5 class="text-thm">Cost-Effective and Transparent</h5>
+                            <p>Don't worry - our team will ensure your property is let out in 30 days; you won't have to wait 3 months! If your property is prematurely vacated within 3 months, you don't have to pay commission again.</p>
+                            <h5 class="text-thm"></h5>
+                            <p>At HousingStreet.com, we believe in fair and transparent 
+                                pricing. We understand that paying hefty advance fees 
+                                or high brokerage charges can significantly impact your 
+                                finances. That s why we offer a unique pricing structure 
+                                that benefits you. Instead of demanding upfront 
+                                payments, we charge a nominal service fee equivalent to 
+                                just 15 days rent when we successfully let out your 
+                                property. This cost-effective approach ensures that you 
+                                save money while still receiving top-notch services from 
+                                our experienced team. Additionally, our MahaRaja plan 
+                                offers even greater value, guaranteeing two additional 
+                                free let-outs if your property becomes vacant within the 
+                                next 5 months</p>
+                        </div>
+                        <button type="button" class="btn btn-thm mt-3" (click)="showText()">
+                            {{ isReadMore ? 'Read More': 'Read Less' }}
+                        </button>
+                    </div>
+                </ng-template>
+                <ng-template carouselSlide>
+                    <div class="why_chose_us mx-4">
+                        <div class="icon">
+                            <span class="flaticon-high-five"></span>
+                        </div>
+                        <div class="details" [ngClass]="{'limitTextHeight1': isReadMore}">
+                            <!-- <h4>Trusted By Several</h4> -->
+                            <h5 class="text-thm">Swift and Guaranteed Results</h5>
+                            <p>We value your time and understand the importance of a 
+                                quick turnaround when it comes to letting out your 
+                                property. Unlike other platforms where you have to pay 
+                                in advance without any guarantee of finding a tenant, 
+                                HousingStreet.com stands out by ensuring that your 
+                                property is let out within 30 days. Our extensive network 
+                                and proactive marketing strategies enable us to attract 
+                                potential tenants efficiently. We are committed to 
+                                delivering fast results, so you can start earning rental 
+                                income sooner rather than later.</p>
+                        </div>
+                        <button type="button" class="btn btn-thm mt-3" (click)="showText()">
+                            {{ isReadMore ? 'Read More': 'Read Less' }}
+                        </button>
+                    </div>
+                </ng-template>
+            </owl-carousel-o>
+        </div>
+    </div>
+</section>
+    <!-- Our Testimonials -->
+    <section id="our-testimonials" class="our-testimonial" >
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 offset-lg-3">
+                    <div class="main-title text-center">
+                        <h2 class="color-white">Testimonials</h2>
+                        <p class="color-white">What our Customers are Saying About us</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 offset-lg-3">
+                    <div class="testimonial_grid_slider">
+                        <owl-carousel-o [options]="testimonial">
+                            <ng-container *ngFor="let testimonial of testimonial_data; let i = index ">
+                                <ng-template carouselSlide >
+                                    <div class="item">
+                                        <div class="testimonial_grid">
+                                            <!-- <div class="thumb" >  
+                                                <img *ngIf="testimonial?.user_detail?.profile_pic !== null && testimonial?.user_detail?.profile_pic?.indexOf('https') == -1" class="profile-img" src="{{ ftpstring }}images/{{ testimonial?.user_detail?.profile_pic  }}" alt="Profile Pic">
+                                                <img *ngIf="testimonial?.user_detail?.profile_pic !== null && testimonial?.user_detail?.profile_pic?.indexOf('https') != -1" class="profile-img" src="{{testimonial?.user_detail?.profile_pic}}" alt="Profile Pic">
+                                                <img *ngIf="testimonial?.user_detail?.profile_pic == null" class="profile-img" src="assets/resources/images/testimonial/img_avatar2-png-9.png" alt="img_avatar2-png-9.png" alt="Profile Pic">
+                                            </div> -->
+                                            <div class="details">
+                                                <h4 class="mt15 mb15">{{testimonial?.author}}</h4>
+                                                <!-- <p>Sales Manager</p> -->
+                                                <p class="mt15 mb15" *ngIf="testimonial.stars == 0">
+                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                </p>
+                                                <p class="mt15 mb15" *ngIf="testimonial.stars == 1">
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                </p>
+                                                <p class="mt15 mb15" *ngIf="testimonial.stars == 2">
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                </p>
+                                                <p class="mt15 mb15" *ngIf="testimonial.stars == 3">
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                </p>
+                                                <p class="mt15 mb15" *ngIf="testimonial.stars == 4">
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                </p>
+                                                <p class="mt15 mb15" *ngIf="testimonial.stars == 5">
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                </p>
+                                                <p class="mt15 mb15 content">{{testimonial?.content}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                            </ng-container>
+                        </owl-carousel-o>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+<section id="why-chose" class="whychose_us bgc-f7 pb30 how_it_section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3">
+                <div class="main-title text-center">
+                    <h2>How It Works:</h2>
+                    <p>4 Simple Step To Let Out Your Property Hassle-Free</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-lg-6">
+                <div class="content-section">
+                    <h3>1: Register or Call our Toll-Free Number</h3>
+                    <p>To get started, simply register on our website or give us a call on our toll-free 
+                        number, 18005475450. Our team is always ready to assist you. We understand 
+                        your needs as a property owner and are dedicated to providing a hassle-free 
+                        experience throughout the process.
+                    </p>
+                </div>
+            </div>
+            <div class="col-12 col-lg-6">
+                <div class="img-section">
+                    <img class="img-fluid w100" src="../../../../../assets/resources/images/landing/img1.jpg" alt="pc2.jpg">
+                </div>
+            </div>
+        </div>
+        <div class="row" id="row_direction">
+            <div class="col-12 col-lg-6">
+                <div class="img-section">
+                    <img class="img-fluid w100" src="../../../../../assets/resources/images/landing/img2.jpg" alt="pc2.jpg">
+                </div>
+            </div>
+            <div class="col-12 col-lg-6">
+                <div class="content-section">
+                    <h3>2: Assigned Relationship Manager (RM)</h3>
+                    <p>Once you register or call us, we will assign a dedicated Relationship 
+                        Manager (RM) to you. Your RM will be your main point of contact and will 
+                        guide you through the entire process. They will reach out to you within 4 
+                        hours to schedule a property visit and discuss the necessary details
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-lg-6">
+                <div class="content-section">
+                    <h3>3: Let HousingStreet.com Take Care of Everything</h3>
+                    <p>Sit back and relax while our expert team takes care of all the work involved in 
+                        letting out your property. From clicking professional property photos and 
+                        creating live listings on our website to handling tenant inquiries and 
+                        property visits, we handle it all. Our team will manage tenant follow-ups, 
+                        conduct thorough tenant verifications, and even assist in drafting the rent 
+                        agreement. We strive to make the process as seamless as possible, so you 
+                        can focus on other important matters in your life.
+                    </p>
+                </div>
+            </div>
+            <div class="col-12 col-lg-6">
+                <div class="img-section">
+                    <img class="img-fluid w100" src="../../../../../assets/resources/images/landing/img3.jpg" alt="pc2.jpg">
+                </div>
+            </div>
+        </div>
+        <div class="row" id="row_direction">
+            <div class="col-12 col-lg-6">
+                <div class="img-section">
+                    <img class="img-fluid w100" src="../../../../../assets/resources/images/landing/img4.jpg" alt="pc2.jpg">
+                </div>
+            </div>
+            <div class="col-12 col-lg-6">
+                <div class="content-section">
+                    <h3>4: Receive Payments with Peace of Mind</h3>
+                    <p>At HousingStreet.com, we value your time and money. Unlike other 
+                        platforms or traditional methods, we don't require any advance payments 
+                        for property listing. You only pay us when your property gets successfully let 
+                        out. Our service fee is a mere 15 days' rent, making it cost-effective and 
+                        convenient for you. We take care of the entire payment process and ensure 
+                        that the funds are securely transferred to your account. You can trust us to 
+                        handle the financial aspects while you enjoy the benefits of a hassle-free 
+                        property letting experience.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="!LoggedIn">
+            <div class="col-12">
+                <button class="btn btn-success" type="button"><a [routerLink]="['/sign-up']" target="_self">Register Now</a></button>
+            </div>
+        </div>
+    </div>
+</section>
+    <div class="container py-4">
+        <section id="feq_section">
+            <div class="row">
+                <div class="col-12 col-lg-12" >
+                    <h2>Frequently Asked Questions</h2>
+                    <div class="tab-pane fade show active" id="nav-owner" role="tabpanel" aria-labelledby="nav-owner-tab">
+                        <div class="accordion accordion-flush mt-4" id="faq-accordion">
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faq-h7">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panel8" aria-expanded="true" aria-controls="panel8">
+                                         How is HousingStreet.com different
+                                        from other property listing platforms?
+                                    </button>
+                                </h2>
+                                <div id="panel8" class="accordion-collapse collapse show" aria-labelledby="faq-h7">
+                                    <div class="accordion-body">
+                                        HousingStreet.com stands out by
+                                        ensuring that your property gets rented out
+                                        within 30 days, without any upfront payment.
+                                        Unlike other platforms, we charge a service
+                                        fee of only 15 days' rent upon successful
+                                        renting, saving you both time and money.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faq-h7">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panel9" aria-expanded="true" aria-controls="panel9">
+                                        What makes HousingStreet.com more
+                                        reliable than property dealers or brokers?
+                                    </button>
+                                </h2>
+                                <div id="panel9" class="accordion-collapse collapse" aria-labelledby="faq-h7">
+                                    <div class="accordion-body">
+                                        With HousingStreet.com, you can
+                                        eliminate the hassle of dealing with property
+                                        dealers or brokers and their hefty 15-30 days'
+                                        rent brokerage fees. Our experienced team
+                                        handles all the work, from property
+                                        photography to tenant verification and
+                                        drafting rent agreements, ensuring a
+                                        seamless renting process for you.
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faq-h7">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panel10" aria-expanded="true" aria-controls="panel10">
+                                        How does HousingStreet.com
+                                        guarantee the timely letting out of my
+                                        property?
+                                        
+                                    </button>
+                                </h2>
+                                <div id="panel10" class="accordion-collapse collapse" aria-labelledby="faq-h7">
+                                    <div class="accordion-body">
+                                        While we cannot provide an absolute
+                                        guarantee, our track record speaks for itself.
+                                        We have successfully rented out numerous
+                                        properties within 30 days, thanks to our wide
+                                        network, proactive marketing strategies, and
+                                        efficient tenant management system.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faq-h7">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panel11" aria-expanded="true" aria-controls="panel11">
+                                        How much do I have to pay in advance
+                                        to list my property on HousingStreet.com?
+                                    </button>
+                                </h2>
+                                <div id="panel11" class="accordion-collapse collapse" aria-labelledby="faq-h7">
+                                    <div class="accordion-body">
+                                        With HousingStreet.com, you don't need
+                                        to pay anything in advance to list your
+                                        property. We believe in the success of our
+                                        services, and you only pay a nominal service
+                                        fee of 15 days' rent upon finding a suitable
+                                        tenant for your property.
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faq-h7">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panel12" aria-expanded="true" aria-controls="panel12">
+                                        What is the "MahaRaja" plan, and how
+                                        does it benefit me?
+                                    </button>
+                                </h2>
+                                <div id="panel12" class="accordion-collapse collapse" aria-labelledby="faq-h7">
+                                    <div class="accordion-body">
+                                        The "MahaRaja" plan is an exclusive
+                                        offer for property owners. If your property
+                                        becomes vacant within the next 5 months
+                                        after the first successful letting, we will let
+                                        out your property for the 2nd and 3rd time
+                                        absolutely free of cost. It provides you with
+                                        added assurance and value for choosing
+                                        HousingStreet.com.
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faq-h7">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panel13" aria-expanded="true" aria-controls="panel13">
+                                         How involved do I need to be in the
+                                        renting process?
+                                    </button>
+                                </h2>
+                                <div id="panel13" class="accordion-collapse collapse" aria-labelledby="faq-h7">
+                                    <div class="accordion-body">
+                                        HousingStreet.com takes care of all the
+                                        work on your behalf. Our dedicated team
+                                        handles property photography, listing, tenant
+                                        inquiries, property visits, tenant verification,
+                                        and rent agreement drafting. You are
+                                        involved only when the payment is being
+                                        transferred to your account.
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faq-h7">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panel14" aria-expanded="true" aria-controls="panel14">
+                                        What if I have specific requirements for
+                                        tenants or my property?                                        
+                                    </button>
+                                </h2>
+                                <div id="panel14" class="accordion-collapse collapse" aria-labelledby="faq-h7">
+                                    <div class="accordion-body">
+                                        We understand that every property
+                                        owner may have unique requirements. Our
+                                        team ensures to communicate and
+                                        understand your preferences thoroughly. We
+                                        aim to find tenants who meet your criteria,
+                                        whether it's regarding the tenant's
+                                        profession, family size, or other specific
+                                        needs.
+
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faq-h7">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panel15" aria-expanded="true" aria-controls="panel15">
+                                        How can I trust HousingStreet.com with
+                                        managing my property and tenants?
+                                    </button>
+                                </h2>
+                                <div id="panel15" class="accordion-collapse collapse" aria-labelledby="faq-h7">
+                                    <div class="accordion-body">
+                                         HousingStreet.com is committed to
+                                        providing trustworthy and reliable services.
+                                        Our team follows a rigorous tenant
+                                        verification process, including background
+                                        checks, employment verification, and rental
+                                        history screening. We prioritize your peace
+                                        of mind and the safety of your property.
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faq-h7">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panel16" aria-expanded="true" aria-controls="panel16">
+                                        Can I still list my property on other
+                                        platforms while using HousingStreet.com?
+                                    </button>
+                                </h2>
+                                <div id="panel16" class="accordion-collapse collapse" aria-labelledby="faq-h7">
+                                    <div class="accordion-body">
+                                        Yes, you can list your property on other
+                                        platforms simultaneously. However, keep in
+                                        mind that HousingStreet.com offers a unique
+                                        approach, focusing on a quicker renting
+                                        process, zero upfront payment, and lower
+                                        service fees. Our dedicated efforts increase
+                                        the chances of finding a tenant sooner.
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faq-h4">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panel-four" aria-expanded="true" aria-controls="panel-four">
+                                        What if I have additional questions or
+                                        need assistance?
+                                    </button>
+                                </h2>
+                                <div id="panel-four" class="accordion-collapse collapse" aria-labelledby="faq-h4">
+                                    <div class="accordion-body">
+                                        We are here to assist you at every step
+                                        of the way. If you have any further questions
+                                        or need personalized support, feel free to
+                                        contact our friendly customer service team.
+                                        We are available via phone, email, or live
+                                        chat on our website.
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faq-h5">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panel-five" aria-expanded="true" aria-controls="panel-five">
+                                        What if my property is located in a nonpremium location in Delhi? Can I still use
+                                        HousingStreet.com?
+                                    </button>
+                                </h2>
+                                <div id="panel-five" class="accordion-collapse collapse" aria-labelledby="faq-h5">
+                                    <div class="accordion-body">
+                                        Absolutely! HousingStreet.com caters to
+                                        properties in both premium and nonpremium locations in Delhi. Our extensive
+                                        network and marketing strategies enable us
+                                        to find suitable tenants for properties across
+                                        various areas.
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faq-h7">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panel-seven" aria-expanded="true" aria-controls="panel-seven">
+                                        What happens if a tenant damages my
+                                     property during their tenancy?
+                                    </button>
+                                </h2>
+                                <div id="panel-seven" class="accordion-collapse collapse" aria-labelledby="faq-h7">
+                                    <div class="accordion-body">
+                                        While we strive to find reliable tenants,
+                                        unforeseen circumstances can occur. In such
+                                        cases, we assist in resolving the matter by
+                                        following the terms outlined in the rent
+                                        agreement. We also recommend taking
+                                        appropriate security deposits to mitigate any
+                                        potential damages.
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="faq-h8">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panel-seven8" aria-expanded="true" aria-controls="panel-seven">
+                                        How long does it typically take to find
+                                        a suitable tenant through HousingStreet.com?
+                                    </button>
+                                </h2>
+                                <div id="panel-seven8" class="accordion-collapse collapse" aria-labelledby="faq-h8">
+                                    <div class="accordion-body">
+                                        While the timeline may vary depending 
+                                        on several factors, including location,
+                                        property type, and market demand, our goal
+                                        is to find a tenant within 30 days. Our
+                                        proactive marketing strategies and tenant
+                                        management systems enhance the chances
+                                        of securing a tenant swiftly.
+                                        
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="9faq-h9">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panel-seven9" aria-expanded="true" aria-controls="panel-seven9">
+                                        How does HousingStreet.com ensure
+                                        tenant quality and reliability?
+                                    </button>
+                                </h2>
+                                <div id="panel-seven9" class="accordion-collapse collapse" aria-labelledby="9faq-h9">
+                                    <div class="accordion-body">
+                                        We have a thorough tenant verification
+                                        process in place. This includes Police
+                                        Verification, employment verification,
+                                        reference checks, and a review of their rental
+                                        history. By diligently screening tenants, we
+                                        aim to find reliable individuals who will
+                                        respect and maintain your property.
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+<!-- Real Estate Agent -->
+<app-real-estate-agent></app-real-estate-agent>
+</div>

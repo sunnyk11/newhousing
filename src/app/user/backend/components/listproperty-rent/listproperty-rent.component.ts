@@ -10,6 +10,7 @@ import { CommonService } from '../../services/common.service';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-listproperty-rent',
@@ -92,7 +93,7 @@ export class ListpropertyRentComponent implements OnInit {
 
   public submitted: boolean = false;
 
-  constructor(
+  constructor(private titleService: Title,
     private _formBuilder: FormBuilder,
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
@@ -103,7 +104,7 @@ export class ListpropertyRentComponent implements OnInit {
   ) {
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void {this.titleService.setTitle('List-property-Rent');
     this.map_show=true;
     this.dropdownSettings = {
       singleSelection: true,
