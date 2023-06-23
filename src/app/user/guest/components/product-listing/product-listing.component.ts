@@ -259,6 +259,7 @@ export class ProductListingComponent implements OnInit {
       page_url:this.router.url,
       site_type:this.UserLogsService.getDeviceInfo(),
       search_filter: this.searchForm.value,
+      product_count:this.product_length,
       // Additional data properties as needed
     };
 
