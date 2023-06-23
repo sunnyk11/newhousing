@@ -252,7 +252,7 @@ export class ProductListingComponent implements OnInit {
       data: {
       data: this.property_data,
       },
-      page_link:this.property?.data?.links,
+      // page_link:this.property?.data?.links,
       action: 'Onload Action',
       label: 'Listing Property',
       page_name:'Listing Page',
