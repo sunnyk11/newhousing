@@ -101,49 +101,55 @@ export class HomepagefeatureComponent implements OnInit {
   }
   
   sendDataToGTM()  {
-    for(let i=0; i<this.property?.data?.data.length; i++){
+    console.log(this.property?.data);
+    console.log('fkjgkf')
+    for(let i=0; i<this.property?.data?.length; i++){
       //  let data: {
       //     property_id:this.property?.data?.data?.product_id,
          
       //   },
-      if(this.property?.data?.data[i]?.furnishing_status==1){
+      if(this.property?.data[i]?.furnishing_status==1){
         this.furnishing_type='furnished';
       }else{
         this.furnishing_type='Not furnished';
       }
-      if(this.property?.data?.data[i]?.maintenance_charge_condition != null){
-        this.maintenance=this.property?.data?.data[i]?.maintenance_charge +'/'+ (this.property?.data?.data[i]?.maintenance_condition?.name);
+      if(this.property?.data[i]?.maintenance_charge_condition != null){
+        this.maintenance=this.property?.data[i]?.maintenance_charge +'/'+ (this.property?.data[i]?.maintenance_condition?.name);
       }else{
         this.maintenance='No';
       }
       this.property_data.push({
-        'property_id':this.property?.data?.data[i]?.id,
-        'property_name':this.property?.data?.data[i]?.build_name,
-        'property_type':this.property?.data?.data[i]?.property__type?.name,
-        'flat_type':this.property?.data?.data[i]?.pro_flat__type?.name ,
+        'property_id':this.property?.data[i]?.id,
+        'property_name':this.property?.data[i]?.build_name,
+        'property_type':this.property?.data[i]?.property__type?.name,
+        'flat_type':this.property?.data[i]?.pro_flat__type?.name ,
         'site_type':this.UserLogsService.getDeviceInfo(),
         'property_url':this.router.url,
-        'available_form':this.property?.data?.data[i]?.available_for,
-        'area':this.property?.data?.data[i]?.area,
-        'area_unit':this.property?.data?.data[i]?.property_area_unit?.unit,
+        'available_form':this.property?.data[i]?.available_for,
+        'area':this.property?.data[i]?.area,
+        'area_unit':this.property?.data[i]?.property_area_unit?.unit,
         'currency':'₹',
-        'price':this.commaSeperated(this.property?.data?.data[i]?.expected_rent),
+        'price':this.commaSeperated(this.property?.data[i]?.expected_rent),
         'furnishing_type':this.furnishing_type,
         'maintance': this.maintenance,
         'page_name':'Home Page',
-        'city_name':this.property?.data?.data[i]?.product_state?.state,
-        'locality':this.property?.data?.data[i]?.product_locality?.locality,
-        'sublocality':this.property?.data?.data[i]?.product_sub_locality?.sub_locality,
+        'city_name':this.property?.data[i]?.product_state?.state,
+        'locality':this.property?.data[i]?.product_locality?.locality,
+        'sublocality':this.property?.data[i]?.product_sub_locality?.sub_locality,
         
       });
-      }    
+      }   
+      console.log(this.property_data); 
     const data = {
       event: 'dataLayer',
       data: {
         data: this.property_data,
       },
       action: 'Onload Action',
-      label: 'Home Page'
+      label: 'Home Page',
+      page_name:'Home Page',
+      page_url:this.router.url,
+      site_type:this.UserLogsService.getDeviceInfo(),
       // Additional data properties as needed
     };
 
@@ -237,8 +243,8 @@ export class HomepagefeatureComponent implements OnInit {
     }
   }
   
-  navigate(id:number,name:string,city:string,locality:string,sublocality:string,flat_type:string){
-    this.router.navigate(['/product-details'],{queryParams:{'id':id,'name':name,'city':city,'locality':locality,'sublocality':sublocality,'flat-type':flat_type}})
+  navigate(id:number,name:string,city:string,district:string,locality:string,sublocality:string,flat_type:string){
+    this.router.navigate(['/product-details'],{queryParams:{'id':id,'name':name,'city':city,'district':district,'locality':locality,'sublocality':sublocality,'flat-type':flat_type}})
   }
 
   // pricre convert functionalty

@@ -114,13 +114,13 @@ export class ProPaymentSummaryComponent implements OnInit {
         property_type:this.pro_data?.property__type?.name,
         site_type:this.UserLogsService.getDeviceInfo(),
         property_url: this.router.url,
-        page_name:'single-property',
+        page_name:'Payment Page',
         plan_name:this.plan_name,
         plan_price:this.plan_price,
 
       },
       action: 'Click Action',
-      label: 'Single Property'
+      label: 'Payment Page'
       // Additional data properties as needed
     };
 

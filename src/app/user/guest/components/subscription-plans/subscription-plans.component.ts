@@ -23,6 +23,8 @@ export class SubscriptionPlansComponent implements OnInit {
   public showLoadingIndicator: boolean = false;
   public showLoadingIndicator1: boolean = false;
   public returnUrl: string = '';
+  public  plan_name:any;
+  public slider_amount:any;
 
   value: number = 10000;
   options: Options = {
@@ -85,7 +87,7 @@ export class SubscriptionPlansComponent implements OnInit {
   ngOnInit(): void { this.titleService.setTitle('Plans');
     this.getRentFeatures();
     this.getLetOutFeatures();
-    this.sendDataToGTM();
+    this.sendDataToGTM1();
   }
 
   getRentFeatures() {
@@ -104,21 +106,46 @@ export class SubscriptionPlansComponent implements OnInit {
       }
     );
   }
-
-  sendDataToGTM()  {
-      
+  sendDataToGTM1()  {
+    this.plan_name='Rentout';
+    this.slider_amount=this.value;
+   
     const data = {
       event: 'dataLayer',
       data: {
-        site_type:this.UserLogsService.getDeviceInfo(),
         property_url: this.router.url,
-        // maintance:this.maintenance,
+        plan_name: this.plan_name,
+        slider_amount:this.slider_amount,
         page_name:'plans Page',
-
-
       },
       action: 'Onload Action',
-      label: 'PLAN page'
+      label: 'PLAN page',
+      page_name:'Plan Page',
+      page_url:this.router.url,
+      site_type:this.UserLogsService.getDeviceInfo(),
+      // Additional data properties as needed
+    };
+
+    this.gtmService.pushToDataLayer(data);
+    console.log(data);
+  }
+  sendDataToGTM()  {
+      this.plan_name='Letout';
+      this.slider_amount=this.expected_rent_value;
+   
+    const data = {
+      event: 'dataLayer',
+      data: {
+        property_url: this.router.url,
+        plan_name: this.plan_name,
+        slider_amount:this.slider_amount,
+        page_name:'plans Page',
+      },
+      action: 'Onload Action',
+      label: 'PLAN page',
+      page_name:'Plan Page',
+      page_url:this.router.url,
+      site_type:this.UserLogsService.getDeviceInfo(),
       // Additional data properties as needed
     };
 

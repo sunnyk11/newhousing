@@ -185,7 +185,7 @@ export class ProductPageComponent implements OnInit {
             this.furnishing_type='No';
           }
           if(this.product_data?.maintenance_charge_condition != null){
-            this.maintenance=this.product_data?.maintenance_charge +(this.product_data?.maintenance_condition?.name);
+            this.maintenance=this.product_data?.maintenance_charge +' / '+(this.product_data?.maintenance_condition?.name);
           }else{
             this.maintenance='No';
           }
@@ -324,6 +324,8 @@ export class ProductPageComponent implements OnInit {
         currency:'₹',
         price:this.commaSeperated(this.product_data?.expected_rent),
         maintance:this.maintenance,
+        security_deposit:this.product_data?.security_deposit,
+        security_deposit_amount:this.product_data?.expected_rent*this.product_data?.security_deposit,
         page_name:'single-property',
         city_name:this.product_data?.product_state?.state,
         // district:this.product_data?.product_state?.state,
@@ -332,7 +334,10 @@ export class ProductPageComponent implements OnInit {
 
       },
       action: 'Click Action',
-      label: 'Single Property'
+      label: 'Single Property',
+      page_name:'Single Page',
+      page_url:this.router.url,
+      site_type:this.UserLogsService.getDeviceInfo(),
       // Additional data properties as needed
     };
 
