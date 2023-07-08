@@ -952,6 +952,16 @@ export class ProductListingComponent implements OnInit {
     const url:any = this.router.createUrlTree(['/product-details'],{queryParams:{'id':id,'name':name}})
     window.open(url.toString(), '_blank')
   }
+  
+  navigate1(id:number,name:string,city:string,district:string,locality:string,sublocality:string,flat_type:string){
+    const url:any = this.router.createUrlTree(['/product-details'],{queryParams:{'id':id,'name':name,'city':city,'district':district,'locality':locality,'sublocality':sublocality,'flat-type':flat_type}})
+    const encodedUrl = url.toString().replace(/ /g, '%20');
+    const encodedUrl1 = encodedUrl.replace(/=/g, '=');
+  // Replace "&" with "%26"
+  const finalUrl = encodedUrl1.toString().replace(/&/g, '%26');
+
+    window.open(finalUrl, '_self')
+  }
   // searching city name property 
   property_search(){
     this.router.navigate(['/product-listing'],{queryParams:{'cities':'Delhi'}})

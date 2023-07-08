@@ -317,7 +317,7 @@ export class ProductPageComponent implements OnInit {
         site_type:this.UserLogsService.getDeviceInfo(),
         property_url: this.router.url,
         year_build:this.product_data?.buildyear,
-        address:this.product_data?.address,
+        // address:this.product_data?.address,
         available_form:this.product_data?.available_for,
         area:this.product_data?.area,
         area_unit:this.product_data?.property_area_unit?.unit,
@@ -608,7 +608,12 @@ export class ProductPageComponent implements OnInit {
   }
   navigate(id:number,name:string,city:string){
     const url:any = this.router.createUrlTree(['/product-details'],{queryParams:{'id':id,'name':name,'city':city}})
-    window.open(url.toString(), '_blank')
+    const encodedUrl = url.toString().replace(/ /g, '%20');
+
+    // Replace "&" with "%26"
+    const finalUrl = encodedUrl.toString().replace(/&/g, '%26');
+  
+    window.open(finalUrl, '_blank')
   }
   user_reviews(product_id:number){
     const url:any = this.router.createUrlTree(['/user-reviews'],{queryParams:{'product_id':product_id}})
