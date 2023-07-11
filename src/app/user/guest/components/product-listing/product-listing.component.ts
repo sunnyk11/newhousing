@@ -259,7 +259,7 @@ export class ProductListingComponent implements OnInit {
       page_url:this.router.url,
       site_type:this.UserLogsService.getDeviceInfo(),
       search_filter: this.searchForm.value,
-      product_count:this.product_length,
+      product_count:this.property.data.total,
       property_status: this.searchForm.value.property_status,
       // Additional data properties as needed
     };
@@ -951,6 +951,16 @@ export class ProductListingComponent implements OnInit {
     this.property_availablty=true;
     const url:any = this.router.createUrlTree(['/product-details'],{queryParams:{'id':id,'name':name}})
     window.open(url.toString(), '_blank')
+  }
+  
+  navigate1(id:number,name:string,city:string,district:string,locality:string,sublocality:string,flat_type:string){
+    const url:any = this.router.createUrlTree(['/product-details'],{queryParams:{'id':id,'name':name,'city':city,'district':district,'locality':locality,'sublocality':sublocality,'flat-type':flat_type}})
+    const encodedUrl = url.toString().replace(/ /g, '%20');
+    const encodedUrl1 = encodedUrl.replace(/=/g, '=');
+  // Replace "&" with "%26"
+  const finalUrl = encodedUrl1.toString().replace(/&/g, '%26');
+
+    window.open(finalUrl, '_self')
   }
   // searching city name property 
   property_search(){

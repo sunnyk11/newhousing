@@ -236,7 +236,12 @@ export class WishlistComponent implements OnInit {
   
   navigate(id:number,name:string,city:string){
     const url:any = this.router.createUrlTree(['/product-details'],{queryParams:{'id':id,'name':name,'city':city}})
-    window.open(url.toString(), '_blank')
+    const encodedUrl = url.toString().replace(/ /g, '%20');
+
+  // Replace "&" with "%26"
+  const finalUrl = encodedUrl.toString().replace(/&/g, '%26');
+
+    window.open(finalUrl, '_blank')
   }
   redirect_to_login(): void {
     this.router.navigate(['/login'])
