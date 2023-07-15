@@ -27,7 +27,7 @@
                             <img class="img-whp" src="{{ftpstring}}{{img?.image}}" alt="img1.jpg">
                             <div class="thumb">
                                 <div class="thmb_cntnt style2">
-                                    <ul class="tag mb0" id="ul_img_header" (click)="navigate(data?.productdetails?.id,data?.productdetails?.build_name,data?.productdetails?.city)">
+                                    <ul class="tag mb0" id="ul_img_header" (click)="navigate(data?.productdetails?.id,data?.productdetails?.product_locality?.locality,data?.productdetails?.product_sub_locality?.sub_locality,data?.productdetails?.pro_flat__type?.name)">
                                         <li class="list-inline-item" *ngIf="data?.productdetails?.rent_availability != null"><a>For Rent</a></li>
                                         <li class="list-inline-item" *ngIf="data?.productdetails?.sale_availability != null"><a>For Sale</a></li>
                                         <!-- <li>
@@ -43,9 +43,9 @@
                                             </a>
                                         </li>
                                     </ul>
-                                    <a *ngIf="data?.productdetails?.expected_pricing != null" class="fp_price" (click)="navigate(data?.productdetails?.id,data?.productdetails?.build_name,data?.productdetails?.city)">₹
+                                    <a *ngIf="data?.productdetails?.expected_pricing != null" class="fp_price" (click)="navigate(data?.productdetails?.id,data?.productdetails?.product_locality?.locality,data?.productdetails?.product_sub_locality?.sub_locality,data?.productdetails?.pro_flat__type?.name)">₹
                                 {{Price_convert(data?.productdetails?.expected_pricing)}}<small></small></a>
-                                    <a *ngIf="data?.productdetails?.expected_rent != null" class="fp_price" (click)="navigate(data?.productdetails?.id,data?.productdetails?.build_name,data?.productdetails?.city)">₹ {{
+                                    <a *ngIf="data?.productdetails?.expected_rent != null" class="fp_price" (click)="navigate(data?.productdetails?.id,data?.productdetails?.product_locality?.locality,data?.productdetails?.product_sub_locality?.sub_locality,data?.productdetails?.pro_flat__type?.name)">₹ {{
                                 Price_convert(data?.productdetails?.expected_rent)}}<small></small></a>
                                 </div>
                             </div>
@@ -55,7 +55,7 @@
                         <img class="img-whp lazy" alt="No Product Image" style="height: 250px;" src="./../../assets/resources/images/no_image_available.jpg">
                         <div class="thumb">
                             <div class="thmb_cntnt style2">
-                                <ul class="tag mb0" id="ul_img_header" (click)="navigate(data?.productdetails?.id,data?.productdetails?.build_name,data?.productdetails?.city)">
+                                <ul class="tag mb0" id="ul_img_header" (click)="navigate(data?.productdetails?.id,data?.productdetails?.product_locality?.locality,data?.productdetails?.product_sub_locality?.sub_locality,data?.productdetails?.pro_flat__type?.name)">
                                     <li class="list-inline-item" *ngIf="data?.productdetails?.rent_availability != null"><a>For Rent</a></li>
                                     <li class="list-inline-item" *ngIf="data?.productdetails?.sale_availability != null"><a>For Sale</a></li>
                                     <!-- <li>
@@ -71,9 +71,9 @@
                                         </a>
                                     </li>
                                 </ul>
-                                <a *ngIf="data?.productdetails?.expected_pricing != null" class="fp_price" (click)="navigate(data?.productdetails?.id,data?.productdetails?.build_name,data?.productdetails?.city)">₹
+                                <a *ngIf="data?.productdetails?.expected_pricing != null" class="fp_price" (click)="navigate(data?.productdetails?.id,data?.productdetails?.product_locality?.locality,data?.productdetails?.product_sub_locality?.sub_locality,data?.productdetails?.pro_flat__type?.name)">₹
                             {{Price_convert(data?.productdetails?.expected_pricing)}}<small></small></a>
-                                <a *ngIf="data?.productdetails?.expected_rent != null" class="fp_price" (click)="navigate(data?.productdetails?.id,data?.productdetails?.build_name,data?.productdetails?.city)">₹ {{
+                                <a *ngIf="data?.productdetails?.expected_rent != null" class="fp_price" (click)="navigate(data?.productdetails?.id,data?.productdetails?.product_locality?.locality,data?.productdetails?.product_sub_locality?.sub_locality,data?.productdetails?.pro_flat__type?.name)">₹ {{
                             Price_convert(data?.productdetails?.expected_rent)}}<small></small></a>
                             </div>
                         </div>
@@ -83,7 +83,7 @@
                             <div class="tc_content">
                                 <div class="row">
                                     <div class="col-9">
-                                        <a (click)="navigate(data?.productdetails?.id,data?.productdetails?.build_name,data?.productdetails?.city)">
+                                        <a (click)="navigate(data?.productdetails?.id,data?.productdetails?.product_locality?.locality,data?.productdetails?.product_sub_locality?.sub_locality,data?.productdetails?.pro_flat__type?.name)">
                                             <p class="text-thm">{{ data?.productdetails?.property__type?.name | titlecase }}</p>
                                                     <p>
                                                         <span *ngIf="data?.productdetails?.furnishing_status == 1" style="color: #000;">(Furnished)</span>
@@ -106,7 +106,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <a (click)="navigate(data?.productdetails?.id,data?.productdetails?.build_name,data?.productdetails?.city)">
+                                <a (click)="navigate(data?.productdetails?.id,data?.productdetails?.product_locality?.locality,data?.productdetails?.product_sub_locality?.sub_locality,data?.productdetails?.pro_flat__type?.name)">
                                 
                                 <h4>{{data?.productdetails?.build_name | titlecase}}</h4>
                                    
