@@ -80,7 +80,9 @@ export class LandingPageComponent implements OnInit {
     return this.otpForm.controls;
   }
   sendDataToGTM()  {
-           
+       
+    const encodedUrl = this.router.url.toString().replace(/ /g, '%20');
+    const finalUrl = encodedUrl.toString().replace(/&/g, '%26');    
     const data = {
       event: 'dataLayer',
       data: {
@@ -90,7 +92,7 @@ export class LandingPageComponent implements OnInit {
       action: 'Onload Action',
       label: 'Owner Landing page',
       page_name:'Owner Landing Page',
-      page_url:this.router.url,
+      page_url:finalUrl,
       site_type:this.UserLogsService.getDeviceInfo(),
       // Additional data properties as needed
     };

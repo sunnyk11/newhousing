@@ -226,13 +226,16 @@ export class ProductListingComponent implements OnInit {
       }else{
         this.maintenance='No';
       }
+      
+    const encodedUrl = this.router.url.toString().replace(/ /g, '%20');
+    const finalUrl = encodedUrl.toString().replace(/&/g, '%26'); 
       this.property_data.push({
         'property_id':this.property?.data?.data[i]?.product_id,
         'property_name':this.property?.data?.data[i]?.build_name,
         'property_type':this.property?.data?.data[i]?.property__type?.name,
         'flat_type':this.property?.data?.data[i]?.pro_flat__type?.name ,
         'site_type':this.UserLogsService.getDeviceInfo(),
-        'property_url':this.router.url,
+        'property_url':finalUrl,
         'available_form':this.property?.data?.data[i]?.available_for,
         'area':this.property?.data?.data[i]?.area,
         'area_unit':this.property?.data?.data[i]?.property_area_unit?.unit,
@@ -960,7 +963,7 @@ export class ProductListingComponent implements OnInit {
   // Replace "&" with "%26"
   const finalUrl = encodedUrl1.toString().replace(/&/g, '%26');
 
-    window.open(finalUrl, '_self')
+    window.open(finalUrl, '_blank')
   }
   // searching city name property 
   property_search(){

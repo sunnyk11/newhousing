@@ -55,7 +55,7 @@ export class InvoicePopupComponent implements OnInit {
 
   ngOnInit(): void {
 
-    console.log(this.data);
+    // console.log(this.data);
     this.showLoadingIndicator = true;
     this.invoice_id = this.data.invoice;
 
@@ -79,7 +79,7 @@ export class InvoicePopupComponent implements OnInit {
       res => {
         let data:any=res;
         this.response =  data.data;
-        console.log(this.response);
+        // console.log(this.response);
         if(this.response  != null){
           this.user_name = data.data.user_detail.name;  
           this.inv_response = this.response;

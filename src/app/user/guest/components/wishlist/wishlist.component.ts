@@ -65,7 +65,8 @@ export class WishlistComponent implements OnInit {
     this.CommonService.getwishlit_property({ param: null }).subscribe(
       response => {
         this.property=response;
-        this.wishlist_length=this.property.data.length;
+        console.log( this.property);
+        this.wishlist_length=this.property.data.data.length;
         if(this.wishlist_length>0){
           for(let i=0; i<this.wishlist_length; i++){
             if(this.property.data[i].productdetails != null){
@@ -241,7 +242,7 @@ export class WishlistComponent implements OnInit {
   // Replace "&" with "%26"
   const finalUrl = encodedUrl.toString().replace(/&/g, '%26');
 
-    window.open(finalUrl, '_self')
+    window.open(finalUrl, '_blank')
   }
   redirect_to_login(): void {
     this.router.navigate(['/login'])

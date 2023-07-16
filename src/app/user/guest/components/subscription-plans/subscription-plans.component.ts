@@ -109,11 +109,13 @@ export class SubscriptionPlansComponent implements OnInit {
   sendDataToGTM1()  {
     this.plan_name='Rentout';
     this.slider_amount=this.value;
+    const encodedUrl = this.router.url.toString().replace(/ /g, '%20');
+    const finalUrl = encodedUrl.toString().replace(/&/g, '%26'); 
    
     const data = {
       event: 'dataLayer',
       data: {
-        property_url: this.router.url,
+        property_url: finalUrl,
         plan_name: this.plan_name,
         slider_amount:this.slider_amount,
         page_name:'plans Page',
@@ -121,7 +123,7 @@ export class SubscriptionPlansComponent implements OnInit {
       action: 'Onload Action',
       label: 'PLAN page',
       page_name:'Plan Page',
-      page_url:this.router.url,
+      page_url:finalUrl,
       site_type:this.UserLogsService.getDeviceInfo(),
       // Additional data properties as needed
     };
@@ -132,11 +134,15 @@ export class SubscriptionPlansComponent implements OnInit {
   sendDataToGTM()  {
       this.plan_name='Letout';
       this.slider_amount=this.expected_rent_value;
+      
+      
+    const encodedUrl = this.router.url.toString().replace(/ /g, '%20');
+    const finalUrl = encodedUrl.toString().replace(/&/g, '%26'); 
    
     const data = {
       event: 'dataLayer',
       data: {
-        property_url: this.router.url,
+        property_url: finalUrl,
         plan_name: this.plan_name,
         slider_amount:this.slider_amount,
         page_name:'plans Page',
@@ -144,7 +150,7 @@ export class SubscriptionPlansComponent implements OnInit {
       action: 'Onload Action',
       label: 'PLAN page',
       page_name:'Plan Page',
-      page_url:this.router.url,
+      page_url:finalUrl,
       site_type:this.UserLogsService.getDeviceInfo(),
       // Additional data properties as needed
     };

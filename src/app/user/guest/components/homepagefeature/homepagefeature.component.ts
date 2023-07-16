@@ -101,8 +101,6 @@ export class HomepagefeatureComponent implements OnInit {
   }
   
   sendDataToGTM()  {
-    console.log(this.property?.data);
-    console.log('fkjgkf')
     for(let i=0; i<this.property?.data?.length; i++){
       //  let data: {
       //     property_id:this.property?.data?.data?.product_id,
@@ -139,7 +137,6 @@ export class HomepagefeatureComponent implements OnInit {
         
       });
       }   
-      console.log(this.property_data); 
     const data = {
       event: 'dataLayer',
       data: {
@@ -250,7 +247,7 @@ export class HomepagefeatureComponent implements OnInit {
   // Replace "&" with "%26"
   const finalUrl = encodedUrl.toString().replace(/&/g, '%26');
 
-    window.open(finalUrl, '_self')
+    window.open(finalUrl, '_blank')
   }
 
   // pricre convert functionalty

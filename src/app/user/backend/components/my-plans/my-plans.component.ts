@@ -34,7 +34,7 @@ export class MyPlansComponent implements OnInit {
           this.showLoadingIndicator = false;
           let data:any=res;
           this.response = data;
-          console.log(this.response);
+          // console.log(this.response);
           this.let_out_invoices=this.response.let_out;
           this.let_out_invoices_length=this.response.let_out.length;
           this.rent_invoices=this.response.rent_out;
@@ -54,7 +54,7 @@ export class MyPlansComponent implements OnInit {
 
   getRentInvoices() {
     this.rent_invoices = this.response?.filter((item:any) => item.plan_type == 'Rent');
-    console.log(this.rent_invoices);
+    // console.log(this.rent_invoices);
     return this.rent_invoices;
   }
 
@@ -65,7 +65,7 @@ export class MyPlansComponent implements OnInit {
 
   getLetOutInvoices() {
     this.let_out_invoices = this.response?.filter((item:any) => item.plan_type == 'Let Out');
-    console.log(this.let_out_invoices);
+    // console.log(this.let_out_invoices);
     return this.let_out_invoices;
   }
 
