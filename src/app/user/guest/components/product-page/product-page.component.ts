@@ -351,7 +351,7 @@ export class ProductPageComponent implements OnInit {
     if(this.jwtService.getToken()){
       this.ProductPageService.login_getsimilarproperty(param).subscribe(
         response => {
-          // console.log(response);
+          console.log(response);
           this.similar_property=response;
           this.showLoadingIndicator = false;
           this.product_length=this.similar_property.data.length;
@@ -606,14 +606,24 @@ export class ProductPageComponent implements OnInit {
     }
     return num;
   }
-  navigate(id:number,name:string,city:string){
+  
+  navigate(id:number,locality:string,sublocality:string,flat_type:string){
+    const url:any = this.router.createUrlTree(['/product-details'],{queryParams:{'id':id,'locality':locality,'sublocality':sublocality,'flat-type':flat_type}})
+    const encodedUrl = url.toString().replace(/ /g, '%20');
+    const encodedUrl1 = encodedUrl.replace(/=/g, '=');
+  // Replace "&" with "%26"
+  const finalUrl = encodedUrl1.toString().replace(/&/g, '%26');
+
+    window.open(finalUrl, '_self')
+  }
+  navigate1(id:number,name:string,city:string){
     const url:any = this.router.createUrlTree(['/product-details'],{queryParams:{'id':id,'name':name,'city':city}})
     const encodedUrl = url.toString().replace(/ /g, '%20');
 
     // Replace "&" with "%26"
     const finalUrl = encodedUrl.toString().replace(/&/g, '%26');
   
-    window.open(finalUrl, '_blank')
+    window.open(finalUrl, '_self')
   }
   user_reviews(product_id:number){
     const url:any = this.router.createUrlTree(['/user-reviews'],{queryParams:{'product_id':product_id}})

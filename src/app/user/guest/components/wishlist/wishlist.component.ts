@@ -234,14 +234,14 @@ export class WishlistComponent implements OnInit {
     return num;
   }
   
-  navigate(id:number,name:string,city:string){
-    const url:any = this.router.createUrlTree(['/product-details'],{queryParams:{'id':id,'name':name,'city':city}})
+  navigate(id:number,locality:string,sublocality:string,flat_type:string ){
+    const url:any = this.router.createUrlTree(['/product-details'],{queryParams:{'id':id,'locality':locality,'sublocality':sublocality,'flat-type':flat_type}})
     const encodedUrl = url.toString().replace(/ /g, '%20');
 
   // Replace "&" with "%26"
   const finalUrl = encodedUrl.toString().replace(/&/g, '%26');
 
-    window.open(finalUrl, '_blank')
+    window.open(finalUrl, '_self')
   }
   redirect_to_login(): void {
     this.router.navigate(['/login'])

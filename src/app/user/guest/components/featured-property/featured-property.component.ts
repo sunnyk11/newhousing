@@ -54,8 +54,8 @@ export class FeaturedPropertyComponent implements OnInit {
     }
     return num;
   }
-  navigate(id:number,name:string,city:string,district:string,locality:string,sublocality:string,flat_type:string ){
-    const url:any = this.router.createUrlTree(['/product-details'],{queryParams:{'id':id,'name':name,'city':city,'district':district,'locality':locality,'sublocality':sublocality,'flat-type':flat_type}})
+  navigate(id:number,locality:string,sublocality:string,flat_type:string ){
+    const url:any = this.router.createUrlTree(['/product-details'],{queryParams:{'id':id,'locality':locality,'sublocality':sublocality,'flat-type':flat_type}})
     const encodedUrl = url.toString().replace(/ /g, '%20');
 
   // Replace "&" with "%26"
