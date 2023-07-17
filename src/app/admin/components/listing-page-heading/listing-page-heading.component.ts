@@ -48,7 +48,7 @@ export class ListingPageHeadingComponent implements OnInit {
       this.submitted = true;
       return;
       }else{
-        console.log(this.content_form.value);
+        // console.log(this.content_form.value);
         this.OfferBannerService.listing_page_heading_create(this.content_form.value).subscribe(
           response => {
             let data:any=response;

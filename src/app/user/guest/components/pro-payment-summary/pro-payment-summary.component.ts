@@ -106,6 +106,9 @@ export class ProPaymentSummaryComponent implements OnInit {
   }
 
   sendDataToGTM()  { 
+    
+    const encodedUrl = this.router.url.toString().replace(/ /g, '%20');
+    const finalUrl = encodedUrl.toString().replace(/&/g, '%26'); 
     const data = {
       event: 'dataLayer',
       data: {
@@ -113,7 +116,7 @@ export class ProPaymentSummaryComponent implements OnInit {
         property_name:this.pro_data?.build_name,
         property_type:this.pro_data?.property__type?.name,
         site_type:this.UserLogsService.getDeviceInfo(),
-        property_url: this.router.url,
+        property_url: finalUrl,
         page_name:'Payment Page',
         plan_name:this.plan_name,
         plan_price:this.plan_price,

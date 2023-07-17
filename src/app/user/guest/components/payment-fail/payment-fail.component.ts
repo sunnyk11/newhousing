@@ -35,7 +35,7 @@ export class PaymentFailComponent implements OnInit {
     this.showLoadingIndicator = true;
     this.CommonService.user_paymentfail().subscribe(
       res => {
-        console.log(res);
+        // console.log(res);
         this.showLoadingIndicator = false;
         let data:any=res;
         this.payment_data = data.data;

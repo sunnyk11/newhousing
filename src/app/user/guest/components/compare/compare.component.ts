@@ -238,7 +238,7 @@ export class CompareComponent implements OnInit {
   // Replace "&" with "%26"
   const finalUrl = encodedUrl.toString().replace(/&/g, '%26');
 
-    window.open(finalUrl, '_self')
+    window.open(finalUrl, '_blank')
   }
 
   proceedToPayment(productId:any) {

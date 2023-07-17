@@ -72,7 +72,7 @@ export class BookInvoiceComponent implements OnInit {
       },
       err => {
         this.showLoadingIndicator = false;
-        console.log(err);
+        // console.log(err);
       }
     );
     this.showLoadingIndicator = true;

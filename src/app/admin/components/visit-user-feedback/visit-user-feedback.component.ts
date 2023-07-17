@@ -69,7 +69,7 @@ export class VisitUserFeedbackComponent implements OnInit {
     this.UserReviewsService.get_visit_user_feedback({ param: null }).then(
       Pagination_data => {
         this.user_reviews=Pagination_data;
-        console.log(this.user_reviews);
+        // console.log(this.user_reviews);
         this.review_length=this.user_reviews.data.total;
         this.showLoadingIndicator=false;
       }, err => {

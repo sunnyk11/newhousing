@@ -251,7 +251,7 @@ export class ProductPageComponent implements OnInit {
         response => {
           this.product_details=response;
           this.product_data=this.product_details.data;
-          console.log(response);
+          // console.log(response);
           if(this.product_data?.furnishing_status==1){
             this.furnishing_type='Yes';
           }else{
@@ -306,6 +306,10 @@ export class ProductPageComponent implements OnInit {
 
     
   sendDataToGTM()  { 
+    
+    const encodedUrl = this.router.url.toString().replace(/ /g, '%20');
+    const finalUrl = encodedUrl.toString().replace(/&/g, '%26');
+
     const data = {
       event: 'dataLayer',
       data: {
@@ -315,9 +319,8 @@ export class ProductPageComponent implements OnInit {
         furnishing_type:this.furnishing_type,
         flat_type:this.product_data?.pro_flat__type?.name ,
         site_type:this.UserLogsService.getDeviceInfo(),
-        property_url: this.router.url,
+        property_url: finalUrl,
         year_build:this.product_data?.buildyear,
-        // address:this.product_data?.address,
         available_form:this.product_data?.available_for,
         area:this.product_data?.area,
         area_unit:this.product_data?.property_area_unit?.unit,
@@ -328,7 +331,6 @@ export class ProductPageComponent implements OnInit {
         security_deposit_amount:this.product_data?.expected_rent*this.product_data?.security_deposit,
         page_name:'single-property',
         city_name:this.product_data?.product_state?.state,
-        // district:this.product_data?.product_state?.state,
         locality:this.product_data?.product_locality?.locality,
         sublocality:this.product_data?.product_sub_locality?.sub_locality ,
 
@@ -351,7 +353,7 @@ export class ProductPageComponent implements OnInit {
     if(this.jwtService.getToken()){
       this.ProductPageService.login_getsimilarproperty(param).subscribe(
         response => {
-          console.log(response);
+          // console.log(response);
           this.similar_property=response;
           this.showLoadingIndicator = false;
           this.product_length=this.similar_property.data.length;
@@ -701,7 +703,13 @@ export class ProductPageComponent implements OnInit {
     modalRef.componentInstance.fromParent = data;
   }
   proceedToPayment(productId:any) {
-    this.router.navigate(['/product_payment_summary'], { queryParams: {'productID': productId } });    
+    const url:any = this.router.createUrlTree(['/product_payment_summary'],{queryParams: {'productID': productId}})
+    const encodedUrl = url.toString().replace(/ /g, '%20');
+
+  // Replace "&" with "%26"
+  const finalUrl = encodedUrl.toString().replace(/&/g, '%26');
+
+    window.open(finalUrl, '_self')  
   }
   
   proceedToPayment1(productId:any) {

@@ -136,12 +136,12 @@ export class UserListInternalComponent implements OnInit {
       this.showLoadingIndicator = false;
       return;
     }else{   
-      console.log(this.UserForm.value);
+      // console.log(this.UserForm.value);
             
       this.UserInternalService.create_user(this.UserForm.value).subscribe(
         response => {
           this.showLoadingIndicator = false;
-          console.log(response);
+          // console.log(response);
           // this.UserForm.reset();
           this.toastr.success('Successfully created User');
           this.router.navigate(['/admin/user-list-internal']);
@@ -263,7 +263,7 @@ export class UserListInternalComponent implements OnInit {
   
         },
         err => {
-          console.log(err);
+          // console.log(err);
         }
       );
     }

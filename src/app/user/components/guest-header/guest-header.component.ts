@@ -57,7 +57,11 @@ export class GuestHeaderComponent implements OnInit {
   ngOnInit(): void { 
     this.user_details();
   }
-  
+  reloadPage(pageurl:string): void {
+    const url:any = this.router.createUrlTree([pageurl])
+    
+  window.open(url, '_self')
+  }
   user_details() {
     if (this.jwtService.isTokenAvailable()) {
       this.LoggedIn = true;

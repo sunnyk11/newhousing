@@ -64,7 +64,7 @@ export class ViewRoleComponent implements OnInit {
         // });
       },
       err => {
-        console.log(err);
+        // console.log(err);
       }
     );
   }
