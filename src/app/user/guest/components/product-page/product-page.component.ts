@@ -343,7 +343,8 @@ export class ProductPageComponent implements OnInit {
       // Additional data properties as needed
     };
 
-    this.gtmService.pushToDataLayer(data);
+    this.gtmService.initializeDataLayer();
+    console.log('data');
     console.log(data);
   }
   // fetch similar property 

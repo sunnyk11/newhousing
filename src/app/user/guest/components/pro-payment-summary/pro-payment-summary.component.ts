@@ -127,7 +127,7 @@ export class ProPaymentSummaryComponent implements OnInit {
       // Additional data properties as needed
     };
 
-    this.gtmService.pushToDataLayer(data);
+    this.gtmService.initializeDataLayer();
     console.log(data);
   }
   product_details(product_id:any){
