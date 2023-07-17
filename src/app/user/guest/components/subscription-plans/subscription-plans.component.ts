@@ -128,7 +128,7 @@ export class SubscriptionPlansComponent implements OnInit {
       // Additional data properties as needed
     };
 
-    this.gtmService.pushToDataLayer(data);
+     this.gtmService.initializeDataLayer();
     console.log(data);
   }
   sendDataToGTM()  {
@@ -155,7 +155,7 @@ export class SubscriptionPlansComponent implements OnInit {
       // Additional data properties as needed
     };
 
-    this.gtmService.pushToDataLayer(data);
+    this.gtmService.initializeDataLayer();
     console.log(data);
   }
 

@@ -97,7 +97,7 @@ export class LandingPageComponent implements OnInit {
       // Additional data properties as needed
     };
 
-    this.gtmService.pushToDataLayer(data);
+    this.gtmService.initializeDataLayer();
     console.log(data);
   }
   onSubmit() {
