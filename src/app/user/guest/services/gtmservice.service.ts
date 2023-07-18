@@ -33,7 +33,7 @@ export class GtmserviceService {
   loadGTMContainer(): void {
     // Load the GTM container code dynamically
     const script = document.createElement('script');
-    script.src = 'https://www.googletagmanager.com/gtm.js?id=351859562';
+    script.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-5TRMBQJ';
     script.async = true;
     document.head.appendChild(script);
   }
