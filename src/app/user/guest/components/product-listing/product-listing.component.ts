@@ -213,63 +213,63 @@ export class ProductListingComponent implements OnInit {
       }
     );
   }
-  sendDataToGTM()  {
-    this.property_data=[];
-    for(let i=0; i<this.property?.data?.data.length; i++){
-      if(this.property?.data?.data[i]?.furnishing_status==1){
-        this.furnishing_type='furnished';
-      }else{
-        this.furnishing_type='Not furnished';
-      }
-      if(this.property?.data?.data[i]?.maintenance_charge_condition != null){
-        this.maintenance=this.property?.data?.data[i]?.maintenance_charge +'/'+ (this.property?.data?.data[i]?.maintenance_condition?.name);
-      }else{
-        this.maintenance='No';
-      }
+  // sendDataToGTM()  {
+  //   this.property_data=[];
+  //   for(let i=0; i<this.property?.data?.data.length; i++){
+  //     if(this.property?.data?.data[i]?.furnishing_status==1){
+  //       this.furnishing_type='furnished';
+  //     }else{
+  //       this.furnishing_type='Not furnished';
+  //     }
+  //     if(this.property?.data?.data[i]?.maintenance_charge_condition != null){
+  //       this.maintenance=this.property?.data?.data[i]?.maintenance_charge +'/'+ (this.property?.data?.data[i]?.maintenance_condition?.name);
+  //     }else{
+  //       this.maintenance='No';
+  //     }
       
-    const encodedUrl = this.router.url.toString().replace(/ /g, '%20');
-    const finalUrl = encodedUrl.toString().replace(/&/g, '%26'); 
-      this.property_data.push({
-        'property_id':this.property?.data?.data[i]?.product_id,
-        'property_name':this.property?.data?.data[i]?.build_name,
-        'property_type':this.property?.data?.data[i]?.property__type?.name,
-        'flat_type':this.property?.data?.data[i]?.pro_flat__type?.name ,
-        'site_type':this.UserLogsService.getDeviceInfo(),
-        'property_url':finalUrl,
-        'available_form':this.property?.data?.data[i]?.available_for,
-        'area':this.property?.data?.data[i]?.area,
-        'area_unit':this.property?.data?.data[i]?.property_area_unit?.unit,
-        'currency':'₹',
-        'price':this.commaSeperated(this.property?.data?.data[i]?.expected_rent),
-        'furnishing_type':this.furnishing_type,
-        'maintance': this.maintenance,
-        'page_name':'Listing Page',
-        'city_name':this.property?.data?.data[i]?.product_state?.state,
-        'locality':this.property?.data?.data[i]?.product_locality?.locality,
-        'sublocality':this.property?.data?.data[i]?.product_sub_locality?.sub_locality,
+  //   const encodedUrl = this.router.url.toString().replace(/ /g, '%20');
+  //   const finalUrl = encodedUrl.toString().replace(/&/g, '%26'); 
+  //     this.property_data.push({
+  //       'property_id':this.property?.data?.data[i]?.product_id,
+  //       'property_name':this.property?.data?.data[i]?.build_name,
+  //       'property_type':this.property?.data?.data[i]?.property__type?.name,
+  //       'flat_type':this.property?.data?.data[i]?.pro_flat__type?.name ,
+  //       'site_type':this.UserLogsService.getDeviceInfo(),
+  //       'property_url':finalUrl,
+  //       'available_form':this.property?.data?.data[i]?.available_for,
+  //       'area':this.property?.data?.data[i]?.area,
+  //       'area_unit':this.property?.data?.data[i]?.property_area_unit?.unit,
+  //       'currency':'₹',
+  //       'price':this.commaSeperated(this.property?.data?.data[i]?.expected_rent),
+  //       'furnishing_type':this.furnishing_type,
+  //       'maintance': this.maintenance,
+  //       'page_name':'Listing Page',
+  //       'city_name':this.property?.data?.data[i]?.product_state?.state,
+  //       'locality':this.property?.data?.data[i]?.product_locality?.locality,
+  //       'sublocality':this.property?.data?.data[i]?.product_sub_locality?.sub_locality,
         
-      });
-      }   
-    const data = {
-      event: 'dataLayer',
-      data: {
-      data: this.property_data,
-      },
-      // page_link:this.property?.data?.links,
-      action: 'Onload Action',
-      label: 'Listing Property',
-      page_name:'Listing Page',
-      page_url:this.router.url,
-      site_type:this.UserLogsService.getDeviceInfo(),
-      search_filter: this.searchForm.value,
-      product_count:this.property.data.total,
-      property_status: this.searchForm.value.property_status,
-      // Additional data properties as needed
-    };
+  //     });
+  //     }   
+  //   const data = {
+  //     event: 'dataLayer',
+  //     data: {
+  //     data: this.property_data,
+  //     },
+  //     // page_link:this.property?.data?.links,
+  //     action: 'Onload Action',
+  //     label: 'Listing Property',
+  //     page_name:'Listing Page',
+  //     page_url:this.router.url,
+  //     site_type:this.UserLogsService.getDeviceInfo(),
+  //     search_filter: this.searchForm.value,
+  //     product_count:this.property.data.total,
+  //     property_status: this.searchForm.value.property_status,
+  //     // Additional data properties as needed
+  //   };
 
-     this.gtmService.initializeDataLayer();
-    console.log(data);
-  }
+  //    this.gtmService.initializeDataLayer();
+  //   console.log(data);
+  // }
   
   // openModal_feedback() {
   //   const modalRef = this.modalService.open(UserVisitPopupComponent,
@@ -591,7 +591,7 @@ export class ProductListingComponent implements OnInit {
             this.property=Pagination_data;
             // console.log(Pagination_data);
             
-           this.sendDataToGTM();
+          //  this.sendDataToGTM();
             this.product_length=this.property.data.total;
             if(this.product_length<1){
               this.property_availablty=false;
@@ -617,7 +617,7 @@ export class ProductListingComponent implements OnInit {
           Pagination_data => {
             this.property=Pagination_data;
            
-            this.sendDataToGTM();
+            // this.sendDataToGTM();
             this.product_length=this.property.data.total;
             if(this.product_length<1){
               this.property_availablty=false;
@@ -638,7 +638,7 @@ export class ProductListingComponent implements OnInit {
         Pagination_data => {
           this.property=Pagination_data;
           // console.log(this.property);
-          this.sendDataToGTM();
+          // this.sendDataToGTM();
           this.product_length=this.property.data.total;
           if(this.product_length<1){
             this.property_availablty=false;
@@ -660,7 +660,7 @@ export class ProductListingComponent implements OnInit {
       this.showLoadingIndicator= false;
       this.property=Pagination_data;
       
-      this.sendDataToGTM();
+      // this.sendDataToGTM();
       // this.user_list_length=this.user_list.data.data.length;
     });
   } 
