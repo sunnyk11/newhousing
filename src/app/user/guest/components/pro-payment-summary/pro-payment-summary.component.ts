@@ -105,31 +105,31 @@ export class ProPaymentSummaryComponent implements OnInit {
     this.getRentFeatures();
   }
 
-  sendDataToGTM()  { 
+  // sendDataToGTM()  { 
     
-    const encodedUrl = this.router.url.toString().replace(/ /g, '%20');
-    const finalUrl = encodedUrl.toString().replace(/&/g, '%26'); 
-    const data = {
-      event: 'dataLayer',
-      data: {
-        property_id:this.pro_data?.id,
-        property_name:this.pro_data?.build_name,
-        property_type:this.pro_data?.property__type?.name,
-        site_type:this.UserLogsService.getDeviceInfo(),
-        property_url: finalUrl,
-        page_name:'Payment Page',
-        plan_name:this.plan_name,
-        plan_price:this.plan_price,
+  //   const encodedUrl = this.router.url.toString().replace(/ /g, '%20');
+  //   const finalUrl = encodedUrl.toString().replace(/&/g, '%26'); 
+  //   const data = {
+  //     event: 'dataLayer',
+  //     data: {
+  //       property_id:this.pro_data?.id,
+  //       property_name:this.pro_data?.build_name,
+  //       property_type:this.pro_data?.property__type?.name,
+  //       site_type:this.UserLogsService.getDeviceInfo(),
+  //       property_url: finalUrl,
+  //       page_name:'Payment Page',
+  //       plan_name:this.plan_name,
+  //       plan_price:this.plan_price,
 
-      },
-      action: 'Click Action',
-      label: 'Payment Page'
-      // Additional data properties as needed
-    };
+  //     },
+  //     action: 'Click Action',
+  //     label: 'Payment Page'
+  //     // Additional data properties as needed
+  //   };
 
-    this.gtmService.initializeDataLayer();
-    console.log(data);
-  }
+  //   this.gtmService.initializeDataLayer();
+  //   console.log(data);
+  // }
   product_details(product_id:any){
     this.productService.get_product_details(product_id).subscribe(
       prod_data => {
@@ -232,7 +232,7 @@ export class ProPaymentSummaryComponent implements OnInit {
     this.total_amount_hs = this.plan_aggrement_price + this.sgst_amount + this.cgst_amount;
     this.maintenance_charge = this.product_data[0].maintenance_charge;
     //console.log(this.maintenance_charge);
-    this.sendDataToGTM() ;
+    // this.sendDataToGTM() ;
     if (this.maintenance_charge) {
       this.total_amount_owner = Number(this.expected_rent) + Number(this.security_dep_amount) + Number(this.maintenance_charge);
     }
