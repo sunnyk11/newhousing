@@ -31,6 +31,7 @@ export class ProductPageComponent implements OnInit {
   public safeURL: any;
   public product_data: any;
   public furnishing_type: any;
+  public usertype_data:any;
   public maintenance: any;
   public isReadMore: boolean = true;
   public ftpstring = environment.ftpURL;
@@ -189,7 +190,7 @@ export class ProductPageComponent implements OnInit {
           }else{
             this.maintenance='No';
           }
-          //  this.sendDataToGTM();
+           this.sendDataToGTM();
           if(this.product_details.data != null){
             // console.log(this.product_details);
             // this.youtube_url = environment.you_tube_url + this.product_data.video_link+"?playlist="+this.product_data.video_link+"&loop=1&mute=1";          
@@ -262,7 +263,7 @@ export class ProductPageComponent implements OnInit {
           }else{
             this.maintenance='No';
           }
-          //  this.sendDataToGTM();
+           this.sendDataToGTM();
           this.order_status=this.product_data?.order_status;
           if(this.product_details.data != null){
             // this.youtube_url = environment.you_tube_url + this.product_data.video_link+"?playlist="+this.product_data.video_link+"&loop=1&mute=1";          
@@ -305,48 +306,61 @@ export class ProductPageComponent implements OnInit {
 
 
     
-  // sendDataToGTM()  { 
+  sendDataToGTM()  { 
     
-  //   const encodedUrl = this.router.url.toString().replace(/ /g, '%20');
-  //   const finalUrl = encodedUrl.toString().replace(/&/g, '%26');
+    const encodedUrl = this.router.url.toString().replace(/ /g, '%20');
+    const finalUrl = encodedUrl.toString().replace(/&/g, '%26');
+    if(this.product_data?.UserDetail?.usertype==5){
+      this.usertype_data='Renter';
+    }else if(this.product_data?.UserDetail?.usertype==4){
+      this.usertype_data='Property Owner';
+    }else if(this.product_data?.UserDetail?.usertype==11){
+      this.usertype_data='Admin';
+    }else if(this.product_data?.UserDetail?.usertype==8){
+      this.usertype_data='Internal User';
+    }else{
+      this.usertype_data='External User';
+    }
 
-  //   const data = {
-  //     event: 'dataLayer',
-  //     data: {
-  //       property_id:this.product_data?.id,
-  //       property_name:this.product_data?.build_name,
-  //       property_type:this.product_data?.property__type?.name,
-  //       furnishing_type:this.furnishing_type,
-  //       flat_type:this.product_data?.pro_flat__type?.name ,
-  //       site_type:this.UserLogsService.getDeviceInfo(),
-  //       property_url: finalUrl,
-  //       year_build:this.product_data?.buildyear,
-  //       available_form:this.product_data?.available_for,
-  //       area:this.product_data?.area,
-  //       area_unit:this.product_data?.property_area_unit?.unit,
-  //       currency:'₹',
-  //       price:this.commaSeperated(this.product_data?.expected_rent),
-  //       maintance:this.maintenance,
-  //       security_deposit:this.product_data?.security_deposit,
-  //       security_deposit_amount:this.product_data?.expected_rent*this.product_data?.security_deposit,
-  //       page_name:'single-property',
-  //       city_name:this.product_data?.product_state?.state,
-  //       locality:this.product_data?.product_locality?.locality,
-  //       sublocality:this.product_data?.product_sub_locality?.sub_locality ,
+    const data = {
+      event: 'dataLayer',
+      data: {
+        user_id:this.product_data?.user_id,
+        user_type:this.usertype_data,
+        property_id:this.product_data?.id,
+        property_name:this.product_data?.build_name,
+        property_type:this.product_data?.property__type?.name,
+        furnishing_type:this.furnishing_type,
+        flat_type:this.product_data?.pro_flat__type?.name ,
+        site_type:this.UserLogsService.getDeviceInfo(),
+        property_url: finalUrl,
+        year_build:this.product_data?.buildyear,
+        pro_flat_type:this.product_data?.pro_flat__type?.name,
+        available_form:this.product_data?.available_for,
+        area:this.product_data?.area,
+        area_unit:this.product_data?.property_area_unit?.unit,
+        currency:'₹',
+        price:this.commaSeperated(this.product_data?.expected_rent),
+        maintance:this.maintenance,
+        security_deposit:this.product_data?.security_deposit,
+        security_deposit_amount:this.product_data?.expected_rent*this.product_data?.security_deposit,
+        page_name:'single-property',
+        city_name:this.product_data?.product_state?.state,
+        locality:this.product_data?.product_locality?.locality,
+        sublocality:this.product_data?.product_sub_locality?.sub_locality ,
 
-  //     },
-  //     action: 'Click Action',
-  //     label: 'Single Property',
-  //     page_name:'Single Page',
-  //     page_url:this.router.url,
-  //     site_type:this.UserLogsService.getDeviceInfo(),
-  //     // Additional data properties as needed
-  //   };
+      },
+      action: 'Click Action',
+      label: 'Single Property',
+      page_name:'Single Page',
+      page_url:this.router.url,
+      site_type:this.UserLogsService.getDeviceInfo(),
+      // Additional data properties as needed
+    };
 
-  //   this.gtmService.initializeDataLayer();
-  //   console.log('data');
-  //   console.log(data);
-  // }
+    this.gtmService.pushToDataLayer(data);
+    console.log(data);
+  }
   // fetch similar property 
   similarproperty(locality_id: any){
     this.showLoadingIndicator=false;

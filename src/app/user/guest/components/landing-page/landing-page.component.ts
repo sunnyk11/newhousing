@@ -65,7 +65,7 @@ export class LandingPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.titleService.setTitle('Onwers');
-    // this.sendDataToGTM();
+    this.sendDataToGTM();
     
     if (this.jwtService.isTokenAvailable()) {
       this.LoggedIn = true;
@@ -79,27 +79,27 @@ export class LandingPageComponent implements OnInit {
   get g() {
     return this.otpForm.controls;
   }
-  // sendDataToGTM()  {
+  sendDataToGTM()  {
        
-  //   const encodedUrl = this.router.url.toString().replace(/ /g, '%20');
-  //   const finalUrl = encodedUrl.toString().replace(/&/g, '%26');    
-  //   const data = {
-  //     event: 'dataLayer',
-  //     data: {
+    const encodedUrl = this.router.url.toString().replace(/ /g, '%20');
+    const finalUrl = encodedUrl.toString().replace(/&/g, '%26');    
+    const data = {
+      event: 'dataLayer',
+      data: {
         
 
-  //     },
-  //     action: 'Onload Action',
-  //     label: 'Owner Landing page',
-  //     page_name:'Owner Landing Page',
-  //     page_url:finalUrl,
-  //     site_type:this.UserLogsService.getDeviceInfo(),
-  //     // Additional data properties as needed
-  //   };
+      },
+      action: 'Onload Action',
+      label: 'Owner Landing page',
+      page_name:'Owner Landing Page',
+      page_url:finalUrl,
+      site_type:this.UserLogsService.getDeviceInfo(),
+      // Additional data properties as needed
+    };
 
-  //   this.gtmService.initializeDataLayer();
-  //   console.log(data);
-  // }
+    this.gtmService.pushToDataLayer(data);
+    console.log(data);
+  }
   onSubmit() {
     this.submitted=true;
     this.LoginFailed = false;
