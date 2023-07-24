@@ -21,6 +21,7 @@ export class HomepagefeatureComponent implements OnInit {
   public property:any={};
   public product_copm:any={};
   public usertype_data:any;
+  public user_id_data:any;
   public toll_free=environment.toll_free;
   public showLoadingIndicator:boolean= false;
   public product_length:number=0;
@@ -117,19 +118,25 @@ export class HomepagefeatureComponent implements OnInit {
       }else{
         this.maintenance='No';
       }
-      if(this.property?.data[i]?.UserDetail?.usertype==5){
-        this.usertype_data='Renter';
-      }else if(this.property?.data[i]?.UserDetail?.usertype==4){
-        this.usertype_data='Property Owner';
-      }else if(this.property?.data[i]?.UserDetail?.usertype==11){
-        this.usertype_data='Admin';
-      }else if(this.property?.data[i]?.UserDetail?.usertype==8){
-        this.usertype_data='Internal User';
+      if(this.jwtService.getToken()){
+        this.user_id_data=this.jwtService.getUserId();
+        if(this.jwtService.getUserType()==5){
+          this.usertype_data='Renter';
+        }else if(this.jwtService.getUserType()==4){
+          this.usertype_data='Property Owner';
+        }else if(this.jwtService.getUserType()==11){
+          this.usertype_data='Admin';
+        }else if(this.jwtService.getUserType()==8){
+          this.usertype_data='Internal User';
+        }else{
+          this.usertype_data='External User';
+        }
       }else{
-        this.usertype_data='External User';
+        this.usertype_data='Guest user';
+        this.user_id_data='Guest User'
       }
       this.property_data.push({
-        'user_id':this.property?.data[i]?.user_id,
+        'user_id': this.user_id_data,
         'user_type':this.usertype_data,
         'pro_flat_type':this.property?.data[i]?.pro_flat__type?.name,
         'property_id':this.property?.data[i]?.id,

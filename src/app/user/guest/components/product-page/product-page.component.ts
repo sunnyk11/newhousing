@@ -32,6 +32,7 @@ export class ProductPageComponent implements OnInit {
   public product_data: any;
   public furnishing_type: any;
   public usertype_data:any;
+  public user_id_data:any;
   public maintenance: any;
   public isReadMore: boolean = true;
   public ftpstring = environment.ftpURL;
@@ -306,26 +307,34 @@ export class ProductPageComponent implements OnInit {
 
 
     
-  sendDataToGTM()  { 
+  sendDataToGTM(){ 
     
     const encodedUrl = this.router.url.toString().replace(/ /g, '%20');
     const finalUrl = encodedUrl.toString().replace(/&/g, '%26');
-    if(this.product_data?.UserDetail?.usertype==5){
-      this.usertype_data='Renter';
-    }else if(this.product_data?.UserDetail?.usertype==4){
-      this.usertype_data='Property Owner';
-    }else if(this.product_data?.UserDetail?.usertype==11){
-      this.usertype_data='Admin';
-    }else if(this.product_data?.UserDetail?.usertype==8){
-      this.usertype_data='Internal User';
+
+    if(this.jwtService.getToken()){
+      this.user_id_data=this.jwtService.getUserId();
+      if(this.jwtService.getUserType()==5){
+        this.usertype_data='Renter';
+      }else if(this.jwtService.getUserType()==4){
+        this.usertype_data='Property Owner';
+      }else if(this.jwtService.getUserType()==11){
+        this.usertype_data='Admin';
+      }else if(this.jwtService.getUserType()==8){
+        this.usertype_data='Internal User';
+      }else{
+        this.usertype_data='External User';
+      }
     }else{
-      this.usertype_data='External User';
+      this.usertype_data='Guest user';
+      this.user_id_data='Guest User'
     }
+    
 
     const data = {
       event: 'dataLayer',
       data: {
-        user_id:this.product_data?.user_id,
+        user_id: this.user_id_data,
         user_type:this.usertype_data,
         property_id:this.product_data?.id,
         property_name:this.product_data?.build_name,

@@ -35,6 +35,7 @@ export class ProductListingComponent implements OnInit {
   public  property_data: any = [];
 
   public usertype_data:any;
+  public user_id_data:any;
   
   public furnishing_type: any;
   public maintenance: any;
@@ -229,22 +230,29 @@ export class ProductListingComponent implements OnInit {
         this.maintenance='No';
       }
       
-      if(this.property?.data?.data[i]?.UserDetail?.usertype==5){
+        
+    if(this.jwtService.getToken()){
+      this.user_id_data=this.jwtService.getUserId();
+      if(this.jwtService.getUserType()==5){
         this.usertype_data='Renter';
-      }else if(this.property?.data?.data[i]?.UserDetail?.usertype==4){
+      }else if(this.jwtService.getUserType()==4){
         this.usertype_data='Property Owner';
-      }else if(this.property?.data?.data[i]?.UserDetail?.usertype==11){
+      }else if(this.jwtService.getUserType()==11){
         this.usertype_data='Admin';
-      }else if(this.property?.data?.data[i]?.UserDetail?.usertype==8){
+      }else if(this.jwtService.getUserType()==8){
         this.usertype_data='Internal User';
       }else{
         this.usertype_data='External User';
       }
+    }else{
+      this.usertype_data='Guest user';
+      this.user_id_data='Guest User'
+    }
       
     const encodedUrl = this.router.url.toString().replace(/ /g, '%20');
     const finalUrl = encodedUrl.toString().replace(/&/g, '%26'); 
       this.property_data.push({
-        'user_id':this.property?.data?.data[i]?.user_id,
+        'user_id': this.user_id_data,
         'user_type':this.usertype_data,
         'pro_flat_type':this.property?.data?.data[i]?.pro_flat__type?.name,
         'property_id':this.property?.data?.data[i]?.product_id,

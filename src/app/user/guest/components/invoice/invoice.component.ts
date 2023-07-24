@@ -6,6 +6,7 @@ import { ProductPageService } from '../../services/product-page.service';
 import { ToWords } from 'to-words';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import { JwtService } from 'src/app/user/services/jwt.service';
 import { environment } from 'src/environments/environment';
 import { GtmserviceService } from '../../services/gtmservice.service';
 import { UserLogsService } from '../../services/user-logs.service';
@@ -47,12 +48,14 @@ export class InvoiceComponent implements OnInit {
   public address3: any;
   public address4: any;
   public invoice_name:any;
-  public usertype_data:any;
+  public usertype_data:any; 
+   public user_id_data:any;
 
   constructor(
     private route: ActivatedRoute,
     private plansPageService: PlansPageService,
     private router: Router,
+    private jwtService: JwtService,
     private UserLogsService:UserLogsService,
     private gtmService: GtmserviceService,
     private invoicePageService: InvoicePageService,
@@ -156,16 +159,22 @@ export class InvoiceComponent implements OnInit {
   }
 
   sendDataToGTM()  {
-    if(this.inv_response?.user_detail?.usertype==5){
-      this.usertype_data='Renter';
-    }else if(this.inv_response?.user_detail?.usertype==4){
-      this.usertype_data='Property Owner';
-    }else if(this.inv_response?.user_detail?.usertype==11){
-      this.usertype_data='Admin';
-    }else if(this.inv_response?.user_detail?.usertype==8){
-      this.usertype_data='Internal User';
+    if(this.jwtService.getToken()){
+      this.user_id_data=this.jwtService.getUserId();
+      if(this.jwtService.getUserType()==5){
+        this.usertype_data='Renter';
+      }else if(this.jwtService.getUserType()==4){
+        this.usertype_data='Property Owner';
+      }else if(this.jwtService.getUserType()==11){
+        this.usertype_data='Admin';
+      }else if(this.jwtService.getUserType()==8){
+        this.usertype_data='Internal User';
+      }else{
+        this.usertype_data='External User';
+      }
     }else{
-      this.usertype_data='External User';
+      this.usertype_data='Guest user';
+      this.user_id_data='Guest User'
     }
 
     const encodedUrl = this.router.url.toString().replace(/ /g, '%20');
@@ -179,8 +188,8 @@ export class InvoiceComponent implements OnInit {
     const data = {
       event: 'dataLayer',
       data: {
-        user_id:this.inv_response?.user_detail?.id,
-        user_type: this.usertype_data,
+        user_id: this.user_id_data,
+        user_type:this.usertype_data,
         property_id:this.inv_response?.order_details?.property_id,
         property_price:this.inv_response?.order_details?.expected_rent,
         property_security:this.inv_response?.order_details?.security_deposit,

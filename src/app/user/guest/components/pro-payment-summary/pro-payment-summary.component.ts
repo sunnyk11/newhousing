@@ -25,6 +25,7 @@ export class ProPaymentSummaryComponent implements OnInit {
   public rent_response: any;
   public rent_feat_res: any;
   public usertype_data:any;
+  public user_id_data:any;
   public myArray: any = [];
   public product_id: any;
   public product_data: any;
@@ -110,23 +111,29 @@ export class ProPaymentSummaryComponent implements OnInit {
     
     const encodedUrl = this.router.url.toString().replace(/ /g, '%20');
     const finalUrl = encodedUrl.toString().replace(/&/g, '%26'); 
-    if(this.pro_data?.UserDetail?.usertype==5){
-      this.usertype_data='Renter';
-    }else if(this.pro_data?.UserDetail?.usertype==4){
-      this.usertype_data='Property Owner';
-    }else if(this.pro_data?.UserDetail?.usertype==11){
-      this.usertype_data='Admin';
-    }else if(this.pro_data?.UserDetail?.usertype==8){
-      this.usertype_data='Internal User';
+    if(this.jwtService.getToken()){
+      this.user_id_data=this.jwtService.getUserId();
+      if(this.jwtService.getUserType()==5){
+        this.usertype_data='Renter';
+      }else if(this.jwtService.getUserType()==4){
+        this.usertype_data='Property Owner';
+      }else if(this.jwtService.getUserType()==11){
+        this.usertype_data='Admin';
+      }else if(this.jwtService.getUserType()==8){
+        this.usertype_data='Internal User';
+      }else{
+        this.usertype_data='External User';
+      }
     }else{
-      this.usertype_data='External User';
+      this.usertype_data='Guest user';
+      this.user_id_data='Guest User'
     }
 
     const data = {
       event: 'dataLayer',
       data: {
         property_id:this.pro_data?.id,
-        user_id:this.pro_data?.user_id,
+        user_id: this.user_id_data,
         user_type:this.usertype_data,
         pro_flat_type:this.pro_data?.pro_flat__type?.name,
         property_name:this.pro_data?.build_name,
