@@ -104,18 +104,13 @@ export class LandingPageComponent implements OnInit {
     const finalUrl = encodedUrl.toString().replace(/&/g, '%26');    
     const data = {
       event: 'dataLayer',
-      data: {
-        
-        user_id: this.user_id_data,
-        user_type:this.usertype_data,
-        page_name:'Owner Landing Page',
-        page_url:finalUrl,
-        site_type:this.UserLogsService.getDeviceInfo(),
-
-      },
+      user_id: this.user_id_data,
+      user_type:this.usertype_data,
+      page_name:'Owner Landing Page',
+      page_url:finalUrl,
+      site_type:this.UserLogsService.getDeviceInfo(),
       action: 'Onload Action',
       label: 'Owner Landing page',
-      page_name:'Owner Landing Page',
       // Additional data properties as needed
     };
 

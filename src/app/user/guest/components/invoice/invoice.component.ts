@@ -187,9 +187,6 @@ export class InvoiceComponent implements OnInit {
    
     const data = {
       event: 'dataLayer',
-      data: {
-        user_id: this.user_id_data,
-        user_type:this.usertype_data,
         property_id:this.inv_response?.order_details?.property_id,
         property_price:this.inv_response?.order_details?.expected_rent,
         property_security:this.inv_response?.order_details?.security_deposit,
@@ -199,12 +196,13 @@ export class InvoiceComponent implements OnInit {
         invoice_name:this.invoice_name,
         invoice_status:this.inv_response?.payment_status,
         total_amount:this.total_amount,
-        property_url: finalUrl,
-        page_name:'Invoice Page',
-      },
+        // property_url: finalUrl,
+        // page_name:'Invoice Page',
       action: 'Onload Action',
       label: 'Invoice page',
       page_name:'Invoice Page',
+      user_id: this.user_id_data,
+      user_type:this.usertype_data,
       page_url:finalUrl,
       site_type:this.UserLogsService.getDeviceInfo(),
       // Additional data properties as needed

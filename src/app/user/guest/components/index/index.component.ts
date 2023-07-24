@@ -178,7 +178,7 @@ export class IndexComponent implements OnInit {
       },
       action: 'Onload Action',
       label: 'Find Property',
-      page_name:'Home Page',
+      page_name:'Home Find Property',
       page_url:finalUrl,
       site_type:this.UserLogsService.getDeviceInfo(),
       // Additional data properties as needed

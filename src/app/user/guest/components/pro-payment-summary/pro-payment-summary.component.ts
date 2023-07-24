@@ -35,6 +35,7 @@ export class ProPaymentSummaryComponent implements OnInit {
   public cgst_amount: any;
   public total_amount_hs: any;
   public plan_price: any;
+  public isLoggedIn:boolean=false;
   public security_deposit: any;
   public security_dep_amount: any;
   public maintenance_charge: any;
@@ -103,6 +104,11 @@ export class ProPaymentSummaryComponent implements OnInit {
 
   ngOnInit(): void {
     this.titleService.setTitle('Product Summery');
+    if(this.jwtService.getToken()){
+      this.isLoggedIn= true;
+    }else{
+      this.isLoggedIn= false;
+    }
     this.showLoadingIndicator = true;   
     this.getRentFeatures();
   }
@@ -131,22 +137,19 @@ export class ProPaymentSummaryComponent implements OnInit {
 
     const data = {
       event: 'dataLayer',
-      data: {
         property_id:this.pro_data?.id,
-        user_id: this.user_id_data,
-        user_type:this.usertype_data,
         pro_flat_type:this.pro_data?.pro_flat__type?.name,
         property_name:this.pro_data?.build_name,
         property_type:this.pro_data?.property__type?.name,
-        site_type:this.UserLogsService.getDeviceInfo(),
         property_url: finalUrl,
-        page_name:'Payment Page',
+        // page_name:'Payment Page',
         plan_name:this.plan_name,
         plan_price:this.plan_price,
-
-      },
       action: 'Click Action',
-      label: 'Payment Page'
+      label: 'Payment Page',
+      site_type:this.UserLogsService.getDeviceInfo(),
+      user_id: this.user_id_data,
+      user_type:this.usertype_data,
       // Additional data properties as needed
     };
 

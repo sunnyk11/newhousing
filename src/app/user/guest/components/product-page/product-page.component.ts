@@ -333,16 +333,12 @@ export class ProductPageComponent implements OnInit {
 
     const data = {
       event: 'dataLayer',
-      data: {
-        user_id: this.user_id_data,
-        user_type:this.usertype_data,
+     
         property_id:this.product_data?.id,
         property_name:this.product_data?.build_name,
         property_type:this.product_data?.property__type?.name,
         furnishing_type:this.furnishing_type,
         flat_type:this.product_data?.pro_flat__type?.name ,
-        site_type:this.UserLogsService.getDeviceInfo(),
-        property_url: finalUrl,
         year_build:this.product_data?.buildyear,
         pro_flat_type:this.product_data?.pro_flat__type?.name,
         available_form:this.product_data?.available_for,
@@ -358,10 +354,11 @@ export class ProductPageComponent implements OnInit {
         locality:this.product_data?.product_locality?.locality,
         sublocality:this.product_data?.product_sub_locality?.sub_locality ,
 
-      },
+      user_id: this.user_id_data,
+      user_type:this.usertype_data,
+      property_url: finalUrl,
       action: 'Click Action',
       label: 'Single Property',
-      page_name:'Single Page',
       page_url:this.router.url,
       site_type:this.UserLogsService.getDeviceInfo(),
       // Additional data properties as needed
