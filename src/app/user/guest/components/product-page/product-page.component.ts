@@ -724,13 +724,14 @@ export class ProductPageComponent implements OnInit {
     modalRef.componentInstance.fromParent = data;
   }
   proceedToPayment(productId:any) {
-    const url:any = this.router.createUrlTree(['/product_payment_summary'],{queryParams: {'productID': productId}})
-    const encodedUrl = url.toString().replace(/ /g, '%20');
+  //   const url:any = this.router.createUrlTree(['/product_payment_summary'],{queryParams: {'productID': productId}})
+  //   const encodedUrl = url.toString().replace(/ /g, '%20');
 
-  // Replace "&" with "%26"
-  const finalUrl = encodedUrl.toString().replace(/&/g, '%26');
+  // // Replace "&" with "%26"
+  // const finalUrl = encodedUrl.toString().replace(/&/g, '%26');
+  this.router.navigate(['/product_payment_summary'], { queryParams: {'productID': productId } });
 
-    window.open(finalUrl, '_self')  
+    // window.open(finalUrl, '_self')  
   }
   
   proceedToPayment1(productId:any) {
