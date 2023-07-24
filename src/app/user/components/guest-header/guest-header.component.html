@@ -65,19 +65,19 @@
     <div fxFlex fxLayout fxLayoutAlign="end" fxHide.lt-md>
         <ul fxLayout fxLayoutGap="30px" class="navigation-items">
             <li>
-                <a routerLink="/" routerLinkActive="active" (click)="reloadPage('/')"  [routerLinkActiveOptions]={exact:true}>Home</a>
+                <a routerLink="/" routerLinkActive="active"   [routerLinkActiveOptions]={exact:true}>Home</a>
             </li>
             <li>
-                <a [routerLink]="['/product-listing']"  (click)="reloadPage('/product-listing')" routerLinkActive="active">Listing</a>
+                <a [routerLink]="['/product-listing']"   routerLinkActive="active">Listing</a>
             </li>
             <li>
-                <a [routerLink]="['/plans']" (click)="reloadPage('/plans')" routerLinkActive="active">Plans</a>
+                <a [routerLink]="['/plans']" routerLinkActive="active">Plans</a>
             </li>
             <li>
                 <a [routerLink]="['/contact']" routerLinkActive="active">Contact</a>
             </li>
             <li>
-                <a [routerLink]="['/owner-landing']" (click)="reloadPage('/owner-landing')"  routerLinkActive="active">Owners</a>
+                <a [routerLink]="['/owner-landing']"  routerLinkActive="active">Owners</a>
             </li>
             <li *ngIf="!LoggedIn">
                 <a [routerLink]="['/login']" routerLinkActive="active">Login/Register</a>

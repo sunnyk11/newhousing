@@ -24,6 +24,8 @@ export class ProPaymentSummaryComponent implements OnInit {
 
   public rent_response: any;
   public rent_feat_res: any;
+  public usertype_data:any;
+  public user_id_data:any;
   public myArray: any = [];
   public product_id: any;
   public product_data: any;
@@ -105,31 +107,52 @@ export class ProPaymentSummaryComponent implements OnInit {
     this.getRentFeatures();
   }
 
-  // sendDataToGTM()  { 
+  sendDataToGTM()  { 
     
-  //   const encodedUrl = this.router.url.toString().replace(/ /g, '%20');
-  //   const finalUrl = encodedUrl.toString().replace(/&/g, '%26'); 
-  //   const data = {
-  //     event: 'dataLayer',
-  //     data: {
-  //       property_id:this.pro_data?.id,
-  //       property_name:this.pro_data?.build_name,
-  //       property_type:this.pro_data?.property__type?.name,
-  //       site_type:this.UserLogsService.getDeviceInfo(),
-  //       property_url: finalUrl,
-  //       page_name:'Payment Page',
-  //       plan_name:this.plan_name,
-  //       plan_price:this.plan_price,
+    const encodedUrl = this.router.url.toString().replace(/ /g, '%20');
+    const finalUrl = encodedUrl.toString().replace(/&/g, '%26'); 
+    if(this.jwtService.getToken()){
+      this.user_id_data=this.jwtService.getUserId();
+      if(this.jwtService.getUserType()==5){
+        this.usertype_data='Renter';
+      }else if(this.jwtService.getUserType()==4){
+        this.usertype_data='Property Owner';
+      }else if(this.jwtService.getUserType()==11){
+        this.usertype_data='Admin';
+      }else if(this.jwtService.getUserType()==8){
+        this.usertype_data='Internal User';
+      }else{
+        this.usertype_data='External User';
+      }
+    }else{
+      this.usertype_data='Guest user';
+      this.user_id_data='Guest User'
+    }
 
-  //     },
-  //     action: 'Click Action',
-  //     label: 'Payment Page'
-  //     // Additional data properties as needed
-  //   };
+    const data = {
+      event: 'dataLayer',
+      data: {
+        property_id:this.pro_data?.id,
+        user_id: this.user_id_data,
+        user_type:this.usertype_data,
+        pro_flat_type:this.pro_data?.pro_flat__type?.name,
+        property_name:this.pro_data?.build_name,
+        property_type:this.pro_data?.property__type?.name,
+        site_type:this.UserLogsService.getDeviceInfo(),
+        property_url: finalUrl,
+        page_name:'Payment Page',
+        plan_name:this.plan_name,
+        plan_price:this.plan_price,
 
-  //   this.gtmService.initializeDataLayer();
-  //   console.log(data);
-  // }
+      },
+      action: 'Click Action',
+      label: 'Payment Page'
+      // Additional data properties as needed
+    };
+
+    this.gtmService.pushToDataLayer(data);
+    console.log(data);
+  }
   product_details(product_id:any){
     this.productService.get_product_details(product_id).subscribe(
       prod_data => {
@@ -232,7 +255,7 @@ export class ProPaymentSummaryComponent implements OnInit {
     this.total_amount_hs = this.plan_aggrement_price + this.sgst_amount + this.cgst_amount;
     this.maintenance_charge = this.product_data[0].maintenance_charge;
     //console.log(this.maintenance_charge);
-    // this.sendDataToGTM() ;
+    this.sendDataToGTM() ;
     if (this.maintenance_charge) {
       this.total_amount_owner = Number(this.expected_rent) + Number(this.security_dep_amount) + Number(this.maintenance_charge);
     }

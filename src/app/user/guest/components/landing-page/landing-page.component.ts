@@ -32,6 +32,8 @@ export class LandingPageComponent implements OnInit {
   public display_otp_form: boolean = false;
   public isFailedVerify_otp: boolean = false;
   public status_code:number=200;
+  public usertype_data:any;
+  public user_id_data:any;
   public LoginFailed: boolean = false;
   public errorMessage: string = "";
   public errormobile:string ="";
@@ -65,7 +67,7 @@ export class LandingPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.titleService.setTitle('Onwers');
-    // this.sendDataToGTM();
+    this.sendDataToGTM();
     
     if (this.jwtService.isTokenAvailable()) {
       this.LoggedIn = true;
@@ -79,27 +81,47 @@ export class LandingPageComponent implements OnInit {
   get g() {
     return this.otpForm.controls;
   }
-  // sendDataToGTM()  {
+  sendDataToGTM()  {
        
-  //   const encodedUrl = this.router.url.toString().replace(/ /g, '%20');
-  //   const finalUrl = encodedUrl.toString().replace(/&/g, '%26');    
-  //   const data = {
-  //     event: 'dataLayer',
-  //     data: {
+ if(this.jwtService.getToken()){
+  this.user_id_data=this.jwtService.getUserId();
+  if(this.jwtService.getUserType()==5){
+    this.usertype_data='Renter';
+  }else if(this.jwtService.getUserType()==4){
+    this.usertype_data='Property Owner';
+  }else if(this.jwtService.getUserType()==11){
+    this.usertype_data='Admin';
+  }else if(this.jwtService.getUserType()==8){
+    this.usertype_data='Internal User';
+  }else{
+    this.usertype_data='External User';
+  }
+}else{
+  this.usertype_data='Guest user';
+  this.user_id_data='Guest User'
+}
+    const encodedUrl = this.router.url.toString().replace(/ /g, '%20');
+    const finalUrl = encodedUrl.toString().replace(/&/g, '%26');    
+    const data = {
+      event: 'dataLayer',
+      data: {
         
+        user_id: this.user_id_data,
+        user_type:this.usertype_data,
+        page_name:'Owner Landing Page',
+        page_url:finalUrl,
+        site_type:this.UserLogsService.getDeviceInfo(),
 
-  //     },
-  //     action: 'Onload Action',
-  //     label: 'Owner Landing page',
-  //     page_name:'Owner Landing Page',
-  //     page_url:finalUrl,
-  //     site_type:this.UserLogsService.getDeviceInfo(),
-  //     // Additional data properties as needed
-  //   };
+      },
+      action: 'Onload Action',
+      label: 'Owner Landing page',
+      page_name:'Owner Landing Page',
+      // Additional data properties as needed
+    };
 
-  //   this.gtmService.initializeDataLayer();
-  //   console.log(data);
-  // }
+    this.gtmService.pushToDataLayer(data);
+    console.log(data);
+  }
   onSubmit() {
     this.submitted=true;
     this.LoginFailed = false;

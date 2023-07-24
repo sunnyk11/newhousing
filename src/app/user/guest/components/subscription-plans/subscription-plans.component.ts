@@ -24,7 +24,9 @@ export class SubscriptionPlansComponent implements OnInit {
   public showLoadingIndicator1: boolean = false;
   public returnUrl: string = '';
   public  plan_name:any;
-  public slider_amount:any;
+  public slider_amount:any; 
+  public usertype_data:any;
+  public user_id_data:any;
 
   value: number = 10000;
   options: Options = {
@@ -87,7 +89,7 @@ export class SubscriptionPlansComponent implements OnInit {
   ngOnInit(): void { this.titleService.setTitle('Plans');
     this.getRentFeatures();
     this.getLetOutFeatures();
-    // this.sendDataToGTM1();
+    this.sendDataToGTM1();
   }
 
   getRentFeatures() {
@@ -106,58 +108,95 @@ export class SubscriptionPlansComponent implements OnInit {
       }
     );
   }
-  // sendDataToGTM1()  {
-  //   this.plan_name='Rentout';
-  //   this.slider_amount=this.value;
-  //   const encodedUrl = this.router.url.toString().replace(/ /g, '%20');
-  //   const finalUrl = encodedUrl.toString().replace(/&/g, '%26'); 
-   
-  //   const data = {
-  //     event: 'dataLayer',
-  //     data: {
-  //       property_url: finalUrl,
-  //       plan_name: this.plan_name,
-  //       slider_amount:this.slider_amount,
-  //       page_name:'plans Page',
-  //     },
-  //     action: 'Onload Action',
-  //     label: 'PLAN page',
-  //     page_name:'Plan Page',
-  //     page_url:finalUrl,
-  //     site_type:this.UserLogsService.getDeviceInfo(),
-  //     // Additional data properties as needed
-  //   };
+  sendDataToGTM1()  {
+    this.plan_name='Rentout';
+    this.slider_amount=this.value;
+    const encodedUrl = this.router.url.toString().replace(/ /g, '%20');
+    const finalUrl = encodedUrl.toString().replace(/&/g, '%26'); 
+    if(this.jwtService.getToken()){
+      this.user_id_data=this.jwtService.getUserId();
+      if(this.jwtService.getUserType()==5){
+        this.usertype_data='Renter';
+      }else if(this.jwtService.getUserType()==4){
+        this.usertype_data='Property Owner';
+      }else if(this.jwtService.getUserType()==11){
+        this.usertype_data='Admin';
+      }else if(this.jwtService.getUserType()==8){
+        this.usertype_data='Internal User';
+      }else{
+        this.usertype_data='External User';
+      }
+    }else{
+      this.usertype_data='Guest user';
+      this.user_id_data='Guest User'
+    }
+    const data = {
+      event: 'dataLayer',
+      data: {
+        user_id: this.user_id_data,
+        user_type:this.usertype_data,
+        property_url: finalUrl,
+        plan_name: this.plan_name,
+        slider_amount:this.slider_amount,
+        page_name:'plans Page',
+      },
+      action: 'Onload Action',
+      label: 'PLAN page',
+      page_name:'Plan Page',
+      page_url:finalUrl,
+      site_type:this.UserLogsService.getDeviceInfo(),
+      // Additional data properties as needed
+    };
 
-  //    this.gtmService.initializeDataLayer();
-  //   console.log(data);
-  // }
-  // sendDataToGTM()  {
-  //     this.plan_name='Letout';
-  //     this.slider_amount=this.expected_rent_value;
+    this.gtmService.pushToDataLayer(data);
+    console.log(data);
+  }
+  sendDataToGTM()  {
+      this.plan_name='Letout';
+      this.slider_amount=this.expected_rent_value;
       
       
-  //   const encodedUrl = this.router.url.toString().replace(/ /g, '%20');
-  //   const finalUrl = encodedUrl.toString().replace(/&/g, '%26'); 
+    const encodedUrl = this.router.url.toString().replace(/ /g, '%20');
+    const finalUrl = encodedUrl.toString().replace(/&/g, '%26'); 
+    if(this.jwtService.getToken()){
+      this.user_id_data=this.jwtService.getUserId();
+      if(this.jwtService.getUserType()==5){
+        this.usertype_data='Renter';
+      }else if(this.jwtService.getUserType()==4){
+        this.usertype_data='Property Owner';
+      }else if(this.jwtService.getUserType()==11){
+        this.usertype_data='Admin';
+      }else if(this.jwtService.getUserType()==8){
+        this.usertype_data='Internal User';
+      }else{
+        this.usertype_data='External User';
+      }
+    }else{
+      this.usertype_data='Guest user';
+      this.user_id_data='Guest User'
+    }
    
-  //   const data = {
-  //     event: 'dataLayer',
-  //     data: {
-  //       property_url: finalUrl,
-  //       plan_name: this.plan_name,
-  //       slider_amount:this.slider_amount,
-  //       page_name:'plans Page',
-  //     },
-  //     action: 'Onload Action',
-  //     label: 'PLAN page',
-  //     page_name:'Plan Page',
-  //     page_url:finalUrl,
-  //     site_type:this.UserLogsService.getDeviceInfo(),
-  //     // Additional data properties as needed
-  //   };
+    const data = {
+      event: 'dataLayer',
+      data: {
+        user_id: this.user_id_data,
+        user_type:this.usertype_data,
+        property_url: finalUrl,
+        plan_name: this.plan_name,
+        slider_amount:this.slider_amount,
+        page_name:'plans Page',
+      },
+      action: 'Onload Action',
+      label: 'PLAN page',
+      page_name:'Plan Page',
+      page_url:finalUrl,
+      site_type:this.UserLogsService.getDeviceInfo(),
+      // Additional data properties as needed
+    };
 
-  //   this.gtmService.initializeDataLayer();
-  //   console.log(data);
-  // }
+    this.gtmService.pushToDataLayer(data);
+    console.log(data);
+  }
 
   getLetOutFeatures() {
     this.showLoadingIndicator = true;

@@ -20,6 +20,8 @@ export class HomepagefeatureComponent implements OnInit {
   public ftpstring=environment.ftpURL;
   public property:any={};
   public product_copm:any={};
+  public usertype_data:any;
+  public user_id_data:any;
   public toll_free=environment.toll_free;
   public showLoadingIndicator:boolean= false;
   public product_length:number=0;
@@ -53,7 +55,7 @@ export class HomepagefeatureComponent implements OnInit {
         //console.log(response);
         this.showLoadingIndicator= false;
         this.property=response;
-        // this.sendDataToGTM();
+        this.sendDataToGTM();
         this.product_length=this.property.data.length;
       }, err => { 
         this.showLoadingIndicator = false;
@@ -68,7 +70,7 @@ export class HomepagefeatureComponent implements OnInit {
         this.showLoadingIndicator= false;
         this.property=response;
         // console.log(response);
-        // this.sendDataToGTM();
+        this.sendDataToGTM();
         this.product_length=this.property.data.length;
       }, err => { 
         this.showLoadingIndicator = false;
@@ -100,59 +102,79 @@ export class HomepagefeatureComponent implements OnInit {
     }
   }
   
-  // sendDataToGTM()  {
-  //   for(let i=0; i<this.property?.data?.length; i++){
-  //     //  let data: {
-  //     //     property_id:this.property?.data?.data?.product_id,
+  sendDataToGTM()  {
+    for(let i=0; i<this.property?.data?.length; i++){
+      //  let data: {
+      //     property_id:this.property?.data?.data?.product_id,
          
-  //     //   },
-  //     if(this.property?.data[i]?.furnishing_status==1){
-  //       this.furnishing_type='furnished';
-  //     }else{
-  //       this.furnishing_type='Not furnished';
-  //     }
-  //     if(this.property?.data[i]?.maintenance_charge_condition != null){
-  //       this.maintenance=this.property?.data[i]?.maintenance_charge +'/'+ (this.property?.data[i]?.maintenance_condition?.name);
-  //     }else{
-  //       this.maintenance='No';
-  //     }
-  //     this.property_data.push({
-  //       'property_id':this.property?.data[i]?.id,
-  //       'property_name':this.property?.data[i]?.build_name,
-  //       'property_type':this.property?.data[i]?.property__type?.name,
-  //       'flat_type':this.property?.data[i]?.pro_flat__type?.name ,
-  //       'site_type':this.UserLogsService.getDeviceInfo(),
-  //       'property_url':this.router.url,
-  //       'available_form':this.property?.data[i]?.available_for,
-  //       'area':this.property?.data[i]?.area,
-  //       'area_unit':this.property?.data[i]?.property_area_unit?.unit,
-  //       'currency':'₹',
-  //       'price':this.commaSeperated(this.property?.data[i]?.expected_rent),
-  //       'furnishing_type':this.furnishing_type,
-  //       'maintance': this.maintenance,
-  //       'page_name':'Home Page',
-  //       'city_name':this.property?.data[i]?.product_state?.state,
-  //       'locality':this.property?.data[i]?.product_locality?.locality,
-  //       'sublocality':this.property?.data[i]?.product_sub_locality?.sub_locality,
+      //   },
+      if(this.property?.data[i]?.furnishing_status==1){
+        this.furnishing_type='furnished';
+      }else{
+        this.furnishing_type='Not furnished';
+      }
+      if(this.property?.data[i]?.maintenance_charge_condition != null){
+        this.maintenance=this.property?.data[i]?.maintenance_charge +'/'+ (this.property?.data[i]?.maintenance_condition?.name);
+      }else{
+        this.maintenance='No';
+      }
+      if(this.jwtService.getToken()){
+        this.user_id_data=this.jwtService.getUserId();
+        if(this.jwtService.getUserType()==5){
+          this.usertype_data='Renter';
+        }else if(this.jwtService.getUserType()==4){
+          this.usertype_data='Property Owner';
+        }else if(this.jwtService.getUserType()==11){
+          this.usertype_data='Admin';
+        }else if(this.jwtService.getUserType()==8){
+          this.usertype_data='Internal User';
+        }else{
+          this.usertype_data='External User';
+        }
+      }else{
+        this.usertype_data='Guest user';
+        this.user_id_data='Guest User'
+      }
+      this.property_data.push({
+        'user_id': this.user_id_data,
+        'user_type':this.usertype_data,
+        'pro_flat_type':this.property?.data[i]?.pro_flat__type?.name,
+        'property_id':this.property?.data[i]?.id,
+        'property_name':this.property?.data[i]?.build_name,
+        'property_type':this.property?.data[i]?.property__type?.name,
+        'flat_type':this.property?.data[i]?.pro_flat__type?.name ,
+        'site_type':this.UserLogsService.getDeviceInfo(),
+        'property_url':this.router.url,
+        'available_form':this.property?.data[i]?.available_for,
+        'area':this.property?.data[i]?.area,
+        'area_unit':this.property?.data[i]?.property_area_unit?.unit,
+        'currency':'₹',
+        'price':this.commaSeperated(this.property?.data[i]?.expected_rent),
+        'furnishing_type':this.furnishing_type,
+        'maintance': this.maintenance,
+        'page_name':'Home Page',
+        'city_name':this.property?.data[i]?.product_state?.state,
+        'locality':this.property?.data[i]?.product_locality?.locality,
+        'sublocality':this.property?.data[i]?.product_sub_locality?.sub_locality,
         
-  //     });
-  //     }   
-  //   const data = {
-  //     event: 'dataLayer',
-  //     data: {
-  //       data: this.property_data,
-  //     },
-  //     action: 'Onload Action',
-  //     label: 'Home Page',
-  //     page_name:'Home Page',
-  //     page_url:this.router.url,
-  //     site_type:this.UserLogsService.getDeviceInfo(),
-  //     // Additional data properties as needed
-  //   };
+      });
+      }   
+    const data = {
+      event: 'dataLayer',
+      data: {
+        data: this.property_data,
+      },
+      action: 'Onload Action',
+      label: 'Home Page',
+      page_name:'Home Page',
+      page_url:this.router.url,
+      site_type:this.UserLogsService.getDeviceInfo(),
+      // Additional data properties as needed
+    };
 
-  //   this.gtmService.initializeDataLayer();
-  //   console.log(data);
-  // }
+    this.gtmService.pushToDataLayer(data);
+    console.log(data);
+  }
 
   commaSeperated(e: any) {
     var t = (e = e ? e.toString() : "").substring(e.length - 3)
