@@ -136,8 +136,6 @@ export class HomepagefeatureComponent implements OnInit {
         this.user_id_data='Guest User'
       }
       this.property_data.push({
-        'user_id': this.user_id_data,
-        'user_type':this.usertype_data,
         'pro_flat_type':this.property?.data[i]?.pro_flat__type?.name,
         'property_id':this.property?.data[i]?.id,
         'property_name':this.property?.data[i]?.build_name,
@@ -161,9 +159,9 @@ export class HomepagefeatureComponent implements OnInit {
       }   
     const data = {
       event: 'dataLayer',
-      data: {
-        data: this.property_data,
-      },
+      data: this.property_data,
+      user_id: this.user_id_data,
+      user_type:this.usertype_data,
       action: 'Onload Action',
       label: 'Home Page',
       page_name:'Home Page',

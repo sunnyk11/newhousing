@@ -132,18 +132,18 @@ export class SubscriptionPlansComponent implements OnInit {
     }
     const data = {
       event: 'dataLayer',
-      data: {
-        user_id: this.user_id_data,
-        user_type:this.usertype_data,
-        property_url: finalUrl,
+        // user_id: this.user_id_data,
+        // user_type:this.usertype_data,
+        // property_url: finalUrl,
         plan_name: this.plan_name,
         slider_amount:this.slider_amount,
-        page_name:'plans Page',
-      },
+        // page_name:'plans Page',
       action: 'Onload Action',
       label: 'PLAN page',
       page_name:'Plan Page',
       page_url:finalUrl,
+      user_id: this.user_id_data,
+      user_type:this.usertype_data,
       site_type:this.UserLogsService.getDeviceInfo(),
       // Additional data properties as needed
     };
@@ -178,18 +178,16 @@ export class SubscriptionPlansComponent implements OnInit {
    
     const data = {
       event: 'dataLayer',
-      data: {
-        user_id: this.user_id_data,
-        user_type:this.usertype_data,
-        property_url: finalUrl,
+        // property_url: finalUrl,
         plan_name: this.plan_name,
         slider_amount:this.slider_amount,
-        page_name:'plans Page',
-      },
+        // page_name:'plans Page',
       action: 'Onload Action',
       label: 'PLAN page',
       page_name:'Plan Page',
       page_url:finalUrl,
+      user_id: this.user_id_data,
+      user_type:this.usertype_data,
       site_type:this.UserLogsService.getDeviceInfo(),
       // Additional data properties as needed
     };
