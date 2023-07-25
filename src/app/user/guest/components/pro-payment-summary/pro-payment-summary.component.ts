@@ -24,6 +24,8 @@ export class ProPaymentSummaryComponent implements OnInit {
 
   public rent_response: any;
   public rent_feat_res: any;
+  public usertype_data:any;
+  public user_id_data:any;
   public myArray: any = [];
   public product_id: any;
   public product_data: any;
@@ -33,6 +35,7 @@ export class ProPaymentSummaryComponent implements OnInit {
   public cgst_amount: any;
   public total_amount_hs: any;
   public plan_price: any;
+  public isLoggedIn:boolean=false;
   public security_deposit: any;
   public security_dep_amount: any;
   public maintenance_charge: any;
@@ -101,26 +104,52 @@ export class ProPaymentSummaryComponent implements OnInit {
 
   ngOnInit(): void {
     this.titleService.setTitle('Product Summery');
+    if(this.jwtService.getToken()){
+      this.isLoggedIn= true;
+    }else{
+      this.isLoggedIn= false;
+    }
     this.showLoadingIndicator = true;   
     this.getRentFeatures();
   }
 
   sendDataToGTM()  { 
+    
+    const encodedUrl = this.router.url.toString().replace(/ /g, '%20');
+    const finalUrl = encodedUrl.toString().replace(/&/g, '%26'); 
+    if(this.jwtService.getToken()){
+      this.user_id_data=this.jwtService.getUserId();
+      if(this.jwtService.getUserType()==5){
+        this.usertype_data='Renter';
+      }else if(this.jwtService.getUserType()==4){
+        this.usertype_data='Property Owner';
+      }else if(this.jwtService.getUserType()==11){
+        this.usertype_data='Admin';
+      }else if(this.jwtService.getUserType()==8){
+        this.usertype_data='Internal User';
+      }else{
+        this.usertype_data='External User';
+      }
+    }else{
+      this.usertype_data='Guest user';
+      this.user_id_data='Guest User'
+    }
+
     const data = {
       event: 'dataLayer',
-      data: {
         property_id:this.pro_data?.id,
+        pro_flat_type:this.pro_data?.pro_flat__type?.name,
         property_name:this.pro_data?.build_name,
         property_type:this.pro_data?.property__type?.name,
-        site_type:this.UserLogsService.getDeviceInfo(),
-        property_url: this.router.url,
-        page_name:'Payment Page',
+        property_url: finalUrl,
+        // page_name:'Payment Page',
         plan_name:this.plan_name,
         plan_price:this.plan_price,
-
-      },
       action: 'Click Action',
-      label: 'Payment Page'
+      label: 'Payment Page',
+      site_type:this.UserLogsService.getDeviceInfo(),
+      user_id: this.user_id_data,
+      user_type:this.usertype_data,
       // Additional data properties as needed
     };
 

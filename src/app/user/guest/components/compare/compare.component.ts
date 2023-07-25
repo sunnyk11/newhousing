@@ -231,9 +231,14 @@ export class CompareComponent implements OnInit {
     return num;
   }
 
-  navigate(id:number,name:string,city:string) {
-    const url:any = this.router.createUrlTree(['/product-details'], {queryParams:{'id':id,'name':name,'city':city}})
-    window.open(url.toString(), '_blank')
+  navigate(id:number,locality:string,sublocality:string,flat_type:string ){
+    const url:any = this.router.createUrlTree(['/product-details'],{queryParams:{'id':id,'locality':locality,'sublocality':sublocality,'flat-type':flat_type}})
+    const encodedUrl = url.toString().replace(/ /g, '%20');
+
+  // Replace "&" with "%26"
+  const finalUrl = encodedUrl.toString().replace(/&/g, '%26');
+
+    window.open(finalUrl, '_blank')
   }
 
   proceedToPayment(productId:any) {

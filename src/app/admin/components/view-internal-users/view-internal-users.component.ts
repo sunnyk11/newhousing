@@ -95,7 +95,7 @@ UserForm = new FormGroup({
         this.showLoadingIndicator = false;
       },
       err => {
-        console.log(err);
+        // console.log(err);
         this.showLoadingIndicator = false;
       }
     );
@@ -124,7 +124,7 @@ UserForm = new FormGroup({
     this.showLoadingIndicator = true;
     this.rolesService.getUserRoles(userId).subscribe(
       value => {
-        console.log(value);
+        // console.log(value);
         this.roles_response = value;
         this.roles_response.forEach((role:any) => {
           if(role.status == true) {
@@ -143,7 +143,7 @@ UserForm = new FormGroup({
         this.showLoadingIndicator = false;
       },
       err => {
-        console.log(err);
+        // console.log(err);
         this.showLoadingIndicator = false;
       }
     );
@@ -153,7 +153,7 @@ UserForm = new FormGroup({
     this.showLoadingIndicator = true;
     this.rolesService.getUsergroup(userId).subscribe(
       res => {
-        console.log(res);
+        // console.log(res);
         this.group_response = res;
         this.group_response.forEach((group:any) => {
           if(group.status == true) {
@@ -172,7 +172,7 @@ UserForm = new FormGroup({
         this.showLoadingIndicator = false;
       },
       err => {
-        console.log(err);
+        // console.log(err);
         this.showLoadingIndicator = false;
       }
     );
@@ -180,7 +180,7 @@ UserForm = new FormGroup({
 
   viewDetails(user: any) {
     this.user_details = user;
-    console.log(this.user_details);
+    // console.log(this.user_details);
   }
   user_details_email(){
     const modalRef = this.modalService.open(UserEmailUpdateComponent,

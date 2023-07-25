@@ -71,7 +71,7 @@ export class CreateRoleComponent implements OnInit {
       response => {
         // console.log(response.);
         let data:any=response;
-        console.log(data);
+        // console.log(data);
         if(data.message == 'FAIL'){
           this.toastr.error('Atleast One Selected Permission', 'Something Error', {
             timeOut: 3000,

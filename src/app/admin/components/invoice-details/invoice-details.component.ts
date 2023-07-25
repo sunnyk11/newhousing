@@ -70,19 +70,19 @@ export class InvoiceDetailsComponent implements OnInit {
       },
       err => {
         this.showLoadingIndicator = false;
-        console.log(err);
+        // console.log(err);
       }
     );
     this.showLoadingIndicator = true;
     this.plansPageService.getInvoiceDetails(this.invoice_id).subscribe(
       res => {
         let data:any=res;
-        console.log(data);
+        // console.log(data);
         this.response =  data.data;
         if(this.response  != null){
           this.user_name = data.data.user_detail.name;  
           this.inv_response = this.response;
-          console.log(this.response);
+          // console.log(this.response);
                    
          for(let i=0; i< this.response.plan_features?.features.length; i++){
           if(this.response.plan_features?.features[i].feature_name=='Rent Agreement'){

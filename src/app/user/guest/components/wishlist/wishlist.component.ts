@@ -65,7 +65,8 @@ export class WishlistComponent implements OnInit {
     this.CommonService.getwishlit_property({ param: null }).subscribe(
       response => {
         this.property=response;
-        this.wishlist_length=this.property.data.length;
+        console.log( this.property);
+        this.wishlist_length=this.property.data.data.length;
         if(this.wishlist_length>0){
           for(let i=0; i<this.wishlist_length; i++){
             if(this.property.data[i].productdetails != null){
@@ -234,9 +235,14 @@ export class WishlistComponent implements OnInit {
     return num;
   }
   
-  navigate(id:number,name:string,city:string){
-    const url:any = this.router.createUrlTree(['/product-details'],{queryParams:{'id':id,'name':name,'city':city}})
-    window.open(url.toString(), '_blank')
+  navigate(id:number,locality:string,sublocality:string,flat_type:string ){
+    const url:any = this.router.createUrlTree(['/product-details'],{queryParams:{'id':id,'locality':locality,'sublocality':sublocality,'flat-type':flat_type}})
+    const encodedUrl = url.toString().replace(/ /g, '%20');
+
+  // Replace "&" with "%26"
+  const finalUrl = encodedUrl.toString().replace(/&/g, '%26');
+
+    window.open(finalUrl, '_blank')
   }
   redirect_to_login(): void {
     this.router.navigate(['/login'])

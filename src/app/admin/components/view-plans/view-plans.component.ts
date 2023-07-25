@@ -73,7 +73,7 @@ export class ViewPlansComponent implements OnInit {
       response => {
         this.showLoadingIndicator = false;
         this.letout_response = response;
-        console.log(response);
+        // console.log(response);
       },
       err => {
         this.showLoadingIndicator = false;
@@ -104,7 +104,7 @@ export class ViewPlansComponent implements OnInit {
 
     this.plansService.get_plan_features(plan_details.id).subscribe(
       response => {
-        console.log(response);
+        // console.log(response);
         this.feature_response = response;
         this.feature_response.forEach((feature:any) => {
           if(feature.status == true) {
@@ -126,11 +126,11 @@ export class ViewPlansComponent implements OnInit {
             }
           }
         })
-        console.log(this.feature_response);
+        // console.log(this.feature_response);
       },
       
       err => {
-        console.log(err);
+        // console.log(err);
       }
     );
 
@@ -170,7 +170,7 @@ export class ViewPlansComponent implements OnInit {
         this.router.navigate([this.router.url]);
       },
       err => {
-        console.log(err);
+        // console.log(err);
       }
     );
   }

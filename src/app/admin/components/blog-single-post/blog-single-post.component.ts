@@ -31,7 +31,7 @@ export class BlogSinglePostComponent implements OnInit {
         this._router.navigate(['/admin/admin-blog-single-post', this.activatedRouteSnapshot ]);
       },
       err => {
-        console.log(err);
+        // console.log(err);
         this.showLoadingIndicator = false;
       }
     );

@@ -31,6 +31,8 @@ export class ProductPageComponent implements OnInit {
   public safeURL: any;
   public product_data: any;
   public furnishing_type: any;
+  public usertype_data:any;
+  public user_id_data:any;
   public maintenance: any;
   public isReadMore: boolean = true;
   public ftpstring = environment.ftpURL;
@@ -251,7 +253,7 @@ export class ProductPageComponent implements OnInit {
         response => {
           this.product_details=response;
           this.product_data=this.product_details.data;
-          console.log(response);
+          // console.log(response);
           if(this.product_data?.furnishing_status==1){
             this.furnishing_type='Yes';
           }else{
@@ -305,19 +307,40 @@ export class ProductPageComponent implements OnInit {
 
 
     
-  sendDataToGTM()  { 
+  sendDataToGTM(){ 
+    
+    const encodedUrl = this.router.url.toString().replace(/ /g, '%20');
+    const finalUrl = encodedUrl.toString().replace(/&/g, '%26');
+
+    if(this.jwtService.getToken()){
+      this.user_id_data=this.jwtService.getUserId();
+      if(this.jwtService.getUserType()==5){
+        this.usertype_data='Renter';
+      }else if(this.jwtService.getUserType()==4){
+        this.usertype_data='Property Owner';
+      }else if(this.jwtService.getUserType()==11){
+        this.usertype_data='Admin';
+      }else if(this.jwtService.getUserType()==8){
+        this.usertype_data='Internal User';
+      }else{
+        this.usertype_data='External User';
+      }
+    }else{
+      this.usertype_data='Guest user';
+      this.user_id_data='Guest User'
+    }
+    
+
     const data = {
       event: 'dataLayer',
-      data: {
+     
         property_id:this.product_data?.id,
         property_name:this.product_data?.build_name,
         property_type:this.product_data?.property__type?.name,
         furnishing_type:this.furnishing_type,
         flat_type:this.product_data?.pro_flat__type?.name ,
-        site_type:this.UserLogsService.getDeviceInfo(),
-        property_url: this.router.url,
         year_build:this.product_data?.buildyear,
-        address:this.product_data?.address,
+        pro_flat_type:this.product_data?.pro_flat__type?.name,
         available_form:this.product_data?.available_for,
         area:this.product_data?.area,
         area_unit:this.product_data?.property_area_unit?.unit,
@@ -328,14 +351,14 @@ export class ProductPageComponent implements OnInit {
         security_deposit_amount:this.product_data?.expected_rent*this.product_data?.security_deposit,
         page_name:'single-property',
         city_name:this.product_data?.product_state?.state,
-        // district:this.product_data?.product_state?.state,
         locality:this.product_data?.product_locality?.locality,
         sublocality:this.product_data?.product_sub_locality?.sub_locality ,
 
-      },
+      user_id: this.user_id_data,
+      user_type:this.usertype_data,
+      property_url: finalUrl,
       action: 'Click Action',
       label: 'Single Property',
-      page_name:'Single Page',
       page_url:this.router.url,
       site_type:this.UserLogsService.getDeviceInfo(),
       // Additional data properties as needed
@@ -606,9 +629,24 @@ export class ProductPageComponent implements OnInit {
     }
     return num;
   }
-  navigate(id:number,name:string,city:string){
+  
+  navigate(id:number,locality:string,sublocality:string,flat_type:string){
+    const url:any = this.router.createUrlTree(['/product-details'],{queryParams:{'id':id,'locality':locality,'sublocality':sublocality,'flat-type':flat_type}})
+    const encodedUrl = url.toString().replace(/ /g, '%20');
+    const encodedUrl1 = encodedUrl.replace(/=/g, '=');
+    // Replace "&" with "%26"
+  const finalUrl = encodedUrl1.toString().replace(/&/g, '%26');
+
+    window.open(finalUrl, '_self')
+  }
+  navigate1(id:number,name:string,city:string){
     const url:any = this.router.createUrlTree(['/product-details'],{queryParams:{'id':id,'name':name,'city':city}})
-    window.open(url.toString(), '_blank')
+    const encodedUrl = url.toString().replace(/ /g, '%20');
+
+    // Replace "&" with "%26"
+    const finalUrl = encodedUrl.toString().replace(/&/g, '%26');
+  
+    window.open(finalUrl, '_self')
   }
   user_reviews(product_id:number){
     const url:any = this.router.createUrlTree(['/user-reviews'],{queryParams:{'product_id':product_id}})
@@ -686,7 +724,14 @@ export class ProductPageComponent implements OnInit {
     modalRef.componentInstance.fromParent = data;
   }
   proceedToPayment(productId:any) {
-    this.router.navigate(['/product_payment_summary'], { queryParams: {'productID': productId } });    
+  //   const url:any = this.router.createUrlTree(['/product_payment_summary'],{queryParams: {'productID': productId}})
+  //   const encodedUrl = url.toString().replace(/ /g, '%20');
+
+  // // Replace "&" with "%26"
+  // const finalUrl = encodedUrl.toString().replace(/&/g, '%26');
+  this.router.navigate(['/product_payment_summary'], { queryParams: {'productID': productId } });
+
+    // window.open(finalUrl, '_self')  
   }
   
   proceedToPayment1(productId:any) {

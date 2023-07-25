@@ -752,7 +752,7 @@
                                     <img class="img-whp" src="{{ftpstring}}{{img?.image}}" alt="img1.jpg">
                                     <div class="thumb">
                                         <div class="thmb_cntnt style2">
-                                            <ul class="tag mb0" id="ul_img_header"  [routerLink]="['/product-details']" target="_self" [queryParams]="{'id':number.product_id,'name':number.build_name,'city':number?.product_state?.state,'district':number?.product_district?.district,'locality':number?.product_locality?.locality,'sublocality':number?.product_sub_locality?.sub_locality,'flat-type':number?.pro_flat__type?.name}">
+                                            <ul class="tag mb0" id="ul_img_header"  (click)="navigate1(number.product_id,number?.product_locality?.locality,number?.product_sub_locality?.sub_locality,number?.pro_flat__type?.name)">
                                                 <li class="list-inline-item" *ngIf=" number.rent_availability != null">
                                                     <a>For Rent</a></li>
                                                 <li class="list-inline-item" *ngIf=" number.sale_availability != null">
@@ -777,9 +777,9 @@
                                                     </li>
                                                 </ng-template>
                                             </ul>
-                                            <a *ngIf="number.expected_pricing != null" class="fp_price"  [routerLink]="['/product-details']" target="_self" [queryParams]="{'id':number.product_id,'name':number.build_name,'city':number?.product_state?.state,'district':number?.product_district?.district,'locality':number?.product_locality?.locality,'sublocality':number?.product_sub_locality?.sub_locality,'flat-type':number?.pro_flat__type?.name}">₹
+                                            <a *ngIf="number.expected_pricing != null" class="fp_price"  (click)="navigate1(number.product_id,number?.product_locality?.locality,number?.product_sub_locality?.sub_locality,number?.pro_flat__type?.name)">₹
                                                 {{Price_convert(number.expected_pricing)}}<small></small></a>
-                                            <a *ngIf="number.expected_rent != null" class="fp_price"  [routerLink]="['/product-details']" target="_self" [queryParams]="{'id':number.product_id,'name':number.build_name,'city':number?.product_state?.state,'district':number?.product_district?.district,'locality':number?.product_locality?.locality,'sublocality':number?.product_sub_locality?.sub_locality,'flat-type':number?.pro_flat__type?.name}">₹ {{
+                                            <a *ngIf="number.expected_rent != null" class="fp_price" (click)="navigate1(number.product_id,number?.product_locality?.locality,number?.product_sub_locality?.sub_locality,number?.pro_flat__type?.name)">₹ {{
                                                 Price_convert(number.expected_rent)}}<small></small></a>
                                         </div>
                                     </div>
@@ -789,7 +789,7 @@
                                 <img class="img-whp lazy" alt="No Product Image" style="height: 250px;" src="./../../assets/resources/images/no_image_available.jpg">
                                 <div class="thumb">
                                     <div class="thmb_cntnt style2">
-                                        <ul class="tag mb0"  id="ul_img_header" [routerLink]="['/product-details']" target="_self" [queryParams]="{'id':number.product_id,'name':number.build_name,'city':number?.product_state?.state,'district':number?.product_district?.district,'locality':number?.product_locality?.locality,'sublocality':number?.product_sub_locality?.sub_locality,'flat-type':number?.pro_flat__type?.name}">
+                                        <ul class="tag mb0"  id="ul_img_header" (click)="navigate1(number.product_id,number?.product_locality?.locality,number?.product_sub_locality?.sub_locality,number?.pro_flat__type?.name)">
                                             <li class="list-inline-item" *ngIf=" number.rent_availability != null">
                                                 <a>For Rent</a></li>
                                             <li class="list-inline-item" *ngIf=" number.sale_availability != null">
@@ -814,9 +814,9 @@
                                                 </li>
                                             </ng-template>
                                         </ul>
-                                        <a *ngIf="number.expected_pricing != null" class="fp_price" [routerLink]="['/product-details']" target="_self" [queryParams]="{'id':number.product_id,'name':number.build_name,'city':number?.product_state?.state,'district':number?.product_district?.district,'locality':number?.product_locality?.locality,'sublocality':number?.product_sub_locality?.sub_locality,'flat-type':number?.pro_flat__type?.name}">₹
+                                        <a *ngIf="number.expected_pricing != null" class="fp_price" (click)="navigate1(number.product_id,number?.product_locality?.locality,number?.product_sub_locality?.sub_locality,number?.pro_flat__type?.name)">₹
                                             {{Price_convert(number.expected_pricing)}}<small></small></a>
-                                        <a *ngIf="number.expected_rent != null" class="fp_price"  [routerLink]="['/product-details']" target="_self" [queryParams]="{'id':number.product_id,'name':number.build_name,'city':number?.product_state?.state,'district':number?.product_district?.district,'locality':number?.product_locality?.locality,'sublocality':number?.product_sub_locality?.sub_locality,'flat-type':number?.pro_flat__type?.name}">₹ {{
+                                        <a *ngIf="number.expected_rent != null" class="fp_price" (click)="navigate1(number.product_id,number?.product_locality?.locality,number?.product_sub_locality?.sub_locality,number?.pro_flat__type?.name)">₹ {{
                                             Price_convert(number.expected_rent)}}<small></small></a>
                                     </div>
                                 </div>
@@ -825,7 +825,7 @@
                                     <div class="tc_content">
                                         <div class="row">
                                             <div class="col-9">
-                                                <a  [routerLink]="['/product-details']" target="_self" [queryParams]="{'id':number.product_id,'name':number.build_name,'city':number?.product_state?.state,'district':number?.product_district?.district,'locality':number?.product_locality?.locality,'sublocality':number?.product_sub_locality?.sub_locality,'flat-type':number?.pro_flat__type?.name}">
+                                                <a  (click)="navigate1(number.product_id,number?.product_locality?.locality,number?.product_sub_locality?.sub_locality,number?.pro_flat__type?.name)">
                                                    <p class="text-thm" *ngIf="number.type != null" style="line-height:0!important">{{ number?.property__type?.name | titlecase }} 
                                                     </p>
                                                     <p>
@@ -848,7 +848,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <a  [routerLink]="['/product-details']" target="_self" [queryParams]="{'id':number.product_id,'name':number.build_name,'city':number?.product_state?.state,'district':number?.product_district?.district,'locality':number?.product_locality?.locality,'sublocality':number?.product_sub_locality?.sub_locality,'flat-type':number?.pro_flat__type?.name}">                                      
+                                        <a  (click)="navigate1(number.product_id,number?.product_locality?.locality,number?.product_sub_locality?.sub_locality,number?.pro_flat__type?.name)">                                      
                                             <h4>{{number.build_name | titlecase}}
                                                 <!-- <span *ngIf="number.flat_type != null"> ({{ number?.pro_flat__type?.name | titlecase }})</span> -->
                                            </h4>

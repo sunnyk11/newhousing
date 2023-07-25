@@ -109,7 +109,7 @@ export class UpdateAreaGroupComponent implements OnInit {
     this.AreaListService.group_details_id(param).subscribe(
       response => {
         let data:any=response;
-        console.log(data);
+        // console.log(data);
         for (let i = 0; i < data.data.pivot_data?.length; i++) {
         this.selectedItems_data.push({sub_locality_id: data?.data?.pivot_data[i]?.sub_locality?.sub_locality_id, sub_locality_text: data?.data?.pivot_data[i]?.sub_locality?.sub_locality});
         this.selectedItems_data_db.push({sub_locality_id: data?.data?.pivot_data[i]?.sub_locality?.sub_locality_id, sub_locality_text: data?.data?.pivot_data[i]?.sub_locality?.sub_locality});

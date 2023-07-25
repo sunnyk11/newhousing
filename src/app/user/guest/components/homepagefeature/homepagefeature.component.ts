@@ -20,6 +20,8 @@ export class HomepagefeatureComponent implements OnInit {
   public ftpstring=environment.ftpURL;
   public property:any={};
   public product_copm:any={};
+  public usertype_data:any;
+  public user_id_data:any;
   public toll_free=environment.toll_free;
   public showLoadingIndicator:boolean= false;
   public product_length:number=0;
@@ -101,8 +103,6 @@ export class HomepagefeatureComponent implements OnInit {
   }
   
   sendDataToGTM()  {
-    console.log(this.property?.data);
-    console.log('fkjgkf')
     for(let i=0; i<this.property?.data?.length; i++){
       //  let data: {
       //     property_id:this.property?.data?.data?.product_id,
@@ -118,7 +118,25 @@ export class HomepagefeatureComponent implements OnInit {
       }else{
         this.maintenance='No';
       }
+      if(this.jwtService.getToken()){
+        this.user_id_data=this.jwtService.getUserId();
+        if(this.jwtService.getUserType()==5){
+          this.usertype_data='Renter';
+        }else if(this.jwtService.getUserType()==4){
+          this.usertype_data='Property Owner';
+        }else if(this.jwtService.getUserType()==11){
+          this.usertype_data='Admin';
+        }else if(this.jwtService.getUserType()==8){
+          this.usertype_data='Internal User';
+        }else{
+          this.usertype_data='External User';
+        }
+      }else{
+        this.usertype_data='Guest user';
+        this.user_id_data='Guest User'
+      }
       this.property_data.push({
+        'pro_flat_type':this.property?.data[i]?.pro_flat__type?.name,
         'property_id':this.property?.data[i]?.id,
         'property_name':this.property?.data[i]?.build_name,
         'property_type':this.property?.data[i]?.property__type?.name,
@@ -139,12 +157,11 @@ export class HomepagefeatureComponent implements OnInit {
         
       });
       }   
-      console.log(this.property_data); 
     const data = {
       event: 'dataLayer',
-      data: {
-        data: this.property_data,
-      },
+      data: this.property_data,
+      user_id: this.user_id_data,
+      user_type:this.usertype_data,
       action: 'Onload Action',
       label: 'Home Page',
       page_name:'Home Page',
@@ -243,8 +260,14 @@ export class HomepagefeatureComponent implements OnInit {
     }
   }
   
-  navigate(id:number,name:string,city:string,district:string,locality:string,sublocality:string,flat_type:string){
-    this.router.navigate(['/product-details'],{queryParams:{'id':id,'name':name,'city':city,'district':district,'locality':locality,'sublocality':sublocality,'flat-type':flat_type}})
+  navigate(id:number,locality:string,sublocality:string,flat_type:string){
+    const url:any = this.router.createUrlTree(['/product-details'],{queryParams:{'id':id,'locality':locality,'sublocality':sublocality,'flat-type':flat_type}})
+    const encodedUrl = url.toString().replace(/ /g, '%20');
+
+  // Replace "&" with "%26"
+  const finalUrl = encodedUrl.toString().replace(/&/g, '%26');
+
+    window.open(finalUrl, '_blank')
   }
 
   // pricre convert functionalty

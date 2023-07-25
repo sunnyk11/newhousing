@@ -345,9 +345,15 @@
                                                     </label>
                                                 </div>
                                             </div>
-                                            <div class="col-12">
+                                            <div class="col-12" *ngIf="isLoggedIn == true">
                                                 <button class="btn btn-success" *ngIf="online_pay_btn" [disabled]="clicked" (click)="proceedToPayment();clicked = true;">Proceed to Payment</button>
                                                 <button class="btn btn-info" *ngIf="cash_pay_btn"  [disabled]="clicked" (click)="generateInvoice();  clicked = true;">Generate Invoice</button>
+                                                <button class="chekout_btn w100 h50"><a href="tel:{{toll_free}}" ><span>CALL NOW! To Fix Your Property Visit</span><br><i class="fa fa-phone"></i> {{toll_free}}</a></button>
+                        
+                                            </div>
+                                            <div class="col-12" *ngIf="isLoggedIn == false">
+                                                <button class="btn btn-success" *ngIf="online_pay_btn"  (click)="proceedToPayment();">Proceed to Payment</button>
+                                                <button class="btn btn-info" *ngIf="cash_pay_btn"   (click)="generateInvoice();">Generate Invoice</button>
                                                 <button class="chekout_btn w100 h50"><a href="tel:{{toll_free}}" ><span>CALL NOW! To Fix Your Property Visit</span><br><i class="fa fa-phone"></i> {{toll_free}}</a></button>
                         
                                             </div>

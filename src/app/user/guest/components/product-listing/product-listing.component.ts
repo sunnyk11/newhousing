@@ -33,6 +33,9 @@ export class ProductListingComponent implements OnInit {
   public toll_free=environment.toll_free;
   public property:any={};
   public  property_data: any = [];
+
+  public usertype_data:any;
+  public user_id_data:any;
   
   public furnishing_type: any;
   public maintenance: any;
@@ -214,6 +217,8 @@ export class ProductListingComponent implements OnInit {
     );
   }
   sendDataToGTM()  {
+    const encodedUrl = this.router.url.toString().replace(/ /g, '%20');
+    const finalUrl = encodedUrl.toString().replace(/&/g, '%26'); 
     this.property_data=[];
     for(let i=0; i<this.property?.data?.data.length; i++){
       if(this.property?.data?.data[i]?.furnishing_status==1){
@@ -226,13 +231,33 @@ export class ProductListingComponent implements OnInit {
       }else{
         this.maintenance='No';
       }
+      
+        
+    if(this.jwtService.getToken()){
+      this.user_id_data=this.jwtService.getUserId();
+      if(this.jwtService.getUserType()==5){
+        this.usertype_data='Renter';
+      }else if(this.jwtService.getUserType()==4){
+        this.usertype_data='Property Owner';
+      }else if(this.jwtService.getUserType()==11){
+        this.usertype_data='Admin';
+      }else if(this.jwtService.getUserType()==8){
+        this.usertype_data='Internal User';
+      }else{
+        this.usertype_data='External User';
+      }
+    }else{
+      this.usertype_data='Guest user';
+      this.user_id_data='Guest User'
+    }
+      
+   
       this.property_data.push({
+        'pro_flat_type':this.property?.data?.data[i]?.pro_flat__type?.name,
         'property_id':this.property?.data?.data[i]?.product_id,
         'property_name':this.property?.data?.data[i]?.build_name,
         'property_type':this.property?.data?.data[i]?.property__type?.name,
         'flat_type':this.property?.data?.data[i]?.pro_flat__type?.name ,
-        'site_type':this.UserLogsService.getDeviceInfo(),
-        'property_url':this.router.url,
         'available_form':this.property?.data?.data[i]?.available_for,
         'area':this.property?.data?.data[i]?.area,
         'area_unit':this.property?.data?.data[i]?.property_area_unit?.unit,
@@ -249,18 +274,29 @@ export class ProductListingComponent implements OnInit {
       }   
     const data = {
       event: 'dataLayer',
-      data: {
       data: this.property_data,
-      },
       // page_link:this.property?.data?.links,
+      user_id: this.user_id_data,
+      user_type:this.usertype_data,     
+      site_type:this.UserLogsService.getDeviceInfo(),
+      property_url:finalUrl,
       action: 'Onload Action',
       label: 'Listing Property',
       page_name:'Listing Page',
       page_url:this.router.url,
-      site_type:this.UserLogsService.getDeviceInfo(),
       search_filter: this.searchForm.value,
-      product_count:this.product_length,
+      product_count:this.property.data.total,
       property_status: this.searchForm.value.property_status,
+      // Search_Filter: {
+      //   "Minimum Amt":  this.searchForm.value.sliderControl[0],
+      //   "Maximum Amt": this.searchForm.value.sliderControl[1],
+      //   "Locality/Sublocality": this.searchForm.value.locality_data,
+      //   "Flat type": this.searchForm.value.type,
+      //   "Bathroom": this.searchForm.value.bathrooms,
+      //   "Bedroom": this.searchForm.value.bedrooms,
+      //   "Furnishing": this.searchForm.value.Furnished,
+      //   "Security Deposit": this.searchForm.value.security_deposit
+      // }
       // Additional data properties as needed
     };
 
@@ -951,6 +987,16 @@ export class ProductListingComponent implements OnInit {
     this.property_availablty=true;
     const url:any = this.router.createUrlTree(['/product-details'],{queryParams:{'id':id,'name':name}})
     window.open(url.toString(), '_blank')
+  }
+  
+  navigate1(id:number,locality:string,sublocality:string,flat_type:string){
+    const url:any = this.router.createUrlTree(['/product-details'],{queryParams:{'id':id,'locality':locality,'sublocality':sublocality,'flat-type':flat_type}})
+    const encodedUrl = url.toString().replace(/ /g, '%20');
+    const encodedUrl1 = encodedUrl.replace(/=/g, '=');
+  // Replace "&" with "%26"
+  const finalUrl = encodedUrl1.toString().replace(/&/g, '%26');
+
+    window.open(finalUrl, '_blank')
   }
   // searching city name property 
   property_search(){

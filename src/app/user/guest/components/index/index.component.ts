@@ -4,6 +4,7 @@ import { Component, OnInit} from '@angular/core';
 import { Options } from '@angular-slider/ngx-slider';
 import { LabelType } from '@angular-slider/ngx-slider';
 import { Router } from '@angular/router';
+import { GtmserviceService } from '../../services/gtmservice.service';
 import { IndexPageService } from '../../services/index-page.service';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
@@ -83,6 +84,7 @@ export class IndexComponent implements OnInit {
     private CommonService:CommonService,
     private formBuilder: FormBuilder,
     private modalService: NgbModal,
+    private gtmService: GtmserviceService,
     private indexPageService: IndexPageService,
     private toastr: ToastrService,
     private jwtService: JwtService,
@@ -155,11 +157,41 @@ export class IndexComponent implements OnInit {
       }
     );
   }
+  
+  sendDataToGTM()  {
+       
+    const encodedUrl = this.router.url.toString().replace(/ /g, '%20');
+    const finalUrl = encodedUrl.toString().replace(/&/g, '%26');    
+    const data = {
+      event: 'dataLayer',
+      data: {
+        delhi: {
+          "No_Of_Properties": this.product_length
+        },
+        vasant_kunj: {
+          "No_of_Properties": this.product_length
+        },
+        chattarpur: {
+          "No_of_Properties": this.chattarpur_length
+        }
+
+      },
+      action: 'Onload Action',
+      label: 'Find Property',
+      page_name:'Home Find Property',
+      page_url:finalUrl,
+      site_type:this.UserLogsService.getDeviceInfo(),
+      // Additional data properties as needed
+    };
+
+    this.gtmService.pushToDataLayer(data);
+    console.log(data);
+  }
   // fetch  property data 
   get_property(){
     this.indexPageService.get_Property({ param: null }).subscribe(
       response => {
-        console.log(response);
+        // console.log(response);
         this.property=response;
         if(this.property.data.length>0){
           this.city_name=this.property.data['0'].city;
@@ -182,6 +214,7 @@ export class IndexComponent implements OnInit {
           this.chattarpur='Chattarpur';
           this.chattarpur_length=0;
         }
+        this.sendDataToGTM();
       }, err => { 
         let Message =err.error.message;
       }

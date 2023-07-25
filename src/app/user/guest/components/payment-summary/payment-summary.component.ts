@@ -51,7 +51,7 @@ export class PaymentSummaryComponent implements OnInit {
       
       // if(this.route.snapshot.queryParams['orderID'].length>3){
         this.order_id = this.route.snapshot.queryParams['orderID'];  
-        console.log(this.order_id);    
+        // console.log(this.order_id);    
       // } else {
       //   this.redirect_to_previous_page();
       // }
