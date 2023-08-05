@@ -95,9 +95,9 @@ export class IndexComponent implements OnInit {
   ngOnInit(): void {this.titleService.setTitle('Home');
     this.searchForm.value.sliderControl[0] = 5000;
     this.searchForm.value.sliderControl[1] = 500000;
-    this.getAmenities();
-    this.get_property();
-    this.productcategory();
+    // this.getAmenities();
+    // this.get_property();
+    // this.productcategory();
     this.selectedItems = new Array<string>();
     this.filteredOptions = this.searchForm.controls.locality.valueChanges.pipe(
       startWith(''),

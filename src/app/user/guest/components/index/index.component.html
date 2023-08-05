@@ -93,144 +93,7 @@
                                             </li>
                                         </ul>
                                     </div>
-                                    <div class="collapse" id="amenities_collapse">
-                                        <div class="card card-body">
-                                            <div class="row mt20 mb20">
-                                                <div class="col-lg-12">
-                                                    <h4 class="text-thm3 text-center">Amenities
-                                                    </h4>
-                                                    <hr>
-                                                </div>
-                                                <ul class="col-lg-12 ui_kit_checkbox selectable-list">
-                                                    <!-- <div class="row"> -->
-                                                    <li *ngFor="let amenties of amenties?.data" class="col-lg-2 col-xs-6 amentites_li">
-                                                        <div class="form-check">
-                                                            <input class="form-check-input" type="checkbox" value="{{amenties.id}}" id="{{amenties.id}}" (change)="onchangeAmenties($event,amenties.id)">
-                                                            <label class="form-check-label" for="{{amenties.id}}">
-                                                                {{amenties.name}}
-                                                            </label>
-                                                        </div>
-                                                    </li>
-                                                    <!-- </div> -->
-                                                </ul>
-                                            </div>
-                                            <div class="row p15 pt0-xsd">
-                                                <div class="col-lg-12 col-xl-12">
-                                                    <div class="row">
-                                                        <div class="col-lg-3 col-md-3 col-sm-6">
-                                                            <div class="candidate_revew_select">
-                                                                <select class="form-select" aria-label="Default select example" name="bathrooms" formControlName="bathrooms" id="bathrooms">
-                                                                    <option value="">Select Bathrooms
-                                                                    </option>
-                                                                    <option value="1">1</option>
-                                                                    <option value="2">2</option>
-                                                                    <option value="3">3</option>
-                                                                    <option value="4">4</option>
-                                                                    <option value="5">5</option>
-                                                                    <option value="6">6 </option>
-                                                                    <option value="7">7</option>
-                                                                    <option value="8">8 </option>
-                                                                    <option value="9">9</option>
-                                                                    <option value="10">10 </option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-3 col-md-3 col-sm-6">
-                                                            <div class="candidate_revew_select">
-                                                                <select class="form-select" aria-label="Default select example" name="bedrooms" formControlName="bedrooms" id="bedrooms">
-                                                                    <option value="">Select Bedrooms
-                                                                    </option>
-                                                                    <option value="1">1</option>
-                                                                    <option value="2">2</option>
-                                                                    <option value="3">3</option>
-                                                                    <option value="4">4</option>
-                                                                    <option value="5">5</option>
-                                                                    <option value="6">6 </option>
-                                                                    <option value="7">7</option>
-                                                                    <option value="8">8 </option>
-                                                                    <option value="9">9</option>
-                                                                    <option value="10">10 </option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-3 col-md-3 col-sm-6">
-                                                            <div class="candidate_revew_select">
-                                                                <select class="form-select" aria-label="Default select example" name="years" formControlName="years" id="years">
-                                                                    <option value="">Select Built year</option>
-                                                                    <option value="2000">2000</option>
-                                                                    <option value="2001">2001</option>
-                                                                    <option value="2002">2002</option>
-                                                                    <option value="2003">2003</option>
-                                                                    <option value="2004">2004</option>
-                                                                    <option value="2005">2005</option>
-                                                                    <option value="2006">2006</option>
-                                                                    <option value="2007">2007</option>
-                                                                    <option value="2008">2008</option>
-                                                                    <option value="2009">2009</option>
-                                                                    <option value="2010">2010</option>
-                                                                    <option value="2011">2011</option>
-                                                                    <option value="2012">2012</option>
-                                                                    <option value="2013">2013</option>
-                                                                    <option value="2014">2014</option>
-                                                                    <option value="2015">2015</option>
-                                                                    <option value="2016">2016</option>
-                                                                    <option value="2017">2017</option>
-                                                                    <option value="2018">2018</option>
-                                                                    <option value="2019">2019</option>
-                                                                    <option value="2020">2020</option>
-                                                                    <option value="2021">2021</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-3 col-md-3 col-sm-6">
-                                                            <div class="candidate_revew_select">
-                                                                <select class="form-select" aria-label="Default select example" name="area_unit" formControlName="area_unit" id="area_unit">
-                                                                    <option value="">Select Area Unit
-                                                                    </option>
-                                                                    <option value="sq.ft.">sq.ft.
-                                                                    </option>
-                                                                    <option value="sq.yards">
-                                                                        sq.yards</option>
-                                                                    <option value="sq.m.">sq.m.
-                                                                    </option>
-                                                                    <option value="acres">acres
-                                                                    </option>
-                                                                    <option value="marla">marla
-                                                                    </option>
-                                                                    <option value="cents"> cents
-                                                                    </option>
-                                                                    <option value="bigha">bigha
-                                                                    </option>
-                                                                    <option value="kottah">kottah
-                                                                    </option>
-                                                                    <option value="kanal"> kanal
-                                                                    </option>
-                                                                    <option value="grounds">grounds
-                                                                    </option>
-                                                                    <option value="biswa">biswa
-                                                                    </option>
-                                                                    <option value="guntha"> guntha
-                                                                    </option>
-                                                                    <option value="aankadam">
-                                                                        aankadam</option>
-                                                                    <option value="hectares">
-                                                                        hectares</option>
-                                                                    <option value="rood">rood
-                                                                    </option>
-                                                                    <option value="chataks">chataks
-                                                                    </option>
-                                                                    <option value="perch"> perch
-                                                                    </option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!--row -->
-                                        </div>
-                                    </div>
-                                </form>
+                                </form> 
                             </div>
                         </div>
                     </div>
@@ -351,7 +214,7 @@
     </div>
 </section>
 <!-- feature-property section -->
-<app-homepagefeature></app-homepagefeature>
+<!-- <app-homepagefeature></app-homepagefeature> -->
 
 <!-- Property Cities -->
 <section id="property-city" class="property-city pb30">
@@ -438,7 +301,7 @@
 <app-testimonial></app-testimonial>
 
 <!-- Articles and Tips -->
-<app-articals></app-articals>
+<!-- <app-articals></app-articals> -->
 
 <!-- Real Estate Agent -->
 <app-real-estate-agent></app-real-estate-agent>
