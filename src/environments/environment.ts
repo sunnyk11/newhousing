@@ -7,7 +7,7 @@ export const environment = {
   // host:'https://admin.housingstreet.com',
   // apiUrl: 'https://admin.housingstreet.com'
   
-  apiUrl:  'http://127.0.0.1:8000',
+  apiUrl:  'https://admindevelopment.housingstreet.com',
   ftpURL:  'http://127.0.0.1:8000/storage/',
   siteURL: 'http://localhost:4200/',
   googleURL: 'http://localhost:8000/api/auth/redirect/',

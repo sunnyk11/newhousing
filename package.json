@@ -6,7 +6,8 @@
         "start": "ng serve",
         "build": "ng build",
         "watch": "ng build --watch --configuration development",
-        "test": "ng test"
+        "test": "ng test",
+        "postbuild": "node src/environments/postbuild.js"
     },
     "private": true,
     "dependencies": {
@@ -64,6 +65,7 @@
         "karma-coverage": "~2.0.3",
         "karma-jasmine": "~4.0.0",
         "karma-jasmine-html-reporter": "~1.7.0",
+        "purgecss": "^5.0.0",
         "typescript": "~4.3.5"
     }
 }
