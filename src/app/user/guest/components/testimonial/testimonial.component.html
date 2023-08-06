@@ -17,9 +17,9 @@
                                 <div class="item">
                                     <div class="testimonial_grid">
                                         <div class="thumb" >  
-                                            <img *ngIf="testimonial?.user_detail?.profile_pic !== null && testimonial?.user_detail?.profile_pic?.indexOf('https') == -1" class="profile-img" src="{{ ftpstring }}images/{{ testimonial?.user_detail?.profile_pic  }}" alt="Profile Pic">
-                                            <img *ngIf="testimonial?.user_detail?.profile_pic !== null && testimonial?.user_detail?.profile_pic?.indexOf('https') != -1" class="profile-img" src="{{testimonial?.user_detail?.profile_pic}}" alt="Profile Pic">
-                                            <img *ngIf="testimonial?.user_detail?.profile_pic == null" class="profile-img" src="assets/resources/images/testimonial/img_avatar2-png-9.png" alt="img_avatar2-png-9.png" alt="Profile Pic">
+                                            <img *ngIf="testimonial?.user_detail?.profile_pic !== null && testimonial?.user_detail?.profile_pic?.indexOf('https') == -1" class="profile-img" srcset="{{ ftpstring }}images/{{ testimonial?.user_detail?.profile_pic  }} 1x" src="{{ ftpstring }}images/{{ testimonial?.user_detail?.profile_pic  }}" alt="Profile Pic">
+                                            <img *ngIf="testimonial?.user_detail?.profile_pic !== null && testimonial?.user_detail?.profile_pic?.indexOf('https') != -1" class="profile-img" srcset="{{testimonial?.user_detail?.profile_pic}} 1x" src="{{testimonial?.user_detail?.profile_pic}}" alt="Profile Pic">
+                                            <img *ngIf="testimonial?.user_detail?.profile_pic == null" class="profile-img" srcset="assets/resources/images/testimonial/img_avatar2-png-9.png 1x" src="assets/resources/images/testimonial/img_avatar2-png-9.png" alt="img_avatar2-png-9.png" alt="Profile Pic">
                                         </div>
                                         <div class="details">
                                             <h4 class="mt15 mb15">{{testimonial?.user_detail?.name}}</h4>
