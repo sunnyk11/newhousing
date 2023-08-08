@@ -63,7 +63,7 @@ ol {
 }
 
 .home1_bgi1 {
-    background-image: url(../images/home-background.jpg);
+    background-image: url(../images/home-background.webp);
     -webkit-background-size: cover;
     background-size: cover;
     background-position: center center;
@@ -1479,7 +1479,7 @@ section {
 }
 
 .our-testimonial:before {
-    background-image: url("../images/background/2.jpg");
+    background-image: url("../images/background/2.webp");
     bottom: 0;
     content: "";
     left: 0;
