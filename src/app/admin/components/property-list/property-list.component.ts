@@ -5,7 +5,7 @@ import { ngxCsv } from 'ngx-csv/ngx-csv';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Pagination } from 'src/app/user/components/models/pagination.model';
 
 import { DatePipe } from '@angular/common';
@@ -34,14 +34,14 @@ export class PropertyListComponent implements OnInit {
   public email_search:boolean=false;
   public mobile_search=false;
 
-  searching_form = new FormGroup({
-    admin_property_type: new FormControl('', Validators.required),
-    user_type: new FormControl('',),
-    user_email: new FormControl(''),
-    invoice_no: new FormControl(''),
-    user_mobile_no: new FormControl(''),
-    star_date: new FormControl(''),
-    end_date: new FormControl('')
+  searching_form = new UntypedFormGroup({
+    admin_property_type: new UntypedFormControl('', Validators.required),
+    user_type: new UntypedFormControl('',),
+    user_email: new UntypedFormControl(''),
+    invoice_no: new UntypedFormControl(''),
+    user_mobile_no: new UntypedFormControl(''),
+    star_date: new UntypedFormControl(''),
+    end_date: new UntypedFormControl('')
   });
 
   constructor(private PropertyListService:PropertyListService,

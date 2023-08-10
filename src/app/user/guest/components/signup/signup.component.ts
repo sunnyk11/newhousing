@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { RegisterPageService } from '../../services/register-page.service';
 import { UserLogsService } from '../../services/user-logs.service';
@@ -53,7 +53,7 @@ export class SignupComponent implements OnInit {
   })
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private registerService: RegisterPageService,
     private route: ActivatedRoute,
     private router: Router,

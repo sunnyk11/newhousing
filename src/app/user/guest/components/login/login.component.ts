@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { LoginPageService } from '../../services/login-page.service';
 import { JwtService } from 'src/app/user/services/jwt.service';
@@ -76,7 +76,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private titleService: Title,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private loginPageService: LoginPageService,
     private jwtService: JwtService,
     private commonService: CommonService,

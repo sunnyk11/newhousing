@@ -2,7 +2,7 @@ import { Component, OnInit,ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { UserListService } from '../../services/user-list.service';
 import { Pagination } from 'src/app/user/components/models/pagination.model';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { UserInternalService } from '../../services/user-internal.service';
 import { Router,ActivatedRoute } from '@angular/router';
 import { JwtService } from 'src/app/user/services/jwt.service';
@@ -43,19 +43,19 @@ export class UserListInternalComponent implements OnInit {
   public p:number=0;
   public errorMessage:any;
   public showLoadingIndicator:boolean=false;
-  searching_form = new FormGroup({
-    searchtype: new FormControl('email', Validators.required),
-    email: new FormControl('',[Validators.required, Validators.email]),
-    mobile: new FormControl('1234567890', Validators.required)
+  searching_form = new UntypedFormGroup({
+    searchtype: new UntypedFormControl('email', Validators.required),
+    email: new UntypedFormControl('',[Validators.required, Validators.email]),
+    mobile: new UntypedFormControl('1234567890', Validators.required)
   });
   
-  UserForm = new FormGroup({
-    userName: new FormControl('', Validators.required),
-    gender: new FormControl('', Validators.required),
-    UserType:new FormControl('', Validators.required),
-    user_id:new FormControl('', Validators.required),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    other_mobile_number: new FormControl('',[Validators.required, Validators.minLength(10), Validators.maxLength(10)])
+  UserForm = new UntypedFormGroup({
+    userName: new UntypedFormControl('', Validators.required),
+    gender: new UntypedFormControl('', Validators.required),
+    UserType:new UntypedFormControl('', Validators.required),
+    user_id:new UntypedFormControl('', Validators.required),
+    email: new UntypedFormControl('', [Validators.required, Validators.email]),
+    other_mobile_number: new UntypedFormControl('',[Validators.required, Validators.minLength(10), Validators.maxLength(10)])
   });
 
   constructor(private toastr: ToastrService,

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { DataExportService } from '../../services/data-export.service'; 
 import { ToastrService } from 'ngx-toastr';
 import { ngxCsv } from 'ngx-csv/ngx-csv';
@@ -20,12 +20,12 @@ export class DataExportComponent implements OnInit {
   public plan_det:any;
 
 
-  searching_form = new FormGroup({
-    invoice_type: new FormControl(''),
-    plan_type: new FormControl(''),
-    delivery_status: new FormControl(''),
-    start_date: new FormControl(''),
-    end_date: new FormControl('')
+  searching_form = new UntypedFormGroup({
+    invoice_type: new UntypedFormControl(''),
+    plan_type: new UntypedFormControl(''),
+    delivery_status: new UntypedFormControl(''),
+    start_date: new UntypedFormControl(''),
+    end_date: new UntypedFormControl('')
   });
 
   constructor(

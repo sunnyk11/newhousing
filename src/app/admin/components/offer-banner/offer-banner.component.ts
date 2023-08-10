@@ -1,5 +1,5 @@
 import { Component, OnInit,ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { OfferBannerService } from '../../services/offer-banner.service';
 import { Pagination } from 'src/app/user/components/models/pagination.model';
@@ -25,20 +25,20 @@ export class OfferBannerComponent implements OnInit {
   public update_submitted:boolean=false;
   public disabled_update_btn:boolean=false;
 
-  Banner_form = new FormGroup({
-    tittle: new FormControl(''),
-    status: new FormControl('', Validators.required),
-    start_date: new FormControl(''),
-    end_date: new FormControl(''),
-    text: new FormControl(''),
+  Banner_form = new UntypedFormGroup({
+    tittle: new UntypedFormControl(''),
+    status: new UntypedFormControl('', Validators.required),
+    start_date: new UntypedFormControl(''),
+    end_date: new UntypedFormControl(''),
+    text: new UntypedFormControl(''),
   });
-  update_Banner_form= new FormGroup({
-    banner_id: new FormControl('', Validators.required),
-    tittle: new FormControl(''),
-    status: new FormControl('', Validators.required),
-    start_date: new FormControl(''),
-    end_date: new FormControl(''),
-    text: new FormControl(''),
+  update_Banner_form= new UntypedFormGroup({
+    banner_id: new UntypedFormControl('', Validators.required),
+    tittle: new UntypedFormControl(''),
+    status: new UntypedFormControl('', Validators.required),
+    start_date: new UntypedFormControl(''),
+    end_date: new UntypedFormControl(''),
+    text: new UntypedFormControl(''),
   });
 
   constructor(private OfferBannerService:OfferBannerService,

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RegisterPageService } from '../../services/register-page.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ConfirmedValidator } from '../../utils/validation';
 import { UserLogsService } from '../../services/user-logs.service';
 import { JwtService } from 'src/app/user/services/jwt.service';
@@ -47,7 +47,7 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private registerService: RegisterPageService,
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private route: ActivatedRoute,private titleService: Title,
     private router: Router,
     private jwtService: JwtService,

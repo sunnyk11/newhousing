@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { AreaListService } from '../../services/area-list.service';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
@@ -39,14 +39,14 @@ export class AddAreaGroupComponent implements OnInit {
   dropdownSettings_sub_locality!: IDropdownSettings;
   public filteredOptions_district!: Observable<any[]>;
 
-  create_area_group = new FormGroup({
-    locality:  new FormControl('', Validators.required),
-    locality_id:new FormControl('',Validators.required),
-    sub_locality:  new FormControl('', Validators.required),
-    group_name: new FormControl('', Validators.required),
-    state: new FormControl('1', Validators.required),
-    district:new FormControl('', Validators.required),
-    district_id:new FormControl('', Validators.required),
+  create_area_group = new UntypedFormGroup({
+    locality:  new UntypedFormControl('', Validators.required),
+    locality_id:new UntypedFormControl('',Validators.required),
+    sub_locality:  new UntypedFormControl('', Validators.required),
+    group_name: new UntypedFormControl('', Validators.required),
+    state: new UntypedFormControl('1', Validators.required),
+    district:new UntypedFormControl('', Validators.required),
+    district_id:new UntypedFormControl('', Validators.required),
   });
 
   constructor(private AreaListService:AreaListService,

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, UntypedFormBuilder, UntypedFormControl, FormGroup, Validators } from '@angular/forms';
 import { RolesService } from '../../services/roles.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
@@ -17,7 +17,7 @@ export class CreateRoleComponent implements OnInit {
   public RoleForm: any;
   private selected_permision:any=[];
 
-  constructor(private fb: FormBuilder,
+  constructor(private fb: UntypedFormBuilder,
     private router: Router,
     private rolesService: RolesService,
     private toastr: ToastrService) {
@@ -50,7 +50,7 @@ export class CreateRoleComponent implements OnInit {
         const group: any = {};
         this.permissions_data.data.forEach((obj:any,index:any) => {
           //group[obj.permission_name] = new FormControl(false);
-          this.f.addControl(obj.permission_name, new FormControl(false));
+          this.f.addControl(obj.permission_name, new UntypedFormControl(false));
         });
         //console.log(group);
       },

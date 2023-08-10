@@ -1,5 +1,5 @@
 import { Component, OnInit,ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { OfferBannerService } from '../../services/offer-banner.service';
 import { Pagination } from 'src/app/user/components/models/pagination.model';
@@ -24,14 +24,14 @@ export class ListingPageHeadingComponent implements OnInit {
   public clicked = false;
   public update_submitted:boolean=false;
 
-  content_form = new FormGroup({
-    status: new FormControl('', Validators.required),
-    text: new FormControl('', Validators.required),
+  content_form = new UntypedFormGroup({
+    status: new UntypedFormControl('', Validators.required),
+    text: new UntypedFormControl('', Validators.required),
   });
-  update_content_form= new FormGroup({
-    text_id: new FormControl('', Validators.required),
-    status: new FormControl('', Validators.required),
-    text: new FormControl('', Validators.required),
+  update_content_form= new UntypedFormGroup({
+    text_id: new UntypedFormControl('', Validators.required),
+    status: new UntypedFormControl('', Validators.required),
+    text: new UntypedFormControl('', Validators.required),
   });
 
   constructor(private OfferBannerService:OfferBannerService,

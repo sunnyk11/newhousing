@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { UntypedFormBuilder, FormControl, Validators } from '@angular/forms';
 import { ConfirmedValidator } from 'src/app/user/guest/utils/validation';
 import { RolesService } from '../../services/roles.service';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
@@ -26,7 +26,7 @@ export class CreateUserComponent implements OnInit {
   public item_text: string = '';
   public showLoadingIndicator: boolean = false;
 
-  constructor(private fb: FormBuilder,
+  constructor(private fb: UntypedFormBuilder,
     private rolesService: RolesService,
     private router: Router,
     private toastr: ToastrService) { 

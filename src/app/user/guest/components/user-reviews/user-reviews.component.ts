@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { CommonService } from '../../services/common.service';
 import { ToastrService } from 'ngx-toastr';
 import { JwtService } from 'src/app/user/services/jwt.service';
@@ -30,7 +30,7 @@ export class UserReviewsComponent implements OnInit {
     private jwtService: JwtService,
     private router:Router,
     private route:ActivatedRoute,
-    private fb: FormBuilder) {
+    private fb: UntypedFormBuilder) {
       this.route.queryParams.subscribe((params) => {
         if(params.product_id != null){
           this.product_id=params.product_id;

@@ -1,6 +1,6 @@
 import { ProductListingPageService } from '../../services/product-listing-page.service';
 import { CommonService } from '../../services/common.service';
-import { FormBuilder} from '@angular/forms';
+import { UntypedFormBuilder} from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Options } from '@angular-slider/ngx-slider';
 import { LabelType } from '@angular-slider/ngx-slider';
@@ -135,7 +135,7 @@ export class ProductListingComponent implements OnInit {
     private ProductListingPageService: ProductListingPageService,
     private CommonService: CommonService,
     private route:ActivatedRoute,
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     // private mapsAPILoader: MapsAPILoader,
     // private ngZone:NgZone,
     

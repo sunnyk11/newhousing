@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators, FormControl } from '@angular/forms';
+import { UntypedFormBuilder, Validators, UntypedFormControl } from '@angular/forms';
 import { PlansService } from '../../services/plans.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
@@ -17,7 +17,7 @@ export class AddPlanComponent implements OnInit {
   public PlanForm: any;  
   public clicked = false;
 
-  constructor(private fb: FormBuilder,
+  constructor(private fb: UntypedFormBuilder,
     private router: Router,
     private plansService: PlansService,
     private toastr: ToastrService) {
@@ -41,7 +41,7 @@ export class AddPlanComponent implements OnInit {
         //console.log(response);
         this.feature_response = response;
         this.feature_response.features.forEach((obj:any,index:any) => {
-          this.f.addControl(obj.id, new FormControl(false));
+          this.f.addControl(obj.id, new UntypedFormControl(false));
         })
       },
       err => {

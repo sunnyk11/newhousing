@@ -3,7 +3,7 @@ import { UserService } from '../../services/user.service';
 import { environment } from 'src/environments/environment';
 import { ProfilePageService } from '../../services/profile-page.service';
 import { JwtService } from 'src/app/user/services/jwt.service';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { ConfirmedValidator } from '../../utils/validation';
@@ -89,7 +89,7 @@ export class ProfileComponent implements OnInit {
     private profilePageService: ProfilePageService,
     private jwtService: JwtService,
     private dialog: MatDialog,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private toastr: ToastrService,
     private modalService: NgbModal,
     private commonService: CommonService,

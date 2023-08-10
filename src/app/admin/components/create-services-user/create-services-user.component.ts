@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { LocalServiceProviderService } from 'src/app/user/backend/services/local-service-provider.service';
 import { ToastrService } from 'ngx-toastr';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
@@ -34,15 +34,15 @@ export class CreateServicesUserComponent implements OnInit {
   
   selectedItems = [];
 
-  Service_form = new FormGroup({
-    user: new FormControl('', Validators.required),
-    city: new FormControl('1', Validators.required),
-    district: new FormControl('', Validators.required),
-    locality: new FormControl('', Validators.required),
-    locality_data: new FormControl('', Validators.required),
-    sub_locality: new FormControl('', Validators.required),
-    contact: new FormControl('', Validators.required),
-    service: new FormControl('', Validators.required)
+  Service_form = new UntypedFormGroup({
+    user: new UntypedFormControl('', Validators.required),
+    city: new UntypedFormControl('1', Validators.required),
+    district: new UntypedFormControl('', Validators.required),
+    locality: new UntypedFormControl('', Validators.required),
+    locality_data: new UntypedFormControl('', Validators.required),
+    sub_locality: new UntypedFormControl('', Validators.required),
+    contact: new UntypedFormControl('', Validators.required),
+    service: new UntypedFormControl('', Validators.required)
   });
 
   constructor( private LocalServiceProviderService:LocalServiceProviderService,

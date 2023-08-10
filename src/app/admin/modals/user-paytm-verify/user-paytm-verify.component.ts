@@ -1,5 +1,5 @@
 import { Component, OnInit,Input } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { UserBankDetailsService } from '../../services/user-bank-details.service';
@@ -27,7 +27,7 @@ export class UserPaytmVerifyComponent implements OnInit {
   @Input() user_bank_details:any;
 
   constructor(public activeModal: NgbActiveModal,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private toastr: ToastrService,
     private UserBankDetailsService:UserBankDetailsService) { }
 

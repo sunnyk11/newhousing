@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { AreaListService } from '../../services/area-list.service';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
@@ -42,20 +42,20 @@ export class UpdateAreaGroupComponent implements OnInit {
   dropdownSettings_sub_locality!: IDropdownSettings;
   public filteredOptions_district!: Observable<any[]>;
 
-  update_area_group = new FormGroup({
-    locality:  new FormControl(''),
-    locality_id:new FormControl(''),
-    sub_locality:  new FormControl(''),
-    group_name: new FormControl('', Validators.required),
-    state: new FormControl('1'),
-    district:new FormControl(''),
-    district_id:new FormControl(''),
-    group_id:new FormControl('', Validators.required),
+  update_area_group = new UntypedFormGroup({
+    locality:  new UntypedFormControl(''),
+    locality_id:new UntypedFormControl(''),
+    sub_locality:  new UntypedFormControl(''),
+    group_name: new UntypedFormControl('', Validators.required),
+    state: new UntypedFormControl('1'),
+    district:new UntypedFormControl(''),
+    district_id:new UntypedFormControl(''),
+    group_id:new UntypedFormControl('', Validators.required),
   });
   
-  update_area_group_name= new FormGroup({
-    group_name: new FormControl('', Validators.required),
-    group_id:new FormControl('', Validators.required),
+  update_area_group_name= new UntypedFormGroup({
+    group_name: new UntypedFormControl('', Validators.required),
+    group_id:new UntypedFormControl('', Validators.required),
   });
 
   constructor(private AreaListService:AreaListService,

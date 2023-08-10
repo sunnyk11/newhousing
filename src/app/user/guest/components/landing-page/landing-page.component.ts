@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { JwtService } from 'src/app/user/services/jwt.service';
 import { ToastrService } from 'ngx-toastr';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { Title } from '@angular/platform-browser';
@@ -56,7 +56,7 @@ export class LandingPageComponent implements OnInit {
 
   public toll_free=environment.toll_free;
   constructor(
-    private fb: FormBuilder,private titleService: Title,
+    private fb: UntypedFormBuilder,private titleService: Title,
     private registerService: RegisterPageService,
     private route: ActivatedRoute,
     private router: Router,

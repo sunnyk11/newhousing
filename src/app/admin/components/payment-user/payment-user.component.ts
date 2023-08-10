@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { LocalServiceProviderService } from 'src/app/user/backend/services/local-service-provider.service';
 import { ToastrService } from 'ngx-toastr';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
@@ -51,19 +51,19 @@ export class PaymentUserComponent implements OnInit {
   
   selectedItems = [];
 
-  Payment_user_form = new FormGroup({
-    user_type: new FormControl('mobile', Validators.required),
-    payment_status: new FormControl('Under Process', Validators.required),
-    amount: new FormControl('', Validators.required),
-    payment_user: new FormControl('', Validators.required),
-    payment_user_data: new FormControl('', Validators.required),
-    product: new FormControl(''),
-    message: new FormControl('', Validators.required),
-    payment_image:new FormControl(''),
-    user_mobile_no: new FormControl('', Validators.required),
-    transaction_id: new FormControl('', Validators.required),
-    payment_type: new FormControl('Property Payment', Validators.required),
-    bank_details_json: new FormControl('', Validators.required),
+  Payment_user_form = new UntypedFormGroup({
+    user_type: new UntypedFormControl('mobile', Validators.required),
+    payment_status: new UntypedFormControl('Under Process', Validators.required),
+    amount: new UntypedFormControl('', Validators.required),
+    payment_user: new UntypedFormControl('', Validators.required),
+    payment_user_data: new UntypedFormControl('', Validators.required),
+    product: new UntypedFormControl(''),
+    message: new UntypedFormControl('', Validators.required),
+    payment_image:new UntypedFormControl(''),
+    user_mobile_no: new UntypedFormControl('', Validators.required),
+    transaction_id: new UntypedFormControl('', Validators.required),
+    payment_type: new UntypedFormControl('Property Payment', Validators.required),
+    bank_details_json: new UntypedFormControl('', Validators.required),
   });
   
 

@@ -3,7 +3,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { UserBankDetailsService } from '../../services/user-bank-details.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { UserPaytmVerifyComponent } from '../../modals/user-paytm-verify/user-paytm-verify.component';
 import { BankHistoryComponent } from '../../modals/bank-history/bank-history.component';
 import { environment } from 'src/environments/environment';
@@ -30,15 +30,15 @@ export class PaymentUserListComponent implements OnInit {
   public property_owner:any;
   public disabled:boolean=false;
   
-  payment_form= new FormGroup({
-    payment_id: new FormControl('', Validators.required),
-    payment_status: new FormControl('', Validators.required),
+  payment_form= new UntypedFormGroup({
+    payment_id: new UntypedFormControl('', Validators.required),
+    payment_status: new UntypedFormControl('', Validators.required),
   });
   
-  searching_form = new FormGroup({
-    admin_payment_type: new FormControl('', Validators.required),
-    star_date: new FormControl(''),
-    end_date: new FormControl('')
+  searching_form = new UntypedFormGroup({
+    admin_payment_type: new UntypedFormControl('', Validators.required),
+    star_date: new UntypedFormControl(''),
+    end_date: new UntypedFormControl('')
   });
 
   constructor(private toastr: ToastrService,

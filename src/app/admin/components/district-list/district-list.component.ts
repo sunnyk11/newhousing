@@ -1,5 +1,5 @@
 import { Component, OnInit,ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { AreaListService } from '../../services/area-list.service';
 import { Pagination } from 'src/app/user/components/models/pagination.model';
@@ -23,19 +23,19 @@ export class DistrictListComponent implements OnInit {
   public disabled:boolean=false;
   public update_submitted:boolean=false;
 
-  district_form = new FormGroup({
-    state:  new FormControl('', Validators.required),
-    district:  new FormControl('', Validators.required),
-    status: new FormControl('', Validators.required),
+  district_form = new UntypedFormGroup({
+    state:  new UntypedFormControl('', Validators.required),
+    district:  new UntypedFormControl('', Validators.required),
+    status: new UntypedFormControl('', Validators.required),
   });
-  update_district_form= new FormGroup({
-    state: new FormControl('', Validators.required),
-    district_id:new FormControl('', Validators.required),
-    district:new FormControl('', Validators.required),
-    status: new FormControl('', Validators.required)
+  update_district_form= new UntypedFormGroup({
+    state: new UntypedFormControl('', Validators.required),
+    district_id:new UntypedFormControl('', Validators.required),
+    district:new UntypedFormControl('', Validators.required),
+    status: new UntypedFormControl('', Validators.required)
   });
-  searching_form = new FormGroup({
-    search_state: new FormControl('1', Validators.required),
+  searching_form = new UntypedFormGroup({
+    search_state: new UntypedFormControl('1', Validators.required),
   });
 
   constructor(private AreaListService:AreaListService,

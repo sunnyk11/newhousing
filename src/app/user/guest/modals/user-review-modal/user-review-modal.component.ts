@@ -1,5 +1,5 @@
 import { Component, OnInit,Input} from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { CommonService } from '../../services/common.service';
 import { ToastrService } from 'ngx-toastr';
@@ -26,7 +26,7 @@ export class UserReviewModalComponent implements OnInit {
   constructor(public activeModal: NgbActiveModal,
     public CommonService: CommonService,
     private toastr: ToastrService,
-    private fb: FormBuilder) { }
+    private fb: UntypedFormBuilder) { }
 
   ngOnInit(): void {
     this.reviews_form.patchValue({

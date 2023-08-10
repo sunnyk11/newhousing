@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder,Validators } from '@angular/forms';
+import { UntypedFormBuilder,Validators } from '@angular/forms';
 import { ContactPageService } from '../../services/contact-page.service';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from 'src/environments/environment';
@@ -30,7 +30,7 @@ export class ContactComponent implements OnInit {
     message: ['', Validators.required]
   }); 
 
-  constructor(private fb: FormBuilder,
+  constructor(private fb: UntypedFormBuilder,
     private toastr: ToastrService,
     private jwtService: JwtService,
     private router: Router,

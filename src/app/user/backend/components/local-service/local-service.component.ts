@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { LocalServiceProviderService } from '../../services/local-service-provider.service';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from 'src/environments/environment';
@@ -46,17 +46,17 @@ export class LocalServiceComponent implements OnInit {
   public login_usertype:number=0;
   
   
-  Service_form = new FormGroup({
-    locality: new FormControl('', Validators.required),
-    locality_data: new FormControl('', Validators.required),
-    sub_locality: new FormControl('', Validators.required),
-    service: new FormControl('', Validators.required)
+  Service_form = new UntypedFormGroup({
+    locality: new UntypedFormControl('', Validators.required),
+    locality_data: new UntypedFormControl('', Validators.required),
+    sub_locality: new UntypedFormControl('', Validators.required),
+    service: new UntypedFormControl('', Validators.required)
   });
-  review_form = new FormGroup({
-    stars: new FormControl('', Validators.required),
-    user_id:new FormControl('', Validators.required),
-    content: new FormControl('', Validators.required),
-    s_user_id: new FormControl('', Validators.required)
+  review_form = new UntypedFormGroup({
+    stars: new UntypedFormControl('', Validators.required),
+    user_id:new UntypedFormControl('', Validators.required),
+    content: new UntypedFormControl('', Validators.required),
+    s_user_id: new UntypedFormControl('', Validators.required)
   });
   
 

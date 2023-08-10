@@ -3,7 +3,7 @@ import { Router,ActivatedRoute } from '@angular/router';
 import { LocalServiceProviderService } from 'src/app/user/backend/services/local-service-provider.service';
 import { ToastrService } from 'ngx-toastr';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
-import { FormControl,FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl,UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { CommonService } from 'src/app/user/backend/services/common.service';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
@@ -24,7 +24,7 @@ export class UpdateServicesUserComponent implements OnInit {
   public dropdownList:any=[]; 
   public  selectedItems:any=[];
   public  selected_sublocality:any=[];
-  dropDownForm!: FormGroup;
+  dropDownForm!: UntypedFormGroup;
   dropdownSettings:IDropdownSettings={};
   dropdownSettings1:IDropdownSettings={};
   dropdownSettings_locality:IDropdownSettings={};
@@ -39,17 +39,17 @@ export class UpdateServicesUserComponent implements OnInit {
   public  selected_locality:any=[];
   public filteredOptions!: Observable<any[]>;
 
-  Service_form = new FormGroup({
-    id: new FormControl('', Validators.required),
-    user_id: new FormControl('', Validators.required),
-    user: new FormControl('', Validators.required),
-    city: new FormControl('', Validators.required),
-    district: new FormControl('', Validators.required),
-    locality: new FormControl('', Validators.required),
-    locality_data: new FormControl('', Validators.required),
-    sub_locality: new FormControl('', Validators.required),
-    contact: new FormControl('', Validators.required),
-    service: new FormControl('', Validators.required)
+  Service_form = new UntypedFormGroup({
+    id: new UntypedFormControl('', Validators.required),
+    user_id: new UntypedFormControl('', Validators.required),
+    user: new UntypedFormControl('', Validators.required),
+    city: new UntypedFormControl('', Validators.required),
+    district: new UntypedFormControl('', Validators.required),
+    locality: new UntypedFormControl('', Validators.required),
+    locality_data: new UntypedFormControl('', Validators.required),
+    sub_locality: new UntypedFormControl('', Validators.required),
+    contact: new UntypedFormControl('', Validators.required),
+    service: new UntypedFormControl('', Validators.required)
   });
 
 
@@ -57,7 +57,7 @@ export class UpdateServicesUserComponent implements OnInit {
   constructor(private route:ActivatedRoute,
     private router:Router,
     private LocalServiceProviderService:LocalServiceProviderService,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private toastr: ToastrService,
     private CommonService:CommonService) { 
       this.route.queryParams.subscribe((params) => {

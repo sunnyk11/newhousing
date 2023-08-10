@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { AreaListService } from '../../services/area-list.service';
 import { Pagination } from 'src/app/user/components/models/pagination.model';
@@ -35,22 +35,22 @@ export class SubLocalityListComponent implements OnInit {
   public filteredOptions_district!: Observable<any[]>;
   public filteredOptions_district1!: Observable<any[]>;
 
-  locality_form = new FormGroup({
-    locality:  new FormControl('', Validators.required),
-    locality_id:new FormControl('',Validators.required),
-    sub_locality:  new FormControl('', Validators.required),
-    status: new FormControl('', Validators.required),
-    state: new FormControl('1', Validators.required),
-    district:new FormControl('', Validators.required),
-    district_id:new FormControl('', Validators.required),
+  locality_form = new UntypedFormGroup({
+    locality:  new UntypedFormControl('', Validators.required),
+    locality_id:new UntypedFormControl('',Validators.required),
+    sub_locality:  new UntypedFormControl('', Validators.required),
+    status: new UntypedFormControl('', Validators.required),
+    state: new UntypedFormControl('1', Validators.required),
+    district:new UntypedFormControl('', Validators.required),
+    district_id:new UntypedFormControl('', Validators.required),
   });
-  searching_form = new FormGroup({
-    search_locality: new FormControl('', Validators.required),
-    search_locality_id: new FormControl('', Validators.required),
-    search_state: new FormControl('1', Validators.required),
-    search_district: new FormControl('', Validators.required),
-    search_district_id: new FormControl('', Validators.required),
-    search_sub_locality: new FormControl('')
+  searching_form = new UntypedFormGroup({
+    search_locality: new UntypedFormControl('', Validators.required),
+    search_locality_id: new UntypedFormControl('', Validators.required),
+    search_state: new UntypedFormControl('1', Validators.required),
+    search_district: new UntypedFormControl('', Validators.required),
+    search_district_id: new UntypedFormControl('', Validators.required),
+    search_sub_locality: new UntypedFormControl('')
   });
 
   constructor(private AreaListService:AreaListService,

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserReviewsService } from '../../services/user-reviews.service';
 import { ToastrService } from 'ngx-toastr';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Pagination } from 'src/app/user/components/models/pagination.model';
 
 import { DatePipe } from '@angular/common';
@@ -21,9 +21,9 @@ export class UserReviewsComponent implements OnInit {
   pipe = new DatePipe('en-US');
   public Pagination_data: Pagination;
 
-  searching_form = new FormGroup({
-    star_date: new FormControl('', Validators.required),
-    end_date: new FormControl('', Validators.required)
+  searching_form = new UntypedFormGroup({
+    star_date: new UntypedFormControl('', Validators.required),
+    end_date: new UntypedFormControl('', Validators.required)
   });
 
   constructor(private UserReviewsService:UserReviewsService,
