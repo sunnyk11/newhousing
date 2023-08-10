@@ -1,6 +1,6 @@
 import { Component, OnInit,Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup,FormControl,Validators } from '@angular/forms';
+import { UntypedFormGroup,UntypedFormControl,Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { UserInternalService } from '../../services/user-internal.service';
 import { Router } from '@angular/router';
@@ -22,9 +22,9 @@ public phone_submitted: boolean = false;
 public alert_phone:boolean=false;
 public updateFailed:boolean=false;
 
-PhoneNumberForm = new FormGroup({
-  user_id:new FormControl('', Validators.required),
-  other_mobile_number: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]),
+PhoneNumberForm = new UntypedFormGroup({
+  user_id:new UntypedFormControl('', Validators.required),
+  other_mobile_number: new UntypedFormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]),
 });
 
   @Input() data:any;

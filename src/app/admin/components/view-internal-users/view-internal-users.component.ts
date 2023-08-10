@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl,FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl,UntypedFormGroup, Validators } from '@angular/forms';
 import { InternalUsersService } from '../../services/internal-users.service';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { RolesService } from '../../services/roles.service';
@@ -39,17 +39,17 @@ export class ViewInternalUsersComponent implements OnInit {
   public user_list_length:any;
   
   public Pagination_data: Pagination;
-UserForm = new FormGroup({
-  userName: new FormControl('', Validators.required),
-  user_id:new FormControl('', Validators.required),
-  email: new FormControl('', [Validators.required, Validators.email]),
-  other_mobile_number: new FormControl('',[Validators.required, Validators.minLength(10), Validators.maxLength(10)])
+UserForm = new UntypedFormGroup({
+  userName: new UntypedFormControl('', Validators.required),
+  user_id:new UntypedFormControl('', Validators.required),
+  email: new UntypedFormControl('', [Validators.required, Validators.email]),
+  other_mobile_number: new UntypedFormControl('',[Validators.required, Validators.minLength(10), Validators.maxLength(10)])
 });
 
   constructor(
     private internalUserService: InternalUsersService,
     private rolesService: RolesService,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private toastr: ToastrService,
     private modalService: NgbModal,
     private router: Router) {
@@ -130,14 +130,14 @@ UserForm = new FormGroup({
           if(role.status == true) {
             if (this.g.controls[role.role_name]) {
               this.g.removeControl(role.role_name);
-              this.g.addControl(role.role_name, new FormControl(true));
+              this.g.addControl(role.role_name, new UntypedFormControl(true));
             }
             else {
-              this.g.addControl(role.role_name, new FormControl(true));
+              this.g.addControl(role.role_name, new UntypedFormControl(true));
             }
           }
           else {
-            this.g.addControl(role.role_name, new FormControl(false));
+            this.g.addControl(role.role_name, new UntypedFormControl(false));
           }
         })
         this.showLoadingIndicator = false;
@@ -159,14 +159,14 @@ UserForm = new FormGroup({
           if(group.status == true) {
             if (this.k.controls[group.group_name]) {
               this.k.removeControl(group.group_name);
-              this.k.addControl(group.group_name, new FormControl(true));
+              this.k.addControl(group.group_name, new UntypedFormControl(true));
             }
             else {
-              this.k.addControl(group.group_name, new FormControl(true));
+              this.k.addControl(group.group_name, new UntypedFormControl(true));
             }
           }
           else {
-            this.k.addControl(group.group_name, new FormControl(false));
+            this.k.addControl(group.group_name, new UntypedFormControl(false));
           }
         })
         this.showLoadingIndicator = false;

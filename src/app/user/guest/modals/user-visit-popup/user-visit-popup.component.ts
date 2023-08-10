@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserLogsService } from '../../services/user-logs.service';
 import { Router } from '@angular/router';
@@ -28,7 +28,7 @@ export class UserVisitPopupComponent implements OnInit {
   });
   
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private jwtService: JwtService,
     private router: Router,
     private UserLogsService:UserLogsService,

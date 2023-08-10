@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { JwtService } from 'src/app/user/services/jwt.service';
 import { VerifyMobileService } from '../../services/verify-mobile.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -14,7 +14,7 @@ export class VerifyMobileComponent implements OnInit {
  
   public showLoadingIndicator: boolean = false;
 
-  constructor(private fb: FormBuilder,
+  constructor(private fb: UntypedFormBuilder,
     private jwtService: JwtService,
     private verifyMobileService: VerifyMobileService,
     private toastr: ToastrService,

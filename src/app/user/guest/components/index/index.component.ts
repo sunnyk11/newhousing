@@ -1,5 +1,5 @@
 import { CommonService } from '../../services/common.service';
-import { FormBuilder} from '@angular/forms';
+import { UntypedFormBuilder} from '@angular/forms';
 import { Component, OnInit} from '@angular/core';
 import { Options } from '@angular-slider/ngx-slider';
 import { LabelType } from '@angular-slider/ngx-slider';
@@ -82,7 +82,7 @@ export class IndexComponent implements OnInit {
 
   constructor(private titleService: Title,
     private CommonService:CommonService,
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private modalService: NgbModal,
     private gtmService: GtmserviceService,
     private indexPageService: IndexPageService,

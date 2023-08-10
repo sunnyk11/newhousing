@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ResetPasswordService } from '../../services/reset-password.service';
 import { ConfirmedValidator } from '../../utils/validation';
 
@@ -38,7 +38,7 @@ export class ResetPasswordComponent implements OnInit {
 
   public showLoadingIndicator: boolean = false;
 
-  constructor(private formBuilder: FormBuilder,
+  constructor(private formBuilder: UntypedFormBuilder,
     private resetPasswordService: ResetPasswordService) { }
 
   ngOnInit(): void {

@@ -1,5 +1,5 @@
 import { Component, OnInit,ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { AreaListService } from '../../services/area-list.service';
 import { Pagination } from 'src/app/user/components/models/pagination.model';
@@ -21,14 +21,14 @@ export class StateListComponent implements OnInit {
   public disabled:boolean=false;
   public update_submitted:boolean=false;
 
-  State_form = new FormGroup({
-    state_name:  new FormControl('', Validators.required),
-    status: new FormControl('', Validators.required),
+  State_form = new UntypedFormGroup({
+    state_name:  new UntypedFormControl('', Validators.required),
+    status: new UntypedFormControl('', Validators.required),
   });
-  update_State_form= new FormGroup({
-    state_id: new FormControl('', Validators.required),
-    state_name:new FormControl('', Validators.required),
-    status: new FormControl('', Validators.required)
+  update_State_form= new UntypedFormGroup({
+    state_id: new UntypedFormControl('', Validators.required),
+    state_name:new UntypedFormControl('', Validators.required),
+    status: new UntypedFormControl('', Validators.required)
   });
 
   constructor(private AreaListService:AreaListService,

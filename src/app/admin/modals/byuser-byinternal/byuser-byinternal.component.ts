@@ -1,5 +1,5 @@
 import { Component, OnInit,Input } from '@angular/core';
-import { FormGroup,FormControl,Validators } from '@angular/forms';
+import { UntypedFormGroup,UntypedFormControl,Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { UserInternalService } from '../../services/user-internal.service';
@@ -28,13 +28,13 @@ public updateFailed: boolean = false;
 public user_id:any;
   
 
-UserForm = new FormGroup({
-  userName: new FormControl('', Validators.required),
-  gender: new FormControl('', Validators.required),
-  UserType:new FormControl('', Validators.required),
-  user_id:new FormControl('', Validators.required),
-  email: new FormControl('', [Validators.required, Validators.email]),
-  other_mobile_number: new FormControl('',[Validators.required, Validators.minLength(10), Validators.maxLength(10)])
+UserForm = new UntypedFormGroup({
+  userName: new UntypedFormControl('', Validators.required),
+  gender: new UntypedFormControl('', Validators.required),
+  UserType:new UntypedFormControl('', Validators.required),
+  user_id:new UntypedFormControl('', Validators.required),
+  email: new UntypedFormControl('', [Validators.required, Validators.email]),
+  other_mobile_number: new UntypedFormControl('',[Validators.required, Validators.minLength(10), Validators.maxLength(10)])
 });
 
 

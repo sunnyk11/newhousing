@@ -1,5 +1,5 @@
 import { Component, OnInit,Input } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ConfirmedValidator } from '../../utils/validation';
 import { ProfilePageService } from '../../services/profile-page.service';
@@ -52,7 +52,7 @@ export class BankDetailsModalComponent implements OnInit {
 
   constructor(public activeModal: NgbActiveModal,
     private profilePageService: ProfilePageService,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private toastr: ToastrService,
     public CommonService:CommonService
     ) { }

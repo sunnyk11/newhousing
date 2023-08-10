@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { LocalServiceProviderService } from 'src/app/user/backend/services/local-service-provider.service';
 import { ToastrService } from 'ngx-toastr';
 import { Pagination } from 'src/app/user/components/models/pagination.model';
@@ -18,8 +18,8 @@ export class ServiceListComponent implements OnInit {
   public service_length:number=0;
   public Pagination_data: Pagination;
 
-  Service_form = new FormGroup({
-    service: new FormControl('', Validators.required)
+  Service_form = new UntypedFormGroup({
+    service: new UntypedFormControl('', Validators.required)
   });
 
   constructor(private LocalServiceProviderService:LocalServiceProviderService,

@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { AreaListService } from '../../services/area-list.service';
 import { Pagination } from 'src/app/user/components/models/pagination.model';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 
 @Component({
   selector: 'app-locality-list',
@@ -31,18 +30,18 @@ export class LocalityListComponent implements OnInit {
   public filteredOptions!: Observable<any[]>;
   public filteredOptions1!: Observable<any[]>;
 
-  locality_form = new FormGroup({
-    district:  new FormControl('', Validators.required),
-    district_id:new FormControl('',Validators.required),
-    locality:  new FormControl('', Validators.required),
-    status: new FormControl('', Validators.required),
-    state: new FormControl('1', Validators.required),
+  locality_form = new UntypedFormGroup({
+    district:  new UntypedFormControl('', Validators.required),
+    district_id:new UntypedFormControl('',Validators.required),
+    locality:  new UntypedFormControl('', Validators.required),
+    status: new UntypedFormControl('', Validators.required),
+    state: new UntypedFormControl('1', Validators.required),
   });
-  searching_form = new FormGroup({
-    search_state: new FormControl('1', Validators.required),
-    search_district: new FormControl('', Validators.required),
-    search_district_id: new FormControl('', Validators.required),
-    search_locality: new FormControl(''),
+  searching_form = new UntypedFormGroup({
+    search_state: new UntypedFormControl('1', Validators.required),
+    search_district: new UntypedFormControl('', Validators.required),
+    search_district_id: new UntypedFormControl('', Validators.required),
+    search_locality: new UntypedFormControl(''),
   });
 
   constructor(private AreaListService:AreaListService,

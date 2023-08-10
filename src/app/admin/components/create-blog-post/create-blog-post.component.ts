@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { BlogService } from '../../services/blog.service';
 import { JwtService } from 'src/app/user/services/jwt.service';
 import { ToastrService } from 'ngx-toastr';
@@ -36,7 +36,7 @@ export class CreateBlogPostComponent implements OnInit {
 
   public blogForm: any;
 
-  constructor(private fb: FormBuilder,
+  constructor(private fb: UntypedFormBuilder,
     private blogService: BlogService,
     private jwtService: JwtService,
     private toastr: ToastrService,

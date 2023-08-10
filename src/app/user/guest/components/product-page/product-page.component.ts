@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute,Router } from '@angular/router';
 import { ProductPageService } from '../../services/product-page.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { environment } from 'src/environments/environment';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -70,9 +70,9 @@ export class ProductPageComponent implements OnInit {
   public map:any;
   public submitted:boolean=false;
   
-  Property_notesform = new FormGroup({
-    property_notes: new FormControl('', Validators.required),
-    property_id: new FormControl('', Validators.required),
+  Property_notesform = new UntypedFormGroup({
+    property_notes: new UntypedFormControl('', Validators.required),
+    property_id: new UntypedFormControl('', Validators.required),
   });
   constructor(
     private gtmService: GtmserviceService,

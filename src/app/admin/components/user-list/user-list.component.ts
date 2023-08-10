@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { UserListService } from '../../services/user-list.service';
 import { Pagination } from 'src/app/user/components/models/pagination.model';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-user-list',
@@ -20,10 +20,10 @@ export class UserListComponent implements OnInit {
 
   public p:number=0;
   public showLoadingIndicator:boolean=false;
-  searching_form = new FormGroup({
-    searchtype: new FormControl('email', Validators.required),
-    email: new FormControl('',[Validators.required, Validators.email]),
-    mobile: new FormControl('1234567890', Validators.required)
+  searching_form = new UntypedFormGroup({
+    searchtype: new UntypedFormControl('email', Validators.required),
+    email: new UntypedFormControl('',[Validators.required, Validators.email]),
+    mobile: new UntypedFormControl('1234567890', Validators.required)
   });
 
   constructor(private toastr: ToastrService,

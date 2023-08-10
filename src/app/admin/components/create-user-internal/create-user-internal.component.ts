@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { UserInternalService } from '../../services/user-internal.service';
@@ -16,12 +16,12 @@ export class CreateUserInternalComponent implements OnInit {
   public errorMessage: any;
   public isSignUpFailed:boolean=false;
     
-  UserForm = new FormGroup({
-    userName: new FormControl('', Validators.required),
-    gender: new FormControl('', Validators.required),
-    UserType:new FormControl('', Validators.required),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    other_mobile_number: new FormControl('',[Validators.required, Validators.minLength(10), Validators.maxLength(10)])
+  UserForm = new UntypedFormGroup({
+    userName: new UntypedFormControl('', Validators.required),
+    gender: new UntypedFormControl('', Validators.required),
+    UserType:new UntypedFormControl('', Validators.required),
+    email: new UntypedFormControl('', [Validators.required, Validators.email]),
+    other_mobile_number: new UntypedFormControl('',[Validators.required, Validators.minLength(10), Validators.maxLength(10)])
   });
 
   constructor(

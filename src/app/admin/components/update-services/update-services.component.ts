@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { LocalServiceProviderService } from 'src/app/user/backend/services/local-service-provider.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router,ActivatedRoute } from '@angular/router';
@@ -16,10 +16,10 @@ export class UpdateServicesComponent implements OnInit {
   public submitted: boolean = false;
   public service_id:any={};
 
-  Service_form = new FormGroup({
-    id: new FormControl('', Validators.required),
-    service: new FormControl('', Validators.required),
-    service_id: new FormControl('', Validators.required)
+  Service_form = new UntypedFormGroup({
+    id: new UntypedFormControl('', Validators.required),
+    service: new UntypedFormControl('', Validators.required),
+    service_id: new UntypedFormControl('', Validators.required)
   });
 
   constructor(private route:ActivatedRoute,

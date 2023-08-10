@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MapsAPILoader, AgmMap } from '@agm/core';
 import { ElementRef, Input, NgZone, ViewChild } from '@angular/core';
 import { Options,LabelType } from '@angular-slider/ngx-slider';
@@ -85,13 +85,13 @@ export class UpdatepropertySalesComponent implements OnInit {
   image4: string | ArrayBuffer | null | undefined;
   image5: string | ArrayBuffer | null | undefined;
   
-  form_step1: FormGroup = new FormGroup({});
-  form_step2: FormGroup = new FormGroup({});
-  form_step3: FormGroup = new FormGroup({});
-  form_step4: FormGroup = new FormGroup({});
+  form_step1: UntypedFormGroup = new UntypedFormGroup({});
+  form_step2: UntypedFormGroup = new UntypedFormGroup({});
+  form_step3: UntypedFormGroup = new UntypedFormGroup({});
+  form_step4: UntypedFormGroup = new UntypedFormGroup({});
 
   constructor(
-    private _formBuilder: FormBuilder,
+    private _formBuilder: UntypedFormBuilder,
     private mapsAPILoader: MapsAPILoader,
     private _sanitizer: DomSanitizer,
     private ngZone: NgZone,

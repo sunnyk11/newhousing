@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { RolesService } from '../../services/roles.service';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 
@@ -27,7 +27,7 @@ export class ViewRoleComponent implements OnInit {
   public EditRoleForm: any;
 
   constructor(private rolesService: RolesService,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private toastr: ToastrService,
     private router: Router) {
     this.RoleForm = this.fb.group({
@@ -81,14 +81,14 @@ export class ViewRoleComponent implements OnInit {
           if (permission.status == true) {
             if (this.f.controls[permission.permission_name]) {
               this.f.removeControl(permission.permission_name);
-              this.f.addControl(permission.permission_name, new FormControl({ value: true, disabled: true }));
+              this.f.addControl(permission.permission_name, new UntypedFormControl({ value: true, disabled: true }));
             }
             else {
-              this.f.addControl(permission.permission_name, new FormControl({ value: true, disabled: true }));
+              this.f.addControl(permission.permission_name, new UntypedFormControl({ value: true, disabled: true }));
             }
           }
           else {
-            this.f.addControl(permission.permission_name, new FormControl({ value: false, disabled: true }));
+            this.f.addControl(permission.permission_name, new UntypedFormControl({ value: false, disabled: true }));
           }
         })
       },
@@ -111,14 +111,14 @@ export class ViewRoleComponent implements OnInit {
           if (permission.status == true) {
             if (this.g.controls[permission.permission_name]) {
               this.g.removeControl(permission.permission_name);
-              this.g.addControl(permission.permission_name, new FormControl(true));
+              this.g.addControl(permission.permission_name, new UntypedFormControl(true));
             }
             else {
-              this.g.addControl(permission.permission_name, new FormControl(true));
+              this.g.addControl(permission.permission_name, new UntypedFormControl(true));
             }
           }
           else {
-            this.g.addControl(permission.permission_name, new FormControl(false));
+            this.g.addControl(permission.permission_name, new UntypedFormControl(false));
           }
         })
       },

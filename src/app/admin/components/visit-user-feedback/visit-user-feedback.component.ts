@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Pagination } from 'src/app/user/components/models/pagination.model';
 import { UserReviewsService } from '../../services/user-reviews.service';
 import { ngxCsv } from 'ngx-csv/ngx-csv';
@@ -22,9 +22,9 @@ export class VisitUserFeedbackComponent implements OnInit {
   public user_reviews:any;
   public review_length:any;
 
-  searching_form = new FormGroup({
-    star_date: new FormControl('', Validators.required),
-    end_date: new FormControl('', Validators.required)
+  searching_form = new UntypedFormGroup({
+    star_date: new UntypedFormControl('', Validators.required),
+    end_date: new UntypedFormControl('', Validators.required)
   });
 
    constructor(private UserReviewsService:UserReviewsService,

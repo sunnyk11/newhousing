@@ -1,5 +1,5 @@
 import { Component, OnInit,ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { AreaListService } from '../../services/area-list.service';
 import { Observable } from 'rxjs';
@@ -25,13 +25,13 @@ export class UpdateLocalityComponent implements OnInit {
   public state_id:any;
 
 
-  update_locality_form= new FormGroup({
-    district:  new FormControl('', Validators.required),
-    district_id:new FormControl('',Validators.required),
-    locality:  new FormControl('', Validators.required),
-    locality_id:  new FormControl('', Validators.required),
-    status: new FormControl('', Validators.required),
-    state: new FormControl('', Validators.required)
+  update_locality_form= new UntypedFormGroup({
+    district:  new UntypedFormControl('', Validators.required),
+    district_id:new UntypedFormControl('',Validators.required),
+    locality:  new UntypedFormControl('', Validators.required),
+    locality_id:  new UntypedFormControl('', Validators.required),
+    status: new UntypedFormControl('', Validators.required),
+    state: new UntypedFormControl('', Validators.required)
   });
 
   constructor(private AreaListService:AreaListService,

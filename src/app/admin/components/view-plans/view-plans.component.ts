@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { PlansService } from '../../services/plans.service';
-import { FormBuilder, Validators, FormControl } from '@angular/forms';
+import { UntypedFormBuilder, Validators, UntypedFormControl } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 
@@ -23,7 +23,7 @@ export class ViewPlansComponent implements OnInit {
   public EditPlanDetails: any;
 
   constructor(private plansService: PlansService,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private toastr: ToastrService,
     private router: Router) { 
       this.EditPlanDetails = this.fb.group({
@@ -110,19 +110,19 @@ export class ViewPlansComponent implements OnInit {
           if(feature.status == true) {
             if(this.f.controls[feature.id]) {
               this.f.removeControl(feature.id);
-              this.f.addControl(feature.id, new FormControl(true));
+              this.f.addControl(feature.id, new UntypedFormControl(true));
             }
             else {
-              this.f.addControl(feature.id, new FormControl(true));
+              this.f.addControl(feature.id, new UntypedFormControl(true));
             }
           }
           else {
             if(this.f.controls[feature.id]) {
               this.f.removeControl(feature.id);
-              this.f.addControl(feature.id, new FormControl(false));
+              this.f.addControl(feature.id, new UntypedFormControl(false));
             }
             else {
-              this.f.addControl(feature.id, new FormControl(false));
+              this.f.addControl(feature.id, new UntypedFormControl(false));
             }
           }
         })

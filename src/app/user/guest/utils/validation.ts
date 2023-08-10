@@ -1,7 +1,7 @@
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
     
 export function ConfirmedValidator(controlName: string, matchingControlName: string){
-    return (formGroup: FormGroup) => {
+    return (formGroup: UntypedFormGroup) => {
         const control = formGroup.controls[controlName];
         const matchingControl = formGroup.controls[matchingControlName];
         if (matchingControl.errors && !matchingControl.errors.confirmedValidator) {
@@ -15,7 +15,7 @@ export function ConfirmedValidator(controlName: string, matchingControlName: str
     }
 }
 export function ConfirmedValidator1(controlName: string, matchingControlName: string){
-    return (formGroup: FormGroup) => {
+    return (formGroup: UntypedFormGroup) => {
         const control = formGroup.controls[controlName];
         const matchingControl = formGroup.controls[matchingControlName];
         if (matchingControl.errors && !matchingControl.errors.confirmedValidator) {
