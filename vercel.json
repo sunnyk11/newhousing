@@ -10,5 +10,5 @@
         "includeFiles": "dist/housingstreet/browser/**"
       }
     },
-    "installCommand": "npm install --legacy-peer-deps"
+    "installCommand": ""
   }
