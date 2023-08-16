@@ -9,5 +9,6 @@
       "api/index.js": {
         "includeFiles": "dist/housingstreet/browser/**"
       }
-    }
+    },
+    "installCommand": "npm install --legacy-peer-deps"
   }
