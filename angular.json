@@ -24,7 +24,7 @@
                             "path": "src/custom-webpack.config.js",
                             "replaceDuplicatePlugins": true
                         },
-                        "outputPath": "dist/housingstreet",
+                        "outputPath": "dist/housingstreet/browser",
                         "index": "src/index.html",
                         "main": "src/main.ts",
                         "polyfills": "src/polyfills.ts",
@@ -122,6 +122,67 @@
                         ],
                         "scripts": []
                     }
+                },
+                "server": {
+                  "builder": "@angular-devkit/build-angular:server",
+                  "options": {
+                    "outputPath": "dist/housingstreet/server",
+                    "main": "server.ts",
+                    "tsConfig": "tsconfig.server.json"
+                  },
+                  "configurations": {
+                    "production": {
+                      "outputHashing": "media",
+                      "fileReplacements": [
+                        {
+                          "replace": "src/environments/environment.ts",
+                          "with": "src/environments/environment.prod.ts"
+                        }
+                      ]
+                    },
+                    "development": {
+                      "optimization": false,
+                      "sourceMap": true,
+                      "extractLicenses": false
+                    }
+                  },
+                  "defaultConfiguration": "production"
+                },
+                "serve-ssr": {
+                  "builder": "@nguniversal/builders:ssr-dev-server",
+                  "configurations": {
+                    "development": {
+                      "browserTarget": "housingstreet:build:development",
+                      "serverTarget": "housingstreet:server:development"
+                    },
+                    "production": {
+                      "browserTarget": "housingstreet:build:production",
+                      "serverTarget": "housingstreet:server:production"
+                    }
+                  },
+                  "defaultConfiguration": "development"
+                },
+                "prerender": {
+                  "builder": "@nguniversal/builders:prerender",
+                  "options": {
+                    "routes": [
+                      "/",
+                      "/product-listing",
+                      "/product-details"
+                    ],
+                    "guessRoutes":false
+                  },
+                  "configurations": {
+                    "production": {
+                      "browserTarget": "housingstreet:build:production",
+                      "serverTarget": "housingstreet:server:production"
+                    },
+                    "development": {
+                      "browserTarget": "housingstreet:build:development",
+                      "serverTarget": "housingstreet:server:development"
+                    }
+                  },
+                  "defaultConfiguration": "production"
                 }
             }
         }
