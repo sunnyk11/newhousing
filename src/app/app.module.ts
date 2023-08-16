@@ -13,7 +13,7 @@ import { ToastrModule } from 'ngx-toastr';
   ],
   
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
