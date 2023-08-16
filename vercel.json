@@ -9,6 +9,5 @@
       "api/index.js": {
         "includeFiles": "dist/housingstreet/browser/**"
       }
-    },
-    "installCommand": ""
+    }
   }
