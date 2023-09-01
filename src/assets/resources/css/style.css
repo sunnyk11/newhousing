@@ -61,13 +61,20 @@ ol {
 .mb10 {
     margin-top: 10px !important;
 }
-
+@media (min-width: 1200px) {
 .home1_bgi1 {
     background-image: url(../images/home-background.webp);
     -webkit-background-size: cover;
     background-size: cover;
     background-position: center center;
     height: 660px;
+}
+}
+@media  (max-width: 1199px) {
+    .home1_bgi1 {
+        background-image: none;
+        
+    }
 }
 
 .home1-overlay {
